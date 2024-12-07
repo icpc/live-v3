@@ -1,0 +1,81 @@
+[
+    {
+        "type": "override_times",
+        "freezeTimeSeconds": 18000
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "[{country}] {first_name} {last_name}",
+        "medias": {
+            "photo": {
+                "type": "Image",
+                "url": "/media/photos/{teamId}.png"
+            }
+        }
+    },
+    {
+        "type": "override_teams",
+        "rules": {
+            "GEO5": {
+                "isOutOfContest": true
+            },
+            "GEO6": {
+                "isOutOfContest": true
+            },
+            "GEO7": {
+                "isOutOfContest": true
+            },
+            "GEO8": {
+                "isOutOfContest": true
+            }
+        }
+    },
+    {
+        "type": "override_problems",
+        "rules": {
+            "search": {
+                "displayName": "A1"
+            },
+            "teleport": {
+                "displayName": "B1"
+            },
+            "offices": {
+                "displayName": "C1"
+            },
+            "puzzle": {
+                "displayName": "A2"
+            },
+            "infection": {
+                "displayName": "B2"
+            },
+            "team": {
+                "displayName": "C2"
+            }
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 8
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 23
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 46
+                }
+            ]
+        }
+    }
+]

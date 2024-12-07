@@ -1,0 +1,83 @@
+[
+    {
+        "type": "override_times",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "comp",
+        "from": "{team.id}",
+        "rules": {
+            "g27417=fsp(.*)": "$1"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://grabber.kbats.ru",
+                "peerName": "{comp}",
+                "streamType": "desktop",
+                "credential": "federationchempionatlive"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://grabber.kbats.ru",
+                "peerName": "{comp}",
+                "streamType": "webcam",
+                "credential": "federationchempionatlive"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/fsp{comp}.svg"
+            }
+        }
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "g27417=fsp01": "Москва - 1",
+            "g27417=fsp02": "Санкт-Петербург - 1",
+            "g27417=fsp03": "Республика Татарстан",
+            "g27417=fsp04": "Московская область",
+            "g27417=fsp05": "Республика Карелия",
+            "g27417=fsp06": "Свердловская область",
+            "g27417=fsp07": "Ростовская область",
+            "g27417=fsp08": "Иркутская область",
+            "g27417=fsp09": "Республика Саха (Якутия)",
+            "g27417=fsp10": "Чеченская Республика",
+            "g27417=fsp11": "Санкт-Петербург - 2",
+            "g27417=fsp12": "Москва - 2",
+            "g27417=fsp13": "Москва - 3",
+            "g27417=fsp14": "Пермский край",
+            "g27417=fsp15": "Саратовская область",
+            "g27417=fsp16": "Донецкая народная республика",
+            "g27417=fsp17": "Резерв 1",
+            "g27417=fsp18": "Резерв 2",
+            "g27417=fsp19": "Резерв 3",
+            "g27417=fsp20": "Резерв 4"
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "0": "#e6194bff",
+            "1": "#3cb44bff",
+            "2": "#ffe119ff",
+            "3": "#4363d8ff",
+            "4": "#f58231ff",
+            "5": "#42d4f4ff",
+            "6": "#f032e6ff",
+            "7": "#fabed4ff",
+            "8": "#469990ff",
+            "9": "#dcbeffff",
+            "10": "#9a6324ff",
+            "11": "#fffac8ff",
+            "12": "#800000ff",
+            "13": "#aaffc3ff",
+            "14": "#000075ff",
+            "15": "#a9a9a9ff"
+        }
+    }
+]

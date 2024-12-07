@@ -1,0 +1,6 @@
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": true
+    }
+]

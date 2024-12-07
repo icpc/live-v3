@@ -1,0 +1,32 @@
+[
+    {
+        "type": "override_times",
+        "startTime": "Sun Nov 10 17:00:00 CET 2024"
+    },
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "astackofgold": "#e6194bff",
+            "averagesubstringvalue": "#3cb44bff",
+            "balancingart": "#ffe119ff",
+            "brownianbears": "#4363d8ff",
+            "fencesmakegoodneighbors": "#f58231ff",
+            "leapfrogencryption": "#42d4f4ff",
+            "letterballoons": "#f032e6ff",
+            "marchingorders": "#fabed4ff",
+            "ooohisee": "#469990ff",
+            "pascalmeetsboole": "#dcbeffff",
+            "ponylessexpress": "#9a6324ff",
+            "repetitiveroutes": "#fffac8ff",
+            "smartpasswordvalidation": "#800000ff"
+        }
+    },
+    {
+        "type": "override_queue",
+        "maxQueueSize": 10
+    }
+]
