@@ -1,0 +1,69 @@
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "set_organization_by_regex",
+        "from": "{team.fullName}",
+        "rules": {
+            "^([^:]*).*": "$1"
+        }
+    },
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "funnyName",
+        "from": "{team.fullName}",
+        "rules": {
+            "[^:]*: (.*) \\([^)]*\\)": "$1"
+        }
+    },
+    {
+        "type": "override_organization_display_names",
+        "rules": {
+            "Moscow State University": "MSU",
+            "Moscow Aviation Institute": "MAI",
+            "* Moscow Aviation Institute": "* MAI",
+            "Moscow Pedagogical State University": "MPSU",
+            "Moscow Institute of Physics and Technology": "MIPT",
+            "Moscow Technological University - MIREA": "MIREA",
+            "National Research University Higher School of Economics": "HSE",
+            "Peoples’ Friendship University of Russia": "RUDN",
+            "National University of Science and Technology \"MISiS\"": "MISiS",
+            "Moscow Technical University": "MTU",
+            "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)": "MEPhI",
+            "NRU HSE Moscow State Institute of Electronics and Mathematics": "MIEM",
+            "Bauman Moscow State Technical University": "Bauman MSTU",
+            "National Research University Moscow State University of Civil Engineering": "MGSU",
+            "Moscow State Technical University of Civil Aviation": "MSTUCA",
+            "Moscow Technical University of Communications and Informatics": "MTUCI",
+            "Moscow Institute of Electronic Technology": "MIET",
+            "* Moscow Institute of Electronic Technology": "* MIET",
+            "St. Tikhon Orthodox University": "PSTGU",
+            "Financial University Under the Government of the Russian Federation": "FinU",
+            "Skolkovo Institute of Science and Technology": "Skolkovo IST"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{orgDisplayName}: {funnyName}"
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "7/2023_10_08/UfqtArsDig": "#ffebeeff",
+            "7/2023_10_08/9rP4PKPpX1": "#dc143cff",
+            "7/2023_10_08/dkhxx8x9do": "#ffa500ff",
+            "7/2023_10_08/XgUHAocBoh": "#120a8fff",
+            "7/2023_10_08/7OkUhGykAR": "#808080ff",
+            "7/2023_10_08/B2JbJmg48g": "#000000ff",
+            "7/2023_10_08/WOgiWhR0qT": "#8b4513ff",
+            "7/2023_10_08/j89CK8UcNC": "#8b0000ff",
+            "7/2023_10_08/85k59vi2G8": "#ffff00ff",
+            "7/2023_10_08/v1YltEU5XF": "#ffb6c1ff",
+            "7/2023_10_08/ilUTg3oBV2": "#008000ff",
+            "7/2023_10_06/K2hmViwR9N": "#42aaffff",
+            "7/2023_10_06/SpSv4W4hZZ": "#800000ff"
+        }
+    }
+]

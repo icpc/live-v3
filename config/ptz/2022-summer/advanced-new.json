@@ -1,0 +1,396 @@
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "karelia22s-01": "ADA U:  HE",
+            "karelia22s-02": "ADA U:  Road to the Final",
+            "karelia22s-03": "Baltic FU:  Num4",
+            "karelia22s-04": "Belarusian SU 1",
+            "karelia22s-05": "Belarusian SU 2",
+            "karelia22s-06": "Belarusian SU 3",
+            "karelia22s-07": "Central South U:  HolyK",
+            "karelia22s-08": "Chelyabinsk PhML 31",
+            "karelia22s-09": "Dhaka U:  FlareBlitz_4.0",
+            "karelia22s-10": "Dhaka U:  NotStrongEnough",
+            "karelia22s-12": "Harbor Space U 1",
+            "karelia22s-13": "Harbor Space U 2",
+            "karelia22s-14": "Harbor Space U 3",
+            "karelia22s-15": "Harbor Space U Backspace",
+            "karelia22s-16": "HSE:  CANCELLED TP",
+            "karelia22s-17": "HSE:  Dirizhabl'",
+            "karelia22s-18": "HSE:  Koresha",
+            "karelia22s-19": "HSE:  KresloStul",
+            "karelia22s-20": "HSE:  ome",
+            "karelia22s-21": "HSE:  Сырники из Кофемании",
+            "karelia22s-22": "IITU 1",
+            "karelia22s-24": "Izhevsk STU:  People++",
+            "karelia22s-25": "Izhevsk STU:  Skill++",
+            "karelia22s-26": "Izhevsk STU:  ZEDbl",
+            "karelia22s-27": "Kazakh-British TU 1",
+            "karelia22s-29": "Kazan FU:  Konichiwa",
+            "karelia22s-30": "Kazan FU:  Öçpochmak",
+            "karelia22s-31": "KhNURE:  KB",
+            "karelia22s-32": "Moscow IPT:  Lonely Coala",
+            "karelia22s-33": "Moscow IPT:  Skyfall",
+            "karelia22s-34": "MISiS:  Eva fan club",
+            "karelia22s-35": "MAI #1",
+            "karelia22s-36": "MAI #2",
+            "karelia22s-37": "NNSU:  Lera Almost Retired",
+            "karelia22s-38": "NNSU:  Presskachat",
+            "karelia22s-40": "Petrozavodsk SU 1",
+            "karelia22s-41": "Saratov SU 1",
+            "karelia22s-42": "Saratov SU 2",
+            "karelia22s-43": "SJTU:  willow",
+            "karelia22s-44": "South Ural SU",
+            "karelia22s-45": "SPb HSE:  Lemon Tree",
+            "karelia22s-46": "ITMO U:  Insert your name",
+            "karelia22s-47": "ITMO U:  pengzoo",
+            "karelia22s-48": "ITMO U:  Unexpected value",
+            "karelia22s-49": "SPb SU:  Block of cats",
+            "karelia22s-50": "SPb SU:  LOUD Enough",
+            "karelia22s-51": "Ural FU:  CheezeKEK",
+            "karelia22s-52": "Voronezh SU:  Tatakae",
+            "karelia22s-53": "Zhejiang U:  jiangly_fan",
+            "karelia22s-54": "Zhejiang U:  Solitary Dream",
+            "karelia22s-55": "Zhejiang U:  Phantom Threshold",
+            "karelia22s-56": "SUST:  BerlekampMassey",
+            "karelia22s-57": "BUET: Nerd Herd",
+            "karelia22s-58": "Moscow SU:  NoNames",
+            "karelia22s-68": "* MIPT/HSE/MSU Smirnov",
+            "karelia22s-70": "* Almost Past Glory"
+        }
+    },
+    {
+        "type": "override_teams",
+        "rules": {
+            "karelia22s-01": {
+                "groups": [
+                    "ADA U"
+                ]
+            },
+            "karelia22s-02": {
+                "groups": [
+                    "ADA U"
+                ]
+            },
+            "karelia22s-03": {
+                "groups": [
+                    "Baltic FU"
+                ]
+            },
+            "karelia22s-04": {
+                "groups": [
+                    "Belarusian SU"
+                ]
+            },
+            "karelia22s-05": {
+                "groups": [
+                    "Belarusian SU"
+                ]
+            },
+            "karelia22s-06": {
+                "groups": [
+                    "Belarusian SU"
+                ]
+            },
+            "karelia22s-07": {
+                "groups": [
+                    "Central South University"
+                ]
+            },
+            "karelia22s-08": {
+                "groups": [
+                    "Chelyabinsk PhML 31"
+                ]
+            },
+            "karelia22s-09": {
+                "groups": [
+                    "Dhaka University"
+                ]
+            },
+            "karelia22s-10": {
+                "groups": [
+                    "Dhaka University"
+                ]
+            },
+            "karelia22s-12": {
+                "groups": [
+                    "Harbor Space U"
+                ]
+            },
+            "karelia22s-13": {
+                "groups": [
+                    "Harbor Space U"
+                ]
+            },
+            "karelia22s-14": {
+                "groups": [
+                    "Harbor Space U"
+                ]
+            },
+            "karelia22s-15": {
+                "groups": [
+                    "Harbor Space U"
+                ]
+            },
+            "karelia22s-16": {
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-17": {
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-18": {
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-19": {
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-20": {
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-21": {
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-22": {
+                "groups": [
+                    "IITU"
+                ]
+            },
+            "karelia22s-24": {
+                "groups": [
+                    "Izhevsk STU"
+                ]
+            },
+            "karelia22s-25": {
+                "groups": [
+                    "Izhevsk STU"
+                ]
+            },
+            "karelia22s-26": {
+                "groups": [
+                    "Izhevsk STU"
+                ]
+            },
+            "karelia22s-27": {
+                "groups": [
+                    "Kazakh-British TU"
+                ]
+            },
+            "karelia22s-29": {
+                "groups": [
+                    "Kazan Federal U"
+                ]
+            },
+            "karelia22s-30": {
+                "groups": [
+                    "Kazan Federal U"
+                ]
+            },
+            "karelia22s-31": {
+                "groups": [
+                    "KhNURE"
+                ]
+            },
+            "karelia22s-32": {
+                "groups": [
+                    "Moscow IPT"
+                ]
+            },
+            "karelia22s-33": {
+                "groups": [
+                    "Moscow IPT"
+                ]
+            },
+            "karelia22s-34": {
+                "groups": [
+                    "MISiS"
+                ]
+            },
+            "karelia22s-35": {
+                "groups": [
+                    "MAI"
+                ]
+            },
+            "karelia22s-36": {
+                "groups": [
+                    "MAI"
+                ]
+            },
+            "karelia22s-37": {
+                "groups": [
+                    "NNSU"
+                ]
+            },
+            "karelia22s-38": {
+                "groups": [
+                    "NNSU"
+                ]
+            },
+            "karelia22s-40": {
+                "groups": [
+                    "Petrozavodsk SU"
+                ]
+            },
+            "karelia22s-41": {
+                "groups": [
+                    "Saratov SU"
+                ]
+            },
+            "karelia22s-42": {
+                "groups": [
+                    "Saratov SU"
+                ]
+            },
+            "karelia22s-43": {
+                "groups": [
+                    "SJTU"
+                ]
+            },
+            "karelia22s-44": {
+                "groups": [
+                    "South Ural SU"
+                ]
+            },
+            "karelia22s-45": {
+                "groups": [
+                    "SPb HSE"
+                ]
+            },
+            "karelia22s-46": {
+                "groups": [
+                    "ITMO University"
+                ]
+            },
+            "karelia22s-47": {
+                "groups": [
+                    "ITMO University"
+                ]
+            },
+            "karelia22s-48": {
+                "groups": [
+                    "ITMO University"
+                ]
+            },
+            "karelia22s-49": {
+                "groups": [
+                    "SPb SU"
+                ]
+            },
+            "karelia22s-50": {
+                "groups": [
+                    "SPb SU"
+                ]
+            },
+            "karelia22s-51": {
+                "groups": [
+                    "Ural FU"
+                ]
+            },
+            "karelia22s-52": {
+                "groups": [
+                    "Voronezh SU"
+                ]
+            },
+            "karelia22s-53": {
+                "groups": [
+                    "Zhejiang U"
+                ]
+            },
+            "karelia22s-54": {
+                "groups": [
+                    "Zhejiang U"
+                ]
+            },
+            "karelia22s-55": {
+                "groups": [
+                    "Zhejiang U"
+                ]
+            },
+            "karelia22s-56": {
+                "groups": [
+                    "SUST"
+                ]
+            },
+            "karelia22s-57": {
+                "groups": [
+                    "BUET"
+                ]
+            },
+            "karelia22s-58": {
+                "groups": [
+                    "Moscow SU"
+                ]
+            },
+            "karelia22s-68": {
+                "groups": [
+                    "Extra",
+                    "MIPT",
+                    "HSE"
+                ]
+            },
+            "karelia22s-70": {
+                "groups": [
+                    "*Extra"
+                ]
+            }
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#e6194bff",
+            "B": "#3cb44bff",
+            "C": "#ffe119ff",
+            "D": "#4363d8ff",
+            "E": "#f58231ff",
+            "F": "#42d4f4ff",
+            "G": "#f032e6ff",
+            "H": "#fabed4ff",
+            "I": "#469990ff",
+            "J": "#dcbeffff",
+            "K": "#9a6324ff",
+            "L": "#fffac8ff"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 1
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 3
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 6
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,33 @@
+[
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "funnyName",
+        "from": "{team.fullName}",
+        "rules": {
+            "(.*)": "$1"
+        }
+    },
+    {
+        "type": "override_organization_display_names",
+        "rules": {
+            "Indian Institute of Technology - Bombay": "IIT - Bombay",
+            "Indian Institute of Technology - Delhi": "IIT - Delhi",
+            "Indian Institute of Technology - Gandhinagar": "IIT - Gandhinagar",
+            "Indian Institute of Technology - Guwahati": "IIT - Guwahati",
+            "Indian Institute of Technology - Hyderabad": "IIT - Hyderabad",
+            "Indian Institute of Technology - Indore": "IIT - Indore",
+            "Indian Institute of Technology - Jodhpur": "IIT - Jodhpur",
+            "Indian Institute of Technology - Kanpur": "IIT - Kanpur",
+            "Indian Institute of Technology - Kharagpur": "IIT - Kharagpur",
+            "Indian Institute of Technology - Lidia": "IIT - Lidia",
+            "Indian Institute of Technology - Madras": "IIT - Madras",
+            "Indian Institute of Technology - Patna": "IIT - Patna",
+            "Indian Institute of Technology - Roorkee": "IIT - Roorkee",
+            "Indian Institute of Technology - Ropar": "IIT - Ropar"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{orgDisplayName}: {funnyName}"
+    }
+]
