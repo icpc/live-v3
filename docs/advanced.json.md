@@ -102,7 +102,7 @@ Typical awards setup includes only medals, and can be done like this
   "awardsSettings": {
     "medals": [
       {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
+      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 8},
       {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
     ]
   }

@@ -22,6 +22,7 @@ kotlin {
         allWarningsAsErrors = true
         compilerOptions {
             freeCompilerArgs.add("-Xjvm-default=all")
+            freeCompilerArgs.add("-Xwhen-guards")
             optIn.addAll(listOf("kotlinx.serialization.ExperimentalSerializationApi"))
         }
     }

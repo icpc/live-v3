@@ -11,12 +11,11 @@ import io.ktor.util.cio.*
 import io.ktor.utils.io.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.*
 import org.icpclive.Config
 import org.icpclive.api.TeamViewPosition
 import org.icpclive.api.WidgetUsageStatisticsEntry
-import org.icpclive.cds.tunning.AdvancedProperties
-import org.icpclive.cds.tunning.toAdvancedProperties
+import org.icpclive.cds.tunning.*
 import org.icpclive.data.*
 import org.icpclive.util.sendFlow
 import kotlin.io.path.notExists
@@ -87,7 +86,7 @@ fun Route.configureAdminApiRouting() {
                 call.respondText(contentType = ContentType.Application.Json) {
                     formatter.encodeToString(DataBus.currentContestInfo().toAdvancedProperties(
                         call.request.queryParameters["fields"]?.split(",")?.toSet() ?: emptySet()
-                    ))
+                    ).toRulesList())
                 }
             }
         }
@@ -105,7 +104,7 @@ fun Route.configureAdminApiRouting() {
                     val text = call.receiveText()
                     try {
                         // check if parsable
-                        AdvancedProperties.fromString(text)
+                        TuningRule.listFromString(text)
                     } catch (e: SerializationException) {
                         throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
                     }

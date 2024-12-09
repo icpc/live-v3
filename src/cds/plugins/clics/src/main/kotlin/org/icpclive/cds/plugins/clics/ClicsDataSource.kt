@@ -7,6 +7,7 @@ import kotlinx.serialization.json.Json
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ContestDataSource
+import org.icpclive.cds.adapters.autoCreateMissingGroupsAndOrgs
 import org.icpclive.cds.api.CommentaryMessage
 import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
@@ -167,7 +168,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                 finalizedAt = model.contestInfo.startTimeOrZero + model.contestInfo.contestLength,
             ))))
         }
-    }
+    }.autoCreateMissingGroupsAndOrgs() // for countries
 
     companion object {
         val log by getLogger()

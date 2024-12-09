@@ -22,7 +22,7 @@
   "awardsSettings": {
     "medals": [
       {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 5, "tiebreakMode": "ALL"},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 13, "tiebreakMode": "ALL"},
+      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 13, "tiebreakMode": "ALL"},
       {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 25, "tiebreakMode": "NONE"}
     ]
   },

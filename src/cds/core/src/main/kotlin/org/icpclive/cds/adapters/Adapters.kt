@@ -9,6 +9,7 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.settings.EmulationSettings
 import org.icpclive.cds.settings.PreviousDaySettings
 import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.TuningRule
 
 
 public fun Flow<ContestUpdate>.addFirstToSolves(): Flow<ContestUpdate> = addFirstToSolves(this)
@@ -28,7 +29,10 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
 public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<PreviousDaySettings>): Flow<ContestUpdate> = addPreviousDays(this, previousDays)
 
 public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> = applyAdvancedProperties(this, advancedPropsFlow)
+public fun Flow<ContestUpdate>.applyTuningRules(tuningRulesFlow: Flow<List<TuningRule>>): Flow<ContestUpdate> = applyTuningRules(this, tuningRulesFlow)
 public fun Flow<ContestUpdate>.applyCustomFieldsMap(customFieldsFlow: Flow<Map<TeamId, Map<String, String>>>): Flow<ContestUpdate> = applyCustomFieldsMap(this, customFieldsFlow)
+
+public fun Flow<ContestUpdate>.autoCreateMissingGroupsAndOrgs(): Flow<ContestUpdate> = autoCreateMissingGroupsAndOrgs(this)
 
 public fun Flow<ContestStateWithScoreboard>.generateCommentary(
     generator: (ContestStateWithScoreboard) -> List<CommentaryMessage>
@@ -37,6 +41,7 @@ public fun Flow<ContestStateWithScoreboard>.generateCommentary(
 public fun Flow<ContestUpdate>.processCommentaryTags(): Flow<ContestUpdate> = processCommentaryTags(this)
 
 public class ComputedDataConfig internal constructor() {
+    public var autoCreateMissingGroups: Boolean = true
     public var firstToSolves: Boolean = true
     public var ioiScoreDifferences: Boolean = true
     public var submissionsAfterEnd: Boolean = false
@@ -51,6 +56,7 @@ private inline fun Flow<ContestUpdate>.applyIf(cond: Boolean, adapter: Flow<Cont
 public fun Flow<ContestUpdate>.addComputedData(configure: ComputedDataConfig.() -> Unit = {}): Flow<ContestUpdate> {
     val config = ComputedDataConfig().apply(configure)
     return this
+        .applyIf(config.autoCreateMissingGroups) { autoCreateMissingGroupsAndOrgs() }
         .applyIf(!config.submissionResultsAfterFreeze) { removeFrozenSubmissionsResults() }
         .applyIf(!config.submissionsAfterEnd) { removeAfterEndSubmissions() }
         .applyIf(config.unhideColorWhenSolved) { selectProblemColors() }

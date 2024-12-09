@@ -254,7 +254,7 @@
   "awardsSettings": {
     "medals": [
       {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 9},
+      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 9},
       {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 15}
     ]
   }

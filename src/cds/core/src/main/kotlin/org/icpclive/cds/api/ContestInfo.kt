@@ -3,6 +3,7 @@ package org.icpclive.cds.api
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.*
+import kotlinx.serialization.json.Json
 import org.icpclive.cds.util.serializers.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
@@ -65,6 +66,8 @@ public sealed class ContestStatus {
         @Serializable(with = UnixMillisecondsSerializer::class)
         public val frozenAt: Instant? = null,
     ) : ContestStatus()
+
+    final override fun toString(): String = Json.encodeToString(this)
 
     public companion object {
         public fun byCurrentTime(
