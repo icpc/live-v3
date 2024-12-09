@@ -2,13 +2,11 @@ package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.finalContestState
 import org.icpclive.cds.api.*
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.TuningRule
 import kotlin.time.Duration
 
 @OptIn(InefficientContestInfoApi::class)
@@ -84,8 +82,8 @@ internal fun addPreviousDays(flow: Flow<ContestUpdate>, settings: List<PreviousD
                         if (advancedJsonPath == null) {
                             it
                         } else {
-                            val advanced = advancedJsonPath.value.toFile().inputStream().use { Json.decodeFromStream<AdvancedProperties>(it) }
-                            applyAdvancedProperties(it, flowOf(advanced))
+                            val advanced = advancedJsonPath.value.toFile().inputStream().use { TuningRule.listFromInputStream(it) }
+                            applyTuningRules(it, flowOf(advanced))
                         }
                     }.finalContestState()
                 }

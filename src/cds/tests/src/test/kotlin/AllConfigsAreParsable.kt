@@ -1,9 +1,8 @@
 import kotlinx.serialization.*
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.*
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.fromFile
-import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.*
 import org.junit.jupiter.api.*
 import kotlin.io.path.*
 
@@ -33,6 +32,7 @@ class AllConfigsAreParsable {
     fun testAdvancedJson() : List<DynamicTest> {
         val configDir = Path("").absolute().parent.parent.parent.resolve("config")
         val json = Json {
+            prettyPrint = true
             allowComments = true
             allowTrailingComma = true
         }
@@ -40,8 +40,19 @@ class AllConfigsAreParsable {
             it.name == "advanced.json"
         }.map { path ->
             DynamicTest.dynamicTest(path.relativeTo(configDir).toString()) {
+                path.toFile().inputStream().use { inStream ->
+                    try {
+                        AdvancedProperties.fromInputStream(inStream).also { adv ->
+                            path.outputStream().use { outStream ->
+                                json.encodeToStream(adv.toRulesList(), outStream)
+                            }
+                        }
+                    } catch (e: SerializationException) {
+                        System.err.println(e)
+                    }
+                }
                 path.toFile().inputStream().use {
-                    AdvancedProperties.fromInputStream(it)
+                    TuningRule.listFromInputStream(it)
                 }
             }
         }.toList().also {

@@ -89,7 +89,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                     )
                 )
             }
-            for (medalGroup in awardsSettings.medalSettings) {
+            for (medalGroup in awardsSettings.medalGroups) {
                 var position = 1
                 val teamRanksFiltered = run {
                     if (medalGroup.excludedGroups.isEmpty() && medalGroup.groups.isEmpty()) {

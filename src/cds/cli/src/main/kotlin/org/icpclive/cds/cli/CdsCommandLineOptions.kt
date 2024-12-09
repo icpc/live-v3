@@ -4,16 +4,19 @@ import com.github.ajalt.clikt.parameters.groups.OptionGroup
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
 import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.encodeToStream
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.applyAdvancedProperties
-import org.icpclive.cds.adapters.applyCustomFieldsMap
+import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.toTeamId
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.TuningRule
+import org.icpclive.cds.tunning.toRulesList
 import org.icpclive.cds.util.*
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -42,9 +45,23 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
     public fun toFlow(): Flow<ContestUpdate> {
         val advancedProperties = fileContentFlow(
             advancedJsonPath,
-            noData = AdvancedProperties()
+            noData = emptyList()
         ) {
-            AdvancedProperties.fromInputStream(it)
+            try {
+                TuningRule.listFromInputStream(it)
+            } catch (e: SerializationException) {
+                val old = try {
+                     advancedJsonPath.toFile().inputStream().use {  AdvancedProperties.fromInputStream(it) }
+                } catch (_: SerializationException) {
+                    throw e
+                }
+                val upgradedPath = advancedJsonPath.resolveSibling(advancedJsonPath.name + ".upgraded")
+                upgradedPath.toFile().outputStream().use {
+                    val json = Json { prettyPrint = true }
+                    json.encodeToStream(old.toRulesList(), it)
+                }
+                throw SerializationException("It looks like, your ${advancedJsonPath.name} is outdated. Upgraded version is stored in ${upgradedPath.name}")
+            }
         }
         val customFields = fileContentFlow(
             customFieldsCsvPath,
@@ -75,7 +92,7 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         return CDSSettings.fromFile(path) { creds[it] }
             .toFlow()
             .applyCustomFieldsMap(customFields)
-            .applyAdvancedProperties(advancedProperties)
+            .applyTuningRules(advancedProperties)
     }
     private companion object {
         val log by getLogger()

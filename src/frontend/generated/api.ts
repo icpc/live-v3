@@ -76,7 +76,6 @@ export interface AwardsSettings {
   championTitle?: string | null;
   groupsChampionTitles?: { [key: GroupId]: string };
   rankAwardsMaxRank?: number;
-  medals?: MedalSettings[];
   medalGroups?: MedalGroup[];
   manual?: ManualAwardSetting[];
 }
@@ -229,15 +228,6 @@ export namespace MediaType {
 
 export type LanguageId = string;
 
-export interface MedalSettings {
-  id: string;
-  citation: string;
-  color?: MedalColor | null;
-  maxRank?: number | null;
-  minScore?: number;
-  tiebreakMode?: MedalTiebreakMode;
-}
-
 export interface MedalGroup {
   medals: MedalSettings[];
   groups?: GroupId[];
@@ -258,6 +248,15 @@ export enum TeamMediaType {
   reactionVideo = "reactionVideo",
   achievement = "achievement",
   audio = "audio",
+}
+
+export interface MedalSettings {
+  id: string;
+  citation: string;
+  color?: MedalColor | null;
+  maxRank?: number | null;
+  minScore?: number;
+  tiebreakMode?: MedalTiebreakMode;
 }
 
 export enum MedalColor {

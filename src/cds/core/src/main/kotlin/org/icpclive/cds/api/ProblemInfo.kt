@@ -63,7 +63,7 @@ public data class ProblemInfo(
 public value class Color internal constructor(public val value: String) {
     public companion object {
         private val log by getLogger()
-        public fun normalize(data: String): Color {
+        public fun normalize(data: String): Color? {
             val red: Int
             val green: Int
             val blue: Int
@@ -104,7 +104,7 @@ public value class Color internal constructor(public val value: String) {
                 }
             } catch (e: NumberFormatException) {
                 log.error(e) { "Failed to parse color from $data" }
-                return Color("#00000000")
+                return null
             }
             return Color("#%02x%02x%02x%02x".format(red, green, blue, alpha))
         }
@@ -120,6 +120,6 @@ internal object ColorSerializer : KSerializer<Color> {
     }
 
     override fun deserialize(decoder: Decoder): Color {
-        return Color.normalize(decoder.decodeString())
+        return Color.normalize(decoder.decodeString()) ?: Color("#000000")
     }
 }
