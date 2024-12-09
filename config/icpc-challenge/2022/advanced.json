@@ -1,12 +1,15 @@
-{
-  "problemOverrides": {
-    "A1":{
-      "minScore":"0",
-      "maxScore":"900"
-    },
-    "A2":{
-      "minScore":"0",
-      "maxScore":"900"
+[
+    {
+        "type": "override_problems",
+        "rules": {
+            "A1": {
+                "minScore": 0.0,
+                "maxScore": 900.0
+            },
+            "A2": {
+                "minScore": 0.0,
+                "maxScore": 900.0
+            }
+        }
     }
-  }
-}
+]

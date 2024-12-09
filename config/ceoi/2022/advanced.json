@@ -1,32 +1,55 @@
-{
-    "problemOverrides": {
-      "SC2022CEOI13prize": {
-        "displayName": "A1"
-      },
-      "SC2022CEOI11abracadabra": {
-        "displayName": "B1"
-      },
-      "SC2022CEOI12homework": {
-        "displayName": "C1"
-      },
-      "SC2022CEOI22measures": {
-        "displayName": "A2"
-      },
-      "SC2022CEOI21drawing": {
-        "displayName": "B2"
-      },
-      "SC2022CEOI23parking": {
-        "displayName": "C2"
-      }
+[
+    {
+        "type": "override_team_template",
+        "displayName": "[{country}] {first_name} {last_name}"
     },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 5, "tiebreakMode": "ALL"},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 13, "tiebreakMode": "ALL"},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 25, "tiebreakMode": "NONE"}
-    ]
-  },
-  "teamOverrideTemplate": {
-    "displayName": "[{country}] {first_name} {last_name}"
-  }
-}
+    {
+        "type": "override_problems",
+        "rules": {
+            "SC2022CEOI13prize": {
+                "displayName": "A1"
+            },
+            "SC2022CEOI11abracadabra": {
+                "displayName": "B1"
+            },
+            "SC2022CEOI12homework": {
+                "displayName": "C1"
+            },
+            "SC2022CEOI22measures": {
+                "displayName": "A2"
+            },
+            "SC2022CEOI21drawing": {
+                "displayName": "B2"
+            },
+            "SC2022CEOI23parking": {
+                "displayName": "C2"
+            }
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 5
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 13
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 25,
+                    "tiebreakMode": "NONE"
+                }
+            ]
+        }
+    }
+]

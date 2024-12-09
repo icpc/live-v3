@@ -75,7 +75,7 @@ fun TaskContainerScope.genTsTask(classFqNames: List<String>, fileName: String) =
 tasks {
     val schemaAllTasks = listOf(
         genJsonTask(
-            "org.icpclive.cds.tunning.AdvancedProperties",
+            "org.icpclive.cds.tunning.TuningRuleList",
             "advanced",
             "ICPC live advanced settings"
         ),

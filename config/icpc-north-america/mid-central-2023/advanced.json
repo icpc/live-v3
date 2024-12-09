@@ -1,1 +1,19 @@
-{"problemOverrides":{"rampantgrowth":{"color":"#e6194B"},"rangeediting":{"color":"#3cb44b"},"champernowneverification":{"color":"#ffe119"},"tournamentmatchmaking":{"color":"#4363d8"},"segmentdrawing":{"color":"#f58231"},"eccentricexcursion":{"color":"#42d4f4"},"triplesevens":{"color":"#f032e6"},"diversecontest":{"color":"#fabed4"},"training":{"color":"#469990"},"balancedtreepath":{"color":"#dcbeff"},"crammingforfinals":{"color":"#9A6324"},"matrixfraud":{"color":"#fffac8"}}}
+[
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "rampantgrowth": "#e6194bff",
+            "rangeediting": "#3cb44bff",
+            "champernowneverification": "#ffe119ff",
+            "tournamentmatchmaking": "#4363d8ff",
+            "segmentdrawing": "#f58231ff",
+            "eccentricexcursion": "#42d4f4ff",
+            "triplesevens": "#f032e6ff",
+            "diversecontest": "#fabed4ff",
+            "training": "#469990ff",
+            "balancedtreepath": "#dcbeffff",
+            "crammingforfinals": "#9a6324ff",
+            "matrixfraud": "#fffac8ff"
+        }
+    }
+]

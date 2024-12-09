@@ -2,8 +2,7 @@ package org.icpclive.cds.plugins.clics
 
 import org.icpclive.cds.CdsLoadersTest
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.tunning.AdvancedProperties
-import org.icpclive.cds.tunning.TeamOverrideTemplate
+import org.icpclive.cds.tunning.*
 import kotlin.test.Test
 
 object ClicsTest : CdsLoadersTest() {
@@ -22,10 +21,10 @@ object ClicsTest : CdsLoadersTest() {
                     )
                 )
             ),
-            AdvancedProperties(
-                teamOverrideTemplate = TeamOverrideTemplate(
-                    fullName = "{orgFullName}: {clicsTeamFullName}",
-                    displayName = "{orgDisplayName}: {clicsTeamDisplayName}",
+            listOf(
+                OverrideTeamTemplate(
+                    fullName = "{org.fullName}: {clicsTeamFullName}",
+                    displayName = "{org.displayName}: {clicsTeamDisplayName}",
                 )
             )
         )

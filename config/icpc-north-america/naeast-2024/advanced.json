@@ -1,534 +1,207 @@
-{
-    "scoreboardOverrides": {
+[
+    {
+        "type": "override_scoreboard_settings",
         "penaltyPerWrongAttempt": 20,
         "showTeamsWithoutSubmissions": false
     },
-    "queueSettings": {
+    {
+        "type": "override_organization_display_names",
+        "rules": {
+            "harvard.edu": "Harvard U",
+            "umoncton.ca": "U of Moncton",
+            "umontreal.ca": "U of Montreal",
+            "mcgill.ca": "McGill U",
+            "psu.edu": "Pennsylvania SU",
+            "owu.edu": "Ohio Wesleyan U",
+            "kzoo.edu": "Kalamazoo C",
+            "wellesley.edu": "Wellesley C",
+            "brocku.ca": "Brock U",
+            "bu.edu": "Boston U",
+            "brown.edu": "Brown U",
+            "stfx.ca": "St. Francis Xavier U",
+            "concordia.ca": "Concordia U",
+            "umich.edu": "U of Michigan",
+            "cmich.edu": "Central Michigan U",
+            "cmu.edu": "Carnegie Mellon U",
+            "denison.edu": "Denison U",
+            "upei.ca": "U of Prince Edward Island",
+            "umass.edu": "U of Massachusetts Amherst",
+            "csuohio.edu": "Cleveland SU",
+            "case.edu": "Case Western Reserve U",
+            "dal.ca": "Dalhousie U",
+            "fanshawec.ca": "Fanshawe C",
+            "gvsu.edu": "Grand Valley SU",
+            "yorku.ca": "York U",
+            "pennwest.edu": "Pennsylvania Western U",
+            "mcmaster.ca": "McMaster U",
+            "holycross.edu": "C of the Holy Cross",
+            "mit.edu": "MIT",
+            "indiana.edu": "Indiana U Bloomington",
+            "rit.edu": "Rochester IofT",
+            "rpi.edu": "Rensselaer Poly I",
+            "amherst.edu": "Amherst C",
+            "bc.edu": "Boston C",
+            "iup.edu": "Indiana U of Pennsylvania",
+            "msu.edu": "Michigan SU",
+            "mta.ca": "Mount Allison U",
+            "mun.ca": "Memorial U of Newfoundland",
+            "mvnu.edu": "Mount Vernon Nazarene U",
+            "northeastern.edu": "Northeastern U",
+            "ohio.edu": "Ohio U",
+            "olin.edu": "Olin C of Engineering",
+            "osu.edu": "Ohio SU",
+            "oswego.edu": "SUNY Oswego",
+            "ysu.edu": "Youngstown SU",
+            "purdue.edu": "Purdue U",
+            "rochester.edu": "U of Rochester",
+            "stlawu.edu": "St. Lawrence U",
+            "siena.edu": "Siena C",
+            "smu.ca": "Saint Mary's U (Nova Scotia)",
+            "hamilton.edu": "Hamilton C",
+            "unb.ca": "U of New Brunswick",
+            "torontomu.ca": "Toronto Metropolitan U",
+            "tufts.edu": "Tufts U",
+            "uc.edu": "U of Cincinnati",
+            "utoronto.ca": "U of Toronto",
+            "uwaterloo.ca": "U of Waterloo",
+            "uwindsor.ca": "U of Windsor",
+            "wright.edu": "Wright SU"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "106": "Brown U: 1",
+            "107": "Brown U: 2",
+            "110": "Brown U: 3",
+            "108": "Brown U: 4",
+            "109": "Brown U: 5",
+            "86": "Central Michigan U: CHIPS",
+            "85": "Central Michigan U: MAROON",
+            "1": "Carnegie Mellon U: NewGamePlusPlayers",
+            "35": "Carnegie Mellon U: NewRulePlusJobbers",
+            "49": "Cleveland SU: Chester",
+            "48": "Cleveland SU: Euclid",
+            "50": "Cleveland SU: Prospect",
+            "77": "Case Western Reserve U: Pioneers",
+            "75": "Case Western Reserve U: Red Cats",
+            "76": "Case Western Reserve U: Rough Riders",
+            "78": "Case Western Reserve U: Scientists",
+            "124": "Dalhousie U: Esperanza",
+            "188": "Dalhousie U: Habibis",
+            "2": "Fanshawe C: Black",
+            "3": "Fanshawe C: Red",
+            "87": "Grand Valley SU: Blue",
+            "67": "Grand Valley SU: White",
+            "99": "Harvard U: Undergraduate Consulting Group",
+            "94": "C of the Holy Cross: 2",
+            "93": "C of the Holy Cross: 1",
+            "15": "Indiana U Bloomington: 1",
+            "144": "McGill U: int(1e9)+7",
+            "150": "McGill U: 19",
+            "155": "McGill U: 41",
+            "157": "McGill U: 47",
+            "160": "McGill U: 61",
+            "161": "McGill U: 67",
+            "11": "Michigan SU: Black",
+            "9": "Michigan SU: Green",
+            "10": "Michigan SU: White",
+            "190": "Mount Allison U: Computer Cats",
+            "162": "Mount Allison U: Lightning Rocks",
+            "164": "Mount Allison U: Remainders",
+            "163": "Mount Allison U: Runtime Terrors",
+            "121": "Memorial U of Newfoundland: THREE",
+            "120": "Memorial U of Newfoundland: TWO",
+            "119": "Memorial U of Newfoundland: MUNder Pressure",
+            "23": "Mount Vernon Nazarene U: Code Crushers",
+            "102": "Northeastern U: 1",
+            "103": "Northeastern U: 2",
+            "104": "Northeastern U: 3",
+            "122": "Northeastern U: 4",
+            "123": "Northeastern U: 5",
+            "97": "Olin C of Engineering: 1",
+            "21": "Ohio SU: GREY",
+            "8": "Ohio SU: SCARLET",
+            "22": "Ohio SU: WHITE",
+            "184": "SUNY Oswego: Gold",
+            "180": "SUNY Oswego: Green",
+            "62": "Pennsylvania SU: Blue",
+            "64": "Pennsylvania SU: Brute Force",
+            "63": "Pennsylvania SU: Nittany",
+            "61": "Pennsylvania SU: White",
+            "47": "Purdue U: Eldritch Whorl",
+            "27": "Purdue U: Guava Juice",
+            "41": "Purdue U: Lava Lamps",
+            "44": "Purdue U: Quantum Banana",
+            "42": "Purdue U: Space Marshmallows",
+            "43": "Purdue U: Toasted Muffins",
+            "46": "Purdue U: Umbral Sconce",
+            "40": "Purdue U: Waffle Wizards",
+            "45": "Purdue U: Yogurt Paradox",
+            "114": "Rochester IofT: 1",
+            "115": "Rochester IofT: 2",
+            "116": "Rochester IofT: 3",
+            "117": "Rochester IofT: 4",
+            "139": "Rochester IofT: 5",
+            "175": "U of Rochester: A",
+            "176": "U of Rochester: B",
+            "111": "Siena C: Gold",
+            "112": "Siena C: Green",
+            "113": "Siena C: White",
+            "125": "Saint Mary's U (Nova Scotia): Huskies",
+            "68": "Toronto Metropolitan U: Blue",
+            "69": "Toronto Metropolitan U: Gold",
+            "138": "U of Moncton: UdeM !#",
+            "166": "U of Montreal: B",
+            "167": "U of Montreal: C",
+            "168": "U of Montreal: D",
+            "183": "U of Massachusetts Amherst: A",
+            "187": "U of Massachusetts Amherst: B",
+            "90": "U of New Brunswick: 1",
+            "91": "U of New Brunswick: 2",
+            "82": "U of Cincinnati: UC",
+            "71": "U of Toronto: A",
+            "70": "U of Toronto: B",
+            "72": "U of Toronto: C",
+            "73": "U of Toronto: D",
+            "74": "U of Toronto: E",
+            "4": "U of Waterloo: Black",
+            "5": "U of Waterloo: Gold",
+            "7": "U of Waterloo: Red",
+            "6": "U of Waterloo: White",
+            "34": "U of Windsor: D",
+            "31": "U of Windsor: N",
+            "33": "U of Windsor: S",
+            "32": "U of Windsor: W",
+            "65": "Wright SU: Gold",
+            "66": "Wright SU: Green",
+            "81": "York U: Lions"
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "astackofgold": "#e6194bff",
+            "averagesubstringvalue": "#3cb44bff",
+            "balancingart": "#ffe119ff",
+            "brownianbears": "#4363d8ff",
+            "fencesmakegoodneighbors": "#f58231ff",
+            "leapfrogencryption": "#42d4f4ff",
+            "letterballoons": "#f032e6ff",
+            "marchingorders": "#fabed4ff",
+            "ooohisee": "#469990ff",
+            "pascalmeetsboole": "#dcbeffff",
+            "ponylessexpress": "#9a6324ff",
+            "repetitiveroutes": "#fffac8ff",
+            "smartpasswordvalidation": "#800000ff"
+        }
+    },
+    {
+        "type": "override_queue",
         "maxQueueSize": 10
-    },    
-    "teamOverrides": {
-        "106": {
-            "displayName": "Brown U: 1"
-        },
-        "107": {
-            "displayName": "Brown U: 2"
-        },
-        "110": {
-            "displayName": "Brown U: 3"
-        },
-        "108": {
-            "displayName": "Brown U: 4"
-        },
-        "109": {
-            "displayName": "Brown U: 5"
-        },
-        "86": {
-            "displayName": "Central Michigan U: CHIPS"
-        },
-        "85": {
-            "displayName": "Central Michigan U: MAROON"
-        },
-        "1": {
-            "displayName": "Carnegie Mellon U: NewGamePlusPlayers"
-        },
-        "35": {
-            "displayName": "Carnegie Mellon U: NewRulePlusJobbers"
-        },
-        "49": {
-            "displayName": "Cleveland SU: Chester"
-        },
-        "48": {
-            "displayName": "Cleveland SU: Euclid"
-        },
-        "50": {
-            "displayName": "Cleveland SU: Prospect"
-        },
-        "77": {
-            "displayName": "Case Western Reserve U: Pioneers"
-        },
-        "75": {
-            "displayName": "Case Western Reserve U: Red Cats"
-        },
-        "76": {
-            "displayName": "Case Western Reserve U: Rough Riders"
-        },
-        "78": {
-            "displayName": "Case Western Reserve U: Scientists"
-        },
-        "124": {
-            "displayName": "Dalhousie U: Esperanza"
-        },
-        "188": {
-            "displayName": "Dalhousie U: Habibis"
-        },
-        "2": {
-            "displayName": "Fanshawe C: Black"
-        },
-        "3": {
-            "displayName": "Fanshawe C: Red"
-        },
-        "87": {
-            "displayName": "Grand Valley SU: Blue"
-        },
-        "67": {
-            "displayName": "Grand Valley SU: White"
-        },
-        "99": {
-            "displayName": "Harvard U: Undergraduate Consulting Group"
-        },
-        "94": {
-            "displayName": "C of the Holy Cross: 2"
-        },
-        "93": {
-            "displayName": "C of the Holy Cross: 1"
-        },
-        "15": {
-            "displayName": "Indiana U Bloomington: 1"
-        },
-        "144": {
-            "displayName": "McGill U: int(1e9)+7"
-        },
-        "150": {
-            "displayName": "McGill U: 19"
-        },
-        "155": {
-            "displayName": "McGill U: 41"
-        },
-        "157": {
-            "displayName": "McGill U: 47"
-        },
-        "160": {
-            "displayName": "McGill U: 61"
-        },
-        "161": {
-            "displayName": "McGill U: 67"
-        },
-        "11": {
-            "displayName": "Michigan SU: Black"
-        },
-        "9": {
-            "displayName": "Michigan SU: Green"
-        },
-        "10": {
-            "displayName": "Michigan SU: White"
-        },
-        "190": {
-            "displayName": "Mount Allison U: Computer Cats"
-        },
-        "162": {
-            "displayName": "Mount Allison U: Lightning Rocks"
-        },
-        "164": {
-            "displayName": "Mount Allison U: Remainders"
-        },
-        "163": {
-            "displayName": "Mount Allison U: Runtime Terrors"
-        },
-        "121": {
-            "displayName": "Memorial U of Newfoundland: THREE"
-        },
-        "120": {
-            "displayName": "Memorial U of Newfoundland: TWO"
-        },
-        "119": {
-            "displayName": "Memorial U of Newfoundland: MUNder Pressure"
-        },
-        "23": {
-            "displayName": "Mount Vernon Nazarene U: Code Crushers"
-        },
-        "102": {
-            "displayName": "Northeastern U: 1"
-        },
-        "103": {
-            "displayName": "Northeastern U: 2"
-        },
-        "104": {
-            "displayName": "Northeastern U: 3"
-        },
-        "122": {
-            "displayName": "Northeastern U: 4"
-        },
-        "123": {
-            "displayName": "Northeastern U: 5"
-        },
-        "97": {
-            "displayName": "Olin C of Engineering: 1"
-        },
-        "21": {
-            "displayName": "Ohio SU: GREY"
-        },
-        "8": {
-            "displayName": "Ohio SU: SCARLET"
-        },
-        "22": {
-            "displayName": "Ohio SU: WHITE"
-        },
-        "184": {
-            "displayName": "SUNY Oswego: Gold"
-        },
-        "180": {
-            "displayName": "SUNY Oswego: Green"
-        },
-        "62": {
-            "displayName": "Pennsylvania SU: Blue"
-        },
-        "64": {
-            "displayName": "Pennsylvania SU: Brute Force"
-        },
-        "63": {
-            "displayName": "Pennsylvania SU: Nittany"
-        },
-        "61": {
-            "displayName": "Pennsylvania SU: White"
-        },
-        "47": {
-            "displayName": "Purdue U: Eldritch Whorl"
-        },
-        "27": {
-            "displayName": "Purdue U: Guava Juice"
-        },
-        "41": {
-            "displayName": "Purdue U: Lava Lamps"
-        },
-        "44": {
-            "displayName": "Purdue U: Quantum Banana"
-        },
-        "42": {
-            "displayName": "Purdue U: Space Marshmallows"
-        },
-        "43": {
-            "displayName": "Purdue U: Toasted Muffins"
-        },
-        "46": {
-            "displayName": "Purdue U: Umbral Sconce"
-        },
-        "40": {
-            "displayName": "Purdue U: Waffle Wizards"
-        },
-        "45": {
-            "displayName": "Purdue U: Yogurt Paradox"
-        },
-        "114": {
-            "displayName": "Rochester IofT: 1"
-        },
-        "115": {
-            "displayName": "Rochester IofT: 2"
-        },
-        "116": {
-            "displayName": "Rochester IofT: 3"
-        },
-        "117": {
-            "displayName": "Rochester IofT: 4"
-        },
-        "139": {
-            "displayName": "Rochester IofT: 5"
-        },
-        "175": {
-            "displayName": "U of Rochester: A"
-        },
-        "176": {
-            "displayName": "U of Rochester: B"
-        },
-        "111": {
-            "displayName": "Siena C: Gold"
-        },
-        "112": {
-            "displayName": "Siena C: Green"
-        },
-        "113": {
-            "displayName": "Siena C: White"
-        },
-        "125": {
-            "displayName": "Saint Mary's U (Nova Scotia): Huskies"
-        },
-        "68": {
-            "displayName": "Toronto Metropolitan U: Blue"
-        },
-        "69": {
-            "displayName": "Toronto Metropolitan U: Gold"
-        },
-        "138": {
-            "displayName": "U of Moncton: UdeM !#"
-        },
-        "166": {
-            "displayName": "U of Montreal: B"
-        },
-        "167": {
-            "displayName": "U of Montreal: C"
-        },
-        "168": {
-            "displayName": "U of Montreal: D"
-        },
-        "183": {
-            "displayName": "U of Massachusetts Amherst: A"
-        },
-        "187": {
-            "displayName": "U of Massachusetts Amherst: B"
-        },
-        "90": {
-            "displayName": "U of New Brunswick: 1"
-        },
-        "91": {
-            "displayName": "U of New Brunswick: 2"
-        },
-        "82": {
-            "displayName": "U of Cincinnati: UC"
-        },
-        "71": {
-            "displayName": "U of Toronto: A"
-        },
-        "70": {
-            "displayName": "U of Toronto: B"
-        },
-        "72": {
-            "displayName": "U of Toronto: C"
-        },
-        "73": {
-            "displayName": "U of Toronto: D"
-        },
-        "74": {
-            "displayName": "U of Toronto: E"
-        },
-        "4": {
-            "displayName": "U of Waterloo: Black"
-        },
-        "5": {
-            "displayName": "U of Waterloo: Gold"
-        },
-        "7": {
-            "displayName": "U of Waterloo: Red"
-        },
-        "6": {
-            "displayName": "U of Waterloo: White"
-        },
-        "34": {
-            "displayName": "U of Windsor: D"
-        },
-        "31": {
-            "displayName": "U of Windsor: N"
-        },
-        "33": {
-            "displayName": "U of Windsor: S"
-        },
-        "32": {
-            "displayName": "U of Windsor: W"
-        },
-        "65": {
-            "displayName": "Wright SU: Gold"
-        },
-        "66": {
-            "displayName": "Wright SU: Green"
-        },
-        "81": {
-            "displayName": "York U: Lions"
-        }
-    },    
-    "organizationOverrides": {
-        "harvard.edu": {
-            "displayName": "Harvard U"
-        },
-        "umoncton.ca": {
-            "displayName": "U of Moncton"
-        },
-        "umontreal.ca": {
-            "displayName": "U of Montreal"
-        },
-        "mcgill.ca": {
-            "displayName": "McGill U"
-        },
-        "psu.edu": {
-            "displayName": "Pennsylvania SU"
-        },
-        "owu.edu": {
-            "displayName": "Ohio Wesleyan U"
-        },
-        "kzoo.edu": {
-            "displayName": "Kalamazoo C"
-        },
-        "wellesley.edu": {
-            "displayName": "Wellesley C"
-        },
-        "brocku.ca": {
-            "displayName": "Brock U"
-        },
-        "bu.edu": {
-            "displayName": "Boston U"
-        },
-        "brown.edu": {
-            "displayName": "Brown U"
-        },
-        "stfx.ca": {
-            "displayName": "St. Francis Xavier U"
-        },
-        "concordia.ca": {
-            "displayName": "Concordia U"
-        },
-        "umich.edu": {
-            "displayName": "U of Michigan"
-        },
-        "cmich.edu": {
-            "displayName": "Central Michigan U"
-        },
-        "cmu.edu": {
-            "displayName": "Carnegie Mellon U"
-        },
-        "denison.edu": {
-            "displayName": "Denison U"
-        },
-        "upei.ca": {
-            "displayName": "U of Prince Edward Island"
-        },
-        "umass.edu": {
-            "displayName": "U of Massachusetts Amherst"
-        },
-        "csuohio.edu": {
-            "displayName": "Cleveland SU"
-        },
-        "case.edu": {
-            "displayName": "Case Western Reserve U"
-        },
-        "dal.ca": {
-            "displayName": "Dalhousie U"
-        },
-        "fanshawec.ca": {
-            "displayName": "Fanshawe C"
-        },
-        "gvsu.edu": {
-            "displayName": "Grand Valley SU"
-        },
-        "yorku.ca": {
-            "displayName": "York U"
-        },
-        "pennwest.edu": {
-            "displayName": "Pennsylvania Western U"
-        },
-        "mcmaster.ca": {
-            "displayName": "McMaster U"
-        },
-        "holycross.edu": {
-            "displayName": "C of the Holy Cross"
-        },
-        "mit.edu": {
-            "displayName": "MIT"
-        },
-        "indiana.edu": {
-            "displayName": "Indiana U Bloomington"
-        },
-        "rit.edu": {
-            "displayName": "Rochester IofT"
-        },
-        "rpi.edu": {
-            "displayName": "Rensselaer Poly I"
-        },
-        "amherst.edu": {
-            "displayName": "Amherst C"
-        },
-        "bc.edu": {
-            "displayName": "Boston C"
-        },
-        "iup.edu": {
-            "displayName": "Indiana U of Pennsylvania"
-        },
-        "msu.edu": {
-            "displayName": "Michigan SU"
-        },
-        "mta.ca": {
-            "displayName": "Mount Allison U"
-        },
-        "mun.ca": {
-            "displayName": "Memorial U of Newfoundland"
-        },
-        "mvnu.edu": {
-            "displayName": "Mount Vernon Nazarene U"
-        },
-        "northeastern.edu": {
-            "displayName": "Northeastern U"
-        },
-        "ohio.edu": {
-            "displayName": "Ohio U"
-        },
-        "olin.edu": {
-            "displayName": "Olin C of Engineering"
-        },
-        "osu.edu": {
-            "displayName": "Ohio SU"
-        },
-        "oswego.edu": {
-            "displayName": "SUNY Oswego"
-        },
-        "ysu.edu": {
-            "displayName": "Youngstown SU"
-        },
-        "purdue.edu": {
-            "displayName": "Purdue U"
-        },
-        "rochester.edu": {
-            "displayName": "U of Rochester"
-        },
-        "stlawu.edu": {
-            "displayName": "St. Lawrence U"
-        },
-        "siena.edu": {
-            "displayName": "Siena C"
-        },
-        "smu.ca": {
-            "displayName": "Saint Mary's U (Nova Scotia)"
-        },
-        "hamilton.edu": {
-            "displayName": "Hamilton C"
-        },
-        "unb.ca": {
-            "displayName": "U of New Brunswick"
-        },
-        "torontomu.ca": {
-            "displayName": "Toronto Metropolitan U"
-        },
-        "tufts.edu": {
-            "displayName": "Tufts U"
-        },
-        "uc.edu": {
-            "displayName": "U of Cincinnati"
-        },
-        "utoronto.ca": {
-            "displayName": "U of Toronto"
-        },
-        "uwaterloo.ca": {
-            "displayName": "U of Waterloo"
-        },
-        "uwindsor.ca": {
-            "displayName": "U of Windsor"
-        },
-        "wright.edu": {
-            "displayName": "Wright SU"
-        }
-    },    
-    "teamOverrideTemplate": {"displayName": "{orgDisplayName}: {clicsTeamDisplayName}"},
-    "problemOverrides": {
-        "astackofgold": {"color":"#e6194B"
-        },
-        "averagesubstringvalue": {"color":"#3cb44b"
-        },
-        "balancingart": {"color":"#ffe119"
-        },
-        "brownianbears": {"color":"#4363d8"
-        },
-        "fencesmakegoodneighbors": {"color":"#f58231"
-        },
-        "leapfrogencryption": {"color":"#42d4f4"
-        },
-        "letterballoons": {"color":"#f032e6"
-        },
-        "marchingorders": {"color":"#fabed4"
-        },
-        "ooohisee": {"color":"#469990"
-        },
-        "pascalmeetsboole": {"color":"#dcbeff"
-        },
-        "ponylessexpress": {"color":"#9A6324"
-        },
-        "repetitiveroutes": {"color":"#fffac8"
-        },
-        "smartpasswordvalidation": {"color":"#800000"
-        }
-  }    
-}
+    }
+]

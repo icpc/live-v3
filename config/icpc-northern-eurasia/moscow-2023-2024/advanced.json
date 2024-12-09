@@ -1,432 +1,248 @@
-{  
-	"teamOverrideTemplate": {
-		"medias": {
-			"screen": {
-				"type": "WebRTCGrabberConnection",
-				"peerName": "{comp}",
-				"url": "http://192.168.88.4:8000",
-				"streamType": "desktop",
-				"credential": "top.secret"
-			},
-			"camera": {
-				"type": "WebRTCGrabberConnection",
-				"url": "http://192.168.88.4:8000",
-				"peerName": "{comp}",
-				"streamType": "webcam",
-				"credential": "top.secret"
-			}
-    	}
-	},
-	"teamOverrides": {
-		"mrc2023-01": {
-			"displayName": "HSE: SUSkva",
-			"customFields": { "comp": "01" }
-		},
-		"mrc2023-02": {
-			"displayName": "Financial U: PASEKA NOT PASEKA",
-			"customFields": { "comp": "02" }
-		},
-		"mrc2023-03": {
-			"displayName": "Moscow SU: TblP TblP TblP",
-			"customFields": { "comp": "3" }
-		},
-		"mrc2023-04": {
-			"displayName": "Moscow Tech U MIREA: There is an idea, but there are no proofs",
-			"customFields": { "comp": "04" }
-		},
-		"mrc2023-05": {
-			"displayName": "HSE: Drunk Driving in Moscow",
-			"customFields": { "comp": "05" }
-		},
-		"mrc2023-06": {
-			"displayName": "MIPT: Log-rank conjecture",
-			"customFields": { "comp": "06" }
-		},
-		"mrc2023-07": {
-			"displayName": "MISiS: Rudokopi",
-			"customFields": { "comp": "07" }
-		},
-		"mrc2023-08": {
-			"displayName": "Moscow SU: kinders",
-			"customFields": { "comp": "08" }
-		},
-		"mrc2023-09": {
-			"displayName": "HSE: L.O.B.O.D.A.",
-			"customFields": { "comp": "09" }
-		},
-		"mrc2023-11": {
-			"displayName": "BMSTU: Postironiya",
-			"customFields": { "comp": "11" }
-		},
-		"mrc2023-12": {
-			"displayName": "MISiS: Global Scopes",
-			"customFields": { "comp": "12" }
-		},
-		"mrc2023-13": {
-			"displayName": "HSE: KAAARS",
-			"customFields": { "comp": "13" }
-		},
-		"mrc2023-14": {
-			"displayName": "MIPT: NeverMind",
-			"customFields": { "comp": "14" }
-		},
-		"mrc2023-15": {
-			"displayName": "RUDN: MKP_RUDN2023",
-			"customFields": { "comp": "15" }
-		},
-		"mrc2023-16": {
-			"displayName": "MEPhI: NAVI",
-			"customFields": { "comp": "16" }
-		},
-		"mrc2023-17": {
-			"displayName": "HSE: Syntax Masters",
-			"customFields": { "comp": "17" }
-		},
-		"mrc2023-18": {
-			"displayName": "MIPT: Flying Penguins",
-			"customFields": { "comp": "18" }
-		},
-		"mrc2023-19": {
-			"displayName": "Skoltech: Caravella",
-			"customFields": { "comp": "19" }
-		},
-		"mrc2023-21": {
-			"displayName": "HSE: Everlasting snowflakes on the Champs Elysees",
-			"customFields": { "comp": "21" }
-		},
-		"mrc2023-22": {
-			"displayName": "MIPT: SHLYOP-SHLYOP",
-			"customFields": { "comp": "22" }
-		},
-		"mrc2023-23": {
-			"displayName": "MTUCI: Algorithms enjoyers",
-			"customFields": { "comp": "23" }
-		},
-		"mrc2023-24": {
-			"displayName": "MAI: MAI #4",
-			"customFields": { "comp": "24" }
-		},
-		"mrc2023-25": {
-			"displayName": "HSE: vot takie pirozhki",
-			"customFields": { "comp": "25" }
-		},
-		"mrc2023-26": {
-			"displayName": "MIPT: Cocke Younger Kasami",
-			"customFields": { "comp": "26" }
-		},
-		"mrc2023-27": {
-			"displayName": "MIEE-TU: MIET __Thr33_m0r0n5__",
-			"customFields": { "comp": "27" }
-		},
-		"mrc2023-29": {
-			"displayName": "HSE: Meow for Anna Shcherbakova",
-			"customFields": { "comp": "29" }
-		},
-		"mrc2023-31": {
-			"displayName": "MAI: MAI #5",
-			"customFields": { "comp": "31" }
-		},
-		"mrc2023-32": {
-			"displayName": "MEPhI: Team_10",
-			"customFields": { "comp": "32" }
-		},
-		"mrc2023-33": {
-			"displayName": "HSE: pro ne treneruyut'sya",
-			"customFields": { "comp": "33" }
-		},
-		"mrc2023-34": {
-			"displayName": "MIPT: DmitriEviches",
-			"customFields": { "comp": "34" }
-		},
-		"mrc2023-35": {
-			"displayName": "MPSU: Ackermans",
-			"customFields": { "comp": "35" }
-		},
-		"mrc2023-36": {
-			"displayName": "STOU: Instant thought",
-			"customFields": { "comp": "36" }
-		},
-		"mrc2023-37": {
-			"displayName": "Moscow Tech U MIREA: 37 DOLGOV",
-			"customFields": { "comp": "37" }
-		},
-		"mrc2023-38": {
-			"displayName": "MIPT: Princess Nuri",
-			"customFields": { "comp": "38" }
-		},
-		"mrc2023-39": {
-			"displayName": "MAI: MAI #3",
-			"customFields": { "comp": "39" }
-		},
-		"mrc2023-41": {
-			"displayName": "HSE: Lock, Stock, and Two Broken Chairs",
-			"customFields": { "comp": "41" }
-		},
-		"mrc2023-42": {
-			"displayName": "MSTUCA: 0xC0FFEE",
-			"customFields": { "comp": "42" }
-		},
-		"mrc2023-43": {
-			"displayName": "Moscow SU: broken cisgenders",
-			"customFields": { "comp": "43" }
-		},
-		"mrc2023-44": {
-			"displayName": "Financial U: C++ gang",
-			"customFields": { "comp": "44" }
-		},
-		"mrc2023-45": {
-			"displayName": "HSE: joke",
-			"customFields": { "comp": "45" }
-		},
-		"mrc2023-46": {
-			"displayName": "Synergy University: {<}Synergy",
-			"customFields": { "comp": "46" }
-		},
-		"mrc2023-47": {
-			"displayName": "MISiS: ACMMLP",
-			"customFields": { "comp": "47" }
-		},
-		"mrc2023-48": {
-			"displayName": "Moscow SU: Hmuryinya Heryinich ",
-			"customFields": { "comp": "48" }
-		},
-		"mrc2023-49": {
-			"displayName": "HSE: ChillOut",
-			"customFields": { "comp": "49" }
-		},
-		"mrc2023-51": {
-			"displayName": "MEPhI: Useless but Powerful",
-			"customFields": { "comp": "51" }
-		},
-		"mrc2023-52": {
-			"displayName": "MISiS: TINDEX",
-			"customFields": { "comp": "52" }
-		},
-		"mrc2023-53": {
-			"displayName": "HSE: Eternal penance",
-			"customFields": { "comp": "53" }
-		},
-		"mrc2023-54": {
-			"displayName": "MIPT: MIPT: In God We Trust",
-			"customFields": { "comp": "54" }
-		},
-		"mrc2023-55": {
-			"displayName": "RosNOU: AHA",
-			"customFields": { "comp": "55" }
-		},
-		"mrc2023-56": {
-			"displayName": "RUDN: GRS_RUDN2023",
-			"customFields": { "comp": "56" }
-		},
-		"mrc2023-57": {
-			"displayName": "HSE: mops",
-			"customFields": { "comp": "57" }
-		},
-		"mrc2023-58": {
-			"displayName": "MIPT: Shawarmasters",
-			"customFields": { "comp": "58" }
-		},
-		"mrc2023-59": {
-			"displayName": "BMSTU: Zerocode",
-			"customFields": { "comp": "59" }
-		},
-		"mrc2023-61": {
-			"displayName": "Skoltech: Red-Black Trio",
-			"customFields": { "comp": "61" }
-		},
-		"mrc2023-62": {
-			"displayName": "MIPT: +7, -7",
-			"customFields": { "comp": "62" }
-		},
-		"mrc2023-63": {
-			"displayName": "Moscow Tech U MIREA: Lush Сheesecakes",
-			"customFields": { "comp": "63" }
-		},
-		"mrc2023-64": {
-			"displayName": "MAI: MAI #2",
-			"customFields": { "comp": "64" }
-		},
-		"mrc2023-65": {
-			"displayName": "Moscow SU: BOCHKA_S_MEDOM",
-			"customFields": { "comp": "65" }
-		},
-		"mrc2023-66": {
-			"displayName": "MIPT: Yolki-palki",
-			"customFields": { "comp": "66" }
-		},
-		"mrc2023-67": {
-			"displayName": "Moscow RUT: MDA Trash",
-			"customFields": { "comp": "67" }
-		},
-		"mrc2023-68": {
-			"displayName": "MEPhI: mythical horses",
-			"customFields": { "comp": "68" }
-		},
-		"mrc2023-69": {
-			"displayName": "MISiS: Undertrained & Underpressured",
-			"customFields": { "comp": "69" }
-		},
-		"mrc2023-71": {
-			"displayName": "MAI: MAI #7",
-			"customFields": { "comp": "71" }
-		},
-		"mrc2023-72": {
-			"displayName": "MEPhI: Made ByK4l",
-			"customFields": { "comp": "72" }
-		},
-		"mrc2023-73": {
-			"displayName": "HSE: Gym, Lambo, Box",
-			"customFields": { "comp": "73" }
-		},
-		"mrc2023-74": {
-			"displayName": "MIPT: berry noradrenaline",
-			"customFields": { "comp": "74" }
-		},
-		"mrc2023-75": {
-			"displayName": "BMSTU: 7g",
-			"customFields": { "comp": "75" }
-		},
-		"mrc2023-76": {
-			"displayName": "MIEE-TU: Miet #2",
-			"customFields": { "comp": "76" }
-		},
-		"mrc2023-77": {
-			"displayName": "MGSU: VaLiChu",
-			"customFields": { "comp": "77" }
-		},
-		"mrc2023-78": {
-			"displayName": "MIPT: Wake right",
-			"customFields": { "comp": "78" }
-		},
-		"mrc2023-79": {
-			"displayName": "MAI: MAI #1",
-			"customFields": { "comp": "79" }
-		},
-		"mrc2023-81": {
-			"displayName": "HSE: tmp",
-			"customFields": { "comp": "81" }
-		},
-		"mrc2023-82": {
-			"displayName": "MIPT: Premeditatively Sesquipedalian Team",
-			"customFields": { "comp": "82" }
-		},
-		"mrc2023-83": {
-			"displayName": "Moscow SU: ConTesters",
-			"customFields": { "comp": "83" }
-		},
-		"mrc2023-84": {
-			"displayName": "MTUCI: Sigma Chad Machines",
-			"customFields": { "comp": "84" }
-		},
-		"mrc2023-85": {
-			"displayName": "HSE: Youthful Passion Fruit",
-			"customFields": { "comp": "85" }
-		},
-		"mrc2023-86": {
-			"displayName": "MIPT: SimpleCode",
-			"customFields": { "comp": "86" }
-		},
-		"mrc2023-87": {
-			"displayName": "MISiS: Eva Fan Club",
-			"customFields": { "comp": "87" }
-		},
-		"mrc2023-88": {
-			"displayName": "Moscow SU: The Meanwhiles",
-			"customFields": { "comp": "88" }
-		},
-		"mrc2023-89": {
-			"displayName": "HSE: am nyam)",
-			"customFields": { "comp": "89" }
-		},
-		"mrc2023-91": {
-			"displayName": "BMSTU: IU9I",
-			"customFields": { "comp": "91" }
-		},
-		"mrc2023-92": {
-			"displayName": "MISiS: Fiksiki",
-			"customFields": { "comp": "92" }
-		},
-		"mrc2023-93": {
-			"displayName": "HSE: the real Capybara",
-			"customFields": { "comp": "93" }
-		},
-		"mrc2023-94": {
-			"displayName": "RUDN: segmentation_fault: margin too narrow",
-			"customFields": { "comp": "94" }
-		},
-		"mrc2023-95": {
-			"displayName": "Moscow Tech U MIREA: Digital Den",
-			"customFields": { "comp": "95" }
-		},
-		"mrc2023-96": {
-			"displayName": "MEPhI: Reactor and Chrome",
-			"customFields": { "comp": "96" }
-		},
-		"mrc2023-97": {
-			"displayName": "HSE: Muffix Sassif",
-			"customFields": { "comp": "97" }
-		},
-		"mrc2023-98": {
-			"displayName": "MPSU: Road to unbelievable",
-			"customFields": { "comp": "98" }
-		},
-		"mrc2023-99": {
-			"displayName": "Financial U: Curiosity",
-			"customFields": { "comp": "99" }
-		},
-		"mrc2023-null": {
-			"displayName": "NRU HSE MIEM: C0dEnf0rcers",
-			"customFields": { "comp": "null" }
-		},
-		"mrc2023-null": {
-			"displayName": "Moscow Polytech U: Polytech",
-			"customFields": { "comp": "null" }
-		},
-    "mrc2023-50": {
-      "displayName": "* SCH_IOI: Мама наругала ни за что",
-      "customFields": { "comp": "50" }
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": false
     },
-    "mrc2023-60": {
-      "displayName": "* SCH_IOI: Почему префикс не Яндекс",
-      "customFields": { "comp": "60" }
+    {
+        "type": "add_custom_value",
+        "name": "comp",
+        "rules": {
+            "mrc2023-01": "01",
+            "mrc2023-02": "02",
+            "mrc2023-03": "3",
+            "mrc2023-04": "04",
+            "mrc2023-05": "05",
+            "mrc2023-06": "06",
+            "mrc2023-07": "07",
+            "mrc2023-08": "08",
+            "mrc2023-09": "09",
+            "mrc2023-11": "11",
+            "mrc2023-12": "12",
+            "mrc2023-13": "13",
+            "mrc2023-14": "14",
+            "mrc2023-15": "15",
+            "mrc2023-16": "16",
+            "mrc2023-17": "17",
+            "mrc2023-18": "18",
+            "mrc2023-19": "19",
+            "mrc2023-21": "21",
+            "mrc2023-22": "22",
+            "mrc2023-23": "23",
+            "mrc2023-24": "24",
+            "mrc2023-25": "25",
+            "mrc2023-26": "26",
+            "mrc2023-27": "27",
+            "mrc2023-29": "29",
+            "mrc2023-31": "31",
+            "mrc2023-32": "32",
+            "mrc2023-33": "33",
+            "mrc2023-34": "34",
+            "mrc2023-35": "35",
+            "mrc2023-36": "36",
+            "mrc2023-37": "37",
+            "mrc2023-38": "38",
+            "mrc2023-39": "39",
+            "mrc2023-41": "41",
+            "mrc2023-42": "42",
+            "mrc2023-43": "43",
+            "mrc2023-44": "44",
+            "mrc2023-45": "45",
+            "mrc2023-46": "46",
+            "mrc2023-47": "47",
+            "mrc2023-48": "48",
+            "mrc2023-49": "49",
+            "mrc2023-51": "51",
+            "mrc2023-52": "52",
+            "mrc2023-53": "53",
+            "mrc2023-54": "54",
+            "mrc2023-55": "55",
+            "mrc2023-56": "56",
+            "mrc2023-57": "57",
+            "mrc2023-58": "58",
+            "mrc2023-59": "59",
+            "mrc2023-61": "61",
+            "mrc2023-62": "62",
+            "mrc2023-63": "63",
+            "mrc2023-64": "64",
+            "mrc2023-65": "65",
+            "mrc2023-66": "66",
+            "mrc2023-67": "67",
+            "mrc2023-68": "68",
+            "mrc2023-69": "69",
+            "mrc2023-71": "71",
+            "mrc2023-72": "72",
+            "mrc2023-73": "73",
+            "mrc2023-74": "74",
+            "mrc2023-75": "75",
+            "mrc2023-76": "76",
+            "mrc2023-77": "77",
+            "mrc2023-78": "78",
+            "mrc2023-79": "79",
+            "mrc2023-81": "81",
+            "mrc2023-82": "82",
+            "mrc2023-83": "83",
+            "mrc2023-84": "84",
+            "mrc2023-85": "85",
+            "mrc2023-86": "86",
+            "mrc2023-87": "87",
+            "mrc2023-88": "88",
+            "mrc2023-89": "89",
+            "mrc2023-91": "91",
+            "mrc2023-92": "92",
+            "mrc2023-93": "93",
+            "mrc2023-94": "94",
+            "mrc2023-95": "95",
+            "mrc2023-96": "96",
+            "mrc2023-97": "97",
+            "mrc2023-98": "98",
+            "mrc2023-99": "99",
+            "mrc2023-null": "null",
+            "mrc2023-50": "50",
+            "mrc2023-60": "60",
+            "mrc2023-28": "28",
+            "mrc2023-20": "20",
+            "mrc2023-30": "30",
+            "mrc2023-40": "40",
+            "mrc2023-10": "10"
+        }
     },
-    "mrc2023-28": {
-      "displayName": "Moscow Polytech U: Polytech",
-      "customFields": { "comp": "28" }
+    {
+        "type": "override_team_template",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://192.168.88.4:8000",
+                "peerName": "{comp}",
+                "streamType": "desktop",
+                "credential": "top.secret"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://192.168.88.4:8000",
+                "peerName": "{comp}",
+                "streamType": "webcam",
+                "credential": "top.secret"
+            }
+        }
     },
-    "mrc2023-20": {
-      "displayName": "* SCH.IOI: Купить имлаборд сбитень",
-      "customFields": { "comp": "20" }
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "mrc2023-01": "HSE: SUSkva",
+            "mrc2023-02": "Financial U: PASEKA NOT PASEKA",
+            "mrc2023-03": "Moscow SU: TblP TblP TblP",
+            "mrc2023-04": "Moscow Tech U MIREA: There is an idea, but there are no proofs",
+            "mrc2023-05": "HSE: Drunk Driving in Moscow",
+            "mrc2023-06": "MIPT: Log-rank conjecture",
+            "mrc2023-07": "MISiS: Rudokopi",
+            "mrc2023-08": "Moscow SU: kinders",
+            "mrc2023-09": "HSE: L.O.B.O.D.A.",
+            "mrc2023-11": "BMSTU: Postironiya",
+            "mrc2023-12": "MISiS: Global Scopes",
+            "mrc2023-13": "HSE: KAAARS",
+            "mrc2023-14": "MIPT: NeverMind",
+            "mrc2023-15": "RUDN: MKP_RUDN2023",
+            "mrc2023-16": "MEPhI: NAVI",
+            "mrc2023-17": "HSE: Syntax Masters",
+            "mrc2023-18": "MIPT: Flying Penguins",
+            "mrc2023-19": "Skoltech: Caravella",
+            "mrc2023-21": "HSE: Everlasting snowflakes on the Champs Elysees",
+            "mrc2023-22": "MIPT: SHLYOP-SHLYOP",
+            "mrc2023-23": "MTUCI: Algorithms enjoyers",
+            "mrc2023-24": "MAI: MAI #4",
+            "mrc2023-25": "HSE: vot takie pirozhki",
+            "mrc2023-26": "MIPT: Cocke Younger Kasami",
+            "mrc2023-27": "MIEE-TU: MIET __Thr33_m0r0n5__",
+            "mrc2023-29": "HSE: Meow for Anna Shcherbakova",
+            "mrc2023-31": "MAI: MAI #5",
+            "mrc2023-32": "MEPhI: Team_10",
+            "mrc2023-33": "HSE: pro ne treneruyut'sya",
+            "mrc2023-34": "MIPT: DmitriEviches",
+            "mrc2023-35": "MPSU: Ackermans",
+            "mrc2023-36": "STOU: Instant thought",
+            "mrc2023-37": "Moscow Tech U MIREA: 37 DOLGOV",
+            "mrc2023-38": "MIPT: Princess Nuri",
+            "mrc2023-39": "MAI: MAI #3",
+            "mrc2023-41": "HSE: Lock, Stock, and Two Broken Chairs",
+            "mrc2023-42": "MSTUCA: 0xC0FFEE",
+            "mrc2023-43": "Moscow SU: broken cisgenders",
+            "mrc2023-44": "Financial U: C++ gang",
+            "mrc2023-45": "HSE: joke",
+            "mrc2023-46": "Synergy University: {<}Synergy",
+            "mrc2023-47": "MISiS: ACMMLP",
+            "mrc2023-48": "Moscow SU: Hmuryinya Heryinich ",
+            "mrc2023-49": "HSE: ChillOut",
+            "mrc2023-51": "MEPhI: Useless but Powerful",
+            "mrc2023-52": "MISiS: TINDEX",
+            "mrc2023-53": "HSE: Eternal penance",
+            "mrc2023-54": "MIPT: MIPT: In God We Trust",
+            "mrc2023-55": "RosNOU: AHA",
+            "mrc2023-56": "RUDN: GRS_RUDN2023",
+            "mrc2023-57": "HSE: mops",
+            "mrc2023-58": "MIPT: Shawarmasters",
+            "mrc2023-59": "BMSTU: Zerocode",
+            "mrc2023-61": "Skoltech: Red-Black Trio",
+            "mrc2023-62": "MIPT: +7, -7",
+            "mrc2023-63": "Moscow Tech U MIREA: Lush Сheesecakes",
+            "mrc2023-64": "MAI: MAI #2",
+            "mrc2023-65": "Moscow SU: BOCHKA_S_MEDOM",
+            "mrc2023-66": "MIPT: Yolki-palki",
+            "mrc2023-67": "Moscow RUT: MDA Trash",
+            "mrc2023-68": "MEPhI: mythical horses",
+            "mrc2023-69": "MISiS: Undertrained & Underpressured",
+            "mrc2023-71": "MAI: MAI #7",
+            "mrc2023-72": "MEPhI: Made ByK4l",
+            "mrc2023-73": "HSE: Gym, Lambo, Box",
+            "mrc2023-74": "MIPT: berry noradrenaline",
+            "mrc2023-75": "BMSTU: 7g",
+            "mrc2023-76": "MIEE-TU: Miet #2",
+            "mrc2023-77": "MGSU: VaLiChu",
+            "mrc2023-78": "MIPT: Wake right",
+            "mrc2023-79": "MAI: MAI #1",
+            "mrc2023-81": "HSE: tmp",
+            "mrc2023-82": "MIPT: Premeditatively Sesquipedalian Team",
+            "mrc2023-83": "Moscow SU: ConTesters",
+            "mrc2023-84": "MTUCI: Sigma Chad Machines",
+            "mrc2023-85": "HSE: Youthful Passion Fruit",
+            "mrc2023-86": "MIPT: SimpleCode",
+            "mrc2023-87": "MISiS: Eva Fan Club",
+            "mrc2023-88": "Moscow SU: The Meanwhiles",
+            "mrc2023-89": "HSE: am nyam)",
+            "mrc2023-91": "BMSTU: IU9I",
+            "mrc2023-92": "MISiS: Fiksiki",
+            "mrc2023-93": "HSE: the real Capybara",
+            "mrc2023-94": "RUDN: segmentation_fault: margin too narrow",
+            "mrc2023-95": "Moscow Tech U MIREA: Digital Den",
+            "mrc2023-96": "MEPhI: Reactor and Chrome",
+            "mrc2023-97": "HSE: Muffix Sassif",
+            "mrc2023-98": "MPSU: Road to unbelievable",
+            "mrc2023-99": "Financial U: Curiosity",
+            "mrc2023-null": "Moscow Polytech U: Polytech",
+            "mrc2023-50": "* SCH_IOI: Мама наругала ни за что",
+            "mrc2023-60": "* SCH_IOI: Почему префикс не Яндекс",
+            "mrc2023-28": "Moscow Polytech U: Polytech",
+            "mrc2023-20": "* SCH.IOI: Купить имлаборд сбитень",
+            "mrc2023-30": "* SCH.IOI: Нижегородские кабаны",
+            "mrc2023-40": "* SCH.IOI: Профессор Багиров расскажет правду",
+            "mrc2023-10": "* SCH.IOI: Not Not Today"
+        }
     },
-    "mrc2023-30": {
-      "displayName": "* SCH.IOI: Нижегородские кабаны",
-      "customFields": { "comp": "30" }
-    },
-    "mrc2023-40": {
-      "displayName": "* SCH.IOI: Профессор Багиров расскажет правду",
-      "customFields": { "comp": "40" }
-    },
-    "mrc2023-10": {
-      "displayName": "* SCH.IOI: Not Not Today",
-      "customFields": { "comp": "10" }
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "7/2023_11_16/GfFExCFX1a": "#00008bff",
+            "7/2023_11_16/U0NsL4MQPe": "#00bfffff",
+            "7/2023_11_16/uhMIgxDvu4": "#ee82eeff",
+            "7/2023_11_16/8rqjETEZ9P": "#87cefaff",
+            "7/2023_11_16/tyfKqewMxH": "#800080ff",
+            "7/2023_11_16/p5WWMbrkbK": "#66cdaaff",
+            "7/2023_11_16/tfx6wUPNJS": "#ffffffff",
+            "7/2023_11_16/7aF9fgbOqX": "#8b4513ff",
+            "7/2023_11_16/kX9w1epvbb": "#ffff00ff",
+            "7/2023_11_16/mElrEY9yLd": "#7fff00ff",
+            "7/2023_11_16/wO2M2cfPo4": "#ff1493ff",
+            "7/2023_11_16/FEYomU01r5": "#8b0000ff",
+            "7/2023_11_16/vrSicYIvpy": "#ffa500ff"
+        }
     }
-	},
-	"scoreboardOverrides": {
-		"showTeamsWithoutSubmissions": false
-	},
-  "problemOverrides": {
-    "7/2023_11_16/GfFExCFX1a": {"color":"#00008B"},
-    "7/2023_11_16/U0NsL4MQPe": {"color":"#00BFFF"},
-    "7/2023_11_16/uhMIgxDvu4": {"color":"#EE82EE"},
-    "7/2023_11_16/8rqjETEZ9P": {"color":"#87CEFA"},
-    "7/2023_11_16/tyfKqewMxH": {"color":"#800080"},
-    "7/2023_11_16/p5WWMbrkbK": {"color":"#66CDAA"},
-    "7/2023_11_16/tfx6wUPNJS": {"color":"#FFFFFF"},
-    "7/2023_11_16/7aF9fgbOqX": {"color":"#8B4513"},
-    "7/2023_11_16/kX9w1epvbb": {"color":"#FFFF00"},
-    "7/2023_11_16/mElrEY9yLd": {"color":"#7FFF00"},
-    "7/2023_11_16/wO2M2cfPo4": {"color":"#FF1493"},
-    "7/2023_11_16/FEYomU01r5": {"color":"#8B0000"},
-    "7/2023_11_16/vrSicYIvpy": {"color":"#FFA500"}
-  }
-}
+]

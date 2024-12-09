@@ -15,7 +15,7 @@ object PCMSTest : CdsLoadersTest() {
             PCMSSettings(
                 source = UrlOrLocalPath.Local(testDataDir.resolve("pcms.xml"))
             ),
-            AdvancedProperties(startTime = Instant.fromEpochSeconds(1670397300))
+            listOf(OverrideTimes(startTime = Instant.fromEpochSeconds(1670397300)))
         )
     }
 
@@ -28,7 +28,7 @@ object PCMSTest : CdsLoadersTest() {
             ) {
                 resultType = ContestResultType.IOI
             },
-            AdvancedProperties(startTime = Instant.fromEpochSeconds(1670397300))
+            listOf(OverrideTimes(startTime = Instant.fromEpochSeconds(1670397300)))
         )
     }
 
@@ -39,7 +39,7 @@ object PCMSTest : CdsLoadersTest() {
             PCMSSettings(
                 source = UrlOrLocalPath.Local(testDataDir.resolve("pcms-legacy.xml"))
             ),
-            AdvancedProperties(startTime = Instant.fromEpochSeconds(1449385200))
+            listOf(OverrideTimes(startTime = Instant.fromEpochSeconds(1449385200)))
         )
     }
 }

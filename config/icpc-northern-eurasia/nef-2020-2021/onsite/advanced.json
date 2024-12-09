@@ -1,91 +1,425 @@
-{
-  "startTime": "2021-04-04 10:00:00 +03:00",
-  "freezeTimeSeconds": 14400,
-  "teamOverrideTemplate": {
-    "medias": {
-      "screen": {
-        "type": "Video",
-        "url": "http://192.168.18.38:80{teamId}"
-      },
-      "camera": {
-        "type": "Video",
-        "url": "http://192.168.18.38:81{teamId}"
-      }
+[
+    {
+        "type": "override_times",
+        "startTime": "2021-04-04 09:00:00 +02:00",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "override_scoreboard_settings",
+        "penaltyPerWrongAttempt": 20
+    },
+    {
+        "type": "override_team_template",
+        "medias": {
+            "screen": {
+                "type": "Video",
+                "url": "http://192.168.18.38:80{team.id}"
+            },
+            "camera": {
+                "type": "Video",
+                "url": "http://192.168.18.38:81{team.id}"
+            }
+        }
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "486860": "SPb HSE 1: Lemon Tree",
+            "486861": "SPb ITMO: Insert your name",
+            "486862": "HSE: Overtrained",
+            "486863": "HSE: Sleeveless shorts",
+            "486864": "Moscow IPT: Malaya Bronnaya",
+            "486865": "St. Petersburg SU: Cheba Kings",
+            "486866": "St. Petersburg SU: LOUD Enough",
+            "486867": "St. Petersburg SU: 25",
+            "486868": "Belarusian SU: 1",
+            "486869": "Moscow IPT: LinkCat",
+            "486870": "St. Petersburg SU: glasses",
+            "486871": "Belarusian SU: 3",
+            "486872": "SPb ITMO: pengzoo",
+            "486873": "Moscow SU: Nonames",
+            "486874": "St. Petersburg SU: computer",
+            "486875": "SPb ITMO: 25",
+            "486876": "IITU: 1",
+            "486877": "Saratov SU: N",
+            "486878": "Tbilisi Freeuni: 1",
+            "486879": "Innopolis U: V",
+            "486880": "Moscow IPT: 42NA",
+            "486881": "Belarusian SU: 2",
+            "486882": "SPb HSE: VLADBUK",
+            "486883": "SPb ITMO: Unexpected Value",
+            "486884": "Yerevan SU: New Era",
+            "486885": "Moscow SU: boloto",
+            "486886": "HSE: Smetana fans",
+            "486887": "Belarusian SUIR: #2",
+            "486888": "SDU 1: Qataly degen ne?",
+            "486889": "Tolyatti SU: A",
+            "486890": "Penza SU: E",
+            "486891": "Kazan FU: AJ",
+            "486892": "Ural FU: CheezeKEK",
+            "486893": "Kazakh-British TU: 1",
+            "486894": "Nazarbayev U: 1",
+            "486895": "Izhevsk STU: Ne nado dumat",
+            "486896": "NNSU: 1",
+            "486897": "Moscow AI: #3",
+            "486898": "Baltic FU 1: La Squadra",
+            "486899": "Nizhny Novgorod HSE: 1",
+            "486900": "Siberian SUTI: Santa-Monika",
+            "486901": "Latvia: LU 1",
+            "486902": "TUIT: MathX",
+            "486903": "MISiS: ToMcKoE 4aellutuE",
+            "486904": "YaroslavlSU 1: Crblnge team",
+            "486905": "Novosibirsk SU 1: Mufasa",
+            "486906": "AUCA: #1 Turtles",
+            "486907": "MEPhI: SoZo",
+            "486908": "Ufa SATU: Electric Funeral",
+            "486910": "Budenny Mil Telecom A: 1"
+        }
+    },
+    {
+        "type": "override_teams",
+        "rules": {
+            "486860": {
+                "groups": [
+                    "SPb HSE",
+                    "SPb"
+                ]
+            },
+            "486861": {
+                "groups": [
+                    "SPb ITMO",
+                    "SPb"
+                ]
+            },
+            "486862": {
+                "groups": [
+                    "HSE",
+                    "Moscow"
+                ]
+            },
+            "486863": {
+                "groups": [
+                    "HSE",
+                    "Moscow"
+                ]
+            },
+            "486864": {
+                "groups": [
+                    "Moscow IPT",
+                    "Moscow"
+                ]
+            },
+            "486865": {
+                "groups": [
+                    "St. Petersburg SU",
+                    "SPb"
+                ]
+            },
+            "486866": {
+                "groups": [
+                    "St. Petersburg SU",
+                    "SPb"
+                ]
+            },
+            "486867": {
+                "groups": [
+                    "St. Petersburg SU",
+                    "SPb"
+                ]
+            },
+            "486868": {
+                "groups": [
+                    "Belarusian SU",
+                    "Belarus"
+                ]
+            },
+            "486869": {
+                "groups": [
+                    "Moscow IPT",
+                    "Moscow"
+                ]
+            },
+            "486870": {
+                "groups": [
+                    "St. Petersburg SU",
+                    "SPb"
+                ]
+            },
+            "486871": {
+                "groups": [
+                    "Belarusian SU",
+                    "Belarus"
+                ]
+            },
+            "486872": {
+                "groups": [
+                    "SPb ITMO",
+                    "SPb"
+                ]
+            },
+            "486873": {
+                "groups": [
+                    "Moscow SU",
+                    "Moscow"
+                ]
+            },
+            "486874": {
+                "groups": [
+                    "St. Petersburg SU",
+                    "SPb"
+                ]
+            },
+            "486875": {
+                "groups": [
+                    "SPb ITMO",
+                    "SPb"
+                ]
+            },
+            "486876": {
+                "groups": [
+                    "IITU",
+                    "Other"
+                ]
+            },
+            "486877": {
+                "groups": [
+                    "Saratov SU",
+                    "Other"
+                ]
+            },
+            "486878": {
+                "groups": [
+                    "Tbilisi Freeuni",
+                    "Other"
+                ]
+            },
+            "486879": {
+                "groups": [
+                    "Innopolis U",
+                    "Other"
+                ]
+            },
+            "486880": {
+                "groups": [
+                    "Moscow IPT",
+                    "Moscow"
+                ]
+            },
+            "486881": {
+                "groups": [
+                    "Belarusian SU",
+                    "Belarus"
+                ]
+            },
+            "486882": {
+                "groups": [
+                    "SPb HSE",
+                    "SPb"
+                ]
+            },
+            "486883": {
+                "groups": [
+                    "SPb ITMO",
+                    "SPb"
+                ]
+            },
+            "486884": {
+                "groups": [
+                    "Yerevan SU",
+                    "Other"
+                ]
+            },
+            "486885": {
+                "groups": [
+                    "Moscow SU",
+                    "Moscow"
+                ]
+            },
+            "486886": {
+                "groups": [
+                    "HSE",
+                    "Moscow"
+                ]
+            },
+            "486887": {
+                "groups": [
+                    "Belarusian SUIR",
+                    "Belarus"
+                ]
+            },
+            "486888": {
+                "groups": [
+                    "SDU",
+                    "Other"
+                ]
+            },
+            "486889": {
+                "groups": [
+                    "Tolyatti SU",
+                    "Other"
+                ]
+            },
+            "486890": {
+                "groups": [
+                    "Penza SU",
+                    "Other"
+                ]
+            },
+            "486891": {
+                "groups": [
+                    "Kazan FU",
+                    "Other"
+                ]
+            },
+            "486892": {
+                "groups": [
+                    "Ural FU",
+                    "Other"
+                ]
+            },
+            "486893": {
+                "groups": [
+                    "Kazakh-British TU",
+                    "Kazakh"
+                ]
+            },
+            "486894": {
+                "groups": [
+                    "Nazarbayev U",
+                    "Kazakh"
+                ]
+            },
+            "486895": {
+                "groups": [
+                    "Izhevsk STU",
+                    "Other"
+                ]
+            },
+            "486896": {
+                "groups": [
+                    "NNSU",
+                    "Other"
+                ]
+            },
+            "486897": {
+                "groups": [
+                    "Moscow AI",
+                    "Moscow"
+                ]
+            },
+            "486898": {
+                "groups": [
+                    "Baltic FU",
+                    "Other"
+                ]
+            },
+            "486899": {
+                "groups": [
+                    "Nizhny Novgorod HSE",
+                    "Other"
+                ]
+            },
+            "486900": {
+                "groups": [
+                    "Siberian SUTI",
+                    "Other"
+                ]
+            },
+            "486901": {
+                "groups": [
+                    "Latvia",
+                    "Other"
+                ]
+            },
+            "486902": {
+                "groups": [
+                    "TUIT",
+                    "Other"
+                ]
+            },
+            "486903": {
+                "groups": [
+                    "MISiS",
+                    "Moscow"
+                ]
+            },
+            "486904": {
+                "groups": [
+                    "YaroslavlSU",
+                    "Other"
+                ]
+            },
+            "486905": {
+                "groups": [
+                    "Novosibirsk SU",
+                    "Other"
+                ]
+            },
+            "486906": {
+                "groups": [
+                    "AUCA",
+                    "Other"
+                ]
+            },
+            "486907": {
+                "groups": [
+                    "MEPhI",
+                    "Moscow"
+                ]
+            },
+            "486908": {
+                "groups": [
+                    "Ufa SATU",
+                    "Other"
+                ]
+            },
+            "486910": {
+                "groups": [
+                    "Budenny Mil Telecom A",
+                    "SPb"
+                ]
+            }
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#e6194bff",
+            "B": "#3cb44bff",
+            "C": "#ffe119ff",
+            "D": "#4363d8ff",
+            "E": "#f58231ff",
+            "F": "#42d4f4ff",
+            "G": "#f032e6ff",
+            "H": "#fabed4ff",
+            "I": "#469990ff",
+            "J": "#dcbeffff",
+            "K": "#9a6324ff"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 4
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 8
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 12
+                }
+            ]
+        }
     }
-  },
-  "teamOverrides": {
-"486860": {"shortname": "SPb HSE 1: Lemon Tree", "groups": ["SPb HSE", "SPb"]},
-"486861": {"shortname": "SPb ITMO: Insert your name", "groups": ["SPb ITMO", "SPb"]},
-"486862": {"shortname": "HSE: Overtrained", "groups": ["HSE", "Moscow"]},
-"486863": {"shortname": "HSE: Sleeveless shorts", "groups": ["HSE", "Moscow"]},
-"486864": {"shortname": "Moscow IPT: Malaya Bronnaya", "groups": ["Moscow IPT", "Moscow"]},
-"486865": {"shortname": "St. Petersburg SU: Cheba Kings", "groups": ["St. Petersburg SU", "SPb"]},
-"486866": {"shortname": "St. Petersburg SU: LOUD Enough", "groups": ["St. Petersburg SU", "SPb"]},
-"486867": {"shortname": "St. Petersburg SU: 25", "groups": ["St. Petersburg SU", "SPb"]},
-"486868": {"shortname": "Belarusian SU: 1", "groups": ["Belarusian SU", "Belarus"]},
-"486869": {"shortname": "Moscow IPT: LinkCat", "groups": ["Moscow IPT", "Moscow"]},
-"486870": {"shortname": "St. Petersburg SU: glasses", "groups": ["St. Petersburg SU", "SPb"]},
-"486871": {"shortname": "Belarusian SU: 3", "groups": ["Belarusian SU", "Belarus"]},
-"486872": {"shortname": "SPb ITMO: pengzoo", "groups": ["SPb ITMO", "SPb"]},
-"486873": {"shortname": "Moscow SU: Nonames", "groups": ["Moscow SU", "Moscow"]},
-"486874": {"shortname": "St. Petersburg SU: computer", "groups": ["St. Petersburg SU", "SPb"]},
-"486875": {"shortname": "SPb ITMO: 25", "groups": ["SPb ITMO", "SPb"]},
-"486876": {"shortname": "IITU: 1", "groups": ["IITU", "Other"]},
-"486877": {"shortname": "Saratov SU: N", "groups": ["Saratov SU", "Other"]},
-"486878": {"shortname": "Tbilisi Freeuni: 1", "groups": ["Tbilisi Freeuni", "Other"]},
-"486879": {"shortname": "Innopolis U: V", "groups": ["Innopolis U", "Other"]},
-"486880": {"shortname": "Moscow IPT: 42NA", "groups": ["Moscow IPT", "Moscow"]},
-"486881": {"shortname": "Belarusian SU: 2", "groups": ["Belarusian SU", "Belarus"]},
-"486882": {"shortname": "SPb HSE: VLADBUK", "groups": ["SPb HSE", "SPb"]},
-"486883": {"shortname": "SPb ITMO: Unexpected Value", "groups": ["SPb ITMO", "SPb"]},
-"486884": {"shortname": "Yerevan SU: New Era", "groups": ["Yerevan SU", "Other"]},
-"486885": {"shortname": "Moscow SU: boloto", "groups": ["Moscow SU", "Moscow"]},
-"486886": {"shortname": "HSE: Smetana fans", "groups": ["HSE", "Moscow"]},
-"486887": {"shortname": "Belarusian SUIR: #2", "groups": ["Belarusian SUIR", "Belarus"]},
-"486888": {"shortname": "SDU 1: Qataly degen ne?", "groups": ["SDU", "Other"]},
-"486889": {"shortname": "Tolyatti SU: A", "groups": ["Tolyatti SU", "Other"]},
-"486890": {"shortname": "Penza SU: E", "groups": ["Penza SU", "Other"]},
-"486891": {"shortname": "Kazan FU: AJ", "groups": ["Kazan FU", "Other"]},
-"486892": {"shortname": "Ural FU: CheezeKEK", "groups": ["Ural FU", "Other"]},
-"486893": {"shortname": "Kazakh-British TU: 1", "groups": ["Kazakh-British TU", "Kazakh"]},
-"486894": {"shortname": "Nazarbayev U: 1", "groups": ["Nazarbayev U", "Kazakh"]},
-"486895": {"shortname": "Izhevsk STU: Ne nado dumat", "groups": ["Izhevsk STU", "Other"]},
-"486896": {"shortname": "NNSU: 1", "groups": ["NNSU", "Other"]},
-"486897": {"shortname": "Moscow AI: #3", "groups": ["Moscow AI", "Moscow"]},
-"486898": {"shortname": "Baltic FU 1: La Squadra", "groups": ["Baltic FU", "Other"]},
-"486899": {"shortname": "Nizhny Novgorod HSE: 1", "groups": ["Nizhny Novgorod HSE", "Other"]},
-"486900": {"shortname": "Siberian SUTI: Santa-Monika", "groups": ["Siberian SUTI", "Other"]},
-"486901": {"shortname": "Latvia: LU 1", "groups": ["Latvia", "Other"]},
-"486902": {"shortname": "TUIT: MathX", "groups": ["TUIT", "Other"]},
-"486903": {"shortname": "MISiS: ToMcKoE 4aellutuE", "groups": ["MISiS", "Moscow"]},
-"486904": {"shortname": "YaroslavlSU 1: Crblnge team", "groups": ["YaroslavlSU", "Other"]},
-"486905": {"shortname": "Novosibirsk SU 1: Mufasa", "groups": ["Novosibirsk SU", "Other"]},
-"486906": {"shortname": "AUCA: #1 Turtles", "groups": ["AUCA", "Other"]},
-"486907": {"shortname": "MEPhI: SoZo", "groups": ["MEPhI", "Moscow"]},
-"486908": {"shortname": "Ufa SATU: Electric Funeral", "groups": ["Ufa SATU", "Other"]},
-"486910": {"shortname": "Budenny Mil Telecom A: 1", "groups": ["Budenny Mil Telecom A", "SPb"]}
-  },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"}
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-    ]
-  },
-  "scoreboardOverrides": {
-    "penaltyPerWrongAttempt": 20
-  }
-}
+]

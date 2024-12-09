@@ -1,5 +1,6 @@
-{
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": true
-  }
-}
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": true
+    }
+]

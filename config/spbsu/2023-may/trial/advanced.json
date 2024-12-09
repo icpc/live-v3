@@ -1,37 +1,78 @@
-{
-  "teamOverrides": {
-    "239": {"shortname": "Monad.Reader","groups": ["test"]},
-    "2391": {"shortname": "(1к) Stardust Crusaders","groups": ["test","1"]}
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-    ]
-  },
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": true
-  },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"},
-    "L":{"color":"#fffac8"},
-    "M":{"color":"#800000"},
-    "N":{"color":"#aaffc3"},
-    "O":{"color":"#000075"},
-    "P":{"color":"#a9a9a9"},
-    "Q":{"color":"#e6194B"},
-    "R":{"color":"#3cb44b"},
-    "S":{"color":"#ffe119"}
-  }
-}
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": true
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "239": "Monad.Reader",
+            "2391": "(1к) Stardust Crusaders"
+        }
+    },
+    {
+        "type": "override_teams",
+        "rules": {
+            "239": {
+                "groups": [
+                    "test"
+                ]
+            },
+            "2391": {
+                "groups": [
+                    "test",
+                    "1"
+                ]
+            }
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#e6194bff",
+            "B": "#3cb44bff",
+            "C": "#ffe119ff",
+            "D": "#4363d8ff",
+            "E": "#f58231ff",
+            "F": "#42d4f4ff",
+            "G": "#f032e6ff",
+            "H": "#fabed4ff",
+            "I": "#469990ff",
+            "J": "#dcbeffff",
+            "K": "#9a6324ff",
+            "L": "#fffac8ff",
+            "M": "#800000ff",
+            "N": "#aaffc3ff",
+            "O": "#000075ff",
+            "P": "#a9a9a9ff",
+            "Q": "#e6194bff",
+            "R": "#3cb44bff",
+            "S": "#ffe119ff"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 4
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 8
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 12
+                }
+            ]
+        }
+    }
+]

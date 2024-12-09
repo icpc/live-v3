@@ -1,23 +1,29 @@
-{
-  "awardsSettings": {
-    "medals": [
-      {
-        "id": "qualified",
-        "color": "GOLD",
-        "citation": "Qualified to finals",
-        "maxRank": 16
-      }
-    ]
-  },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H1":{"color":"#fabed4"},
-    "H2":{"color":"#469990"}
-  }
-}
+[
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#e6194bff",
+            "B": "#3cb44bff",
+            "C": "#ffe119ff",
+            "D": "#4363d8ff",
+            "E": "#f58231ff",
+            "F": "#42d4f4ff",
+            "G": "#f032e6ff",
+            "H1": "#fabed4ff",
+            "H2": "#469990ff"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "qualified",
+                    "citation": "Qualified to finals",
+                    "color": "GOLD",
+                    "maxRank": 16
+                }
+            ]
+        }
+    }
+]

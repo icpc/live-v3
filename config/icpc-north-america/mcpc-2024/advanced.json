@@ -1,279 +1,122 @@
-{
-    "scoreboardOverrides": {
+[
+    {
+        "type": "override_scoreboard_settings",
         "penaltyPerWrongAttempt": 20,
         "showTeamsWithoutSubmissions": false
-
     },
-    "queueSettings": {
+    {
+        "type": "override_organization_display_names",
+        "rules": {
+            "illinois.edu": "UofI at Urbana–Champaign",
+            "rose-hulman.edu": "Rose-Hulman IofT",
+            "uchicago.edu": "U of Chicago",
+            "cod.edu": "C of DuPage",
+            "vanderbilt.edu": "Vanderbilt U",
+            "webster.edu": "Webster U",
+            "tnstate.edu": "Tennessee SU",
+            "harding.edu": "Harding U",
+            "hendrix.edu": "Hendrix C",
+            "iit.edu": "Illinois I of Tech",
+            "kysu.edu": "Kentucky SU",
+            "lindenwood.edu": "Lindenwood U",
+            "uafs.edu": "U of Arkansas – Fort Smith",
+            "lipscomb.edu": "Lipscomb U",
+            "eku.edu": "Eastern Kentucky U",
+            "missouri.edu": "U of Missouri",
+            "northwestern.edu": "Northwestern U",
+            "saumag.edu": "Southern Arkansas U",
+            "murraystate.edu": "Murray SU",
+            "nku.edu": "Northern Kentucky U",
+            "nwmissouri.edu": "Northwest Missouri SU",
+            "park.edu": "Park U",
+            "uark.edu": "U of Arkansas",
+            "semo.edu": "Southeast Missouri SU",
+            "rhodes.edu": "Rhodes C",
+            "depauw.edu": "DePauw U",
+            "sbuniv.edu": "Southwest Baptist U",
+            "slu.edu": "Saint Louis U",
+            "berea.edu": "Berea C",
+            "tntech.edu": "Tennessee TU",
+            "uky.edu": "U of Kentucky",
+            "louisville.edu": "U of Louisville",
+            "utm.edu": "U of Tennessee at Martin",
+            "wustl.edu": "Washington U in St. Louis"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "42": "C of DuPage: 1",
+            "16": "Harding U: and",
+            "14": "Harding U: Black",
+            "15": "Harding U: Gold",
+            "70": "Hendrix C: Black",
+            "69": "Hendrix C: Orange",
+            "44": "Illinois I of Tech: 1",
+            "75": "Kentucky SU: Thorobreds",
+            "3": "Lindenwood U: I",
+            "21": "Lindenwood U: II",
+            "63": "U of Arkansas – Fort Smith: Lions 1",
+            "64": "U of Arkansas – Fort Smith: Lions 2",
+            "65": "U of Arkansas – Fort Smith: Lions 3",
+            "66": "U of Arkansas – Fort Smith: Lions 4",
+            "18": "Lipscomb U: Gold",
+            "17": "Lipscomb U: Purple",
+            "72": "Murray SU: Murray State Racers",
+            "48": "Northern Kentucky U: 1",
+            "38": "Rhodes C: A",
+            "39": "Rhodes C: B",
+            "40": "Rhodes C: C",
+            "41": "Rhodes C: D",
+            "12": "Southwest Baptist U: purple",
+            "13": "Southwest Baptist U: white",
+            "10": "Saint Louis U: Blue",
+            "11": "Saint Louis U: White",
+            "19": "Tennessee TU: 1",
+            "20": "Tennessee TU: 2",
+            "47": "U of Chicago: 3",
+            "81": "U of Chicago: Red",
+            "9": "U of Kentucky: algorithmics",
+            "8": "U of Kentucky: blue",
+            "67": "U of Kentucky: qbit",
+            "7": "U of Kentucky: Wildcats",
+            "55": "U of Louisville: Black",
+            "54": "U of Louisville: Red",
+            "56": "U of Louisville: White",
+            "57": "U of Louisville: Yellow",
+            "1": "U of Tennessee at Martin: 1",
+            "2": "U of Tennessee at Martin: 2",
+            "78": "U of Tennessee at Martin: 3",
+            "73": "Washington U in St. Louis: 1",
+            "74": "Washington U in St. Louis: 2"
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "airfaregrants": "#e6194bff",
+            "alwaysknowwhereyourtowelis": "#3cb44bff",
+            "bigand": "#ffe119ff",
+            "cascadecentrality": "#4363d8ff",
+            "connectedness": "#f58231ff",
+            "emoticons2": "#42d4f4ff",
+            "enchantedmaze": "#f032e6ff",
+            "guardevaders": "#fabed4ff",
+            "palindromicwordsearch": "#469990ff",
+            "pascalmultiple": "#dcbeffff",
+            "rectangletiling": "#9a6324ff",
+            "sauna": "#fffac8ff",
+            "spaceelevator": "#800000ff",
+            "upanddown": "#aaffc3ff",
+            "whichnumberkindisit2": "#000075ff"
+        }
+    },
+    {
+        "type": "override_queue",
         "maxQueueSize": 5
-    },    
-
-    "teamOverrides": {
-        "42": {
-            "displayName": "C of DuPage: 1"
-        },
-        "16": {
-            "displayName": "Harding U: and"
-        },
-        "14": {
-            "displayName": "Harding U: Black"
-        },
-        "15": {
-            "displayName": "Harding U: Gold"
-        },
-        "70": {
-            "displayName": "Hendrix C: Black"
-        },
-        "69": {
-            "displayName": "Hendrix C: Orange"
-        },
-        "44": {
-            "displayName": "Illinois I of Tech: 1"
-        },
-        "75": {
-            "displayName": "Kentucky SU: Thorobreds"
-        },
-        "3": {
-            "displayName": "Lindenwood U: I"
-        },
-        "21": {
-            "displayName": "Lindenwood U: II"
-        },
-        "63": {
-            "displayName": "U of Arkansas – Fort Smith: Lions 1"
-        },
-        "64": {
-            "displayName": "U of Arkansas – Fort Smith: Lions 2"
-        },
-        "65": {
-            "displayName": "U of Arkansas – Fort Smith: Lions 3"
-        },
-        "66": {
-            "displayName": "U of Arkansas – Fort Smith: Lions 4"
-        },
-        "18": {
-            "displayName": "Lipscomb U: Gold"
-        },
-        "17": {
-            "displayName": "Lipscomb U: Purple"
-        },
-        "72": {
-            "displayName": "Murray SU: Murray State Racers"
-        },
-        "48": {
-            "displayName": "Northern Kentucky U: 1"
-        },
-        "38": {
-            "displayName": "Rhodes C: A"
-        },
-        "39": {
-            "displayName": "Rhodes C: B"
-        },
-        "40": {
-            "displayName": "Rhodes C: C"
-        },
-        "41": {
-            "displayName": "Rhodes C: D"
-        },
-        "12": {
-            "displayName": "Southwest Baptist U: purple"
-        },
-        "13": {
-            "displayName": "Southwest Baptist U: white"
-        },
-        "10": {
-            "displayName": "Saint Louis U: Blue"
-        },
-        "11": {
-            "displayName": "Saint Louis U: White"
-        },
-        "19": {
-            "displayName": "Tennessee TU: 1"
-        },
-        "20": {
-            "displayName": "Tennessee TU: 2"
-        },
-        "47": {
-            "displayName": "U of Chicago: 3"
-        },
-        "81": {
-            "displayName": "U of Chicago: Red"
-        },
-        "9": {
-            "displayName": "U of Kentucky: algorithmics"
-        },
-        "8": {
-            "displayName": "U of Kentucky: blue"
-        },
-        "67": {
-            "displayName": "U of Kentucky: qbit"
-        },
-        "7": {
-            "displayName": "U of Kentucky: Wildcats"
-        },
-        "55": {
-            "displayName": "U of Louisville: Black"
-        },
-        "54": {
-            "displayName": "U of Louisville: Red"
-        },
-        "56": {
-            "displayName": "U of Louisville: White"
-        },
-        "57": {
-            "displayName": "U of Louisville: Yellow"
-        },
-        "1": {
-            "displayName": "U of Tennessee at Martin: 1"
-        },
-        "2": {
-            "displayName": "U of Tennessee at Martin: 2"
-        },
-        "78": {
-            "displayName": "U of Tennessee at Martin: 3"
-        },
-        "73": {
-            "displayName": "Washington U in St. Louis: 1"
-        },
-        "74": {
-            "displayName": "Washington U in St. Louis: 2"
-        }
-    },    
-    "teamOverrideTemplate": {"displayName": "{orgDisplayName}: {clicsTeamDisplayName}"},
-    "organizationOverrides": {
-        "illinois.edu": {
-            "displayName": "UofI at Urbana–Champaign"
-        },
-        "rose-hulman.edu": {
-            "displayName": "Rose-Hulman IofT"
-        },
-        "uchicago.edu": {
-            "displayName": "U of Chicago"
-        },
-        "cod.edu": {
-            "displayName": "C of DuPage"
-        },
-        "vanderbilt.edu": {
-            "displayName": "Vanderbilt U"
-        },
-        "webster.edu": {
-            "displayName": "Webster U"
-        },
-        "tnstate.edu": {
-            "displayName": "Tennessee SU"
-        },
-        "harding.edu": {
-            "displayName": "Harding U"
-        },
-        "hendrix.edu": {
-            "displayName": "Hendrix C"
-        },
-        "iit.edu": {
-            "displayName": "Illinois I of Tech"
-        },
-        "kysu.edu": {
-            "displayName": "Kentucky SU"
-        },
-        "lindenwood.edu": {
-            "displayName": "Lindenwood U"
-        },
-        "uafs.edu": {
-            "displayName": "U of Arkansas – Fort Smith"
-        },
-        "lipscomb.edu": {
-            "displayName": "Lipscomb U"
-        },
-        "eku.edu": {
-            "displayName": "Eastern Kentucky U"
-        },
-        "missouri.edu": {
-            "displayName": "U of Missouri"
-        },
-        "northwestern.edu": {
-            "displayName": "Northwestern U"
-        },
-        "saumag.edu": {
-            "displayName": "Southern Arkansas U"
-        },
-        "murraystate.edu": {
-            "displayName": "Murray SU"
-        },
-        "nku.edu": {
-            "displayName": "Northern Kentucky U"
-        },
-        "nwmissouri.edu": {
-            "displayName": "Northwest Missouri SU"
-        },
-        "park.edu": {
-            "displayName": "Park U"
-        },
-        "uark.edu": {
-            "displayName": "U of Arkansas"
-        },
-        "semo.edu": {
-            "displayName": "Southeast Missouri SU"
-        },
-        "rhodes.edu": {
-            "displayName": "Rhodes C"
-        },
-        "depauw.edu": {
-            "displayName": "DePauw U"
-        },
-        "sbuniv.edu": {
-            "displayName": "Southwest Baptist U"
-        },
-        "slu.edu": {
-            "displayName": "Saint Louis U"
-        },
-        "berea.edu": {
-            "displayName": "Berea C"
-        },
-        "tntech.edu": {
-            "displayName": "Tennessee TU"
-        },
-        "uky.edu": {
-            "displayName": "U of Kentucky"
-        },
-        "louisville.edu": {
-            "displayName": "U of Louisville"
-        },
-        "utm.edu": {
-            "displayName": "U of Tennessee at Martin"
-        },
-        "wustl.edu": {
-            "displayName": "Washington U in St. Louis"
-        }
-    },
-  "problemOverrides": {
-        "airfaregrants": {"color":"#e6194B"
-        },
-        "alwaysknowwhereyourtowelis": {"color":"#3cb44b"
-        },
-        "bigand": {"color":"#ffe119"
-        },
-        "cascadecentrality": {"color":"#4363d8"
-        },
-        "connectedness": {"color":"#f58231"
-        },
-        "emoticons2": {"color":"#42d4f4"
-        },
-        "enchantedmaze": {"color":"#f032e6"
-        },
-        "guardevaders": {"color":"#fabed4"
-        },
-        "palindromicwordsearch": {"color":"#469990"
-        },
-        "pascalmultiple": {"color":"#dcbeff"
-        },
-        "rectangletiling": {"color":"#9A6324"
-        },
-        "sauna": {"color":"#fffac8"
-        },
-        "spaceelevator": {"color":"#800000"
-        },
-        "upanddown": {"color":"#aaffc3"
-        },
-        "whichnumberkindisit2": {"color":"#000075"
-        }    
-  }    
-}
+    }
+]

@@ -1,36 +1,57 @@
-{
-"teamOverrideTemplate": {
-  "medias": {
-    "achievement": {
-      "type": "Image",
-      "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/achievement/{teamId}.svg"
+[
+    {
+        "type": "override_team_template",
+        "displayName": "{org.displayName}",
+        "medias": {
+            "achievement": {
+                "type": "Image",
+                "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/achievement/{team.id}.svg"
+            },
+            "photo": {
+                "type": "Image",
+                "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/team_photos/team-{team.id}.jpg"
+            },
+            "record": {
+                "type": "Video",
+                "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/team_videos/team-{team.id}.MP4"
+            },
+            "camera": {
+                "type": "M2tsVideo",
+                "url": "https://arc.live.kbats.ru/mock-stream/mpeg-ts?background=webcam.mp4&top_text={org.displayName}"
+            },
+            "screen": {
+                "type": "M2tsVideo",
+                "url": "https://arc.live.kbats.ru/mock-stream/mpeg-ts?background=desktop.mp4&top_text={org.displayName}"
+            }
+        }
     },
-    "photo": {
-      "type": "Image",
-      "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/team_photos/team-{teamId}.jpg"
+    {
+        "type": "override_team_display_names",
+        "rules": {}
     },
-    "record": {
-      "type": "Video",
-      "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/team_videos/team-{teamId}.MP4"
-    },
-    "camera": {
-      "type": "M2tsVideo",
-      "url": "https://arc.live.kbats.ru/mock-stream/mpeg-ts?background=webcam.mp4&top_text={orgDisplayName}"
-    },
-    "screen": {
-      "type": "M2tsVideo",
-      "url": "https://arc.live.kbats.ru/mock-stream/mpeg-ts?background=desktop.mp4&top_text={orgDisplayName}"
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 4
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 8
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 12
+                }
+            ]
+        }
     }
-  },
-  "displayName": "{orgDisplayName}" 
-},
-"teamOverrides": {
-},
-"awardsSettings": {
-  "medals": [
-    {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-    {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
-    {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-  ]
-}
-}
+]

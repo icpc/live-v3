@@ -14,6 +14,7 @@ import kotlin.time.Duration
  * @param fullName Full name of the team. Will be mostly shown on admin pages.
  * @param displayName Name of the team shown in most places.
  * @param groups The list of the groups team belongs too.
+ * @param extraGroups The list of the groups to add to team.
  * @param organizationId The id of organization team comes from
  * @param hashTag Team hashtag. Can be shown on some team related pages
  * @param medias Map of urls to team related medias. E.g., team photo or some kind of video from workstation.
@@ -28,6 +29,7 @@ public class TeamInfoOverride(
     @JsonNames("name") public val fullName: String? = null,
     @JsonNames("shortname") public val displayName: String? = null,
     public val groups: List<GroupId>? = null,
+    public val extraGroups: List<GroupId>? = null,
     public val organizationId: OrganizationId? = null,
     public val hashTag: String? = null,
     public val medias: Map<TeamMediaType, MediaType?>? = null,

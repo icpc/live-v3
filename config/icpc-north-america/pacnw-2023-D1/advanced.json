@@ -1,123 +1,129 @@
-{
-    "groupOverrides": {
-        "330003": {
-            "isHidden": true
+[
+    {
+        "type": "override_groups",
+        "rules": {
+            "330003": {
+                "isHidden": true
+            }
         }
     },
-    "problemOverrides": {
-        "ThreeDice-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "Alchemy-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "ChampernowneCount-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "TriangleContainment-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "ColorTubes-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "FoodProcessor-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "DigitsofUnity-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "BranchManager-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "CountingSatellites-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "SunandMoon-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "AdvertisingICPC-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "ExponentExchange-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "LoneKnight-1": {
-            "unsolvedColor": "#808080ff"
-        },
-        "ThreeDice-2": {
-            "isHidden": true
-        },
-        "Alchemy-2": {
-            "isHidden": true
-        },
-        "ChampernowneCount-2": {
-            "isHidden": true
-        },
-        "HunttheWumpus-2": {
-            "isHidden": true
-        },
-        "ColorTubes-2": {
-            "isHidden": true
-        },
-        "FoodProcessor-2": {
-            "isHidden": true
-        },
-        "FadingWind-2": {
-            "isHidden": true
-        },
-        "CreativeAccounting-2": {
-            "isHidden": true
-        },
-        "ICouldHaveWon-2": {
-            "isHidden": true
-        },
-        "SunandMoon-2": {
-            "isHidden": true
-        },
-        "ChocolateChipFabrication-2": {
-            "isHidden": true
-        },
-        "DistinctParityExcess-2": {
-            "isHidden": true
-        },
-        "RestaurantOpening-2": {
-            "isHidden": true
-        },
-        "BlueberryWaffle-3": {
-            "isHidden": true
-        },
-        "ProfitableTrip-3": {
-            "isHidden": true
-        },
-        "ChampernowneCount-3": {
-            "isHidden": true
-        },
-        "TriangleContainment-3": {
-            "isHidden": true
-        },
-        "ColorTubes-3": {
-            "isHidden": true
-        },
-        "FoodProcessor-3": {
-            "isHidden": true
-        },
-        "GreedyIncreasingSubsequences-3": {
-            "isHidden": true
-        },
-        "BranchManager-3": {
-            "isHidden": true
-        },
-        "ICouldHaveWon-3": {
-            "isHidden": true
-        },
-        "SunandMoon-3": {
-            "isHidden": true
-        },
-        "EverythingIsANail-3": {
-            "isHidden": true
-        },
-        "FamilyVisits-3": {
-            "isHidden": true
+    {
+        "type": "override_problems",
+        "rules": {
+            "ThreeDice-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "Alchemy-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "ChampernowneCount-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "TriangleContainment-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "ColorTubes-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "FoodProcessor-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "DigitsofUnity-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "BranchManager-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "CountingSatellites-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "SunandMoon-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "AdvertisingICPC-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "ExponentExchange-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "LoneKnight-1": {
+                "unsolvedColor": "#808080ff"
+            },
+            "ThreeDice-2": {
+                "isHidden": true
+            },
+            "Alchemy-2": {
+                "isHidden": true
+            },
+            "ChampernowneCount-2": {
+                "isHidden": true
+            },
+            "HunttheWumpus-2": {
+                "isHidden": true
+            },
+            "ColorTubes-2": {
+                "isHidden": true
+            },
+            "FoodProcessor-2": {
+                "isHidden": true
+            },
+            "FadingWind-2": {
+                "isHidden": true
+            },
+            "CreativeAccounting-2": {
+                "isHidden": true
+            },
+            "ICouldHaveWon-2": {
+                "isHidden": true
+            },
+            "SunandMoon-2": {
+                "isHidden": true
+            },
+            "ChocolateChipFabrication-2": {
+                "isHidden": true
+            },
+            "DistinctParityExcess-2": {
+                "isHidden": true
+            },
+            "RestaurantOpening-2": {
+                "isHidden": true
+            },
+            "BlueberryWaffle-3": {
+                "isHidden": true
+            },
+            "ProfitableTrip-3": {
+                "isHidden": true
+            },
+            "ChampernowneCount-3": {
+                "isHidden": true
+            },
+            "TriangleContainment-3": {
+                "isHidden": true
+            },
+            "ColorTubes-3": {
+                "isHidden": true
+            },
+            "FoodProcessor-3": {
+                "isHidden": true
+            },
+            "GreedyIncreasingSubsequences-3": {
+                "isHidden": true
+            },
+            "BranchManager-3": {
+                "isHidden": true
+            },
+            "ICouldHaveWon-3": {
+                "isHidden": true
+            },
+            "SunandMoon-3": {
+                "isHidden": true
+            },
+            "EverythingIsANail-3": {
+                "isHidden": true
+            },
+            "FamilyVisits-3": {
+                "isHidden": true
+            }
         }
     }
-}
+]

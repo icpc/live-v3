@@ -1,15 +1,49 @@
-{
-  "teamOverrideTemplate": {
-    "medias": {
-      "achievement": {
-        "type": "Image",
-        "url": "http://localhost:8080/api/overlay/svgAchievement/easy-achivements.svg?teamId={teamId}"
-      }
+[
+    {
+        "type": "add_custom_value",
+        "name": "svgInfo",
+        "rules": {
+            "486860": "Safonov | Gorokhovskii | Fedoseev"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "medias": {
+            "achievement": {
+                "type": "Image",
+                "url": "http://localhost:8080/api/overlay/svgAchievement/easy-achivements.svg?teamId={team.id}"
+            }
+        }
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "486860": "SPb HSE 1: Lemon Tree",
+            "486908": "Ufa SATU: Electric Funeral",
+            "486910": "Budenny Mil Telecom A: 1"
+        }
+    },
+    {
+        "type": "override_teams",
+        "rules": {
+            "486860": {
+                "groups": [
+                    "SPb HSE",
+                    "SPb"
+                ]
+            },
+            "486908": {
+                "groups": [
+                    "Ufa SATU",
+                    "Other"
+                ]
+            },
+            "486910": {
+                "groups": [
+                    "Budenny Mil Telecom A",
+                    "SPb"
+                ]
+            }
+        }
     }
-  },
-  "teamOverrides": {
-"486860": {"displayName": "SPb HSE 1: Lemon Tree", "groups": ["SPb HSE", "SPb"], "customFields": {"svgInfo": "Safonov | Gorokhovskii | Fedoseev"}},
-"486908": {"displayName": "Ufa SATU: Electric Funeral", "groups": ["Ufa SATU", "Other"]},
-"486910": {"displayName": "Budenny Mil Telecom A: 1", "groups": ["Budenny Mil Telecom A", "SPb"]}
-  }
-}
+]

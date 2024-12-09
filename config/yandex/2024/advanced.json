@@ -1,77 +1,120 @@
-{    
-   "teamNameRegexes": {"customFields": {"funnyName": {"(.*)" : "$1"}}}, 
-  "teamIdRegexes": {
-    "groupRegex": {
-      "staff": "^STAFF.*",
-      "junior": "^JUNIOR.*",
-      "main": "^MAIN.*"
+[
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "funnyName",
+        "from": "{team.fullName}",
+        "rules": {
+            "(.*)": "$1"
+        }
     },
-    "customFields": {
-      "emoji": {
-        "^MAIN.*":"",
-        "^STAFF.*":"👨‍💼",
-        "^JUNIOR.*":"👶"
-      }
-    }
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 3},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 5}
-    ]
-  },
-"teamOverrideTemplate": {
-  "displayName": "{emoji} {funnyName}",
-  "medias": {
-    "achievement": {
-      "type": "Object",
-      "url": "/media/achievements/{teamId}.svg"
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.id}",
+        "rule": "^STAFF.*",
+        "id": "staff"
     },
-      "screen": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{peer}",
-        "url": "https://yandex.live.icpc.global",
-        "streamType": "desktop",
-        "credential": "pass"
-      },
-      "camera": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{peer}",
-        "url": "https://yandex.live.icpc.global",
-        "streamType": "webcam",
-        "credential": "pass"
-      }
-  }
-},
-    "problemOverrides": {
-        "56307/2024_11_30/LfAiJSbpdW": {
-            "color": "#e6194B",
-            "maxScore": 10
-       },
-        "56307/2024_11_30/ByUUIToiQQ": {
-            "color": "#3cb44b",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/UYBPGhDMdO": {
-            "color": "#ffe119",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/TPLL0pPVOp": {
-            "color": "#4363d8",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/bDGtOdsC8h": {
-            "color": "#f58231",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/D5mc9AceYw": {
-            "color": "#42d4f4",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/A2VKDuglQm": {
-          "color": "#f032e6",
-          "maxScore": 10
-      }
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.id}",
+        "rule": "^JUNIOR.*",
+        "id": "junior"
+    },
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.id}",
+        "rule": "^MAIN.*",
+        "id": "main"
+    },
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "emoji",
+        "from": "{team.id}",
+        "rules": {
+            "^MAIN.*": "",
+            "^STAFF.*": "👨‍💼",
+            "^JUNIOR.*": "👶"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{emoji} {funnyName}",
+        "medias": {
+            "achievement": {
+                "type": "Object",
+                "url": "/media/achievements/{team.id}.svg"
+            },
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://yandex.live.icpc.global",
+                "peerName": "{peer}",
+                "streamType": "desktop",
+                "credential": "pass"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://yandex.live.icpc.global",
+                "peerName": "{peer}",
+                "streamType": "webcam",
+                "credential": "pass"
+            }
+        }
+    },
+    {
+        "type": "override_problems",
+        "rules": {
+            "56307/2024_11_30/LfAiJSbpdW": {
+                "color": "#e6194bff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/ByUUIToiQQ": {
+                "color": "#3cb44bff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/UYBPGhDMdO": {
+                "color": "#ffe119ff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/TPLL0pPVOp": {
+                "color": "#4363d8ff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/bDGtOdsC8h": {
+                "color": "#f58231ff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/D5mc9AceYw": {
+                "color": "#42d4f4ff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/A2VKDuglQm": {
+                "color": "#f032e6ff",
+                "maxScore": 10.0
+            }
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 1
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 3
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 5
+                }
+            ]
+        }
     }
-}
+]

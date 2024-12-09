@@ -1,252 +1,208 @@
-{
-    "startTime": "2023-04-27 10:50:00",
-    "freezeTimeSeconds": 14400,
-    "teamOverrides": {
-        "7001": {
-            "fullName": "ВолгГТУ 1 (Чупинин, Сафошкин, Олейников))",
-            "displayName": "ВолгГТУ 1",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7002": {
-            "fullName": "ВолгГТУ 2 (Железняков, Ковальчук, Никонов)",
-            "displayName": "ВолгГТУ 2",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7003": {
-            "fullName": "УУНиТ (Парфенов, Татьянин, Зайцев)",
-            "displayName": "УУНиТ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7004": {
-            "fullName": "ЮФУ (Жуйков, Лавшонок)",
-            "displayName": "ЮФУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7005": {
-            "fullName": "СмолГУ (Гращенков, Солдатов, Моторин)",
-            "displayName": "СмолГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7006": {
-            "fullName": "ОрёлГУ (Каширин, Никулин, Яковлев)",
-            "displayName": "ОрёлГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7007": {
-            "fullName": "СурГУ (Бородин, Куанчилеев, Бельтюков)",
-            "displayName": "СурГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7008": {
-            "fullName": "ИТМО (Кутасин, Сенькин, Хритоненко)",
-            "displayName": "ИТМО",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7009": {
-            "fullName": "ПенГУ 1 (Калугин, Свинарев, Кареев)",
-            "displayName": "ПенГУ 1",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7010": {
-            "fullName": "ПенГУ 2 (Гришин, Дорофеев, Абузяров)",
-            "displayName": "ПенГУ 2",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7011": {
-            "fullName": "ВУНЦ ВВА 1 (Ижан, Золотов, Орочко)",
-            "displayName": "ВУНЦ ВВА 1",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7012": {
-            "fullName": "ВУНЦ ВВА 2 (Порядин, Шемко, Шерстяных)",
-            "displayName": "ВУНЦ ВВА 2",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7013": {
-            "fullName": "ВГТУ 1 (Дедов, Цурихин, Чередников)",
-            "displayName": "ВГТУ 1",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7014": {
-            "fullName": "ВГУ 1 (Бережнов, Новоточинов, Шишко)",
-            "displayName": "ВГУ 1",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7015": {
-            "fullName": "ВГУ 2 (Скарга, Рогачёв, Улезько)",
-            "displayName": "ВГУ 2",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7016": {
-            "fullName": "МелГУ (Тимиров, Чепурной)",
-            "displayName": "МелГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7017": {
-            "fullName": "Иннополис ИУ (Печерский, Хайруллин, Дюдин)",
-            "displayName": "Иннополис ИУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7018": {
-            "fullName": "ТверГУ (Герасимов, Дёмин, Новиков)",
-            "displayName": "ТверГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7019": {
-            "fullName": "МФТИ (Агох, Бобров, Дивильковский)",
-            "displayName": "МФТИ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7020": {
-            "fullName": "СГУ (Родин, Москвитин, Сухова)",
-            "displayName": "СГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7021": {
-            "fullName": "РГРГУ (Харитонов, Воробьёв, Двойнин)",
-            "displayName": "РГРГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7022": {
-            "fullName": "ОГУ (Курынов, Белый, Сукманюк)",
-            "displayName": "ОГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7023": {
-            "fullName": "НовГУ (Антонов, Тенькаев, Михайлов)",
-            "displayName": "НовГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7024": {
-            "fullName": "МИСиС 1 (Лёвшин, Фёдоров, Шалимов)",
-            "displayName": "МИСиС 1",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7025": {
-            "fullName": "МИСиС 2 (Акманов, Волков, Стрючков)",
-            "displayName": "МИСиС 2",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7026": {
-            "fullName": "МИФИ (Боголюбов, Гуков, Захаров)",
-            "displayName": "МИФИ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        },
-        "7027": {
-            "fullName": "ЧГУ (Уматкереев, Гишлакаев, Асабаев)",
-            "displayName": "ЧГУ",
-            "groups": [
-            ],
-            "medias": {
-            }
-        }
+[
+    {
+        "type": "override_times",
+        "startTime": "2023-04-27 10:50:00 +02:00",
+        "freezeTimeSeconds": 14400
     },
-    "problemOverrides": {
-        "A": {
-            "fullName": "Аналитические выкладки"
-        },
-        "B": {
-            "fullName": "Бросаем на заказ"
-        },
-        "C": {
-            "fullName": "Выбор нумерации"
-        },
-        "D": {
-            "fullName": "Гольф"
-        },
-        "E": {
-            "fullName": "Двигайся оптимально"
-        },
-        "F": {
-            "fullName": "Есть ли простое продолжение?"
-        },
-        "G": {
-            "fullName": "Ёлки... Забыл пароль..."
-        },
-        "H": {
-            "fullName": "Журналистское расследование"
-        }
-    },
-    "scoreboardOverrides": {
+    {
+        "type": "override_scoreboard_settings",
         "penaltyPerWrongAttempt": 20,
         "penaltyRoundingMode": "each_submission_down_to_minute"
+    },
+    {
+        "type": "override_teams",
+        "rules": {
+            "7001": {
+                "fullName": "ВолгГТУ 1 (Чупинин, Сафошкин, Олейников))",
+                "displayName": "ВолгГТУ 1",
+                "groups": [],
+                "medias": {}
+            },
+            "7002": {
+                "fullName": "ВолгГТУ 2 (Железняков, Ковальчук, Никонов)",
+                "displayName": "ВолгГТУ 2",
+                "groups": [],
+                "medias": {}
+            },
+            "7003": {
+                "fullName": "УУНиТ (Парфенов, Татьянин, Зайцев)",
+                "displayName": "УУНиТ",
+                "groups": [],
+                "medias": {}
+            },
+            "7004": {
+                "fullName": "ЮФУ (Жуйков, Лавшонок)",
+                "displayName": "ЮФУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7005": {
+                "fullName": "СмолГУ (Гращенков, Солдатов, Моторин)",
+                "displayName": "СмолГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7006": {
+                "fullName": "ОрёлГУ (Каширин, Никулин, Яковлев)",
+                "displayName": "ОрёлГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7007": {
+                "fullName": "СурГУ (Бородин, Куанчилеев, Бельтюков)",
+                "displayName": "СурГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7008": {
+                "fullName": "ИТМО (Кутасин, Сенькин, Хритоненко)",
+                "displayName": "ИТМО",
+                "groups": [],
+                "medias": {}
+            },
+            "7009": {
+                "fullName": "ПенГУ 1 (Калугин, Свинарев, Кареев)",
+                "displayName": "ПенГУ 1",
+                "groups": [],
+                "medias": {}
+            },
+            "7010": {
+                "fullName": "ПенГУ 2 (Гришин, Дорофеев, Абузяров)",
+                "displayName": "ПенГУ 2",
+                "groups": [],
+                "medias": {}
+            },
+            "7011": {
+                "fullName": "ВУНЦ ВВА 1 (Ижан, Золотов, Орочко)",
+                "displayName": "ВУНЦ ВВА 1",
+                "groups": [],
+                "medias": {}
+            },
+            "7012": {
+                "fullName": "ВУНЦ ВВА 2 (Порядин, Шемко, Шерстяных)",
+                "displayName": "ВУНЦ ВВА 2",
+                "groups": [],
+                "medias": {}
+            },
+            "7013": {
+                "fullName": "ВГТУ 1 (Дедов, Цурихин, Чередников)",
+                "displayName": "ВГТУ 1",
+                "groups": [],
+                "medias": {}
+            },
+            "7014": {
+                "fullName": "ВГУ 1 (Бережнов, Новоточинов, Шишко)",
+                "displayName": "ВГУ 1",
+                "groups": [],
+                "medias": {}
+            },
+            "7015": {
+                "fullName": "ВГУ 2 (Скарга, Рогачёв, Улезько)",
+                "displayName": "ВГУ 2",
+                "groups": [],
+                "medias": {}
+            },
+            "7016": {
+                "fullName": "МелГУ (Тимиров, Чепурной)",
+                "displayName": "МелГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7017": {
+                "fullName": "Иннополис ИУ (Печерский, Хайруллин, Дюдин)",
+                "displayName": "Иннополис ИУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7018": {
+                "fullName": "ТверГУ (Герасимов, Дёмин, Новиков)",
+                "displayName": "ТверГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7019": {
+                "fullName": "МФТИ (Агох, Бобров, Дивильковский)",
+                "displayName": "МФТИ",
+                "groups": [],
+                "medias": {}
+            },
+            "7020": {
+                "fullName": "СГУ (Родин, Москвитин, Сухова)",
+                "displayName": "СГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7021": {
+                "fullName": "РГРГУ (Харитонов, Воробьёв, Двойнин)",
+                "displayName": "РГРГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7022": {
+                "fullName": "ОГУ (Курынов, Белый, Сукманюк)",
+                "displayName": "ОГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7023": {
+                "fullName": "НовГУ (Антонов, Тенькаев, Михайлов)",
+                "displayName": "НовГУ",
+                "groups": [],
+                "medias": {}
+            },
+            "7024": {
+                "fullName": "МИСиС 1 (Лёвшин, Фёдоров, Шалимов)",
+                "displayName": "МИСиС 1",
+                "groups": [],
+                "medias": {}
+            },
+            "7025": {
+                "fullName": "МИСиС 2 (Акманов, Волков, Стрючков)",
+                "displayName": "МИСиС 2",
+                "groups": [],
+                "medias": {}
+            },
+            "7026": {
+                "fullName": "МИФИ (Боголюбов, Гуков, Захаров)",
+                "displayName": "МИФИ",
+                "groups": [],
+                "medias": {}
+            },
+            "7027": {
+                "fullName": "ЧГУ (Уматкереев, Гишлакаев, Асабаев)",
+                "displayName": "ЧГУ",
+                "groups": [],
+                "medias": {}
+            }
+        }
+    },
+    {
+        "type": "override_problems",
+        "rules": {
+            "A": {
+                "fullName": "Аналитические выкладки"
+            },
+            "B": {
+                "fullName": "Бросаем на заказ"
+            },
+            "C": {
+                "fullName": "Выбор нумерации"
+            },
+            "D": {
+                "fullName": "Гольф"
+            },
+            "E": {
+                "fullName": "Двигайся оптимально"
+            },
+            "F": {
+                "fullName": "Есть ли простое продолжение?"
+            },
+            "G": {
+                "fullName": "Ёлки... Забыл пароль..."
+            },
+            "H": {
+                "fullName": "Журналистское расследование"
+            }
+        }
     }
-}
+]

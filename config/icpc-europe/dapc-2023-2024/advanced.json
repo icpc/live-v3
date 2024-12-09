@@ -1,17 +1,38 @@
-{
-  "groupOverrides": {
-    "Companies": {
-      "isOutOfContest": true
+[
+    {
+        "type": "override_groups",
+        "rules": {
+            "Companies": {
+                "isOutOfContest": true
+            },
+            "Spectators": {
+                "isOutOfContest": true
+            }
+        }
     },
-    "Spectators": {
-      "isOutOfContest": true
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold medal",
+                    "color": "GOLD",
+                    "maxRank": 1
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver medal",
+                    "color": "SILVER",
+                    "maxRank": 2
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze medal",
+                    "color": "BRONZE",
+                    "maxRank": 3
+                }
+            ]
+        }
     }
-  },
-  "awardsSettings": {
-    "medals": [
-      {"maxRank": 1, "id": "gold-medal", "citation": "Gold medal", "color": "GOLD"},
-      {"maxRank": 2, "id": "silver-medal", "citation": "Solver medal", "color": "SILVER"},
-      {"maxRank": 3, "id": "bronze-medal", "citation": "Bronze medal", "color": "BRONZE"}
-    ]
-  }
-}
+]

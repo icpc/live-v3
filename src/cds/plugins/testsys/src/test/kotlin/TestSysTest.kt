@@ -24,23 +24,13 @@ object TestSysTest : CdsLoadersTest() {
             TestSysSettings(
                 source = UrlOrLocalPath.Local(testDataDir.resolve("testsys.dat"))
             ),
-            AdvancedProperties(
-                teamNameRegexes = TeamRegexOverrides(
-                    groupRegex = mapOf(
-                        "outOfContest" to Regex("^\\(вк\\).*"),
-                        "firstGrade" to Regex("^\\(1к\\).*"),
-                        "school" to Regex("^\\(шк\\).*")
-                    ),
-                    customFields = mapOf(
-                        "funnyName" to RegexSet(mapOf(Regex("^(?:\\(..\\) )?(.*) \\([^)]*\\)") to "$1"))
-                    ),
-                ),
-                groupOverrides = mapOf(
-                    "outOfContest".toGroupId() to GroupInfoOverride(isOutOfContest = true)
-                ),
-                teamOverrideTemplate = TeamOverrideTemplate(
-                    displayName = "{funnyName}"
-                )
+            listOf(
+                AddGroupIfMatches("firstGrade".toGroupId(), "{team.fullName}", Regex("^\\(1к\\).*")),
+                AddGroupIfMatches("school".toGroupId(), "{team.fullName}", Regex("^\\(шк\\).*")),
+                AddGroupIfMatches("outOfContest".toGroupId(), "{team.fullName}", Regex("^\\(вк\\).*")),
+                AddCustomValueByRegex("funnyName", "{team.fullName}", RegexSet(mapOf(Regex("^(?:\\(..\\) )?(.*) \\([^)]*\\)") to "$1"))),
+                OverrideGroups(mapOf("outOfContest".toGroupId() to GroupInfoOverride(isOutOfContest = true))),
+                OverrideTeamTemplate(displayName = "{funnyName}")
             )
         )
     }

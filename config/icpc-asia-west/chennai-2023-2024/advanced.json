@@ -1,29 +1,33 @@
-{
-  "teamNameRegexes": {
-    "customFields": {
-      "funnyName": {
-        "(.*)" : "$1"
-      }
-    }    
-  },
-  "teamOverrideTemplate": {
-    "displayName": "{orgDisplayName}: {funnyName}"
-  },
-  "organizationOverrides": {
-    "Indian Institute of Technology - Bombay": {"displayName": "IIT - Bombay"},
-    "Indian Institute of Technology - Delhi": {"displayName": "IIT - Delhi"},
-    "Indian Institute of Technology - Delhi": {"displayName": "IIT - Delhi"},
-    "Indian Institute of Technology - Gandhinagar": {"displayName": "IIT - Gandhinagar"},
-    "Indian Institute of Technology - Guwahati": {"displayName": "IIT - Guwahati"},
-    "Indian Institute of Technology - Hyderabad": {"displayName": "IIT - Hyderabad"},
-    "Indian Institute of Technology - Indore": {"displayName": "IIT - Indore"},
-    "Indian Institute of Technology - Jodhpur": {"displayName": "IIT - Jodhpur"},
-    "Indian Institute of Technology - Kanpur": {"displayName": "IIT - Kanpur"},
-    "Indian Institute of Technology - Kharagpur": {"displayName": "IIT - Kharagpur"},
-    "Indian Institute of Technology - Lidia": {"displayName": "IIT - Lidia"},
-    "Indian Institute of Technology - Madras": {"displayName": "IIT - Madras"},
-    "Indian Institute of Technology - Patna": {"displayName": "IIT - Patna"},
-    "Indian Institute of Technology - Roorkee": {"displayName": "IIT - Roorkee"},
-    "Indian Institute of Technology - Ropar": {"displayName": "IIT - Ropar"}
-  }
-}
+[
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "funnyName",
+        "from": "{team.fullName}",
+        "rules": {
+            "(.*)": "$1"
+        }
+    },
+    {
+        "type": "override_organization_display_names",
+        "rules": {
+            "Indian Institute of Technology - Bombay": "IIT - Bombay",
+            "Indian Institute of Technology - Delhi": "IIT - Delhi",
+            "Indian Institute of Technology - Gandhinagar": "IIT - Gandhinagar",
+            "Indian Institute of Technology - Guwahati": "IIT - Guwahati",
+            "Indian Institute of Technology - Hyderabad": "IIT - Hyderabad",
+            "Indian Institute of Technology - Indore": "IIT - Indore",
+            "Indian Institute of Technology - Jodhpur": "IIT - Jodhpur",
+            "Indian Institute of Technology - Kanpur": "IIT - Kanpur",
+            "Indian Institute of Technology - Kharagpur": "IIT - Kharagpur",
+            "Indian Institute of Technology - Lidia": "IIT - Lidia",
+            "Indian Institute of Technology - Madras": "IIT - Madras",
+            "Indian Institute of Technology - Patna": "IIT - Patna",
+            "Indian Institute of Technology - Roorkee": "IIT - Roorkee",
+            "Indian Institute of Technology - Ropar": "IIT - Ropar"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{org.displayName}: {funnyName}"
+    }
+]

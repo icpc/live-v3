@@ -1,8 +1,8 @@
-{
-  "startTime": null,
-  "teamOverrides": {
-    "667602": {
-      "shortname": "WHATEVER"
+[
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "667602": "WHATEVER"
+        }
     }
-  }
-}
+]

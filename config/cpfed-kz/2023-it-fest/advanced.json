@@ -1,359 +1,2736 @@
-{
-    "freezeTimeSeconds": 10800,
-    "teamOverrides": {
-      "g27191=user000": {"displayName": "Ашуров Альтаир","groups": ["A","C","2"]},
-      "g27191=user001": {"displayName": "Жорабай Үмбетияр","groups": ["M","O","9"]},
-      "g27191=user002": {"displayName": "Суйрханов Мейрлан","groups": ["A","C","4"]},
-      "g27191=user003": {"displayName": "Исмағзи Исатай","groups": ["M","O","9"]},
-      "g27191=user004": {"displayName": "Aliaidar Alikhan","groups": ["A","C","3"]},
-      "g27191=user005": {"displayName": "Цой Максим","groups": ["M","O","10"]},
-      "g27191=user006": {"displayName": "Abutali Abusseiit","groups": ["M","C","3"]},
-      "g27191=user007": {"displayName": "Аубакиров Алишер","groups": ["M","O","10"]},
-      "g27191=user008": {"displayName": "Мусалимов Олжас","groups": ["M","O","11"]},
-      "g27191=user009": {"displayName": "Ертайұлы Еларыс","groups": ["A","O","11"]},
-      "g27191=user010": {"displayName": "Абдикулов Алихан","groups": ["M","C","2"]},
-      "g27191=user011": {"displayName": "Ayupov Zhandos","groups": ["M","C","4"]},
-      "g27191=user012": {"displayName": "Сабитбек Айдар","groups": ["M","O","10"]},
-      "g27191=user013": {"displayName": "Тургара Мирас","groups": ["M","O","9"]},
-      "g27191=user014": {"displayName": "Турсынбай Дінмухамед","groups": ["M","C","2"]},
-      "g27191=user015": {"displayName": "Жүнүсов Дәурен","groups": ["M","O","10"]},
-      "g27191=user016": {"displayName": "Мырзаш Бейбарыс","groups": ["A","O","10"]},
-      "g27191=user017": {"displayName": "Байжанов Нурмырза","groups": ["A","O","10"]},
-      "g27191=user018": {"displayName": "Кигаш Амир","groups": ["A","O","10"]},
-      "g27191=user019": {"displayName": "Айбасов Аскар","groups": ["A","O","9"]},
-      "g27191=user020": {"displayName": "Серазитдинов Назар","groups": ["M","O","11"]},
-      "g27191=user021": {"displayName": "Tangirkul Yerdaulet","groups": ["M","O","10"]},
-      "g27191=user022": {"displayName": "Казтаев Алишер","groups": ["A","O","10"]},
-      "g27191=user023": {"displayName": "Серикбай Нуралы","groups": ["M","C","1"]},
-      "g27191=user024": {"displayName": "Kuatzhan Tileu","groups": ["M","O","11"]},
-      "g27191=user025": {"displayName": "Алтынбеков Батырхан","groups": ["M","C","4"]},
-      "g27191=user026": {"displayName": "Алтыбай Назарбек","groups": ["M","C","1"]},
-      "g27191=user027": {"displayName": "Қыйсыбай Ілияс","groups": ["M","O","9"]},
-      "g27191=user028": {"displayName": "Попов Федор","groups": ["M","C","1"]},
-      "g27191=user029": {"displayName": "Карим Мансур","groups": ["M","O","10"]},
-      "g27191=user030": {"displayName": "Абуов Абузер","groups": ["A","C","2"]},
-      "g27191=user031": {"displayName": "Айменов Альтаир","groups": ["A","C","2"]},
-      "g27191=user032": {"displayName": "Талкат Дінмұхаммед","groups": ["M","O","10"]},
-      "g27191=user033": {"displayName": "Баптаев Айтөре","groups": ["M","O","10"]},
-      "g27191=user034": {"displayName": "Абзадаев Алпамыс","groups": ["M","C","1"]},
-      "g27191=user035": {"displayName": "Жанұзақ Абылай","groups": ["A","O","10"]},
-      "g27191=user036": {"displayName": "Халелов Ансар","groups": ["M","O","9"]},
-      "g27191=user037": {"displayName": "Оралханов Дінмұхамед","groups": ["A","C","2"]},
-      "g27191=user038": {"displayName": "Жалбасов Абдирахим","groups": ["A","C","3"]},
-      "g27191=user039": {"displayName": "Сапарбек Махамбет","groups": ["A","C","1"]},
-      "g27191=user040": {"displayName": "Утепов Бекасыл","groups": ["A","C","2"]},
-      "g27191=user041": {"displayName": "Бегім Айнұр","groups": ["A","C","2"]},
-      "g27191=user042": {"displayName": "Қанатұлы Аманбол","groups": ["M","C","2"]},
-      "g27191=user043": {"displayName": "Абулгазин Темирлан","groups": ["A","O","10"]},
-      "g27191=user044": {"displayName": "Polatkhan Merey","groups": ["M","C","3"]},
-      "g27191=user045": {"displayName": "Алиайдар Әбілмансұр","groups": ["M","O","11"]},
-      "g27191=user046": {"displayName": "Даутбек Адлет","groups": ["A","C","1"]},
-      "g27191=user047": {"displayName": "Айпанова Ясмин","groups": ["A","O","11"]},
-      "g27191=user048": {"displayName": "Васильченко Роман","groups": ["A","C","2"]},
-      "g27191=user049": {"displayName": "Кызырканов Парасат","groups": ["A","C","3"]},
-      "g27191=user050": {"displayName": "Татаринов Даниил","groups": ["M","O","11"]},
-      "g27191=user051": {"displayName": "Дузмагамбетов Алишер","groups": ["M","C","2"]},
-      "g27191=user052": {"displayName": "Ибодуллаев Руслан","groups": ["M","C","1"]},
-      "g27191=user053": {"displayName": "Турсынбай Дінмухамед","groups": ["M","C","2"]},
-      "g27191=user054": {"displayName": "Мансұрхан Ақнұр","groups": ["M","C","1"]},
-      "g27191=user055": {"displayName": "Perdebay Ramazan","groups": ["A","C","1"]},
-      "g27191=user056": {"displayName": "Меңдіғали Даниял","groups": ["A","O","8"]},
-      "g27191=user057": {"displayName": "Бекежан Абзал","groups": ["A","O","11"]},
-      "g27191=user058": {"displayName": "Nametov Abdumazhit","groups": ["M","O","10"]},
-      "g27191=user059": {"displayName": "Төлеуханов Дамир","groups": ["M","C","1"]},
-      "g27191=user060": {"displayName": "Болысбай Нұркелді","groups": ["M","O","8"]},
-      "g27191=user061": {"displayName": "Конратов Сагынтай","groups": ["M","C","1"]},
-      "g27191=user062": {"displayName": "Узахбаев Имангали","groups": ["A","C","3"]},
-      "g27191=user063": {"displayName": "Жумабек Алишер","groups": ["A","C","3"]},
-      "g27191=user064": {"displayName": "Topuria Ivane","groups": ["M","C","1"]},
-      "g27191=user065": {"displayName": "Zhumagazyuly Magzhan","groups": ["A","C","2"]},
-      "g27191=user066": {"displayName": "Қайыржанов Мейіржан","groups": ["A","C","2"]},
-      "g27191=user067": {"displayName": "Каныбеков Ералы","groups": ["M","O","9"]},
-      "g27191=user068": {"displayName": "Аскербек Әлімхан","groups": ["M","O","9"]},
-      "g27191=user069": {"displayName": "Нұрдаулет Тамерлан","groups": ["M","O","9"]},
-      "g27191=user070": {"displayName": "Жаканов Алмас","groups": ["M","C","1"]},
-      "g27191=user071": {"displayName": "Толымбек Нұртай","groups": ["M","C","1"]},
-      "g27191=user072": {"displayName": "Актанов Айбек","groups": ["A","C","2"]},
-      "g27191=user073": {"displayName": "Қамзабек Нархан","groups": ["A","C","3"]},
-      "g27191=user074": {"displayName": "Көшкімбай Әлинұр","groups": ["M","O","7"]},
-      "g27191=user075": {"displayName": "Мужиков Арсен","groups": ["A","C","1"]},
-      "g27191=user076": {"displayName": "Сейтбай Алдияр","groups": ["A","O","9"]},
-      "g27191=user077": {"displayName": "Закиров Ануар","groups": ["A","O","9"]},
-      "g27191=user078": {"displayName": "Хибадуллин Оразбек","groups": ["M","C","4"]},
-      "g27191=user079": {"displayName": "Посин Владислав","groups": ["M","O","11"]},
-      "g27191=user080": {"displayName": "Тілектес Дильназ","groups": ["M","O","11"]},
-      "g27191=user081": {"displayName": "Атайбекова Мадина","groups": ["M","O","11"]},
-      "g27191=user082": {"displayName": "Лазарев Даниил","groups": ["A","O","11"]},
-      "g27191=user083": {"displayName": "Бердыев Бегенчмурат","groups": ["A","C","3"]},
-      "g27191=user084": {"displayName": "Мухаммедов Байназар","groups": ["A","C","2"]},
-      "g27191=user085": {"displayName": "Гелдиев Сейитмырат","groups": ["A","C","3"]},
-      "g27191=user086": {"displayName": "Bogenbayev Nugman","groups": ["M","C","3"]},
-      "g27191=user087": {"displayName": "Сейдерхан Асемай","groups": ["M","O","10"]},
-      "g27191=user088": {"displayName": "Рахатов Ерасыл","groups": ["A","O","9"]},
-      "g27191=user089": {"displayName": "Жұмахан Жасұлан","groups": ["M","C","1"]},
-      "g27191=user090": {"displayName": "Биахмет Дәулет","groups": ["A","C","3"]},
-      "g27191=user091": {"displayName": "Мұсабай Әли","groups": ["A","C","2"]},
-      "g27191=user092": {"displayName": "Наурызбай Ахан","groups": ["M","O","9"]},
-      "g27191=user093": {"displayName": "Қыйсыбай Ілияс","groups": ["M","O","9"]},
-      "g27191=user094": {"displayName": "Акимеев Даниял","groups": ["M","C","2"]},
-      "g27191=user095": {"displayName": "Берикбек Ернар","groups": ["M","O","9"]},
-      "g27191=user096": {"displayName": "Ахметов Расул","groups": ["A","C","3"]},
-      "g27191=user097": {"displayName": "Сарсенбаев Алишер","groups": ["A","C","3"]},
-      "g27191=user098": {"displayName": "Айдар Балгабек","groups": ["A","C","3"]},
-      "g27191=user099": {"displayName": "Жумагул Санжар","groups": ["M","O","10"]},
-      "g27191=user100": {"displayName": "Soldatbay Ali","groups": ["M","C","4"]},
-      "g27191=user101": {"displayName": "Олжабай Сабыржан","groups": ["M","C","1"]},
-      "g27191=user102": {"displayName": "Topuria Ivane","groups": ["M","C","1"]},
-      "g27191=user103": {"displayName": "Қияш Міржақып","groups": ["M","O","9"]},
-      "g27191=user104": {"displayName": "Мұратов Әділхан","groups": ["A","C","1"]},
-      "g27191=user105": {"displayName": "Kurmash Nurzhan","groups": ["M","C","3"]},
-      "g27191=user106": {"displayName": "Мирпулатов Розимурат","groups": ["M","C","2"]},
-      "g27191=user107": {"displayName": "Анри Жан","groups": ["M","O","9"]},
-      "g27191=user108": {"displayName": "Сапарбаева Сабина","groups": ["M","C","1"]},
-      "g27191=user109": {"displayName": "Еркенов Нурсултан","groups": ["M","C","3"]},
-      "g27191=user110": {"displayName": "Құдайберген Ахмед","groups": ["M","O","9"]},
-      "g27191=user111": {"displayName": "Айтбек Алимнұр","groups": ["M","O","8"]},
-      "g27191=user112": {"displayName": "Курышбек Бибарыс","groups": ["M","O","9"]},
-      "g27191=user113": {"displayName": "Исаев Арман","groups": ["A","C","1"]},
-      "g27191=user114": {"displayName": "Имангали Ерден","groups": ["M","O","10"]},
-      "g27191=user115": {"displayName": "Рүстембек Әмір","groups": ["M","O","10"]},
-      "g27191=user116": {"displayName": "Аскаров Али","groups": ["M","O","10"]},
-      "g27191=user117": {"displayName": "Имангали Ерден","groups": ["M","O","10"]},
-      "g27191=user118": {"displayName": "Жақсылық Рахат","groups": ["M","C","1"]},
-      "g27191=user119": {"displayName": "Жатканбаев Мади","groups": ["M","O","11"]},
-      "g27191=user120": {"displayName": "Ернур Жанат","groups": ["M","O","8"]},
-      "g27191=user121": {"displayName": "Жайлылық Исатай","groups": ["M","O","8"]},
-      "g27191=user122": {"displayName": "Аленов Жангир","groups": ["M","O","8"]},
-      "g27191=user123": {"displayName": "Бердібек Ертіс","groups": ["M","O","9"]},
-      "g27191=user124": {"displayName": "Айжарық Алихан","groups": ["M","O","8"]},
-      "g27191=user125": {"displayName": "Yermek Adil","groups": ["A","O","9"]},
-      "g27191=user126": {"displayName": "Какимишов Ербол","groups": ["A","C","4"]},
-      "g27191=user127": {"displayName": "Досмухаметова Балжан","groups": ["A","C","4"]},
-      "g27191=user128": {"displayName": "Акылбек Бота","groups": ["A","C","4"]},
-      "g27191=user129": {"displayName": "Ажимгереева Айжан","groups": ["A","C","4"]},
-      "g27191=user130": {"displayName": "Белоусов Лев","groups": ["M","O","11"]},
-      "g27191=user131": {"displayName": "Бірлік Нұрмұхаммед","groups": ["M","O","8"]},
-      "g27191=user132": {"displayName": "Құсайынбек Карим","groups": ["M","O","9"]},
-      "g27191=user133": {"displayName": "Юденич Андрей","groups": ["M","O","7"]},
-      "g27191=user134": {"displayName": "Дәурен Мирас","groups": ["M","O","8"]},
-      "g27191=user135": {"displayName": "Nametov Abdumazhit","groups": ["M","O","10"]},
-      "g27191=user136": {"displayName": "Әмит Елжан","groups": ["M","O","8"]},
-      "g27191=user137": {"displayName": "Абишев Санжар","groups": ["M","O","7"]},
-      "g27191=user138": {"displayName": "Saifiddinov Eldor","groups": ["A","O","11"]},
-      "g27191=user139": {"displayName": "Шариф Фархад","groups": ["M","O","9"]},
-      "g27191=user140": {"displayName": "Жәлел Ерболат","groups": ["A","O","11"]},
-      "g27191=user141": {"displayName": "Карабаев Дархан","groups": ["A","O","8"]},
-      "g27191=user142": {"displayName": "Аскар Нурдаулет","groups": ["M","O","10"]},
-      "g27191=user143": {"displayName": "Бакытжанов Байгали","groups": ["M","O","9"]},
-      "g27191=user144": {"displayName": "Магрупов Алмас","groups": ["M","O","11"]},
-      "g27191=user145": {"displayName": "Қыйсыбай Ілияс","groups": ["M","O","9"]},
-      "g27191=user146": {"displayName": "Кокеев Нуржан","groups": ["M","O","11"]},
-      "g27191=user147": {"displayName": "Талипов Дамир","groups": ["A","C","2"]},
-      "g27191=user148": {"displayName": "Кенжебаева Айжан","groups": ["A","C","2"]},
-      "g27191=user149": {"displayName": "Кәдір Сабыржан","groups": ["A","O","11"]},
-      "g27191=user150": {"displayName": "Баймахан Бану","groups": ["A","O","11"]},
-      "g27191=user151": {"displayName": "Халилов Салман","groups": ["M","O","9"]},
-      "g27191=user152": {"displayName": "Даулетбаева Айзере","groups": ["A","O","11"]},
-      "g27191=user153": {"displayName": "Досжанова Зарина","groups": ["A","O","10"]},
-      "g27191=user154": {"displayName": "Маратов Али","groups": ["A","O","11"]},
-      "g27191=user155": {"displayName": "Мохаммад Джунайд","groups": ["M","O","8"]},
-      "g27191=user156": {"displayName": "Тоқтарбек Мухаммедали","groups": ["M","O","10"]},
-      "g27191=user157": {"displayName": "Сайлаубаев Ахмет","groups": ["M","O","8"]},
-      "g27191=user158": {"displayName": "Сайлаубаев Ахмет","groups": ["M","O","8"]},
-      "g27191=user159": {"displayName": "Алдамжар Нұрасыл","groups": ["A","O","11"]},
-      "g27191=user160": {"displayName": "Фазылхан Еңлік","groups": ["M","O","9"]},
-      "g27191=user161": {"displayName": "Махсут Талант","groups": ["M","C","1"]},
-      "g27191=user162": {"displayName": "Иземжанов Арнур","groups": ["M","O","8"]},
-      "g27191=user163": {"displayName": "Рахимова Асылжан","groups": ["A","O","11"]},
-      "g27191=user164": {"displayName": "Жаксылык Нуралы","groups": ["A","O","9"]},
-      "g27191=user165": {"displayName": "Қали Жаннұр","groups": ["A","O","10"]},
-      "g27191=user166": {"displayName": "Низами Динмухамед","groups": ["M","O","10"]},
-      "g27191=user167": {"displayName": "Мұхаметкәрім Қаныш","groups": ["A","C","2"]},
-      "g27191=user168": {"displayName": "Жүнүсов Темірлан","groups": ["A","O","8"]},
-      "g27191=user169": {"displayName": "Әли Мендеке","groups": ["A","O","8"]},
-      "g27191=user170": {"displayName": "Аманбек Нұрислам","groups": ["M","O","9"]},
-      "g27191=user171": {"displayName": "Берикбек Ернар","groups": ["M","O","9"]},
-      "g27191=user172": {"displayName": "Аманбек Нұрислам","groups": ["M","O","9"]},
-      "g27191=user173": {"displayName": "Жанарбек Ақниет","groups": ["A","O","10"]},
-      "g27191=user174": {"displayName": "Мұсахан Мейірім","groups": ["A","O","8"]},
-      "g27191=user175": {"displayName": "Musahan Meirim","groups": ["A","O","8"]},
-      "g27191=user176": {"displayName": "Абдувалиева Дана","groups": ["A","O","8"]},
-      "g27191=user177": {"displayName": "Карим Мансур","groups": ["M","O","10"]},
-      "g27191=user178": {"displayName": "Нұрлан Даниял","groups": ["A","O","8"]},
-      "g27191=user179": {"displayName": "Омирзак Каныш","groups": ["M","C","1"]},
-      "g27191=user180": {"displayName": "Исабек Дамир","groups": ["A","O","9"]},
-      "g27191=user181": {"displayName": "Исхакова Даяна","groups": ["M","O","11"]},
-      "g27191=user182": {"displayName": "Саулетбек Ерасыл","groups": ["M","O","11"]},
-      "g27191=user183": {"displayName": "Кочетов Артемий","groups": ["A","O","11"]},
-      "g27191=user184": {"displayName": "Руслан Ғазиз","groups": ["A","C","3"]},
-      "g27191=user185": {"displayName": "Зейнулла Калима","groups": ["A","C","3"]},
-      "g27191=user186": {"displayName": "Совет Камила","groups": ["A","C","3"]},
-      "g27191=user187": {"displayName": "Шарыкпаев Арлан","groups": ["A","C","3"]},
-      "g27191=user188": {"displayName": "Гариб Диас","groups": ["A","C","4"]},
-      "g27191=user189": {"displayName": "Шинбай Алмаз","groups": ["A","C","3"]},
-      "g27191=user190": {"displayName": "Казтаев Алишер","groups": ["A","O","10"]},
-      "g27191=user191": {"displayName": "Тынымова Арина","groups": ["A","C","4"]},
-      "g27191=user192": {"displayName": "Бейбитов Ернур","groups": ["A","C","4"]},
-      "g27191=user193": {"displayName": "Аменов Әлем","groups": ["A","O","9"]},
-      "g27191=user194": {"displayName": "Сиғуатов Нұрали","groups": ["A","O","10"]},
-      "g27191=user195": {"displayName": "Жүсіп Айбол","groups": ["A","O","9"]},
-      "g27191=user196": {"displayName": "Мазыло Дмитрий","groups": ["M","C","4"]},
-      "g27191=user197": {"displayName": "Уалихан Айдана","groups": ["M","O","11"]},
-      "g27191=user198": {"displayName": "Салаватов Игорь","groups": ["M","O","10"]},
-      "g27191=user199": {"displayName": "Аушахман Талим","groups": ["A","O","10"]},
-      "g27191=user200": {"displayName": "Сырлыбаев Дамир","groups": ["A","O","10"]},
-      "g27191=user201": {"displayName": "Захарченко Владислав","groups": ["M","O","11"]},
-      "g27191=user202": {"displayName": "Тангирбергенов Темур","groups": ["A","C","3"]},
-      "g27191=user203": {"displayName": "Абибилла Ақерке","groups": ["A","C","3"]},
-      "g27191=user204": {"displayName": "Нурлыбай Тоғжан","groups": ["A","C","3"]},
-      "g27191=user205": {"displayName": "Мергенбаев Дәулет","groups": ["A","C","3"]},
-      "g27191=user206": {"displayName": "Әділ Ақдидар","groups": ["A","C","3"]},
-      "g27191=user207": {"displayName": "Бекетов Даужан","groups": ["M","O","7"]},
-      "g27191=user208": {"displayName": "Плотников Сергей","groups": ["A","C","3"]},
-      "g27191=user209": {"displayName": "Шерияздан Гамаль","groups": ["A","C","3"]},
-      "g27191=user210": {"displayName": "Таңжарық Әлихан","groups": ["A","C","3"]},
-      "g27191=user211": {"displayName": "Ибрагим Арыстан","groups": ["A","O","9"]},
-      "g27191=user212": {"displayName": "Анарбеков Нұрдәулет","groups": ["A","O","9"]},
-      "g27191=user213": {"displayName": "Колесников Даниил","groups": ["M","O","10"]},
-      "g27191=user214": {"displayName": "Ходжабеков Жәнібек","groups": ["A","C","1"]},
-      "g27191=user215": {"displayName": "Адебиет Меруерт","groups": ["A","C","4"]},
-      "g27191=user216": {"displayName": "Корганбаев Жангир","groups": ["M","O","7"]},
-      "g27191=user217": {"displayName": "Жалгасов Данияр","groups": ["M","O","10"]},
-      "g27191=user218": {"displayName": "Sharisheva Alua","groups": ["A","O","10"]},
-      "g27191=user219": {"displayName": "Жумадулла Раяна","groups": ["A","O","7"]},
-      "g27191=user220": {"displayName": "Жұмахан Еркежан","groups": ["A","O","7"]},
-      "g27191=user221": {"displayName": "Карабаев Алишер","groups": ["A","O","10"]},
-      "g27191=user222": {"displayName": "Абулгазин Темирлан","groups": ["A","O","10"]},
-      "g27191=user223": {"displayName": "Калдыбай Мухаммед","groups": ["M","C","2"]},
-      "g27191=user224": {"displayName": "Юрьев Алдияр","groups": ["A","O","10"]},
-      "g27191=user225": {"displayName": "Асылбеков Санжар","groups": ["M","O","9"]},
-      "g27191=user226": {"displayName": "Алиайдар Әбілмансұр","groups": ["M","O","11"]},
-      "g27191=user227": {"displayName": "Ноғайбек Даниал","groups": ["M","O","10"]},
-      "g27191=user228": {"displayName": "Ахроров Амир","groups": ["M","O","8"]},
-      "g27191=user229": {"displayName": "Касимов Фарид","groups": ["M","O","11"]},
-      "g27191=user230": {"displayName": "Әдиет Алдияр","groups": ["A","O","11"]},
-      "g27191=user231": {"displayName": "Мухамбетжанов Алишер","groups": ["A","C","2"]},
-      "g27191=user232": {"displayName": "Бауыржан Даниял","groups": ["M","O","10"]},
-      "g27191=user233": {"displayName": "Курманов Алимхан","groups": ["M","O","9"]},
-      "g27191=user234": {"displayName": "Зейнулла Аңсар","groups": ["A","O","11"]},
-      "g27191=user235": {"displayName": "Ремет Нурдаулет","groups": ["M","O","11"]},
-      "g27191=user236": {"displayName": "Ремет Нурдаулет","groups": ["A","O","11"]},
-      "g27191=user237": {"displayName": "Ремет Нурдаулет","groups": ["A","O","11"]},
-      "g27191=user238": {"displayName": "Тыныштыков Қуандық","groups": ["A","C","4"]},
-      "g27191=user239": {"displayName": "Шарафиев Қанағат","groups": ["M","C","3"]},
-      "g27191=user240": {"displayName": "Айдын Явуз","groups": ["M","O","7"]},
-      "g27191=user241": {"displayName": "Тәттімбет Талант","groups": ["M","O","9"]},
-      "g27191=user242": {"displayName": "Кумаров Нуржае","groups": ["A","C","3"]},
-      "g27191=user243": {"displayName": "Алиаскар София","groups": ["A","C","4"]},
-      "g27191=user244": {"displayName": "Жакеев Данияр","groups": ["M","O","11"]},
-      "g27191=user245": {"displayName": "Айбасов Алихан","groups": ["M","C","1"]},
-      "g27191=user246": {"displayName": "Аллаяри Инсар","groups": ["M","O","11"]},
-      "g27191=user247": {"displayName": "Наурызбай Ахан","groups": ["M","O","9"]},
-      "g27191=user248": {"displayName": "Шуктаев Абзал","groups": ["A","O","11"]},
-      "g27191=user249": {"displayName": "Сопыгали Уали","groups": ["M","C","1"]},
-      "g27191=user250": {"displayName": "Хамзаева Зарина","groups": ["M","O","11"]},
-      "g27191=user251": {"displayName": "Бахытжан Мерей","groups": ["M","O","11"]},
-      "g27191=user252": {"displayName": "Қайпжан Димаш","groups": ["A","C","3"]},
-      "g27191=user253": {"displayName": "Казтаев Рауан","groups": ["A","C","3"]},
-      "g27191=user254": {"displayName": "Утибаев Каримбек","groups": ["M","O","9"]},
-      "g27191=user255": {"displayName": "Дебец Асем","groups": ["A","O","11"]},
-      "g27191=user256": {"displayName": "Утибаев Каримбек","groups": ["M","O","9"]},
-      "g27191=user257": {"displayName": "Дармахан Ақтілек","groups": ["M","O","9"]},
-      "g27191=user258": {"displayName": "Шынтай Иманали","groups": ["M","O","9"]},
-      "g27191=user259": {"displayName": "Жаксылык Мухаммад","groups": ["M","O","10"]},
-      "g27191=user260": {"displayName": "Сеитов Нурдан","groups": ["A","O","10"]},
-      "g27191=user261": {"displayName": "Ниетбай Рамазан","groups": ["A","O","11"]},
-      "g27191=user262": {"displayName": "Алабергенова Алима","groups": ["M","O","11"]},
-      "g27191=user263": {"displayName": "Абельдинов Айдар","groups": ["A","C","3"]},
-      "g27191=user264": {"displayName": "Абдрахман Аскар","groups": ["M","O","10"]},
-      "g27191=user265": {"displayName": "Валеев Александр","groups": ["M","O","10"]},
-      "g27191=user266": {"displayName": "Бақытжанов Әлішер","groups": ["M","O","11"]},
-      "g27191=user267": {"displayName": "Абжами Ерсултан","groups": ["A","O","11"]},
-      "g27191=user268": {"displayName": "Бақтияров Әлқайдар","groups": ["A","C","3"]},
-      "g27191=user269": {"displayName": "Нурлыбай Тоғжаг","groups": ["A","C","3"]},
-      "g27191=user270": {"displayName": "Айқынбай Иманжүсіп","groups": ["A","O","7"]},
-      "g27191=user271": {"displayName": "Тұрысбек Айсұлтан","groups": ["A","O","10"]},
-      "g27191=user272": {"displayName": "Жумагалиев Санжар","groups": ["A","O","9"]},
-      "g27191=user273": {"displayName": "Тауфик Рауан","groups": ["M","O","10"]},
-      "g27191=user274": {"displayName": "Галымов Динмухаммед","groups": ["A","C","4"]},
-      "g27191=user275": {"displayName": "Жанабергенова Дана","groups": ["A","O","11"]},
-      "g27191=user276": {"displayName": "Құдайберген Ахмед","groups": ["M","O","9"]},
-      "g27191=user277": {"displayName": "Мамбеталин Ильяс","groups": ["M","O","9"]},
-      "g27191=user278": {"displayName": "Миран Меир","groups": ["M","C","4"]},
-      "g27191=user279": {"displayName": "Әбдіқали Эльназ","groups": ["A","O","11"]},
-      "g27191=user280": {"displayName": "Омарханов Ернияз","groups": ["M","O","9"]},
-      "g27191=user281": {"displayName": "Bektursyn Bakdaulet","groups": ["A","O","11"]},
-      "g27191=user282": {"displayName": "Бектұрған Ақбота","groups": ["A","O","11"]},
-      "g27191=user283": {"displayName": "Абдулазов Фахриддин","groups": ["M","O","9"]},
-      "g27191=user284": {"displayName": "Алдаберген Рахымжан","groups": ["M","O","8"]},
-      "g27191=user285": {"displayName": "Қуанышбаев Ерасыл","groups": ["A","C","3"]},
-      "g27191=user286": {"displayName": "Альмухаметов Алмас","groups": ["A","C","3"]},
-      "g27191=user287": {"displayName": "Сейілғазыев Санжар","groups": ["A","C","3"]},
-      "g27191=user288": {"displayName": "Аспандияров Диас","groups": ["M","C","1"]},
-      "g27191=user289": {"displayName": "Ли Арсен","groups": ["M","O","10"]},
-      "g27191=user290": {"displayName": "Дауренов Ергалым","groups": ["M","O","10"]},
-      "g27191=user291": {"displayName": "Жанайдаров Махди","groups": ["A","O","9"]},
-      "g27191=user292": {"displayName": "Рахатұлы Қуаныш","groups": ["M","C","1"]},
-      "g27191=user293": {"displayName": "Акзамова Амина","groups": ["A","O","10"]},
-      "g27191=user294": {"displayName": "Зейнедулла Ерсұлтан","groups": ["A","O","11"]},
-      "g27191=user295": {"displayName": "Есмагамбетов Еламан","groups": ["A","C","1"]},
-      "g27191=user296": {"displayName": "Дабыл Ідіріс","groups": ["M","O","11"]},
-      "g27191=user297": {"displayName": "Копжанов Диас","groups": ["M","O","11"]},
-      "g27191=user298": {"displayName": "Садырбек Мухаммадали","groups": ["A","O","9"]},
-      "g27191=user299": {"displayName": "Абулгазин Темирлан","groups": ["A","O","10"]},
-      "g27191=user300": {"displayName": "Дүйсенбай Артур","groups": ["A","O","9"]},
-      "g27191=user301": {"displayName": "Умбетбаев Алтынбек","groups": ["A","C","2"]},
-      "g27191=user302": {"displayName": "Қалиев Әмірхан","groups": ["M","O","9"]},
-      "g27191=user303": {"displayName": "Буйлóв Лев","groups": ["M","O","8"]},
-      "g27191=user304": {"displayName": "Нұрбағи Нұрбек","groups": ["M","O","9"]},
-      "g27191=user305": {"displayName": "Капитов Михаил","groups": ["M","C","2"]},
-      "g27191=user306": {"displayName": "Капитов Михаил","groups": ["M","C","2"]},
-      "g27191=user307": {"displayName": "Сайдов Мухаммад","groups": ["M","O","8"]},
-      "g27191=user308": {"displayName": "Сим Ханбин","groups": ["M","O","11"]},
-      "g27191=user309": {"displayName": "Сламжан Ерәлім","groups": ["M","O","9"]},
-      "g27191=user310": {"displayName": "Моско Артур","groups": ["M","O","11"]},
-      "g27191=user311": {"displayName": "Сорокин Родион","groups": ["M","O","11"]},
-      "g27191=user312": {"displayName": "Бычков Александр","groups": ["M","O","9"]},
-      "g27191=user313": {"displayName": "Тұрат Нұрдәулет","groups": ["M","O","9"]},
-      "g27191=user314": {"displayName": "Тлеугали Тогжан","groups": ["M","O","11"]},
-      "g27191=user315": {"displayName": "Донченко Георгий","groups": ["M","C","2"]},
-      "g27191=user316": {"displayName": "Цой Артур","groups": ["A","O","11"]},
-      "g27191=user317": {"displayName": "Ажимгереева Айжан","groups": ["A","C","4"]},
-      "g27191=user318": {"displayName": "Сәкен Сұлтанәлі","groups": ["M","O","11"]},
-      "g27191=user319": {"displayName": "Байганин Азамат","groups": ["M","O","8"]},
-      "g27191=user320": {"displayName": "Мәди Тұрысбек","groups": ["A","C","4"]},
-      "g27191=user321": {"displayName": "Тангирбергенов Темур","groups": ["M","C","3"]},
-      "g27191=user322": {"displayName": "Харов Рахим","groups": ["M","O","10"]},
-      "g27191=user323": {"displayName": "Мурзабекова Аруна","groups": ["M","O","9"]},
-      "g27191=user324": {"displayName": "Халматай Нурбек","groups": ["M","C","3"]},
-      "g27191=user325": {"displayName": "Турганбаев Оразбай","groups": ["M","C","3"]},
-      "g27191=user326": {"displayName": "Сатыбалдин Есенкелді","groups": ["M","C","1"]},
-      "g27191=user327": {"displayName": "Бөлеген Мұхаммедали","groups": ["A","O","10"]},
-      "g27191=user328": {"displayName": "Қыдырқожа Қобылан","groups": ["A","C","2"]},
-      "g27191=user329": {"displayName": "Қанжар Рахат","groups": ["M","O","10"]},
-      "g27191=user330": {"displayName": "Какимишов Ербол","groups": ["A","C","4"]},
-      "g27191=user331": {"displayName": "Полатбек Әлібек","groups": ["M","O","8"]},
-      "g27191=user332": {"displayName": "Жалгас Даниал","groups": ["M","O","8"]},
-      "g27191=user333": {"displayName": "Айманов Қайрат","groups": ["M","O","8"]},
-      "g27191=user334": {"displayName": "Жәнібеков Дамир","groups": ["M","C","3"]}
+[
+    {
+        "type": "override_times",
+        "freezeTimeSeconds": 10800
     },
-    "problemOverrides": {
-      "0":{"color":"#e6194B"},
-      "1":{"color":"#3cb44b"},
-      "2":{"color":"#ffe119"},
-      "3":{"color":"#4363d8"},
-      "4":{"color":"#f58231"},
-      "5":{"color":"#42d4f4"},
-      "6":{"color":"#f032e6"},
-      "7":{"color":"#fabed4"},
-      "8":{"color":"#469990"},
-      "9":{"color":"#dcbeff"}
-    },    
-    "awardsSettings": {
-        "medals": [
-            {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 1},
-            {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 2},
-            {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 3}
-        ]
-      }      
-}
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "g27191=user000": "Ашуров Альтаир",
+            "g27191=user001": "Жорабай Үмбетияр",
+            "g27191=user002": "Суйрханов Мейрлан",
+            "g27191=user003": "Исмағзи Исатай",
+            "g27191=user004": "Aliaidar Alikhan",
+            "g27191=user005": "Цой Максим",
+            "g27191=user006": "Abutali Abusseiit",
+            "g27191=user007": "Аубакиров Алишер",
+            "g27191=user008": "Мусалимов Олжас",
+            "g27191=user009": "Ертайұлы Еларыс",
+            "g27191=user010": "Абдикулов Алихан",
+            "g27191=user011": "Ayupov Zhandos",
+            "g27191=user012": "Сабитбек Айдар",
+            "g27191=user013": "Тургара Мирас",
+            "g27191=user014": "Турсынбай Дінмухамед",
+            "g27191=user015": "Жүнүсов Дәурен",
+            "g27191=user016": "Мырзаш Бейбарыс",
+            "g27191=user017": "Байжанов Нурмырза",
+            "g27191=user018": "Кигаш Амир",
+            "g27191=user019": "Айбасов Аскар",
+            "g27191=user020": "Серазитдинов Назар",
+            "g27191=user021": "Tangirkul Yerdaulet",
+            "g27191=user022": "Казтаев Алишер",
+            "g27191=user023": "Серикбай Нуралы",
+            "g27191=user024": "Kuatzhan Tileu",
+            "g27191=user025": "Алтынбеков Батырхан",
+            "g27191=user026": "Алтыбай Назарбек",
+            "g27191=user027": "Қыйсыбай Ілияс",
+            "g27191=user028": "Попов Федор",
+            "g27191=user029": "Карим Мансур",
+            "g27191=user030": "Абуов Абузер",
+            "g27191=user031": "Айменов Альтаир",
+            "g27191=user032": "Талкат Дінмұхаммед",
+            "g27191=user033": "Баптаев Айтөре",
+            "g27191=user034": "Абзадаев Алпамыс",
+            "g27191=user035": "Жанұзақ Абылай",
+            "g27191=user036": "Халелов Ансар",
+            "g27191=user037": "Оралханов Дінмұхамед",
+            "g27191=user038": "Жалбасов Абдирахим",
+            "g27191=user039": "Сапарбек Махамбет",
+            "g27191=user040": "Утепов Бекасыл",
+            "g27191=user041": "Бегім Айнұр",
+            "g27191=user042": "Қанатұлы Аманбол",
+            "g27191=user043": "Абулгазин Темирлан",
+            "g27191=user044": "Polatkhan Merey",
+            "g27191=user045": "Алиайдар Әбілмансұр",
+            "g27191=user046": "Даутбек Адлет",
+            "g27191=user047": "Айпанова Ясмин",
+            "g27191=user048": "Васильченко Роман",
+            "g27191=user049": "Кызырканов Парасат",
+            "g27191=user050": "Татаринов Даниил",
+            "g27191=user051": "Дузмагамбетов Алишер",
+            "g27191=user052": "Ибодуллаев Руслан",
+            "g27191=user053": "Турсынбай Дінмухамед",
+            "g27191=user054": "Мансұрхан Ақнұр",
+            "g27191=user055": "Perdebay Ramazan",
+            "g27191=user056": "Меңдіғали Даниял",
+            "g27191=user057": "Бекежан Абзал",
+            "g27191=user058": "Nametov Abdumazhit",
+            "g27191=user059": "Төлеуханов Дамир",
+            "g27191=user060": "Болысбай Нұркелді",
+            "g27191=user061": "Конратов Сагынтай",
+            "g27191=user062": "Узахбаев Имангали",
+            "g27191=user063": "Жумабек Алишер",
+            "g27191=user064": "Topuria Ivane",
+            "g27191=user065": "Zhumagazyuly Magzhan",
+            "g27191=user066": "Қайыржанов Мейіржан",
+            "g27191=user067": "Каныбеков Ералы",
+            "g27191=user068": "Аскербек Әлімхан",
+            "g27191=user069": "Нұрдаулет Тамерлан",
+            "g27191=user070": "Жаканов Алмас",
+            "g27191=user071": "Толымбек Нұртай",
+            "g27191=user072": "Актанов Айбек",
+            "g27191=user073": "Қамзабек Нархан",
+            "g27191=user074": "Көшкімбай Әлинұр",
+            "g27191=user075": "Мужиков Арсен",
+            "g27191=user076": "Сейтбай Алдияр",
+            "g27191=user077": "Закиров Ануар",
+            "g27191=user078": "Хибадуллин Оразбек",
+            "g27191=user079": "Посин Владислав",
+            "g27191=user080": "Тілектес Дильназ",
+            "g27191=user081": "Атайбекова Мадина",
+            "g27191=user082": "Лазарев Даниил",
+            "g27191=user083": "Бердыев Бегенчмурат",
+            "g27191=user084": "Мухаммедов Байназар",
+            "g27191=user085": "Гелдиев Сейитмырат",
+            "g27191=user086": "Bogenbayev Nugman",
+            "g27191=user087": "Сейдерхан Асемай",
+            "g27191=user088": "Рахатов Ерасыл",
+            "g27191=user089": "Жұмахан Жасұлан",
+            "g27191=user090": "Биахмет Дәулет",
+            "g27191=user091": "Мұсабай Әли",
+            "g27191=user092": "Наурызбай Ахан",
+            "g27191=user093": "Қыйсыбай Ілияс",
+            "g27191=user094": "Акимеев Даниял",
+            "g27191=user095": "Берикбек Ернар",
+            "g27191=user096": "Ахметов Расул",
+            "g27191=user097": "Сарсенбаев Алишер",
+            "g27191=user098": "Айдар Балгабек",
+            "g27191=user099": "Жумагул Санжар",
+            "g27191=user100": "Soldatbay Ali",
+            "g27191=user101": "Олжабай Сабыржан",
+            "g27191=user102": "Topuria Ivane",
+            "g27191=user103": "Қияш Міржақып",
+            "g27191=user104": "Мұратов Әділхан",
+            "g27191=user105": "Kurmash Nurzhan",
+            "g27191=user106": "Мирпулатов Розимурат",
+            "g27191=user107": "Анри Жан",
+            "g27191=user108": "Сапарбаева Сабина",
+            "g27191=user109": "Еркенов Нурсултан",
+            "g27191=user110": "Құдайберген Ахмед",
+            "g27191=user111": "Айтбек Алимнұр",
+            "g27191=user112": "Курышбек Бибарыс",
+            "g27191=user113": "Исаев Арман",
+            "g27191=user114": "Имангали Ерден",
+            "g27191=user115": "Рүстембек Әмір",
+            "g27191=user116": "Аскаров Али",
+            "g27191=user117": "Имангали Ерден",
+            "g27191=user118": "Жақсылық Рахат",
+            "g27191=user119": "Жатканбаев Мади",
+            "g27191=user120": "Ернур Жанат",
+            "g27191=user121": "Жайлылық Исатай",
+            "g27191=user122": "Аленов Жангир",
+            "g27191=user123": "Бердібек Ертіс",
+            "g27191=user124": "Айжарық Алихан",
+            "g27191=user125": "Yermek Adil",
+            "g27191=user126": "Какимишов Ербол",
+            "g27191=user127": "Досмухаметова Балжан",
+            "g27191=user128": "Акылбек Бота",
+            "g27191=user129": "Ажимгереева Айжан",
+            "g27191=user130": "Белоусов Лев",
+            "g27191=user131": "Бірлік Нұрмұхаммед",
+            "g27191=user132": "Құсайынбек Карим",
+            "g27191=user133": "Юденич Андрей",
+            "g27191=user134": "Дәурен Мирас",
+            "g27191=user135": "Nametov Abdumazhit",
+            "g27191=user136": "Әмит Елжан",
+            "g27191=user137": "Абишев Санжар",
+            "g27191=user138": "Saifiddinov Eldor",
+            "g27191=user139": "Шариф Фархад",
+            "g27191=user140": "Жәлел Ерболат",
+            "g27191=user141": "Карабаев Дархан",
+            "g27191=user142": "Аскар Нурдаулет",
+            "g27191=user143": "Бакытжанов Байгали",
+            "g27191=user144": "Магрупов Алмас",
+            "g27191=user145": "Қыйсыбай Ілияс",
+            "g27191=user146": "Кокеев Нуржан",
+            "g27191=user147": "Талипов Дамир",
+            "g27191=user148": "Кенжебаева Айжан",
+            "g27191=user149": "Кәдір Сабыржан",
+            "g27191=user150": "Баймахан Бану",
+            "g27191=user151": "Халилов Салман",
+            "g27191=user152": "Даулетбаева Айзере",
+            "g27191=user153": "Досжанова Зарина",
+            "g27191=user154": "Маратов Али",
+            "g27191=user155": "Мохаммад Джунайд",
+            "g27191=user156": "Тоқтарбек Мухаммедали",
+            "g27191=user157": "Сайлаубаев Ахмет",
+            "g27191=user158": "Сайлаубаев Ахмет",
+            "g27191=user159": "Алдамжар Нұрасыл",
+            "g27191=user160": "Фазылхан Еңлік",
+            "g27191=user161": "Махсут Талант",
+            "g27191=user162": "Иземжанов Арнур",
+            "g27191=user163": "Рахимова Асылжан",
+            "g27191=user164": "Жаксылык Нуралы",
+            "g27191=user165": "Қали Жаннұр",
+            "g27191=user166": "Низами Динмухамед",
+            "g27191=user167": "Мұхаметкәрім Қаныш",
+            "g27191=user168": "Жүнүсов Темірлан",
+            "g27191=user169": "Әли Мендеке",
+            "g27191=user170": "Аманбек Нұрислам",
+            "g27191=user171": "Берикбек Ернар",
+            "g27191=user172": "Аманбек Нұрислам",
+            "g27191=user173": "Жанарбек Ақниет",
+            "g27191=user174": "Мұсахан Мейірім",
+            "g27191=user175": "Musahan Meirim",
+            "g27191=user176": "Абдувалиева Дана",
+            "g27191=user177": "Карим Мансур",
+            "g27191=user178": "Нұрлан Даниял",
+            "g27191=user179": "Омирзак Каныш",
+            "g27191=user180": "Исабек Дамир",
+            "g27191=user181": "Исхакова Даяна",
+            "g27191=user182": "Саулетбек Ерасыл",
+            "g27191=user183": "Кочетов Артемий",
+            "g27191=user184": "Руслан Ғазиз",
+            "g27191=user185": "Зейнулла Калима",
+            "g27191=user186": "Совет Камила",
+            "g27191=user187": "Шарыкпаев Арлан",
+            "g27191=user188": "Гариб Диас",
+            "g27191=user189": "Шинбай Алмаз",
+            "g27191=user190": "Казтаев Алишер",
+            "g27191=user191": "Тынымова Арина",
+            "g27191=user192": "Бейбитов Ернур",
+            "g27191=user193": "Аменов Әлем",
+            "g27191=user194": "Сиғуатов Нұрали",
+            "g27191=user195": "Жүсіп Айбол",
+            "g27191=user196": "Мазыло Дмитрий",
+            "g27191=user197": "Уалихан Айдана",
+            "g27191=user198": "Салаватов Игорь",
+            "g27191=user199": "Аушахман Талим",
+            "g27191=user200": "Сырлыбаев Дамир",
+            "g27191=user201": "Захарченко Владислав",
+            "g27191=user202": "Тангирбергенов Темур",
+            "g27191=user203": "Абибилла Ақерке",
+            "g27191=user204": "Нурлыбай Тоғжан",
+            "g27191=user205": "Мергенбаев Дәулет",
+            "g27191=user206": "Әділ Ақдидар",
+            "g27191=user207": "Бекетов Даужан",
+            "g27191=user208": "Плотников Сергей",
+            "g27191=user209": "Шерияздан Гамаль",
+            "g27191=user210": "Таңжарық Әлихан",
+            "g27191=user211": "Ибрагим Арыстан",
+            "g27191=user212": "Анарбеков Нұрдәулет",
+            "g27191=user213": "Колесников Даниил",
+            "g27191=user214": "Ходжабеков Жәнібек",
+            "g27191=user215": "Адебиет Меруерт",
+            "g27191=user216": "Корганбаев Жангир",
+            "g27191=user217": "Жалгасов Данияр",
+            "g27191=user218": "Sharisheva Alua",
+            "g27191=user219": "Жумадулла Раяна",
+            "g27191=user220": "Жұмахан Еркежан",
+            "g27191=user221": "Карабаев Алишер",
+            "g27191=user222": "Абулгазин Темирлан",
+            "g27191=user223": "Калдыбай Мухаммед",
+            "g27191=user224": "Юрьев Алдияр",
+            "g27191=user225": "Асылбеков Санжар",
+            "g27191=user226": "Алиайдар Әбілмансұр",
+            "g27191=user227": "Ноғайбек Даниал",
+            "g27191=user228": "Ахроров Амир",
+            "g27191=user229": "Касимов Фарид",
+            "g27191=user230": "Әдиет Алдияр",
+            "g27191=user231": "Мухамбетжанов Алишер",
+            "g27191=user232": "Бауыржан Даниял",
+            "g27191=user233": "Курманов Алимхан",
+            "g27191=user234": "Зейнулла Аңсар",
+            "g27191=user235": "Ремет Нурдаулет",
+            "g27191=user236": "Ремет Нурдаулет",
+            "g27191=user237": "Ремет Нурдаулет",
+            "g27191=user238": "Тыныштыков Қуандық",
+            "g27191=user239": "Шарафиев Қанағат",
+            "g27191=user240": "Айдын Явуз",
+            "g27191=user241": "Тәттімбет Талант",
+            "g27191=user242": "Кумаров Нуржае",
+            "g27191=user243": "Алиаскар София",
+            "g27191=user244": "Жакеев Данияр",
+            "g27191=user245": "Айбасов Алихан",
+            "g27191=user246": "Аллаяри Инсар",
+            "g27191=user247": "Наурызбай Ахан",
+            "g27191=user248": "Шуктаев Абзал",
+            "g27191=user249": "Сопыгали Уали",
+            "g27191=user250": "Хамзаева Зарина",
+            "g27191=user251": "Бахытжан Мерей",
+            "g27191=user252": "Қайпжан Димаш",
+            "g27191=user253": "Казтаев Рауан",
+            "g27191=user254": "Утибаев Каримбек",
+            "g27191=user255": "Дебец Асем",
+            "g27191=user256": "Утибаев Каримбек",
+            "g27191=user257": "Дармахан Ақтілек",
+            "g27191=user258": "Шынтай Иманали",
+            "g27191=user259": "Жаксылык Мухаммад",
+            "g27191=user260": "Сеитов Нурдан",
+            "g27191=user261": "Ниетбай Рамазан",
+            "g27191=user262": "Алабергенова Алима",
+            "g27191=user263": "Абельдинов Айдар",
+            "g27191=user264": "Абдрахман Аскар",
+            "g27191=user265": "Валеев Александр",
+            "g27191=user266": "Бақытжанов Әлішер",
+            "g27191=user267": "Абжами Ерсултан",
+            "g27191=user268": "Бақтияров Әлқайдар",
+            "g27191=user269": "Нурлыбай Тоғжаг",
+            "g27191=user270": "Айқынбай Иманжүсіп",
+            "g27191=user271": "Тұрысбек Айсұлтан",
+            "g27191=user272": "Жумагалиев Санжар",
+            "g27191=user273": "Тауфик Рауан",
+            "g27191=user274": "Галымов Динмухаммед",
+            "g27191=user275": "Жанабергенова Дана",
+            "g27191=user276": "Құдайберген Ахмед",
+            "g27191=user277": "Мамбеталин Ильяс",
+            "g27191=user278": "Миран Меир",
+            "g27191=user279": "Әбдіқали Эльназ",
+            "g27191=user280": "Омарханов Ернияз",
+            "g27191=user281": "Bektursyn Bakdaulet",
+            "g27191=user282": "Бектұрған Ақбота",
+            "g27191=user283": "Абдулазов Фахриддин",
+            "g27191=user284": "Алдаберген Рахымжан",
+            "g27191=user285": "Қуанышбаев Ерасыл",
+            "g27191=user286": "Альмухаметов Алмас",
+            "g27191=user287": "Сейілғазыев Санжар",
+            "g27191=user288": "Аспандияров Диас",
+            "g27191=user289": "Ли Арсен",
+            "g27191=user290": "Дауренов Ергалым",
+            "g27191=user291": "Жанайдаров Махди",
+            "g27191=user292": "Рахатұлы Қуаныш",
+            "g27191=user293": "Акзамова Амина",
+            "g27191=user294": "Зейнедулла Ерсұлтан",
+            "g27191=user295": "Есмагамбетов Еламан",
+            "g27191=user296": "Дабыл Ідіріс",
+            "g27191=user297": "Копжанов Диас",
+            "g27191=user298": "Садырбек Мухаммадали",
+            "g27191=user299": "Абулгазин Темирлан",
+            "g27191=user300": "Дүйсенбай Артур",
+            "g27191=user301": "Умбетбаев Алтынбек",
+            "g27191=user302": "Қалиев Әмірхан",
+            "g27191=user303": "Буйлóв Лев",
+            "g27191=user304": "Нұрбағи Нұрбек",
+            "g27191=user305": "Капитов Михаил",
+            "g27191=user306": "Капитов Михаил",
+            "g27191=user307": "Сайдов Мухаммад",
+            "g27191=user308": "Сим Ханбин",
+            "g27191=user309": "Сламжан Ерәлім",
+            "g27191=user310": "Моско Артур",
+            "g27191=user311": "Сорокин Родион",
+            "g27191=user312": "Бычков Александр",
+            "g27191=user313": "Тұрат Нұрдәулет",
+            "g27191=user314": "Тлеугали Тогжан",
+            "g27191=user315": "Донченко Георгий",
+            "g27191=user316": "Цой Артур",
+            "g27191=user317": "Ажимгереева Айжан",
+            "g27191=user318": "Сәкен Сұлтанәлі",
+            "g27191=user319": "Байганин Азамат",
+            "g27191=user320": "Мәди Тұрысбек",
+            "g27191=user321": "Тангирбергенов Темур",
+            "g27191=user322": "Харов Рахим",
+            "g27191=user323": "Мурзабекова Аруна",
+            "g27191=user324": "Халматай Нурбек",
+            "g27191=user325": "Турганбаев Оразбай",
+            "g27191=user326": "Сатыбалдин Есенкелді",
+            "g27191=user327": "Бөлеген Мұхаммедали",
+            "g27191=user328": "Қыдырқожа Қобылан",
+            "g27191=user329": "Қанжар Рахат",
+            "g27191=user330": "Какимишов Ербол",
+            "g27191=user331": "Полатбек Әлібек",
+            "g27191=user332": "Жалгас Даниал",
+            "g27191=user333": "Айманов Қайрат",
+            "g27191=user334": "Жәнібеков Дамир"
+        }
+    },
+    {
+        "type": "override_teams",
+        "rules": {
+            "g27191=user000": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user001": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user002": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user003": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user004": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user005": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user006": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user007": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user008": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user009": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user010": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user011": {
+                "groups": [
+                    "M",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user012": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user013": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user014": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user015": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user016": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user017": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user018": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user019": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user020": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user021": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user022": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user023": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user024": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user025": {
+                "groups": [
+                    "M",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user026": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user027": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user028": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user029": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user030": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user031": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user032": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user033": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user034": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user035": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user036": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user037": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user038": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user039": {
+                "groups": [
+                    "A",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user040": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user041": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user042": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user043": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user044": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user045": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user046": {
+                "groups": [
+                    "A",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user047": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user048": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user049": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user050": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user051": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user052": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user053": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user054": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user055": {
+                "groups": [
+                    "A",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user056": {
+                "groups": [
+                    "A",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user057": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user058": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user059": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user060": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user061": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user062": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user063": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user064": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user065": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user066": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user067": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user068": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user069": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user070": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user071": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user072": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user073": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user074": {
+                "groups": [
+                    "M",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user075": {
+                "groups": [
+                    "A",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user076": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user077": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user078": {
+                "groups": [
+                    "M",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user079": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user080": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user081": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user082": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user083": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user084": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user085": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user086": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user087": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user088": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user089": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user090": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user091": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user092": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user093": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user094": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user095": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user096": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user097": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user098": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user099": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user100": {
+                "groups": [
+                    "M",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user101": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user102": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user103": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user104": {
+                "groups": [
+                    "A",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user105": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user106": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user107": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user108": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user109": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user110": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user111": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user112": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user113": {
+                "groups": [
+                    "A",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user114": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user115": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user116": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user117": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user118": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user119": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user120": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user121": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user122": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user123": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user124": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user125": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user126": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user127": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user128": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user129": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user130": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user131": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user132": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user133": {
+                "groups": [
+                    "M",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user134": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user135": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user136": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user137": {
+                "groups": [
+                    "M",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user138": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user139": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user140": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user141": {
+                "groups": [
+                    "A",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user142": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user143": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user144": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user145": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user146": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user147": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user148": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user149": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user150": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user151": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user152": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user153": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user154": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user155": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user156": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user157": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user158": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user159": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user160": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user161": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user162": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user163": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user164": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user165": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user166": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user167": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user168": {
+                "groups": [
+                    "A",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user169": {
+                "groups": [
+                    "A",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user170": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user171": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user172": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user173": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user174": {
+                "groups": [
+                    "A",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user175": {
+                "groups": [
+                    "A",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user176": {
+                "groups": [
+                    "A",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user177": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user178": {
+                "groups": [
+                    "A",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user179": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user180": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user181": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user182": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user183": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user184": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user185": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user186": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user187": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user188": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user189": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user190": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user191": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user192": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user193": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user194": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user195": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user196": {
+                "groups": [
+                    "M",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user197": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user198": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user199": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user200": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user201": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user202": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user203": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user204": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user205": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user206": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user207": {
+                "groups": [
+                    "M",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user208": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user209": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user210": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user211": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user212": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user213": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user214": {
+                "groups": [
+                    "A",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user215": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user216": {
+                "groups": [
+                    "M",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user217": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user218": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user219": {
+                "groups": [
+                    "A",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user220": {
+                "groups": [
+                    "A",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user221": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user222": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user223": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user224": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user225": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user226": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user227": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user228": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user229": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user230": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user231": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user232": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user233": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user234": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user235": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user236": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user237": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user238": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user239": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user240": {
+                "groups": [
+                    "M",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user241": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user242": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user243": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user244": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user245": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user246": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user247": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user248": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user249": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user250": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user251": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user252": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user253": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user254": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user255": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user256": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user257": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user258": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user259": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user260": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user261": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user262": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user263": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user264": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user265": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user266": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user267": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user268": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user269": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user270": {
+                "groups": [
+                    "A",
+                    "O",
+                    "7"
+                ]
+            },
+            "g27191=user271": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user272": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user273": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user274": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user275": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user276": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user277": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user278": {
+                "groups": [
+                    "M",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user279": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user280": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user281": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user282": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user283": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user284": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user285": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user286": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user287": {
+                "groups": [
+                    "A",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user288": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user289": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user290": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user291": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user292": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user293": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user294": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user295": {
+                "groups": [
+                    "A",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user296": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user297": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user298": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user299": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user300": {
+                "groups": [
+                    "A",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user301": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user302": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user303": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user304": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user305": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user306": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user307": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user308": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user309": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user310": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user311": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user312": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user313": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user314": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user315": {
+                "groups": [
+                    "M",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user316": {
+                "groups": [
+                    "A",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user317": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user318": {
+                "groups": [
+                    "M",
+                    "O",
+                    "11"
+                ]
+            },
+            "g27191=user319": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user320": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user321": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user322": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user323": {
+                "groups": [
+                    "M",
+                    "O",
+                    "9"
+                ]
+            },
+            "g27191=user324": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user325": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            },
+            "g27191=user326": {
+                "groups": [
+                    "M",
+                    "C",
+                    "1"
+                ]
+            },
+            "g27191=user327": {
+                "groups": [
+                    "A",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user328": {
+                "groups": [
+                    "A",
+                    "C",
+                    "2"
+                ]
+            },
+            "g27191=user329": {
+                "groups": [
+                    "M",
+                    "O",
+                    "10"
+                ]
+            },
+            "g27191=user330": {
+                "groups": [
+                    "A",
+                    "C",
+                    "4"
+                ]
+            },
+            "g27191=user331": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user332": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user333": {
+                "groups": [
+                    "M",
+                    "O",
+                    "8"
+                ]
+            },
+            "g27191=user334": {
+                "groups": [
+                    "M",
+                    "C",
+                    "3"
+                ]
+            }
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "0": "#e6194bff",
+            "1": "#3cb44bff",
+            "2": "#ffe119ff",
+            "3": "#4363d8ff",
+            "4": "#f58231ff",
+            "5": "#42d4f4ff",
+            "6": "#f032e6ff",
+            "7": "#fabed4ff",
+            "8": "#469990ff",
+            "9": "#dcbeffff"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 1
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Silver Medal",
+                    "color": "SILVER",
+                    "maxRank": 2
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 3
+                }
+            ]
+        }
+    }
+]

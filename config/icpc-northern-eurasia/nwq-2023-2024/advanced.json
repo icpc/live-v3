@@ -1,51 +1,75 @@
-{
-  "teamNameRegexes": {
-    "groupRegex": {
-      "itmo": "^SPb ITMO:.*",
-      "spbsu": "^SPb SU:.*",
-      "leti": "^SPb ETU:.*"
+[
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.fullName}",
+        "rule": "^SPb ITMO:.*",
+        "id": "itmo"
     },
-    "customFields": {
-      "shortName": {
-        "^(?:\\(..\\) )?(.*) \\([^)]*\\)": "$1"
-      }
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.fullName}",
+        "rule": "^SPb SU:.*",
+        "id": "spbsu"
+    },
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.fullName}",
+        "rule": "^SPb ETU:.*",
+        "id": "leti"
+    },
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "shortName",
+        "from": "{team.fullName}",
+        "rules": {
+            "^(?:\\(..\\) )?(.*) \\([^)]*\\)": "$1"
+        }
+    },
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "icpc_id",
+        "from": "{team.id}",
+        "rules": {
+            "^([0-9]*)$": "$1"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{shortName}"
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {}
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#e6194bff",
+            "B": "#3cb44bff",
+            "C": "#ffe119ff",
+            "D": "#4363d8ff",
+            "E": "#f58231ff",
+            "F": "#42d4f4ff",
+            "G": "#f032e6ff",
+            "H": "#fabed4ff",
+            "I": "#469990ff",
+            "J": "#dcbeffff",
+            "K": "#9a6324ff",
+            "L": "#fffac8ff"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "manual": [
+                {
+                    "id": "qualified",
+                    "citation": "Qualified to Northwestern Russia Regional Contest",
+                    "teamCdsIds": [
+                        "922155"
+                    ]
+                }
+            ]
+        }
     }
-  },
-  "teamIdRegexes": {
-    "customFields": {
-      "icpc_id": {
-        "^([0-9]*)$": "$1"
-      }
-    }
-  },
-  "teamOverrideTemplate": {
-    "displayName": "{shortName}"
-  },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"},
-    "L":{"color":"#fffac8"}
-  },
-  "teamOverrides": {
-  },
-  "awardsSettings": {
-    "manual": [
-      {
-        "id": "qualified",
-        "citation": "Qualified to Northwestern Russia Regional Contest",
-        "teamCdsIds": [
-          "922155"
-        ]
-      }
-    ]
-  }
-}
+]

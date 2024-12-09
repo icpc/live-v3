@@ -7,10 +7,9 @@ import kotlinx.coroutines.flow.flow
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.applyAdvancedProperties
+import org.icpclive.cds.adapters.applyTuningRules
 import org.icpclive.cds.api.*
-import org.icpclive.cds.tunning.AdvancedProperties
-import org.icpclive.cds.tunning.TeamInfoOverride
+import org.icpclive.cds.tunning.*
 import org.icpclive.export.icpc.IcpcCsvExporter
 
 object IcpcCSVDumpCommand : DumpFileCommand(
@@ -32,14 +31,10 @@ object IcpcCSVDumpCommand : DumpFileCommand(
             val map = parser.records.associate {
                 it[1]!!.toTeamId() to it[0]!!
             }
-            val advanced = AdvancedProperties(
-                teamOverrides = map.mapValues {
-                    TeamInfoOverride(
-                        customFields = mapOf("icpc_id" to it.value)
-                    )
-                }
+            val advanced = listOf(
+                AddCustomValue(name = "icpc_id", map)
             )
-            return applyAdvancedProperties(flow { emit(advanced) })
+            return applyTuningRules(flow { emit(advanced) })
         }
     }
 }

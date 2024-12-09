@@ -1,164 +1,105 @@
-{
-    "scoreboardOverrides": {
+[
+    {
+        "type": "override_scoreboard_settings",
         "penaltyPerWrongAttempt": 20,
         "showTeamsWithoutSubmissions": false
     },
-    "queueSettings": {
-        "maxQueueSize": 5
-    },    
-   "teamOverrides": {
-        "55": {
-            "displayName": "Buena Vista U: Beavers"
-        },
-        "57": {
-            "displayName": "Buena Vista U: Blue"
-        },
-        "38": {
-            "displayName": "Buena Vista U: Gold"
-        },
-        "35": {
-            "displayName": "Creighton U: Blue"
-        },
-        "26": {
-            "displayName": "Creighton U: White"
-        },
-        "21": {
-            "displayName": "Doane U: Tie Grrrs"
-        },
-        "56": {
-            "displayName": "Dordt C: Canons"
-        },
-        "31": {
-            "displayName": "Iowa SU: Cardinal"
-        },
-        "25": {
-            "displayName": "Macalester C: Blue"
-        },
-        "76": {
-            "displayName": "Macalester C: Green"
-        },
-        "23": {
-            "displayName": "Macalester C: Orange"
-        },
-        "67": {
-            "displayName": "Macalester C: Red"
-        },
-        "40": {
-            "displayName": "Macalester C: Yellow"
-        },
-        "93": {
-            "displayName": "Michigan TU: Orange"
-        },
-        "11": {
-            "displayName": "Michigan TU: Yellow"
-        },
-        "19": {
-            "displayName": "St. Cloud SU: Huskies"
-        },
-        "43": {
-            "displayName": "Simpson C: A"
-        },
-        "92": {
-            "displayName": "Simpson C: Storm"
-        },
-        "46": {
-            "displayName": "U of Minnesota: 1"
-        },
-        "14": {
-            "displayName": "U of Minnesota: 2"
-        },
-        "89": {
-            "displayName": "U of Minnesota: 3"
-        },
-        "64": {
-            "displayName": "U of Minnesota: 4"
-        },
-        "86": {
-            "displayName": "U of Minnesota: 5"
-        },
-        "68": {
-            "displayName": "U of Minnesota: 6"
-        },
-        "70": {
-            "displayName": "U of Minnesota: 7"
-        },
-        "83": {
-            "displayName": "U of South Dakota: USDA"
-        },
-        "10": {
-            "displayName": "U of South Dakota: USDB"
-        },
-        "60": {
-            "displayName": "U of South Dakota: USDC"
-        },
-        "27": {
-            "displayName": "U of Winnipeg: UW1"
-        },
-        "77": {
-            "displayName": "U of Winnipeg: UW2"
-        },
-        "78": {
-            "displayName": "U of Wisconsin–La Crosse: Eagles"
+    {
+        "type": "override_organization_display_names",
+        "rules": {
+            "wisc.edu": "U of Wisconsin–Madison",
+            "dsu.edu": "Dakota SU",
+            "lssu.edu": "Lake Superior SU",
+            "iastate.edu": "Iowa SU",
+            "cune.edu": "Concordia U, Nebraska",
+            "uww.edu": "U of Wisconsin–Whitewater",
+            "graceland.edu": "Graceland U",
+            "mnstate.edu": "Minnesota SU Moorhead",
+            "bvu.edu": "Buena Vista U",
+            "drake.edu": "Drake U",
+            "creighton.edu": "Creighton U",
+            "dordt.edu": "Dordt C",
+            "csbsju.edu": "C of St Benedict and St John's U",
+            "doane.edu": "Doane U",
+            "nmu.edu": "Northern Michigan U",
+            "algomau.ca": "Algoma U",
+            "macalester.edu": "Macalester C",
+            "vcsu.edu": "Valley City SU",
+            "msoe.edu": "Milwaukee School of Eng",
+            "mtu.edu": "Michigan TU",
+            "smsu.edu": "Southwest Minnesota SU",
+            "ku.edu": "U of Kansas",
+            "unl.edu": "U of Nebraska–Lincoln",
+            "concordiacollege.edu": "Concordia C (Minnesota)",
+            "simpson.edu": "Simpson C",
+            "stcloudstate.edu": "St. Cloud SU",
+            "nwciowa.edu": "Northwestern C (Iowa)",
+            "umn.edu": "U of Minnesota",
+            "ndsu.edu": "North Dakota SU",
+            "usd.edu": "U of South Dakota",
+            "uwinnipeg.ca": "U of Winnipeg",
+            "uwlax.edu": "U of Wisconsin–La Crosse"
         }
-    },    
-    "teamOverrideTemplate": {"displayName": "{orgDisplayName}: {clicsTeamDisplayName}"},
-    "organizationOverrides": {
-        "wisc.edu": {"displayName": "U of Wisconsin–Madison"},
-        "dsu.edu": {"displayName": "Dakota SU"},
-        "lssu.edu": {"displayName": "Lake Superior SU"},
-        "iastate.edu": {"displayName": "Iowa SU"},
-        "cune.edu": {"displayName": "Concordia U, Nebraska"},
-        "uww.edu": {"displayName": "U of Wisconsin–Whitewater"},
-        "graceland.edu": {"displayName": "Graceland U"},
-        "mnstate.edu": {"displayName": "Minnesota SU Moorhead"},
-        "bvu.edu": {"displayName": "Buena Vista U"},
-        "drake.edu": {"displayName": "Drake U"},
-        "creighton.edu": {"displayName": "Creighton U"},
-        "dordt.edu": {"displayName": "Dordt C"},
-        "csbsju.edu": {"displayName": "C of St Benedict and St John's U"},
-        "doane.edu": {"displayName": "Doane U"},
-        "nmu.edu": {"displayName": "Northern Michigan U"},
-        "algomau.ca": {"displayName": "Algoma U"},
-        "macalester.edu": {"displayName": "Macalester C"},
-        "vcsu.edu": {"displayName": "Valley City SU"},
-        "msoe.edu": {"displayName": "Milwaukee School of Eng"},
-        "mtu.edu": {"displayName": "Michigan TU"},
-        "smsu.edu": {"displayName": "Southwest Minnesota SU"},
-        "ku.edu": {"displayName": "U of Kansas"},
-        "unl.edu": {"displayName": "U of Nebraska–Lincoln"},
-        "concordiacollege.edu": {"displayName": "Concordia C (Minnesota)"},
-        "simpson.edu": {"displayName": "Simpson C"},
-        "stcloudstate.edu": {"displayName": "St. Cloud SU"},
-        "nwciowa.edu": {"displayName": "Northwestern C (Iowa)"},
-        "umn.edu": {"displayName": "U of Minnesota"},
-        "ndsu.edu": {"displayName": "North Dakota SU"},
-        "usd.edu": {"displayName": "U of South Dakota"},
-        "uwinnipeg.ca": {"displayName": "U of Winnipeg"},
-        "uwlax.edu": {"displayName": "U of Wisconsin–La Crosse",}
     },
-  "problemOverrides": {
-       "alwaysknowwhereyourtowelis": {"color":"#e6194B"},
-        "hungryaardvark": {"color":"#3cb44b"
-        },
-        "bigand": {"color":"#ffe119"
-        },
-        "enchantedmaze": {"color":"#4363d8"
-        },
-        "expectedflightdelay": {"color":"#f58231"
-        },
-        "guardevaders": {"color":"#42d4f4"
-        },
-        "jigsawpuzzle": {"color":"#f032e6"
-        },
-        "legoloverstriangle": {"color":"#fabed4"
-        },
-        "palindromicwordsearch": {"color":"#469990"
-        },
-        "pillowstacking": {"color":"#dcbeff"
-        },
-        "sauna": {"color":"#9A6324"
-        },
-        "spaceelevator": {"color":"#fffac8"
-        }   
-  }    
-}
+    {
+        "type": "override_team_template",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "55": "Buena Vista U: Beavers",
+            "57": "Buena Vista U: Blue",
+            "38": "Buena Vista U: Gold",
+            "35": "Creighton U: Blue",
+            "26": "Creighton U: White",
+            "21": "Doane U: Tie Grrrs",
+            "56": "Dordt C: Canons",
+            "31": "Iowa SU: Cardinal",
+            "25": "Macalester C: Blue",
+            "76": "Macalester C: Green",
+            "23": "Macalester C: Orange",
+            "67": "Macalester C: Red",
+            "40": "Macalester C: Yellow",
+            "93": "Michigan TU: Orange",
+            "11": "Michigan TU: Yellow",
+            "19": "St. Cloud SU: Huskies",
+            "43": "Simpson C: A",
+            "92": "Simpson C: Storm",
+            "46": "U of Minnesota: 1",
+            "14": "U of Minnesota: 2",
+            "89": "U of Minnesota: 3",
+            "64": "U of Minnesota: 4",
+            "86": "U of Minnesota: 5",
+            "68": "U of Minnesota: 6",
+            "70": "U of Minnesota: 7",
+            "83": "U of South Dakota: USDA",
+            "10": "U of South Dakota: USDB",
+            "60": "U of South Dakota: USDC",
+            "27": "U of Winnipeg: UW1",
+            "77": "U of Winnipeg: UW2",
+            "78": "U of Wisconsin–La Crosse: Eagles"
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "alwaysknowwhereyourtowelis": "#e6194bff",
+            "hungryaardvark": "#3cb44bff",
+            "bigand": "#ffe119ff",
+            "enchantedmaze": "#4363d8ff",
+            "expectedflightdelay": "#f58231ff",
+            "guardevaders": "#42d4f4ff",
+            "jigsawpuzzle": "#f032e6ff",
+            "legoloverstriangle": "#fabed4ff",
+            "palindromicwordsearch": "#469990ff",
+            "pillowstacking": "#dcbeffff",
+            "sauna": "#9a6324ff",
+            "spaceelevator": "#fffac8ff"
+        }
+    },
+    {
+        "type": "override_queue",
+        "maxQueueSize": 5
+    }
+]

@@ -1,26 +1,31 @@
-{
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": true
-  },
-  "teamOverrideTemplate": {
-    "medias": {
-      "photo": {
-        "type": "Image",
-        "url": "http://localhost:8080/media/photos/{teamId}.jpg"
-      },
-      "screen": {
-        "type": "Image",
-        "url": "http://localhost:8080/media/screen/screen{teamId}.svg"
-      },
-      "camera": {
-        "type": "Image",
-        "url": "http://localhost:8080/media/camera/camera{teamId}.svg"
-      },
-      "achievement": {
-        "type": "Image",
-        "url": "http://localhost:8080/media/achievements/achievements{teamId}.svg"
-      }
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": true
+    },
+    {
+        "type": "override_team_template",
+        "medias": {
+            "photo": {
+                "type": "Image",
+                "url": "http://localhost:8080/media/photos/{team.id}.jpg"
+            },
+            "screen": {
+                "type": "Image",
+                "url": "http://localhost:8080/media/screen/screen{team.id}.svg"
+            },
+            "camera": {
+                "type": "Image",
+                "url": "http://localhost:8080/media/camera/camera{team.id}.svg"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "http://localhost:8080/media/achievements/achievements{team.id}.svg"
+            }
+        }
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {}
     }
-  },
-  "teamOverrides": {}
-}
+]

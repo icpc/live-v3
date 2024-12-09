@@ -1,272 +1,133 @@
-{
-    "problemOverrides": {
-        "oee2tdiu551jl85arvaaj071nc": {
-            "color": "#e6194B"
-        },
-        "bbdglcerd170v0ahbkntvnu180": {
-            "color": "#3cb44b"
-        },
-        "63imb1m0mp5n5c1s34b0djf1s4": {
-            "color": "#ffe119"
-        },
-        "74jj437grl1pn76vna52jti2rg": {
-            "color": "#4363d8"
-        },
-        "ibelo8lkt5259e0fejgcbbjai8": {
-            "color": "#f58231"
-        },
-        "cdau9kaioh219eapbtbu0mn3js": {
-            "color": "#42d4f4"
-        },
-        "0a5loevoid61f38pl74ot22hdo": {
-            "color": "#f032e6"
-        },
-        "02sjp6ss995mv730bsaqh24378": {
-            "color": "#fabed4"
-        },
-        "e2j0lpr2756qh5pt2u0s2o86ek": {
-            "color": "#469990"
-        },
-        "dh85b682kt1ih06jv142vpqs3c": {
-            "color": "#dcbeff"
-        },
-        "ecgju2d62p2dh5t0t6oer4qbko": {
-            "color": "#9A6324"
-        },
-        "4bsbc7aift3n9e6snukehkbbno": {
-            "color": "#fffac8"
-        },
-        "5td1o2ls7t7dfd9tvn73ll9fr8": {
-            "color": "#800000"
-        }
-    },
-    "awardsSettings": {
-        "medals": [
-            {
-                "id": "gold-medal",
-                "citation": "Gold Medal",
-                "color": "GOLD",
-                "maxRank": 1
-            },
-            {
-                "id": "silver-medal",
-                "citation": "Solver Medal",
-                "color": "SILVER",
-                "maxRank": 2
-            },
-            {
-                "id": "bronze-medal",
-                "citation": "Bronze Medal",
-                "color": "BRONZE",
-                "maxRank": 3
-            }
-        ]
-    },
-    "teamOverrideTemplate": {
-        "displayName": "[{orgDisplayName}] {teamName}"
-    },
-    "teamNameRegexes": {
-        "organizationRegex": {
+[
+    {
+        "type": "set_organization_by_regex",
+        "from": "{team.fullName}",
+        "rules": {
             "\\[(.*)\\] .*": "$1"
-        },
-        "customFields": {
-            "teamName": {
-                "\\[.*\\] (.*)": "$1"
-            }
         }
     },
-    "organizationOverrides": {
-        "Aristotle University of Thessaloniki": {
-            "displayName": "Aristotle University of Thessaloniki"
-        },
-        "Babes-Bolyai University": {
-            "displayName": "Babes-Bolyai University"
-        },
-        "Bilkent University": {
-            "displayName": "Bilkent University"
-        },
-        "Bogazici University": {
-            "displayName": "Bogazici University"
-        },
-        "Central Ukrainian NTU": {
-            "displayName": "Central Ukrainian NTU"
-        },
-        "Cherkasy B. Khmelnytsky NU": {
-            "displayName": "Cherkasy B. Khmelnytsky NU"
-        },
-        "Chernivtsi Y. Fedkovijch NU": {
-            "displayName": "Chernivtsi Y. Fedkovijch NU"
-        },
-        "Dnipro O. Honchar NU": {
-            "displayName": "Dnipro O. Honchar NU"
-        },
-        "Dniprovsk STU": {
-            "displayName": "Dniprovsk STU"
-        },
-        "Donetsk NTU": {
-            "displayName": "Donetsk NTU"
-        },
-        "Hacettepe University": {
-            "displayName": "Hacettepe University"
-        },
-        "Intenational Hellenic University": {
-            "displayName": "Intenational Hellenic University"
-        },
-        "Istanbul Technical University": {
-            "displayName": "Istanbul Technical University"
-        },
-        "Kharkiv Aerospace U": {
-            "displayName": "Kharkiv Aerospace U"
-        },
-        "Kharkiv NTU KhPI": {
-            "displayName": "Kharkiv NTU KhPI"
-        },
-        "Kharkiv NU of Economics": {
-            "displayName": "Kharkiv NU of Economics"
-        },
-        "Kharkiv NU of Radio Electronics": {
-            "displayName": "Kharkiv NU of Radio Electronics"
-        },
-        "Kharkiv V.N. Karazin NU": {
-            "displayName": "Kharkiv V.N. Karazin NU"
-        },
-        "Khmelnitsky PC": {
-            "displayName": "Khmelnitsky PC"
-        },
-        "Kiev PI NTU": {
-            "displayName": "Kiev PI NTU"
-        },
-        "Kryvyi Rih SU": {
-            "displayName": "Kryvyi Rih SU"
-        },
-        "Kyiv T.Shevchenko NU": {
-            "displayName": "Kyiv T.Shevchenko NU"
-        },
-        "Kyiv-Mohyla NU": {
-            "displayName": "Kyiv-Mohyla NU"
-        },
-        "Lutsk NTU": {
-            "displayName": "Lutsk NTU"
-        },
-        "Lviv NU": {
-            "displayName": "Lviv NU"
-        },
-        "Lviv Polytechnic NU": {
-            "displayName": "Lviv Polytechnic NU"
-        },
-        "Middle East Technical University": {
-            "displayName": "Middle East Technical University"
-        },
-        "National and Kapodistrian University of Athens": {
-            "displayName": "National and Kapodistrian University of Athens"
-        },
-        "National Technical University of Athens": {
-            "displayName": "National Technical University of Athens"
-        },
-        "Neapolis University Pafos": {
-            "displayName": "Neapolis University Pafos"
-        },
-        "Nikolaev Admiral Makarov NU": {
-            "displayName": "Nikolaev Admiral Makarov NU"
-        },
-        "Nikolaev P. Mohyla Black Sea NU": {
-            "displayName": "Nikolaev P. Mohyla Black Sea NU"
-        },
-        "Odessa Mechnikov NU": {
-            "displayName": "Odessa Mechnikov NU"
-        },
-        "Odessa Polytechnic SU": {
-            "displayName": "Odessa Polytechnic SU"
-        },
-        "POLITEHNICA University of Bucharest": {
-            "displayName": "POLITEHNICA University of Bucharest"
-        },
-        "POLITEHNICA University of Timisoara": {
-            "displayName": "POLITEHNICA University of Timisoara"
-        },
-        "ShuUniversity": {
-            "displayName": "ShuUniversity"
-        },
-        "Sofia University": {
-            "displayName": "Sofia University"
-        },
-        "State University of Moldova": {
-            "displayName": "State University of Moldova"
-        },
-        "Technical University of Cluj-Napoca": {
-            "displayName": "Technical University of Cluj-Napoca"
-        },
-        "Technical University of Crete": {
-            "displayName": "Technical University of Crete"
-        },
-        "Technical University of Moldova": {
-            "displayName": "Technical University of Moldova"
-        },
-        "TOBB University of Economics and Technology": {
-            "displayName": "TOBB University of Economics and Technology"
-        },
-        "UAIC": {
-            "displayName": "UAIC"
-        },
-        "Union University": {
-            "displayName": "Union University"
-        },
-        "UniversityStsCyrilandMethodius": {
-            "displayName": "UniversityStsCyrilandMethodius"
-        },
-        "UoBelgrade": {
-            "displayName": "UoBelgrade"
-        },
-        "UoBucharest": {
-            "displayName": "UoBucharest"
-        },
-        "UoCraiova": {
-            "displayName": "UoCraiova"
-        },
-        "UoCrete": {
-            "displayName": "UoCrete"
-        },
-        "UoIoannina": {
-            "displayName": "UoIoannina"
-        },
-        "UoMacedonia": {
-            "displayName": "UoMacedonia"
-        },
-        "UoNiš": {
-            "displayName": "UoNiš"
-        },
-        "UoNovi Sad": {
-            "displayName": "UoNovi Sad"
-        },
-        "UoPatras": {
-            "displayName": "UoPatras"
-        },
-        "UoPiraeus": {
-            "displayName": "UoPiraeus"
-        },
-        "UoWest Attica": {
-            "displayName": "UoWest Attica"
-        },
-        "Uzhgorod NU": {
-            "displayName": "Uzhgorod NU"
-        },
-        "Vinnytsia NTU": {
-            "displayName": "Vinnytsia NTU"
-        },
-        "West University of Timisoara": {
-            "displayName": "West University of Timisoara"
-        },
-        "Zaporizhzhia College E&L": {
-            "displayName": "Zaporizhzhia College E&L"
-        },
-        "Zaporizhzhia NU": {
-            "displayName": "Zaporizhzhia NU"
-        },
-        "Zhytomyr I. Franko SU": {
-            "displayName": "Zhytomyr I. Franko SU"
-        },
-        "Zhytomyr Polytechnic SU": {
-            "displayName": "Zhytomyr Polytechnic SU"
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "teamName",
+        "from": "{team.fullName}",
+        "rules": {
+            "\\[.*\\] (.*)": "$1"
+        }
+    },
+    {
+        "type": "override_organization_display_names",
+        "rules": {
+            "Aristotle University of Thessaloniki": "Aristotle University of Thessaloniki",
+            "Babes-Bolyai University": "Babes-Bolyai University",
+            "Bilkent University": "Bilkent University",
+            "Bogazici University": "Bogazici University",
+            "Central Ukrainian NTU": "Central Ukrainian NTU",
+            "Cherkasy B. Khmelnytsky NU": "Cherkasy B. Khmelnytsky NU",
+            "Chernivtsi Y. Fedkovijch NU": "Chernivtsi Y. Fedkovijch NU",
+            "Dnipro O. Honchar NU": "Dnipro O. Honchar NU",
+            "Dniprovsk STU": "Dniprovsk STU",
+            "Donetsk NTU": "Donetsk NTU",
+            "Hacettepe University": "Hacettepe University",
+            "Intenational Hellenic University": "Intenational Hellenic University",
+            "Istanbul Technical University": "Istanbul Technical University",
+            "Kharkiv Aerospace U": "Kharkiv Aerospace U",
+            "Kharkiv NTU KhPI": "Kharkiv NTU KhPI",
+            "Kharkiv NU of Economics": "Kharkiv NU of Economics",
+            "Kharkiv NU of Radio Electronics": "Kharkiv NU of Radio Electronics",
+            "Kharkiv V.N. Karazin NU": "Kharkiv V.N. Karazin NU",
+            "Khmelnitsky PC": "Khmelnitsky PC",
+            "Kiev PI NTU": "Kiev PI NTU",
+            "Kryvyi Rih SU": "Kryvyi Rih SU",
+            "Kyiv T.Shevchenko NU": "Kyiv T.Shevchenko NU",
+            "Kyiv-Mohyla NU": "Kyiv-Mohyla NU",
+            "Lutsk NTU": "Lutsk NTU",
+            "Lviv NU": "Lviv NU",
+            "Lviv Polytechnic NU": "Lviv Polytechnic NU",
+            "Middle East Technical University": "Middle East Technical University",
+            "National and Kapodistrian University of Athens": "National and Kapodistrian University of Athens",
+            "National Technical University of Athens": "National Technical University of Athens",
+            "Neapolis University Pafos": "Neapolis University Pafos",
+            "Nikolaev Admiral Makarov NU": "Nikolaev Admiral Makarov NU",
+            "Nikolaev P. Mohyla Black Sea NU": "Nikolaev P. Mohyla Black Sea NU",
+            "Odessa Mechnikov NU": "Odessa Mechnikov NU",
+            "Odessa Polytechnic SU": "Odessa Polytechnic SU",
+            "POLITEHNICA University of Bucharest": "POLITEHNICA University of Bucharest",
+            "POLITEHNICA University of Timisoara": "POLITEHNICA University of Timisoara",
+            "ShuUniversity": "ShuUniversity",
+            "Sofia University": "Sofia University",
+            "State University of Moldova": "State University of Moldova",
+            "Technical University of Cluj-Napoca": "Technical University of Cluj-Napoca",
+            "Technical University of Crete": "Technical University of Crete",
+            "Technical University of Moldova": "Technical University of Moldova",
+            "TOBB University of Economics and Technology": "TOBB University of Economics and Technology",
+            "UAIC": "UAIC",
+            "Union University": "Union University",
+            "UniversityStsCyrilandMethodius": "UniversityStsCyrilandMethodius",
+            "UoBelgrade": "UoBelgrade",
+            "UoBucharest": "UoBucharest",
+            "UoCraiova": "UoCraiova",
+            "UoCrete": "UoCrete",
+            "UoIoannina": "UoIoannina",
+            "UoMacedonia": "UoMacedonia",
+            "UoNiš": "UoNiš",
+            "UoNovi Sad": "UoNovi Sad",
+            "UoPatras": "UoPatras",
+            "UoPiraeus": "UoPiraeus",
+            "UoWest Attica": "UoWest Attica",
+            "Uzhgorod NU": "Uzhgorod NU",
+            "Vinnytsia NTU": "Vinnytsia NTU",
+            "West University of Timisoara": "West University of Timisoara",
+            "Zaporizhzhia College E&L": "Zaporizhzhia College E&L",
+            "Zaporizhzhia NU": "Zaporizhzhia NU",
+            "Zhytomyr I. Franko SU": "Zhytomyr I. Franko SU",
+            "Zhytomyr Polytechnic SU": "Zhytomyr Polytechnic SU"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "[{org.displayName}] {teamName}"
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "oee2tdiu551jl85arvaaj071nc": "#e6194bff",
+            "bbdglcerd170v0ahbkntvnu180": "#3cb44bff",
+            "63imb1m0mp5n5c1s34b0djf1s4": "#ffe119ff",
+            "74jj437grl1pn76vna52jti2rg": "#4363d8ff",
+            "ibelo8lkt5259e0fejgcbbjai8": "#f58231ff",
+            "cdau9kaioh219eapbtbu0mn3js": "#42d4f4ff",
+            "0a5loevoid61f38pl74ot22hdo": "#f032e6ff",
+            "02sjp6ss995mv730bsaqh24378": "#fabed4ff",
+            "e2j0lpr2756qh5pt2u0s2o86ek": "#469990ff",
+            "dh85b682kt1ih06jv142vpqs3c": "#dcbeffff",
+            "ecgju2d62p2dh5t0t6oer4qbko": "#9a6324ff",
+            "4bsbc7aift3n9e6snukehkbbno": "#fffac8ff",
+            "5td1o2ls7t7dfd9tvn73ll9fr8": "#800000ff"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 1
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 2
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 3
+                }
+            ]
         }
     }
-}
+]

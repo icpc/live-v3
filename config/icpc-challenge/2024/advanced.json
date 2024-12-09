@@ -1,25 +1,35 @@
-{
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": false
-  },
-  "problemOverrides": {
-    "0": {
-      "color": "#CF0A2C"
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.id}",
+        "rule": "^.*team.*",
+        "id": "team"
+    },
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.id}",
+        "rule": "^.*coach.*",
+        "id": "coach"
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "g30428=team46039": "46: IIT (ISM), Dhanbad"
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "0": "#cf0a2cff"
+        }
+    },
+    {
+        "type": "override_queue",
+        "maxQueueSize": 20,
+        "maxUntestedRun": 5
     }
-  },
-  "teamIdRegexes": {
-    "groupRegex": {
-      "team": "^.*team.*",
-      "coach": "^.*coach.*"
-    }
-  },
-  "teamOverrides": {
-    "g30428=team46039": {
-      "shortname": "46: IIT (ISM), Dhanbad"
-    }
-  },
-  "queueSettings": {
-    "maxQueueSize": 20,
-    "maxUntestedRun": 5
-  }
-}
+]

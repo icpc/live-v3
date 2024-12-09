@@ -9,11 +9,10 @@ import kotlinx.serialization.json.decodeFromStream
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.applyAdvancedProperties
-import org.icpclive.cds.adapters.applyCustomFieldsMap
+import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.toTeamId
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.tunning.AdvancedProperties
+import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.*
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -42,9 +41,9 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
     public fun toFlow(): Flow<ContestUpdate> {
         val advancedProperties = fileContentFlow(
             advancedJsonPath,
-            noData = AdvancedProperties()
+            noData = emptyList()
         ) {
-            AdvancedProperties.fromInputStream(it)
+            TuningRule.listFromInputStream(it)
         }
         val customFields = fileContentFlow(
             customFieldsCsvPath,
@@ -75,7 +74,7 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         return CDSSettings.fromFile(path) { creds[it] }
             .toFlow()
             .applyCustomFieldsMap(customFields)
-            .applyAdvancedProperties(advancedProperties)
+            .applyTuningRules(advancedProperties)
     }
     private companion object {
         val log by getLogger()

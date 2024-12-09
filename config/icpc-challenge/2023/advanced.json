@@ -1,101 +1,56 @@
-{
-    
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": false
-  },
-      "problemOverrides": {
-        "0": {
-          "color": "#CF0A2C"
-        },
-        "1": {
-          "color": "#CF0A2C"
-        }
-      },
-
-  "teamNameRegexes": {
-      "groupRegex": {
-        "team": "^46.*|^47.*",
-        "coach": "^[^4]{2}.*|4[^67].*"
-      }
+[
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": false
     },
-    "teamOverrides": {
-        "g30428=team46039": {
-          "shortname": "46: IIT (ISM), Dhanbad"
-        },
-        "g30428=team47065": {
-          "shortname": "47: Higher Institute for Applied S&T"
-        },
-        "g30428=team46029": {
-          "shortname": "47: Hanoi University of S&T"
-        },
-        "g30428=team46092": {
-          "shortname": "46: Union University - Faculty of CS"
-        },
-        "g30428=team47122": {
-          "shortname": "47: University of ES&T of China"
-        },
-        "g30428=team46112": {
-          "shortname": "47: University of ES&T of China"
-        },
-        "g30428=team46077": {
-          "shortname": "46: St. Petersburg of HSE"
-        },
-        "g30428=team47034": {
-          "shortname": "47: Harbour.Space U"
-        },
-        "g30428=team47010": {
-          "shortname": "47: Belarusian SU"
-        },
-        "g30428=team47011": {
-          "shortname": "47: BSUIR"
-        },
-        "g30428=team46010": {
-          "shortname": "46: BUET"
-        },
-        "g30428=team47055": {
-          "shortname": "47: Kazakh-British TU"
-        },
-        "g30428=team46032": {
-          "shortname": "46: Higher Institute for Applied S&T"
-        },
-        "g30428=team46006": {
-          "shortname": "46: Applied Science Private U"
-        },
-        "g30428=team46103": {
-          "shortname": "46: U de São Paulo (São Carlos)"
-        },
-        "g30428=team47013": {
-          "shortname": "Birla Institute of T&S (Pilani)"
-        },
-        "g30428=team46049": {
-          "shortname": "46: Jordan University of S&T"
-        },
-        "g30428=team47041": {
-          "shortname": "47: IIT - Indore"
-        },
-        "g30428=team47096": {
-          "shortname": "47: U de Buenos Aires - FCEN"
-        },
-        "g30428=team47087": {
-          "shortname": "47: ITMO University"
-        },
-        "g30428=team46078": {
-          "shortname": "46: ITMO University"
-        },
-        "g30428=team46105": {
-          "shortname": "46: U Federal de Pernambuco"
-        },
-        "g30428=team46072": {
-          "shortname": "46: Rajshahi UET"
-        },
-        "g30428=team47086": {
-          "shortname": "47: St. Petersburg Campus of HSE"
-        },
-        "g30428=team46016": {
-          "shortname": "46: Cairo University - FCAI"
-        },
-        "g30428=team47037": {
-          "shortname": "47: Huazhong UST"
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.fullName}",
+        "rule": "^46.*|^47.*",
+        "id": "team"
+    },
+    {
+        "type": "add_group_if_matches",
+        "from": "{team.fullName}",
+        "rule": "^[^4]{2}.*|4[^67].*",
+        "id": "coach"
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "g30428=team46039": "46: IIT (ISM), Dhanbad",
+            "g30428=team47065": "47: Higher Institute for Applied S&T",
+            "g30428=team46029": "47: Hanoi University of S&T",
+            "g30428=team46092": "46: Union University - Faculty of CS",
+            "g30428=team47122": "47: University of ES&T of China",
+            "g30428=team46112": "47: University of ES&T of China",
+            "g30428=team46077": "46: St. Petersburg of HSE",
+            "g30428=team47034": "47: Harbour.Space U",
+            "g30428=team47010": "47: Belarusian SU",
+            "g30428=team47011": "47: BSUIR",
+            "g30428=team46010": "46: BUET",
+            "g30428=team47055": "47: Kazakh-British TU",
+            "g30428=team46032": "46: Higher Institute for Applied S&T",
+            "g30428=team46006": "46: Applied Science Private U",
+            "g30428=team46103": "46: U de São Paulo (São Carlos)",
+            "g30428=team47013": "Birla Institute of T&S (Pilani)",
+            "g30428=team46049": "46: Jordan University of S&T",
+            "g30428=team47041": "47: IIT - Indore",
+            "g30428=team47096": "47: U de Buenos Aires - FCEN",
+            "g30428=team47087": "47: ITMO University",
+            "g30428=team46078": "46: ITMO University",
+            "g30428=team46105": "46: U Federal de Pernambuco",
+            "g30428=team46072": "46: Rajshahi UET",
+            "g30428=team47086": "47: St. Petersburg Campus of HSE",
+            "g30428=team46016": "46: Cairo University - FCAI",
+            "g30428=team47037": "47: Huazhong UST"
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "0": "#cf0a2cff",
+            "1": "#cf0a2cff"
         }
     }
-  }  
+]

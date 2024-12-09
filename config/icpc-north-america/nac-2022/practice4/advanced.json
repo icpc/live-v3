@@ -1,72 +1,228 @@
-{
-  "teamOverrides": {
-"408157": {"shortname":"U of Central Florida","name":"U of Central Florida"},
-"408158": {"shortname":"GeorgiaTech","name":"GeorgiaTech"},
-"408159": {"shortname":"CalTech","name":"CalTech"},
-"408160": {"shortname":"U of Texas at Austin","name":"U of Texas at Austin"},
-"408161": {"shortname":"U of Texas at Dallas","name":"U of Texas at Dallas"},
-"408162": {"shortname":"U of Washington","name":"U of Washington"},
-"408163": {"shortname":"Stanford U","name":"Stanford U"},
-"408164": {"shortname":"U of Wisconsin\u2013Madison","name":"U of Wisconsin\u2013Madison"},
-"408165": {"shortname":"Milwaukee S of Eng","name":"Milwaukee S of Eng"},
-"408166": {"shortname":"U of Illinois at UC","name":"U of Illinois at UC"},
-"408167": {"shortname":"U of Chicago","name":"U of Chicago"},
-"408168": {"shortname":"Swarthmore College","name":"Swarthmore College"},
-"408169": {"shortname":"U of Maryland","name":"U of Maryland"},
-"408170": {"shortname":"Columbia U","name":"Columbia U"},
-"408171": {"shortname":"Rutgers U","name":"Rutgers U"},
-"408172": {"shortname":"UCLA","name":"UCLA"},
-"408173": {"shortname":"Carnegie Mellon U","name":"Carnegie Mellon U"},
-"408174": {"shortname":"U of Waterloo","name":"U of Waterloo"},
-"408175": {"shortname":"U of Alberta","name":"U of Alberta"},
-"408176": {"shortname":"Brigham Young U","name":"Brigham Young U"},
-"408177": {"shortname":"MIT","name":"MIT"},
-"408178": {"shortname":"Harvard U","name":"Harvard U"},
-"408179": {"shortname":"Rice U","name":"Rice U"},
-"408180": {"shortname":"Texas A&M U","name":"Texas A&M U"},
-"408181": {"shortname":"UC Berkeley","name":"UC Berkeley"},
-"408182": {"shortname":"Simon Fraser U","name":"Simon Fraser U"},
-"408183": {"shortname":"U of British Columbia","name":"U of British Columbia"},
-"408184": {"shortname":"U of Rochester","name":"U of Rochester"},
-"408185": {"shortname":"Northeastern U","name":"Northeastern U"},
-"408186": {"shortname":"UCSD","name":"UCSD"},
-"408187": {"shortname":"Troy U","name":"Troy U"},
-"408188": {"shortname":"Emory U","name":"Emory U"},
-"408189": {"shortname":"U of Calgary","name":"U of Calgary"},
-"408190": {"shortname":"U of Michigan","name":"U of Michigan"},
-"408191": {"shortname":"Purdue U","name":"Purdue U"},
-"408192": {"shortname":"New York U","name":"New York U"},
-"408193": {"shortname":"Cornell U","name":"Cornell U"},
-"408194": {"shortname":"U of Kentucky","name":"U of Kentucky"},
-"408195": {"shortname":"Vanderbilt U","name":"Vanderbilt U"},
-"408196": {"shortname":"U of Virginia","name":"U of Virginia"},
-"408197": {"shortname":"Lafayette College","name":"Lafayette College"},
-"408198": {"shortname":"North Carolina State U","name":"North Carolina State U"},
-"408199": {"shortname":"Carleton College","name":"Carleton College"},
-"408200": {"shortname":"U of Minnesota","name":"U of Minnesota"},
-"408201": {"shortname":"Iowa State U","name":"Iowa State U"},
-"408202": {"shortname":"U of Toronto","name":"U of Toronto"},
-"408203": {"shortname":"Drexel U","name":"Drexel U"},
-"408204": {"shortname":"SoCal","name":"SoCal"},
-"408205": {"shortname":"Colorado S of Mines","name":"Colorado S of Mines"},
-"408206": {"shortname":"Yale U","name":"Yale U"}
-  },                                                   
- "problemOverrides": {
-"A":{"color":"#e6194B"},
-"B":{"color":"#3cb44b"},
-"C":{"color":"#ffe119"},
-"D":{"color":"#4363d8"},
-"E":{"color":"#f58231"},
-"F":{"color":"#42d4f4"},
-"G":{"color":"#f032e6"},
-"H":{"color":"#fabed4"},
-"I":{"color":"#469990"},
-"J":{"color":"#dcbeff"},
-"K":{"color":"#9A6324"},
-"L":{"color":"#fffac8"},
-"M":{"color":"#800000"},
-"N":{"color":"#aaffc3"},
-"O":{"color":"#000075"},
-"P":{"color":"#a9a9a9"}
-  }
-}
+[
+    {
+        "type": "override_teams",
+        "rules": {
+            "408157": {
+                "fullName": "U of Central Florida",
+                "displayName": "U of Central Florida"
+            },
+            "408158": {
+                "fullName": "GeorgiaTech",
+                "displayName": "GeorgiaTech"
+            },
+            "408159": {
+                "fullName": "CalTech",
+                "displayName": "CalTech"
+            },
+            "408160": {
+                "fullName": "U of Texas at Austin",
+                "displayName": "U of Texas at Austin"
+            },
+            "408161": {
+                "fullName": "U of Texas at Dallas",
+                "displayName": "U of Texas at Dallas"
+            },
+            "408162": {
+                "fullName": "U of Washington",
+                "displayName": "U of Washington"
+            },
+            "408163": {
+                "fullName": "Stanford U",
+                "displayName": "Stanford U"
+            },
+            "408164": {
+                "fullName": "U of Wisconsin–Madison",
+                "displayName": "U of Wisconsin–Madison"
+            },
+            "408165": {
+                "fullName": "Milwaukee S of Eng",
+                "displayName": "Milwaukee S of Eng"
+            },
+            "408166": {
+                "fullName": "U of Illinois at UC",
+                "displayName": "U of Illinois at UC"
+            },
+            "408167": {
+                "fullName": "U of Chicago",
+                "displayName": "U of Chicago"
+            },
+            "408168": {
+                "fullName": "Swarthmore College",
+                "displayName": "Swarthmore College"
+            },
+            "408169": {
+                "fullName": "U of Maryland",
+                "displayName": "U of Maryland"
+            },
+            "408170": {
+                "fullName": "Columbia U",
+                "displayName": "Columbia U"
+            },
+            "408171": {
+                "fullName": "Rutgers U",
+                "displayName": "Rutgers U"
+            },
+            "408172": {
+                "fullName": "UCLA",
+                "displayName": "UCLA"
+            },
+            "408173": {
+                "fullName": "Carnegie Mellon U",
+                "displayName": "Carnegie Mellon U"
+            },
+            "408174": {
+                "fullName": "U of Waterloo",
+                "displayName": "U of Waterloo"
+            },
+            "408175": {
+                "fullName": "U of Alberta",
+                "displayName": "U of Alberta"
+            },
+            "408176": {
+                "fullName": "Brigham Young U",
+                "displayName": "Brigham Young U"
+            },
+            "408177": {
+                "fullName": "MIT",
+                "displayName": "MIT"
+            },
+            "408178": {
+                "fullName": "Harvard U",
+                "displayName": "Harvard U"
+            },
+            "408179": {
+                "fullName": "Rice U",
+                "displayName": "Rice U"
+            },
+            "408180": {
+                "fullName": "Texas A&M U",
+                "displayName": "Texas A&M U"
+            },
+            "408181": {
+                "fullName": "UC Berkeley",
+                "displayName": "UC Berkeley"
+            },
+            "408182": {
+                "fullName": "Simon Fraser U",
+                "displayName": "Simon Fraser U"
+            },
+            "408183": {
+                "fullName": "U of British Columbia",
+                "displayName": "U of British Columbia"
+            },
+            "408184": {
+                "fullName": "U of Rochester",
+                "displayName": "U of Rochester"
+            },
+            "408185": {
+                "fullName": "Northeastern U",
+                "displayName": "Northeastern U"
+            },
+            "408186": {
+                "fullName": "UCSD",
+                "displayName": "UCSD"
+            },
+            "408187": {
+                "fullName": "Troy U",
+                "displayName": "Troy U"
+            },
+            "408188": {
+                "fullName": "Emory U",
+                "displayName": "Emory U"
+            },
+            "408189": {
+                "fullName": "U of Calgary",
+                "displayName": "U of Calgary"
+            },
+            "408190": {
+                "fullName": "U of Michigan",
+                "displayName": "U of Michigan"
+            },
+            "408191": {
+                "fullName": "Purdue U",
+                "displayName": "Purdue U"
+            },
+            "408192": {
+                "fullName": "New York U",
+                "displayName": "New York U"
+            },
+            "408193": {
+                "fullName": "Cornell U",
+                "displayName": "Cornell U"
+            },
+            "408194": {
+                "fullName": "U of Kentucky",
+                "displayName": "U of Kentucky"
+            },
+            "408195": {
+                "fullName": "Vanderbilt U",
+                "displayName": "Vanderbilt U"
+            },
+            "408196": {
+                "fullName": "U of Virginia",
+                "displayName": "U of Virginia"
+            },
+            "408197": {
+                "fullName": "Lafayette College",
+                "displayName": "Lafayette College"
+            },
+            "408198": {
+                "fullName": "North Carolina State U",
+                "displayName": "North Carolina State U"
+            },
+            "408199": {
+                "fullName": "Carleton College",
+                "displayName": "Carleton College"
+            },
+            "408200": {
+                "fullName": "U of Minnesota",
+                "displayName": "U of Minnesota"
+            },
+            "408201": {
+                "fullName": "Iowa State U",
+                "displayName": "Iowa State U"
+            },
+            "408202": {
+                "fullName": "U of Toronto",
+                "displayName": "U of Toronto"
+            },
+            "408203": {
+                "fullName": "Drexel U",
+                "displayName": "Drexel U"
+            },
+            "408204": {
+                "fullName": "SoCal",
+                "displayName": "SoCal"
+            },
+            "408205": {
+                "fullName": "Colorado S of Mines",
+                "displayName": "Colorado S of Mines"
+            },
+            "408206": {
+                "fullName": "Yale U",
+                "displayName": "Yale U"
+            }
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#e6194bff",
+            "B": "#3cb44bff",
+            "C": "#ffe119ff",
+            "D": "#4363d8ff",
+            "E": "#f58231ff",
+            "F": "#42d4f4ff",
+            "G": "#f032e6ff",
+            "H": "#fabed4ff",
+            "I": "#469990ff",
+            "J": "#dcbeffff",
+            "K": "#9a6324ff",
+            "L": "#fffac8ff",
+            "M": "#800000ff",
+            "N": "#aaffc3ff",
+            "O": "#000075ff",
+            "P": "#a9a9a9ff"
+        }
+    }
+]

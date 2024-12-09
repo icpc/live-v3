@@ -1,160 +1,516 @@
-{
-  "startTime": "2022-12-06T06:00:00Z",
-  "freezeTimeSeconds": 18000,
-  "awardsSettings": {
-    "medalGroups": [
-      {
-        "medals": [
-          {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 4},
-          {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 8},
-          {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 12}
-        ]
-      },
-      {
-        "medals": [
-          {"id": "first-diploma", "citation": "First Degree Diploma", "minScore": 7},
-          {"id": "second-diploma", "citation": "Second Degree Diploma", "minScore": 5},
-          {"id": "third-diploma", "citation": "Third Degree Diploma", "minScore": 4},
-          {"id": "mention", "citation": "Honorable Mention", "minScore": 0}
-        ]
-      }
-    ],
-    "championTitle": "Northern Eurasia Finals Champions",
-    "rankAwardsMaxRank": 13,
-    "manual": [
-      {
-        "id": "qualified",
-        "citation": "Qualified to world finals",
-        "teamCdsIds": [
-          "nef788321", "nef788318", "nef780668", "nef788418", "nef780665", "nef790061",
-          "nef780537", "nef780675", "nef780540", "nef780541", "nef788332", "nef788419"
-        ]
-      }
-    ]
-  },
-  "teamIdRegexes": {
-    "customFields": {
-      "icpc_id": {
-        "^nef([0-9]*)$": "$1"
-      }
+[
+    {
+        "type": "override_times",
+        "startTime": "2022-12-06 07:00:00 +01:00",
+        "freezeTimeSeconds": 18000
+    },
+    {
+        "type": "override_scoreboard_settings",
+        "showTeamsWithoutSubmissions": true
+    },
+    {
+        "type": "add_custom_value_by_regex",
+        "name": "icpc_id",
+        "from": "{team.id}",
+        "rules": {
+            "^nef([0-9]*)$": "$1"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{short_name}",
+        "hashTag": "#{hash_tag}",
+        "medias": {
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{team.id}.svg"
+            },
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://{grabber_ip}:3000/admin",
+                "peerName": "{computer_id}",
+                "streamType": "desktop",
+                "credential": "live"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://{grabber_ip}:3000/admin",
+                "peerName": "{computer_id}",
+                "streamType": "webcam",
+                "credential": "live"
+            }
+        }
+    },
+    {
+        "type": "override_teams",
+        "rules": {
+            "nef789944": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef789947": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790038": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790039": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790040": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790041": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790042": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790043": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790044": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790046": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790047": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790048": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef790050": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796542": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796543": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796547": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796555": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796556": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796557": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796558": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796560": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef796561": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797075": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797076": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797077": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797079": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797080": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797081": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797082": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797083": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797084": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797085": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797086": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797087": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797089": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797090": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797091": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797092": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797093": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef797094": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799340": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799341": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799342": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799343": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799344": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799345": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799346": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799347": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799348": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799349": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799350": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799351": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799352": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799353": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799354": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799355": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799356": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799357": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799358": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799360": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799361": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799363": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799364": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799365": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799366": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799368": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799369": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799372": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799373": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nef799571": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nefnc03": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nefnc04": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nefnc05": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nefnc06": {
+                "medias": {
+                    "camera": null
+                }
+            },
+            "nefnc07": {
+                "medias": {
+                    "camera": null
+                }
+            }
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#ff00feff",
+            "B": "#ffffffff",
+            "C": "#9b01ffff",
+            "D": "#fe0000ff",
+            "E": "#ffff00ff",
+            "F": "#0000feff",
+            "G": "#761946ff",
+            "H": "#04ff00ff",
+            "I": "#fe9900ff",
+            "J": "#38771eff",
+            "K": "#e9d1deff",
+            "L": "#45bec6ff"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "championTitle": "Northern Eurasia Finals Champions",
+            "rankAwardsMaxRank": 13,
+            "medalGroups": [
+                {
+                    "medals": [
+                        {
+                            "id": "gold-medal",
+                            "citation": "Gold Medal",
+                            "color": "GOLD",
+                            "maxRank": 4
+                        },
+                        {
+                            "id": "silver-medal",
+                            "citation": "Silver Medal",
+                            "color": "SILVER",
+                            "maxRank": 8
+                        },
+                        {
+                            "id": "bronze-medal",
+                            "citation": "Bronze Medal",
+                            "color": "BRONZE",
+                            "maxRank": 12
+                        }
+                    ]
+                },
+                {
+                    "medals": [
+                        {
+                            "id": "first-diploma",
+                            "citation": "First Degree Diploma",
+                            "minScore": 7.0
+                        },
+                        {
+                            "id": "second-diploma",
+                            "citation": "Second Degree Diploma",
+                            "minScore": 5.0
+                        },
+                        {
+                            "id": "third-diploma",
+                            "citation": "Third Degree Diploma",
+                            "minScore": 4.0
+                        },
+                        {
+                            "id": "mention",
+                            "citation": "Honorable Mention",
+                            "minScore": 0.0
+                        }
+                    ]
+                }
+            ],
+            "manual": [
+                {
+                    "id": "qualified",
+                    "citation": "Qualified to world finals",
+                    "teamCdsIds": [
+                        "nef788321",
+                        "nef788318",
+                        "nef780668",
+                        "nef788418",
+                        "nef780665",
+                        "nef790061",
+                        "nef780537",
+                        "nef780675",
+                        "nef780540",
+                        "nef780541",
+                        "nef788332",
+                        "nef788419"
+                    ]
+                }
+            ]
+        }
     }
-  },
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": true
-  },
-  "teamOverrideTemplate": {
-    "displayName": "{short_name}",
-    "hashTag": "#{hash_tag}",
-    "medias": {
-      "achievement": {
-        "type": "Image",
-        "url": "/media/ach/{teamId}.svg"
-      },
-      "screen": {
-        "type": "WebRTCGrabberConnection",
-        "url": "http://{grabber_ip}:3000/admin",
-        "peerName": "{computer_id}",
-        "streamType": "desktop",
-        "credential": "live"
-      },
-      "camera": {
-        "type": "WebRTCGrabberConnection",
-        "url": "http://{grabber_ip}:3000/admin",
-        "peerName": "{computer_id}",
-        "streamType": "webcam",
-        "credential": "live"
-      }
-    }
-  },
-   "problemOverrides": {
-    "A": {"color": "#FF00FE"},
-    "B": {"color": "#FFFFFF"},
-    "C": {"color": "#9B01FF"},
-    "D": {"color": "#FE0000"},
-    "E": {"color": "#FFFF00"},
-    "F": {"color": "#0000FE"},
-    "G": {"color": "#761946"},
-    "H": {"color": "#04FF00"},
-    "I": {"color": "#FE9900"},
-    "J": {"color": "#38771E"},
-    "K": {"color": "#E9D1DE"},
-    "L": {"color": "#45BEC6"}
-  },
-  "teamOverrides": {
-    "nef789944":{"medias":{"camera":null}},
-    "nef789947":{"medias":{"camera":null}},
-    "nef790038":{"medias":{"camera":null}},
-    "nef790039":{"medias":{"camera":null}},
-    "nef790040":{"medias":{"camera":null}},
-    "nef790041":{"medias":{"camera":null}},
-    "nef790042":{"medias":{"camera":null}},
-    "nef790043":{"medias":{"camera":null}},
-    "nef790044":{"medias":{"camera":null}},
-    "nef790046":{"medias":{"camera":null}},
-    "nef790047":{"medias":{"camera":null}},
-    "nef790048":{"medias":{"camera":null}},
-    "nef790050":{"medias":{"camera":null}},
-    "nef796542":{"medias":{"camera":null}},
-    "nef796543":{"medias":{"camera":null}},
-    "nef796547":{"medias":{"camera":null}},
-    "nef796555":{"medias":{"camera":null}},
-    "nef796556":{"medias":{"camera":null}},
-    "nef796557":{"medias":{"camera":null}},
-    "nef796558":{"medias":{"camera":null}},
-    "nef796560":{"medias":{"camera":null}},
-    "nef796561":{"medias":{"camera":null}},
-    "nef797075":{"medias":{"camera":null}},
-    "nef797076":{"medias":{"camera":null}},
-    "nef797077":{"medias":{"camera":null}},
-    "nef797079":{"medias":{"camera":null}},
-    "nef797080":{"medias":{"camera":null}},
-    "nef797081":{"medias":{"camera":null}},
-    "nef797082":{"medias":{"camera":null}},
-    "nef797083":{"medias":{"camera":null}},
-    "nef797084":{"medias":{"camera":null}},
-    "nef797085":{"medias":{"camera":null}},
-    "nef797086":{"medias":{"camera":null}},
-    "nef797087":{"medias":{"camera":null}},
-    "nef797089":{"medias":{"camera":null}},
-    "nef797090":{"medias":{"camera":null}},
-    "nef797091":{"medias":{"camera":null}},
-    "nef797092":{"medias":{"camera":null}},
-    "nef797093":{"medias":{"camera":null}},
-    "nef797094":{"medias":{"camera":null}},
-    "nef799340":{"medias":{"camera":null}},
-    "nef799341":{"medias":{"camera":null}},
-    "nef799342":{"medias":{"camera":null}},
-    "nef799343":{"medias":{"camera":null}},
-    "nef799344":{"medias":{"camera":null}},
-    "nef799345":{"medias":{"camera":null}},
-    "nef799346":{"medias":{"camera":null}},
-    "nef799347":{"medias":{"camera":null}},
-    "nef799348":{"medias":{"camera":null}},
-    "nef799349":{"medias":{"camera":null}},
-    "nef799350":{"medias":{"camera":null}},
-    "nef799351":{"medias":{"camera":null}},
-    "nef799352":{"medias":{"camera":null}},
-    "nef799353":{"medias":{"camera":null}},
-    "nef799354":{"medias":{"camera":null}},
-    "nef799355":{"medias":{"camera":null}},
-    "nef799356":{"medias":{"camera":null}},
-    "nef799357":{"medias":{"camera":null}},
-    "nef799358":{"medias":{"camera":null}},
-    "nef799360":{"medias":{"camera":null}},
-    "nef799361":{"medias":{"camera":null}},
-    "nef799363":{"medias":{"camera":null}},
-    "nef799364":{"medias":{"camera":null}},
-    "nef799365":{"medias":{"camera":null}},
-    "nef799366":{"medias":{"camera":null}},
-    "nef799368":{"medias":{"camera":null}},
-    "nef799369":{"medias":{"camera":null}},
-    "nef799372":{"medias":{"camera":null}},
-    "nef799373":{"medias":{"camera":null}},
-    "nef799571":{"medias":{"camera":null}},
-    "nefnc03":{"medias":{"camera":null}},
-    "nefnc04":{"medias":{"camera":null}},
-    "nefnc05":{"medias":{"camera":null}},
-    "nefnc06":{"medias":{"camera":null}},
-    "nefnc07":{"medias":{"camera":null}}
-  }
-}
+]

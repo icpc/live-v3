@@ -1,41 +1,23 @@
-{
-  "startTime": "2023-05-20 14:40:00",
-  "problemOverrides": {
-    "A": {
-      "color": "#FF00FE"
+[
+    {
+        "type": "override_times",
+        "startTime": "2023-05-20 14:40:00 +02:00"
     },
-    "B": {
-      "color": "#FFFFFF"
-    },
-    "C": {
-      "color": "#9B01FF"
-    },
-    "D": {
-      "color": "#FE0000"
-    },
-    "E": {
-      "color": "#FFFF00"
-    },
-    "F": {
-      "color": "#0000FE"
-    },
-    "G": {
-      "color": "#761946"
-    },
-    "H": {
-      "color": "#04FF00"
-    },
-    "I": {
-      "color": "#FE9900"
-    },
-    "J": {
-      "color": "#38771E"
-    },
-    "K": {
-      "color": "#E9D1DE"
-    },
-    "L": {
-      "color": "#45BEC6"
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#ff00feff",
+            "B": "#ffffffff",
+            "C": "#9b01ffff",
+            "D": "#fe0000ff",
+            "E": "#ffff00ff",
+            "F": "#0000feff",
+            "G": "#761946ff",
+            "H": "#04ff00ff",
+            "I": "#fe9900ff",
+            "J": "#38771eff",
+            "K": "#e9d1deff",
+            "L": "#45bec6ff"
+        }
     }
-  }
-}
+]

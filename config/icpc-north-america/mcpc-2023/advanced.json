@@ -1,5 +1,6 @@
-{
-    "scoreboardOverrides": {
+[
+    {
+        "type": "override_scoreboard_settings",
         "penaltyPerWrongAttempt": 20
     }
-}
+]
