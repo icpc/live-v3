@@ -33,6 +33,9 @@ internal data class CFContest(
     @Serializable(DurationInSecondsSerializer::class)
     @SerialName("relativeTimeSeconds")
     val relativeTime: Duration? = null,
+    @Serializable(DurationInSecondsSerializer::class)
+    @SerialName("freezeDurationSeconds")
+    val freezeDuration: Duration? = null,
     val preparedBy: String? = null,
     val websiteUrl: String? = null,
     val description: String? = null,
