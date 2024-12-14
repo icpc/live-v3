@@ -65,7 +65,9 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         if (statusStr != "before" && startTime.epochSeconds == 0L) {
             startTime = Clock.System.now() - contestTime
         }
-        val freezeTime = if (resultType == ContestResultType.ICPC) contestLength - 1.hours else null
+        mainElement.attr("start-time-millis")?.let { startTime = Instant.fromEpochMilliseconds(it.toLong()) }
+        val defaultFreezeTime = if (resultType == ContestResultType.ICPC && mainElement.attr("start-time-millis") == null) contestLength - 1.hours else null
+        val freezeTime = mainElement.attr("freeze-millis")?.toLong()?.milliseconds ?: defaultFreezeTime
         val status = when (statusStr) {
             "before" -> ContestStatus.BEFORE(scheduledStartAt = startTime)
             "running" -> ContestStatus.RUNNING(startedAt = startTime, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime + freezeTime else null)
