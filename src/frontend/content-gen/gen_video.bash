@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
 set -o pipefail
-# set -x
+set -x
 
 OFFSET=4
 SPEEDUP=15
-CONTEST_NAME="finals"
+CONTEST_NAME="vkoshp"
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
 # echo "Step 1: Download latest event-feed.json"
@@ -35,20 +35,9 @@ echo "Start time: $startTime"
 
 cat <<EOF > config/$CONTEST_NAME/settings.json
 {
-  "type": "clics",
+  "type": "pcms",
   "network": { "allowUnsecureConnections": true },
-  "feeds": [
-    {
-      "source": ".",
-      "contestId": "",
-      "eventFeedPath": "",
-      "eventFeedName": "event-feed.ndjson",
-      "urlPrefixMapping": {
-        "https://172.24.0.7:7443/": "http://172.24.0.20:4323/", 
-        "contests": "http://172.24.0.20:4323/api/contests"
-      }
-    }
-  ],
+  "source": "runs.xml",
   "emulation": {
     "speed": $SPEEDUP,
     "startTime": "$startTime",
@@ -57,6 +46,7 @@ cat <<EOF > config/$CONTEST_NAME/settings.json
 EOF
 
 echo "Step 3: add ticker messages"
+mkdir config/$CONTEST_NAME/presets || true
 cat <<EOF > config/$CONTEST_NAME/presets/ticker.json
 [
     {
@@ -75,7 +65,7 @@ cat <<EOF > config/$CONTEST_NAME/presets/ticker.json
 EOF
 
 echo "Step 4: Start backend"
-java -jar live-v3-dev.jar -c config/$CONTEST_NAME --custom-fields-csv=config/custom-fields.csv --no-auth > ./backend.log &
+java -jar live-v3-dev.jar -c config/$CONTEST_NAME --no-auth > ./backend.log &
 BACKEND_PID=$!
 function cleanup {
   echo "Step INF: Cleanup"
@@ -98,6 +88,7 @@ stopwatch() {
         sleep 0.1
     done
 }
+set +x
 stopwatch &
 STOPWATCH_PID=$!
 ./node_modules/.bin/playwright test tests/story.spec.ts
