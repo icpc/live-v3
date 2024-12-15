@@ -33,10 +33,10 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
     private val jobsDataLoader = settings.jobsSources?.let { DataLoader.xml(settings.network) { it } }
 
     private val resultType = settings.resultType
-    private var startTime = Instant.fromEpochMilliseconds(0)
+    private var startTime: Instant? = null
     private val maxTestsPerProblem = mutableMapOf<ProblemId, Int>()
 
-    fun Element.attr(name: String) = getAttribute(name).takeIf { it.isNotEmpty() }
+    private fun Element.attr(name: String) = getAttribute(name).takeIf { it.isNotEmpty() }
 
 
     override suspend fun loadOnce(): ContestParseResult {
@@ -62,7 +62,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         val statusStr = mainElement.attr("status")!!
         val contestTime = mainElement.attr("time")!!.toLong().milliseconds
         val contestLength = mainElement.attr("length")!!.toInt().milliseconds
-        if (statusStr != "before" && startTime.epochSeconds == 0L) {
+        if (statusStr != "before" && startTime == null) {
             startTime = Clock.System.now() - contestTime
         }
         mainElement.attr("start-time-millis")?.let { startTime = Instant.fromEpochMilliseconds(it.toLong()) }
@@ -70,8 +70,8 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
         val freezeTime = mainElement.attr("freeze-millis")?.toLong()?.milliseconds ?: defaultFreezeTime
         val status = when (statusStr) {
             "before" -> ContestStatus.BEFORE(scheduledStartAt = startTime)
-            "running" -> ContestStatus.RUNNING(startedAt = startTime, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime + freezeTime else null)
-            "over" -> ContestStatus.OVER(startedAt = startTime, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime + freezeTime else null, finishedAt = startTime + contestLength)
+            "running" -> ContestStatus.RUNNING(startedAt = startTime!!, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime!! + freezeTime else null)
+            "over" -> ContestStatus.OVER(startedAt = startTime!!, frozenAt = if (freezeTime != null && contestTime > freezeTime) startTime!! + freezeTime else null, finishedAt = startTime!! + contestLength)
             else -> error("Unknown contest status $statusStr")
         }
 
