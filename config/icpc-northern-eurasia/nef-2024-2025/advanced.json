@@ -11,6 +11,8 @@
     }
   },
   "awardsSettings": {
+    "championTitle": "Northern Eurasia Champions",
+    "rankAwardsMaxRank": 13,
     "medalGroups": [
       {
         "medals": [
@@ -18,8 +20,15 @@
           {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 8},
           {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 12}
         ]
+      },
+      {
+        "medals": [
+          {"id": "first-diploma", "citation": "First Award", "minScore": 8, "tiebreakMode": "NONE"},
+          {"id": "second-diploma", "citation": "Second Award", "minScore":6, "tiebreakMode": "NONE"},
+          {"id": "third-diploma", "citation": "Third Award", "minScore": 5, "tiebreakMode": "NONE"}
+        ]
       }
-    ],
+    ]
   },
   "teamOverrideTemplate": {
     "medias": {
