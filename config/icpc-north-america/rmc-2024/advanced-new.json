@@ -1,0 +1,87 @@
+[
+    {
+        "type": "override_scoreboard_settings",
+        "penaltyPerWrongAttempt": 20,
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "override_organization_display_names",
+        "rules": {
+            "utahtech.edu": "Utah Tech U",
+            "mines.edu": "Colorado School of Mines",
+            "ualberta.ca": "U of Alberta",
+            "asu.edu": "Arizona State U",
+            "uvu.edu": "Utah Valley U",
+            "utah.edu": "U of Utah",
+            "byu.edu": "Brigham Young U",
+            "coloradomesa.edu": "Colorado Mesa U",
+            "ucdenver.edu": "U of Colorado Denver",
+            "nau.edu": "Northern Arizona U",
+            "ucalgary.ca": "U of Calgary",
+            "uleth.ca": "U of Lethbridge",
+            "arizona.edu": "U of Arizona",
+            "unco.edu": "U of Northern Colorado",
+            "usask.ca": "U of Saskatchewan"
+        }
+    },
+    {
+        "type": "override_team_template",
+        "displayName": "{orgDisplayName}: {clicsTeamDisplayName}"
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "15": "U of Alberta: Amber",
+            "16": "U of Alberta: Fuchsia",
+            "21": "U of Alberta: Gold",
+            "14": "U of Alberta: Sapphire",
+            "1": "Brigham Young U: #0000ff",
+            "2": "Brigham Young U: Cyantax",
+            "9": "Brigham Young U: Deep Blue",
+            "12": "Brigham Young U: HexadeciBlue",
+            "40": "Brigham Young U: IndiCODE",
+            "10": "Brigham Young U: Midnight",
+            "11": "Brigham Young U: SkyNET",
+            "44": "Colorado Mesa U: OOP",
+            "8": "U of Colorado Denver: Alpha",
+            "7": "U of Colorado Denver: Beta",
+            "53": "Colorado School of Mines: Blaster",
+            "47": "Colorado School of Mines: Albatross",
+            "35": "Northern Arizona U: LumberJacks",
+            "49": "U of Calgary: Codefrogs Respawned",
+            "48": "U of Calgary: Eduroam",
+            "52": "U of Calgary: Fred's Angels",
+            "51": "U of Calgary: Narayana's Cow",
+            "50": "U of Calgary: Radiohead",
+            "17": "U of Lethbridge: 1",
+            "18": "U of Lethbridge: 2",
+            "19": "U of Lethbridge: 3",
+            "20": "U of Lethbridge: 4",
+            "43": "U of Arizona: 1",
+            "46": "U of Arizona: 2",
+            "45": "U of Arizona: 3"
+        }
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "airfaregrants": "#e6194bff",
+            "alwaysknowwhereyourtowelis": "#3cb44bff",
+            "bigand": "#ffe119ff",
+            "emoticons2": "#4363d8ff",
+            "enchantedmaze": "#f58231ff",
+            "garagedoorcode": "#42d4f4ff",
+            "palindromicwordsearch": "#f032e6ff",
+            "pillowstacking": "#fabed4ff",
+            "rectangletiling": "#469990ff",
+            "rockymountain": "#dcbeffff",
+            "sandwichart": "#9a6324ff",
+            "sauna": "#fffac8ff",
+            "spaceelevator": "#800000ff"
+        }
+    },
+    {
+        "type": "override_queue",
+        "maxQueueSize": 5
+    }
+]

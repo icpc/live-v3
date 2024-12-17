@@ -1,0 +1,42 @@
+[
+    {
+        "type": "override_times",
+        "holdTimeSeconds": 1000
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "7": "UvA: 🇺🇳🇮🇨🇴​🇩🇪",
+            "6": "RUG: Balloon Addicts, PC",
+            "42": "Uni Lu: local bruh moment d.",
+            "5": "Radboud: Bidoof Aron PC",
+            "11": "VU: std::string name",
+            "29": "UTwente: Team BBB"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 4
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 8
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 12
+                }
+            ]
+        }
+    }
+]

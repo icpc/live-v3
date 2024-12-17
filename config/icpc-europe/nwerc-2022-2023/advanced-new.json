@@ -1,0 +1,33 @@
+[
+    {
+        "type": "override_team_display_names",
+        "rules": {
+            "31": "UvA: 🇺🇳🇮🇨🇴​🇩🇪"
+        }
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 4
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 8
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 12
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "type": "override_times",
+        "startTime": "Sat May 20 14:40:00 CEST 2023"
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#ff00feff",
+            "B": "#ffffffff",
+            "C": "#9b01ffff",
+            "D": "#fe0000ff",
+            "E": "#ffff00ff",
+            "F": "#0000feff",
+            "G": "#761946ff",
+            "H": "#04ff00ff",
+            "I": "#fe9900ff",
+            "J": "#38771eff",
+            "K": "#e9d1deff",
+            "L": "#45bec6ff"
+        }
+    }
+]

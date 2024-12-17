@@ -1,0 +1,57 @@
+[
+    {
+        "type": "override_team_template",
+        "displayName": "{orgDisplayName}",
+        "medias": {
+            "achievement": {
+                "type": "Image",
+                "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/achievement/{teamId}.svg"
+            },
+            "photo": {
+                "type": "Image",
+                "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/team_photos/team-{teamId}.jpg"
+            },
+            "record": {
+                "type": "Video",
+                "url": "https://arc.live.kbats.ru/contests/wf47_finals/teams/team_videos/team-{teamId}.MP4"
+            },
+            "camera": {
+                "type": "M2tsVideo",
+                "url": "https://arc.live.kbats.ru/mock-stream/mpeg-ts?background=webcam.mp4&top_text={orgDisplayName}"
+            },
+            "screen": {
+                "type": "M2tsVideo",
+                "url": "https://arc.live.kbats.ru/mock-stream/mpeg-ts?background=desktop.mp4&top_text={orgDisplayName}"
+            }
+        }
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {}
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 4
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 8
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 12
+                }
+            ]
+        }
+    }
+]

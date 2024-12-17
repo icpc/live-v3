@@ -1,0 +1,15 @@
+[
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "A": "#ff00feff",
+            "B": "#ffffffff",
+            "C": "#9b01ffff",
+            "D": "#fe0000ff",
+            "E": "#ffff00ff",
+            "F": "#0000feff",
+            "G": "#761946ff",
+            "Ex": "#04ff00ff"
+        }
+    }
+]

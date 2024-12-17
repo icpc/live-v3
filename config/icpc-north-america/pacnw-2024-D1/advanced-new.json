@@ -1,0 +1,24 @@
+[
+    {
+        "type": "override_times",
+        "startTime": "Sat Nov 16 22:00:00 CET 2024"
+    },
+    {
+        "type": "override_problem_colors",
+        "rules": {
+            "abcstring-1": "#000000ff",
+            "acappellarecording-1": "#ff00ffff",
+            "acceptableseatingarrangements-1": "#daa520ff",
+            "balancedtreepath-1": "#ff0000ff",
+            "candyfactory-1": "#00ff00ff",
+            "champernowneverification-1": "#808080ff",
+            "fourdierolls-1": "#800080ff",
+            "itemselection-1": "#ffff00ff",
+            "magiccube-1": "#ffa500ff",
+            "orderedproblemset-1": "#ffffffff",
+            "sequenceguessing-1": "#0000ffff",
+            "training-1": "#008000ff",
+            "triplesevens-1": "#000000ff"
+        }
+    }
+]

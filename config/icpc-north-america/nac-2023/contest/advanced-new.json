@@ -1,0 +1,44 @@
+[
+    {
+        "type": "override_team_template",
+        "medias": {
+            "photo": {
+                "type": "Image",
+                "url": "http://10.3.3.70:8080/media/team photos/{teamId}.jpg"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "http://10.3.3.70:8080/media/achievements/{teamId}.svg"
+            }
+        }
+    },
+    {
+        "type": "override_team_display_names",
+        "rules": {}
+    },
+    {
+        "type": "override_awards",
+        "settings": {
+            "medals": [
+                {
+                    "id": "gold-medal",
+                    "citation": "Gold Medal",
+                    "color": "GOLD",
+                    "maxRank": 1
+                },
+                {
+                    "id": "silver-medal",
+                    "citation": "Solver Medal",
+                    "color": "SILVER",
+                    "maxRank": 3
+                },
+                {
+                    "id": "bronze-medal",
+                    "citation": "Bronze Medal",
+                    "color": "BRONZE",
+                    "maxRank": 6
+                }
+            ]
+        }
+    }
+]
