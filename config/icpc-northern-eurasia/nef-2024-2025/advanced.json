@@ -1,0 +1,112 @@
+{
+  "startTime": "2024-12-15T07:13:04Z",
+  "teamNameRegexes": {
+    "customFields": {
+      "funnyName": {
+        "[^:]*: (.*) \\([^)]*\\)": "$1"
+      }
+    },
+    "organizationRegex": {
+      "^([^:]*).*": "$1"
+    }
+  },
+  "awardsSettings": {
+    "medalGroups": [
+      {
+        "medals": [
+          {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 4},
+          {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 8},
+          {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 12}
+        ]
+      }
+    ],
+  },
+  "teamOverrideTemplate": {
+    "medias": {
+      "screen": {
+        "type": "WebRTCGrabberConnection",
+        "peerName": "{grabberPeerName}",
+        "url": "http://{grabberIp}:13478",
+        "streamType": "desktop",
+        "credential": "live"
+      },
+      "camera": {
+        "type": "WebRTCGrabberConnection",
+        "url": "http://{grabberIp}:13478",
+        "peerName": "{grabberPeerName}",
+        "streamType": "webcam",
+        "credential": "live"
+      },
+      "achievement": {
+        "type": "Image",
+        "url": "/media/ach/{teamId}.svg"
+      }
+    },
+    "displayName": "{orgDisplayName}: {funnyName}",
+  },
+  "teamIdRegexes": {
+    "customFields": {
+      "grabberPeerName": {
+        "spb(\\d\\d\\d)": "$1",
+        "geo(\\d\\d\\d)": "g$1",
+        "nsk(\\d\\d\\d)": "n$1",
+        "kaz(\\d\\d\\d)": "kaz$1"
+      },
+      "grabberIp": {
+        "spb(\\d\\d\\d)": "192.168.1.1",
+        "geo(\\d\\d\\d)": "192.168.1.1",
+        "nsk(\\d\\d\\d)": "192.168.1.1",
+        "kaz(\\d\\d\\d)": "192.168.1.1"
+      }
+    },
+    "groupRegex": {
+      "local": "spb(\\d\\d\\d)",
+      "remote": "[^s][^p][^b](\\d\\d\\d)"
+    }
+  },
+  "queueSettings": {
+    "maxQueueSize": 20
+  },
+  "teamOverrides": {
+      "spb135": { "displayName": "MIREA: There is an idea" },
+      "spb207": { "displayName": "BSUIR: 5 Definition of limit" },
+      "spb318": { "displayName": "SPb ITMO: Shuffle, duffle" },
+      "spb628": { "displayName": "YarSU: 14 klava_myshka_monitor" },
+      "kaz013": { "displayName": "IIAU: Katen Kyokotsu Karamatsu Shinju" },
+  },
+  "organizationOverrides": {
+    "Moscow Tech U MIREA": { "displayName": "MIREA" },
+    "Komsomolsk-na-Amure SU": { "displayName": "KnASU" },
+    "South Ural SU": { "displayName": "SUSU" },
+    "Nizhny Novgorod HSE": { "displayName": "NN HSE" },
+    "St. Petersburg SU": { "displayName": "SPbSU" },
+    "Moscow SU": { "displayName": "MSU" },
+    "Petrozavodsk SU": { "displayName": "PetrSU" },
+    "Kalashnikov ISTU": { "displayName": "ISTU" },
+  },
+  "freezeTimeSeconds": 14400,
+  "problemOverrides": {
+    "A": { "color": "#0000FF" },
+    "B": { "color": "#245840" },
+    "C": { "color": "#808080" },
+    "D": { "color": "#FDADAE" },
+    "E": { "color": "#ff0000" },
+    "F": { "color": "#EDE24C" },
+    "G": { "color": "#FE8F34" },
+    "H": { "color": "#808080" },
+    "I": { "color": "#9F858B" },
+    "J": { "color": "#D53863" },
+    "K": { "color": "#808080" },
+    "L": { "color": "#61B37C" },
+    "M": { "color": "#ffffff" },
+    "N": { "color": "#808080" },
+    "O": { "color": "#808080" },
+    "P": { "color": "#808080" },
+    "X": { "color": "#808080" },
+    "Y": { "color": "#808080" },
+    "Z": { "color": "#808080" }
+  },
+  "scoreboardOverrides": {
+    "showTeamsWithoutSubmissions": true
+  },
+}
