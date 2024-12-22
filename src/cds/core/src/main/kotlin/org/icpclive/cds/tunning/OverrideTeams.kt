@@ -1,7 +1,6 @@
 package org.icpclive.cds.tunning
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 import org.icpclive.cds.adapters.impl.autoCreateGroupsAndOrgs
 import org.icpclive.cds.api.*
 import org.icpclive.cds.util.getLogger

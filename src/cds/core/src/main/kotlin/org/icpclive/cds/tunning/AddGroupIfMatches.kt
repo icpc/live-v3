@@ -13,12 +13,26 @@ public data class AddGroupIfMatches(
 ): DesugarableTuningRule {
     @OptIn(InefficientContestInfoApi::class)
     override fun desugar(info: ContestInfo): TuningRule {
-        return OverrideTeams(
+        return AddGroupToTeams(
+            id,
             info.teamList.mapNotNull {
                 val fromValue = info.getTemplateValue(from, it.id, isUrl = false)
-                if (!rule.matches(fromValue)) return@mapNotNull null
-                it.id to TeamInfoOverride(extraGroups = listOf(id))
-            }.toMap()
+                it.id.takeIf { rule.matches(fromValue) }
+            }
+        )
+    }
+}
+
+@Serializable
+@SerialName("add_group_to_teams")
+public data class AddGroupToTeams(
+    public val id: GroupId,
+    public val teams: List<TeamId>,
+): DesugarableTuningRule {
+    @OptIn(InefficientContestInfoApi::class)
+    override fun desugar(info: ContestInfo): TuningRule {
+        return OverrideTeams(
+            teams.associateWith { TeamInfoOverride(extraGroups = listOf(id)) }
         )
     }
 }

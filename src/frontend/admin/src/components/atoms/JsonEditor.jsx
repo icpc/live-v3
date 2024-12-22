@@ -2,7 +2,7 @@ import React from "react";
 import Editor from "@monaco-editor/react";
 import PropTypes from "prop-types";
 
-const CodeEditor = ({ schema, defaultValue, onChange }) => {
+const CodeEditor = ({ schema, defaultValue, onChange, onValidate }) => {
     function onMount(editor, monaco) {
         /* Workaround for https://github.com/suren-atoyan/monaco-react/issues/69#issuecomment-612816117 */
         console.log(defaultValue);
@@ -28,7 +28,7 @@ const CodeEditor = ({ schema, defaultValue, onChange }) => {
     }
 
     return (
-        <Editor language="json" onMount={onMount} onChange={onChange} />
+        <Editor language="json" onMount={onMount} onChange={onChange} onValidate={onValidate} />
     );
 };
 
@@ -36,6 +36,7 @@ CodeEditor.propTypes = {
     schema: PropTypes.object.isRequired,
     defaultValue: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    onValidate: PropTypes.func.isRequired,
 };
 
 export default CodeEditor;

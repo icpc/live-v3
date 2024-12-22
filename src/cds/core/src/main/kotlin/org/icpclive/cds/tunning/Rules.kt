@@ -37,7 +37,7 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList {
     if (startTime != null || contestLength != null || freezeTime != null || holdTime != null) {
         add(OverrideTimes(startTime, contestLength, freezeTime, holdTime))
     }
-    if (scoreboardOverrides != null) {
+    if (scoreboardOverrides != null && (scoreboardOverrides.penaltyPerWrongAttempt != null || scoreboardOverrides.showTeamsWithoutSubmissions != null || scoreboardOverrides.penaltyRoundingMode != null)) {
         add(OverrideScoreboardSettings(scoreboardOverrides.penaltyPerWrongAttempt, scoreboardOverrides.showTeamsWithoutSubmissions, scoreboardOverrides.penaltyRoundingMode))
     }
     fun TeamRegexOverrides.process(from: String) {
@@ -57,10 +57,10 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList {
     }
     teamNameRegexes?.process("{team.fullName}")
     teamIdRegexes?.process("{team.id}")
-    if (groupOverrides != null) {
+    if (groupOverrides != null && groupOverrides.any { it.value.isHidden != null || it.value.isOutOfContest != null || it.value.displayName != null }) {
         add(OverrideGroups(groupOverrides))
     }
-    if (organizationOverrides != null) {
+    if (organizationOverrides != null && organizationOverrides.any { it.value.fullName != null || it.value.logo != null || it.value.displayName != null }) {
         if (organizationOverrides.values.all { it.fullName == null && it.logo == null }) {
             add(OverrideOrganizationDisplayNames(organizationOverrides.filterValues { it.displayName != null }.mapValues { it.value.displayName!! }))
         } else {
@@ -118,7 +118,7 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList {
     val allDisplayNames = teamOverrides?.values?.all { it.displayName != null && it.fullName == null} == true
 
     if (allDisplayNames) {
-        add(OverrideTeamDisplayNames(teamOverrides!!.mapValues { it.value.displayName!! }))
+        add(OverrideTeamDisplayNames(teamOverrides.mapValues { it.value.displayName!! }))
     }
 
     teamOverrides
@@ -149,7 +149,7 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList {
             }
         }
 
-    if (problemOverrides != null) {
+    if (problemOverrides != null && problemOverrides.any { !it.value.onlyColor() || it.value.color != null }) {
         if (problemOverrides.all { it.value.onlyColor() }) {
             add(OverrideProblemColors(problemOverrides.filterValues { it.color != null }.mapValues { (_, v) -> v.color!! }))
         } else {
