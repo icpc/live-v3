@@ -59,7 +59,7 @@ If you don't need auth, you can disable it by `--no-auth` command-line option.
 
 # Run in development mode
 
-g[Check separate document](./docs/development.md)
+[Check separate document](./docs/development.md)
 
 # Previous versions:
 
