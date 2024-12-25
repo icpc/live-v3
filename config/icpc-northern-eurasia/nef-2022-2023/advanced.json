@@ -439,78 +439,40 @@
         }
     },
     {
+        "type": "add_medals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
+    },
+    {
+        "type": "add_diplomas",
+        "firstMinScore": 7,
+        "secondMinScore": 5,
+        "thirdMinScore": 4,
+        "honorableMentionMinScore": 0
+    },
+    {
+        "type": "add_manual_award",
+        "id": "qualified",
+        "citation": "Qualified to world finals",
+        "teamIds": [
+            "nef788321",
+            "nef788318",
+            "nef780668",
+            "nef788418",
+            "nef780665",
+            "nef790061",
+            "nef780537",
+            "nef780675",
+            "nef780540",
+            "nef780541",
+            "nef788332",
+            "nef788419"
+        ]
+    },
+    {
         "type": "override_awards",
-        "settings": {
-            "championTitle": "Northern Eurasia Finals Champions",
-            "rankAwardsMaxRank": 13,
-            "medalGroups": [
-                {
-                    "medals": [
-                        {
-                            "id": "gold-medal",
-                            "citation": "Gold Medal",
-                            "color": "GOLD",
-                            "maxRank": 4
-                        },
-                        {
-                            "id": "silver-medal",
-                            "citation": "Silver Medal",
-                            "color": "SILVER",
-                            "maxRank": 8
-                        },
-                        {
-                            "id": "bronze-medal",
-                            "citation": "Bronze Medal",
-                            "color": "BRONZE",
-                            "maxRank": 12
-                        }
-                    ]
-                },
-                {
-                    "medals": [
-                        {
-                            "id": "first-diploma",
-                            "citation": "First Degree Diploma",
-                            "minScore": 7.0
-                        },
-                        {
-                            "id": "second-diploma",
-                            "citation": "Second Degree Diploma",
-                            "minScore": 5.0
-                        },
-                        {
-                            "id": "third-diploma",
-                            "citation": "Third Degree Diploma",
-                            "minScore": 4.0
-                        },
-                        {
-                            "id": "mention",
-                            "citation": "Honorable Mention",
-                            "minScore": 0.0
-                        }
-                    ]
-                }
-            ],
-            "manual": [
-                {
-                    "id": "qualified",
-                    "citation": "Qualified to world finals",
-                    "teamCdsIds": [
-                        "nef788321",
-                        "nef788318",
-                        "nef780668",
-                        "nef788418",
-                        "nef780665",
-                        "nef790061",
-                        "nef780537",
-                        "nef780675",
-                        "nef780540",
-                        "nef780541",
-                        "nef788332",
-                        "nef788419"
-                    ]
-                }
-            ]
-        }
+        "championTitle": "Northern Eurasia Finals Champions",
+        "rankAwardsMaxRank": 13
     }
 ]

@@ -1,21 +1,21 @@
 [
     {
         "type": "add_group_if_matches",
+        "id": "outOfContest",
         "from": "{team.fullName}",
-        "rule": "^\\(вк\\).*",
-        "id": "outOfContest"
+        "rule": "^\\(вк\\).*"
     },
     {
         "type": "add_group_if_matches",
+        "id": "firstGrade",
         "from": "{team.fullName}",
-        "rule": "^\\(1к\\).*",
-        "id": "firstGrade"
+        "rule": "^\\(1к\\).*"
     },
     {
         "type": "add_group_if_matches",
+        "id": "school",
         "from": "{team.fullName}",
-        "rule": "^\\(шк\\).*",
-        "id": "school"
+        "rule": "^\\(шк\\).*"
     },
     {
         "type": "add_custom_value_by_regex",

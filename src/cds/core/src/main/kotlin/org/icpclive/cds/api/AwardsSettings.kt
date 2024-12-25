@@ -1,13 +1,11 @@
 package org.icpclive.cds.api
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 
 /**
  * @param championTitle If not null, the winner award with the corresponding title would be generated
  * @param groupsChampionTitles For group ids used as keys, a group champion award with corresponding value as title would be generated
  * @param rankAwardsMaxRank For first [rankAwardsMaxRank] places award stating "this place" would be awarded
- * @param medals An extra element in the [medalGroups] list for more convenient config in case of a single group.
  * @param medalGroups List of rank and score-based awards. Only the first applicable in each list is awarded to a team.
  * @param manual List of awards with a manual team list.
  */
@@ -16,18 +14,9 @@ public data class AwardsSettings(
     public val championTitle: String? = null,
     public val groupsChampionTitles: Map<GroupId, String> = emptyMap(),
     public val rankAwardsMaxRank: Int = 0,
-    private val medals: List<MedalSettings> = emptyList(),
-    private val medalGroups: List<MedalGroup> = emptyList(),
+    public val medalGroups: List<MedalGroup> = emptyList(),
     public val manual: List<ManualAwardSetting> = emptyList(),
 ) {
-    @Transient
-    public val medalSettings: List<MedalGroup> = buildList {
-        addAll(medalGroups)
-        if (medals.isNotEmpty()) {
-            add(MedalGroup(medals, emptyList(), emptyList()))
-        }
-    }
-
     public enum class MedalTiebreakMode { NONE, ALL; }
 
     /**

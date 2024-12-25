@@ -9,8 +9,8 @@ import org.icpclive.cds.api.OrganizationId
 @SerialName("override_organization_display_names")
 public data class OverrideOrganizationDisplayNames(
     val rules: Map<OrganizationId, String>
-): DesugarableTuningRule {
-    override fun desugar(info: ContestInfo): TuningRule {
+): SimpleDesugarableTuningRule {
+    override fun desugar(): TuningRule {
         return OverrideOrganizations(rules.mapValues { OrganizationInfoOverride(displayName = it.value) })
     }
 }

@@ -54,28 +54,9 @@
         }
     },
     {
-        "type": "override_awards",
-        "settings": {
-            "medals": [
-                {
-                    "id": "gold-medal",
-                    "citation": "Gold Medal",
-                    "color": "GOLD",
-                    "maxRank": 8
-                },
-                {
-                    "id": "silver-medal",
-                    "citation": "Solver Medal",
-                    "color": "SILVER",
-                    "maxRank": 23
-                },
-                {
-                    "id": "bronze-medal",
-                    "citation": "Bronze Medal",
-                    "color": "BRONZE",
-                    "maxRank": 46
-                }
-            ]
-        }
+        "type": "add_medals",
+        "gold": 8,
+        "silver": 15,
+        "bronze": 23
     }
 ]

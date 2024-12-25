@@ -4,75 +4,15 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.api.AwardsSettings.ManualAwardSetting
+import org.icpclive.cds.api.AwardsSettings.MedalGroup
+import org.icpclive.cds.api.AwardsSettings.MedalSettings
 import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.util.serializers.RegexSerializer
 import org.icpclive.cds.util.serializers.*
 import java.io.InputStream
 import kotlin.time.Duration
 
-/**
- * @param fullName Full name of the team. Will be mostly shown on admin pages.
- * @param displayName Name of the team shown in most places.
- * @param groups The list of the groups team belongs too.
- * @param extraGroups The list of the groups to add to team.
- * @param organizationId The id of organization team comes from
- * @param hashTag Team hashtag. Can be shown on some team related pages
- * @param medias Map of urls to team related medias. E.g., team photo or some kind of video from workstation.
- *               If media is explicitly set to null, it would be removed if received from a contest system.
- * @param customFields Map of custom values. They can be used in substitutions in templates.
- * @param isHidden If set to true, the team would be totally hidden.
- * @param isOutOfContest If set to true, the team would not receive rank in scoreboard, but it's submission would still be shown.
- */
-@OptIn(ExperimentalSerializationApi::class)
-@Serializable
-public class TeamInfoOverride(
-    @JsonNames("name") public val fullName: String? = null,
-    @JsonNames("shortname") public val displayName: String? = null,
-    public val groups: List<GroupId>? = null,
-    public val extraGroups: List<GroupId>? = null,
-    public val organizationId: OrganizationId? = null,
-    public val hashTag: String? = null,
-    public val medias: Map<TeamMediaType, MediaType?>? = null,
-    public val customFields: Map<String, String>? = null,
-    public val isHidden: Boolean? = null,
-    public val isOutOfContest: Boolean? = null,
-    public val color: Color? = null
-)
-
-/**
- * @param displayName Name to show in scoreboard and queue.
- * @param fullName Problem name.
- * @param color Color of a problem balloon. It would be shown in queue and scoreboard in places related to the problem
- * @param ordinal Number to sort problems in the scoreboard
- * @param minScore In ioi mode minimal possible value of points in this problem
- * @param maxScore In ioi mode maximal possible value of points in this problem
- * @param scoreMergeMode In ioi mode, select the ruleset to calculate the final score based on the scores for each submission.
- * @param isHidden If true, ignore all runs on that problem and remove it from scoreboard.
- */
-@Serializable
-public class ProblemInfoOverride(
-    public val displayName: String? = null,
-    public val fullName: String? = null,
-    public val color: Color? = null,
-    public val unsolvedColor: Color? = null,
-    public val ordinal: Int? = null,
-    public val minScore: Double? = null,
-    public val maxScore: Double? = null,
-    public val scoreMergeMode: ScoreMergeMode? = null,
-    public val isHidden: Boolean? = null,
-)
-
-/**
- * @param displayName Name of the group to be displayed in admin and export
- * @param isHidden Totally hide all teams from this group
- * @param isOutOfContest Teams from this group will be visible everywhere, but will not have any rank assigned to them in the leaderboard
- */
-@Serializable
-public class GroupInfoOverride(
-    public val displayName: String? = null,
-    public val isHidden: Boolean? = null,
-    public val isOutOfContest: Boolean? = null,
-)
 
 /**
  * @param penaltyPerWrongAttempt How many penalty minutes should be added to a team for a wrong attempt
@@ -87,18 +27,6 @@ public class RankingSettings(
     public val penaltyRoundingMode: PenaltyRoundingMode? = null,
 )
 
-
-/**
- * @param displayName Name of the team shown in most places.
- * @param fullName Full name of the organization. Will be mostly shown on admin pages.
- * @param logo Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved.
- */
-@Serializable
-public class OrganizationInfoOverride(
-    public val displayName: String? = null,
-    public val fullName: String? = null,
-    public val logo: MediaType? = null,
-)
 
 /**
  * This class represents possible contest configuration overrides.
@@ -162,7 +90,7 @@ public class AdvancedProperties(
     public val organizationOverrides: Map<OrganizationId, OrganizationInfoOverride>? = null,
     public val problemOverrides: Map<ProblemId, ProblemInfoOverride>? = null,
     public val scoreboardOverrides: RankingSettings? = null,
-    public val awardsSettings: AwardsSettings? = null,
+    public val awardsSettings: AwardsSettingsOverride? = null,
     public val queueSettings: QueueSettingsOverride? = null,
 ) {
     public companion object {
@@ -265,6 +193,16 @@ public data class QueueSettingsOverride(
     val maxUntestedRun: Int? = null,
 )
 
+@Serializable
+public data class AwardsSettingsOverride(
+    public val championTitle: String? = null,
+    public val groupsChampionTitles: Map<GroupId, String> = emptyMap(),
+    public val rankAwardsMaxRank: Int = 0,
+    public val medals: List<MedalSettings> = emptyList(),
+    public val medalGroups: List<MedalGroup> = emptyList(),
+    public val manual: List<ManualAwardSetting> = emptyList(),
+)
+
 /**
  * Converts values in [ContestInfo] to overrides in [AdvancedProperties
  *
@@ -322,7 +260,14 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
             penaltyPerWrongAttempt = penaltyPerWrongAttempt.takeIfAsked("penaltyPerWrongAttempt"),
             penaltyRoundingMode = penaltyRoundingMode.takeIfAsked("penaltyRoundingMode")
         ),
-        awardsSettings = awardsSettings.takeIfAsked("awards"),
+        awardsSettings = AwardsSettingsOverride(
+            championTitle = awardsSettings.championTitle,
+            groupsChampionTitles = awardsSettings.groupsChampionTitles,
+            rankAwardsMaxRank = awardsSettings.rankAwardsMaxRank,
+            medals = emptyList(),
+            medalGroups = awardsSettings.medalGroups,
+            manual = awardsSettings.manual,
+        ).takeIfAsked("awards"),
         queueSettings = QueueSettingsOverride(
             waitTime = queueSettings.waitTime,
             firstToSolveWaitTime = queueSettings.firstToSolveWaitTime,

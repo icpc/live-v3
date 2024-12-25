@@ -30,11 +30,11 @@
         "medias": {
             "photo": {
                 "type": "Image",
-                "url": "http://10.1.25.177:8080/media/photo/{team.id}.jpg"
+                "url": "http://10.1.25.177:8080/media/photo/{teamId}.jpg"
             },
             "achievement": {
                 "type": "Image",
-                "url": "http://10.1.25.177:8080/media/ach/{team.id}.svg"
+                "url": "http://10.1.25.177:8080/media/ach/{teamId}.svg"
             },
             "screen": {
                 "type": "M2tsVideo",
@@ -156,36 +156,34 @@
     },
     {
         "type": "override_awards",
-        "settings": {
-            "medalGroups": [
-                {
-                    "medals": [
-                        {
-                            "id": "predefined",
-                            "citation": "Already passed",
-                            "color": "GOLD",
-                            "maxRank": 100
-                        }
-                    ],
-                    "groups": [
-                        "finalists"
-                    ]
-                },
-                {
-                    "medals": [
-                        {
-                            "id": "now1",
-                            "citation": "Passed now",
-                            "color": "SILVER",
-                            "maxRank": 8
-                        }
-                    ],
-                    "excludedGroups": [
-                        "finalists"
-                    ]
-                }
-            ]
-        }
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "predefined",
+                        "citation": "Already passed",
+                        "color": "GOLD",
+                        "maxRank": 100
+                    }
+                ],
+                "groups": [
+                    "finalists"
+                ]
+            },
+            {
+                "medals": [
+                    {
+                        "id": "now1",
+                        "citation": "Passed now",
+                        "color": "SILVER",
+                        "maxRank": 8
+                    }
+                ],
+                "excludedGroups": [
+                    "finalists"
+                ]
+            }
+        ]
     },
     {
         "type": "override_queue",

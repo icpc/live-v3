@@ -1,8 +1,5 @@
 [
     {
-        "type": "override_scoreboard_settings"
-    },
-    {
         "type": "override_team_template",
         "displayName": "{org.displayName}: {clicsTeamDisplayName}"
     },
@@ -720,28 +717,9 @@
         }
     },
     {
-        "type": "override_awards",
-        "settings": {
-            "medals": [
-                {
-                    "id": "gold-medal",
-                    "citation": "Gold Medal",
-                    "color": "GOLD",
-                    "maxRank": 2
-                },
-                {
-                    "id": "silver-medal",
-                    "citation": "Solver Medal",
-                    "color": "SILVER",
-                    "maxRank": 6
-                },
-                {
-                    "id": "bronze-medal",
-                    "citation": "Bronze Medal",
-                    "color": "BRONZE",
-                    "maxRank": 14
-                }
-            ]
-        }
+        "type": "add_medals",
+        "gold": 2,
+        "silver": 4,
+        "bronze": 8
     }
 ]

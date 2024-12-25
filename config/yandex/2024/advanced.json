@@ -9,21 +9,21 @@
     },
     {
         "type": "add_group_if_matches",
+        "id": "staff",
         "from": "{team.id}",
-        "rule": "^STAFF.*",
-        "id": "staff"
+        "rule": "^STAFF.*"
     },
     {
         "type": "add_group_if_matches",
+        "id": "junior",
         "from": "{team.id}",
-        "rule": "^JUNIOR.*",
-        "id": "junior"
+        "rule": "^JUNIOR.*"
     },
     {
         "type": "add_group_if_matches",
+        "id": "main",
         "from": "{team.id}",
-        "rule": "^MAIN.*",
-        "id": "main"
+        "rule": "^MAIN.*"
     },
     {
         "type": "add_custom_value_by_regex",
@@ -41,7 +41,7 @@
         "medias": {
             "achievement": {
                 "type": "Object",
-                "url": "/media/achievements/{team.id}.svg"
+                "url": "/media/achievements/{teamId}.svg"
             },
             "screen": {
                 "type": "WebRTCGrabberConnection",
@@ -93,28 +93,9 @@
         }
     },
     {
-        "type": "override_awards",
-        "settings": {
-            "medals": [
-                {
-                    "id": "gold-medal",
-                    "citation": "Gold Medal",
-                    "color": "GOLD",
-                    "maxRank": 1
-                },
-                {
-                    "id": "silver-medal",
-                    "citation": "Solver Medal",
-                    "color": "SILVER",
-                    "maxRank": 3
-                },
-                {
-                    "id": "bronze-medal",
-                    "citation": "Bronze Medal",
-                    "color": "BRONZE",
-                    "maxRank": 5
-                }
-            ]
-        }
+        "type": "add_medals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 2
     }
 ]

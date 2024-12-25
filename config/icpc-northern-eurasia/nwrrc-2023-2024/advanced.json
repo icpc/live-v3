@@ -171,45 +171,46 @@
         }
     },
     {
+        "type": "add_manual_award",
+        "id": "qualified",
+        "citation": "Qualified to Northern Eurasia Finals",
+        "teamIds": [
+            "spb201",
+            "spb520",
+            "spb431",
+            "spb101",
+            "spb217",
+            "spb430",
+            "spb117",
+            "spb426",
+            "spb304",
+            "spb212",
+            "spb207",
+            "spb203",
+            "spb425",
+            "spb434",
+            "spb210",
+            "spb219",
+            "spb211",
+            "spb508"
+        ]
+    },
+    {
         "type": "override_awards",
-        "settings": {
-            "championTitle": "Northwestern Russia Champions",
-            "rankAwardsMaxRank": 10,
-            "medals": [
-                {
-                    "id": "leaders",
-                    "citation": "Лидеры",
-                    "color": "SILVER",
-                    "maxRank": 10,
-                    "tiebreakMode": "NONE"
-                }
-            ],
-            "manual": [
-                {
-                    "id": "qualified",
-                    "citation": "Qualified to Northern Eurasia Finals",
-                    "teamCdsIds": [
-                        "spb201",
-                        "spb520",
-                        "spb431",
-                        "spb101",
-                        "spb217",
-                        "spb430",
-                        "spb117",
-                        "spb426",
-                        "spb304",
-                        "spb212",
-                        "spb207",
-                        "spb203",
-                        "spb425",
-                        "spb434",
-                        "spb210",
-                        "spb219",
-                        "spb211",
-                        "spb508"
-                    ]
-                }
-            ]
-        }
+        "championTitle": "Northwestern Russia Champions",
+        "rankAwardsMaxRank": 10,
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "leaders",
+                        "citation": "Лидеры",
+                        "color": "SILVER",
+                        "maxRank": 10,
+                        "tiebreakMode": "NONE"
+                    }
+                ]
+            }
+        ]
     }
 ]

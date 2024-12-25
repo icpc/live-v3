@@ -5,15 +5,15 @@
     },
     {
         "type": "add_group_if_matches",
+        "id": "team",
         "from": "{team.fullName}",
-        "rule": "^46.*|^47.*",
-        "id": "team"
+        "rule": "^46.*|^47.*"
     },
     {
         "type": "add_group_if_matches",
+        "id": "coach",
         "from": "{team.fullName}",
-        "rule": "^[^4]{2}.*|4[^67].*",
-        "id": "coach"
+        "rule": "^[^4]{2}.*|4[^67].*"
     },
     {
         "type": "override_team_display_names",

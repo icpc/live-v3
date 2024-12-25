@@ -25,15 +25,15 @@
     },
     {
         "type": "add_group_if_matches",
+        "id": "local",
         "from": "{team.id}",
-        "rule": "spb(\\d\\d\\d)",
-        "id": "local"
+        "rule": "spb(\\d\\d\\d)"
     },
     {
         "type": "add_group_if_matches",
+        "id": "remote",
         "from": "{team.id}",
-        "rule": "[^s][^p][^b](\\d\\d\\d)",
-        "id": "remote"
+        "rule": "[^s][^p][^b](\\d\\d\\d)"
     },
     {
         "type": "add_custom_value_by_regex",
@@ -59,11 +59,11 @@
     },
     {
         "type": "override_team_template",
-        "displayName": "{org.displayName} {funnyName}",
+        "displayName": "{orgDisplayName} {funnyName}",
         "medias": {
             "achievement": {
                 "type": "Image",
-                "url": "/media/ach/{team.id}.svg"
+                "url": "/media/ach/{teamId}.svg"
             },
             "screen": {
                 "type": "WebRTCGrabberConnection",
@@ -103,37 +103,20 @@
         }
     },
     {
+        "type": "add_medals",
+        "gold": 4,
+        "silver": 5,
+        "bronze": 6
+    },
+    {
+        "type": "add_manual_award",
+        "id": "qualified",
+        "citation": "Qualified to world finals",
+        "teamIds": []
+    },
+    {
         "type": "override_awards",
-        "settings": {
-            "championTitle": "Northern Eurasia Finals Champions",
-            "rankAwardsMaxRank": 13,
-            "medals": [
-                {
-                    "id": "gold-medal",
-                    "citation": "Gold Medal",
-                    "color": "GOLD",
-                    "maxRank": 4
-                },
-                {
-                    "id": "silver-medal",
-                    "citation": "Silver Medal",
-                    "color": "SILVER",
-                    "maxRank": 9
-                },
-                {
-                    "id": "bronze-medal",
-                    "citation": "Bronze Medal",
-                    "color": "BRONZE",
-                    "maxRank": 15
-                }
-            ],
-            "manual": [
-                {
-                    "id": "qualified",
-                    "citation": "Qualified to world finals",
-                    "teamCdsIds": []
-                }
-            ]
-        }
+        "championTitle": "Northern Eurasia Finals Champions",
+        "rankAwardsMaxRank": 13
     }
 ]

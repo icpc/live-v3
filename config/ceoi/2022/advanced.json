@@ -28,28 +28,30 @@
     },
     {
         "type": "override_awards",
-        "settings": {
-            "medals": [
-                {
-                    "id": "gold-medal",
-                    "citation": "Gold Medal",
-                    "color": "GOLD",
-                    "maxRank": 5
-                },
-                {
-                    "id": "silver-medal",
-                    "citation": "Solver Medal",
-                    "color": "SILVER",
-                    "maxRank": 13
-                },
-                {
-                    "id": "bronze-medal",
-                    "citation": "Bronze Medal",
-                    "color": "BRONZE",
-                    "maxRank": 25,
-                    "tiebreakMode": "NONE"
-                }
-            ]
-        }
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "gold-medal",
+                        "citation": "Gold Medal",
+                        "color": "GOLD",
+                        "maxRank": 5
+                    },
+                    {
+                        "id": "silver-medal",
+                        "citation": "Silver Medal",
+                        "color": "SILVER",
+                        "maxRank": 13
+                    },
+                    {
+                        "id": "bronze-medal",
+                        "citation": "Bronze Medal",
+                        "color": "BRONZE",
+                        "maxRank": 25,
+                        "tiebreakMode": "NONE"
+                    }
+                ]
+            }
+        ]
     }
 ]

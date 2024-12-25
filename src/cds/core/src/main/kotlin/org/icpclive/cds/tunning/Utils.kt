@@ -68,13 +68,15 @@ internal fun <T, O, ID> mergeOverrides(
     }
 }
 
-internal fun <K, V> mergeMaps(original: Map<K, V>, override: Map<K, V?>) = buildMap {
+internal fun <K, V> mergeMaps(original: Map<K, V>, override: Map<K, V?>?) = buildMap {
     putAll(original)
-    for ((k, v) in override.entries) {
-        if (v == null) {
-            remove(k)
-        } else {
-            put(k, v)
+    if (override != null) {
+        for ((k, v) in override.entries) {
+            if (v == null) {
+                remove(k)
+            } else {
+                put(k, v)
+            }
         }
     }
 }

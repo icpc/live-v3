@@ -218,15 +218,17 @@
     },
     {
         "type": "override_awards",
-        "settings": {
-            "medals": [
-                {
-                    "id": "top-4",
-                    "citation": "Top 4",
-                    "color": "GOLD",
-                    "maxRank": 4
-                }
-            ]
-        }
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "top-4",
+                        "citation": "Top 4",
+                        "color": "GOLD",
+                        "maxRank": 4
+                    }
+                ]
+            }
+        ]
     }
 ]

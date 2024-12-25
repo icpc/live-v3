@@ -1,21 +1,21 @@
 [
     {
         "type": "add_group_if_matches",
+        "id": "itmo",
         "from": "{team.fullName}",
-        "rule": "^SPb ITMO:.*",
-        "id": "itmo"
+        "rule": "^SPb ITMO:.*"
     },
     {
         "type": "add_group_if_matches",
+        "id": "spbsu",
         "from": "{team.fullName}",
-        "rule": "^SPb SU:.*",
-        "id": "spbsu"
+        "rule": "^SPb SU:.*"
     },
     {
         "type": "add_group_if_matches",
+        "id": "leti",
         "from": "{team.fullName}",
-        "rule": "^SPb ETU:.*",
-        "id": "leti"
+        "rule": "^SPb ETU:.*"
     },
     {
         "type": "add_custom_value_by_regex",
@@ -59,17 +59,11 @@
         }
     },
     {
-        "type": "override_awards",
-        "settings": {
-            "manual": [
-                {
-                    "id": "qualified",
-                    "citation": "Qualified to Northwestern Russia Regional Contest",
-                    "teamCdsIds": [
-                        "922155"
-                    ]
-                }
-            ]
-        }
+        "type": "add_manual_award",
+        "id": "qualified",
+        "citation": "Qualified to Northwestern Russia Regional Contest",
+        "teamIds": [
+            "922155"
+        ]
     }
 ]

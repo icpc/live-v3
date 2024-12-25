@@ -15,15 +15,17 @@
     },
     {
         "type": "override_awards",
-        "settings": {
-            "medals": [
-                {
-                    "id": "qualified",
-                    "citation": "Qualified to finals",
-                    "color": "GOLD",
-                    "maxRank": 16
-                }
-            ]
-        }
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "qualified",
+                        "citation": "Qualified to finals",
+                        "color": "GOLD",
+                        "maxRank": 16
+                    }
+                ]
+            }
+        ]
     }
 ]

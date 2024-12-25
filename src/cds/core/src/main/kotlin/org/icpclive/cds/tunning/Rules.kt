@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.api.*
+import org.icpclive.cds.api.AwardsSettings.MedalGroup
 import java.io.InputStream
 
 @Serializable
@@ -33,7 +34,12 @@ public sealed interface DesugarableTuningRule : TuningRule {
     }
 }
 
-public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList {
+public sealed interface SimpleDesugarableTuningRule : DesugarableTuningRule {
+    public fun desugar(): TuningRule
+    override fun desugar(info: ContestInfo): TuningRule = desugar()
+}
+
+public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buildRulesList@{
     if (startTime != null || contestLength != null || freezeTime != null || holdTime != null) {
         add(OverrideTimes(startTime, contestLength, freezeTime, holdTime))
     }
@@ -157,7 +163,42 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList {
         }
     }
     if (awardsSettings != null) {
-        add(OverrideAwards(awardsSettings))
+        val (championTitle, groupChampionTitles, rankAwardsMaxRank, medalsExtra, medalGroups, manual) = awardsSettings
+        fun MedalGroup.tryToMedals() : TuningRule? {
+            val goldCut = medals.getOrNull(0)?.maxRank ?: return null
+            val silverCut = medals.getOrNull(1)?.maxRank ?: goldCut
+            val bronzeCut = medals.getOrNull(2)?.maxRank ?: silverCut
+            val cand = AddMedals(goldCut, silverCut - goldCut, bronzeCut - silverCut)
+            val des = cand.desugar() as? OverrideAwards ?: return null
+            val group = des.extraMedalGroups?.singleOrNull() ?: return null
+            return cand.takeIf { group == this }
+        }
+        val medals = buildList {
+            val original = medalGroups + medalsExtra.takeIf { it.isNotEmpty() }?.let { MedalGroup(medalsExtra, emptyList(), emptyList()) }
+            for (cand in original.filterNotNull()) {
+                val simple: TuningRule? = cand.tryToMedals()
+                if (simple != null) {
+                    this@buildRulesList.add(simple)
+                } else {
+                    add(cand)
+                }
+            }
+        }
+        for (m in manual) {
+            add(AddManualAward(
+                m.id,
+                m.citation,
+                m.teamCdsIds
+            ))
+        }
+        if (championTitle != null || groupChampionTitles.isNotEmpty() || rankAwardsMaxRank != 0 || medals.isNotEmpty()) {
+            add(OverrideAwards(
+                championTitle = championTitle,
+                groupsChampionTitles = groupChampionTitles.takeIf { it.isNotEmpty() },
+                rankAwardsMaxRank = rankAwardsMaxRank.takeIf { it != 0 },
+                medalGroups = medals.takeIf { it.isNotEmpty() },
+            ))
+        }
     }
     if (queueSettings != null) {
         add(OverrideQueue(queueSettings.waitTime, queueSettings.firstToSolveWaitTime, queueSettings.featuredRunWaitTime, queueSettings.inProgressRunWaitTime, queueSettings.maxQueueSize, queueSettings.maxUntestedRun))

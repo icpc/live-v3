@@ -5,6 +5,19 @@ import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
 import org.icpclive.cds.util.getLogger
 
+/**
+ * @param displayName Name of the group to be displayed in admin and export
+ * @param isHidden Totally hide all teams from this group
+ * @param isOutOfContest Teams from this group will be visible everywhere, but will not have any rank assigned to them in the leaderboard
+ */
+@Serializable
+public class GroupInfoOverride(
+    public val displayName: String? = null,
+    public val isHidden: Boolean? = null,
+    public val isOutOfContest: Boolean? = null,
+)
+
+
 @Serializable
 @SerialName("override_groups")
 public data class OverrideGroups(public val rules: Map<GroupId, GroupInfoOverride>): TuningRule {

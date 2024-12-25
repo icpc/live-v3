@@ -8,8 +8,8 @@ import org.icpclive.cds.api.*
 @SerialName("override_problem_colors")
 public data class OverrideProblemColors(
     val rules: Map<ProblemId, Color>
-): DesugarableTuningRule {
-    override fun desugar(info: ContestInfo): TuningRule {
+): SimpleDesugarableTuningRule {
+    override fun desugar(): TuningRule {
         return OverrideProblems(rules.mapValues { ProblemInfoOverride(color = it.value) })
     }
 }

@@ -28,9 +28,9 @@ public data class AddGroupIfMatches(
 public data class AddGroupToTeams(
     public val id: GroupId,
     public val teams: List<TeamId>,
-): DesugarableTuningRule {
+): SimpleDesugarableTuningRule {
     @OptIn(InefficientContestInfoApi::class)
-    override fun desugar(info: ContestInfo): TuningRule {
+    override fun desugar(): TuningRule {
         return OverrideTeams(
             teams.associateWith { TeamInfoOverride(extraGroups = listOf(id)) }
         )
