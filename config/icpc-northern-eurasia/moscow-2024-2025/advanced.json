@@ -1,0 +1,507 @@
+{  
+    "scoreboardOverrides": {
+        "showTeamsWithoutSubmissions": false
+    },
+    "queueSettings": {
+        "maxQueueSize": 15
+    },
+	"teamOverrideTemplate": {
+		"medias": {
+			"screen": {
+				"type": "WebRTCGrabberConnection",
+				"peerName": "{comp}",
+				"url": "http://10.17.11.246:8000",
+				"streamType": "desktop",
+				"credential": "icpclive"
+			},
+			"camera": {
+				"type": "WebRTCGrabberConnection",
+				"url": "http://10.17.11.246:8000",
+				"peerName": "{comp}",
+				"streamType": "webcam",
+				"credential": "icpclive"
+			},
+      "achievement": {
+        "type": "Image",
+        "url": "/media/{teamId}.svg"
+      }
+    }
+	},
+	"teamOverrides": {
+		"mrc2024-100": {
+			"displayName": "NRU HSE: BDMS",
+			"customFields": { "comp": "100" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-101": {
+			"displayName": "MEPhI: ASMR",
+			"customFields": { "comp": "101" },
+			"groups": ["MEPhI"]
+		},
+		"mrc2024-102": {
+			"displayName": "MAI #17",
+			"customFields": { "comp": "102" },
+			"groups": ["MAI"]
+		},
+		"mrc2024-103": {
+			"displayName": "NRU HSE: KATEAMSYA",
+			"customFields": { "comp": "103" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-104": {
+			"displayName": "Kaluga BMSTU: Vrubovoy Pereulok",
+			"customFields": { "comp": "104" },
+			"groups": ["Kaluga BMSTU"]
+		},
+		"mrc2024-105": {
+			"displayName": "MPEI: Energy",
+			"customFields": { "comp": "105" },
+			"groups": ["MPEI"]
+		},
+		"mrc2024-106": {
+			"displayName": "NRU HSE: Lock, Stock, and Two Broken Chairs",
+			"customFields": { "comp": "106" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-107": {
+			"displayName": "MISiS: ACMMLP",
+			"customFields": { "comp": "107" },
+			"groups": ["MISiS"]
+		},
+		"mrc2024-108": {
+			"displayName": "Leonov Tech: Mean Absolute Error",
+			"customFields": { "comp": "108" },
+			"groups": ["Leonov Tech"]
+		},
+		"mrc2024-109": {
+			"displayName": "NRU HSE: Kookaburra",
+			"customFields": { "comp": "109" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-110": {
+			"displayName": "RUDN: GKS_RUDN2024",
+			"customFields": { "comp": "110" },
+			"groups": ["RUDN"]
+		},
+		"mrc2024-111": {
+			"displayName": "MIPT: Ctrl+XD",
+			"customFields": { "comp": "111" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-201": {
+			"displayName": "MIREA: is undefined",
+			"customFields": { "comp": "201" },
+			"groups": ["MIREA"]
+		},
+		"mrc2024-202": {
+			"displayName": "NRU HSE: depressed toxic 12yo",
+			"customFields": { "comp": "202" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-203": {
+			"displayName": "CU: CU_c",
+			"customFields": { "comp": "203" },
+			"groups": ["CU"]
+		},
+		"mrc2024-204": {
+			"displayName": "MISiS: MISIS podPhonk",
+			"customFields": { "comp": "204" },
+			"groups": ["MISiS"]
+		},
+		"mrc2024-205": {
+			"displayName": "NRU HSE: :whale:",
+			"customFields": { "comp": "205" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-206": {
+			"displayName": "MTUCI: NEMOLOKO",
+			"customFields": { "comp": "206" },
+			"groups": ["MTUCI"]
+		},
+		"mrc2024-207": {
+			"displayName": "MIPT: Who cares?",
+			"customFields": { "comp": "207" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-208": {
+			"displayName": "NRU HSE: Hellpot",
+			"customFields": { "comp": "208" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-209": {
+			"displayName": "MAI #11",
+			"customFields": { "comp": "209" },
+			"groups": ["MAI"]
+		},
+		"mrc2024-210": {
+			"displayName": "PSTGU: Team Squeezy",
+			"customFields": { "comp": "210" },
+			"groups": ["PSTGU"]
+		},
+		"mrc2024-211": {
+			"displayName": "NRU HSE: Lyubim mamu",
+			"customFields": { "comp": "211" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-300": {
+			"displayName": "MSTUCA: DedSec",
+			"customFields": { "comp": "300" },
+			"groups": ["MSTUCA"]
+		},
+		"mrc2024-301": {
+			"displayName": "NRU HSE: Lavender Raf",
+			"customFields": { "comp": "301" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-302": {
+			"displayName": "BMSTU: Ernestovichi",
+			"customFields": { "comp": "302" },
+			"groups": ["BMSTU"]
+		},
+		"mrc2024-303": {
+			"displayName": "223 kg Ivana Yakimova",
+			"customFields": { "comp": "303" },
+			"groups": ["223 kg Ivana Yakimov"]
+		},
+		"mrc2024-304": {
+			"displayName": "MIPT: Wake right upside down",
+			"customFields": { "comp": "304" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-305": {
+			"displayName": "NRU HSE: Muffix Sassif",
+			"customFields": { "comp": "305" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-306": {
+			"displayName": "MAI #7",
+			"customFields": { "comp": "306" },
+			"groups": ["MAI"]
+		},
+		"mrc2024-307": {
+			"displayName": "MIREA: This name already exists",
+			"customFields": { "comp": "307" },
+			"groups": ["MIREA"]
+		},
+		"mrc2024-308": {
+			"displayName": "MSU: kinders",
+			"customFields": { "comp": "308" },
+			"groups": ["MSU"]
+		},
+		"mrc2024-309": {
+			"displayName": "NRU HSE: Triple K",
+			"customFields": { "comp": "309" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-310": {
+			"displayName": "MIPT: The Elephants",
+			"customFields": { "comp": "310" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-311": {
+			"displayName": "FinU: Viktor Chagai",
+			"customFields": { "comp": "311" },
+			"groups": ["FinU"]
+		},
+		"mrc2024-401": {
+			"displayName": "MIPT: SHLYOP-SHLYOP",
+			"customFields": { "comp": "401" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-402": {
+			"displayName": "RUDN: point free",
+			"customFields": { "comp": "402" },
+			"groups": ["RUDN"]
+		},
+		"mrc2024-403": {
+			"displayName": "NRU HSE: LITVINCHIK ENERGIZER",
+			"customFields": { "comp": "403" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-404": {
+			"displayName": "MSU: Team 1 name",
+			"customFields": { "comp": "404" },
+			"groups": ["MSU"]
+		},
+		"mrc2024-405": {
+			"displayName": "MEPhI: CHERVYACHKI",
+			"customFields": { "comp": "405" },
+			"groups": ["MEPhI"]
+		},
+		"mrc2024-406": {
+			"displayName": "CU: CU_kats",
+			"customFields": { "comp": "406" },
+			"groups": ["CU"]
+		},
+		"mrc2024-407": {
+			"displayName": "NRU HSE: HamStEr criminal",
+			"customFields": { "comp": "407" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-408": {
+			"displayName": "MAI #5",
+			"customFields": { "comp": "408" },
+			"groups": ["MAI"]
+		},
+		"mrc2024-409": {
+			"displayName": "MPSU: Road to unbelievable but not impossible",
+			"customFields": { "comp": "409" },
+			"groups": ["MPSU"]
+		},
+		"mrc2024-410": {
+			"displayName": "BMSTU: Evas rib",
+			"customFields": { "comp": "410" },
+			"groups": ["BMSTU"]
+		},
+		"mrc2024-411": {
+			"displayName": "NRU HSE: Surstrumien bobra",
+			"customFields": { "comp": "411" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-500": {
+			"displayName": "Moscow Pol U: Polykek",
+			"customFields": { "comp": "500" },
+			"groups": ["Moscow Pol U"]
+		},
+		"mrc2024-501": {
+			"displayName": "NRU HSE: king-pankevich.acoolguy@rambler.ru",
+			"customFields": { "comp": "501" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-502": {
+			"displayName": "MIPT: SoskaNerealka",
+			"customFields": { "comp": "502" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-503": {
+			"displayName": "BMSTU: Deti Maminoi Podrugi",
+			"customFields": { "comp": "503" },
+			"groups": ["BMSTU"]
+		},
+		"mrc2024-504": {
+			"displayName": "MEPhI: TheAirShip",
+			"customFields": { "comp": "504" },
+			"groups": ["MEPhI"]
+		},
+		"mrc2024-505": {
+			"displayName": "NRU HSE: gornostai",
+			"customFields": { "comp": "505" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-506": {
+			"displayName": "MIPT: Batman",
+			"customFields": { "comp": "506" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-507": {
+			"displayName": "MSU: The Meanwhiles",
+			"customFields": { "comp": "507" },
+			"groups": ["MSU"]
+		},
+		"mrc2024-508": {
+			"displayName": "CU: Completely Underestimated",
+			"customFields": { "comp": "508" },
+			"groups": ["CU"]
+		},
+		"mrc2024-509": {
+			"displayName": "NRU HSE: vot takie pirozhki",
+			"customFields": { "comp": "509" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-510": {
+			"displayName": "MISiS: BIVTIKI",
+			"customFields": { "comp": "510" },
+			"groups": ["MISiS"]
+		},
+		"mrc2024-511": {
+			"displayName": "SkolTech: Red-Black Trio",
+			"customFields": { "comp": "511" },
+			"groups": ["SkolTech"]
+		},
+		"mrc2024-601": {
+			"displayName": "MAI #3",
+			"customFields": { "comp": "601" },
+			"groups": ["MAI"]
+		},
+		"mrc2024-602": {
+			"displayName": "MSU: broken cisgenders",
+			"customFields": { "comp": "602" },
+			"groups": ["MSU"]
+		},
+		"mrc2024-603": {
+			"displayName": "NRU HSE: Rock Group L",
+			"customFields": { "comp": "603" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-604": {
+			"displayName": "Synergy: [SYN]DICATE",
+			"customFields": { "comp": "604" },
+			"groups": ["Synergy"]
+		},
+		"mrc2024-605": {
+			"displayName": "MIREA: There is an idea, but there are no proofs",
+			"customFields": { "comp": "605" },
+			"groups": ["MIREA"]
+		},
+		"mrc2024-606": {
+			"displayName": "RUDN: akavkar_RUDN2024",
+			"customFields": { "comp": "606" },
+			"groups": ["RUDN"]
+		},
+		"mrc2024-607": {
+			"displayName": "NRU HSE: Solved Normal Form",
+			"customFields": { "comp": "607" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-608": {
+			"displayName": "MISiS: Eva Fan Club",
+			"customFields": { "comp": "608" },
+			"groups": ["MISiS"]
+		},
+		"mrc2024-609": {
+			"displayName": "MEPhI: Reactor and Chrome",
+			"customFields": { "comp": "609" },
+			"groups": ["MEPhI"]
+		},
+		"mrc2024-610": {
+			"displayName": "MIET: SpinHub",
+			"customFields": { "comp": "610" },
+			"groups": ["MIET"]
+		},
+		"mrc2024-611": {
+			"displayName": "NRU HSE: M.O.S.C.O.W.",
+			"customFields": { "comp": "611" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-700": {
+			"displayName": "MSTUCA: Outsiders",
+			"customFields": { "comp": "700" },
+			"groups": ["MSTUCA"]
+		},
+		"mrc2024-701": {
+			"displayName": "NRU HSE: GOOOLosa v GOOOLove",
+			"customFields": { "comp": "701" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-702": {
+			"displayName": "MISiS: Fiksiki",
+			"customFields": { "comp": "702" },
+			"groups": ["MISiS"]
+		},
+		"mrc2024-703": {
+			"displayName": "MSU: ConTesters",
+			"customFields": { "comp": "703" },
+			"groups": ["MSU"]
+		},
+		"mrc2024-704": {
+			"displayName": "Plekhanov REU: hscm&s",
+			"customFields": { "comp": "704" },
+			"groups": ["Plekhanov REU"]
+		},
+		"mrc2024-705": {
+			"displayName": "NRU HSE: The Lower Depths",
+			"customFields": { "comp": "705" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-706": {
+			"displayName": "MEPhI: DeKaPTaaaaa4",
+			"customFields": { "comp": "706" },
+			"groups": ["MEPhI"]
+		},
+		"mrc2024-707": {
+			"displayName": "RNU: print(chr(sum(range(ord(min(str(not())))))))",
+			"customFields": { "comp": "707" },
+			"groups": ["RNU"]
+		},
+		"mrc2024-708": {
+			"displayName": "MIPT: Tri Bogatirya",
+			"customFields": { "comp": "708" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-709": {
+			"displayName": "NRU HSE: ran'she ya byl schastliv///",
+			"customFields": { "comp": "709" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-710": {
+			"displayName": "MAI #1",
+			"customFields": { "comp": "710" },
+			"groups": ["MAI"]
+		},
+		"mrc2024-711": {
+			"displayName": "CU: Central University, but there is a caveat",
+			"customFields": { "comp": "711" },
+			"groups": ["CU"]
+		},
+		"mrc2024-801": {
+			"displayName": "MIPT: Ad ordio per codio",
+			"customFields": { "comp": "801" },
+			"groups": ["MIPT"]
+		},
+		"mrc2024-802": {
+			"displayName": "MEPhI: Useless but powerful",
+			"customFields": { "comp": "802" },
+			"groups": ["MEPhI"]
+		},
+		"mrc2024-803": {
+			"displayName": "NRU HSE: Kupit ylabord sbiten",
+			"customFields": { "comp": "803" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-804": {
+			"displayName": "MAI #2",
+			"customFields": { "comp": "804" },
+			"groups": ["MAI"]
+		},
+		"mrc2024-805": {
+			"displayName": "MISiS: 322team",
+			"customFields": { "comp": "805" },
+			"groups": ["MISiS"]
+		},
+		"mrc2024-806": {
+			"displayName": "BMSTU: Team and Maksim",
+			"customFields": { "comp": "806" },
+			"groups": ["BMSTU"]
+		},
+		"mrc2024-807": {
+			"displayName": "NRU HSE: Funny Anchouses",
+			"customFields": { "comp": "807" },
+			"groups": ["NRU HSE"]
+		},
+		"mrc2024-808": {
+			"displayName": "MIREA: flying above the wave of expulsions",
+			"customFields": { "comp": "808" },
+			"groups": ["MIREA"]
+		},
+		"mrc2024-809": {
+			"displayName": "MSU: Intentionally Blank",
+			"customFields": { "comp": "809" },
+			"groups": ["MSU"]
+		},
+		"mrc2024-810": {
+			"displayName": "MTUCI: MOLOKO",
+			"customFields": { "comp": "810" },
+			"groups": ["MTUCI"]
+		},
+		"mrc2024-811": {
+			"displayName": "NRU HSE: Outsiders",
+			"customFields": { "comp": "811" },
+			"groups": ["NRU HSE"]
+		}
+	},
+  "problemOverrides": {
+      "7/2024_11_12/nXw7VoVofA": {"color":"#ffa500"},
+      "7/2024_11_12/PPCD9UTi2L": {"color":"#ffff00"},
+      "7/2024_11_12/EkEJ8cCB0d": {"color":"#90ee90"},
+      "7/2024_11_12/PnQINeYLpL": {"color":"#0000ff"},
+      "7/2024_11_12/b4QJCsPG13": {"color":"#a07b71"},
+      "7/2024_11_12/rv2JLzQKxq": {"color":"#800020"},
+      "7/2024_11_13/RftVU8XEQi": {"color":"#55d9e3"},
+      "7/2024_11_12/cjMGGU1XLo": {"color":"#ffffff"},
+      "7/2024_11_12/yHTunLZ0uT": {"color":"#800080"},
+      "7/2024_11_12/EmaHncO87n": {"color":"#a2cffe"},
+      "7/2024_11_12/xJyCpwa18i": {"color":"#ff7f50"},
+      "7/2024_11_12/Jo4lTgOkrL": {"color":"#00ff00"},
+      "7/2024_11_12/02z5ONzi9q": {"color":"#f4c2c2"}
+  }
+}
