@@ -1,10 +1,26 @@
-{
-  "problemOverrides": {
-    "A":{"color":"#06d50d"},
-    "B":{"color":"#1b2cff"},
-    "C":{"color":"#9d2fff"},
-    "D":{"color":"#fd920e"},
-    "E":{"color":"#ff3821"}
-  },
-  "freezeTimeSeconds": "14400"
-}
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#06d50dff"
+            },
+            "B": {
+                "color": "#1b2cffff"
+            },
+            "C": {
+                "color": "#9d2fffff"
+            },
+            "D": {
+                "color": "#fd920eff"
+            },
+            "E": {
+                "color": "#ff3821ff"
+            }
+        }
+    }
+]

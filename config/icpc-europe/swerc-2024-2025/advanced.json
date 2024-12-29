@@ -1,157 +1,725 @@
-{
-    "teamOverrides": {
-        "2":{"isHidden": true},
-"163": {"groups":["Lisbon"]},
-"165": {"groups":["Lisbon"]},
-"166": {"groups":["Lyon"]},
-"167": {"groups":["Lyon"]},
-"168": {"groups":["Lyon"]},
-"169": {"groups":["Lisbon"]},
-"170": {"groups":["Lisbon"]},
-"171": {"groups":["Lisbon"]},
-"172": {"groups":["Lisbon"]},
-"173": {"groups":["Lisbon"]},
-"174": {"groups":["Lyon"]},
-"175": {"groups":["Lyon"]},
-"176": {"groups":["Lyon"]},
-"177": {"groups":["Lyon"]},
-"178": {"groups":["Lisbon"]},
-"179": {"groups":["Lisbon"]},
-"180": {"groups":["Lyon"]},
-"181": {"groups":["Lyon"]},
-"182": {"groups":["Lyon"]},
-"183": {"groups":["Lyon"]},
-"184": {"groups":["Lyon"]},
-"185": {"groups":["Pisa"]},
-"186": {"groups":["Lisbon"]},
-"187": {"groups":["Lisbon"]},
-"188": {"groups":["Lisbon"]},
-"189": {"groups":["Lisbon"]},
-"190": {"groups":["Lisbon"]},
-"191": {"groups":["Lisbon"]},
-"192": {"groups":["Lisbon"]},
-"193": {"groups":["Lisbon"]},
-"194": {"groups":["Lyon"]},
-"195": {"groups":["Lyon"]},
-"196": {"groups":["Lyon"]},
-"197": {"groups":["Pisa"]},
-"198": {"groups":["Lyon"]},
-"199": {"groups":["Lyon"]},
-"200": {"groups":["Lyon"]},
-"201": {"groups":["Pisa"]},
-"202": {"groups":["Lisbon"]},
-"203": {"groups":["Lisbon"]},
-"204": {"groups":["Lisbon"]},
-"205": {"groups":["Lisbon"]},
-"206": {"groups":["Lisbon"]},
-"207": {"groups":["Lisbon"]},
-"208": {"groups":["Lisbon"]},
-"209": {"groups":["Lisbon"]},
-"210": {"groups":["Lyon"]},
-"211": {"groups":["Lisbon"]},
-"212": {"groups":["Lisbon"]},
-"213": {"groups":["Pisa"]},
-"214": {"groups":["Pisa"]},
-"215": {"groups":["Pisa"]},
-"216": {"groups":["Lyon"]},
-"217": {"groups":["Lyon"]},
-"218": {"groups":["Lyon"]},
-"219": {"groups":["Lyon"]},
-"220": {"groups":["Lyon"]},
-"221": {"groups":["Lyon"]},
-"222": {"groups":["Lyon"]},
-"223": {"groups":["Lisbon"]},
-"224": {"groups":["Lisbon"]},
-"225": {"groups":["Lisbon"]},
-"226": {"groups":["Pisa"]},
-"227": {"groups":["Pisa"]},
-"228": {"groups":["Pisa"]},
-"229": {"groups":["Pisa"]},
-"230": {"groups":["Pisa"]},
-"231": {"groups":["Lyon"]},
-"232": {"groups":["Lyon"]},
-"233": {"groups":["Lyon"]},
-"234": {"groups":["Pisa"]},
-"235": {"groups":["Pisa"]},
-"236": {"groups":["Pisa"]},
-"237": {"groups":["Lyon"]},
-"238": {"groups":["Lyon"]},
-"239": {"groups":["Pisa"]},
-"240": {"groups":["Pisa"]},
-"241": {"groups":["Pisa"]},
-"242": {"groups":["Pisa"]},
-"243": {"groups":["Pisa"]},
-"244": {"groups":["Pisa"]},
-"245": {"groups":["Lisbon"]},
-"246": {"groups":["Lisbon"]},
-"247": {"groups":["Pisa"]},
-"248": {"groups":["Lisbon"]},
-"249": {"groups":["Lisbon"]},
-"250": {"groups":["Lisbon"]},
-"251": {"groups":["Lyon"]},
-"252": {"groups":["Lyon"]},
-"253": {"groups":["Lyon"]},
-"254": {"groups":["Lyon"]},
-"255": {"groups":["Lisbon"]},
-"256": {"groups":["Lisbon"]},
-"257": {"groups":["Lyon"]},
-"258": {"groups":["Pisa"]},
-"259": {"groups":["Pisa"]},
-"260": {"groups":["Lyon"]},
-"261": {"groups":["Lyon"]},
-"262": {"groups":["Lyon"]},
-"263": {"groups":["Lyon"]},
-"264": {"groups":["Lyon"]},
-"265": {"groups":["Lyon"]},
-"266": {"groups":["Pisa"]},
-"267": {"groups":["Lyon"]},
-"268": {"groups":["Lyon"]},
-"269": {"groups":["Lyon"]},
-"270": {"groups":["Lisbon"]},
-"271": {"groups":["Lisbon"]},
-"272": {"groups":["Pisa"]},
-"273": {"groups":["Pisa"]},
-"274": {"groups":["Lisbon"]},
-"275": {"groups":["Lisbon"]},
-"276": {"groups":["Lisbon"]},
-"277": {"groups":["Lyon"]},
-"278": {"groups":["Pisa"]},
-"279": {"groups":["Pisa"]},
-"280": {"groups":["Lisbon"]},
-"281": {"groups":["Lisbon"]},
-"282": {"groups":["Lyon"]},
-"283": {"groups":["Lyon"]},
-"284": {"groups":["Lisbon"]},
-"285": {"groups":["Lisbon"]},
-"286": {"groups":["Lisbon"]},
-"287": {"groups":["Lyon"]},
-"288": {"groups":["Pisa"]},
-"289": {"groups":["Pisa"]},
-"290": {"groups":["Lyon"]},
-"291": {"groups":["Pisa"]},
-"292": {"groups":["Pisa"]},
-"293": {"groups":["Pisa"]},
-"294": {"groups":["Pisa"]},
-"295": {"groups":["Pisa"]},
-"296": {"groups":["Lyon"]},
-"297": {"groups":["Lyon"]},
-"298": {"groups":["Lyon"]},
-"299": {"groups":["Lisbon"]},
-"300": {"groups":["Pisa"]},
-"301": {"groups":["Pisa"]},
-"302": {"groups":["Pisa"]},
-"303": {"groups":["Pisa"]},
-"304": {"groups":["Lisbon"]}        
+[
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
     },
-    "teamOverrideTemplate": {
-        "displayName": "{orgDisplayName}: {clicsTeamDisplayName}"
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "2": {
+                "isHidden": true
+            },
+            "163": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "165": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "166": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "167": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "168": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "169": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "170": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "171": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "172": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "173": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "174": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "175": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "176": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "177": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "178": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "179": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "180": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "181": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "182": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "183": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "184": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "185": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "186": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "187": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "188": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "189": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "190": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "191": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "192": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "193": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "194": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "195": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "196": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "197": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "198": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "199": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "200": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "201": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "202": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "203": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "204": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "205": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "206": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "207": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "208": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "209": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "210": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "211": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "212": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "213": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "214": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "215": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "216": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "217": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "218": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "219": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "220": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "221": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "222": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "223": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "224": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "225": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "226": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "227": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "228": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "229": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "230": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "231": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "232": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "233": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "234": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "235": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "236": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "237": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "238": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "239": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "240": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "241": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "242": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "243": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "244": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "245": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "246": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "247": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "248": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "249": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "250": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "251": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "252": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "253": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "254": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "255": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "256": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "257": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "258": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "259": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "260": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "261": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "262": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "263": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "264": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "265": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "266": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "267": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "268": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "269": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "270": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "271": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "272": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "273": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "274": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "275": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "276": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "277": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "278": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "279": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "280": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "281": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "282": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "283": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "284": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "285": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "286": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "287": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "288": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "289": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "290": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "291": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "292": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "293": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "294": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "295": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "296": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "297": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "298": {
+                "groups": [
+                    "Lyon"
+                ]
+            },
+            "299": {
+                "groups": [
+                    "Lisbon"
+                ]
+            },
+            "300": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "301": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "302": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "303": {
+                "groups": [
+                    "Pisa"
+                ]
+            },
+            "304": {
+                "groups": [
+                    "Lisbon"
+                ]
+            }
+        }
     },
-    "scoreboardOverrides": {},
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 2},
-      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 6},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 14}
-    ]
-  }     
-}
+    {
+        "type": "addMedals",
+        "gold": 2,
+        "silver": 4,
+        "bronze": 8
+    }
+]

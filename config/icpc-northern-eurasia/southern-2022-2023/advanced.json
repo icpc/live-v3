@@ -1,100 +1,294 @@
-{
-  "teamOverrides": {
-"68": {"shortname":"Nizhny Novgorod SU 2" },
-"69": {"shortname":"Nizhny Novgorod SU 3" },
-"70": {"shortname":"Nizhny Novgorod SU 4" },
-"71": {"shortname":"Nizhny Novgorod SU 5" },
-"72": {"shortname":"Nizhny Novgorod SU 6" },
-"73": {"shortname":"Nizhny Novgorod SU 7" },
-"74": {"shortname":"Nizhny Novgorod SU 8" },
-"75": {"shortname":"Belgorod State TU 1" },
-"76": {"shortname":"Ulyanovsk State  TU 1" },
-"77": {"shortname":"Ulyanovsk State  TU 2" },
-"78": {"shortname":"Ulyanovsk State  TU 3" },
-"79": {"shortname":"Ulyanovsk State  TU 4" },
-"80": {"shortname":"Kazan FU 1" },
-"81": {"shortname":"Kazan FU 2" },
-"82": {"shortname":"Kazan FU 3" },
-"83": {"shortname":"Kazan FU 4" },
-"84": {"shortname":"Kazan FU 5" },
-"85": {"shortname":"Kazan FU 6" },
-"86": {"shortname":"Kazan FU 7" },
-"87": {"shortname":"Adyghe SU 1" },
-"88": {"shortname":"Kazan National Research TU 1" },
-"89": {"shortname":"Volgograd State TU 1" },
-"90": {"shortname":"Volgograd State TU 2" },
-"91": {"shortname":"Volgograd State TU 3" },
-"92": {"shortname":"Volgograd SU 1" },
-"93": {"shortname":"Nizhny Novgorod HSE 1" },
-"94": {"shortname":"Nizhny Novgorod HSE 2" },
-"95": {"shortname":"Nizhny Novgorod HSE 3" },
-"96": {"shortname":"Nizhny Novgorod HSE 4" },
-"97": {"shortname":"Nizhny Novgorod HSE 5" },
-"98": {"shortname":"Nizhny Novgorod HSE 6" },
-"99": {"shortname":"Nizhny Novgorod HSE 7" },
-"100": {"shortname":"Nizhny Novgorod State TU 1" },
-"101": {"shortname":"North Caucasus FU 1" },
-"102": {"shortname":"Tambov State TU 1" },
-"103": {"shortname":"Voronezh SU 1" },
-"104": {"shortname":"Voronezh SU 2" },
-"105": {"shortname":"Voronezh SU 3" },
-"106": {"shortname":"Voronezh SU 4" },
-"107": {"shortname":"Voronezh SU 5" },
-"108": {"shortname":"Kuban SU 1" },
-"109": {"shortname":"Kursk SU 1" },
-"110": {"shortname":"Kuban State Agrarian U 1" },
-"111": {"shortname":"Innopolis University 1" },
-"112": {"shortname":"Innopolis University 2" },
-"113": {"shortname":"Innopolis University 3" },
-"114": {"shortname":"Innopolis University 4" },
-"115": {"shortname":"Innopolis University 5" },
-"116": {"shortname":"Innopolis University 6" },
-"117": {"shortname":"Innopolis University 7" },
-"118": {"shortname":"Innopolis University 8" },
-"119": {"shortname":"Saratov SU 1" },
-"120": {"shortname":"Saratov SU 2" },
-"121": {"shortname":"Saratov SU 3" },
-"122": {"shortname":"Saratov SU 4" },
-"123": {"shortname":"Saratov SU 5" },
-"124": {"shortname":"Saratov SU 6" },
-"125": {"shortname":"Saratov SU 7" },
-"126": {"shortname":"Dagestan SU 1" },
-"127": {"shortname":"Lipetsk State TU 1" },
-"128": {"shortname":"North-Osetian SU  1" },
-"129": {"shortname":"Togliatti SU 1" },
-"130": {"shortname":"Southern FU (ICTIS, Taganrog) 1" },
-"131": {"shortname":"Southern FU (ICTIS, Taganrog) 2" },
-"132": {"shortname":"Zhukovsky-Gagarin Air Force A 1" },
-"133": {"shortname":"Zhukovsky-Gagarin Air Force A 2" },
-"134": {"shortname":"C of Radioelectronics SSU 1" },
-"135": {"shortname":"Tambov SU 1" },
-"136": {"shortname":"Mordovia SU 1" },
-"137": {"shortname":"Mordovia SU 2" },
-"138": {"shortname":"Mordovia SU 3" },
-"139": {"shortname":"Penza SU 1" },
-"140": {"shortname":"Penza SU 2" },
-"141": {"shortname":"Penza SU 3" },
-"142": {"shortname":"Samara University 1" },
-"143": {"shortname":"Samara University 2" },
-"144": {"shortname":"Southern FU (IMMCS, RoD) 1" },
-"145": {"shortname":"Southern FU (IMMCS, RoD) 2" },
-"146": {"shortname":"Southern FU (IMMCS, RoD) 3" },
-"147": {"shortname":"Chuvash SU 1" },
-"148": {"shortname":"Chuvash SU 2" },
-"149": {"shortname":"Тренеры Мордовского У 1" },
-"150": {"shortname":"Тренеры Воронежского ГУ 1" }
-},
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"}
-  }
-}
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "68": {
+                "displayName": "Nizhny Novgorod SU 2"
+            },
+            "69": {
+                "displayName": "Nizhny Novgorod SU 3"
+            },
+            "70": {
+                "displayName": "Nizhny Novgorod SU 4"
+            },
+            "71": {
+                "displayName": "Nizhny Novgorod SU 5"
+            },
+            "72": {
+                "displayName": "Nizhny Novgorod SU 6"
+            },
+            "73": {
+                "displayName": "Nizhny Novgorod SU 7"
+            },
+            "74": {
+                "displayName": "Nizhny Novgorod SU 8"
+            },
+            "75": {
+                "displayName": "Belgorod State TU 1"
+            },
+            "76": {
+                "displayName": "Ulyanovsk State  TU 1"
+            },
+            "77": {
+                "displayName": "Ulyanovsk State  TU 2"
+            },
+            "78": {
+                "displayName": "Ulyanovsk State  TU 3"
+            },
+            "79": {
+                "displayName": "Ulyanovsk State  TU 4"
+            },
+            "80": {
+                "displayName": "Kazan FU 1"
+            },
+            "81": {
+                "displayName": "Kazan FU 2"
+            },
+            "82": {
+                "displayName": "Kazan FU 3"
+            },
+            "83": {
+                "displayName": "Kazan FU 4"
+            },
+            "84": {
+                "displayName": "Kazan FU 5"
+            },
+            "85": {
+                "displayName": "Kazan FU 6"
+            },
+            "86": {
+                "displayName": "Kazan FU 7"
+            },
+            "87": {
+                "displayName": "Adyghe SU 1"
+            },
+            "88": {
+                "displayName": "Kazan National Research TU 1"
+            },
+            "89": {
+                "displayName": "Volgograd State TU 1"
+            },
+            "90": {
+                "displayName": "Volgograd State TU 2"
+            },
+            "91": {
+                "displayName": "Volgograd State TU 3"
+            },
+            "92": {
+                "displayName": "Volgograd SU 1"
+            },
+            "93": {
+                "displayName": "Nizhny Novgorod HSE 1"
+            },
+            "94": {
+                "displayName": "Nizhny Novgorod HSE 2"
+            },
+            "95": {
+                "displayName": "Nizhny Novgorod HSE 3"
+            },
+            "96": {
+                "displayName": "Nizhny Novgorod HSE 4"
+            },
+            "97": {
+                "displayName": "Nizhny Novgorod HSE 5"
+            },
+            "98": {
+                "displayName": "Nizhny Novgorod HSE 6"
+            },
+            "99": {
+                "displayName": "Nizhny Novgorod HSE 7"
+            },
+            "100": {
+                "displayName": "Nizhny Novgorod State TU 1"
+            },
+            "101": {
+                "displayName": "North Caucasus FU 1"
+            },
+            "102": {
+                "displayName": "Tambov State TU 1"
+            },
+            "103": {
+                "displayName": "Voronezh SU 1"
+            },
+            "104": {
+                "displayName": "Voronezh SU 2"
+            },
+            "105": {
+                "displayName": "Voronezh SU 3"
+            },
+            "106": {
+                "displayName": "Voronezh SU 4"
+            },
+            "107": {
+                "displayName": "Voronezh SU 5"
+            },
+            "108": {
+                "displayName": "Kuban SU 1"
+            },
+            "109": {
+                "displayName": "Kursk SU 1"
+            },
+            "110": {
+                "displayName": "Kuban State Agrarian U 1"
+            },
+            "111": {
+                "displayName": "Innopolis University 1"
+            },
+            "112": {
+                "displayName": "Innopolis University 2"
+            },
+            "113": {
+                "displayName": "Innopolis University 3"
+            },
+            "114": {
+                "displayName": "Innopolis University 4"
+            },
+            "115": {
+                "displayName": "Innopolis University 5"
+            },
+            "116": {
+                "displayName": "Innopolis University 6"
+            },
+            "117": {
+                "displayName": "Innopolis University 7"
+            },
+            "118": {
+                "displayName": "Innopolis University 8"
+            },
+            "119": {
+                "displayName": "Saratov SU 1"
+            },
+            "120": {
+                "displayName": "Saratov SU 2"
+            },
+            "121": {
+                "displayName": "Saratov SU 3"
+            },
+            "122": {
+                "displayName": "Saratov SU 4"
+            },
+            "123": {
+                "displayName": "Saratov SU 5"
+            },
+            "124": {
+                "displayName": "Saratov SU 6"
+            },
+            "125": {
+                "displayName": "Saratov SU 7"
+            },
+            "126": {
+                "displayName": "Dagestan SU 1"
+            },
+            "127": {
+                "displayName": "Lipetsk State TU 1"
+            },
+            "128": {
+                "displayName": "North-Osetian SU  1"
+            },
+            "129": {
+                "displayName": "Togliatti SU 1"
+            },
+            "130": {
+                "displayName": "Southern FU (ICTIS, Taganrog) 1"
+            },
+            "131": {
+                "displayName": "Southern FU (ICTIS, Taganrog) 2"
+            },
+            "132": {
+                "displayName": "Zhukovsky-Gagarin Air Force A 1"
+            },
+            "133": {
+                "displayName": "Zhukovsky-Gagarin Air Force A 2"
+            },
+            "134": {
+                "displayName": "C of Radioelectronics SSU 1"
+            },
+            "135": {
+                "displayName": "Tambov SU 1"
+            },
+            "136": {
+                "displayName": "Mordovia SU 1"
+            },
+            "137": {
+                "displayName": "Mordovia SU 2"
+            },
+            "138": {
+                "displayName": "Mordovia SU 3"
+            },
+            "139": {
+                "displayName": "Penza SU 1"
+            },
+            "140": {
+                "displayName": "Penza SU 2"
+            },
+            "141": {
+                "displayName": "Penza SU 3"
+            },
+            "142": {
+                "displayName": "Samara University 1"
+            },
+            "143": {
+                "displayName": "Samara University 2"
+            },
+            "144": {
+                "displayName": "Southern FU (IMMCS, RoD) 1"
+            },
+            "145": {
+                "displayName": "Southern FU (IMMCS, RoD) 2"
+            },
+            "146": {
+                "displayName": "Southern FU (IMMCS, RoD) 3"
+            },
+            "147": {
+                "displayName": "Chuvash SU 1"
+            },
+            "148": {
+                "displayName": "Chuvash SU 2"
+            },
+            "149": {
+                "displayName": "Тренеры Мордовского У 1"
+            },
+            "150": {
+                "displayName": "Тренеры Воронежского ГУ 1"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#f032e6ff"
+            },
+            "H": {
+                "color": "#fabed4ff"
+            },
+            "I": {
+                "color": "#469990ff"
+            },
+            "J": {
+                "color": "#dcbeffff"
+            },
+            "K": {
+                "color": "#9a6324ff"
+            }
+        }
+    }
+]

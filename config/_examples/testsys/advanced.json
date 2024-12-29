@@ -1,25 +1,55 @@
-{
-  "teamNameRegexes": {
-    "groupRegex": {
-      "outOfContest": "^\\(вк\\).*",
-      "firstGrade": "^\\(1к\\).*",
-      "school": "^\\(шк\\).*"
+[
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^\\(вк\\).*": {
+                        "id": "outOfContest"
+                    },
+                    "^\\(1к\\).*": {
+                        "id": "firstGrade"
+                    },
+                    "^\\(шк\\).*": {
+                        "id": "school"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^(?:\\(..\\) )?(.*) \\([^)]*\\)": {
+                        "funnyNameValue": "$1"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.group.id}"
+        ],
+        "customFields": {
+            "funnyName": "{regexes.custom.funnyNameValue}"
+        }
     },
-    "customFields": {
-      "funnyName": {
-        "^(?:\\(..\\) )?(.*) \\([^)]*\\)": "$1"
-      }
+    {
+        "type": "overrideGroups",
+        "rules": {
+            "outOfContest": {
+                "isOutOfContest": true
+            }
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{funnyName}"
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "ordinal": 100
+            }
+        }
     }
-  },
-  "groupOverrides": {
-    "outOfContest": {
-      "isOutOfContest": true
-    }
-  },
-  "teamOverrideTemplate": {
-    "displayName": "{funnyName}"
-  },
-  "problemOverrides": {
-    "A": { "ordinal": 100 }
-  }
-}
+]

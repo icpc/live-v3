@@ -1,23 +1,49 @@
-{
-  "awardsSettings": {
-    "medals": [
-      {
-        "id": "qualified",
-        "color": "GOLD",
-        "citation": "Qualified to finals",
-        "maxRank": 16
-      }
-    ]
-  },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H1":{"color":"#fabed4"},
-    "H2":{"color":"#469990"}
-  }
-}
+[
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#f032e6ff"
+            },
+            "H1": {
+                "color": "#fabed4ff"
+            },
+            "H2": {
+                "color": "#469990ff"
+            }
+        }
+    },
+    {
+        "type": "overrideAwards",
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "qualified",
+                        "citation": "Qualified to finals",
+                        "color": "GOLD",
+                        "maxRank": 16
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,44 +1,80 @@
-{
-  "teamOverrides": {
-    "HUN5" : {"isOutOfContest": true },
-    "HUN6" : {"isOutOfContest": true },
-    "HUN7" : {"isOutOfContest": true },
-    "HUN8" : {"isOutOfContest": true }
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 30, "tiebreakMode": "ALL"},
-      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 89, "tiebreakMode": "ALL"},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 178, "tiebreakMode": "NONE"}
-    ]
-  },
-  "problemOverrides": {
-    "closing": {
-      "displayName": "A1",
-      "ordinal": 0
+[
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "[{country}] {first_name} {last_name}"
     },
-    "longesttrip": {
-      "displayName": "B1",
-      "ordinal": 1
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "HUN5": {
+                "isOutOfContest": true
+            },
+            "HUN6": {
+                "isOutOfContest": true
+            },
+            "HUN7": {
+                "isOutOfContest": true
+            },
+            "HUN8": {
+                "isOutOfContest": true
+            }
+        }
     },
-    "soccer": {
-      "displayName": "C1",
-      "ordinal": 2
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "closing": {
+                "displayName": "A1",
+                "ordinal": 0
+            },
+            "longesttrip": {
+                "displayName": "B1",
+                "ordinal": 1
+            },
+            "soccer": {
+                "displayName": "C1",
+                "ordinal": 2
+            },
+            "beechtree": {
+                "displayName": "A2",
+                "ordinal": 3
+            },
+            "robot": {
+                "displayName": "С2",
+                "ordinal": 5
+            },
+            "overtaking": {
+                "displayName": "B2",
+                "ordinal": 4
+            }
+        }
     },
-    "beechtree": {
-      "displayName": "A2",
-      "ordinal": 3
-    },
-    "robot": {
-      "displayName": "С2",
-      "ordinal": 5
-    },
-    "overtaking": {
-      "displayName": "B2",
-      "ordinal": 4
+    {
+        "type": "overrideAwards",
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "gold-medal",
+                        "citation": "Gold Medal",
+                        "color": "GOLD",
+                        "maxRank": 30
+                    },
+                    {
+                        "id": "silver-medal",
+                        "citation": "Silver Medal",
+                        "color": "SILVER",
+                        "maxRank": 89
+                    },
+                    {
+                        "id": "bronze-medal",
+                        "citation": "Bronze Medal",
+                        "color": "BRONZE",
+                        "maxRank": 178,
+                        "tiebreakMode": "NONE"
+                    }
+                ]
+            }
+        ]
     }
-  },
-  "teamOverrideTemplate": {
-    "displayName": "[{country}] {first_name} {last_name}"
-  }
-}
+]

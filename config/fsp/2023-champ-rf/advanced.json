@@ -1,112 +1,163 @@
-{
-  "freezeTimeSeconds": 14400,
-    "teamOverrideTemplate": {
-      "medias": {
-        "screen": {
-          "type": "WebRTCGrabberConnection",
-          "peerName": "{comp}",
-          "url": "https://grabber.kbats.ru",
-          "streamType": "desktop",
-          "credential": "federationchempionatlive"
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "g27417=fsp(.*)": {
+                        "compValue": "$1"
+                    }
+                }
+            }
         },
-        "camera": {
-          "type": "WebRTCGrabberConnection",
-          "url": "https://grabber.kbats.ru",
-          "peerName": "{comp}",
-          "streamType": "webcam",
-          "credential": "federationchempionatlive"
-        },
-        "achievement": {
-          "type": "Image",
-          "url": "/media/ach/fsp{comp}.svg"
+        "customFields": {
+            "comp": "{regexes.custom.compValue}"
         }
-      }
     },
-    "teamIdRegexes": {
-      "customFields": {
-        "comp": {
-          "g27417=fsp(.*)": "$1"
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://grabber.kbats.ru",
+                "peerName": "{comp}",
+                "streamType": "desktop",
+                "credential": "federationchempionatlive"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://grabber.kbats.ru",
+                "peerName": "{comp}",
+                "streamType": "webcam",
+                "credential": "federationchempionatlive"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/fsp{comp}.svg"
+            }
         }
-      }
     },
-    "teamOverrides": {
-      "g27417=fsp01": {
-        "displayName": "Москва - 1"
-      },
-      "g27417=fsp02": {
-        "displayName": "Санкт-Петербург - 1"
-      },
-      "g27417=fsp03": {
-        "displayName": "Республика Татарстан"
-      },
-      "g27417=fsp04": {
-        "displayName": "Московская область"
-      },
-      "g27417=fsp05": {
-        "displayName": "Республика Карелия"
-      },
-      "g27417=fsp06": {
-        "displayName": "Свердловская область"
-      },
-      "g27417=fsp07": {
-        "displayName": "Ростовская область"
-      },
-      "g27417=fsp08": {
-        "displayName": "Иркутская область"
-      },
-      "g27417=fsp09": {
-        "displayName": "Республика Саха (Якутия)"
-      },
-      "g27417=fsp10": {
-        "displayName": "Чеченская Республика"
-      },
-      "g27417=fsp11": {
-        "displayName": "Санкт-Петербург - 2"
-      },
-      "g27417=fsp12": {
-        "displayName": "Москва - 2"
-      },
-      "g27417=fsp13": {
-        "displayName": "Москва - 3"
-      },
-      "g27417=fsp14": {
-        "displayName": "Пермский край"
-      },
-      "g27417=fsp15": {
-        "displayName": "Саратовская область"
-      },
-      "g27417=fsp16": {
-        "displayName": "Донецкая народная республика"
-      },
-      "g27417=fsp17": {
-        "displayName": "Резерв 1"
-      },
-      "g27417=fsp18": {
-        "displayName": "Резерв 2"
-      },
-      "g27417=fsp19": {
-        "displayName": "Резерв 3"
-      },
-      "g27417=fsp20": {
-        "displayName": "Резерв 4"
-      }
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "g27417=fsp01": {
+                "displayName": "Москва - 1"
+            },
+            "g27417=fsp02": {
+                "displayName": "Санкт-Петербург - 1"
+            },
+            "g27417=fsp03": {
+                "displayName": "Республика Татарстан"
+            },
+            "g27417=fsp04": {
+                "displayName": "Московская область"
+            },
+            "g27417=fsp05": {
+                "displayName": "Республика Карелия"
+            },
+            "g27417=fsp06": {
+                "displayName": "Свердловская область"
+            },
+            "g27417=fsp07": {
+                "displayName": "Ростовская область"
+            },
+            "g27417=fsp08": {
+                "displayName": "Иркутская область"
+            },
+            "g27417=fsp09": {
+                "displayName": "Республика Саха (Якутия)"
+            },
+            "g27417=fsp10": {
+                "displayName": "Чеченская Республика"
+            },
+            "g27417=fsp11": {
+                "displayName": "Санкт-Петербург - 2"
+            },
+            "g27417=fsp12": {
+                "displayName": "Москва - 2"
+            },
+            "g27417=fsp13": {
+                "displayName": "Москва - 3"
+            },
+            "g27417=fsp14": {
+                "displayName": "Пермский край"
+            },
+            "g27417=fsp15": {
+                "displayName": "Саратовская область"
+            },
+            "g27417=fsp16": {
+                "displayName": "Донецкая народная республика"
+            },
+            "g27417=fsp17": {
+                "displayName": "Резерв 1"
+            },
+            "g27417=fsp18": {
+                "displayName": "Резерв 2"
+            },
+            "g27417=fsp19": {
+                "displayName": "Резерв 3"
+            },
+            "g27417=fsp20": {
+                "displayName": "Резерв 4"
+            }
+        }
     },
-    "problemOverrides": {
-    "0":{"color":"#e6194B"},
-    "1":{"color":"#3cb44b"},
-    "2":{"color":"#ffe119"},
-    "3":{"color":"#4363d8"},
-    "4":{"color":"#f58231"},
-    "5":{"color":"#42d4f4"},
-    "6":{"color":"#f032e6"},
-    "7":{"color":"#fabed4"},
-    "8":{"color":"#469990"},
-    "9":{"color":"#dcbeff"},
-    "10":{"color":"#9A6324"},
-    "11":{"color":"#fffac8"},
-    "12":{"color":"#800000"},
-    "13":{"color":"#aaffc3"},
-    "14":{"color":"#000075"},
-    "15":{"color":"#a9a9a9"}
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "0": {
+                "color": "#e6194bff"
+            },
+            "1": {
+                "color": "#3cb44bff"
+            },
+            "2": {
+                "color": "#ffe119ff"
+            },
+            "3": {
+                "color": "#4363d8ff"
+            },
+            "4": {
+                "color": "#f58231ff"
+            },
+            "5": {
+                "color": "#42d4f4ff"
+            },
+            "6": {
+                "color": "#f032e6ff"
+            },
+            "7": {
+                "color": "#fabed4ff"
+            },
+            "8": {
+                "color": "#469990ff"
+            },
+            "9": {
+                "color": "#dcbeffff"
+            },
+            "10": {
+                "color": "#9a6324ff"
+            },
+            "11": {
+                "color": "#fffac8ff"
+            },
+            "12": {
+                "color": "#800000ff"
+            },
+            "13": {
+                "color": "#aaffc3ff"
+            },
+            "14": {
+                "color": "#000075ff"
+            },
+            "15": {
+                "color": "#a9a9a9ff"
+            }
+        }
     }
-  }
+]

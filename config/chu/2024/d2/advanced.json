@@ -1,175 +1,165 @@
-{
-  "freezeTimeSeconds": 14400,
-  "teamOverrides": {
-    "380464": {
-      "name": "*Lyceum 153: Chill++ (Гумеров, Актуганов, Пыпин)",
-      "shortname": "*Lyceum 153: Chill++"
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 14400
     },
-    "380465": {
-      "name": "*Lyceum 153: NewJazz (Габбасов, Тихонов, Чековинский)",
-      "shortname": "*Lyceum 153: NewJazz"
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "380464": {
+                "fullName": "*Lyceum 153: Chill++ (Гумеров, Актуганов, Пыпин)",
+                "displayName": "*Lyceum 153: Chill++"
+            },
+            "380465": {
+                "fullName": "*Lyceum 153: NewJazz (Габбасов, Тихонов, Чековинский)",
+                "displayName": "*Lyceum 153: NewJazz"
+            },
+            "380466": {
+                "fullName": "*Lyceum RELI: мой Господин (Юмаев, Валиуллин, Зиганшин)",
+                "displayName": "*Lyceum RELI: мой Господин"
+            },
+            "380467": {
+                "fullName": "*SPb PU: Кузнечики (Богданов, Неверов)",
+                "displayName": "*SPb PU: Кузнечики"
+            },
+            "380468": {
+                "fullName": "*Ufa UST: ISP (Газизов)",
+                "displayName": "*Ufa UST: ISP"
+            },
+            "380469": {
+                "fullName": "*Ufa UST: SolarWings (Сагидуллин, Мунасыпов, Боровикова)",
+                "displayName": "*Ufa UST: SolarWings"
+            },
+            "380470": {
+                "fullName": "Orenburg SU: krips (Ерошенко, Якунин, Попов)",
+                "displayName": "Orenburg SU: krips"
+            },
+            "380471": {
+                "fullName": "Ufa UST: Three-link recursion (Гареев, Аймурзин, Гильмутдинова)",
+                "displayName": "Ufa UST: Three-link recursion"
+            },
+            "380472": {
+                "fullName": "SPb SU: YKKONEN (Титов, Габитов, Аграновский)",
+                "displayName": "SPb SU: YKKONEN"
+            },
+            "380473": {
+                "fullName": "MISIS: Rudokipi (Казарин, Бречкин, Шильников)",
+                "displayName": "MISIS: Rudokipi"
+            },
+            "380474": {
+                "fullName": "Kazan FU: Recursive SHAMANs (Хайруллин, Гражданцев, Билалов)",
+                "displayName": "Kazan FU: Recursive SHAMANs"
+            },
+            "380475": {
+                "fullName": "SPb HSE: Horosho Segodnya Eli (Запольский, Голенков, Ханмурзин)",
+                "displayName": "SPb HSE: Horosho Segodnya Eli"
+            },
+            "380476": {
+                "fullName": "Ufa UST: Dyatelki (Инсапов, Балгазин, Комарова)",
+                "displayName": "Ufa UST: Dyatelki"
+            },
+            "380477": {
+                "fullName": "Petrozavodsk SU: ыуцвапр (Сарбаш, Кирпиченко, Ларионов)",
+                "displayName": "Petrozavodsk SU: ыуцвапр"
+            },
+            "380478": {
+                "fullName": "SPb SUAI: One Byte Brigade (Рыбаков, Костров, Метлушко)",
+                "displayName": "SPb SUAI: One Byte Brigade"
+            },
+            "380479": {
+                "fullName": "Voronezh SU: Gryadushka (Шульженко, Едрышов, Мишненкова)",
+                "displayName": "Voronezh SU: Gryadushka"
+            },
+            "380480": {
+                "fullName": "MISIS: ACMMLP (Пластинина, Макуров, Серебрянников)",
+                "displayName": "MISIS: ACMMLP"
+            },
+            "380481": {
+                "fullName": "Ufa UST: busy beaver (Лаптев, Сакаев, Иванов)",
+                "displayName": "Ufa UST: busy beaver"
+            },
+            "380482": {
+                "fullName": "Tambov SU: ZaPlusBall (Анисимов, Емельянов, Солодовников)",
+                "displayName": "Tambov SU: ZaPlusBall"
+            },
+            "380483": {
+                "fullName": "Chelyabinsk SU: KorTiKov (Фазылов, Ковердин, Корчагин)",
+                "displayName": "Chelyabinsk SU: KorTiKov"
+            },
+            "380484": {
+                "fullName": "Siberian FU: Ladder Enjoyers (Спицин, Волков, Познахирко)",
+                "displayName": "Siberian FU: Ladder Enjoyers"
+            },
+            "380485": {
+                "fullName": "MEPhI: DeKaPTaaaaa4 (Ботвинов, Ефименко, Жариков)",
+                "displayName": "MEPhI: DeKaPTaaaaa4"
+            },
+            "380486": {
+                "fullName": "MAI #3 кота (Ткаченко, Глушин, Чеснов)",
+                "displayName": "MAI #3 кота"
+            },
+            "380487": {
+                "fullName": "Syktyvkar SU: Chillcore (Глухой, Торопов, Грималюк)",
+                "displayName": "Syktyvkar SU: Chillcore"
+            },
+            "380488": {
+                "fullName": "HSE: joke (Цыганов, Павлек, Смирнягин)",
+                "displayName": "HSE: joke"
+            },
+            "380489": {
+                "fullName": "Tambov SU: CUBEER (Дырдин, Кулаев, Граценштейн)",
+                "displayName": "Tambov SU: CUBEER"
+            },
+            "380490": {
+                "fullName": "Ufa UST: NEVEREVER (Исянбаев, Чечко, Аллаков)",
+                "displayName": "Ufa UST: NEVEREVER"
+            },
+            "380491": {
+                "fullName": "HSE: Capybara (Дацковский, Хрущев, Здержиков)",
+                "displayName": "HSE: Capybara"
+            },
+            "380492": {
+                "fullName": "Syktyvkar SU: Houyhnhnm (Сауков, Артеев, Осипов)",
+                "displayName": "Syktyvkar SU: Houyhnhnm"
+            },
+            "380493": {
+                "fullName": "Ural FU: Increasing bracket sequence (Лежнин, Илаев, Хасанов)",
+                "displayName": "Ural FU: Increasing bracket sequence"
+            },
+            "380494": {
+                "fullName": "Syktyvkar SU: komiyosis (Косолапова, Листарова, Станкин)",
+                "displayName": "Syktyvkar SU: komiyosis"
+            },
+            "380495": {
+                "fullName": "Yaroslavl SU: ArbuzTeam (Балашов, Величко, Казакова)",
+                "displayName": "Yaroslavl SU: ArbuzTeam"
+            },
+            "380496": {
+                "fullName": "MEPhI: Atomic Minds (Осипчук, Филонец, Виноградов)",
+                "displayName": "MEPhI: Atomic Minds"
+            },
+            "380497": {
+                "fullName": "Ural FU: Woodcutters (Курмангалеева, Иванов, Найдин)",
+                "displayName": "Ural FU: Woodcutters"
+            },
+            "380498": {
+                "fullName": "Kazan FU: Bugомолы (Гимаев, Гимадиев, Архипов)",
+                "displayName": "Kazan FU: Bugомолы"
+            },
+            "380499": {
+                "fullName": "UlSTU: ↃↃ+ (Бугров, Буслаев, Покладов)",
+                "displayName": "UlSTU: ↃↃ+"
+            },
+            "380500": {
+                "fullName": "Ural FU: #define ll int (Никифоров, Гордеев, Семёнов)",
+                "displayName": "Ural FU: #define ll int"
+            }
+        }
     },
-    "380466": {
-      "name": "*Lyceum RELI: мой Господин (Юмаев, Валиуллин, Зиганшин)",
-      "shortname": "*Lyceum RELI: мой Господин"
-    },
-    "380467": {
-      "name": "*SPb PU: Кузнечики (Богданов, Неверов)",
-      "shortname": "*SPb PU: Кузнечики"
-    },
-    "380468": {
-      "name": "*Ufa UST: ISP (Газизов)",
-      "shortname": "*Ufa UST: ISP"
-    },
-    "380469": {
-      "name": "*Ufa UST: SolarWings (Сагидуллин, Мунасыпов, Боровикова)",
-      "shortname": "*Ufa UST: SolarWings"
-    },
-    "380470": {
-      "name": "Orenburg SU: krips (Ерошенко, Якунин, Попов)",
-      "shortname": "Orenburg SU: krips"
-    },
-    "380471": {
-      "name": "Ufa UST: Three-link recursion (Гареев, Аймурзин, Гильмутдинова)",
-      "shortname": "Ufa UST: Three-link recursion"
-    },
-    "380472": {
-      "name": "SPb SU: YKKONEN (Титов, Габитов, Аграновский)",
-      "shortname": "SPb SU: YKKONEN"
-    },
-    "380473": {
-      "name": "MISIS: Rudokipi (Казарин, Бречкин, Шильников)",
-      "shortname": "MISIS: Rudokipi"
-    },
-    "380474": {
-      "name": "Kazan FU: Recursive SHAMANs (Хайруллин, Гражданцев, Билалов)",
-      "shortname": "Kazan FU: Recursive SHAMANs"
-    },
-    "380475": {
-      "name": "SPb HSE: Horosho Segodnya Eli (Запольский, Голенков, Ханмурзин)",
-      "shortname": "SPb HSE: Horosho Segodnya Eli"
-    },
-    "380476": {
-      "name": "Ufa UST: Dyatelki (Инсапов, Балгазин, Комарова)",
-      "shortname": "Ufa UST: Dyatelki"
-    },
-    "380477": {
-      "name": "Petrozavodsk SU: ыуцвапр (Сарбаш, Кирпиченко, Ларионов)",
-      "shortname": "Petrozavodsk SU: ыуцвапр"
-    },
-    "380478": {
-      "name": "SPb SUAI: One Byte Brigade (Рыбаков, Костров, Метлушко)",
-      "shortname": "SPb SUAI: One Byte Brigade"
-    },
-    "380479": {
-      "name": "Voronezh SU: Gryadushka (Шульженко, Едрышов, Мишненкова)",
-      "shortname": "Voronezh SU: Gryadushka"
-    },
-    "380480": {
-      "name": "MISIS: ACMMLP (Пластинина, Макуров, Серебрянников)",
-      "shortname": "MISIS: ACMMLP"
-    },
-    "380481": {
-      "name": "Ufa UST: busy beaver (Лаптев, Сакаев, Иванов)",
-      "shortname": "Ufa UST: busy beaver"
-    },
-    "380482": {
-      "name": "Tambov SU: ZaPlusBall (Анисимов, Емельянов, Солодовников)",
-      "shortname": "Tambov SU: ZaPlusBall"
-    },
-    "380483": {
-      "name": "Chelyabinsk SU: KorTiKov (Фазылов, Ковердин, Корчагин)",
-      "shortname": "Chelyabinsk SU: KorTiKov"
-    },
-    "380484": {
-      "name": "Siberian FU: Ladder Enjoyers (Спицин, Волков, Познахирко)",
-      "shortname": "Siberian FU: Ladder Enjoyers"
-    },
-    "380485": {
-      "name": "MEPhI: DeKaPTaaaaa4 (Ботвинов, Ефименко, Жариков)",
-      "shortname": "MEPhI: DeKaPTaaaaa4"
-    },
-    "380486": {
-      "name": "MAI #3 кота (Ткаченко, Глушин, Чеснов)",
-      "shortname": "MAI #3 кота"
-    },
-    "380487": {
-      "name": "Syktyvkar SU: Chillcore (Глухой, Торопов, Грималюк)",
-      "shortname": "Syktyvkar SU: Chillcore"
-    },
-    "380488": {
-      "name": "HSE: joke (Цыганов, Павлек, Смирнягин)",
-      "shortname": "HSE: joke"
-    },
-    "380489": {
-      "name": "Tambov SU: CUBEER (Дырдин, Кулаев, Граценштейн)",
-      "shortname": "Tambov SU: CUBEER"
-    },
-    "380490": {
-      "name": "Ufa UST: NEVEREVER (Исянбаев, Чечко, Аллаков)",
-      "shortname": "Ufa UST: NEVEREVER"
-    },
-    "380491": {
-      "name": "HSE: Capybara (Дацковский, Хрущев, Здержиков)",
-      "shortname": "HSE: Capybara"
-    },
-    "380492": {
-      "name": "Syktyvkar SU: Houyhnhnm (Сауков, Артеев, Осипов)",
-      "shortname": "Syktyvkar SU: Houyhnhnm"
-    },
-    "380493": {
-      "name": "Ural FU: Increasing bracket sequence (Лежнин, Илаев, Хасанов)",
-      "shortname": "Ural FU: Increasing bracket sequence"
-    },
-    "380494": {
-      "name": "Syktyvkar SU: komiyosis (Косолапова, Листарова, Станкин)",
-      "shortname": "Syktyvkar SU: komiyosis"
-    },
-    "380495": {
-      "name": "Yaroslavl SU: ArbuzTeam (Балашов, Величко, Казакова)",
-      "shortname": "Yaroslavl SU: ArbuzTeam"
-    },
-    "380496": {
-      "name": "MEPhI: Atomic Minds (Осипчук, Филонец, Виноградов)",
-      "shortname": "MEPhI: Atomic Minds"
-    },
-    "380497": {
-      "name": "Ural FU: Woodcutters (Курмангалеева, Иванов, Найдин)",
-      "shortname": "Ural FU: Woodcutters"
-    },
-    "380498": {
-      "name": "Kazan FU: Bugомолы (Гимаев, Гимадиев, Архипов)",
-      "shortname": "Kazan FU: Bugомолы"
-    },
-    "380499": {
-      "name": "UlSTU: ↃↃ+ (Бугров, Буслаев, Покладов)",
-      "shortname": "UlSTU: ↃↃ+"
-    },
-    "380500": {
-      "name": "Ural FU: #define ll int (Никифоров, Гордеев, Семёнов)",
-      "shortname": "Ural FU: #define ll int"
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 3
     }
-  },
-  "awardsSettings": {
-    "medals": [
-      {
-        "id": "gold-medal",
-        "citation": "Gold Medal",
-        "color": "GOLD",
-        "maxRank": 1
-      },
-      {
-        "id": "silver-medal",
-        "citation": "Silver Medal",
-        "color": "SILVER",
-        "maxRank": 3
-      },
-      {
-        "id": "bronze-medal",
-        "citation": "Bronze Medal",
-        "color": "BRONZE",
-        "maxRank": 6
-      }
-    ]
-  }
-}
+]

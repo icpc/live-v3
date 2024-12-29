@@ -1,300 +1,888 @@
-{
-  "startTime": "2024-10-27T09:00:00Z",
-  "freezeTimeSeconds": 14400,
-  "queueSettings": {
-    "maxQueueSize": 20
-  },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"},
-    "L":{"color":"#fffac8"},
-    "M":{"color":"#800000"},
-    "N":{"color":"#aaffc3"}
-  },
-  "teamOverrides": {
-    "nwq998036": {"displayName": "MSA: 1"},
-"nwq998037": {"displayName": "MSA: 2"},
-"nwq998038": {"displayName": "MSA: 3"},
-"nwq998039": {"displayName": "MSA: 4"},
-"nwq998040": {"displayName": "MSA: 5"},
-"nwq998515": {"displayName": "Makarov SU of Mar and IS: 1"},
-"nwq998776": {"displayName": "SPb SU of Economics: Choose Algorithms, Not Drugs"},
-"nwq998779": {"displayName": "SPb SU of Economics: Business teapots"},
-"nwq999359": {"displayName": "SPb SU of Economics: Shurupovert"},
-"nwq999360": {"displayName": "SPb SU of Economics: Speechka"},
-"nwq1000220": {"displayName": "Makarov SU of Mar and IS: Clever people"},
-"nwq1000221": {"displayName": "Makarov SU of Mar and IS: Easy Task"},
-"nwq1000222": {"displayName": "Makarov SU of Mar and IS: Mirage"},
-"nwq1000514": {"displayName": "Makarov SU of Mar and IS: TNV"},
-"nwq1001271": {"displayName": "SPb SUT: SODrujno"},
-"nwq1001283": {"displayName": "SPb SU of Economics: thunder"},
-"nwq1001369": {"displayName": "RSHU: bo sinn"},
-"nwq1001370": {"displayName": "RSHU: Bouilmenies"},
-"nwq1001371": {"displayName": "RSHU: Lit energy"},
-"nwq1001659": {"displayName": "RSHU: cutesy_rshu"},
-"nwq1001728": {"displayName": "SPb SUT: Brainstorm Troopers"},
-"nwq1001747": {"displayName": "SPb HSE: Matricaria"},
-"nwq1001900": {"displayName": "Military Engineering Institute: 1"},
-"nwq1001901": {"displayName": "Military Engineering Institute: 2"},
-"nwq1001952": {"displayName": "Military Engineering Institute: 3"},
-"nwq1003804": {"displayName": "SPBFTU: MOM NA PUJE"},
-"nwq1006864": {"displayName": "SPb Mining U: 23-VBK"},
-"nwq1006866": {"displayName": "SPb Mining U: 21-RAV"},
-"nwq1006868": {"displayName": "SPb Mining U: 22-AAA"},
-"nwq1006869": {"displayName": "SPb Mining U: 22-LAS"},
-"nwq1006871": {"displayName": "SPb Mining U: 22-JNB"},
-"nwq1007959": {"displayName": "* SPb ITMO: azatnv"},
-"nwq1008630": {"displayName": "SPBFTU: Unlim"},
-"nwq1008767": {"displayName": "SPBFTU: Object NULL"},
-"nwq1008842": {"displayName": "SPb SUT: NGA.SUT"},
-"nwq1009830": {"displayName": "* Murmansk AU: Fixiki"},
-"nwq1009868": {"displayName": "Murmansk AU: SnuSnuliki"},
-"nwq1010163": {"displayName": "Murmansk AU: Break the mind"},
-"nwq1010448": {"displayName": "Murmansk AU: Tundra coders"},
-"nwq1011889": {"displayName": "BSTU: AstraRose"},
-"nwq1012071": {"displayName": "SPb SUT: Tumbajumba.SUT"},
-"nwq1012412": {"displayName": "SPb SUITD: PMI"},
-"nwq1012653": {"displayName": "Pol C of Novgorod SU: Ninja Turtles"},
-"nwq1012753": {"displayName": "BSTU: Pack of Coders"},
-"nwq1013413": {"displayName": "SPb SUT: HoTeam(*_^).SUT"},
-"nwq1013426": {"displayName": "SPb SUT: pip install cpp.SUT"},
-"nwq1013493": {"displayName": "BSTU: Nazvanie"},
-"nwq1013516": {"displayName": "BSTU: Algorithmic Ninjas"},
-"nwq1013529": {"displayName": "BSTU: Ultra"},
-"nwq1013554": {"displayName": "BSTU: Cyberkotleti"},
-"nwq1013561": {"displayName": "BSTU: Professors of \"Pochemuchkin\""},
-"nwq1013573": {"displayName": "BSTU: V_PLANE"},
-"nwq1013639": {"displayName": "BSTU: AMG"},
-"nwq1014088": {"displayName": "Pol C of Novgorod SU: Byte404"},
-"nwq1014093": {"displayName": "BSTU: SSS Rang"},
-"nwq1014711": {"displayName": "* St. Petersburg SU: bigbrain"},
-"nwq1015032": {"displayName": "BSTU: Neva elephants"},
-"nwq1015065": {"displayName": "BSTU: Creative Codes"},
-"nwq1016117": {"displayName": "BSTU: Algorithmic Strategists"},
-"nwq1016129": {"displayName": "BSTU: we like to move it"},
-"nwq1016130": {"displayName": "Murmansk AU: Ololoha!"},
-"nwq1017104": {"displayName": "* SPb ITMO: Solo Warrior"},
-"nwq1017159": {"displayName": "NovSU: Hamster Criminal"},
-"nwq1017776": {"displayName": "St. Petersburg SU: osetinskie pirozhki"},
-"nwq1017777": {"displayName": "St. Petersburg SU: misafutbolkami"},
-"nwq1017778": {"displayName": "St. Petersburg SU: Traktor74"},
-"nwq1017781": {"displayName": "St. Petersburg SU: XaLRBHblE 20 baLLoB TTo oTT"},
-"nwq1017782": {"displayName": "St. Petersburg SU: bochka s SaVchenkO"},
-"nwq1017783": {"displayName": "St. Petersburg SU: I See Personal Computer"},
-"nwq1017784": {"displayName": "St. Petersburg SU: That Time I Got Reincarnated as a CLion"},
-"nwq1017808": {"displayName": "St. Petersburg SU: X-TEAM"},
-"nwq1017809": {"displayName": "St. Petersburg SU: Shirovlasiki v1.5"},
-"nwq1017810": {"displayName": "St. Petersburg SU: Status418"},
-"nwq1017819": {"displayName": "St. Petersburg SU: locked in"},
-"nwq1017829": {"displayName": "St. Petersburg SU: Polar Bear Transform"},
-"nwq1017830": {"displayName": "St. Petersburg SU: Yolki-Igolki"},
-"nwq1017841": {"displayName": "St. Petersburg SU: YKKOHEH"},
-"nwq1017844": {"displayName": "St. Petersburg SU: ArbuzTeam"},
-"nwq1017847": {"displayName": "St. Petersburg SU: Deprecated AI"},
-"nwq1017850": {"displayName": "St. Petersburg SU: Mamaev Is the Lion of Fortune"},
-"nwq1017853": {"displayName": "St. Petersburg SU: Sergey, no hare"},
-"nwq1017854": {"displayName": "St. Petersburg SU: Basis2D"},
-"nwq1017855": {"displayName": "St. Petersburg SU: 25"},
-"nwq1017856": {"displayName": "St. Petersburg SU: KoMariKo"},
-"nwq1017946": {"displayName": "SPbETU: porsh0509"},
-"nwq1017947": {"displayName": "SPbETU: Kecologists"},
-"nwq1017949": {"displayName": "St. Petersburg SU: To be edited"},
-"nwq1017951": {"displayName": "St. Petersburg SU: GOOOOL"},
-"nwq1017952": {"displayName": "SPbETU: Volinski"},
-"nwq1018325": {"displayName": "SPb SUT: CyberPaws.SUT"},
-"nwq1018410": {"displayName": "St. Petersburg SU: Little honeys"},
-"nwq1018549": {"displayName": "SPb SUT: Kabachki.SUT"},
-"nwq1018587": {"displayName": "MVAA: 2"},
-"nwq1018588": {"displayName": "MVAA: 3"},
-"nwq1018591": {"displayName": "MVAA: 1"},
-"nwq1018676": {"displayName": "St. Petersburg SU: pocelui menya uda4a"},
-"nwq1018680": {"displayName": "St. Petersburg SU: Three Gourmands"},
-"nwq1018872": {"displayName": "BSTU: Vox_g"},
-"nwq1018889": {"displayName": "BSTU: PLM_"},
-"nwq1018991": {"displayName": "BSTU: Code family"},
-"nwq1019015": {"displayName": "BSTU: Teapots*418"},
-"nwq1019019": {"displayName": "BSTU: Arbuzi"},
-"nwq1019025": {"displayName": "BSTU: SIA_crew"},
-"nwq1019035": {"displayName": "NovSU: Watermelons"},
-"nwq1019036": {"displayName": "St. Petersburg SU: Nik&tau"},
-"nwq1019037": {"displayName": "St. Petersburg SU: Filf*ck"},
-"nwq1019038": {"displayName": "St. Petersburg SU: two pumpkins on the head"},
-"nwq1019039": {"displayName": "St. Petersburg SU: Kartasheva's fun club"},
-"nwq1019040": {"displayName": "St. Petersburg SU: IvanPokhabovTakayaZaika"},
-"nwq1019043": {"displayName": "BSTU: Team Split"},
-"nwq1019050": {"displayName": "BSTU: Demony v bashke"},
-"nwq1019195": {"displayName": "SPb UMIARF: 1"},
-"nwq1019516": {"displayName": "St. Petersburg SU: catamorphism"},
-"nwq1019545": {"displayName": "Petrozavodsk SU: exit(0)"},
-"nwq1019675": {"displayName": "SUAI: 1703"},
-"nwq1019692": {"displayName": "SUAI: BonkTeam"},
-"nwq1019693": {"displayName": "SPb HSE: chidori supremacy"},
-"nwq1019700": {"displayName": "SPb HSE: HSExDESTROYERS"},
-"nwq1019743": {"displayName": "SUAI: needmorebullets"},
-"nwq1019844": {"displayName": "Polytech: KotikiTeam"},
-"nwq1019882": {"displayName": "Murmansk AU: Triple zero"},
-"nwq1019888": {"displayName": "SPbETU: watermelon"},
-"nwq1019889": {"displayName": "SPbETU: female loneliness"},
-"nwq1019890": {"displayName": "SUAI: byte bite"},
-"nwq1019921": {"displayName": "BSTU: Legion"},
-"nwq1019922": {"displayName": "NovSU: zhiga"},
-"nwq1019930": {"displayName": "BSTU: Qutart_z team"},
-"nwq1019948": {"displayName": "Murmansk AU: MoiNetVLapkerah"},
-"nwq1019957": {"displayName": "BSTU: Goooolcode"},
-"nwq1019969": {"displayName": "BSTU: Observers"},
-"nwq1020004": {"displayName": "St. Petersburg SU: no name"},
-"nwq1020013": {"displayName": "St. Petersburg SU: gosling enjoyers"},
-"nwq1020021": {"displayName": "St. Petersburg SU: komanda52"},
-"nwq1020025": {"displayName": "St. Petersburg SU: AM-CP AURA"},
-"nwq1020030": {"displayName": "St. Petersburg SU: Dora we love you"},
-"nwq1020033": {"displayName": "St. Petersburg SU: ShitCodeSmoothie"},
-"nwq1020045": {"displayName": "St. Petersburg SU: WrongAnswer"},
-"nwq1020046": {"displayName": "BSTU: Ctrl+Z"},
-"nwq1020048": {"displayName": "Petrozavodsk SU: Cucumber"},
-"nwq1020104": {"displayName": "St. Petersburg SU: Fi3GgVt10ItJrnvlbgI2iSZ6DgY"},
-"nwq1020105": {"displayName": "BSTU: Ctrl+Win"},
-"nwq1020110": {"displayName": "BSTU: SleepyCats"},
-"nwq1020113": {"displayName": "Murmansk AU: Codecats"},
-"nwq1020115": {"displayName": "St. Petersburg SU: MANAfunction"},
-"nwq1020178": {"displayName": "St. Petersburg SU: Kolobki"},
-"nwq1020326": {"displayName": "St. Petersburg SU: Milkyway"},
-"nwq1020563": {"displayName": "SPb UMIARF: 2"},
-"nwq1020586": {"displayName": "* Pol C of Novgorod SU: B1g4s"},
-"nwq1020727": {"displayName": "Petrozavodsk SU: Python lovers"},
-"nwq1020744": {"displayName": "SUAI: treap"},
-"nwq1020897": {"displayName": "NovSU: Heavy Metal"},
-"nwq1020902": {"displayName": "Petrozavodsk SU: quqi lyali zazi vivi"},
-"nwq1020910": {"displayName": "Budenny Mil Telecom A: Fake Proxí"},
-"nwq1020911": {"displayName": "Budenny Mil Telecom A: GoodGroup"},
-"nwq1020912": {"displayName": "Budenny Mil Telecom A: HackStick"},
-"nwq1020913": {"displayName": "Budenny Mil Telecom A: Tactical Analytics"},
-"nwq1020914": {"displayName": "Budenny Mil Telecom A: G3462tb"},
-"nwq1020915": {"displayName": "Budenny Mil Telecom A: Enigma"},
-"nwq1020959": {"displayName": "SPBFTU: BIT"},
-"nwq1021093": {"displayName": "NovSU: RurikSquad"},
-"nwq1021096": {"displayName": "SPbETU: PetyaPit"},
-"nwq1021097": {"displayName": "SPbETU: Legion team"},
-"nwq1021098": {"displayName": "SPbETU: CONDITION ENERGY team"},
-"nwq1021099": {"displayName": "SPbETU: Ivan&co."},
-"nwq1021100": {"displayName": "SPbETU: MILF"},
-"nwq1021108": {"displayName": "SPb HSE: Heavy sipping enjoyers"},
-"nwq1021110": {"displayName": "SPbETU: Copy Paste"},
-"nwq1021113": {"displayName": "SPbETU: StupidBoizs"},
-"nwq1021116": {"displayName": "SPb ITMO: algos payasos"},
-"nwq1021117": {"displayName": "SPb ITMO: CT 38 Vologda"},
-"nwq1021118": {"displayName": "SPb ITMO: Floppa's Team"},
-"nwq1021119": {"displayName": "SPb ITMO: definitely not a square"},
-"nwq1021120": {"displayName": "SPb ITMO: AdygaHash"},
-"nwq1021121": {"displayName": "SPb ITMO: Cotton CCTea shorts"},
-"nwq1021122": {"displayName": "SPb ITMO: stariy_bog"},
-"nwq1021128": {"displayName": "SPb ITMO: KT oleg2011"},
-"nwq1021129": {"displayName": "SPb ITMO: CT::bad_alloc"},
-"nwq1021130": {"displayName": "SPb ITMO: hot makarella"},
-"nwq1021131": {"displayName": "SPb ITMO: bobry"},
-"nwq1021132": {"displayName": "SPb ITMO: Lit Enegri"},
-"nwq1021133": {"displayName": "SPb ITMO: Lush Cheesecakes"},
-"nwq1021134": {"displayName": "SPb ITMO: Don, Quicksort and Sashko Pansa"},
-"nwq1021135": {"displayName": "SPb ITMO: ITMOscow"},
-"nwq1021136": {"displayName": "SPb ITMO: MicroTennis"},
-"nwq1021142": {"displayName": "SPb ITMO: Yokarniy babay"},
-"nwq1021143": {"displayName": "SPb ITMO: CT Society"},
-"nwq1021144": {"displayName": "SPb ITMO: Shuffle, duffle, muzzle, muff"},
-"nwq1021145": {"displayName": "SPb ITMO: DiagonalHalt"},
-"nwq1021150": {"displayName": "SPb ITMO: kgeorgiy fanboys"},
-"nwq1021153": {"displayName": "SPb ITMO: fivemin"},
-"nwq1021463": {"displayName": "Petrozavodsk SU: KBS"},
-"nwq1021464": {"displayName": "Petrozavodsk SU: Import this"},
-"nwq1021465": {"displayName": "Petrozavodsk SU: Kashalotiki"},
-"nwq1021466": {"displayName": "Petrozavodsk SU: ZaBoR"},
-"nwq1021469": {"displayName": "Petrozavodsk SU: sudo -E bash"},
-"nwq1021470": {"displayName": "Petrozavodsk SU: Rosinante"},
-"nwq1021522": {"displayName": "SPSUACE: ISTARK"},
-"nwq1021544": {"displayName": "Polytech: Black Bears"},
-"nwq1021594": {"displayName": "SPb ITMO: Shizerland"},
-"nwq1021597": {"displayName": "SPb ITMO: OPTIMIZEDOUT"},
-"nwq1021598": {"displayName": "SPb ITMO: utf-8"},
-"nwq1021611": {"displayName": "SPb ITMO: Ctrl-Z"},
-"nwq1021612": {"displayName": "SPb ITMO: IDA"},
-"nwq1021613": {"displayName": "SPb ITMO: moomin team"},
-"nwq1021614": {"displayName": "SPb ITMO: I don't know"},
-"nwq1021615": {"displayName": "SPb ITMO: blank space"},
-"nwq1021616": {"displayName": "SPb ITMO: MTL"},
-"nwq1021695": {"displayName": "Petrozavodsk SU: Nikita_Gudkov"},
-"nwq1021696": {"displayName": "Petrozavodsk SU: avo1d"},
-"nwq1021697": {"displayName": "Petrozavodsk SU: Quadratisch_praktisch_gut"},
-"nwq1021698": {"displayName": "Petrozavodsk SU: Subway Surfers"},
-"nwq1021699": {"displayName": "Petrozavodsk SU: SkyWard"},
-"nwq1021703": {"displayName": "Petrozavodsk SU: Button \"Exit\""},
-"nwq1021704": {"displayName": "Petrozavodsk SU: team shchavel'"},
-"nwq1021705": {"displayName": "Petrozavodsk SU: pro"},
-"nwq1021706": {"displayName": "Petrozavodsk SU: Autsiders"},
-"nwq1021715": {"displayName": "Petrozavodsk SU: Gusari molchat'"},
-"nwq1021716": {"displayName": "Petrozavodsk SU: Gumanitarii"},
-"nwq1021717": {"displayName": "Petrozavodsk SU: Pikmi"},
-"nwq1021718": {"displayName": "* Petrozavodsk SU: 1 guy in 3 coats"},
-"nwq1021719": {"displayName": "Petrozavodsk SU: Mudro"},
-"nwq1021720": {"displayName": "Petrozavodsk SU: Randomnoe viberi"},
-"nwq1021721": {"displayName": "* Petrozavodsk SU: edinitsa"},
-"nwq1021722": {"displayName": "Petrozavodsk SU: WatermelonGuys"},
-"nwq1021723": {"displayName": "Petrozavodsk SU: vov"},
-"nwq1021771": {"displayName": "* NovSU: Recm"},
-"nwq1021814": {"displayName": "SPb HSE: Pivo:Redemption"},
-"nwq1021815": {"displayName": "SPb HSE: So7v3r5 Club"},
-"nwq1021816": {"displayName": "SPb HSE: Lazha Calculator"},
-"nwq1021838": {"displayName": "SPb HSE: abcdef"},
-"nwq1021839": {"displayName": "SPb HSE: 316"},
-"nwq1021873": {"displayName": "SPb HSE: HSE dominators"},
-"nwq1021967": {"displayName": "NovSU: ARbuzik"},
-"nwq1021995": {"displayName": "Budenny Mil Telecom A: TechnoPark"},
-"nwq1022027": {"displayName": "SPb ITMO: microdenises"},
-"nwq1022028": {"displayName": "SPb ITMO: nemernicii"},
-"nwq1022029": {"displayName": "SPb ITMO: Crazy Gummy"},
-"nwq1022030": {"displayName": "SPb ITMO: ClojureCheckers"},
-"nwq1022031": {"displayName": "SPb ITMO: defeCTive team"},
-"nwq1022038": {"displayName": "SPb ITMO: deti Durova"},
-"nwq1022039": {"displayName": "SPb ITMO: ct counterpick"},
-"nwq1022040": {"displayName": "SPb ITMO: viperrr"},
-"nwq1022041": {"displayName": "SPb ITMO: goooal"},
-"nwq1022042": {"displayName": "SPb ITMO: WHY SO OPTIMIZED?"},
-"nwq1022044": {"displayName": "SPb ITMO: KODIM i MOLIMSYA"},
-"nwq1022045": {"displayName": "SPb ITMO: FERZI"},
-"nwq1022046": {"displayName": "SPb ITMO: Bashkort hamsters"},
-"nwq1022047": {"displayName": "SPb ITMO: IT's MOre KOTOV"},
-"nwq1022048": {"displayName": "SPb ITMO: IS-PC"},
-"nwq1022053": {"displayName": "SPb ITMO: IX"},
-"nwq1022054": {"displayName": "SPb ITMO: Sbornaya art-coworkinga"},
-"nwq1022055": {"displayName": "SPb ITMO: glpshki"},
-"nwq1022056": {"displayName": "SPb ITMO: e-boots"},
-"nwq1022084": {"displayName": "SPb ITMO: fishing troops"},
-"nwq1022114": {"displayName": "NovSU: Triple Charm"},
-"nwq1022116": {"displayName": "SPb HSE: Apchihba"},
-"nwq1022154": {"displayName": "SUAI: Guapchichi"},
-"nwq1022314": {"displayName": "SPSUACE: III"},
-"nwq1022323": {"displayName": "Murmansk AU: PRo_debagnutye"},
-"nwq1022327": {"displayName": "SPb ITMO: quadrobers and hobbyhorsers (KT)"},
-"nwq1022328": {"displayName": "SPb ITMO: Eligibility"},
-"nwq1022329": {"displayName": "SPb ITMO: ITMO slezbl babki"},
-"nwq1022330": {"displayName": "SPb ITMO: ITMO N"},
-"nwq1022331": {"displayName": "SPb ITMO: Craving to eat and sleep"},
-"nwq1022350": {"displayName": "SPbETU: illuminati"},
-"nwq1022351": {"displayName": "SPbETU: vertalingen"},
-"nwq1022353": {"displayName": "SPbETU: GOOOOLang"},
-"nwq1022366": {"displayName": "SPb ITMO: PECHENKA"},
-"nwq1022396": {"displayName": "SPb ITMO: my composite collection"},
-"nwq1022564": {"displayName": "Polytech: KPbICbI"},
-"nwq1023061": {"displayName": "SPSUACE: Attention"},
-"nwq1023178": {"displayName": "SPb ITMO: BeOrNotToBit"},
-"nwq1023244": {"displayName": "SPb ITMO: R&W++"},
-"nwq1023350": {"displayName": "NovSU: Nevercode"},
-"nwq1023481": {"displayName": "SPb ITMO: Biromboikosododekaedr"}
-  }
-}
+[
+    {
+        "type": "overrideContestSettings",
+        "startTime": "2024-10-27 10:00:00 +01:00",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "nwq998036": {
+                "displayName": "MSA: 1"
+            },
+            "nwq998037": {
+                "displayName": "MSA: 2"
+            },
+            "nwq998038": {
+                "displayName": "MSA: 3"
+            },
+            "nwq998039": {
+                "displayName": "MSA: 4"
+            },
+            "nwq998040": {
+                "displayName": "MSA: 5"
+            },
+            "nwq998515": {
+                "displayName": "Makarov SU of Mar and IS: 1"
+            },
+            "nwq998776": {
+                "displayName": "SPb SU of Economics: Choose Algorithms, Not Drugs"
+            },
+            "nwq998779": {
+                "displayName": "SPb SU of Economics: Business teapots"
+            },
+            "nwq999359": {
+                "displayName": "SPb SU of Economics: Shurupovert"
+            },
+            "nwq999360": {
+                "displayName": "SPb SU of Economics: Speechka"
+            },
+            "nwq1000220": {
+                "displayName": "Makarov SU of Mar and IS: Clever people"
+            },
+            "nwq1000221": {
+                "displayName": "Makarov SU of Mar and IS: Easy Task"
+            },
+            "nwq1000222": {
+                "displayName": "Makarov SU of Mar and IS: Mirage"
+            },
+            "nwq1000514": {
+                "displayName": "Makarov SU of Mar and IS: TNV"
+            },
+            "nwq1001271": {
+                "displayName": "SPb SUT: SODrujno"
+            },
+            "nwq1001283": {
+                "displayName": "SPb SU of Economics: thunder"
+            },
+            "nwq1001369": {
+                "displayName": "RSHU: bo sinn"
+            },
+            "nwq1001370": {
+                "displayName": "RSHU: Bouilmenies"
+            },
+            "nwq1001371": {
+                "displayName": "RSHU: Lit energy"
+            },
+            "nwq1001659": {
+                "displayName": "RSHU: cutesy_rshu"
+            },
+            "nwq1001728": {
+                "displayName": "SPb SUT: Brainstorm Troopers"
+            },
+            "nwq1001747": {
+                "displayName": "SPb HSE: Matricaria"
+            },
+            "nwq1001900": {
+                "displayName": "Military Engineering Institute: 1"
+            },
+            "nwq1001901": {
+                "displayName": "Military Engineering Institute: 2"
+            },
+            "nwq1001952": {
+                "displayName": "Military Engineering Institute: 3"
+            },
+            "nwq1003804": {
+                "displayName": "SPBFTU: MOM NA PUJE"
+            },
+            "nwq1006864": {
+                "displayName": "SPb Mining U: 23-VBK"
+            },
+            "nwq1006866": {
+                "displayName": "SPb Mining U: 21-RAV"
+            },
+            "nwq1006868": {
+                "displayName": "SPb Mining U: 22-AAA"
+            },
+            "nwq1006869": {
+                "displayName": "SPb Mining U: 22-LAS"
+            },
+            "nwq1006871": {
+                "displayName": "SPb Mining U: 22-JNB"
+            },
+            "nwq1007959": {
+                "displayName": "* SPb ITMO: azatnv"
+            },
+            "nwq1008630": {
+                "displayName": "SPBFTU: Unlim"
+            },
+            "nwq1008767": {
+                "displayName": "SPBFTU: Object NULL"
+            },
+            "nwq1008842": {
+                "displayName": "SPb SUT: NGA.SUT"
+            },
+            "nwq1009830": {
+                "displayName": "* Murmansk AU: Fixiki"
+            },
+            "nwq1009868": {
+                "displayName": "Murmansk AU: SnuSnuliki"
+            },
+            "nwq1010163": {
+                "displayName": "Murmansk AU: Break the mind"
+            },
+            "nwq1010448": {
+                "displayName": "Murmansk AU: Tundra coders"
+            },
+            "nwq1011889": {
+                "displayName": "BSTU: AstraRose"
+            },
+            "nwq1012071": {
+                "displayName": "SPb SUT: Tumbajumba.SUT"
+            },
+            "nwq1012412": {
+                "displayName": "SPb SUITD: PMI"
+            },
+            "nwq1012653": {
+                "displayName": "Pol C of Novgorod SU: Ninja Turtles"
+            },
+            "nwq1012753": {
+                "displayName": "BSTU: Pack of Coders"
+            },
+            "nwq1013413": {
+                "displayName": "SPb SUT: HoTeam(*_^).SUT"
+            },
+            "nwq1013426": {
+                "displayName": "SPb SUT: pip install cpp.SUT"
+            },
+            "nwq1013493": {
+                "displayName": "BSTU: Nazvanie"
+            },
+            "nwq1013516": {
+                "displayName": "BSTU: Algorithmic Ninjas"
+            },
+            "nwq1013529": {
+                "displayName": "BSTU: Ultra"
+            },
+            "nwq1013554": {
+                "displayName": "BSTU: Cyberkotleti"
+            },
+            "nwq1013561": {
+                "displayName": "BSTU: Professors of \"Pochemuchkin\""
+            },
+            "nwq1013573": {
+                "displayName": "BSTU: V_PLANE"
+            },
+            "nwq1013639": {
+                "displayName": "BSTU: AMG"
+            },
+            "nwq1014088": {
+                "displayName": "Pol C of Novgorod SU: Byte404"
+            },
+            "nwq1014093": {
+                "displayName": "BSTU: SSS Rang"
+            },
+            "nwq1014711": {
+                "displayName": "* St. Petersburg SU: bigbrain"
+            },
+            "nwq1015032": {
+                "displayName": "BSTU: Neva elephants"
+            },
+            "nwq1015065": {
+                "displayName": "BSTU: Creative Codes"
+            },
+            "nwq1016117": {
+                "displayName": "BSTU: Algorithmic Strategists"
+            },
+            "nwq1016129": {
+                "displayName": "BSTU: we like to move it"
+            },
+            "nwq1016130": {
+                "displayName": "Murmansk AU: Ololoha!"
+            },
+            "nwq1017104": {
+                "displayName": "* SPb ITMO: Solo Warrior"
+            },
+            "nwq1017159": {
+                "displayName": "NovSU: Hamster Criminal"
+            },
+            "nwq1017776": {
+                "displayName": "St. Petersburg SU: osetinskie pirozhki"
+            },
+            "nwq1017777": {
+                "displayName": "St. Petersburg SU: misafutbolkami"
+            },
+            "nwq1017778": {
+                "displayName": "St. Petersburg SU: Traktor74"
+            },
+            "nwq1017781": {
+                "displayName": "St. Petersburg SU: XaLRBHblE 20 baLLoB TTo oTT"
+            },
+            "nwq1017782": {
+                "displayName": "St. Petersburg SU: bochka s SaVchenkO"
+            },
+            "nwq1017783": {
+                "displayName": "St. Petersburg SU: I See Personal Computer"
+            },
+            "nwq1017784": {
+                "displayName": "St. Petersburg SU: That Time I Got Reincarnated as a CLion"
+            },
+            "nwq1017808": {
+                "displayName": "St. Petersburg SU: X-TEAM"
+            },
+            "nwq1017809": {
+                "displayName": "St. Petersburg SU: Shirovlasiki v1.5"
+            },
+            "nwq1017810": {
+                "displayName": "St. Petersburg SU: Status418"
+            },
+            "nwq1017819": {
+                "displayName": "St. Petersburg SU: locked in"
+            },
+            "nwq1017829": {
+                "displayName": "St. Petersburg SU: Polar Bear Transform"
+            },
+            "nwq1017830": {
+                "displayName": "St. Petersburg SU: Yolki-Igolki"
+            },
+            "nwq1017841": {
+                "displayName": "St. Petersburg SU: YKKOHEH"
+            },
+            "nwq1017844": {
+                "displayName": "St. Petersburg SU: ArbuzTeam"
+            },
+            "nwq1017847": {
+                "displayName": "St. Petersburg SU: Deprecated AI"
+            },
+            "nwq1017850": {
+                "displayName": "St. Petersburg SU: Mamaev Is the Lion of Fortune"
+            },
+            "nwq1017853": {
+                "displayName": "St. Petersburg SU: Sergey, no hare"
+            },
+            "nwq1017854": {
+                "displayName": "St. Petersburg SU: Basis2D"
+            },
+            "nwq1017855": {
+                "displayName": "St. Petersburg SU: 25"
+            },
+            "nwq1017856": {
+                "displayName": "St. Petersburg SU: KoMariKo"
+            },
+            "nwq1017946": {
+                "displayName": "SPbETU: porsh0509"
+            },
+            "nwq1017947": {
+                "displayName": "SPbETU: Kecologists"
+            },
+            "nwq1017949": {
+                "displayName": "St. Petersburg SU: To be edited"
+            },
+            "nwq1017951": {
+                "displayName": "St. Petersburg SU: GOOOOL"
+            },
+            "nwq1017952": {
+                "displayName": "SPbETU: Volinski"
+            },
+            "nwq1018325": {
+                "displayName": "SPb SUT: CyberPaws.SUT"
+            },
+            "nwq1018410": {
+                "displayName": "St. Petersburg SU: Little honeys"
+            },
+            "nwq1018549": {
+                "displayName": "SPb SUT: Kabachki.SUT"
+            },
+            "nwq1018587": {
+                "displayName": "MVAA: 2"
+            },
+            "nwq1018588": {
+                "displayName": "MVAA: 3"
+            },
+            "nwq1018591": {
+                "displayName": "MVAA: 1"
+            },
+            "nwq1018676": {
+                "displayName": "St. Petersburg SU: pocelui menya uda4a"
+            },
+            "nwq1018680": {
+                "displayName": "St. Petersburg SU: Three Gourmands"
+            },
+            "nwq1018872": {
+                "displayName": "BSTU: Vox_g"
+            },
+            "nwq1018889": {
+                "displayName": "BSTU: PLM_"
+            },
+            "nwq1018991": {
+                "displayName": "BSTU: Code family"
+            },
+            "nwq1019015": {
+                "displayName": "BSTU: Teapots*418"
+            },
+            "nwq1019019": {
+                "displayName": "BSTU: Arbuzi"
+            },
+            "nwq1019025": {
+                "displayName": "BSTU: SIA_crew"
+            },
+            "nwq1019035": {
+                "displayName": "NovSU: Watermelons"
+            },
+            "nwq1019036": {
+                "displayName": "St. Petersburg SU: Nik&tau"
+            },
+            "nwq1019037": {
+                "displayName": "St. Petersburg SU: Filf*ck"
+            },
+            "nwq1019038": {
+                "displayName": "St. Petersburg SU: two pumpkins on the head"
+            },
+            "nwq1019039": {
+                "displayName": "St. Petersburg SU: Kartasheva's fun club"
+            },
+            "nwq1019040": {
+                "displayName": "St. Petersburg SU: IvanPokhabovTakayaZaika"
+            },
+            "nwq1019043": {
+                "displayName": "BSTU: Team Split"
+            },
+            "nwq1019050": {
+                "displayName": "BSTU: Demony v bashke"
+            },
+            "nwq1019195": {
+                "displayName": "SPb UMIARF: 1"
+            },
+            "nwq1019516": {
+                "displayName": "St. Petersburg SU: catamorphism"
+            },
+            "nwq1019545": {
+                "displayName": "Petrozavodsk SU: exit(0)"
+            },
+            "nwq1019675": {
+                "displayName": "SUAI: 1703"
+            },
+            "nwq1019692": {
+                "displayName": "SUAI: BonkTeam"
+            },
+            "nwq1019693": {
+                "displayName": "SPb HSE: chidori supremacy"
+            },
+            "nwq1019700": {
+                "displayName": "SPb HSE: HSExDESTROYERS"
+            },
+            "nwq1019743": {
+                "displayName": "SUAI: needmorebullets"
+            },
+            "nwq1019844": {
+                "displayName": "Polytech: KotikiTeam"
+            },
+            "nwq1019882": {
+                "displayName": "Murmansk AU: Triple zero"
+            },
+            "nwq1019888": {
+                "displayName": "SPbETU: watermelon"
+            },
+            "nwq1019889": {
+                "displayName": "SPbETU: female loneliness"
+            },
+            "nwq1019890": {
+                "displayName": "SUAI: byte bite"
+            },
+            "nwq1019921": {
+                "displayName": "BSTU: Legion"
+            },
+            "nwq1019922": {
+                "displayName": "NovSU: zhiga"
+            },
+            "nwq1019930": {
+                "displayName": "BSTU: Qutart_z team"
+            },
+            "nwq1019948": {
+                "displayName": "Murmansk AU: MoiNetVLapkerah"
+            },
+            "nwq1019957": {
+                "displayName": "BSTU: Goooolcode"
+            },
+            "nwq1019969": {
+                "displayName": "BSTU: Observers"
+            },
+            "nwq1020004": {
+                "displayName": "St. Petersburg SU: no name"
+            },
+            "nwq1020013": {
+                "displayName": "St. Petersburg SU: gosling enjoyers"
+            },
+            "nwq1020021": {
+                "displayName": "St. Petersburg SU: komanda52"
+            },
+            "nwq1020025": {
+                "displayName": "St. Petersburg SU: AM-CP AURA"
+            },
+            "nwq1020030": {
+                "displayName": "St. Petersburg SU: Dora we love you"
+            },
+            "nwq1020033": {
+                "displayName": "St. Petersburg SU: ShitCodeSmoothie"
+            },
+            "nwq1020045": {
+                "displayName": "St. Petersburg SU: WrongAnswer"
+            },
+            "nwq1020046": {
+                "displayName": "BSTU: Ctrl+Z"
+            },
+            "nwq1020048": {
+                "displayName": "Petrozavodsk SU: Cucumber"
+            },
+            "nwq1020104": {
+                "displayName": "St. Petersburg SU: Fi3GgVt10ItJrnvlbgI2iSZ6DgY"
+            },
+            "nwq1020105": {
+                "displayName": "BSTU: Ctrl+Win"
+            },
+            "nwq1020110": {
+                "displayName": "BSTU: SleepyCats"
+            },
+            "nwq1020113": {
+                "displayName": "Murmansk AU: Codecats"
+            },
+            "nwq1020115": {
+                "displayName": "St. Petersburg SU: MANAfunction"
+            },
+            "nwq1020178": {
+                "displayName": "St. Petersburg SU: Kolobki"
+            },
+            "nwq1020326": {
+                "displayName": "St. Petersburg SU: Milkyway"
+            },
+            "nwq1020563": {
+                "displayName": "SPb UMIARF: 2"
+            },
+            "nwq1020586": {
+                "displayName": "* Pol C of Novgorod SU: B1g4s"
+            },
+            "nwq1020727": {
+                "displayName": "Petrozavodsk SU: Python lovers"
+            },
+            "nwq1020744": {
+                "displayName": "SUAI: treap"
+            },
+            "nwq1020897": {
+                "displayName": "NovSU: Heavy Metal"
+            },
+            "nwq1020902": {
+                "displayName": "Petrozavodsk SU: quqi lyali zazi vivi"
+            },
+            "nwq1020910": {
+                "displayName": "Budenny Mil Telecom A: Fake Proxí"
+            },
+            "nwq1020911": {
+                "displayName": "Budenny Mil Telecom A: GoodGroup"
+            },
+            "nwq1020912": {
+                "displayName": "Budenny Mil Telecom A: HackStick"
+            },
+            "nwq1020913": {
+                "displayName": "Budenny Mil Telecom A: Tactical Analytics"
+            },
+            "nwq1020914": {
+                "displayName": "Budenny Mil Telecom A: G3462tb"
+            },
+            "nwq1020915": {
+                "displayName": "Budenny Mil Telecom A: Enigma"
+            },
+            "nwq1020959": {
+                "displayName": "SPBFTU: BIT"
+            },
+            "nwq1021093": {
+                "displayName": "NovSU: RurikSquad"
+            },
+            "nwq1021096": {
+                "displayName": "SPbETU: PetyaPit"
+            },
+            "nwq1021097": {
+                "displayName": "SPbETU: Legion team"
+            },
+            "nwq1021098": {
+                "displayName": "SPbETU: CONDITION ENERGY team"
+            },
+            "nwq1021099": {
+                "displayName": "SPbETU: Ivan&co."
+            },
+            "nwq1021100": {
+                "displayName": "SPbETU: MILF"
+            },
+            "nwq1021108": {
+                "displayName": "SPb HSE: Heavy sipping enjoyers"
+            },
+            "nwq1021110": {
+                "displayName": "SPbETU: Copy Paste"
+            },
+            "nwq1021113": {
+                "displayName": "SPbETU: StupidBoizs"
+            },
+            "nwq1021116": {
+                "displayName": "SPb ITMO: algos payasos"
+            },
+            "nwq1021117": {
+                "displayName": "SPb ITMO: CT 38 Vologda"
+            },
+            "nwq1021118": {
+                "displayName": "SPb ITMO: Floppa's Team"
+            },
+            "nwq1021119": {
+                "displayName": "SPb ITMO: definitely not a square"
+            },
+            "nwq1021120": {
+                "displayName": "SPb ITMO: AdygaHash"
+            },
+            "nwq1021121": {
+                "displayName": "SPb ITMO: Cotton CCTea shorts"
+            },
+            "nwq1021122": {
+                "displayName": "SPb ITMO: stariy_bog"
+            },
+            "nwq1021128": {
+                "displayName": "SPb ITMO: KT oleg2011"
+            },
+            "nwq1021129": {
+                "displayName": "SPb ITMO: CT::bad_alloc"
+            },
+            "nwq1021130": {
+                "displayName": "SPb ITMO: hot makarella"
+            },
+            "nwq1021131": {
+                "displayName": "SPb ITMO: bobry"
+            },
+            "nwq1021132": {
+                "displayName": "SPb ITMO: Lit Enegri"
+            },
+            "nwq1021133": {
+                "displayName": "SPb ITMO: Lush Cheesecakes"
+            },
+            "nwq1021134": {
+                "displayName": "SPb ITMO: Don, Quicksort and Sashko Pansa"
+            },
+            "nwq1021135": {
+                "displayName": "SPb ITMO: ITMOscow"
+            },
+            "nwq1021136": {
+                "displayName": "SPb ITMO: MicroTennis"
+            },
+            "nwq1021142": {
+                "displayName": "SPb ITMO: Yokarniy babay"
+            },
+            "nwq1021143": {
+                "displayName": "SPb ITMO: CT Society"
+            },
+            "nwq1021144": {
+                "displayName": "SPb ITMO: Shuffle, duffle, muzzle, muff"
+            },
+            "nwq1021145": {
+                "displayName": "SPb ITMO: DiagonalHalt"
+            },
+            "nwq1021150": {
+                "displayName": "SPb ITMO: kgeorgiy fanboys"
+            },
+            "nwq1021153": {
+                "displayName": "SPb ITMO: fivemin"
+            },
+            "nwq1021463": {
+                "displayName": "Petrozavodsk SU: KBS"
+            },
+            "nwq1021464": {
+                "displayName": "Petrozavodsk SU: Import this"
+            },
+            "nwq1021465": {
+                "displayName": "Petrozavodsk SU: Kashalotiki"
+            },
+            "nwq1021466": {
+                "displayName": "Petrozavodsk SU: ZaBoR"
+            },
+            "nwq1021469": {
+                "displayName": "Petrozavodsk SU: sudo -E bash"
+            },
+            "nwq1021470": {
+                "displayName": "Petrozavodsk SU: Rosinante"
+            },
+            "nwq1021522": {
+                "displayName": "SPSUACE: ISTARK"
+            },
+            "nwq1021544": {
+                "displayName": "Polytech: Black Bears"
+            },
+            "nwq1021594": {
+                "displayName": "SPb ITMO: Shizerland"
+            },
+            "nwq1021597": {
+                "displayName": "SPb ITMO: OPTIMIZEDOUT"
+            },
+            "nwq1021598": {
+                "displayName": "SPb ITMO: utf-8"
+            },
+            "nwq1021611": {
+                "displayName": "SPb ITMO: Ctrl-Z"
+            },
+            "nwq1021612": {
+                "displayName": "SPb ITMO: IDA"
+            },
+            "nwq1021613": {
+                "displayName": "SPb ITMO: moomin team"
+            },
+            "nwq1021614": {
+                "displayName": "SPb ITMO: I don't know"
+            },
+            "nwq1021615": {
+                "displayName": "SPb ITMO: blank space"
+            },
+            "nwq1021616": {
+                "displayName": "SPb ITMO: MTL"
+            },
+            "nwq1021695": {
+                "displayName": "Petrozavodsk SU: Nikita_Gudkov"
+            },
+            "nwq1021696": {
+                "displayName": "Petrozavodsk SU: avo1d"
+            },
+            "nwq1021697": {
+                "displayName": "Petrozavodsk SU: Quadratisch_praktisch_gut"
+            },
+            "nwq1021698": {
+                "displayName": "Petrozavodsk SU: Subway Surfers"
+            },
+            "nwq1021699": {
+                "displayName": "Petrozavodsk SU: SkyWard"
+            },
+            "nwq1021703": {
+                "displayName": "Petrozavodsk SU: Button \"Exit\""
+            },
+            "nwq1021704": {
+                "displayName": "Petrozavodsk SU: team shchavel'"
+            },
+            "nwq1021705": {
+                "displayName": "Petrozavodsk SU: pro"
+            },
+            "nwq1021706": {
+                "displayName": "Petrozavodsk SU: Autsiders"
+            },
+            "nwq1021715": {
+                "displayName": "Petrozavodsk SU: Gusari molchat'"
+            },
+            "nwq1021716": {
+                "displayName": "Petrozavodsk SU: Gumanitarii"
+            },
+            "nwq1021717": {
+                "displayName": "Petrozavodsk SU: Pikmi"
+            },
+            "nwq1021718": {
+                "displayName": "* Petrozavodsk SU: 1 guy in 3 coats"
+            },
+            "nwq1021719": {
+                "displayName": "Petrozavodsk SU: Mudro"
+            },
+            "nwq1021720": {
+                "displayName": "Petrozavodsk SU: Randomnoe viberi"
+            },
+            "nwq1021721": {
+                "displayName": "* Petrozavodsk SU: edinitsa"
+            },
+            "nwq1021722": {
+                "displayName": "Petrozavodsk SU: WatermelonGuys"
+            },
+            "nwq1021723": {
+                "displayName": "Petrozavodsk SU: vov"
+            },
+            "nwq1021771": {
+                "displayName": "* NovSU: Recm"
+            },
+            "nwq1021814": {
+                "displayName": "SPb HSE: Pivo:Redemption"
+            },
+            "nwq1021815": {
+                "displayName": "SPb HSE: So7v3r5 Club"
+            },
+            "nwq1021816": {
+                "displayName": "SPb HSE: Lazha Calculator"
+            },
+            "nwq1021838": {
+                "displayName": "SPb HSE: abcdef"
+            },
+            "nwq1021839": {
+                "displayName": "SPb HSE: 316"
+            },
+            "nwq1021873": {
+                "displayName": "SPb HSE: HSE dominators"
+            },
+            "nwq1021967": {
+                "displayName": "NovSU: ARbuzik"
+            },
+            "nwq1021995": {
+                "displayName": "Budenny Mil Telecom A: TechnoPark"
+            },
+            "nwq1022027": {
+                "displayName": "SPb ITMO: microdenises"
+            },
+            "nwq1022028": {
+                "displayName": "SPb ITMO: nemernicii"
+            },
+            "nwq1022029": {
+                "displayName": "SPb ITMO: Crazy Gummy"
+            },
+            "nwq1022030": {
+                "displayName": "SPb ITMO: ClojureCheckers"
+            },
+            "nwq1022031": {
+                "displayName": "SPb ITMO: defeCTive team"
+            },
+            "nwq1022038": {
+                "displayName": "SPb ITMO: deti Durova"
+            },
+            "nwq1022039": {
+                "displayName": "SPb ITMO: ct counterpick"
+            },
+            "nwq1022040": {
+                "displayName": "SPb ITMO: viperrr"
+            },
+            "nwq1022041": {
+                "displayName": "SPb ITMO: goooal"
+            },
+            "nwq1022042": {
+                "displayName": "SPb ITMO: WHY SO OPTIMIZED?"
+            },
+            "nwq1022044": {
+                "displayName": "SPb ITMO: KODIM i MOLIMSYA"
+            },
+            "nwq1022045": {
+                "displayName": "SPb ITMO: FERZI"
+            },
+            "nwq1022046": {
+                "displayName": "SPb ITMO: Bashkort hamsters"
+            },
+            "nwq1022047": {
+                "displayName": "SPb ITMO: IT's MOre KOTOV"
+            },
+            "nwq1022048": {
+                "displayName": "SPb ITMO: IS-PC"
+            },
+            "nwq1022053": {
+                "displayName": "SPb ITMO: IX"
+            },
+            "nwq1022054": {
+                "displayName": "SPb ITMO: Sbornaya art-coworkinga"
+            },
+            "nwq1022055": {
+                "displayName": "SPb ITMO: glpshki"
+            },
+            "nwq1022056": {
+                "displayName": "SPb ITMO: e-boots"
+            },
+            "nwq1022084": {
+                "displayName": "SPb ITMO: fishing troops"
+            },
+            "nwq1022114": {
+                "displayName": "NovSU: Triple Charm"
+            },
+            "nwq1022116": {
+                "displayName": "SPb HSE: Apchihba"
+            },
+            "nwq1022154": {
+                "displayName": "SUAI: Guapchichi"
+            },
+            "nwq1022314": {
+                "displayName": "SPSUACE: III"
+            },
+            "nwq1022323": {
+                "displayName": "Murmansk AU: PRo_debagnutye"
+            },
+            "nwq1022327": {
+                "displayName": "SPb ITMO: quadrobers and hobbyhorsers (KT)"
+            },
+            "nwq1022328": {
+                "displayName": "SPb ITMO: Eligibility"
+            },
+            "nwq1022329": {
+                "displayName": "SPb ITMO: ITMO slezbl babki"
+            },
+            "nwq1022330": {
+                "displayName": "SPb ITMO: ITMO N"
+            },
+            "nwq1022331": {
+                "displayName": "SPb ITMO: Craving to eat and sleep"
+            },
+            "nwq1022350": {
+                "displayName": "SPbETU: illuminati"
+            },
+            "nwq1022351": {
+                "displayName": "SPbETU: vertalingen"
+            },
+            "nwq1022353": {
+                "displayName": "SPbETU: GOOOOLang"
+            },
+            "nwq1022366": {
+                "displayName": "SPb ITMO: PECHENKA"
+            },
+            "nwq1022396": {
+                "displayName": "SPb ITMO: my composite collection"
+            },
+            "nwq1022564": {
+                "displayName": "Polytech: KPbICbI"
+            },
+            "nwq1023061": {
+                "displayName": "SPSUACE: Attention"
+            },
+            "nwq1023178": {
+                "displayName": "SPb ITMO: BeOrNotToBit"
+            },
+            "nwq1023244": {
+                "displayName": "SPb ITMO: R&W++"
+            },
+            "nwq1023350": {
+                "displayName": "NovSU: Nevercode"
+            },
+            "nwq1023481": {
+                "displayName": "SPb ITMO: Biromboikosododekaedr"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#f032e6ff"
+            },
+            "H": {
+                "color": "#fabed4ff"
+            },
+            "I": {
+                "color": "#469990ff"
+            },
+            "J": {
+                "color": "#dcbeffff"
+            },
+            "K": {
+                "color": "#9a6324ff"
+            },
+            "L": {
+                "color": "#fffac8ff"
+            },
+            "M": {
+                "color": "#800000ff"
+            },
+            "N": {
+                "color": "#aaffc3ff"
+            }
+        }
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 20
+    }
+]

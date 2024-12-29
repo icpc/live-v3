@@ -1,17 +1,63 @@
-{
-  "teamOverrides": {
-    "nwq01": {"isHidden": true},
-    "nwq02": {"isHidden": true},
-    "nwq03": {"isHidden": true},
-    "nwq04": {"isHidden": true}
-  }  
-  "awardsSettings": {
-   "medals": [
-     {"id": "first-medal", "citation": "First Award", "color": "SILVER", "minScore": 9, "tiebreakMode": "NONE"},
-     {"id": "second-medal", "citation": "Second Award", "color": "SILVER", "minScore":7, "tiebreakMode": "NONE"},
-     {"id": "third-medal", "citation": "Third Award", "color": "SILVER", "minScore": 6, "tiebreakMode": "NONE"},
-     {"id": "fourth-medal", "citation": "High Achievement", "color": "SILVER", "minScore": 5, "tiebreakMode": "NONE"},
-     {"id": "fourth-medal", "citation": "Honourable Mention", "color": "SILVER", "minScore": 1, "tiebreakMode": "NONE"}
-   ]
-  }
-}
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "nwq01": {
+                "isHidden": true
+            },
+            "nwq02": {
+                "isHidden": true
+            },
+            "nwq03": {
+                "isHidden": true
+            },
+            "nwq04": {
+                "isHidden": true
+            }
+        }
+    },
+    {
+        "type": "overrideAwards",
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "first-medal",
+                        "citation": "First Award",
+                        "color": "SILVER",
+                        "minScore": 9.0,
+                        "tiebreakMode": "NONE"
+                    },
+                    {
+                        "id": "second-medal",
+                        "citation": "Second Award",
+                        "color": "SILVER",
+                        "minScore": 7.0,
+                        "tiebreakMode": "NONE"
+                    },
+                    {
+                        "id": "third-medal",
+                        "citation": "Third Award",
+                        "color": "SILVER",
+                        "minScore": 6.0,
+                        "tiebreakMode": "NONE"
+                    },
+                    {
+                        "id": "fourth-medal",
+                        "citation": "High Achievement",
+                        "color": "SILVER",
+                        "minScore": 5.0,
+                        "tiebreakMode": "NONE"
+                    },
+                    {
+                        "id": "fourth-medal",
+                        "citation": "Honourable Mention",
+                        "color": "SILVER",
+                        "minScore": 1.0,
+                        "tiebreakMode": "NONE"
+                    }
+                ]
+            }
+        ]
+    }
+]

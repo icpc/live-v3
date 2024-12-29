@@ -1,75 +1,254 @@
-{
-  "teamOverrides": {
-"392712": {"shortname":"Brigham Young U: K","name":"Brigham Young U: K"},
-"392713": {"shortname":"Brigham Young U: Runtime Error","name":"Brigham Young U: Runtime Error"},
-"392714": {"shortname":"Brigham Young U: [\"sunshine\"]","name":"Brigham Young U: [\"sunshine\"]"},
-"392715": {"shortname":"Brigham Young U: *","name":"Brigham Young U: *"},
-"392716": {"shortname":"Brigham Young U: JT^2","name":"Brigham Young U: JT^2"},
-"392717": {"shortname":"Brigham Young U: bring back blue","name":"Brigham Young U: bring back blue"},
-"392718": {"shortname":"Brigham Young U: O(n!)","name":"Brigham Young U: O(n!)"},
-"392719": {"shortname":"Colorado Mesa U: The _ A _Team","name":"Colorado Mesa U: The _ A _Team"},
-"392720": {"shortname":"Lethbridge: WA","name":"Lethbridge: WA"},
-"392721": {"shortname":"Lethbridge: Human Beings","name":"Lethbridge: Human Beings"},
-"392722": {"shortname":"Lethbridge: Team Bazuso","name":"Lethbridge: Team Bazuso"},
-"392723": {"shortname":"Lethbridge: Fire Breathing Beasts","name":"Lethbridge: Fire Breathing Beasts"},
-"392724": {"shortname":"Lethbridge: if pizza && coke","name":"Lethbridge: if pizza && coke"},
-"392725": {"shortname":"U of Calgary: Vivid Soup","name":"U of Calgary: Vivid Soup"},
-"392726": {"shortname":"U of Calgary: foobar","name":"U of Calgary: foobar"},
-"392727": {"shortname":"U of Calgary: Brogramming","name":"U of Calgary: Brogramming"},
-"392728": {"shortname":"U of Calgary: Codetoads","name":"U of Calgary: Codetoads"},
-"392729": {"shortname":"U of Calgary: Codefrogs","name":"U of Calgary: Codefrogs"},
-"392730": {"shortname":"U of Utah: Rule-Of-Three","name":"U of Utah: Rule-Of-Three"},
-"392731": {"shortname":"U of Alberta: Aqua","name":"U of Alberta: Aqua"},
-"392732": {"shortname":"U of Alberta: Green","name":"U of Alberta: Green"},
-"392733": {"shortname":"U of Alberta: Black","name":"U of Alberta: Black"},
-"392734": {"shortname":"U of Alberta: Red","name":"U of Alberta: Red"},
-"392735": {"shortname":"U of Alberta: Blue","name":"U of Alberta: Blue"},
-"392736": {"shortname":"U of Alberta: Azure","name":"U of Alberta: Azure"},
-"392737": {"shortname":"U of Alberta: Teal","name":"U of Alberta: Teal"},
-"392738": {"shortname":"Lethbridge: Nitrave Maximus","name":"Lethbridge: Nitrave Maximus"},
-"392739": {"shortname":"U of Saskatchewan: GoodOldCodes","name":"U of Saskatchewan: GoodOldCodes"},
-"392740": {"shortname":"CSoM: It's 3AM Somewhere","name":"CSoM: It's 3AM Somewhere"},
-"392741": {"shortname":"CSoM: Team Pterodactyl","name":"CSoM: Team Pterodactyl"},
-"392742": {"shortname":"CSoM: Blaster's Basket Bunch","name":"CSoM: Blaster's Basket Bunch"},
-"392743": {"shortname":"CSoM: The Challengers","name":"CSoM: The Challengers"},
-"392744": {"shortname":"CSoM: Algonauts","name":"CSoM: Algonauts"},
-"392745": {"shortname":"CSoM: Callonia","name":"CSoM: Callonia"},
-"392746": {"shortname":"CSoM: Googol","name":"CSoM: Googol"},
-"392747": {"shortname":"CSoM: KIX","name":"CSoM: KIX"},
-"392748": {"shortname":"CSoM: FF@15","name":"CSoM: FF@15"},
-"392749": {"shortname":"CSoM: The Lemon Drops","name":"CSoM: The Lemon Drops"},
-"392750": {"shortname":"CSoM: Mines 4","name":"CSoM: Mines 4"},
-"392751": {"shortname":"CSoM: Mines 5","name":"CSoM: Mines 5"},
-"392752": {"shortname":"CSoM: Mines 6","name":"CSoM: Mines 6"},
-"392753": {"shortname":"Montana Tech: Broken Monitor","name":"Montana Tech: Broken Monitor"},
-"392754": {"shortname":"Montana Tech: Binary Treant","name":"Montana Tech: Binary Treant"},
-"392755": {"shortname":"Montana Tech: I Don't Know Yet","name":"Montana Tech: I Don't Know Yet"},
-"392756": {"shortname":"CSoM: Mines 7","name":"CSoM: Mines 7"},
-"392757": {"shortname":"CSoM: Mines 8","name":"CSoM: Mines 8", "groups":["Asia East","Northern Eurasia"] }
-  },                                                   
- "problemOverrides": {
-"A":{"color":"#e6194B"},
-"B":{"color":"#3cb44b"},
-"C":{"color":"#ffe119"},
-"D":{"color":"#4363d8"},
-"E":{"color":"#f58231"},
-"F":{"color":"#42d4f4"},
-"G":{"color":"#f032e6"},
-"H":{"color":"#fabed4"},
-"I":{"color":"#469990"},
-"J":{"color":"#dcbeff"},
-"K":{"color":"#9A6324"},
-"L":{"color":"#fffac8"},
-"M":{"color":"#800000"},
-"N":{"color":"#aaffc3"},
-"O":{"color":"#000075"},
-"P":{"color":"#a9a9a9"}
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 8},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-    ]
-  }
-}
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "392712": {
+                "fullName": "Brigham Young U: K",
+                "displayName": "Brigham Young U: K"
+            },
+            "392713": {
+                "fullName": "Brigham Young U: Runtime Error",
+                "displayName": "Brigham Young U: Runtime Error"
+            },
+            "392714": {
+                "fullName": "Brigham Young U: [\"sunshine\"]",
+                "displayName": "Brigham Young U: [\"sunshine\"]"
+            },
+            "392715": {
+                "fullName": "Brigham Young U: *",
+                "displayName": "Brigham Young U: *"
+            },
+            "392716": {
+                "fullName": "Brigham Young U: JT^2",
+                "displayName": "Brigham Young U: JT^2"
+            },
+            "392717": {
+                "fullName": "Brigham Young U: bring back blue",
+                "displayName": "Brigham Young U: bring back blue"
+            },
+            "392718": {
+                "fullName": "Brigham Young U: O(n!)",
+                "displayName": "Brigham Young U: O(n!)"
+            },
+            "392719": {
+                "fullName": "Colorado Mesa U: The _ A _Team",
+                "displayName": "Colorado Mesa U: The _ A _Team"
+            },
+            "392720": {
+                "fullName": "Lethbridge: WA",
+                "displayName": "Lethbridge: WA"
+            },
+            "392721": {
+                "fullName": "Lethbridge: Human Beings",
+                "displayName": "Lethbridge: Human Beings"
+            },
+            "392722": {
+                "fullName": "Lethbridge: Team Bazuso",
+                "displayName": "Lethbridge: Team Bazuso"
+            },
+            "392723": {
+                "fullName": "Lethbridge: Fire Breathing Beasts",
+                "displayName": "Lethbridge: Fire Breathing Beasts"
+            },
+            "392724": {
+                "fullName": "Lethbridge: if pizza && coke",
+                "displayName": "Lethbridge: if pizza && coke"
+            },
+            "392725": {
+                "fullName": "U of Calgary: Vivid Soup",
+                "displayName": "U of Calgary: Vivid Soup"
+            },
+            "392726": {
+                "fullName": "U of Calgary: foobar",
+                "displayName": "U of Calgary: foobar"
+            },
+            "392727": {
+                "fullName": "U of Calgary: Brogramming",
+                "displayName": "U of Calgary: Brogramming"
+            },
+            "392728": {
+                "fullName": "U of Calgary: Codetoads",
+                "displayName": "U of Calgary: Codetoads"
+            },
+            "392729": {
+                "fullName": "U of Calgary: Codefrogs",
+                "displayName": "U of Calgary: Codefrogs"
+            },
+            "392730": {
+                "fullName": "U of Utah: Rule-Of-Three",
+                "displayName": "U of Utah: Rule-Of-Three"
+            },
+            "392731": {
+                "fullName": "U of Alberta: Aqua",
+                "displayName": "U of Alberta: Aqua"
+            },
+            "392732": {
+                "fullName": "U of Alberta: Green",
+                "displayName": "U of Alberta: Green"
+            },
+            "392733": {
+                "fullName": "U of Alberta: Black",
+                "displayName": "U of Alberta: Black"
+            },
+            "392734": {
+                "fullName": "U of Alberta: Red",
+                "displayName": "U of Alberta: Red"
+            },
+            "392735": {
+                "fullName": "U of Alberta: Blue",
+                "displayName": "U of Alberta: Blue"
+            },
+            "392736": {
+                "fullName": "U of Alberta: Azure",
+                "displayName": "U of Alberta: Azure"
+            },
+            "392737": {
+                "fullName": "U of Alberta: Teal",
+                "displayName": "U of Alberta: Teal"
+            },
+            "392738": {
+                "fullName": "Lethbridge: Nitrave Maximus",
+                "displayName": "Lethbridge: Nitrave Maximus"
+            },
+            "392739": {
+                "fullName": "U of Saskatchewan: GoodOldCodes",
+                "displayName": "U of Saskatchewan: GoodOldCodes"
+            },
+            "392740": {
+                "fullName": "CSoM: It's 3AM Somewhere",
+                "displayName": "CSoM: It's 3AM Somewhere"
+            },
+            "392741": {
+                "fullName": "CSoM: Team Pterodactyl",
+                "displayName": "CSoM: Team Pterodactyl"
+            },
+            "392742": {
+                "fullName": "CSoM: Blaster's Basket Bunch",
+                "displayName": "CSoM: Blaster's Basket Bunch"
+            },
+            "392743": {
+                "fullName": "CSoM: The Challengers",
+                "displayName": "CSoM: The Challengers"
+            },
+            "392744": {
+                "fullName": "CSoM: Algonauts",
+                "displayName": "CSoM: Algonauts"
+            },
+            "392745": {
+                "fullName": "CSoM: Callonia",
+                "displayName": "CSoM: Callonia"
+            },
+            "392746": {
+                "fullName": "CSoM: Googol",
+                "displayName": "CSoM: Googol"
+            },
+            "392747": {
+                "fullName": "CSoM: KIX",
+                "displayName": "CSoM: KIX"
+            },
+            "392748": {
+                "fullName": "CSoM: FF@15",
+                "displayName": "CSoM: FF@15"
+            },
+            "392749": {
+                "fullName": "CSoM: The Lemon Drops",
+                "displayName": "CSoM: The Lemon Drops"
+            },
+            "392750": {
+                "fullName": "CSoM: Mines 4",
+                "displayName": "CSoM: Mines 4"
+            },
+            "392751": {
+                "fullName": "CSoM: Mines 5",
+                "displayName": "CSoM: Mines 5"
+            },
+            "392752": {
+                "fullName": "CSoM: Mines 6",
+                "displayName": "CSoM: Mines 6"
+            },
+            "392753": {
+                "fullName": "Montana Tech: Broken Monitor",
+                "displayName": "Montana Tech: Broken Monitor"
+            },
+            "392754": {
+                "fullName": "Montana Tech: Binary Treant",
+                "displayName": "Montana Tech: Binary Treant"
+            },
+            "392755": {
+                "fullName": "Montana Tech: I Don't Know Yet",
+                "displayName": "Montana Tech: I Don't Know Yet"
+            },
+            "392756": {
+                "fullName": "CSoM: Mines 7",
+                "displayName": "CSoM: Mines 7"
+            },
+            "392757": {
+                "fullName": "CSoM: Mines 8",
+                "displayName": "CSoM: Mines 8",
+                "groups": [
+                    "Asia East",
+                    "Northern Eurasia"
+                ]
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#f032e6ff"
+            },
+            "H": {
+                "color": "#fabed4ff"
+            },
+            "I": {
+                "color": "#469990ff"
+            },
+            "J": {
+                "color": "#dcbeffff"
+            },
+            "K": {
+                "color": "#9a6324ff"
+            },
+            "L": {
+                "color": "#fffac8ff"
+            },
+            "M": {
+                "color": "#800000ff"
+            },
+            "N": {
+                "color": "#aaffc3ff"
+            },
+            "O": {
+                "color": "#000075ff"
+            },
+            "P": {
+                "color": "#a9a9a9ff"
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
+    }
+]

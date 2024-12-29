@@ -1,86 +1,250 @@
-{
-  "teamOverrides": {
-"open-x-reload-105": {"shortname": "[BSUIR] Bonk"},
-"open-x-reload-114": {"shortname": "[LYC] Night Dreamers"},
-"open-x-reload-116": {"shortname": "[BSUIR] The massive potatoes"},
-"open-x-reload-12": {"shortname": "[BSUIR] 3D"},
-"open-x-reload-123": {"shortname": "[BSUIR] qwerty"},
-"open-x-reload-132": {"shortname": "[MIPT] The Phoenix"},
-"open-x-reload-133": {"shortname": "[BSUIR] the pizza is a lie."},
-"open-x-reload-14": {"shortname": "[BSUIR] В дверь постучали"},
-"open-x-reload-147": {"shortname": "[MIPT] TPI woscoM"},
-"open-x-reload-148": {"shortname": "[BSU] Определитель (матрится)"},
-
-"open-x-reload-155": {"shortname": "[DONNTU] Кринженеры"},
-"open-x-reload-165": {"shortname": "[SUAI] MegaSmetanka"},
-"open-x-reload-167": {"shortname": "[SPBU] Sir Arthur"},
-"open-x-reload-168": {"shortname": "[MIPT] Legends To Be"},
-"open-x-reload-169": {"shortname": "[KFU] Auf"},
-"open-x-reload-17": {"shortname": "[BSUIR] Brute Force - Best Force"},
-"open-x-reload-170": {"shortname": "[MIPT] AaAaAaAaAaAaAa"},
-"open-x-reload-172": {"shortname": "[MEPhI] Antiquarks"},
-"open-x-reload-174": {"shortname": "[YarSU] Чёрный жизнь вожна"},
-"open-x-reload-175": {"shortname": "[BSUIR] Relocation to Georgia"},
-"open-x-reload-177": {"shortname": "*[unofficial] Deltix team"},
-"open-x-reload-185": {"shortname": "[BSUIR] Awakened"},
-"open-x-reload-188": {"shortname": "[CYF] Мозырь, КЮП #4"},
-"open-x-reload-190": {"shortname": "[NRU MPEI] Old millers"},
-"open-x-reload-191": {"shortname": "[CYF] Мозырь, КЮП #3"},
-"open-x-reload-195": {"shortname": "[LYC + GYMN] Абоба"},
-"open-x-reload-197": {"shortname": "[SCH + LYC] Стич круче Пикачу"},
-"open-x-reload-205": {"shortname": "[BSUIR] Акуна Матата"},
-"open-x-reload-206": {"shortname": "[CYF] Мозырь, КЮП #2"},
-"open-x-reload-207": {"shortname": "[BSU] VGETMANTSD"},
-"open-x-reload-219": {"shortname": "[SCH] Прогулка по 2-саду"},
-"open-x-reload-224": {"shortname": "[CYF] Мозырь, КЮП #1:  SIGMA MALES"},
-"open-x-reload-225": {"shortname": "[ITMO + JU] BSUIR #1082+581"},
-"open-x-reload-226": {"shortname": "[BSU] 👉👈"},
-"open-x-reload-227": {"shortname": "[YSU] Trueдная команда"},
-"open-x-reload-229": {"shortname": "[MAI] МАИ #4"},
-"open-x-reload-231": {"shortname": "[GYMN] 2jddj2..bkd.zxc"},
-"open-x-reload-232": {"shortname": "[LYC] 2.5 таракана"},
-"open-x-reload-233": {"shortname": "[LYC] Ич"},
-"open-x-reload-236": {"shortname": "[LYC] Как тебе мой фенвик?)"},
-"open-x-reload-237": {"shortname": "[ITMO] Unexpected Value"},
-"open-x-reload-238": {"shortname": "[GYMN] Динамическое шлифование"},
-"open-x-reload-243": {"shortname": "[MIPT] Попроще относись-ка и поторопись-ка"},
-"open-x-reload-253": {"shortname": "[YarSU] STACKmans"},
-"open-x-reload-257": {"shortname": "[GYMN] TheXord"},
-"open-x-reload-26": {"shortname": "[BSUIR] Pinguins"},
-"open-x-reload-270": {"shortname": "[LYC] Каменная горка"},
-"open-x-reload-271": {"shortname": "[BSU] Экскьюземуа"},
-"open-x-reload-276": {"shortname": "[MIPT] Linkcat"},
-"open-x-reload-294": {"shortname": "[MPGU] Moscow S Ped U: Matemasters"},
-"open-x-reload-298": {"shortname": "[SPSU] Cheba Kings"},
-"open-x-reload-299": {"shortname": "[PetrSU] pgt Shuya"},
-"open-x-reload-300": {"shortname": "[PetrSU] shelby limited"},
-"open-x-reload-301": {"shortname": "[KPFU] Glühwein"},
-"open-x-reload-302": {"shortname": "[BSU] Codzily 2.0"},
-"open-x-reload-303": {"shortname": "[BSU] BDSM_Club"},
-"open-x-reload-305": {"shortname": "[UrFU] CheezeKEK"},
-"open-x-reload-306": {"shortname": "[BSU] Gabella"},
-"open-x-reload-307": {"shortname": "[PetrSU] NaN"},
-"open-x-reload-308": {"shortname": "[BSU] BSU 5"},
-"open-x-reload-309": {"shortname": "[BSU] Miller & Wheels"},
-"open-x-reload-34": {"shortname": "[MAI] МАИ52"},
-"open-x-reload-37": {"shortname": "[GYMN] ???"},
-"open-x-reload-399": {"shortname": "*[BSU] unrated"},
-"open-x-reload-44": {"shortname": "[NUST MISIS] Just_Nust"},
-"open-x-reload-45": {"shortname": "[MAI] ∴"},
-"open-x-reload-48": {"shortname": "[YSU] AmateraSU"},
-"open-x-reload-49": {"shortname": "[MAI NRU] MAI #2"},
-"open-x-reload-5": {"shortname": "[BSUIR] Imbojerks"},
-"open-x-reload-50": {"shortname": "[KFU] piña colada"},
-"open-x-reload-54": {"shortname": "[BSUIR + BC] Гомель-4"},
-"open-x-reload-55": {"shortname": "[KFU] Summertime"},
-"open-x-reload-58": {"shortname": "[_GYMN] психакидs (>‿◠)✌"},
-"open-x-reload-61": {"shortname": "[BSU] Могилёвские орлы"},
-"open-x-reload-70": {"shortname": "[SCH + GYMN] Average annealing enjoyers"},
-"open-x-reload-71": {"shortname": "[BSUIR] Great Mathematical Programmers"},
-"open-x-reload-73": {"shortname": "[BSUIR] 1082 - Тренеры не играют"},
-"open-x-reload-78": {"shortname": "[BSU] OSUTeam"},
-"open-x-reload-81": {"shortname": "[BSUIR] SysAdmins"},
-"open-x-reload-85": {"shortname": "[BSUIR] Monke"},
-"open-x-reload-88": {"shortname": "[ITMO] I don't know"}
-  }                                                   
-}
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "open-x-reload-105": {
+                "displayName": "[BSUIR] Bonk"
+            },
+            "open-x-reload-114": {
+                "displayName": "[LYC] Night Dreamers"
+            },
+            "open-x-reload-116": {
+                "displayName": "[BSUIR] The massive potatoes"
+            },
+            "open-x-reload-12": {
+                "displayName": "[BSUIR] 3D"
+            },
+            "open-x-reload-123": {
+                "displayName": "[BSUIR] qwerty"
+            },
+            "open-x-reload-132": {
+                "displayName": "[MIPT] The Phoenix"
+            },
+            "open-x-reload-133": {
+                "displayName": "[BSUIR] the pizza is a lie."
+            },
+            "open-x-reload-14": {
+                "displayName": "[BSUIR] В дверь постучали"
+            },
+            "open-x-reload-147": {
+                "displayName": "[MIPT] TPI woscoM"
+            },
+            "open-x-reload-148": {
+                "displayName": "[BSU] Определитель (матрится)"
+            },
+            "open-x-reload-155": {
+                "displayName": "[DONNTU] Кринженеры"
+            },
+            "open-x-reload-165": {
+                "displayName": "[SUAI] MegaSmetanka"
+            },
+            "open-x-reload-167": {
+                "displayName": "[SPBU] Sir Arthur"
+            },
+            "open-x-reload-168": {
+                "displayName": "[MIPT] Legends To Be"
+            },
+            "open-x-reload-169": {
+                "displayName": "[KFU] Auf"
+            },
+            "open-x-reload-17": {
+                "displayName": "[BSUIR] Brute Force - Best Force"
+            },
+            "open-x-reload-170": {
+                "displayName": "[MIPT] AaAaAaAaAaAaAa"
+            },
+            "open-x-reload-172": {
+                "displayName": "[MEPhI] Antiquarks"
+            },
+            "open-x-reload-174": {
+                "displayName": "[YarSU] Чёрный жизнь вожна"
+            },
+            "open-x-reload-175": {
+                "displayName": "[BSUIR] Relocation to Georgia"
+            },
+            "open-x-reload-177": {
+                "displayName": "*[unofficial] Deltix team"
+            },
+            "open-x-reload-185": {
+                "displayName": "[BSUIR] Awakened"
+            },
+            "open-x-reload-188": {
+                "displayName": "[CYF] Мозырь, КЮП #4"
+            },
+            "open-x-reload-190": {
+                "displayName": "[NRU MPEI] Old millers"
+            },
+            "open-x-reload-191": {
+                "displayName": "[CYF] Мозырь, КЮП #3"
+            },
+            "open-x-reload-195": {
+                "displayName": "[LYC + GYMN] Абоба"
+            },
+            "open-x-reload-197": {
+                "displayName": "[SCH + LYC] Стич круче Пикачу"
+            },
+            "open-x-reload-205": {
+                "displayName": "[BSUIR] Акуна Матата"
+            },
+            "open-x-reload-206": {
+                "displayName": "[CYF] Мозырь, КЮП #2"
+            },
+            "open-x-reload-207": {
+                "displayName": "[BSU] VGETMANTSD"
+            },
+            "open-x-reload-219": {
+                "displayName": "[SCH] Прогулка по 2-саду"
+            },
+            "open-x-reload-224": {
+                "displayName": "[CYF] Мозырь, КЮП #1:  SIGMA MALES"
+            },
+            "open-x-reload-225": {
+                "displayName": "[ITMO + JU] BSUIR #1082+581"
+            },
+            "open-x-reload-226": {
+                "displayName": "[BSU] 👉👈"
+            },
+            "open-x-reload-227": {
+                "displayName": "[YSU] Trueдная команда"
+            },
+            "open-x-reload-229": {
+                "displayName": "[MAI] МАИ #4"
+            },
+            "open-x-reload-231": {
+                "displayName": "[GYMN] 2jddj2..bkd.zxc"
+            },
+            "open-x-reload-232": {
+                "displayName": "[LYC] 2.5 таракана"
+            },
+            "open-x-reload-233": {
+                "displayName": "[LYC] Ич"
+            },
+            "open-x-reload-236": {
+                "displayName": "[LYC] Как тебе мой фенвик?)"
+            },
+            "open-x-reload-237": {
+                "displayName": "[ITMO] Unexpected Value"
+            },
+            "open-x-reload-238": {
+                "displayName": "[GYMN] Динамическое шлифование"
+            },
+            "open-x-reload-243": {
+                "displayName": "[MIPT] Попроще относись-ка и поторопись-ка"
+            },
+            "open-x-reload-253": {
+                "displayName": "[YarSU] STACKmans"
+            },
+            "open-x-reload-257": {
+                "displayName": "[GYMN] TheXord"
+            },
+            "open-x-reload-26": {
+                "displayName": "[BSUIR] Pinguins"
+            },
+            "open-x-reload-270": {
+                "displayName": "[LYC] Каменная горка"
+            },
+            "open-x-reload-271": {
+                "displayName": "[BSU] Экскьюземуа"
+            },
+            "open-x-reload-276": {
+                "displayName": "[MIPT] Linkcat"
+            },
+            "open-x-reload-294": {
+                "displayName": "[MPGU] Moscow S Ped U: Matemasters"
+            },
+            "open-x-reload-298": {
+                "displayName": "[SPSU] Cheba Kings"
+            },
+            "open-x-reload-299": {
+                "displayName": "[PetrSU] pgt Shuya"
+            },
+            "open-x-reload-300": {
+                "displayName": "[PetrSU] shelby limited"
+            },
+            "open-x-reload-301": {
+                "displayName": "[KPFU] Glühwein"
+            },
+            "open-x-reload-302": {
+                "displayName": "[BSU] Codzily 2.0"
+            },
+            "open-x-reload-303": {
+                "displayName": "[BSU] BDSM_Club"
+            },
+            "open-x-reload-305": {
+                "displayName": "[UrFU] CheezeKEK"
+            },
+            "open-x-reload-306": {
+                "displayName": "[BSU] Gabella"
+            },
+            "open-x-reload-307": {
+                "displayName": "[PetrSU] NaN"
+            },
+            "open-x-reload-308": {
+                "displayName": "[BSU] BSU 5"
+            },
+            "open-x-reload-309": {
+                "displayName": "[BSU] Miller & Wheels"
+            },
+            "open-x-reload-34": {
+                "displayName": "[MAI] МАИ52"
+            },
+            "open-x-reload-37": {
+                "displayName": "[GYMN] ???"
+            },
+            "open-x-reload-399": {
+                "displayName": "*[BSU] unrated"
+            },
+            "open-x-reload-44": {
+                "displayName": "[NUST MISIS] Just_Nust"
+            },
+            "open-x-reload-45": {
+                "displayName": "[MAI] ∴"
+            },
+            "open-x-reload-48": {
+                "displayName": "[YSU] AmateraSU"
+            },
+            "open-x-reload-49": {
+                "displayName": "[MAI NRU] MAI #2"
+            },
+            "open-x-reload-5": {
+                "displayName": "[BSUIR] Imbojerks"
+            },
+            "open-x-reload-50": {
+                "displayName": "[KFU] piña colada"
+            },
+            "open-x-reload-54": {
+                "displayName": "[BSUIR + BC] Гомель-4"
+            },
+            "open-x-reload-55": {
+                "displayName": "[KFU] Summertime"
+            },
+            "open-x-reload-58": {
+                "displayName": "[_GYMN] психакидs (>‿◠)✌"
+            },
+            "open-x-reload-61": {
+                "displayName": "[BSU] Могилёвские орлы"
+            },
+            "open-x-reload-70": {
+                "displayName": "[SCH + GYMN] Average annealing enjoyers"
+            },
+            "open-x-reload-71": {
+                "displayName": "[BSUIR] Great Mathematical Programmers"
+            },
+            "open-x-reload-73": {
+                "displayName": "[BSUIR] 1082 - Тренеры не играют"
+            },
+            "open-x-reload-78": {
+                "displayName": "[BSU] OSUTeam"
+            },
+            "open-x-reload-81": {
+                "displayName": "[BSUIR] SysAdmins"
+            },
+            "open-x-reload-85": {
+                "displayName": "[BSUIR] Monke"
+            },
+            "open-x-reload-88": {
+                "displayName": "[ITMO] I don't know"
+            }
+        }
+    }
+]

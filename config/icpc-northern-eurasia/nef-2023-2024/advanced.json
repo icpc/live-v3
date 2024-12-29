@@ -1,139 +1,188 @@
-{
-  // haha, some random comment here 111
-  "problemOverrides": {
-    "A": {
-      "color": "#FFFF00",
-      "unsolvedColor": "#808080",
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 14400
     },
-    "B": {
-      "color": "#FF00FE",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": true
     },
-    "C": {
-      "color": "#761946",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "org": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^([^:]*).*": {
+                        "id": "$1"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "[^:]*: (.*) \\([^)]*\\)": {
+                        "funnyNameValue": "$1"
+                    }
+                }
+            }
+        },
+        "organizationId": "{regexes.org.id}",
+        "customFields": {
+            "funnyName": "{regexes.custom.funnyNameValue}"
+        }
     },
-    "D": {
-      "color": "#FE9900",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(\\d\\d\\d)": {
+                        "id": "local"
+                    },
+                    "[^s][^p][^b](\\d\\d\\d)": {
+                        "id": "remote"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "$1",
+                        "grabberIpValue": "192.168.0.112"
+                    },
+                    "geo(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "G$1",
+                        "grabberIpValue": "192.168.0.175"
+                    },
+                    "nsk(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "N$1",
+                        "grabberIpValue": "192.168.0.175"
+                    },
+                    "kaz(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "K$1",
+                        "grabberIpValue": "192.168.0.175"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.group.id}"
+        ],
+        "customFields": {
+            "grabberPeerName": "{regexes.custom.grabberPeerNameValue}",
+            "grabberIp": "{regexes.custom.grabberIpValue}"
+        }
     },
-    "E": {
-      "color": "#0000FE",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName} {funnyName}",
+        "hashTag": "{team.id}",
+        "medias": {
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{team.id}.svg"
+            },
+            "photo": {
+                "type": "Image",
+                "url": "/media/ach/{team.id}.svg"
+            },
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://{grabberIp}:8080",
+                "peerName": "{grabberPeerName}",
+                "streamType": "desktop",
+                "credential": "live"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "{grabberUrl}",
+                "peerName": "http://{grabberIp}:8080",
+                "streamType": "webcam",
+                "credential": "live"
+            }
+        }
     },
-    "F": {
-      "color": "#000000",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#ffff00ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "B": {
+                "color": "#ff00feff",
+                "unsolvedColor": "#808080ff"
+            },
+            "C": {
+                "color": "#761946ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "D": {
+                "color": "#fe9900ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "E": {
+                "color": "#0000feff",
+                "unsolvedColor": "#808080ff"
+            },
+            "F": {
+                "color": "#000000ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "G": {
+                "color": "#04ff00ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "H": {
+                "color": "#38771eff",
+                "unsolvedColor": "#808080ff"
+            },
+            "I": {
+                "color": "#9b01ffff",
+                "unsolvedColor": "#808080ff"
+            },
+            "J": {
+                "color": "#e9d1deff",
+                "unsolvedColor": "#808080ff"
+            },
+            "K": {
+                "color": "#ffffffff",
+                "unsolvedColor": "#808080ff"
+            },
+            "L": {
+                "color": "#fe0000ff",
+                "unsolvedColor": "#808080ff"
+            }
+        }
     },
-    "G": {
-      "color": "#04FF00",
-      "unsolvedColor": "#808080"
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
     },
-    "H": {
-      "color": "#38771E",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideAwards",
+        "championTitle": "Northern Eurasia Finals Champions",
+        "rankAwardsMaxRank": 13,
+        "manualAwards": [
+            {
+                "id": "qualified",
+                "citation": "Qualified to world finals",
+                "teamCdsIds": []
+            }
+        ]
     },
-    "I": {
-      "color": "#9B01FF",
-      "unsolvedColor": "#808080"
-    },
-    "J": {
-      "color": "#E9D1DE",
-      "unsolvedColor": "#808080"
-    },
-    "K": {
-      "color": "#FFFFFF",
-      "unsolvedColor": "#808080"
-    },
-    "L": {
-      "color": "#FE0000",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideQueue",
+        "waitTimeSeconds": 60,
+        "firstToSolveWaitTimeSeconds": 120,
+        "featuredRunWaitTimeSeconds": 60,
+        "inProgressRunWaitTimeSeconds": 300,
+        "maxQueueSize": 15,
+        "maxUntestedRun": 5
     }
-  },
-  "teamNameRegexes": {
-    "customFields": {
-      "funnyName": {
-        "[^:]*: (.*) \\([^)]*\\)" : "$1"
-      }
-    },
-    "organizationRegex": {
-      "^([^:]*).*": "$1"
-    }
-  },
-  "teamOverrideTemplate": {
-    "hashTag": "{teamId}",
-    "displayName": "{orgDisplayName} {funnyName}",
-    "medias": {
-      "achievement": {
-        "type": "Image",
-        "url": "/media/ach/{teamId}.svg"
-      },
-      "photo": {
-        "type": "Image",
-        "url": "/media/ach/{teamId}.svg"
-      },
-      "screen": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{grabberPeerName}",
-        "url": "http://{grabberIp}:8080",
-        "streamType": "desktop",
-        "credential": "live"
-      },
-      "camera": {
-        "type": "WebRTCGrabberConnection",
-        "url": "{grabberUrl}",
-        "peerName": "http://{grabberIp}:8080",
-        "streamType": "webcam",
-        "credential": "live"
-      }
-    }
-  },
-  "freezeTimeSeconds": 14400,
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 8},
-      {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 12}
-    ],
-    "championTitle": "Northern Eurasia Finals Champions",
-    "rankAwardsMaxRank": 13,
-    "manual": [
-      {
-        "id": "qualified",
-        "citation": "Qualified to world finals",
-        "teamCdsIds": []
-      }
-    ]
-  },
-  "teamIdRegexes": {
-    "customFields": {
-      "grabberPeerName": {
-        "spb(\\d\\d\\d)": "$1",
-        "geo(\\d\\d\\d)": "G$1",
-        "nsk(\\d\\d\\d)": "N$1",
-        "kaz(\\d\\d\\d)": "K$1"
-      },
-      "grabberIp": {
-        "spb(\\d\\d\\d)": "192.168.0.112",
-        "geo(\\d\\d\\d)": "192.168.0.175",
-        "nsk(\\d\\d\\d)": "192.168.0.175",
-        "kaz(\\d\\d\\d)": "192.168.0.175"
-      }
-    },
-    "groupRegex": {
-      "local": "spb(\\d\\d\\d)",
-      "remote": "[^s][^p][^b](\\d\\d\\d)"
-    }
-  },
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": true
-  },
-  "queueSettings": {
-    "waitTimeSeconds": 60,
-    "firstToSolveWaitTimeSeconds": 120,
-    "featuredRunWaitTimeSeconds": 60,
-    "inProgressRunWaitTimeSeconds": 300,
-    "maxQueueSize": 15,
-    "maxUntestedRun": 5
-  }
-}
+]

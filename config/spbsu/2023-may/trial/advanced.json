@@ -1,37 +1,92 @@
-{
-  "teamOverrides": {
-    "239": {"shortname": "Monad.Reader","groups": ["test"]},
-    "2391": {"shortname": "(1к) Stardust Crusaders","groups": ["test","1"]}
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 8},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-    ]
-  },
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": true
-  },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"},
-    "L":{"color":"#fffac8"},
-    "M":{"color":"#800000"},
-    "N":{"color":"#aaffc3"},
-    "O":{"color":"#000075"},
-    "P":{"color":"#a9a9a9"},
-    "Q":{"color":"#e6194B"},
-    "R":{"color":"#3cb44b"},
-    "S":{"color":"#ffe119"}
-  }
-}
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": true
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "239": {
+                "displayName": "Monad.Reader",
+                "groups": [
+                    "test"
+                ]
+            },
+            "2391": {
+                "displayName": "(1к) Stardust Crusaders",
+                "groups": [
+                    "test",
+                    "1"
+                ]
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#f032e6ff"
+            },
+            "H": {
+                "color": "#fabed4ff"
+            },
+            "I": {
+                "color": "#469990ff"
+            },
+            "J": {
+                "color": "#dcbeffff"
+            },
+            "K": {
+                "color": "#9a6324ff"
+            },
+            "L": {
+                "color": "#fffac8ff"
+            },
+            "M": {
+                "color": "#800000ff"
+            },
+            "N": {
+                "color": "#aaffc3ff"
+            },
+            "O": {
+                "color": "#000075ff"
+            },
+            "P": {
+                "color": "#a9a9a9ff"
+            },
+            "Q": {
+                "color": "#e6194bff"
+            },
+            "R": {
+                "color": "#3cb44bff"
+            },
+            "S": {
+                "color": "#ffe119ff"
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
+    }
+]
