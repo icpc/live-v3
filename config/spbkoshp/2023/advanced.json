@@ -1,106 +1,472 @@
-{
-  "teamOverrideTemplate": {
-    "medias": {
-      "screen": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{comp}",
-        "url": "http://192.168.1.41:13478",
-        "streamType": "desktop",
-        "credential": "nwrrc-live-secret"
-      },
-      "camera": {
-        "type": "WebRTCGrabberConnection",
-        "url": "http://192.168.1.41:13478",
-        "peerName": "{comp}",
-        "streamType": "webcam",
-        "credential": "nwrrc-live-secret"
-      }
+[
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://192.168.1.41:13478",
+                "peerName": "{comp}",
+                "streamType": "desktop",
+                "credential": "nwrrc-live-secret"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://192.168.1.41:13478",
+                "peerName": "{comp}",
+                "streamType": "webcam",
+                "credential": "nwrrc-live-secret"
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "9575": {
+                "displayName": "ЛО, 1 + ЦО 2: GMT6",
+                "customFields": {
+                    "comp": "515"
+                }
+            },
+            "9467": {
+                "displayName": "ЛО, 2 + 7 + 9: FloppSquad",
+                "customFields": {
+                    "comp": "507"
+                }
+            },
+            "9856": {
+                "displayName": "239, 393: ITMOOL",
+                "customFields": {
+                    "comp": "521"
+                }
+            },
+            "9747": {
+                "displayName": "521: Лучшие кодеры всея Руси",
+                "customFields": {
+                    "comp": "305"
+                }
+            },
+            "9231": {
+                "displayName": "598: Знатоки",
+                "customFields": {
+                    "comp": "306"
+                }
+            },
+            "9247": {
+                "displayName": "Аничков лицей: We live, we love, we lie",
+                "customFields": {
+                    "comp": "308"
+                }
+            },
+            "9685": {
+                "displayName": "Вторая СПб Гимназия: 2spbg",
+                "customFields": {
+                    "comp": "401"
+                }
+            },
+            "9790": {
+                "displayName": "Вторая СПб Гимназия: cyber alliance",
+                "customFields": {
+                    "comp": "309"
+                }
+            },
+            "9292": {
+                "displayName": "Гимназия 261: Гусляры",
+                "customFields": {
+                    "comp": "402"
+                }
+            },
+            "9243": {
+                "displayName": "Гимназия 42: Hotline",
+                "customFields": {
+                    "comp": "403"
+                }
+            },
+            "9610": {
+                "displayName": "30: Сасай Кудасай",
+                "customFields": {
+                    "comp": "404"
+                }
+            },
+            "9660": {
+                "displayName": "30: ЧПК Тридцатка",
+                "customFields": {
+                    "comp": "405"
+                }
+            },
+            "9697": {
+                "displayName": "30: Фан-клуб Юлии Захаровой",
+                "customFields": {
+                    "comp": "406"
+                }
+            },
+            "9778": {
+                "displayName": "30: А, тут нужно втроём?",
+                "customFields": {
+                    "comp": "407"
+                }
+            },
+            "9241": {
+                "displayName": "ИТШ 777: Sparta",
+                "customFields": {
+                    "comp": "408"
+                }
+            },
+            "9302": {
+                "displayName": "ИТШ 777 + 30: Админы Шарарама",
+                "customFields": {
+                    "comp": "409"
+                }
+            },
+            "9458": {
+                "displayName": "150: NOSTYLIST",
+                "customFields": {
+                    "comp": "410"
+                }
+            },
+            "9488": {
+                "displayName": "150 + 389: Лицей",
+                "customFields": {
+                    "comp": "302"
+                }
+            },
+            "9239": {
+                "displayName": "226: PyCodeMasters",
+                "customFields": {
+                    "comp": "411"
+                }
+            },
+            "9652": {
+                "displayName": "226 #1: Py++",
+                "customFields": {
+                    "comp": "412"
+                }
+            },
+            "9664": {
+                "displayName": "470: Умники",
+                "customFields": {
+                    "comp": "413"
+                }
+            },
+            "9775": {
+                "displayName": "533: Мынеможемопределиться",
+                "customFields": {
+                    "comp": "414"
+                }
+            },
+            "9284": {
+                "displayName": "533 + 30: два человека и Леша",
+                "customFields": {
+                    "comp": "415"
+                }
+            },
+            "9224": {
+                "displayName": "82: РазДваТриРаботчики",
+                "customFields": {
+                    "comp": "416"
+                }
+            },
+            "9278": {
+                "displayName": "ЛНМО: Старшая",
+                "customFields": {
+                    "comp": "417"
+                }
+            },
+            "9368": {
+                "displayName": "239: Древние Русы",
+                "customFields": {
+                    "comp": "303"
+                }
+            },
+            "9583": {
+                "displayName": "239: О моём перерождении в Clion",
+                "customFields": {
+                    "comp": "304"
+                }
+            },
+            "9240": {
+                "displayName": "239 + 30: 7-8 причин основания хейт-клуба геометрии",
+                "customFields": {
+                    "comp": "420"
+                }
+            },
+            "9304": {
+                "displayName": "239 + 30: Ядерный реактор",
+                "customFields": {
+                    "comp": "421"
+                }
+            },
+            "9587": {
+                "displayName": "239 + 366 + 30: Триплет",
+                "customFields": {
+                    "comp": "422"
+                }
+            },
+            "9509": {
+                "displayName": "Пансион воспитанниц: Сила хрустеть орешками",
+                "customFields": {
+                    "comp": "423"
+                }
+            },
+            "9510": {
+                "displayName": "Пансион воспитанниц: нНн",
+                "customFields": {
+                    "comp": "424"
+                }
+            },
+            "9876": {
+                "displayName": "ФГКОУ СПБ СВУ МО РФ: Омский Андеграунд",
+                "customFields": {
+                    "comp": "523"
+                }
+            },
+            "9582": {
+                "displayName": "239: LazyCapybaras",
+                "customFields": {
+                    "comp": "426"
+                }
+            },
+            "9588": {
+                "displayName": "239: жалко нельзя....",
+                "customFields": {
+                    "comp": "427"
+                }
+            },
+            "9680": {
+                "displayName": "239: Sjbody",
+                "customFields": {
+                    "comp": "428"
+                }
+            },
+            "9765": {
+                "displayName": "239: _",
+                "customFields": {
+                    "comp": "429"
+                }
+            },
+            "9812": {
+                "displayName": "239: Думайте. Подписаться",
+                "customFields": {
+                    "comp": "430"
+                }
+            },
+            "9382": {
+                "displayName": "239 + Гимназия 498 + Гатчинский Л3: Мы иногда спим",
+                "customFields": {
+                    "comp": "431"
+                }
+            },
+            "9283": {
+                "displayName": "239 + 533: мы обязательно придумаем",
+                "customFields": {
+                    "comp": "432"
+                }
+            },
+            "9538": {
+                "displayName": "239 + 533: Ek",
+                "customFields": {
+                    "comp": "433"
+                }
+            },
+            "9784": {
+                "displayName": "239 + 64: Тяжелее...",
+                "customFields": {
+                    "comp": "435"
+                }
+            },
+            "9245": {
+                "displayName": "239 + ФТШ: программист, математик и прагматик",
+                "customFields": {
+                    "comp": "434"
+                }
+            },
+            "9841": {
+                "displayName": "239 + 393: ЕДА",
+                "customFields": {
+                    "comp": "519"
+                }
+            },
+            "9633": {
+                "displayName": "30: АшДваО",
+                "customFields": {
+                    "comp": "501"
+                }
+            },
+            "9669": {
+                "displayName": "30: Еда будет?",
+                "customFields": {
+                    "comp": "502"
+                }
+            },
+            "9675": {
+                "displayName": "30: Устали побеждать",
+                "customFields": {
+                    "comp": "503"
+                }
+            },
+            "9354": {
+                "displayName": "366 + Кропоткин, Л3: Апостолы Анатолия",
+                "customFields": {
+                    "comp": "425"
+                }
+            },
+            "9769": {
+                "displayName": "366 + 30: Ct++",
+                "customFields": {
+                    "comp": "504"
+                }
+            },
+            "9233": {
+                "displayName": "ФТШ: Спиртсмены",
+                "customFields": {
+                    "comp": "505"
+                }
+            },
+            "9268": {
+                "displayName": "ФТШ: Господин Макчiкен",
+                "customFields": {
+                    "comp": "506"
+                }
+            },
+            "9855": {
+                "displayName": "ФТШ: Лютые",
+                "customFields": {
+                    "comp": "520"
+                }
+            },
+            "9258": {
+                "displayName": "150: 84",
+                "customFields": {
+                    "comp": "301"
+                }
+            },
+            "9870": {
+                "displayName": "47 им.Д.С.Лихачева: Гуманитарии2",
+                "customFields": {
+                    "comp": "522"
+                }
+            },
+            "9232": {
+                "displayName": "515 + 268: Ансамбль биатлонистов",
+                "customFields": {
+                    "comp": "510"
+                }
+            },
+            "9351": {
+                "displayName": "521: Бочка гоблинов",
+                "customFields": {
+                    "comp": "511"
+                }
+            },
+            "9289": {
+                "displayName": "595: Эльбрус",
+                "customFields": {
+                    "comp": "512"
+                }
+            },
+            "9374": {
+                "displayName": "598: Прокачанные",
+                "customFields": {
+                    "comp": "307"
+                }
+            },
+            "9229": {
+                "displayName": "617 #x: xxxxkittyxxxx",
+                "customFields": {
+                    "comp": "513"
+                }
+            },
+            "9541": {
+                "displayName": "86 + Гимназия 70: Новички",
+                "customFields": {
+                    "comp": "514"
+                }
+            },
+            "9542": {
+                "displayName": "ЮМШ: Трое в карете, не считая компьютера",
+                "customFields": {
+                    "comp": "516"
+                }
+            },
+            "9889": {
+                "displayName": "ЮМШ: 1000_7",
+                "customFields": {
+                    "comp": "524"
+                }
+            },
+            "9611": {
+                "displayName": "ЮМШ + 239: Три дырявых ведра",
+                "customFields": {
+                    "comp": "518"
+                }
+            },
+            "9780": {
+                "displayName": "ЮМШ + ФТШ + Гимназия 205: уу?",
+                "customFields": {
+                    "comp": "517"
+                }
+            },
+            "9242": {
+                "displayName": "215 + 230 + 419: анбет))",
+                "customFields": {
+                    "comp": "508"
+                }
+            },
+            "9246": {
+                "displayName": "СПб, ЛНМО + Школа 358: Шаманы"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#a61d30ff"
+            },
+            "B": {
+                "color": "#b4d1e1ff"
+            },
+            "C": {
+                "color": "#9a6072ff"
+            },
+            "D": {
+                "color": "#8859a5ff"
+            },
+            "E": {
+                "color": "#dad4c5ff"
+            },
+            "F": {
+                "color": "#9a9da7ff"
+            },
+            "G": {
+                "color": "#ec8f3cff"
+            },
+            "H": {
+                "color": "#e3cba5ff"
+            },
+            "I": {
+                "color": "#d4c8baff"
+            },
+            "J": {
+                "color": "#dacc3eff"
+            },
+            "K": {
+                "color": "#404655ff"
+            },
+            "L": {
+                "color": "#a09f39ff"
+            },
+            "M": {
+                "color": "#b7b5acff"
+            },
+            "N": {
+                "color": "#dba9abff"
+            },
+            "O": {
+                "color": "#bf3045ff"
+            },
+            "W": {
+                "color": "#b42866ff"
+            }
+        }
     }
-  },
-  "teamOverrides": {
-"9575": {"displayName": "ЛО, 1 + ЦО 2: GMT6", "customFields": { "comp" : "515" }},
-"9467": {"displayName": "ЛО, 2 + 7 + 9: FloppSquad", "customFields": { "comp" : "507" }},
-"9856": {"displayName": "239, 393: ITMOOL", "customFields": { "comp" : "521" }},
-"9747": {"displayName": "521: Лучшие кодеры всея Руси", "customFields": { "comp" : "305" }},
-"9231": {"displayName": "598: Знатоки", "customFields": { "comp" : "306" }},
-"9247": {"displayName": "Аничков лицей: We live, we love, we lie", "customFields": { "comp" : "308" }},
-"9685": {"displayName": "Вторая СПб Гимназия: 2spbg", "customFields": { "comp" : "401" }},
-"9790": {"displayName": "Вторая СПб Гимназия: cyber alliance", "customFields": { "comp" : "309" }},
-"9292": {"displayName": "Гимназия 261: Гусляры", "customFields": { "comp" : "402" }},
-"9243": {"displayName": "Гимназия 42: Hotline", "customFields": { "comp" : "403" }},
-"9610": {"displayName": "30: Сасай Кудасай", "customFields": { "comp" : "404" }},
-"9660": {"displayName": "30: ЧПК Тридцатка", "customFields": { "comp" : "405" }},
-"9697": {"displayName": "30: Фан-клуб Юлии Захаровой", "customFields": { "comp" : "406" }},
-"9778": {"displayName": "30: А, тут нужно втроём?", "customFields": { "comp" : "407" }},
-"9241": {"displayName": "ИТШ 777: Sparta", "customFields": { "comp" : "408" }},
-"9302": {"displayName": "ИТШ 777 + 30: Админы Шарарама", "customFields": { "comp" : "409" }},
-"9458": {"displayName": "150: NOSTYLIST", "customFields": { "comp" : "410" }},
-"9488": {"displayName": "150 + 389: Лицей", "customFields": { "comp" : "302" }},
-"9239": {"displayName": "226: PyCodeMasters", "customFields": { "comp" : "411" }},
-"9652": {"displayName": "226 #1: Py++", "customFields": { "comp" : "412" }},
-"9664": {"displayName": "470: Умники", "customFields": { "comp" : "413" }},
-"9775": {"displayName": "533: Мынеможемопределиться", "customFields": { "comp" : "414" }},
-"9284": {"displayName": "533 + 30: два человека и Леша", "customFields": { "comp" : "415" }},
-"9224": {"displayName": "82: РазДваТриРаботчики", "customFields": { "comp" : "416" }},
-"9278": {"displayName": "ЛНМО: Старшая", "customFields": { "comp" : "417" }},
-"9368": {"displayName": "239: Древние Русы", "customFields": { "comp" : "303" }},
-"9583": {"displayName": "239: О моём перерождении в Clion", "customFields": { "comp" : "304" }},
-"9240": {"displayName": "239 + 30: 7-8 причин основания хейт-клуба геометрии", "customFields": { "comp" : "420" }},
-"9304": {"displayName": "239 + 30: Ядерный реактор", "customFields": { "comp" : "421" }},
-"9587": {"displayName": "239 + 366 + 30: Триплет", "customFields": { "comp" : "422" }},
-"9509": {"displayName": "Пансион воспитанниц: Сила хрустеть орешками", "customFields": { "comp" : "423" }},
-"9510": {"displayName": "Пансион воспитанниц: нНн", "customFields": { "comp" : "424" }},
-"9876": {"displayName": "ФГКОУ СПБ СВУ МО РФ: Омский Андеграунд", "customFields": { "comp" : "523" }},
-"9582": {"displayName": "239: LazyCapybaras", "customFields": { "comp" : "426" }},
-"9588": {"displayName": "239: жалко нельзя....", "customFields": { "comp" : "427" }},
-"9680": {"displayName": "239: Sjbody", "customFields": { "comp" : "428" }},
-"9765": {"displayName": "239: _", "customFields": { "comp" : "429" }},
-"9812": {"displayName": "239: Думайте. Подписаться", "customFields": { "comp" : "430" }},
-"9382": {"displayName": "239 + Гимназия 498 + Гатчинский Л3: Мы иногда спим", "customFields": { "comp" : "431" }},
-"9283": {"displayName": "239 + 533: мы обязательно придумаем", "customFields": { "comp" : "432" }},
-"9538": {"displayName": "239 + 533: Ek", "customFields": { "comp" : "433" }},
-"9784": {"displayName": "239 + 64: Тяжелее...", "customFields": { "comp" : "435" }},
-"9245": {"displayName": "239 + ФТШ: программист, математик и прагматик", "customFields": { "comp" : "434" }},
-"9841": {"displayName": "239 + 393: ЕДА", "customFields": { "comp" : "519" }},
-"9633": {"displayName": "30: АшДваО", "customFields": { "comp" : "501" }},
-"9669": {"displayName": "30: Еда будет?", "customFields": { "comp" : "502" }},
-"9675": {"displayName": "30: Устали побеждать", "customFields": { "comp" : "503" }},
-"9354": {"displayName": "366 + Кропоткин, Л3: Апостолы Анатолия", "customFields": { "comp" : "425" }},
-"9769": {"displayName": "366 + 30: Ct++", "customFields": { "comp" : "504" }},
-"9233": {"displayName": "ФТШ: Спиртсмены", "customFields": { "comp" : "505" }},
-"9268": {"displayName": "ФТШ: Господин Макчiкен", "customFields": { "comp" : "506" }},
-"9855": {"displayName": "ФТШ: Лютые", "customFields": { "comp" : "520" }},
-"9258": {"displayName": "150: 84", "customFields": { "comp" : "301" }},
-"9870": {"displayName": "47 им.Д.С.Лихачева: Гуманитарии2", "customFields": { "comp" : "522" }},
-"9232": {"displayName": "515 + 268: Ансамбль биатлонистов", "customFields": { "comp" : "510" }},
-"9351": {"displayName": "521: Бочка гоблинов", "customFields": { "comp" : "511" }},
-"9289": {"displayName": "595: Эльбрус", "customFields": { "comp" : "512" }},
-"9374": {"displayName": "598: Прокачанные", "customFields": { "comp" : "307" }},
-"9229": {"displayName": "617 #x: xxxxkittyxxxx", "customFields": { "comp" : "513" }},
-"9541": {"displayName": "86 + Гимназия 70: Новички", "customFields": { "comp" : "514" }},
-"9542": {"displayName": "ЮМШ: Трое в карете, не считая компьютера", "customFields": { "comp" : "516" }},
-"9889": {"displayName": "ЮМШ: 1000_7", "customFields": { "comp" : "524" }},
-"9611": {"displayName": "ЮМШ + 239: Три дырявых ведра", "customFields": { "comp" : "518" }},
-"9780": {"displayName": "ЮМШ + ФТШ + Гимназия 205: уу?", "customFields": { "comp" : "517" }},
-"9242": {"displayName": "215 + 230 + 419: анбет))", "customFields": { "comp" : "508" }},
-"9246": {"displayName": "СПб, ЛНМО + Школа 358: Шаманы"}  
-},
-  "problemOverrides": {
-    "A":{"color":"#A61D30"},
-    "B":{"color":"#B4D1E1"},
-    "C":{"color":"#9A6072"},
-    "D":{"color":"#8859A5"},
-    "E":{"color":"#DAD4C5"},
-    "F":{"color":"#9A9DA7"},
-    "G":{"color":"#EC8F3C"},
-    "H":{"color":"#E3CBA5"},
-    "I":{"color":"#D4C8BA"},
-    "J":{"color":"#DACC3E"},
-    "K":{"color":"#404655"},
-    "L":{"color":"#A09F39"},
-    "M":{"color":"#B7B5AC"},
-    "N":{"color":"#DBA9AB"},
-    "O":{"color":"#BF3045"},
-    "W":{"color":"#B42866"}
-  }
-}
+]

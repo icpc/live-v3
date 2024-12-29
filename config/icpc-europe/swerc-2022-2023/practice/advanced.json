@@ -1,19 +1,21 @@
-{
-  "teamOverrideTemplate": {
-    "medias": {
-      "photo": {
-        "type": "Image",
-        "url": "/media/photo/{teamId}.jpg"
-      }
+[
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "photo": {
+                "type": "Image",
+                "url": "/media/photo/{team.id}.jpg"
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {}
+    },
+    {
+        "type": "addMedals",
+        "gold": 2,
+        "silver": 4,
+        "bronze": 8
     }
-  },
-  "teamOverrides": {
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 2},
-      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 6},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 14}
-    ]
-  }
-}
+]

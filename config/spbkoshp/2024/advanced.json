@@ -1,136 +1,347 @@
-{
-  // "startTime": "2024-11-17T09:00:00Z",
-  "problemOverrides": {
-    "A": { "color": "#FFFF00" },
-    "B": { "color": "#0000ff" },
-    "C": { "color": "#FF0000" },
-    "D": { "color": "#ffa500" },
-    "E": { "color": "#f58231" },
-    "F": { "color": "#42d4f4" },
-    "G": { "color": "#009AAE" },
-    "H": { "color": "#000000" },
-    "I": { "color": "#CB4E83" },
-    "J": { "color": "#B29795" },
-    "K": { "color": "#9A6324" },
-    "L": { "color": "#724C4D" },
-    "M": { "color": "#7BC742" },
-    "N": { "color": "#808080" },
-    "O": { "color": "#808080" },
-    "W": { "color": "#808080" }
-  },
-  "teamIdRegexes": {
-    "customFields": {
-      "comp": {
-        "spb(.*)": "$1"
-      }
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(.*)": {
+                        "compValue": "$1"
+                    }
+                }
+            }
+        },
+        "customFields": {
+            "comp": "{regexes.custom.compValue}"
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://192.168.1.33:13478",
+                "peerName": "{comp}",
+                "streamType": "desktop",
+                "credential": "live"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://192.168.1.33:13478",
+                "peerName": "{comp}",
+                "streamType": "webcam",
+                "credential": "live"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{comp}.svg"
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "spb502": {
+                "displayName": "СПб, ФМЛ 239: так лень, если честно)"
+            },
+            "spb303": {
+                "displayName": "СПб, ИТШ 777: Админы Шарарама"
+            },
+            "spb210": {
+                "displayName": "СПб, ЛНМО: Старшая 10"
+            },
+            "spb435": {
+                "displayName": "СПб, Лицей 393 + ФТШ + Гимназия 261: Tink_off"
+            },
+            "spb504": {
+                "displayName": "СПб, ФМЛ 239: lazyOtters"
+            },
+            "spb305": {
+                "displayName": "СПб, Лицей 226: Творобушки"
+            },
+            "spb510": {
+                "displayName": "СПб, ФМЛ 239: Great Time Trio"
+            },
+            "spb410": {
+                "displayName": "СПб, ОЦ 80 + Школа 245: Чорты из большого города"
+            },
+            "spb106": {
+                "displayName": "СПб, ФМЛ 239 + Киришский лицей + Школа 3: Sugar Honey IT"
+            },
+            "spb512": {
+                "displayName": "СПб, ФМЛ 239: Бред"
+            },
+            "spb113": {
+                "displayName": "ЛО, Школа 1 + Школа 2 + Школа 9: FloppSquad"
+            },
+            "spb518": {
+                "displayName": "СПб, ФМЛ 239: Ботики"
+            },
+            "spb520": {
+                "displayName": "СПб, ФМЛ 239: ашдэма кабель"
+            },
+            "spb404": {
+                "displayName": "СПб, ФМЛ 239: Логбейтеры"
+            },
+            "spb209": {
+                "displayName": "СПб, ФМЛ 239 + Гимназия 49: 45325"
+            },
+            "spb302": {
+                "displayName": "СПб, АГ при СПбГУ: Cathematics"
+            },
+            "spb101": {
+                "displayName": "СПб, ГФМЛ 30: Крутые капибары"
+            },
+            "spb431": {
+                "displayName": "СПб, Школа 500 + ФТШ: σσσ62"
+            },
+            "spb408": {
+                "displayName": "СПб, ФМЛ 239: Пеньки"
+            },
+            "spb112": {
+                "displayName": "СПб, ФМЛ 239 + Лицей 533: КОД 1011"
+            },
+            "spb103": {
+                "displayName": "СПб, ФМЛ 366: 1"
+            },
+            "spb108": {
+                "displayName": "СПб, ЛНМО: 9М"
+            },
+            "spb515": {
+                "displayName": "СПб, ЮМШ #52: КофеСегодняБесподобен"
+            },
+            "spb403": {
+                "displayName": "СПб, Лицей 533 + ФТШ: IT-Заврики"
+            },
+            "spb415": {
+                "displayName": "СПб, ЮМШ #533: Бобр"
+            },
+            "spb114": {
+                "displayName": "СПб, ФМЛ 239 + ФТШ: Арсеникум"
+            },
+            "spb402": {
+                "displayName": "СПб, СВУ #322: RUKIvBRUKI"
+            },
+            "spb412": {
+                "displayName": "СПб, ФМЛ 239: Lost in the letters"
+            },
+            "spb509": {
+                "displayName": "СПб, 30 + 631: 17 минут предпосчёта + O(1) на запрос"
+            },
+            "spb514": {
+                "displayName": "СПб, Лицей 51: ПейКофеРешайИнформатику"
+            },
+            "spb304": {
+                "displayName": "СПб, ФМЛ 239: CaRusI"
+            },
+            "spb306": {
+                "displayName": "СПб, ФМЛ 239: БЕЙБИ ШАРКИ"
+            },
+            "spb111": {
+                "displayName": "СПб, ЮМШ: Нет времени объяснять..."
+            },
+            "spb107": {
+                "displayName": "СПб, ГФМЛ 30: 10-1-11-12-E"
+            },
+            "spb109": {
+                "displayName": "СПб, ГФМЛ 30: 2 11-13-D"
+            },
+            "spb115": {
+                "displayName": "СПб, ГФМЛ 30: 3 11-25-M"
+            },
+            "spb117": {
+                "displayName": "СПб, ГФМЛ 30: 4 9-4-11-5-P"
+            },
+            "spb206": {
+                "displayName": "СПб, ГФМЛ 30: 5 10-12-11-6-P"
+            },
+            "spb212": {
+                "displayName": "СПб, ГФМЛ 30: 6 10-5-11-2-E"
+            },
+            "spb214": {
+                "displayName": "СПб, ГФМЛ 30: 7 9-1-S"
+            },
+            "spb217": {
+                "displayName": "СПб, ГФМЛ 30: 8 9-4-10-4-N"
+            },
+            "spb301": {
+                "displayName": "СПб, ГФМЛ 30: 9 10-7-B"
+            },
+            "spb420": {
+                "displayName": "СПб, Лицей 533 + Школа 301: команда имени сглыпы"
+            },
+            "spb505": {
+                "displayName": "СПб, ЮМШ + ФТШ: КСГо++"
+            },
+            "spb120": {
+                "displayName": "СПб, ФМЛ 239: Шило|3 <3"
+            },
+            "spb308": {
+                "displayName": "СПб, ГФМЛ 30: 10 10-1-D"
+            },
+            "spb426": {
+                "displayName": "СПб, ФМЛ 366: 3"
+            },
+            "spb405": {
+                "displayName": "СПб, ГФМЛ 30: 11 9-3-10-7-P"
+            },
+            "spb413": {
+                "displayName": "СПб, ГФМЛ 30: 12 11-6-F"
+            },
+            "spb417": {
+                "displayName": "СПб, ГФМЛ 30: Физика лучше!"
+            },
+            "spb421": {
+                "displayName": "СПб, ГФМЛ 30: 617 CONTROLLING THIS SERVER"
+            },
+            "spb434": {
+                "displayName": "СПб, Школа 617: ТАЩЕРСКИЙ БОЙ ДО СЕДЫХ ВОЛОС..."
+            },
+            "spb517": {
+                "displayName": "СПб, ГФМЛ 30 + Школа 655 + Лицей 590: team 91913"
+            },
+            "spb425": {
+                "displayName": "СПб, ГФМЛ 30: СПИДран по 30-ке"
+            },
+            "spb429": {
+                "displayName": "СПб, ГФМЛ 30: Lavoro Team"
+            },
+            "spb102": {
+                "displayName": "СПб, Школа Программистов МШП: 1 Команда_Я1"
+            },
+            "spb211": {
+                "displayName": "СПб, Школа Программистов МШП: 2 Команда_Я2"
+            },
+            "spb219": {
+                "displayName": "СПб, ЮМШ + ФМЛ 239: Skibidi Rizzlers from Ohio"
+            },
+            "spb220": {
+                "displayName": "СПб, СВУ: 1"
+            },
+            "spb428": {
+                "displayName": "СПб, ЮМШ #52: корс. Napulione Buonaparte, итал. Napoleone Buonaparte"
+            },
+            "spb309": {
+                "displayName": "СПб, ЮМШ: За IPhone 16 - да"
+            },
+            "spb511": {
+                "displayName": "СПб, ГФМЛ 30 + ФМЛ 239: Set o` jacks"
+            },
+            "spb201": {
+                "displayName": "СПб, ФМЛ 239: Учхицми"
+            },
+            "spb433": {
+                "displayName": "СПб, ГФМЛ 30: идеалов идеал"
+            },
+            "spb419": {
+                "displayName": "СПб, ФМЛ 239 + ФТШ + Лицей 95: Борис Инбосс"
+            },
+            "spb215": {
+                "displayName": "СПб, ФМЛ 239 + Гимназия 498 + Школа 606: Трое в лодке не считая stdlib"
+            },
+            "spb119": {
+                "displayName": "СПб, ЛНМО: 2 9м.2"
+            },
+            "spb406": {
+                "displayName": "СПб, Школа Программистов МШП: 3 Прогеры3"
+            },
+            "spb207": {
+                "displayName": "СПб, ФМЛ 239: Тише едешь - к Марку быстрее приедешь"
+            },
+            "spb423": {
+                "displayName": "СПб, Школа Программистов МШП: 1 Прогеры1"
+            },
+            "spb508": {
+                "displayName": "СПб, Школа Программистов МШП: 2 Прогеры2"
+            },
+            "spb506": {
+                "displayName": "СПб, Аничков лицей: Гуманитарии"
+            },
+            "spb501": {
+                "displayName": "СПб, ГФМЛ 30: Труба"
+            },
+            "spb503": {
+                "displayName": "СПб, ГФМЛ 30: Анекдот о 1.5 программистах"
+            },
+            "spb522": {
+                "displayName": "СПб, ФМЛ 366: 4"
+            },
+            "spb424": {
+                "displayName": "СПб, ФМЛ 30: Еда будет?"
+            },
+            "spb203": {
+                "displayName": "СПб, Аничков Лицей + ГФМЛ 30: Беспризёрники"
+            },
+            "spb205": {
+                "displayName": "СПб, ГФМЛ 30: король кавказа"
+            },
+            "spb105": {
+                "displayName": "СПб, Аничков лицей: 1 лжекодеры"
+            },
+            "spb519": {
+                "displayName": "СПб, ФМЛ 239: Тише едешь - быстрее к Марку приедешь"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#ffff00ff"
+            },
+            "B": {
+                "color": "#0000ffff"
+            },
+            "C": {
+                "color": "#ff0000ff"
+            },
+            "D": {
+                "color": "#ffa500ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#009aaeff"
+            },
+            "H": {
+                "color": "#000000ff"
+            },
+            "I": {
+                "color": "#cb4e83ff"
+            },
+            "J": {
+                "color": "#b29795ff"
+            },
+            "K": {
+                "color": "#9a6324ff"
+            },
+            "L": {
+                "color": "#724c4dff"
+            },
+            "M": {
+                "color": "#7bc742ff"
+            },
+            "N": {
+                "color": "#808080ff"
+            },
+            "O": {
+                "color": "#808080ff"
+            },
+            "W": {
+                "color": "#808080ff"
+            }
+        }
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 20
     }
-  },
-  "freezeTimeSeconds": 14400,
-  "queueSettings": {
-    "maxQueueSize": 20
-  },
-  "teamOverrideTemplate": {
-    "medias": {
-      "screen": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{comp}",
-        "url": "http://192.168.1.33:13478",
-        "streamType": "desktop",
-        "credential": "live"
-      },
-      "camera": {
-        "type": "WebRTCGrabberConnection",
-        "url": "http://192.168.1.33:13478",
-        "peerName": "{comp}",
-        "streamType": "webcam",
-        "credential": "live"
-      },
-      "achievement": {
-        "type": "Image",
-        "url": "/media/ach/{comp}.svg"
-      }
-    }
-  },
-  "teamOverrides": {
-    "spb502": { "displayName": "СПб, ФМЛ 239: так лень, если честно)" },
-    "spb303": { "displayName": "СПб, ИТШ 777: Админы Шарарама" },
-    "spb210": { "displayName": "СПб, ЛНМО: Старшая 10" },
-    "spb435": { "displayName": "СПб, Лицей 393 + ФТШ + Гимназия 261: Tink_off" },
-    "spb504": { "displayName": "СПб, ФМЛ 239: lazyOtters" },
-    "spb305": { "displayName": "СПб, Лицей 226: Творобушки" },
-    "spb510": { "displayName": "СПб, ФМЛ 239: Great Time Trio" },
-    "spb410": { "displayName": "СПб, ОЦ 80 + Школа 245: Чорты из большого города" },
-    "spb106": { "displayName": "СПб, ФМЛ 239 + Киришский лицей + Школа 3: Sugar Honey IT" },
-    "spb512": { "displayName": "СПб, ФМЛ 239: Бред" },
-    "spb113": { "displayName": "ЛО, Школа 1 + Школа 2 + Школа 9: FloppSquad" },
-    "spb518": { "displayName": "СПб, ФМЛ 239: Ботики" },
-    "spb520": { "displayName": "СПб, ФМЛ 239: ашдэма кабель" },
-    "spb404": { "displayName": "СПб, ФМЛ 239: Логбейтеры" },
-    "spb209": { "displayName": "СПб, ФМЛ 239 + Гимназия 49: 45325" },
-    "spb302": { "displayName": "СПб, АГ при СПбГУ: Cathematics" },
-    "spb101": { "displayName": "СПб, ГФМЛ 30: Крутые капибары" },
-    "spb431": { "displayName": "СПб, Школа 500 + ФТШ: σσσ62" },
-    "spb408": { "displayName": "СПб, ФМЛ 239: Пеньки" },
-    "spb112": { "displayName": "СПб, ФМЛ 239 + Лицей 533: КОД 1011" },
-    "spb103": { "displayName": "СПб, ФМЛ 366: 1" },
-    "spb108": { "displayName": "СПб, ЛНМО: 9М" },
-    "spb515": { "displayName": "СПб, ЮМШ #52: КофеСегодняБесподобен" },
-    "spb403": { "displayName": "СПб, Лицей 533 + ФТШ: IT-Заврики" },
-    "spb415": { "displayName": "СПб, ЮМШ #533: Бобр" },
-    "spb114": { "displayName": "СПб, ФМЛ 239 + ФТШ: Арсеникум" },
-    "spb402": { "displayName": "СПб, СВУ #322: RUKIvBRUKI" },
-    "spb412": { "displayName": "СПб, ФМЛ 239: Lost in the letters" },
-    "spb509": { "displayName": "СПб, 30 + 631: 17 минут предпосчёта + O(1) на запрос" },
-    "spb514": { "displayName": "СПб, Лицей 51: ПейКофеРешайИнформатику" },
-    "spb304": { "displayName": "СПб, ФМЛ 239: CaRusI" },
-    "spb306": { "displayName": "СПб, ФМЛ 239: БЕЙБИ ШАРКИ" },
-    "spb111": { "displayName": "СПб, ЮМШ: Нет времени объяснять..." },
-    "spb107": { "displayName": "СПб, ГФМЛ 30: 10-1-11-12-E" },
-    "spb109": { "displayName": "СПб, ГФМЛ 30: 2 11-13-D" },
-    "spb115": { "displayName": "СПб, ГФМЛ 30: 3 11-25-M" },
-    "spb117": { "displayName": "СПб, ГФМЛ 30: 4 9-4-11-5-P" },
-    "spb206": { "displayName": "СПб, ГФМЛ 30: 5 10-12-11-6-P" },
-    "spb212": { "displayName": "СПб, ГФМЛ 30: 6 10-5-11-2-E" },
-    "spb214": { "displayName": "СПб, ГФМЛ 30: 7 9-1-S" },
-    "spb217": { "displayName": "СПб, ГФМЛ 30: 8 9-4-10-4-N" },
-    "spb301": { "displayName": "СПб, ГФМЛ 30: 9 10-7-B" },
-    "spb420": { "displayName": "СПб, Лицей 533 + Школа 301: команда имени сглыпы" },
-    "spb505": { "displayName": "СПб, ЮМШ + ФТШ: КСГо++" },
-    "spb120": { "displayName": "СПб, ФМЛ 239: Шило|3 <3" },
-    "spb308": { "displayName": "СПб, ГФМЛ 30: 10 10-1-D" },
-    "spb426": { "displayName": "СПб, ФМЛ 366: 3" },
-    "spb405": { "displayName": "СПб, ГФМЛ 30: 11 9-3-10-7-P" },
-    "spb413": { "displayName": "СПб, ГФМЛ 30: 12 11-6-F" },
-    "spb417": { "displayName": "СПб, ГФМЛ 30: Физика лучше!" },
-    "spb421": { "displayName": "СПб, ГФМЛ 30: 617 CONTROLLING THIS SERVER" },
-    "spb434": { "displayName": "СПб, Школа 617: ТАЩЕРСКИЙ БОЙ ДО СЕДЫХ ВОЛОС..." },
-    "spb517": { "displayName": "СПб, ГФМЛ 30 + Школа 655 + Лицей 590: team 91913" },
-    "spb425": { "displayName": "СПб, ГФМЛ 30: СПИДран по 30-ке" },
-    "spb429": { "displayName": "СПб, ГФМЛ 30: Lavoro Team" },
-    "spb102": { "displayName": "СПб, Школа Программистов МШП: 1 Команда_Я1" },
-    "spb211": { "displayName": "СПб, Школа Программистов МШП: 2 Команда_Я2" },
-    "spb219": { "displayName": "СПб, ЮМШ + ФМЛ 239: Skibidi Rizzlers from Ohio" },
-    "spb220": { "displayName": "СПб, СВУ: 1" },
-    "spb428": { "displayName": "СПб, ЮМШ #52: корс. Napulione Buonaparte, итал. Napoleone Buonaparte" },
-    "spb309": { "displayName": "СПб, ЮМШ: За IPhone 16 - да" },
-    "spb511": { "displayName": "СПб, ГФМЛ 30 + ФМЛ 239: Set o` jacks" },
-    "spb201": { "displayName": "СПб, ФМЛ 239: Учхицми" },
-    "spb433": { "displayName": "СПб, ГФМЛ 30: идеалов идеал" },
-    "spb419": { "displayName": "СПб, ФМЛ 239 + ФТШ + Лицей 95: Борис Инбосс" },
-    "spb215": { "displayName": "СПб, ФМЛ 239 + Гимназия 498 + Школа 606: Трое в лодке не считая stdlib" },
-    "spb119": { "displayName": "СПб, ЛНМО: 2 9м.2" },
-    "spb406": { "displayName": "СПб, Школа Программистов МШП: 3 Прогеры3" },
-    "spb207": { "displayName": "СПб, ФМЛ 239: Тише едешь - к Марку быстрее приедешь" },
-    "spb423": { "displayName": "СПб, Школа Программистов МШП: 1 Прогеры1" },
-    "spb508": { "displayName": "СПб, Школа Программистов МШП: 2 Прогеры2" },
-    "spb506": { "displayName": "СПб, Аничков лицей: Гуманитарии" },
-    "spb501": { "displayName": "СПб, ГФМЛ 30: Труба" },
-    "spb503": { "displayName": "СПб, ГФМЛ 30: Анекдот о 1.5 программистах" },
-    "spb522": { "displayName": "СПб, ФМЛ 366: 4" },
-    "spb424": { "displayName": "СПб, ФМЛ 30: Еда будет?" },
-    "spb203": { "displayName": "СПб, Аничков Лицей + ГФМЛ 30: Беспризёрники" },
-    "spb205": { "displayName": "СПб, ГФМЛ 30: король кавказа" },
-    "spb105": { "displayName": "СПб, Аничков лицей: 1 лжекодеры" },
-    "spb519": { "displayName": "СПб, ФМЛ 239: Тише едешь - быстрее к Марку приедешь" }
-  }
-}
+]

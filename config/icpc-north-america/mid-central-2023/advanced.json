@@ -1,1 +1,43 @@
-{"problemOverrides":{"rampantgrowth":{"color":"#e6194B"},"rangeediting":{"color":"#3cb44b"},"champernowneverification":{"color":"#ffe119"},"tournamentmatchmaking":{"color":"#4363d8"},"segmentdrawing":{"color":"#f58231"},"eccentricexcursion":{"color":"#42d4f4"},"triplesevens":{"color":"#f032e6"},"diversecontest":{"color":"#fabed4"},"training":{"color":"#469990"},"balancedtreepath":{"color":"#dcbeff"},"crammingforfinals":{"color":"#9A6324"},"matrixfraud":{"color":"#fffac8"}}}
+[
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "rampantgrowth": {
+                "color": "#e6194bff"
+            },
+            "rangeediting": {
+                "color": "#3cb44bff"
+            },
+            "champernowneverification": {
+                "color": "#ffe119ff"
+            },
+            "tournamentmatchmaking": {
+                "color": "#4363d8ff"
+            },
+            "segmentdrawing": {
+                "color": "#f58231ff"
+            },
+            "eccentricexcursion": {
+                "color": "#42d4f4ff"
+            },
+            "triplesevens": {
+                "color": "#f032e6ff"
+            },
+            "diversecontest": {
+                "color": "#fabed4ff"
+            },
+            "training": {
+                "color": "#469990ff"
+            },
+            "balancedtreepath": {
+                "color": "#dcbeffff"
+            },
+            "crammingforfinals": {
+                "color": "#9a6324ff"
+            },
+            "matrixfraud": {
+                "color": "#fffac8ff"
+            }
+        }
+    }
+]

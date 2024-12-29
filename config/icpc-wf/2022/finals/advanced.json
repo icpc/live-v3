@@ -1,14 +1,13 @@
-{
-"teamOverrideTemplate": {
-  "medias": {
-  },
-  "displayName": "{orgDisplayName}" 
-},
-"awardsSettings": {
-  "medals": [
-    {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-    {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 8},
-    {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-  ]
-}
-}
+[
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}",
+        "medias": {}
+    },
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
+    }
+]

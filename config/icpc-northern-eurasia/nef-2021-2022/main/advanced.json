@@ -1,844 +1,848 @@
-{
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 8},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-    ]
-  },
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": false
-  },
-  "teamOverrideTemplate": {
-    "medias": {
-      "screen": {
-        "type": "Video",
-        "url": "http://localhost:9090"
-      }
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "screen": {
+                "type": "Video",
+                "url": "http://localhost:9090"
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "642163": {
+                "displayName": "Novosibirsk SU: Winnie the Pooh"
+            },
+            "661436": {
+                "displayName": "Tomsk PU: 1"
+            },
+            "661437": {
+                "displayName": "SibSUTI: 1 Neutral"
+            },
+            "661438": {
+                "displayName": "OmSU: 3"
+            },
+            "661439": {
+                "displayName": "Novosibirsk SU: Ia-Ia"
+            },
+            "661440": {
+                "displayName": "Altai STU: 2"
+            },
+            "661441": {
+                "displayName": "SibSUTI: 2 Fullstack_Pascal+HTML"
+            },
+            "661442": {
+                "displayName": "NSTU: 5"
+            },
+            "661443": {
+                "displayName": "Altai STU: 1"
+            },
+            "661444": {
+                "displayName": "Novosibirsk SU: Piglet"
+            },
+            "661445": {
+                "displayName": "Novosibirsk SU: Wrong Bees"
+            },
+            "661446": {
+                "displayName": "Novosibirsk SU: Honey Pot"
+            },
+            "661447": {
+                "displayName": "SibSUTI: 10"
+            },
+            "661448": {
+                "displayName": "SibSUTI: 9 Brawl Stars"
+            },
+            "661449": {
+                "displayName": "SibSUTI: 8 Experiment 626"
+            },
+            "661450": {
+                "displayName": "SSTU: 3"
+            },
+            "661451": {
+                "displayName": "NSTU: 1"
+            },
+            "661452": {
+                "displayName": "NSTU: 2"
+            },
+            "661453": {
+                "displayName": "OmSU: 1"
+            },
+            "661454": {
+                "displayName": "OmSU: 2"
+            },
+            "661455": {
+                "displayName": "NSTU: 4"
+            },
+            "661456": {
+                "displayName": "Tomsk PU: 2"
+            },
+            "661457": {
+                "displayName": "Tomsk PU: 3"
+            },
+            "661458": {
+                "displayName": "SSTU: 2"
+            },
+            "663462": {
+                "displayName": "AUCA: 1"
+            },
+            "663463": {
+                "displayName": "KRSU: We_Love_Coffee"
+            },
+            "663464": {
+                "displayName": "IAU: nothing to code"
+            },
+            "663465": {
+                "displayName": "KGiAI: one_more_time"
+            },
+            "663466": {
+                "displayName": "KRSU: 5"
+            },
+            "663467": {
+                "displayName": "UCA: Team1"
+            },
+            "663468": {
+                "displayName": "OshTU: 2"
+            },
+            "663469": {
+                "displayName": "AUCA: MedSons"
+            },
+            "663470": {
+                "displayName": "Kyrgyz-Turkey Manas U: 7"
+            },
+            "663471": {
+                "displayName": "Kyrgyz-Turkey Manas U: 1"
+            },
+            "663472": {
+                "displayName": "Kyrgyz-Turkey Manas U: 5"
+            },
+            "663473": {
+                "displayName": "KRSU: blastMaker"
+            },
+            "663474": {
+                "displayName": "Kyrgyz-Turkey Manas U: 4"
+            },
+            "663475": {
+                "displayName": "AUCA: Dungeon masters"
+            },
+            "663476": {
+                "displayName": "AUCA: dishmans"
+            },
+            "667602": {
+                "displayName": "HSE: trained+Overpressured"
+            },
+            "667603": {
+                "displayName": "MIPT: Log-rank conjecture"
+            },
+            "667604": {
+                "displayName": "HSE: Yandex PTU"
+            },
+            "667605": {
+                "displayName": "MIPT: The Phoenix"
+            },
+            "667606": {
+                "displayName": "MIPT: LinkCat"
+            },
+            "667607": {
+                "displayName": "HSE: Dirizhabl’"
+            },
+            "667608": {
+                "displayName": "HSE: Mystery Machine"
+            },
+            "667609": {
+                "displayName": "Moscow SU: NoNames"
+            },
+            "667610": {
+                "displayName": "MAI: 1"
+            },
+            "667611": {
+                "displayName": "Moscow SU: Johnnie Jack and Jim"
+            },
+            "667612": {
+                "displayName": "MIPT: Never Trained"
+            },
+            "667613": {
+                "displayName": "MIPT: Flying Penguins"
+            },
+            "667614": {
+                "displayName": "MIPT: Wake up"
+            },
+            "667615": {
+                "displayName": "Moscow SU: bebop"
+            },
+            "667616": {
+                "displayName": "Moscow SU: MAN"
+            },
+            "667617": {
+                "displayName": "MAI: 5"
+            },
+            "667618": {
+                "displayName": "MPSU: Matemasters"
+            },
+            "667619": {
+                "displayName": "MEPhI: Sweet Potato"
+            },
+            "667620": {
+                "displayName": "MISiS: Palm_Hop_Selec"
+            },
+            "667621": {
+                "displayName": "MAI: 2"
+            },
+            "667622": {
+                "displayName": "MISiS: ICPC is overrated"
+            },
+            "667623": {
+                "displayName": "MIREA: Team 1"
+            },
+            "667624": {
+                "displayName": "MISiS: Solving meth problems"
+            },
+            "667625": {
+                "displayName": "BMSTU: 30 seconds to parse"
+            },
+            "667626": {
+                "displayName": "MISiS: Flip phone, telefon"
+            },
+            "667627": {
+                "displayName": "MIET: NUM"
+            },
+            "667628": {
+                "displayName": "BNTU: 4294967297"
+            },
+            "667629": {
+                "displayName": "BelarusianSU: 2"
+            },
+            "667630": {
+                "displayName": "BelarusianSU: 1"
+            },
+            "667631": {
+                "displayName": "BelarusianSU: 6"
+            },
+            "667632": {
+                "displayName": "BSUIR: 5 The last one"
+            },
+            "667633": {
+                "displayName": "BSUIR: 9 si4uem s kaifom"
+            },
+            "667634": {
+                "displayName": "BelarusianSU: 7 OSUTeam"
+            },
+            "667635": {
+                "displayName": "GrSU: 1"
+            },
+            "667636": {
+                "displayName": "BSUIR: 7 ugoschaet golubcami"
+            },
+            "667637": {
+                "displayName": "GSU: -2"
+            },
+            "667638": {
+                "displayName": "GSU: -1"
+            },
+            "667639": {
+                "displayName": "BrSU: 1 AP Team"
+            },
+            "667640": {
+                "displayName": "BNTU: FITRx3"
+            },
+            "667641": {
+                "displayName": "GrSU: 2"
+            },
+            "667642": {
+                "displayName": "BelSUT: _1"
+            },
+            "667643": {
+                "displayName": "BelSTU: 1"
+            },
+            "667644": {
+                "displayName": "GSTU: Si vis pacem, para bellum"
+            },
+            "667645": {
+                "displayName": "SPb ITMO: pengzoo"
+            },
+            "667646": {
+                "displayName": "SPb HSE: Lemon Tree"
+            },
+            "667647": {
+                "displayName": "SPb SU: dataVase"
+            },
+            "667648": {
+                "displayName": "SPb SU: Team Chill It"
+            },
+            "667649": {
+                "displayName": "SPb SU: ?5"
+            },
+            "667650": {
+                "displayName": "SPb SU: MCS: Andrew Sergeevich"
+            },
+            "667651": {
+                "displayName": "SPb SU: jazz"
+            },
+            "667652": {
+                "displayName": "SPb ITMO: Cataleptodius"
+            },
+            "667653": {
+                "displayName": "SPb ITMO: Unexpected Value"
+            },
+            "667654": {
+                "displayName": "SPb ITMO: hw"
+            },
+            "667655": {
+                "displayName": "SPb ITMO: TaskAcceptedException"
+            },
+            "667656": {
+                "displayName": "SPb HSE: HS of Abbreviations"
+            },
+            "667657": {
+                "displayName": "SPb HSE: Just4Keks"
+            },
+            "667658": {
+                "displayName": "Petrozavodsk SU: pgt Shya"
+            },
+            "667659": {
+                "displayName": "Budenny MTA: Peacemakers"
+            },
+            "667660": {
+                "displayName": "Petrozavodsk SU: Bukva yu"
+            },
+            "667661": {
+                "displayName": "Polytech: Ab absurdo 4"
+            },
+            "667662": {
+                "displayName": "Petrozavodsk SU: adamant"
+            },
+            "667663": {
+                "displayName": "SUAI: MegaSmetanka"
+            },
+            "667664": {
+                "displayName": "SUAI: 1703"
+            },
+            "667665": {
+                "displayName": "CFUV: Vernadsky"
+            },
+            "667666": {
+                "displayName": "CFUV: Endeavor"
+            },
+            "667667": {
+                "displayName": "CFUV: pod3.14vasniki"
+            },
+            "667668": {
+                "displayName": "CFUV: Team_Pepega"
+            },
+            "667669": {
+                "displayName": "YarSU: 1 Yess we can"
+            },
+            "667670": {
+                "displayName": "NArFU: 2"
+            },
+            "667671": {
+                "displayName": "AFSO: 7"
+            },
+            "667672": {
+                "displayName": "YarSU: 20 LigaDravena"
+            },
+            "667673": {
+                "displayName": "YarSU: 2 chill_owls"
+            },
+            "667674": {
+                "displayName": "RSATU: 4"
+            },
+            "667675": {
+                "displayName": "TverSU: 3 Guerilla Gorillas"
+            },
+            "667676": {
+                "displayName": "BSTU: 1 winx_v3.0"
+            },
+            "667677": {
+                "displayName": "Ural FU: The Last Dance"
+            },
+            "667678": {
+                "displayName": "Ural FU: ReFresh"
+            },
+            "667679": {
+                "displayName": "Ural FU: CheezeKEK"
+            },
+            "667680": {
+                "displayName": "Perm SU: Cats"
+            },
+            "667681": {
+                "displayName": "Ural FU: Raketa & 3 Deda"
+            },
+            "667682": {
+                "displayName": "Ural FU: Cucumber Juice 73"
+            },
+            "667683": {
+                "displayName": "Perm SU: corgi_never_sleep"
+            },
+            "667684": {
+                "displayName": "Ufa SATU: God's Choice"
+            },
+            "667685": {
+                "displayName": "Izhevsk STU: CyTheFu"
+            },
+            "667686": {
+                "displayName": "Perm SU: Plusbl"
+            },
+            "667687": {
+                "displayName": "Izhevsk STU: ZEDbl"
+            },
+            "667688": {
+                "displayName": "Tyumen SU: import.math"
+            },
+            "667689": {
+                "displayName": "Surgut SU: DieHard"
+            },
+            "667690": {
+                "displayName": "Tyumen SU: Permutation Of Lenovo"
+            },
+            "667691": {
+                "displayName": "Perm HSE: pitonishe"
+            },
+            "667692": {
+                "displayName": "Orenburg SU: feel_good"
+            },
+            "667693": {
+                "displayName": "Izhevsk STU: People++"
+            },
+            "667694": {
+                "displayName": "Orenburg SU: How much I love BTS"
+            },
+            "667695": {
+                "displayName": "South Ural SU: Masters of Crosses"
+            },
+            "667696": {
+                "displayName": "South Ural SU: UZI"
+            },
+            "667697": {
+                "displayName": "South Ural SU: 0 div 0"
+            },
+            "667698": {
+                "displayName": "Innopolis: U Q"
+            },
+            "667699": {
+                "displayName": "Penza SU: I"
+            },
+            "667700": {
+                "displayName": "UNN: Lera Retired"
+            },
+            "667701": {
+                "displayName": "UNN: Presskachat"
+            },
+            "667702": {
+                "displayName": "Innopolis: U I"
+            },
+            "667703": {
+                "displayName": "Kazan FU: A"
+            },
+            "667704": {
+                "displayName": "SFedU: E"
+            },
+            "667705": {
+                "displayName": "Saratov SU: Innopolis U 0"
+            },
+            "667706": {
+                "displayName": "Volgograd STU"
+            },
+            "667707": {
+                "displayName": "Kazan FU: V"
+            },
+            "667708": {
+                "displayName": "Saratov SU: H"
+            },
+            "667709": {
+                "displayName": "NRU HSE: NN 1"
+            },
+            "667710": {
+                "displayName": "NRU HSE: NN Brawl Stars"
+            },
+            "667711": {
+                "displayName": "MordSU: D"
+            },
+            "667712": {
+                "displayName": "VoronezhSU: H"
+            },
+            "667713": {
+                "displayName": "SFedU: C"
+            },
+            "667714": {
+                "displayName": "USTU: J"
+            },
+            "667715": {
+                "displayName": "VoronezhSU: B"
+            },
+            "667716": {
+                "displayName": "Saratov SU: P"
+            },
+            "667717": {
+                "displayName": "MordSU: E"
+            },
+            "667718": {
+                "displayName": "Kazan FU: G"
+            },
+            "667719": {
+                "displayName": "Saratov SU: J"
+            },
+            "667720": {
+                "displayName": "ASU: B"
+            },
+            "667769": {
+                "displayName": "MSU Tashkent: 1 Awesome Team"
+            },
+            "667770": {
+                "displayName": "TUIT: pfff"
+            },
+            "667771": {
+                "displayName": "RusTjkSlav: Head_Shot"
+            },
+            "667772": {
+                "displayName": "MGUD: 7"
+            },
+            "667773": {
+                "displayName": "MGUD: 2"
+            },
+            "667774": {
+                "displayName": "MGUD: 1"
+            },
+            "667775": {
+                "displayName": "MSU Tashkent: 2"
+            },
+            "667776": {
+                "displayName": "SamTUIT: SLD Group"
+            },
+            "667777": {
+                "displayName": "TUIT: Lorem Ipsum"
+            },
+            "667778": {
+                "displayName": "RusTjkSlav: NERU"
+            },
+            "667779": {
+                "displayName": "SamTUIT: oVerfitting"
+            },
+            "667780": {
+                "displayName": "TUIT: Falcon"
+            },
+            "667781": {
+                "displayName": "SamTUIT: RUNTIME tERROR"
+            },
+            "667782": {
+                "displayName": "MSU Tashkent: 4 Silent Birds"
+            },
+            "667783": {
+                "displayName": "TUIT: Algo_experts"
+            },
+            "667784": {
+                "displayName": "TUIT Urgench Branch: 1"
+            },
+            "667785": {
+                "displayName": "RusTjkSlav: Silk Way"
+            },
+            "667786": {
+                "displayName": "NUUz: geeksforgeeks"
+            },
+            "667787": {
+                "displayName": "RusTjkSlav: Shakarob"
+            },
+            "667788": {
+                "displayName": "TUIT Urgench Branch: 2"
+            },
+            "667789": {
+                "displayName": "JBNUU: M"
+            },
+            "667790": {
+                "displayName": "NUUz: NUU_10"
+            },
+            "667791": {
+                "displayName": "Namangan SU: 1"
+            },
+            "667792": {
+                "displayName": "SamSU: LifePC Group"
+            },
+            "667793": {
+                "displayName": "MIICTS: _1"
+            },
+            "667794": {
+                "displayName": "SamTUIT: thephaza"
+            },
+            "667795": {
+                "displayName": "JBNUU: Progress"
+            },
+            "667796": {
+                "displayName": "MGUD: 9"
+            },
+            "667797": {
+                "displayName": "SamSU: Dream Team"
+            },
+            "667798": {
+                "displayName": "IIAU: Revengers"
+            },
+            "667799": {
+                "displayName": "AndMII: Heaven"
+            },
+            "667800": {
+                "displayName": "IITU: SuperNoVa"
+            },
+            "667801": {
+                "displayName": "NU: 1"
+            },
+            "667802": {
+                "displayName": "KBTU: Don't panic"
+            },
+            "667803": {
+                "displayName": "AITU: 1"
+            },
+            "667804": {
+                "displayName": "IITU: set"
+            },
+            "667805": {
+                "displayName": "AITU: 2"
+            },
+            "667806": {
+                "displayName": "AITU: 4"
+            },
+            "667807": {
+                "displayName": "KBTU: Sᴬᵁ Bᴼᴸᵂᴵ"
+            },
+            "667808": {
+                "displayName": "NU: 5"
+            },
+            "667809": {
+                "displayName": "NU: 2"
+            },
+            "667810": {
+                "displayName": "IITU: ur mamaso"
+            },
+            "667811": {
+                "displayName": "SDU: 1"
+            },
+            "667812": {
+                "displayName": "KazNU: 1"
+            },
+            "667813": {
+                "displayName": "SDU: 2 Abudyn' DastanKhany"
+            },
+            "667814": {
+                "displayName": "NU: 3"
+            },
+            "667815": {
+                "displayName": "IITU: AbDiAl"
+            },
+            "667816": {
+                "displayName": "KBTU: Kazakh Mafia"
+            },
+            "667817": {
+                "displayName": "KBTU: N^3"
+            },
+            "667818": {
+                "displayName": "AITU: 5"
+            },
+            "667819": {
+                "displayName": "KazNTU: SU1"
+            },
+            "667820": {
+                "displayName": "KazNU: 2"
+            },
+            "667821": {
+                "displayName": "KazNU: 3"
+            },
+            "667822": {
+                "displayName": "KazNTU: SU2"
+            },
+            "667823": {
+                "displayName": "SDU: balmuzdaqtar"
+            },
+            "667824": {
+                "displayName": "KazNU: 4"
+            },
+            "667825": {
+                "displayName": "AIPET: _1"
+            },
+            "667826": {
+                "displayName": "KTU: 1"
+            },
+            "667827": {
+                "displayName": "Far Eastern FU: CODE work"
+            },
+            "667828": {
+                "displayName": "Far Eastern FU: Time Limit"
+            },
+            "667829": {
+                "displayName": "Far Eastern FU: Garbies"
+            },
+            "667830": {
+                "displayName": "Far Eastern FU: FlexBoiz"
+            },
+            "667831": {
+                "displayName": "Far Eastern STU: DevOchka"
+            },
+            "667832": {
+                "displayName": "Far Eastern STU: myTEAmmm"
+            },
+            "667833": {
+                "displayName": "Far Eastern STU: kekadev"
+            },
+            "667834": {
+                "displayName": "VSUES: Videokrolik"
+            },
+            "667835": {
+                "displayName": "VSUES: 8"
+            },
+            "667836": {
+                "displayName": "Irkutsk U: 4 whoami"
+            },
+            "667837": {
+                "displayName": "INRTU: 3 PolyTech"
+            },
+            "667838": {
+                "displayName": "Irkutsk U: 5 take it easy"
+            },
+            "667839": {
+                "displayName": "Irkutsk U: 2 322"
+            },
+            "667840": {
+                "displayName": "esstu: 5 Wolf Auf"
+            },
+            "667841": {
+                "displayName": "BSU: 4 nonremmitalSpiders"
+            },
+            "667842": {
+                "displayName": "IMCS SFU: 1 KlopiTarakani"
+            },
+            "667843": {
+                "displayName": "Khakas TI of SFU: 4 ZXCoders"
+            },
+            "667844": {
+                "displayName": "BSU: 3 soldaP"
+            },
+            "667845": {
+                "displayName": "ISRU: 2 molodie lisyata"
+            },
+            "667846": {
+                "displayName": "Zabaikal SU: 1"
+            },
+            "667847": {
+                "displayName": "BSU: 1 TNT"
+            },
+            "667848": {
+                "displayName": "ISRU: 1 Brainstorm"
+            },
+            "667849": {
+                "displayName": "INRTU: 2Team"
+            },
+            "667850": {
+                "displayName": "Tuvan SU: 1 Achiles Turtles"
+            },
+            "667851": {
+                "displayName": "ESSUTM: 1 ElderlyCoders"
+            },
+            "667852": {
+                "displayName": "ISIT SFU: 2 Systema auto pobedi"
+            },
+            "667853": {
+                "displayName": "Tuvan SU: 2 Akatsuki"
+            },
+            "667854": {
+                "displayName": "ISIT SFU: 4 Super Cookies"
+            },
+            "667855": {
+                "displayName": "Zabaikal SU: 2"
+            },
+            "667856": {
+                "displayName": "BSU: 2 SYAS"
+            },
+            "667857": {
+                "displayName": "Khakas TI of SFU: 1 Real Tigers"
+            },
+            "667872": {
+                "displayName": "SamSU: _ITEG_1"
+            },
+            "667898": {
+                "displayName": "BelarusianSU: 5"
+            },
+            "667899": {
+                "displayName": "BSUIR: 2 Brute Force - Best Force"
+            },
+            "667938": {
+                "displayName": "NU: 4"
+            },
+            "668532": {
+                "displayName": "YarSU: 12 HuRMa"
+            },
+            "668533": {
+                "displayName": "VyatkaGU: 9"
+            },
+            "668534": {
+                "displayName": "OrelSU: 1"
+            },
+            "668536": {
+                "displayName": "MSU Tashkent: 3 Froggg"
+            },
+            "668594": {
+                "displayName": "VoronezhSU: F"
+            },
+            "668693": {
+                "displayName": "BelarusianSU: 3 Mogilev Eagles"
+            },
+            "668694": {
+                "displayName": "HSE: Sovetskiy Soyuz"
+            },
+            "669271": {
+                "displayName": "Yerevan SU: 2813"
+            },
+            "669272": {
+                "displayName": "Yerevan SU: 1"
+            },
+            "669273": {
+                "displayName": "Yerevan SU: bit.ly/2YlU2Si"
+            },
+            "669274": {
+                "displayName": "Yerevan SU: SSD"
+            },
+            "669275": {
+                "displayName": "RAU: 2"
+            },
+            "669276": {
+                "displayName": "RAU: 1"
+            },
+            "669277": {
+                "displayName": "NPUA: polytex"
+            },
+            "669278": {
+                "displayName": "RAU: 3"
+            },
+            "669279": {
+                "displayName": "AUA: 1"
+            },
+            "669280": {
+                "displayName": "Goris SU: We and Our Mountains"
+            },
+            "669281": {
+                "displayName": "EUA: Mercury1"
+            },
+            "669282": {
+                "displayName": "APSU: ASPU"
+            },
+            "669283": {
+                "displayName": "NUACA"
+            },
+            "670017": {
+                "displayName": "KBTU: Permission denied"
+            },
+            "670045": {
+                "displayName": "YarSU: 18 Dead_Inside_Team"
+            },
+            "670108": {
+                "displayName": "NEFU"
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
     }
-  },
-  "teamOverrides": {
-    "642163": {
-      "shortname": "Novosibirsk SU: Winnie the Pooh"
-    },
-    "661436": {
-      "shortname": "Tomsk PU: 1"
-    },
-    "661437": {
-      "shortname": "SibSUTI: 1 Neutral"
-    },
-    "661438": {
-      "shortname": "OmSU: 3"
-    },
-    "661439": {
-      "shortname": "Novosibirsk SU: Ia-Ia"
-    },
-    "661440": {
-      "shortname": "Altai STU: 2"
-    },
-    "661441": {
-      "shortname": "SibSUTI: 2 Fullstack_Pascal+HTML"
-    },
-    "661442": {
-      "shortname": "NSTU: 5"
-    },
-    "661443": {
-      "shortname": "Altai STU: 1"
-    },
-    "661444": {
-      "shortname": "Novosibirsk SU: Piglet"
-    },
-    "661445": {
-      "shortname": "Novosibirsk SU: Wrong Bees"
-    },
-    "661446": {
-      "shortname": "Novosibirsk SU: Honey Pot"
-    },
-    "661447": {
-      "shortname": "SibSUTI: 10"
-    },
-    "661448": {
-      "shortname": "SibSUTI: 9 Brawl Stars"
-    },
-    "661449": {
-      "shortname": "SibSUTI: 8 Experiment 626"
-    },
-    "661450": {
-      "shortname": "SSTU: 3"
-    },
-    "661451": {
-      "shortname": "NSTU: 1"
-    },
-    "661452": {
-      "shortname": "NSTU: 2"
-    },
-    "661453": {
-      "shortname": "OmSU: 1"
-    },
-    "661454": {
-      "shortname": "OmSU: 2"
-    },
-    "661455": {
-      "shortname": "NSTU: 4"
-    },
-    "661456": {
-      "shortname": "Tomsk PU: 2"
-    },
-    "661457": {
-      "shortname": "Tomsk PU: 3"
-    },
-    "661458": {
-      "shortname": "SSTU: 2"
-    },
-    "663462": {
-      "shortname": "AUCA: 1"
-    },
-    "663463": {
-      "shortname": "KRSU: We_Love_Coffee"
-    },
-    "663464": {
-      "shortname": "IAU: nothing to code"
-    },
-    "663465": {
-      "shortname": "KGiAI: one_more_time"
-    },
-    "663466": {
-      "shortname": "KRSU: 5"
-    },
-    "663467": {
-      "shortname": "UCA: Team1"
-    },
-    "663468": {
-      "shortname": "OshTU: 2"
-    },
-    "663469": {
-      "shortname": "AUCA: MedSons"
-    },
-    "663470": {
-      "shortname": "Kyrgyz-Turkey Manas U: 7"
-    },
-    "663471": {
-      "shortname": "Kyrgyz-Turkey Manas U: 1"
-    },
-    "663472": {
-      "shortname": "Kyrgyz-Turkey Manas U: 5"
-    },
-    "663473": {
-      "shortname": "KRSU: blastMaker"
-    },
-    "663474": {
-      "shortname": "Kyrgyz-Turkey Manas U: 4"
-    },
-    "663475": {
-      "shortname": "AUCA: Dungeon masters"
-    },
-    "663476": {
-      "shortname": "AUCA: dishmans"
-    },
-    "667602": {
-      "shortname": "HSE: trained+Overpressured"
-    },
-    "667603": {
-      "shortname": "MIPT: Log-rank conjecture"
-    },
-    "667604": {
-      "shortname": "HSE: Yandex PTU"
-    },
-    "667605": {
-      "shortname": "MIPT: The Phoenix"
-    },
-    "667606": {
-      "shortname": "MIPT: LinkCat"
-    },
-    "667607": {
-      "shortname": "HSE: Dirizhabl’"
-    },
-    "667608": {
-      "shortname": "HSE: Mystery Machine"
-    },
-    "667609": {
-      "shortname": "Moscow SU: NoNames"
-    },
-    "667610": {
-      "shortname": "MAI: 1"
-    },
-    "667611": {
-      "shortname": "Moscow SU: Johnnie Jack and Jim"
-    },
-    "667612": {
-      "shortname": "MIPT: Never Trained"
-    },
-    "667613": {
-      "shortname": "MIPT: Flying Penguins"
-    },
-    "667614": {
-      "shortname": "MIPT: Wake up"
-    },
-    "667615": {
-      "shortname": "Moscow SU: bebop"
-    },
-    "667616": {
-      "shortname": "Moscow SU: MAN"
-    },
-    "667617": {
-      "shortname": "MAI: 5"
-    },
-    "667618": {
-      "shortname": "MPSU: Matemasters"
-    },
-    "667619": {
-      "shortname": "MEPhI: Sweet Potato"
-    },
-    "667620": {
-      "shortname": "MISiS: Palm_Hop_Selec"
-    },
-    "667621": {
-      "shortname": "MAI: 2"
-    },
-    "667622": {
-      "shortname": "MISiS: ICPC is overrated"
-    },
-    "667623": {
-      "shortname": "MIREA: Team 1"
-    },
-    "667624": {
-      "shortname": "MISiS: Solving meth problems"
-    },
-    "667625": {
-      "shortname": "BMSTU: 30 seconds to parse"
-    },
-    "667626": {
-      "shortname": "MISiS: Flip phone, telefon"
-    },
-    "667627": {
-      "shortname": "MIET: NUM"
-    },
-    "667628": {
-      "shortname": "BNTU: 4294967297"
-    },
-    "667629": {
-      "shortname": "BelarusianSU: 2"
-    },
-    "667630": {
-      "shortname": "BelarusianSU: 1"
-    },
-    "667631": {
-      "shortname": "BelarusianSU: 6"
-    },
-    "667632": {
-      "shortname": "BSUIR: 5 The last one"
-    },
-    "667633": {
-      "shortname": "BSUIR: 9 si4uem s kaifom"
-    },
-    "667634": {
-      "shortname": "BelarusianSU: 7 OSUTeam"
-    },
-    "667635": {
-      "shortname": "GrSU: 1"
-    },
-    "667636": {
-      "shortname": "BSUIR: 7 ugoschaet golubcami"
-    },
-    "667637": {
-      "shortname": "GSU: -2"
-    },
-    "667638": {
-      "shortname": "GSU: -1"
-    },
-    "667639": {
-      "shortname": "BrSU: 1 AP Team"
-    },
-    "667640": {
-      "shortname": "BNTU: FITRx3"
-    },
-    "667641": {
-      "shortname": "GrSU: 2"
-    },
-    "667642": {
-      "shortname": "BelSUT: _1"
-    },
-    "667643": {
-      "shortname": "BelSTU: 1"
-    },
-    "667644": {
-      "shortname": "GSTU: Si vis pacem, para bellum"
-    },
-    "667645": {
-      "shortname": "SPb ITMO: pengzoo"
-    },
-    "667646": {
-      "shortname": "SPb HSE: Lemon Tree"
-    },
-    "667647": {
-      "shortname": "SPb SU: dataVase"
-    },
-    "667648": {
-      "shortname": "SPb SU: Team Chill It"
-    },
-    "667649": {
-      "shortname": "SPb SU: ?5"
-    },
-    "667650": {
-      "shortname": "SPb SU: MCS: Andrew Sergeevich"
-    },
-    "667651": {
-      "shortname": "SPb SU: jazz"
-    },
-    "667652": {
-      "shortname": "SPb ITMO: Cataleptodius"
-    },
-    "667653": {
-      "shortname": "SPb ITMO: Unexpected Value"
-    },
-    "667654": {
-      "shortname": "SPb ITMO: hw"
-    },
-    "667655": {
-      "shortname": "SPb ITMO: TaskAcceptedException"
-    },
-    "667656": {
-      "shortname": "SPb HSE: HS of Abbreviations"
-    },
-    "667657": {
-      "shortname": "SPb HSE: Just4Keks"
-    },
-    "667658": {
-      "shortname": "Petrozavodsk SU: pgt Shya"
-    },
-    "667659": {
-      "shortname": "Budenny MTA: Peacemakers"
-    },
-    "667660": {
-      "shortname": "Petrozavodsk SU: Bukva yu"
-    },
-    "667661": {
-      "shortname": "Polytech: Ab absurdo 4"
-    },
-    "667662": {
-      "shortname": "Petrozavodsk SU: adamant"
-    },
-    "667663": {
-      "shortname": "SUAI: MegaSmetanka"
-    },
-    "667664": {
-      "shortname": "SUAI: 1703"
-    },
-    "667665": {
-      "shortname": "CFUV: Vernadsky"
-    },
-    "667666": {
-      "shortname": "CFUV: Endeavor"
-    },
-    "667667": {
-      "shortname": "CFUV: pod3.14vasniki"
-    },
-    "667668": {
-      "shortname": "CFUV: Team_Pepega"
-    },
-    "667669": {
-      "shortname": "YarSU: 1 Yess we can"
-    },
-    "667670": {
-      "shortname": "NArFU: 2"
-    },
-    "667671": {
-      "shortname": "AFSO: 7"
-    },
-    "667672": {
-      "shortname": "YarSU: 20 LigaDravena"
-    },
-    "667673": {
-      "shortname": "YarSU: 2 chill_owls"
-    },
-    "667674": {
-      "shortname": "RSATU: 4"
-    },
-    "667675": {
-      "shortname": "TverSU: 3 Guerilla Gorillas"
-    },
-    "667676": {
-      "shortname": "BSTU: 1 winx_v3.0"
-    },
-    "667677": {
-      "shortname": "Ural FU: The Last Dance"
-    },
-    "667678": {
-      "shortname": "Ural FU: ReFresh"
-    },
-    "667679": {
-      "shortname": "Ural FU: CheezeKEK"
-    },
-    "667680": {
-      "shortname": "Perm SU: Cats"
-    },
-    "667681": {
-      "shortname": "Ural FU: Raketa & 3 Deda"
-    },
-    "667682": {
-      "shortname": "Ural FU: Cucumber Juice 73"
-    },
-    "667683": {
-      "shortname": "Perm SU: corgi_never_sleep"
-    },
-    "667684": {
-      "shortname": "Ufa SATU: God's Choice"
-    },
-    "667685": {
-      "shortname": "Izhevsk STU: CyTheFu"
-    },
-    "667686": {
-      "shortname": "Perm SU: Plusbl"
-    },
-    "667687": {
-      "shortname": "Izhevsk STU: ZEDbl"
-    },
-    "667688": {
-      "shortname": "Tyumen SU: import.math"
-    },
-    "667689": {
-      "shortname": "Surgut SU: DieHard"
-    },
-    "667690": {
-      "shortname": "Tyumen SU: Permutation Of Lenovo"
-    },
-    "667691": {
-      "shortname": "Perm HSE: pitonishe"
-    },
-    "667692": {
-      "shortname": "Orenburg SU: feel_good"
-    },
-    "667693": {
-      "shortname": "Izhevsk STU: People++"
-    },
-    "667694": {
-      "shortname": "Orenburg SU: How much I love BTS"
-    },
-    "667695": {
-      "shortname": "South Ural SU: Masters of Crosses"
-    },
-    "667696": {
-      "shortname": "South Ural SU: UZI"
-    },
-    "667697": {
-      "shortname": "South Ural SU: 0 div 0"
-    },
-    "667698": {
-      "shortname": "Innopolis: U Q"
-    },
-    "667699": {
-      "shortname": "Penza SU: I"
-    },
-    "667700": {
-      "shortname": "UNN: Lera Retired"
-    },
-    "667701": {
-      "shortname": "UNN: Presskachat"
-    },
-    "667702": {
-      "shortname": "Innopolis: U I"
-    },
-    "667703": {
-      "shortname": "Kazan FU: A"
-    },
-    "667704": {
-      "shortname": "SFedU: E"
-    },
-    "667705": {
-      "shortname": "Saratov SU: Innopolis U 0"
-    },
-    "667706": {
-      "shortname": "Volgograd STU"
-    },
-    "667707": {
-      "shortname": "Kazan FU: V"
-    },
-    "667708": {
-      "shortname": "Saratov SU: H"
-    },
-    "667709": {
-      "shortname": "NRU HSE: NN 1"
-    },
-    "667710": {
-      "shortname": "NRU HSE: NN Brawl Stars"
-    },
-    "667711": {
-      "shortname": "MordSU: D"
-    },
-    "667712": {
-      "shortname": "VoronezhSU: H"
-    },
-    "667713": {
-      "shortname": "SFedU: C"
-    },
-    "667714": {
-      "shortname": "USTU: J"
-    },
-    "667715": {
-      "shortname": "VoronezhSU: B"
-    },
-    "667716": {
-      "shortname": "Saratov SU: P"
-    },
-    "667717": {
-      "shortname": "MordSU: E"
-    },
-    "667718": {
-      "shortname": "Kazan FU: G"
-    },
-    "667719": {
-      "shortname": "Saratov SU: J"
-    },
-    "667720": {
-      "shortname": "ASU: B"
-    },
-    "667769": {
-      "shortname": "MSU Tashkent: 1 Awesome Team"
-    },
-    "667770": {
-      "shortname": "TUIT: pfff"
-    },
-    "667771": {
-      "shortname": "RusTjkSlav: Head_Shot"
-    },
-    "667772": {
-      "shortname": "MGUD: 7"
-    },
-    "667773": {
-      "shortname": "MGUD: 2"
-    },
-    "667774": {
-      "shortname": "MGUD: 1"
-    },
-    "667775": {
-      "shortname": "MSU Tashkent: 2"
-    },
-    "667776": {
-      "shortname": "SamTUIT: SLD Group"
-    },
-    "667777": {
-      "shortname": "TUIT: Lorem Ipsum"
-    },
-    "667778": {
-      "shortname": "RusTjkSlav: NERU"
-    },
-    "667779": {
-      "shortname": "SamTUIT: oVerfitting"
-    },
-    "667780": {
-      "shortname": "TUIT: Falcon"
-    },
-    "667781": {
-      "shortname": "SamTUIT: RUNTIME tERROR"
-    },
-    "667782": {
-      "shortname": "MSU Tashkent: 4 Silent Birds"
-    },
-    "667783": {
-      "shortname": "TUIT: Algo_experts"
-    },
-    "667784": {
-      "shortname": "TUIT Urgench Branch: 1"
-    },
-    "667785": {
-      "shortname": "RusTjkSlav: Silk Way"
-    },
-    "667786": {
-      "shortname": "NUUz: geeksforgeeks"
-    },
-    "667787": {
-      "shortname": "RusTjkSlav: Shakarob"
-    },
-    "667788": {
-      "shortname": "TUIT Urgench Branch: 2"
-    },
-    "667789": {
-      "shortname": "JBNUU: M"
-    },
-    "667790": {
-      "shortname": "NUUz: NUU_10"
-    },
-    "667791": {
-      "shortname": "Namangan SU: 1"
-    },
-    "667792": {
-      "shortname": "SamSU: LifePC Group"
-    },
-    "667793": {
-      "shortname": "MIICTS: _1"
-    },
-    "667794": {
-      "shortname": "SamTUIT: thephaza"
-    },
-    "667795": {
-      "shortname": "JBNUU: Progress"
-    },
-    "667796": {
-      "shortname": "MGUD: 9"
-    },
-    "667797": {
-      "shortname": "SamSU: Dream Team"
-    },
-    "667798": {
-      "shortname": "IIAU: Revengers"
-    },
-    "667799": {
-      "shortname": "AndMII: Heaven"
-    },
-    "667800": {
-      "shortname": "IITU: SuperNoVa"
-    },
-    "667801": {
-      "shortname": "NU: 1"
-    },
-    "667802": {
-      "shortname": "KBTU: Don't panic"
-    },
-    "667803": {
-      "shortname": "AITU: 1"
-    },
-    "667804": {
-      "shortname": "IITU: set"
-    },
-    "667805": {
-      "shortname": "AITU: 2"
-    },
-    "667806": {
-      "shortname": "AITU: 4"
-    },
-    "667807": {
-      "shortname": "KBTU: Sᴬᵁ Bᴼᴸᵂᴵ"
-    },
-    "667808": {
-      "shortname": "NU: 5"
-    },
-    "667809": {
-      "shortname": "NU: 2"
-    },
-    "667810": {
-      "shortname": "IITU: ur mamaso"
-    },
-    "667811": {
-      "shortname": "SDU: 1"
-    },
-    "667812": {
-      "shortname": "KazNU: 1"
-    },
-    "667813": {
-      "shortname": "SDU: 2 Abudyn' DastanKhany"
-    },
-    "667814": {
-      "shortname": "NU: 3"
-    },
-    "667815": {
-      "shortname": "IITU: AbDiAl"
-    },
-    "667816": {
-      "shortname": "KBTU: Kazakh Mafia"
-    },
-    "667817": {
-      "shortname": "KBTU: N^3"
-    },
-    "667818": {
-      "shortname": "AITU: 5"
-    },
-    "667819": {
-      "shortname": "KazNTU: SU1"
-    },
-    "667820": {
-      "shortname": "KazNU: 2"
-    },
-    "667821": {
-      "shortname": "KazNU: 3"
-    },
-    "667822": {
-      "shortname": "KazNTU: SU2"
-    },
-    "667823": {
-      "shortname": "SDU: balmuzdaqtar"
-    },
-    "667824": {
-      "shortname": "KazNU: 4"
-    },
-    "667825": {
-      "shortname": "AIPET: _1"
-    },
-    "667826": {
-      "shortname": "KTU: 1"
-    },
-    "667827": {
-      "shortname": "Far Eastern FU: CODE work"
-    },
-    "667828": {
-      "shortname": "Far Eastern FU: Time Limit"
-    },
-    "667829": {
-      "shortname": "Far Eastern FU: Garbies"
-    },
-    "667830": {
-      "shortname": "Far Eastern FU: FlexBoiz"
-    },
-    "667831": {
-      "shortname": "Far Eastern STU: DevOchka"
-    },
-    "667832": {
-      "shortname": "Far Eastern STU: myTEAmmm"
-    },
-    "667833": {
-      "shortname": "Far Eastern STU: kekadev"
-    },
-    "667834": {
-      "shortname": "VSUES: Videokrolik"
-    },
-    "667835": {
-      "shortname": "VSUES: 8"
-    },
-    "667836": {
-      "shortname": "Irkutsk U: 4 whoami"
-    },
-    "667837": {
-      "shortname": "INRTU: 3 PolyTech"
-    },
-    "667838": {
-      "shortname": "Irkutsk U: 5 take it easy"
-    },
-    "667839": {
-      "shortname": "Irkutsk U: 2 322"
-    },
-    "667840": {
-      "shortname": "esstu: 5 Wolf Auf"
-    },
-    "667841": {
-      "shortname": "BSU: 4 nonremmitalSpiders"
-    },
-    "667842": {
-      "shortname": "IMCS SFU: 1 KlopiTarakani"
-    },
-    "667843": {
-      "shortname": "Khakas TI of SFU: 4 ZXCoders"
-    },
-    "667844": {
-      "shortname": "BSU: 3 soldaP"
-    },
-    "667845": {
-      "shortname": "ISRU: 2 molodie lisyata"
-    },
-    "667846": {
-      "shortname": "Zabaikal SU: 1"
-    },
-    "667847": {
-      "shortname": "BSU: 1 TNT"
-    },
-    "667848": {
-      "shortname": "ISRU: 1 Brainstorm"
-    },
-    "667849": {
-      "shortname": "INRTU: 2Team"
-    },
-    "667850": {
-      "shortname": "Tuvan SU: 1 Achiles Turtles"
-    },
-    "667851": {
-      "shortname": "ESSUTM: 1 ElderlyCoders"
-    },
-    "667852": {
-      "shortname": "ISIT SFU: 2 Systema auto pobedi"
-    },
-    "667853": {
-      "shortname": "Tuvan SU: 2 Akatsuki"
-    },
-    "667854": {
-      "shortname": "ISIT SFU: 4 Super Cookies"
-    },
-    "667855": {
-      "shortname": "Zabaikal SU: 2"
-    },
-    "667856": {
-      "shortname": "BSU: 2 SYAS"
-    },
-    "667857": {
-      "shortname": "Khakas TI of SFU: 1 Real Tigers"
-    },
-    "667872": {
-      "shortname": "SamSU: _ITEG_1"
-    },
-    "667898": {
-      "shortname": "BelarusianSU: 5"
-    },
-    "667899": {
-      "shortname": "BSUIR: 2 Brute Force - Best Force"
-    },
-    "667938": {
-      "shortname": "NU: 4"
-    },
-    "668532": {
-      "shortname": "YarSU: 12 HuRMa"
-    },
-    "668533": {
-      "shortname": "VyatkaGU: 9"
-    },
-    "668534": {
-      "shortname": "OrelSU: 1"
-    },
-    "668536": {
-      "shortname": "MSU Tashkent: 3 Froggg"
-    },
-    "668594": {
-      "shortname": "VoronezhSU: F"
-    },
-    "668693": {
-      "shortname": "BelarusianSU: 3 Mogilev Eagles"
-    },
-    "668694": {
-      "shortname": "HSE: Sovetskiy Soyuz"
-    },
-    "669271": {
-      "shortname": "Yerevan SU: 2813"
-    },
-    "669272": {
-      "shortname": "Yerevan SU: 1"
-    },
-    "669273": {
-      "shortname": "Yerevan SU: bit.ly/2YlU2Si"
-    },
-    "669274": {
-      "shortname": "Yerevan SU: SSD"
-    },
-    "669275": {
-      "shortname": "RAU: 2"
-    },
-    "669276": {
-      "shortname": "RAU: 1"
-    },
-    "669277": {
-      "shortname": "NPUA: polytex"
-    },
-    "669278": {
-      "shortname": "RAU: 3"
-    },
-    "669279": {
-      "shortname": "AUA: 1"
-    },
-    "669280": {
-      "shortname": "Goris SU: We and Our Mountains"
-    },
-    "669281": {
-      "shortname": "EUA: Mercury1"
-    },
-    "669282": {
-      "shortname": "APSU: ASPU"
-    },
-    "669283": {
-      "shortname": "NUACA"
-    },
-    "670017": {
-      "shortname": "KBTU: Permission denied"
-    },
-    "670045": {
-      "shortname": "YarSU: 18 Dead_Inside_Team"
-    },
-    "670108": {
-      "shortname": "NEFU"
-    }
-  }
-}
+]

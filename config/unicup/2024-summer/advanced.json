@@ -1,38 +1,91 @@
-{
-    "teamOverrideTemplate": {
+[
+    {
+        "type": "overrideTeamTemplate",
         "medias": {
-          "photo": {
-            "type": "Image",
-            "url": "http://localhost:8080/media/photo/{teamId}.jpg"
-          },
-          "achievement": {
-            "type": "Image",
-            "url": "http://localhost:8080/media/ach/{teamId}.svg"
-          },
-          "screen": {
-            "type": "M2tsVideo",
-            "url":"http://10.1.23.85:5283/stream/10.1.23.{ip}:9090?token=token"
-          },
-          "camera": {
-            "type": "M2tsVideo",
-            "url":"http://10.1.23.85:5283/stream/10.1.23.{ip}:8080?token=token"
-          }
-
-      }
+            "photo": {
+                "type": "Image",
+                "url": "http://localhost:8080/media/photo/{team.id}.jpg"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "http://localhost:8080/media/ach/{team.id}.svg"
+            },
+            "screen": {
+                "type": "M2tsVideo",
+                "url": "http://10.1.23.85:5283/stream/10.1.23.{ip}:9090?token=token"
+            },
+            "camera": {
+                "type": "M2tsVideo",
+                "url": "http://10.1.23.85:5283/stream/10.1.23.{ip}:8080?token=token"
+            }
+        }
     },
-    "teamOverrides": {
-"00":{"customFields": {"ip":"19"}},
-"01":{"customFields": {"ip":"21"}},
-"02":{"customFields": {"ip":"22"}},
-"03":{"customFields": {"ip":"23"}},
-"04":{"customFields": {"ip":"24"}},
-"05":{"customFields": {"ip":"25"}},
-"06":{"customFields": {"ip":"26"}},
-"07":{"customFields": {"ip":"27"}},
-"08":{"customFields": {"ip":"28"}},
-"09":{"customFields": {"ip":"29"}},
-"10":{"customFields": {"ip":"32"}},
-            "exteam": {"isHidden": true,"isOutOfContest": true},        
-            "domjudge": {"isHidden": true,"isOutOfContest": true}        
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "00": {
+                "customFields": {
+                    "ip": "19"
+                }
+            },
+            "01": {
+                "customFields": {
+                    "ip": "21"
+                }
+            },
+            "02": {
+                "customFields": {
+                    "ip": "22"
+                }
+            },
+            "03": {
+                "customFields": {
+                    "ip": "23"
+                }
+            },
+            "04": {
+                "customFields": {
+                    "ip": "24"
+                }
+            },
+            "05": {
+                "customFields": {
+                    "ip": "25"
+                }
+            },
+            "06": {
+                "customFields": {
+                    "ip": "26"
+                }
+            },
+            "07": {
+                "customFields": {
+                    "ip": "27"
+                }
+            },
+            "08": {
+                "customFields": {
+                    "ip": "28"
+                }
+            },
+            "09": {
+                "customFields": {
+                    "ip": "29"
+                }
+            },
+            "10": {
+                "customFields": {
+                    "ip": "32"
+                }
+            },
+            "exteam": {
+                "isHidden": true,
+                "isOutOfContest": true
+            },
+            "domjudge": {
+                "isHidden": true,
+                "isOutOfContest": true
+            }
+        }
     }
-}
+]

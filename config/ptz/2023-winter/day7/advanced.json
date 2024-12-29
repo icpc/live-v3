@@ -1,322 +1,361 @@
-{
-    "teamOverrides": {
-        "7001": {
-            "shortname": "ADA U: AzCoders"
-        },
-        "7002": {
-            "shortname": "ADA U: Pop Kek"
-        },
-        "7003": {
-            "shortname": "Astana ITU 0"
-        },
-        "7004": {
-            "shortname": "Astana ITU 1"
-        },
-        "7005": {
-            "shortname": "Astana ITU 2"
-        },
-        "7006": {
-            "shortname": "Astana ITU: Moment"
-        },
-        "7007": {
-            "shortname": "Beihang U: 3 handicapped coders"
-        },
-        "7008": {
-            "shortname": "Beihang U: Eager to embrace the seniors&apos"
-        },
-        "7009": {
-            "shortname": "Beihang U: fire and blood"
-        },
-        "7010": {
-            "shortname": "Beihang U: Racing to the Moonlight"
-        },
-        "7011": {
-            "shortname": "Belarusian SUIR #1: So stuffy"
-        },
-        "7012": {
-            "shortname": "Central South University: Unnamed"
-        },
-        "7013": {
-            "shortname": "Ecole Normale Supérieure de Paris"
-        },
-        "7014": {
-            "shortname": "Free University of Tbilisi: inksamurai"
-        },
-        "7015": {
-            "shortname": "German University in Cairo: Hemose 3al shagra wala 10 fl 2eed"
-        },
-        "7016": {
-            "shortname": "SNU 1"
-        },
-        "7017": {
-            "shortname": "Hailiang FLS + RDFZ: Anonymous"
-        },
-        "7018": {
-            "shortname": "Hangzhou Xuejun Highschool: ban Genshin Impact"
-        },
-        "7019": {
-            "shortname": "Hangzhou Xuejun Highschool: FireBladeMaster"
-        },
-        "7020": {
-            "shortname": "Hangzhou Xuejun Highschool: Nice Nature"
-        },
-        "7021": {
-            "shortname": "Harbour.Space: I eat PHP for breakfast"
-        },
-        "7022": {
-            "shortname": "Harbour.Space: P+P+P"
-        },
-        "7023": {
-            "shortname": "Harbour.Space: x^3"
-        },
-        "7024": {
-            "shortname": "RDFZ 1"
-        },
-        "7025": {
-            "shortname": "RDFZ 2"
-        },
-        "7026": {
-            "shortname": "HSE + Sch_CPM: Шары и Перегородки"
-        },
-        "7027": {
-            "shortname": "HSE: Dirizhabl&apos"
-        },
-        "7028": {
-            "shortname": "HSE: Elderly Passion Fruit"
-        },
-        "7029": {
-            "shortname": "HSE: FAT"
-        },
-        "7030": {
-            "shortname": "HSE: FFTilted"
-        },
-        "7031": {
-            "shortname": "HSE: Higher School of Rampage"
-        },
-        "7032": {
-            "shortname": "HSE: It Has To Work"
-        },
-        "7033": {
-            "shortname": "HSE: KIS"
-        },
-        "7034": {
-            "shortname": "HSE: Muffix Sassif"
-        },
-        "7035": {
-            "shortname": "HSE: nizaz"
-        },
-        "7036": {
-            "shortname": "HSE: Popular Bloggers"
-        },
-        "7037": {
-            "shortname": "HSE: sandy morning"
-        },
-        "7038": {
-            "shortname": "HSE: Undertrained+Overpressured"
-        },
-        "7039": {
-            "shortname": "HSE: ¿wanna smash?"
-        },
-        "7040": {
-            "shortname": "ICPC means Irkutsk Competitive Programming Community"
-        },
-        "7041": {
-            "shortname": "Izhevsk STU"
-        },
-        "7042": {
-            "shortname": "Izhevsk STU: hope eagles ++"
-        },
-        "7043": {
-            "shortname": "Izhevsk STU: ZEDbl"
-        },
-        "7044": {
-            "shortname": "Kazan Federal U: Konichiwa"
-        },
-        "7045": {
-            "shortname": "MEPhi: Useless but powerfull"
-        },
-        "7046": {
-            "shortname": "Moscow IPT: Log-rank conjecture"
-        },
-        "7047": {
-            "shortname": "Moscow IPT: Skyfall"
-        },
-        "7048": {
-            "shortname": "Moscow IPT: Yolki-palki"
-        },
-        "7049": {
-            "shortname": "MISiS: Eva fan club"
-        },
-        "7050": {
-            "shortname": "MAI #1"
-        },
-        "7051": {
-            "shortname": "MAI #2"
-        },
-        "7052": {
-            "shortname": "Moscow SU: NoNames"
-        },
-        "7053": {
-            "shortname": "National Taiwan University: BBQube"
-        },
-        "7054": {
-            "shortname": "National Taiwan University: ckiseki"
-        },
-        "7055": {
-            "shortname": "NNSU: Lera Retired"
-        },
-        "7056": {
-            "shortname": "NNSU-2"
-        },
-        "7057": {
-            "shortname": "Orel SU 1"
-        },
-        "7058": {
-            "shortname": "Orel SU 2"
-        },
-        "7059": {
-            "shortname": "Saratov SU1"
-        },
-        "7060": {
-            "shortname": "SCH_Moscow: Лпшки"
-        },
-        "7061": {
-            "shortname": "South Ural SU"
-        },
-        "7062": {
-            "shortname": "ITMO University: Cataleptodius"
-        },
-        "7063": {
-            "shortname": "ITMO University: pengzoo"
-        },
-        "7064": {
-            "shortname": "SPb SU 25"
-        },
-        "7065": {
-            "shortname": "SPb SU 36"
-        },
-        "7066": {
-            "shortname": "SPb SU: Urgant Team"
-        },
-        "7067": {
-            "shortname": "SESC UrFU"
-        },
-        "7068": {
-            "shortname": "Ural FU: CheezeKEK"
-        },
-        "7069": {
-            "shortname": "Voronezh SU: Сыграем в гвинт"
-        },
-        "7070": {
-            "shortname": "PetrSU 1"
-        },
-        "7071": {
-            "shortname": "PetrSU 2"
-        },
-        "7072": {
-            "shortname": "PetrSU 3"
-        },
-        "7073": {
-            "shortname": "SUST: BerlekampMassey"
-        },
-        "7074": {
-            "shortname": "IITU: SuperNova"
-        },
-        "7075": {
-            "shortname": "IITU: Defective Memory"
-        },
-        "7076": {
-            "shortname": "IITU: Old Boys United"
-        },
-        "7077": {
-            "shortname": "karelia23w-077"
-        },
-        "7078": {
-            "shortname": "karelia23w-078"
-        },
-        "7079": {
-            "shortname": "karelia23w-079"
-        },
-        "7080": {
-            "shortname": "karelia23w-080"
-        },
-        "7081": {
-            "shortname": "karelia23w-081"
-        },
-        "7082": {
-            "shortname": "karelia23w-082"
-        },
-        "7083": {
-            "shortname": "karelia23w-083"
-        },
-        "7084": {
-            "shortname": "karelia23w-084"
-        },
-        "7085": {
-            "shortname": "karelia23w-085"
-        },
-        "7086": {
-            "shortname": "karelia23w-086"
-        },
-        "7087": {
-            "shortname": "karelia23w-087"
-        },
-        "7088": {
-            "shortname": "karelia23w-088"
-        },
-        "7089": {
-            "shortname": "karelia23w-089"
-        },
-        "7090": {
-            "shortname": "* ITMO U: Budin"
-        },
-        "7091": {
-            "shortname": "* AGA Team"
-        },
-        "7092": {
-            "shortname": "* Gassa Team"
-        },
-        "7093": {
-            "shortname": "karelia23w-093"
-        },
-        "7094": {
-            "shortname": "karelia23w-094"
-        },
-        "7095": {
-            "shortname": "karelia23w-095"
-        },
-        "7096": {
-            "shortname": "karelia23w-096"
-        },
-        "7097": {
-            "shortname": "karelia23w-097"
-        },
-        "7098": {
-            "shortname": "karelia23w-098"
-        },
-        "7099": {
-            "shortname": "karelia23w-099"
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "7001": {
+                "displayName": "ADA U: AzCoders"
+            },
+            "7002": {
+                "displayName": "ADA U: Pop Kek"
+            },
+            "7003": {
+                "displayName": "Astana ITU 0"
+            },
+            "7004": {
+                "displayName": "Astana ITU 1"
+            },
+            "7005": {
+                "displayName": "Astana ITU 2"
+            },
+            "7006": {
+                "displayName": "Astana ITU: Moment"
+            },
+            "7007": {
+                "displayName": "Beihang U: 3 handicapped coders"
+            },
+            "7008": {
+                "displayName": "Beihang U: Eager to embrace the seniors&apos"
+            },
+            "7009": {
+                "displayName": "Beihang U: fire and blood"
+            },
+            "7010": {
+                "displayName": "Beihang U: Racing to the Moonlight"
+            },
+            "7011": {
+                "displayName": "Belarusian SUIR #1: So stuffy"
+            },
+            "7012": {
+                "displayName": "Central South University: Unnamed"
+            },
+            "7013": {
+                "displayName": "Ecole Normale Supérieure de Paris"
+            },
+            "7014": {
+                "displayName": "Free University of Tbilisi: inksamurai"
+            },
+            "7015": {
+                "displayName": "German University in Cairo: Hemose 3al shagra wala 10 fl 2eed"
+            },
+            "7016": {
+                "displayName": "SNU 1"
+            },
+            "7017": {
+                "displayName": "Hailiang FLS + RDFZ: Anonymous"
+            },
+            "7018": {
+                "displayName": "Hangzhou Xuejun Highschool: ban Genshin Impact"
+            },
+            "7019": {
+                "displayName": "Hangzhou Xuejun Highschool: FireBladeMaster"
+            },
+            "7020": {
+                "displayName": "Hangzhou Xuejun Highschool: Nice Nature"
+            },
+            "7021": {
+                "displayName": "Harbour.Space: I eat PHP for breakfast"
+            },
+            "7022": {
+                "displayName": "Harbour.Space: P+P+P"
+            },
+            "7023": {
+                "displayName": "Harbour.Space: x^3"
+            },
+            "7024": {
+                "displayName": "RDFZ 1"
+            },
+            "7025": {
+                "displayName": "RDFZ 2"
+            },
+            "7026": {
+                "displayName": "HSE + Sch_CPM: Шары и Перегородки"
+            },
+            "7027": {
+                "displayName": "HSE: Dirizhabl&apos"
+            },
+            "7028": {
+                "displayName": "HSE: Elderly Passion Fruit"
+            },
+            "7029": {
+                "displayName": "HSE: FAT"
+            },
+            "7030": {
+                "displayName": "HSE: FFTilted"
+            },
+            "7031": {
+                "displayName": "HSE: Higher School of Rampage"
+            },
+            "7032": {
+                "displayName": "HSE: It Has To Work"
+            },
+            "7033": {
+                "displayName": "HSE: KIS"
+            },
+            "7034": {
+                "displayName": "HSE: Muffix Sassif"
+            },
+            "7035": {
+                "displayName": "HSE: nizaz"
+            },
+            "7036": {
+                "displayName": "HSE: Popular Bloggers"
+            },
+            "7037": {
+                "displayName": "HSE: sandy morning"
+            },
+            "7038": {
+                "displayName": "HSE: Undertrained+Overpressured"
+            },
+            "7039": {
+                "displayName": "HSE: ¿wanna smash?"
+            },
+            "7040": {
+                "displayName": "ICPC means Irkutsk Competitive Programming Community"
+            },
+            "7041": {
+                "displayName": "Izhevsk STU"
+            },
+            "7042": {
+                "displayName": "Izhevsk STU: hope eagles ++"
+            },
+            "7043": {
+                "displayName": "Izhevsk STU: ZEDbl"
+            },
+            "7044": {
+                "displayName": "Kazan Federal U: Konichiwa"
+            },
+            "7045": {
+                "displayName": "MEPhi: Useless but powerfull"
+            },
+            "7046": {
+                "displayName": "Moscow IPT: Log-rank conjecture"
+            },
+            "7047": {
+                "displayName": "Moscow IPT: Skyfall"
+            },
+            "7048": {
+                "displayName": "Moscow IPT: Yolki-palki"
+            },
+            "7049": {
+                "displayName": "MISiS: Eva fan club"
+            },
+            "7050": {
+                "displayName": "MAI #1"
+            },
+            "7051": {
+                "displayName": "MAI #2"
+            },
+            "7052": {
+                "displayName": "Moscow SU: NoNames"
+            },
+            "7053": {
+                "displayName": "National Taiwan University: BBQube"
+            },
+            "7054": {
+                "displayName": "National Taiwan University: ckiseki"
+            },
+            "7055": {
+                "displayName": "NNSU: Lera Retired"
+            },
+            "7056": {
+                "displayName": "NNSU-2"
+            },
+            "7057": {
+                "displayName": "Orel SU 1"
+            },
+            "7058": {
+                "displayName": "Orel SU 2"
+            },
+            "7059": {
+                "displayName": "Saratov SU1"
+            },
+            "7060": {
+                "displayName": "SCH_Moscow: Лпшки"
+            },
+            "7061": {
+                "displayName": "South Ural SU"
+            },
+            "7062": {
+                "displayName": "ITMO University: Cataleptodius"
+            },
+            "7063": {
+                "displayName": "ITMO University: pengzoo"
+            },
+            "7064": {
+                "displayName": "SPb SU 25"
+            },
+            "7065": {
+                "displayName": "SPb SU 36"
+            },
+            "7066": {
+                "displayName": "SPb SU: Urgant Team"
+            },
+            "7067": {
+                "displayName": "SESC UrFU"
+            },
+            "7068": {
+                "displayName": "Ural FU: CheezeKEK"
+            },
+            "7069": {
+                "displayName": "Voronezh SU: Сыграем в гвинт"
+            },
+            "7070": {
+                "displayName": "PetrSU 1"
+            },
+            "7071": {
+                "displayName": "PetrSU 2"
+            },
+            "7072": {
+                "displayName": "PetrSU 3"
+            },
+            "7073": {
+                "displayName": "SUST: BerlekampMassey"
+            },
+            "7074": {
+                "displayName": "IITU: SuperNova"
+            },
+            "7075": {
+                "displayName": "IITU: Defective Memory"
+            },
+            "7076": {
+                "displayName": "IITU: Old Boys United"
+            },
+            "7077": {
+                "displayName": "karelia23w-077"
+            },
+            "7078": {
+                "displayName": "karelia23w-078"
+            },
+            "7079": {
+                "displayName": "karelia23w-079"
+            },
+            "7080": {
+                "displayName": "karelia23w-080"
+            },
+            "7081": {
+                "displayName": "karelia23w-081"
+            },
+            "7082": {
+                "displayName": "karelia23w-082"
+            },
+            "7083": {
+                "displayName": "karelia23w-083"
+            },
+            "7084": {
+                "displayName": "karelia23w-084"
+            },
+            "7085": {
+                "displayName": "karelia23w-085"
+            },
+            "7086": {
+                "displayName": "karelia23w-086"
+            },
+            "7087": {
+                "displayName": "karelia23w-087"
+            },
+            "7088": {
+                "displayName": "karelia23w-088"
+            },
+            "7089": {
+                "displayName": "karelia23w-089"
+            },
+            "7090": {
+                "displayName": "* ITMO U: Budin"
+            },
+            "7091": {
+                "displayName": "* AGA Team"
+            },
+            "7092": {
+                "displayName": "* Gassa Team"
+            },
+            "7093": {
+                "displayName": "karelia23w-093"
+            },
+            "7094": {
+                "displayName": "karelia23w-094"
+            },
+            "7095": {
+                "displayName": "karelia23w-095"
+            },
+            "7096": {
+                "displayName": "karelia23w-096"
+            },
+            "7097": {
+                "displayName": "karelia23w-097"
+            },
+            "7098": {
+                "displayName": "karelia23w-098"
+            },
+            "7099": {
+                "displayName": "karelia23w-099"
+            }
         }
     },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"},
-    "L":{"color":"#fffac8"},
-    "M":{"color":"#800000"},
-    "N":{"color":"#aaffc3"},
-    "O":{"color":"#000075"},
-    "P":{"color":"#a9a9a9"}
-  },
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": false
-  }
-}
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#f032e6ff"
+            },
+            "H": {
+                "color": "#fabed4ff"
+            },
+            "I": {
+                "color": "#469990ff"
+            },
+            "J": {
+                "color": "#dcbeffff"
+            },
+            "K": {
+                "color": "#9a6324ff"
+            },
+            "L": {
+                "color": "#fffac8ff"
+            },
+            "M": {
+                "color": "#800000ff"
+            },
+            "N": {
+                "color": "#aaffc3ff"
+            },
+            "O": {
+                "color": "#000075ff"
+            },
+            "P": {
+                "color": "#a9a9a9ff"
+            }
+        }
+    }
+]

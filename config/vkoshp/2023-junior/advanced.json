@@ -1,37 +1,106 @@
-{
-  "teamOverrides": {
-    "g12548=vkoshp23fin001": {"shortname": "Москва, WTA × OUM, 6"},
-    "g12548=vkoshp23fin002": {"shortname": "Санкт-Петербург, АксиомаКодаКапибар, 7"},
-    "g12548=vkoshp23fin003": {"shortname": "Уфа, fRuntime, 6"},
-    "g12548=vkoshp23fin004": {"shortname": "Киров, НКСТПСАФБЧЮ, 7"},
-    "g12548=vkoshp23fin005": {"shortname": "Москва, АЛус, 7"},
-    "g12548=vkoshp23fin006": {"shortname": "Москва, СДБ-АСС, 7"},
-    "g12548=vkoshp23fin007": {"shortname": "Санкт-Петербург, Котята-1, 7"},
-    "g12548=vkoshp23fin008": {"shortname": "Ульяновск, Код Успеха - Гипертекстовый кофейник, 7"},
-    "g12548=vkoshp23fin009": {"shortname": "Екатеринбург, До Мажоры, 8"},
-    "g12548=vkoshp23fin010": {"shortname": "Казань, Без Datы, 8"},
-    "g12548=vkoshp23fin011": {"shortname": "Липецк, Бипки, 8"},
-    "g12548=vkoshp23fin012": {"shortname": "Москва, Ellipsis Содружество 54,  8"},
-    "g12548=vkoshp23fin013": {"shortname": "Москва, Египетская сила, 8"},
-    "g12548=vkoshp23fin014": {"shortname": "Москва, ФКГЭ, 8"},
-    "g12548=vkoshp23fin015": {"shortname": "Нижний Новгород, Не влияем, 8"},
-    "g12548=vkoshp23fin016": {"shortname": "Санкт-Петербург, Три Дырявых Ведра, 8"},
-    "g12548=vkoshp23fin017": {"shortname": "Челябинск, Мы любим учиться!, 8"},
-    "g12548=vkoshp23fin018": {"shortname": "Москва, Белгород, Невзвешенный Ориентированный Граф, 6"},
-    "g12548=vkoshp23fin019": {"shortname": "Ульяновск, Код Успеха 4, 6"},
-    "g12548=vkoshp23fin020": {"shortname": "Челябинск, Nivea Man, 6"},
-    "g12548=vkoshp23fin021": {"shortname": "Екатеринбург, ДБМБ, 7"},
-    "g12548=vkoshp23fin022": {"shortname": "Липецк, Lipetsk Junior, 7"},
-    "g12548=vkoshp23fin023": {"shortname": "Москва, ▼・ᴥ・▼, 7"},
-    "g12548=vkoshp23fin024": {"shortname": "Москва, 2007-7-1, 7"},
-    "g12548=vkoshp23fin025": {"shortname": "Санкт-Петербург, мынеможемопределиться, 7"},
-    "g12548=vkoshp23fin026": {"shortname": "Ульяновск, Код Успеха 2, 7"},
-    "g12548=vkoshp23fin027": {"shortname": "Екатеринбург, Шабс, 8"},
-    "g12548=vkoshp23fin028": {"shortname": "Московская область, Попытка - не пытка, 8"},
-    "g12548=vkoshp23fin029": {"shortname": "Москва, Фан-клуб Мирослава Адаменко, 8"},
-    "g12548=vkoshp23fin030": {"shortname": "Москва, Гриффиндор, 8"},
-    "g12548=vkoshp23fin031": {"shortname": "Москва, Бомонд2007, 8"},
-    "g12548=vkoshp23fin032": {"shortname": "Санкт-Петербург, KostyaBel fat-club, 8"},
-    "g12548=vkoshp23fin033": {"shortname": "Санкт-Петербург, NaVi.cpp, 8"}
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "g12548=vkoshp23fin001": {
+                "displayName": "Москва, WTA × OUM, 6"
+            },
+            "g12548=vkoshp23fin002": {
+                "displayName": "Санкт-Петербург, АксиомаКодаКапибар, 7"
+            },
+            "g12548=vkoshp23fin003": {
+                "displayName": "Уфа, fRuntime, 6"
+            },
+            "g12548=vkoshp23fin004": {
+                "displayName": "Киров, НКСТПСАФБЧЮ, 7"
+            },
+            "g12548=vkoshp23fin005": {
+                "displayName": "Москва, АЛус, 7"
+            },
+            "g12548=vkoshp23fin006": {
+                "displayName": "Москва, СДБ-АСС, 7"
+            },
+            "g12548=vkoshp23fin007": {
+                "displayName": "Санкт-Петербург, Котята-1, 7"
+            },
+            "g12548=vkoshp23fin008": {
+                "displayName": "Ульяновск, Код Успеха - Гипертекстовый кофейник, 7"
+            },
+            "g12548=vkoshp23fin009": {
+                "displayName": "Екатеринбург, До Мажоры, 8"
+            },
+            "g12548=vkoshp23fin010": {
+                "displayName": "Казань, Без Datы, 8"
+            },
+            "g12548=vkoshp23fin011": {
+                "displayName": "Липецк, Бипки, 8"
+            },
+            "g12548=vkoshp23fin012": {
+                "displayName": "Москва, Ellipsis Содружество 54,  8"
+            },
+            "g12548=vkoshp23fin013": {
+                "displayName": "Москва, Египетская сила, 8"
+            },
+            "g12548=vkoshp23fin014": {
+                "displayName": "Москва, ФКГЭ, 8"
+            },
+            "g12548=vkoshp23fin015": {
+                "displayName": "Нижний Новгород, Не влияем, 8"
+            },
+            "g12548=vkoshp23fin016": {
+                "displayName": "Санкт-Петербург, Три Дырявых Ведра, 8"
+            },
+            "g12548=vkoshp23fin017": {
+                "displayName": "Челябинск, Мы любим учиться!, 8"
+            },
+            "g12548=vkoshp23fin018": {
+                "displayName": "Москва, Белгород, Невзвешенный Ориентированный Граф, 6"
+            },
+            "g12548=vkoshp23fin019": {
+                "displayName": "Ульяновск, Код Успеха 4, 6"
+            },
+            "g12548=vkoshp23fin020": {
+                "displayName": "Челябинск, Nivea Man, 6"
+            },
+            "g12548=vkoshp23fin021": {
+                "displayName": "Екатеринбург, ДБМБ, 7"
+            },
+            "g12548=vkoshp23fin022": {
+                "displayName": "Липецк, Lipetsk Junior, 7"
+            },
+            "g12548=vkoshp23fin023": {
+                "displayName": "Москва, ▼・ᴥ・▼, 7"
+            },
+            "g12548=vkoshp23fin024": {
+                "displayName": "Москва, 2007-7-1, 7"
+            },
+            "g12548=vkoshp23fin025": {
+                "displayName": "Санкт-Петербург, мынеможемопределиться, 7"
+            },
+            "g12548=vkoshp23fin026": {
+                "displayName": "Ульяновск, Код Успеха 2, 7"
+            },
+            "g12548=vkoshp23fin027": {
+                "displayName": "Екатеринбург, Шабс, 8"
+            },
+            "g12548=vkoshp23fin028": {
+                "displayName": "Московская область, Попытка - не пытка, 8"
+            },
+            "g12548=vkoshp23fin029": {
+                "displayName": "Москва, Фан-клуб Мирослава Адаменко, 8"
+            },
+            "g12548=vkoshp23fin030": {
+                "displayName": "Москва, Гриффиндор, 8"
+            },
+            "g12548=vkoshp23fin031": {
+                "displayName": "Москва, Бомонд2007, 8"
+            },
+            "g12548=vkoshp23fin032": {
+                "displayName": "Санкт-Петербург, KostyaBel fat-club, 8"
+            },
+            "g12548=vkoshp23fin033": {
+                "displayName": "Санкт-Петербург, NaVi.cpp, 8"
+            }
+        }
     }
-}
+]

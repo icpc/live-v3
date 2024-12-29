@@ -1,14 +1,16 @@
-{
-    "teamOverrides": {
-        "31": {
-            "shortname": "UvA: \uD83C\uDDFA\uD83C\uDDF3\uD83C\uDDEE\uD83C\uDDE8\uD83C\uDDF4\u200B\uD83C\uDDE9\uD83C\uDDEA"
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "31": {
+                "displayName": "UvA: 🇺🇳🇮🇨🇴​🇩🇪"
+            }
         }
     },
-    "awardsSettings": {
-        "medals": [
-            {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-            {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 8},
-            {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-        ]
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
     }
-}
+]

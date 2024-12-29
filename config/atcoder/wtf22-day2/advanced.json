@@ -1,35 +1,141 @@
-{   
-  "problemOverrides": {
-    "wtf22_day2_a": {"color": "#FF00FE"},
-    "wtf22_day2_b": {"color": "#FFFFFF"},
-    "wtf22_day2_c": {"color": "#9B01FF"},
-    "wtf22_day2_d": {"color": "#FE0000"},
-    "wtf22_day2_e": {"color": "#FFFF00"}
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
-      {"id": "silver-medal", "citation": "Silver Medal","color": "SILVER", "maxRank": 2},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 3}
-    ]
-  },
-  "teamOverrideTemplate": {
-    "medias": {
-      "achievement": {
-        "type": "Image",
-        "url": "/media/achievement/{teamId}.svg"
-      }
+[
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "achievement": {
+                "type": "Image",
+                "url": "/media/achievement/{team.id}.svg"
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "tourist": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "001",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            },
+            "ecnerwala": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "002",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            },
+            "ksun48": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "004",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            },
+            "LHiC": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "007",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            },
+            "mnbvmar": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "008",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            },
+            "heno239": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "014",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            },
+            "mulgokizary": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "015",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            },
+            "Mr_Eight": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "016",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            },
+            "zhoukangyang": {
+                "medias": {
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "017",
+                        "streamType": "webcam",
+                        "credential": ""
+                    }
+                }
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "wtf22_day2_a": {
+                "color": "#ff00feff"
+            },
+            "wtf22_day2_b": {
+                "color": "#ffffffff"
+            },
+            "wtf22_day2_c": {
+                "color": "#9b01ffff"
+            },
+            "wtf22_day2_d": {
+                "color": "#fe0000ff"
+            },
+            "wtf22_day2_e": {
+                "color": "#ffff00ff"
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 1,
+        "bronze": 1
     }
-  },
-  "teamOverrides": {
-    "tourist": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "001", "streamType": "webcam", "credential": "" }}},
-    "ecnerwala": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "002", "streamType": "webcam", "credential": "" }}},
-    "ksun48": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "004", "streamType": "webcam", "credential": "" }}},
-    "LHiC": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "007", "streamType": "webcam", "credential": "" }}},
-    "mnbvmar": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "008", "streamType": "webcam", "credential": "" }}},
-    "heno239": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "014", "streamType": "webcam", "credential": "" }}},
-    "mulgokizary": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "015", "streamType": "webcam", "credential": "" }}},
-    "Mr_Eight": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "016", "streamType": "webcam", "credential": "" }}},
-    "zhoukangyang": {"medias": {"camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "017", "streamType": "webcam", "credential": "" }}}
-  }
-}
+]

@@ -1,16 +1,19 @@
-{
-  "problemOverrides": {
-    "A": {
-      "color": "#e6194B"
-    },
-    "B": {
-      "color": "#3cb44b"
-    },
-    "C": {
-      "color": "#ffe119"
-    },
-    "D": {
-      "color": "#4363d8"
+[
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            }
+        }
     }
-  }
-}
+]
