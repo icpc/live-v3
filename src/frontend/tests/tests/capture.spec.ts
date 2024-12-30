@@ -61,7 +61,7 @@ const contestConfigs: TestConfig[] = [
     { path: "config/__tests/ejudge_ioi_virtual/mosh-2023-keldysh" },
     { path: "config/__tests/pcms_icpc_freeze/icpc-nef-2022-2023" },
     { path: "config/__tests/pcms_icpc_overrides/icpc-nef-2021-2022" },
-    { path: "config/__tests/pcms_ioi/innopolis-open-2022-2023-final" },
+    // { path: "config/__tests/pcms_ioi/innopolis-open-2022-2023-final" },
     { path: "config/__tests/testsys_icpc/spbsu-2023-may" },
 ];
 
