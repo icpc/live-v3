@@ -4,6 +4,10 @@ import io.ktor.http.encodeURLParameter
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
+import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.logger
+import org.icpclive.cds.util.runCatchingIfNotCancellation
+import java.util.concurrent.CancellationException
 
 private val templateRegex = kotlin.text.Regex("\\{(!?[a-z0-9A-Z_.-]*)}")
 
@@ -141,18 +145,30 @@ public data class OverrideTeamTemplate(
 
     @OptIn(InefficientContestInfoApi::class)
     override fun desugar(info: ContestInfo): TuningRule {
+        fun <T> Result<T>.getOrNullAndWarn(regex: Regex, value: String, replacement: String? = null) : T? {
+            exceptionOrNull()?.let {
+                logger(OverrideTeamTemplate::class).error(it) {
+                    "Problems during executing regular expression `${regex}` on value `$value` with replacement `$replacement`"
+                }
+            }
+            return getOrNull()
+        }
         return OverrideTeams(
             info.teamList.associate { teamInfo ->
                 val extraCustomValues = buildMap {
                     for ((blockName, parser) in regexes) {
                         val fromValue = info.getTemplateValue(parser.from, teamInfo.id, this, false)
                         for ((regex, extras) in parser.rules) {
-                            val match = regex.matchEntire(fromValue) ?: continue
+                            val match = runCatchingIfNotCancellation {
+                                regex.matchEntire(fromValue)
+                            }.getOrNullAndWarn(regex, fromValue, null) ?: continue
                             for ((index, group) in match.groupValues.withIndex().drop(1)) {
                                 put("$blockName.$index", group)
                             }
                             for ((key, value) in extras) {
-                                put("$blockName.$key", regex.replace(fromValue, value))
+                                put("$blockName.$key", runCatchingIfNotCancellation {
+                                    regex.replace(fromValue, value)
+                                }.getOrNullAndWarn(regex, fromValue, value) ?: continue)
                             }
                             break
                         }

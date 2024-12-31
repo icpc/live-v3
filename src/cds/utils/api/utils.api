@@ -8,6 +8,7 @@ public final class org/icpclive/cds/util/FileChangesWatcherKt {
 public final class org/icpclive/cds/util/FlowUtilsKt {
 	public static final fun logAndRetryWithDelay-8Mi8wO0 (Lkotlinx/coroutines/flow/Flow;JLkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun loopFlow-KLykuaI (JLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun runCatchingIfNotCancellation (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 }
 
 public final class org/icpclive/cds/util/Logger {
