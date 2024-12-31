@@ -6,6 +6,18 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.util.serializers.DurationInSecondsSerializer
 import kotlin.time.Duration
 
+/**
+ * This rule allows customization of the queue behavior*
+ *
+ * All fields can be null, existing values are not changed in that case.
+ *
+ * @param waitTime Time in the queue for regular run after it was tested.
+ * @param firstToSolveWaitTime Time in the queue for first-to-solve run after it was tested.
+ * @param featuredRunWaitTime Time in the queue for featured run after it was tested or set featured, whatever is later.
+ * @param inProgressRunWaitTime Time in the queue for in-progress run after last progress update.
+ * @param maxQueueSize Maximal number of runs in queue.
+ * @param maxUntestedRun Maximal number of in-progress runs in queue
+ */
 @Serializable
 @SerialName("overrideQueue")
 public data class OverrideQueue(

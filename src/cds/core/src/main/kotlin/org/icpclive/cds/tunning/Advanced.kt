@@ -13,12 +13,6 @@ import org.icpclive.cds.util.serializers.*
 import java.io.InputStream
 import kotlin.time.Duration
 
-
-/**
- * @param penaltyPerWrongAttempt How many penalty minutes should be added to a team for a wrong attempt
- * @param showTeamsWithoutSubmissions If true, teams without submissions would be automatically hidden
- * @param penaltyRoundingMode Specify rules of how total penalty is calculated based on many submissions
- */
 @Serializable
 public class RankingSettings(
     @Serializable(with = DurationInMinutesSerializer::class)
@@ -86,10 +80,10 @@ public class AdvancedProperties(
     public val teamOverrideTemplate: TeamOverrideTemplate? = null,
     public val teamNameRegexes: TeamRegexOverrides? = null,
     public val teamIdRegexes: TeamRegexOverrides? = null,
-    public val teamOverrides: Map<TeamId, TeamInfoOverride>? = null,
-    public val groupOverrides: Map<GroupId, GroupInfoOverride>? = null,
-    public val organizationOverrides: Map<OrganizationId, OrganizationInfoOverride>? = null,
-    public val problemOverrides: Map<ProblemId, ProblemInfoOverride>? = null,
+    public val teamOverrides: Map<TeamId, OverrideTeams.Override>? = null,
+    public val groupOverrides: Map<GroupId, OverrideGroups.Override>? = null,
+    public val organizationOverrides: Map<OrganizationId, OverrideOrganizations.Override>? = null,
+    public val problemOverrides: Map<ProblemId, OverrideProblems.Override>? = null,
     public val scoreboardOverrides: RankingSettings? = null,
     public val awardsSettings: AwardsSettingsOverride? = null,
     public val queueSettings: QueueSettingsOverride? = null,
@@ -156,17 +150,6 @@ public class TeamRegexOverrides(
     public val groupRegex: Map<String, Regex>? = null,
 )
 
-/**
- * Template for the team override.
- *
- * It has smaller priority than override in the team itself.
- *
- * Check [AdvancedProperties] doc about patterns inside template.
- *
- * @property displayName Template string for team display name. Check [TeamInfoOverride.displayName] for details.
- * @property fullName Template string for team full name. Check [TeamInfoOverride.fullName] for details.
- * @property medias Templates for team medias. Check [TeamInfoOverride.medias] for details.
- */
 @Serializable
 public class TeamOverrideTemplate(
     public val displayName: String? = null,
@@ -218,7 +201,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
         freezeTime = freezeTime.takeIfAsked("freezeTime"),
         holdTime = (status as? ContestStatus.BEFORE)?.holdTime?.takeIfAsked("holdBeforeStartTime"),
         teamOverrides = teamList.associate {
-            it.id to TeamInfoOverride(
+            it.id to OverrideTeams.Override(
                 fullName = it.fullName.takeIfAsked("fullName"),
                 displayName = it.displayName.takeIfAsked("displayName"),
                 groups = it.groups.takeIfAsked("groups"),
@@ -231,7 +214,7 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
             )
         },
         problemOverrides = problemList.associate {
-            it.id to ProblemInfoOverride(
+            it.id to OverrideProblems.Override(
                 displayName = it.displayName.takeIfAsked("problemDisplayName"),
                 fullName = it.fullName.takeIfAsked("problemFullName"),
                 color = it.color.takeIfAsked("color"),
@@ -244,14 +227,14 @@ public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProper
             )
         },
         groupOverrides = groupList.associate {
-            it.id to GroupInfoOverride(
+            it.id to OverrideGroups.Override(
                 displayName = it.displayName.takeIfAsked("groupDisplayName"),
                 isHidden = it.isHidden.takeIfAsked("groupIsHidden"),
                 isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest"),
             )
         },
         organizationOverrides = organizationList.associate {
-            it.id to OrganizationInfoOverride(
+            it.id to OverrideOrganizations.Override(
                 displayName = it.displayName.takeIfAsked("orgDisplayName"),
                 fullName = it.fullName.takeIfAsked("orgFullName"),
                 logo = it.logo.takeIfAsked("logo")

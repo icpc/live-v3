@@ -6,6 +6,15 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.util.serializers.DurationInMinutesSerializer
 import kotlin.time.Duration
 
+/**
+ * The rule customizing scoreboard calculation rules.
+ *
+ * All fields can be null, existing values are not changed in that case.
+ *
+ * @param penaltyPerWrongAttempt how much penalty time wrong attempt cost for a team
+ * @param showTeamsWithoutSubmissions should teams without submissions be shown in the scoreboard?
+ * @param penaltyRoundingMode specifies rules on how penalty time is calculated from times of submissions
+ */
 @Serializable
 @SerialName("overrideScoreboardSettings")
 public data class OverrideScoreboardSettings(

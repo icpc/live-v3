@@ -5,6 +5,21 @@ import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
 import org.icpclive.cds.api.AwardsSettings.*
 
+/**
+ * A rule specifying awards to be given to teams
+ *
+ * All fields can be null, existing values are not changed in that case.
+ *
+ * Most of the awards are only useful for export, and don't affect visual representation in overlay.
+ *
+ * @param championTitle citation for award for winner of the contest
+ * @param groupsChampionTitles map from group id to citation of award for best team in the group
+ * @param rankAwardsMaxRank How many awards of "Rank #rank" to award
+ * @param medalGroups List of medal types to award. Medals inside one time are mutually exclusive (like gold/silver/bronze medal), medals inside different groups are now (like medal and diploma)
+ * @param extraMedalGroups Same as [medalGroups], but don't remove existing ones.
+ * @param manualAwards A list of awards with specified number of teams to receive. Useful for complex awards like "qualified to next stage".
+ * @param extraManualAwards Same as [manualAwards], but don't remove existing ones.
+ */
 @Serializable
 @SerialName("overrideAwards")
 public data class OverrideAwards(
@@ -30,6 +45,16 @@ public data class OverrideAwards(
     }
 }
 
+/**
+ * A short-cut rule to specify medals only for purposes of scoreboard in overlay
+ *
+ * Would use some default ids/citations for export.
+ * @param gold number of gold medals
+ * @param silver number of silver medals
+ * @param bronze number of bronze medals
+ * @param tiebreakMode rule how medals are distributed in case of tie
+ * @param minScore Minimal score (number of problems in ICPC mode) to receiver medal.
+ */
 @Serializable
 @SerialName("addMedals")
 public data class AddMedals(
@@ -38,7 +63,7 @@ public data class AddMedals(
     val bronze: Int = 0,
     val tiebreakMode: MedalTiebreakMode = MedalTiebreakMode.ALL,
     val minScore: Double = Double.MIN_VALUE
-) : SimpleDesugarableTuningRule {
+) : SimpleDesugarable, TuningRule {
     override fun desugar(): TuningRule {
         return OverrideAwards(
             extraMedalGroups = listOf(
@@ -51,5 +76,9 @@ public data class AddMedals(
                 )
             )
         )
+    }
+
+    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
+        return desugar().process(info, submittedTeams)
     }
 }

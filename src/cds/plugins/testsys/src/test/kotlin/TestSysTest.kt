@@ -28,7 +28,7 @@ object TestSysTest : CdsLoadersTest() {
             listOf(
                 OverrideTeamTemplate(
                     regexes = mapOf(
-                        "groups" to TemplateRegexParser(
+                        "groups" to OverrideTeamTemplate.RegexParser(
                             from = "{team.fullName}",
                             rules = mapOf(
                                 Regex("^\\(1к\\).*") to mapOf("id" to "firstGrade"),
@@ -36,7 +36,7 @@ object TestSysTest : CdsLoadersTest() {
                                 Regex("^\\(вк\\).*") to mapOf("id" to "outOfContest"),
                             )
                         ),
-                        "custom" to TemplateRegexParser(
+                        "custom" to OverrideTeamTemplate.RegexParser(
                             from = "{team.fullName}",
                             rules = mapOf(
                                 Regex("^(?:\\(..\\) )?(.*) \\([^)]*\\)") to mapOf("funnyNameValue" to "$1")
@@ -48,7 +48,7 @@ object TestSysTest : CdsLoadersTest() {
                         "funnyName" to "{regexes.custom.funnyNameValue}"
                     )
                 ),
-                OverrideGroups(mapOf("outOfContest".toGroupId() to GroupInfoOverride(isOutOfContest = true))),
+                OverrideGroups(mapOf("outOfContest".toGroupId() to OverrideGroups.Override(isOutOfContest = true))),
                 OverrideTeamTemplate(displayName = "{funnyName}")
             )
         )

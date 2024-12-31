@@ -1,10 +1,10 @@
 This doc is a bit outdated, although it is still a good source of examples.
-Full description of all properties supported can be found [here](https://icpc.io/live-v3/cds/cds/core/org.icpclive.cds.tunning/-advanced-properties/index.html)
+Full description of all properties supported can be found [here](https://icpc.io/live-v3/cds/cds/core/org.icpclive.cds.tunning/-tuning-rule/index.html)
 
 # How to setup advanced.json
 
 Apart from ```settings.json``` file, each contest can adjust imported from contest management system using ```advanced.json``` file.
-Check current status at [http://localhost:8080/api/admin/advancedJsonPreview?fields=all](http://localhost:8080/api/admin/advancedJsonPreview?fields=all)
+Check the current status at [http://localhost:8080/api/admin/advancedJsonPreview?fields=all](http://localhost:8080/api/admin/advancedJsonPreview?fields=all)
 
 ## Change contestant name, hashtag, group, medias and other properties
 

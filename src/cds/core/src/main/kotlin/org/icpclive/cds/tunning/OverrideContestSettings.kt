@@ -9,9 +9,24 @@ import org.icpclive.cds.util.serializers.DurationInSecondsSerializer
 import org.icpclive.cds.util.serializers.HumanTimeSerializer
 import kotlin.time.Duration
 
+/**
+ * A rule overriding basic settings of contest.
+ *
+ * All fields can be null, existing values are not changed in that case.
+ *
+ * If any of [startTime]/[contestLength]/[holdTime] is updated this can change [ContestStatus],
+ * based on current time. In particular, overriding [startTime] to the same value can be used
+ * to fix contest system reporting start time in the past, but contest in [ContestStatus.BEFORE] state.
+ *
+ * @param name The name of the contest
+ * @param startTime Start time of the contest.
+ * @param contestLength Length of contest. Serialized in seconds as `contestLengthSeconds`
+ * @param freezeTime Moment of the contest, when the freeze starts. Serialized in seconds as `freezeTimeSeconds`
+ * @param holdTime Stopped timer value in before state. Ignored, if resulting contest state is not [ContestStatus.BEFORE].
+ */
 @Serializable
 @SerialName("overrideContestSettings")
-public data class OverrideTimes(
+public data class OverrideContestSettings(
     public val name: String? = null,
     @Serializable(with = HumanTimeSerializer::class)
     public val startTime: Instant? = null,

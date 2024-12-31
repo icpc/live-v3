@@ -8,6 +8,16 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.api.AwardsSettings.MedalGroup
 import java.io.InputStream
 
+/**
+ * This is a base interface for all rules in advanced.json file.
+ *
+ * Ideally, all information should be received from the contest system.
+ * Unfortunately, in the real world, it's not always possible, or information
+ * can be not fully correct or convenient to display.
+ *
+ * To deal with it, you can specify advanced.json file containing a list of [TuningRule]s,
+ * which would update existing information loaded from the contest system.
+ */
 @Serializable
 public sealed interface TuningRule {
     public companion object {
@@ -19,6 +29,7 @@ public sealed interface TuningRule {
         public fun listFromString(input: String): List<TuningRule> = json.decodeFromString(input)
         public fun listFromInputStream(input: InputStream): List<TuningRule> = json.decodeFromStream(input)
     }
+
     public fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo
 }
 
@@ -28,15 +39,19 @@ public sealed interface TuningRule {
 @Serializable
 internal value class TuningRuleList(val list: List<TuningRule>)
 
-public sealed interface DesugarableTuningRule : TuningRule {
-    public fun desugar(info: ContestInfo): TuningRule
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
-        return desugar(info).process(info, submittedTeams)
-    }
+/**
+ * A helper interface for rules that can be represented as more basic but verbose rule, if [ContestInfo] provided.
+ */
+public interface Desugarable {
+    public abstract fun desugar(info: ContestInfo): TuningRule
 }
 
-public sealed interface SimpleDesugarableTuningRule : DesugarableTuningRule {
-    public fun desugar(): TuningRule
+/**
+ * A helper interface for rules that can be represented as more basic but verbose rule.
+ * Mostly, such rules are just shortcuts to something more basic
+ */
+public interface SimpleDesugarable : Desugarable {
+    public abstract fun desugar(): TuningRule
     override fun desugar(info: ContestInfo): TuningRule = desugar()
 }
 
@@ -45,7 +60,7 @@ private fun <K, V> mapOfNotNull(vararg pairs: Pair<K, V?>): Map<K, V> =
 
 public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buildRulesList@{
     if (contestName != null || startTime != null || contestLength != null || freezeTime != null || holdTime != null) {
-        add(OverrideTimes(
+        add(OverrideContestSettings(
             name = contestName,
             startTime = startTime,
             contestLength = contestLength,
@@ -62,13 +77,13 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buildR
                 OverrideTeamTemplate(
                     regexes = mapOfNotNull(
                         "org" to organizationRegex?.regexes?.let {
-                            TemplateRegexParser(
+                            OverrideTeamTemplate.RegexParser(
                                 from = from,
                                 rules = it.mapValues { mapOf("id" to it.value) }
                             )
                         },
                         "group" to groupRegex?.entries?.let {
-                            TemplateRegexParser(
+                            OverrideTeamTemplate.RegexParser(
                                 from = from,
                                 rules = it.associate { it.value to mapOf("id" to it.key) }
                             )
@@ -82,7 +97,7 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buildR
                                 }
                             }.groupBy({ it.second.toString() }, { it.first to it.third })
                                 .mapValues { it.value.toMap() }
-                            TemplateRegexParser(
+                            OverrideTeamTemplate.RegexParser(
                                 from = from,
                                 rules = data.mapKeys { Regex(it.key) }
                             )
