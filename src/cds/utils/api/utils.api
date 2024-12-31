@@ -35,6 +35,7 @@ public final class org/icpclive/cds/util/LoggerProvider {
 public final class org/icpclive/cds/util/LoggingUtilsKt {
 	public static final fun getLogger ()Lorg/icpclive/cds/util/LoggerProvider;
 	public static final fun logger (Ljava/lang/Class;)Lorg/icpclive/cds/util/Logger;
+	public static final fun logger (Lkotlin/reflect/KClass;)Lorg/icpclive/cds/util/Logger;
 }
 
 public final class org/icpclive/cds/util/SerializationUtilsKt {

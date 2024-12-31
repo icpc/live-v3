@@ -255,7 +255,7 @@ export interface MedalSettings {
   citation: string;
   color?: MedalColor | null;
   maxRank?: number | null;
-  minScore?: number;
+  minScore?: number | null;
   tiebreakMode?: MedalTiebreakMode;
 }
 

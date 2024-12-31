@@ -25,9 +25,9 @@ public data class AwardsSettings(
      *
      * @param id ID of award
      * @param citation Award text.
-     * @param color Color of award to hightlight teams in overlay
+     * @param color Color of award to highlight teams in overlay
      * @param maxRank If not null, only teams with rank of at most [maxRank] are eligible.
-     * @param minScore Only teams with score of at leat [minScore] are eligible. By default, any non-zero score is required to receive a medal.
+     * @param minScore Only teams with score of at least [minScore] are eligible. By default, any non-zero score is required to receive a medal.
      * @param tiebreakMode In case of tied ranks, if [MedalTiebreakMode.NONE] none of the teams will be awarded, if [MedalTiebreakMode.ALL] - all.
      */
     @Serializable
@@ -36,7 +36,7 @@ public data class AwardsSettings(
         val citation: String,
         val color: Award.Medal.MedalColor? = null,
         val maxRank: Int? = null,
-        val minScore: Double = Double.MIN_VALUE,
+        val minScore: Double? = null,
         val tiebreakMode: MedalTiebreakMode = MedalTiebreakMode.ALL,
     )
 

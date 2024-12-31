@@ -180,3 +180,88 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buildR
         add(OverrideQueue(queueSettings.waitTime, queueSettings.firstToSolveWaitTime, queueSettings.featuredRunWaitTime, queueSettings.inProgressRunWaitTime, queueSettings.maxQueueSize, queueSettings.maxUntestedRun))
     }
 }
+
+/**
+ * Converts values in [ContestInfo] to overrides in [AdvancedProperties
+ *
+ * @param fields set of fields to include in returned value. Other would be set to null
+ */
+@OptIn(InefficientContestInfoApi::class)
+public fun ContestInfo.toRulesList(): List<TuningRule> {
+    return listOf(
+        OverrideContestSettings(
+            name = name,
+            startTime = startTime,
+            contestLength = contestLength,
+            freezeTime = freezeTime,
+            holdTime = (status as? ContestStatus.BEFORE)?.holdTime,
+        ),
+        OverrideTeams(
+            rules = teamList.associate {
+                it.id to OverrideTeams.Override(
+                    fullName = it.fullName,
+                    displayName = it.displayName,
+                    groups = it.groups,
+                    organizationId = it.organizationId,
+                    hashTag = it.hashTag,
+                    medias = it.medias,
+                    customFields = it.customFields,
+                    isHidden = it.isHidden,
+                    isOutOfContest = it.isOutOfContest
+                )
+            }
+        ),
+        OverrideProblems(
+            rules = problemList.associate {
+                it.id to OverrideProblems.Override(
+                    displayName = it.displayName,
+                    fullName = it.fullName,
+                    color = it.color,
+                    unsolvedColor = it.color,
+                    ordinal = it.ordinal,
+                    minScore = it.minScore,
+                    maxScore = it.maxScore,
+                    scoreMergeMode = it.scoreMergeMode,
+                    isHidden = it.isHidden
+                )
+            }
+        ),
+        OverrideGroups(
+            rules = groupList.associate {
+                it.id to OverrideGroups.Override(
+                    displayName = it.displayName,
+                    isHidden = it.isHidden,
+                    isOutOfContest = it.isOutOfContest,
+                )
+            }
+        ),
+        OverrideOrganizations(
+            rules = organizationList.associate {
+                it.id to OverrideOrganizations.Override(
+                    displayName = it.displayName,
+                    fullName = it.fullName,
+                    logo = it.logo
+                )
+            }
+        ),
+        OverrideScoreboardSettings(
+            penaltyPerWrongAttempt = penaltyPerWrongAttempt,
+            penaltyRoundingMode = penaltyRoundingMode
+        ),
+        OverrideAwards(
+            championTitle = awardsSettings.championTitle,
+            groupsChampionTitles = awardsSettings.groupsChampionTitles,
+            rankAwardsMaxRank = awardsSettings.rankAwardsMaxRank,
+            medalGroups = awardsSettings.medalGroups,
+            manualAwards = awardsSettings.manual,
+        ),
+        OverrideQueue(
+            waitTime = queueSettings.waitTime,
+            firstToSolveWaitTime = queueSettings.firstToSolveWaitTime,
+            featuredRunWaitTime = queueSettings.featuredRunWaitTime,
+            inProgressRunWaitTime = queueSettings.inProgressRunWaitTime,
+            maxQueueSize = queueSettings.maxQueueSize,
+            maxUntestedRun = queueSettings.maxUntestedRun,
+        )
+    )
+}

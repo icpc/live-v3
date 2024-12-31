@@ -51,11 +51,11 @@
                 "bronze": {
                     "type": "number"
                 },
-                "tiebreakMode": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode<org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.NONE,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.ALL>"
-                },
                 "minScore": {
                     "type": "number"
+                },
+                "tiebreakMode": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode<org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.NONE,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.ALL>"
                 }
             },
             "additionalProperties": false,
@@ -93,7 +93,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.cds.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode>": {
+        "org.icpclive.cds.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.cds.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double?,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode>": {
             "type": "object",
             "properties": {
                 "id": {
@@ -124,7 +124,7 @@
         "kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalSettings>": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.cds.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode>"
+                "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.cds.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double?,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode>"
             }
         },
         "kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>": {
@@ -261,7 +261,7 @@
             ],
             "title": "overrideContestSettings"
         },
-        "org.icpclive.cds.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>": {
+        "org.icpclive.cds.tunning.OverrideGroups.Override<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -277,11 +277,11 @@
             "additionalProperties": false,
             "required": []
         },
-        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.GroupId,org.icpclive.cds.tunning.GroupInfoOverride>": {
+        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.GroupId,org.icpclive.cds.tunning.OverrideGroups.Override>": {
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.GroupInfoOverride<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideGroups.Override<kotlin.String?,kotlin.Boolean?,kotlin.Boolean?>"
                 }
             }
         },
@@ -293,7 +293,7 @@
                     "default": "overrideGroups"
                 },
                 "rules": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.GroupId,org.icpclive.cds.tunning.GroupInfoOverride>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.GroupId,org.icpclive.cds.tunning.OverrideGroups.Override>"
                 }
             },
             "additionalProperties": false,
@@ -514,7 +514,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?,org.icpclive.cds.api.MediaType?>": {
+        "org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.MediaType?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -530,11 +530,11 @@
             "additionalProperties": false,
             "required": []
         },
-        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.OrganizationId,org.icpclive.cds.tunning.OrganizationInfoOverride>": {
+        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.OrganizationId,org.icpclive.cds.tunning.OverrideOrganizations.Override>": {
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OrganizationInfoOverride<kotlin.String?,kotlin.String?,org.icpclive.cds.api.MediaType?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.MediaType?>"
                 }
             }
         },
@@ -546,7 +546,7 @@
                     "default": "overrideOrganizations"
                 },
                 "rules": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.OrganizationId,org.icpclive.cds.tunning.OrganizationInfoOverride>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.OrganizationId,org.icpclive.cds.tunning.OverrideOrganizations.Override>"
                 }
             },
             "additionalProperties": false,
@@ -572,7 +572,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?>": {
+        "org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -606,11 +606,11 @@
             "additionalProperties": false,
             "required": []
         },
-        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.ProblemId,org.icpclive.cds.tunning.ProblemInfoOverride>": {
+        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.ProblemId,org.icpclive.cds.tunning.OverrideProblems.Override>": {
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.ProblemInfoOverride<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?>"
                 }
             }
         },
@@ -622,7 +622,7 @@
                     "default": "overrideProblems"
                 },
                 "rules": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.ProblemId,org.icpclive.cds.tunning.ProblemInfoOverride>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.ProblemId,org.icpclive.cds.tunning.OverrideProblems.Override>"
                 }
             },
             "additionalProperties": false,
@@ -720,7 +720,7 @@
                 }
             }
         },
-        "org.icpclive.cds.tunning.TemplateRegexParser<kotlin.String,kotlin.collections.LinkedHashMap>": {
+        "org.icpclive.cds.tunning.OverrideTeamTemplate.RegexParser<kotlin.String,kotlin.collections.LinkedHashMap>": {
             "type": "object",
             "properties": {
                 "from": {
@@ -736,11 +736,11 @@
                 "rules"
             ]
         },
-        "kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.TemplateRegexParser>": {
+        "kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.OverrideTeamTemplate.RegexParser>": {
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.TemplateRegexParser<kotlin.String,kotlin.collections.LinkedHashMap>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideTeamTemplate.RegexParser<kotlin.String,kotlin.collections.LinkedHashMap>"
                 }
             }
         },
@@ -813,7 +813,7 @@
                     "default": "overrideTeamTemplate"
                 },
                 "regexes": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.TemplateRegexParser>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.OverrideTeamTemplate.RegexParser>"
                 },
                 "fullName": {
                     "type": "string"
@@ -862,7 +862,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?,Color?>": {
+        "org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>": {
             "type": "object",
             "properties": {
                 "fullName": {
@@ -871,23 +871,14 @@
                 "displayName": {
                     "type": "string"
                 },
-                "groups": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.GroupId>"
-                },
-                "extraGroups": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.GroupId>"
-                },
                 "organizationId": {
                     "type": "string"
                 },
                 "hashTag": {
                     "type": "string"
                 },
-                "medias": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,org.icpclive.cds.api.MediaType?>"
-                },
-                "customFields": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>"
+                "color": {
+                    "type": "string"
                 },
                 "isHidden": {
                     "type": "boolean"
@@ -895,18 +886,27 @@
                 "isOutOfContest": {
                     "type": "boolean"
                 },
-                "color": {
-                    "type": "string"
+                "groups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.GroupId>"
+                },
+                "extraGroups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.GroupId>"
+                },
+                "customFields": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>"
+                },
+                "medias": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,org.icpclive.cds.api.MediaType?>"
                 }
             },
             "additionalProperties": false,
             "required": []
         },
-        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.TeamId,org.icpclive.cds.tunning.TeamInfoOverride>": {
+        "kotlin.collections.LinkedHashMap<org.icpclive.cds.api.TeamId,org.icpclive.cds.tunning.OverrideTeams.Override>": {
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.TeamInfoOverride<kotlin.String?,kotlin.String?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.Boolean?,kotlin.Boolean?,Color?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
                 }
             }
         },
@@ -918,7 +918,7 @@
                     "default": "overrideTeams"
                 },
                 "rules": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.TeamId,org.icpclive.cds.tunning.TeamInfoOverride>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<org.icpclive.cds.api.TeamId,org.icpclive.cds.tunning.OverrideTeams.Override>"
                 }
             },
             "additionalProperties": false,

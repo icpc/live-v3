@@ -61,8 +61,8 @@ public data class AddMedals(
     val gold: Int = 0,
     val silver: Int = 0,
     val bronze: Int = 0,
+    val minScore: Double? = null,
     val tiebreakMode: MedalTiebreakMode = MedalTiebreakMode.ALL,
-    val minScore: Double = Double.MIN_VALUE
 ) : SimpleDesugarable, TuningRule {
     override fun desugar(): TuningRule {
         return OverrideAwards(

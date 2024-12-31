@@ -117,7 +117,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                     val teams = buildSet {
                         while (position <= rankLimit) {
                             val teams = teamRanksFiltered[position] ?: break
-                            if (rows[teams[0]]!!.totalScore < medal.minScore) break
+                            if (rows[teams[0]]!!.totalScore < (medal.minScore ?: Double.MIN_VALUE)) break
                             if (medal.tiebreakMode == AwardsSettings.MedalTiebreakMode.NONE && (position + teams.size - 1) > rankLimit) break
                             position += teams.size
                             addAll(teams)
