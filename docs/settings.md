@@ -1,15 +1,14 @@
 ## TL;DR
 
 * Examples [contests](https://github.com/icpc/live-v3/tree/main/config/_examples) for all supported contest systems
-  * [CLICS](https://github.com/icpc/live-v3/tree/main/config/icpc-rmc/2021) 
-  * [PCMS](https://github.com/icpc/live-v3/tree/main/config/icpc-nef/2021-2022/main)
-  * [Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp/2022-junior)
+  * [CLICS](https://github.com/icpc/live-v3/tree/main/config/icpc-north-america/mcpc-2024) 
+  * [PCMS](https://github.com/icpc/live-v3/tree/main/config/icpc-northern-eurasia/nef-2024-2025)
+  * [Codeforces](https://github.com/icpc/live-v3/tree/main/config/vkoshp/2024-junior)
 * See the [full archive](https://github.com/icpc/live-v3/tree/main/config) for more examples
 
 ## Config file
 
 Main config should be stored within config directory in `settings.json` or `settings.json5` file.
-In some outdated examples legacy `events.properties` format is used instead.
 
 Settings should specify the contest system used and parameters of the contest.
 Also, it sometimes contains some abilities to modify received data.
@@ -57,31 +56,22 @@ For example:
 // settings.json with just an url
 {
   "type": "pcms",
-  "url": "https://nerc.itmo.ru/archive/2023/standings.xml"
+  "source": "https://nerc.itmo.ru/archive/2024/standings.xml"
 }
 // settings.json with url, requiring password stored in creds file
 {
-  "type": "pcms",
-  "url": {
-    "url": "https://nerc.itmo.ru/archive/2023/standings.xml",
-    "login": "login",
-    "password": "$creds.password"
-  }
-}
-// settings.json with url, requiring password stored right here, cookie and a special header
-{
-    "type": "pcms",
-    "url": {
-        "url": "https://nerc.itmo.ru/archive/2023/standings.xml",
-        "auth": {
-            "basic": {
-                "login": "login",
-                "password": "password"
-            },
-            "cookies": {"auth_cookie_name": "cookie_value"},
-            "headers": {"Authorization": "OAuth token"}
-        }
+  "type": "clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://swerc.vps.tecnico.ulisboa.pt/domjudge/api",
+        "login": "lidia",
+        "password": "$creds.password"
+      },
+      "contestId": "4",
+      "feedVersion": "2023_06"
     }
+  ]
 }
 ```
 
