@@ -1,96 +1,183 @@
-{
-  "startTime": "2024-12-14T07:05:00Z",
-  "teamNameRegexes": {
-    "customFields": {
-      "funnyName": {
-        "[^:]*: (.*) \\([^)]*\\)": "$1"
-      }
+[
+    {
+        "type": "overrideContestSettings",
+        "startTime": "2024-12-14 08:05:00 +01:00",
+        "freezeTimeSeconds": 14400
     },
-    "organizationRegex": {
-      "^([^:]*).*": "$1"
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "org": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^([^:]*).*": {
+                        "id": "$1"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "[^:]*: (.*) \\([^)]*\\)": {
+                        "funnyNameValue": "$1"
+                    }
+                }
+            }
+        },
+        "organizationId": "{regexes.org.id}",
+        "customFields": {
+            "funnyName": "{regexes.custom.funnyNameValue}"
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(\\d\\d\\d)": {
+                        "id": "local"
+                    },
+                    "[^s][^p][^b](\\d\\d\\d)": {
+                        "id": "remote"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "$1",
+                        "grabberIpValue": "192.168.1.1"
+                    },
+                    "geo(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "g$1",
+                        "grabberIpValue": "192.168.1.1"
+                    },
+                    "nsk(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "n$1",
+                        "grabberIpValue": "192.168.1.1"
+                    },
+                    "kaz(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "a$1",
+                        "grabberIpValue": "192.168.1.1"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.group.id}"
+        ],
+        "customFields": {
+            "grabberPeerName": "{regexes.custom.grabberPeerNameValue}",
+            "grabberIp": "{regexes.custom.grabberIpValue}"
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {funnyName}",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http:/{grabberIp}:13478",
+                "peerName": "{grabberPeerName}",
+                "streamType": "desktop",
+                "credential": "live"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://{grabberIp}:13478",
+                "peerName": "{grabberPeerName}",
+                "streamType": "webcam",
+                "credential": "live"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{team.id}.svg"
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "spb426": {
+                "displayName": "УШ ДВФУ + НСК, СУНЦ НГУ: моя дикая кассандра"
+            },
+            "kaz055": {
+                "displayName": "Алматы РФМШ + НИШ ФМН + Тараз НИШ ОЙОЙОЙ БӘКА"
+            },
+            "spb517": {
+                "displayName": "КУ ЦДО + СУНЦ УрФУ: Гарик БУЛЬДОГ Харламов"
+            },
+            "nsk053": {
+                "displayName": "Бердск, Л6 + НСК, Перспектива + АКЛ: O(чень сложно)"
+            },
+            "spb408": {
+                "displayName": "Гомель, Ш27 + Остров, Лопатинская: Чёрным по белому...)"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#ffff00ff"
+            },
+            "B": {
+                "color": "#6d6199ff"
+            },
+            "C": {
+                "color": "#e9b8d8ff"
+            },
+            "D": {
+                "color": "#006047ff"
+            },
+            "E": {
+                "color": "#fe8e13ff"
+            },
+            "F": {
+                "color": "#a45b6dff"
+            },
+            "G": {
+                "color": "#af211bff"
+            },
+            "H": {
+                "color": "#5d741aff"
+            },
+            "I": {
+                "color": "#dc177dff"
+            },
+            "J": {
+                "color": "#10a7caff"
+            },
+            "K": {
+                "color": "#ffffffff"
+            },
+            "L": {
+                "color": "#0000ffff"
+            },
+            "M": {
+                "color": "#808080ff"
+            },
+            "N": {
+                "color": "#808080ff"
+            },
+            "O": {
+                "color": "#808080ff"
+            },
+            "P": {
+                "color": "#808080ff"
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 8,
+        "bronze": 16
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 20
     }
-  },
-  "awardsSettings": {
-    "medalGroups": [
-      {
-        "medals": [
-          {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 4},
-          {"id": "silver-medal", "citation": "Silver Medal", "color": "SILVER", "maxRank": 12},
-          {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 28}
-        ]
-      },
-    ],
-  },
-  "teamOverrideTemplate": {
-    "medias": {
-      "screen": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{grabberPeerName}",
-        "url": "http:/{grabberIp}:13478",
-        "streamType": "desktop",
-        "credential": "live"
-      },
-      "camera": {
-        "type": "WebRTCGrabberConnection",
-        "url": "http://{grabberIp}:13478",
-        "peerName": "{grabberPeerName}",
-        "streamType": "webcam",
-        "credential": "live"
-      },
-      "achievement": {
-        "type": "Image",
-        "url": "/media/ach/{teamId}.svg"
-      }
-    },
-    "displayName": "{orgDisplayName}: {funnyName}",
-  },
-  "teamIdRegexes": {
-    "customFields": {
-      "grabberPeerName": {
-        "spb(\\d\\d\\d)": "$1",
-        "geo(\\d\\d\\d)": "g$1",
-        "nsk(\\d\\d\\d)": "n$1",
-        "kaz(\\d\\d\\d)": "a$1"
-      },
-      "grabberIp": {
-        "spb(\\d\\d\\d)": "192.168.1.1",
-        "geo(\\d\\d\\d)": "192.168.1.1",
-        "nsk(\\d\\d\\d)": "192.168.1.1",
-        "kaz(\\d\\d\\d)": "192.168.1.1"
-      }
-    },
-    "groupRegex": {
-      "local": "spb(\\d\\d\\d)",
-      "remote": "[^s][^p][^b](\\d\\d\\d)"
-    }
-  },
-  "queueSettings": {
-    "maxQueueSize": 20
-  },
-  "teamOverrides": {
-      "spb426": { "displayName": "УШ ДВФУ + НСК, СУНЦ НГУ: моя дикая кассандра" },
-      "kaz055": { "displayName": "Алматы РФМШ + НИШ ФМН + Тараз НИШ ОЙОЙОЙ БӘКА" },
-      "spb517": { "displayName": "КУ ЦДО + СУНЦ УрФУ: Гарик БУЛЬДОГ Харламов" },
-      "nsk053": { "displayName": "Бердск, Л6 + НСК, Перспектива + АКЛ: O(чень сложно)" },
-      "spb408": { "displayName": "Гомель, Ш27 + Остров, Лопатинская: Чёрным по белому...)" },
-  },
-  "freezeTimeSeconds": 14400,
-  "problemOverrides": {
-    "A": { "color": "#FFFF00" },
-    "B": { "color": "#6D6199" },
-    "C": { "color": "#E9B8D8" },
-    "D": { "color": "#006047" },
-    "E": { "color": "#FE8E13" },
-    "F": { "color": "#A45B6D" },
-    "G": { "color": "#AF211B" },
-    "H": { "color": "#5D741A" },
-    "I": { "color": "#DC177D" },
-    "J": { "color": "#10A7CA" },
-    "K": { "color": "#FFFfff" },
-    "L": { "color": "#0000FF" },
-    "M": { "color": "#808080" },
-    "N": { "color": "#808080" },
-    "O": { "color": "#808080" },
-    "P": { "color": "#808080" }
-  }
-}
+]

@@ -66,7 +66,6 @@ public final class org/icpclive/cds/adapters/AdaptersKt {
 	public static final fun addFirstToSolves (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun addPreviousDaysByResults (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun addPreviousDaysBySettings (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
-	public static final fun applyAdvancedProperties (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun applyCustomFieldsMap (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun applyTuningRules (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun autoCreateMissingGroupsAndOrgs (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
@@ -2177,87 +2176,6 @@ public final class org/icpclive/cds/tunning/AddMedals$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/tunning/AdvancedKt {
-	public static final fun toAdvancedProperties (Lorg/icpclive/cds/api/ContestInfo;Ljava/util/Set;)Lorg/icpclive/cds/tunning/AdvancedProperties;
-}
-
-public final class org/icpclive/cds/tunning/AdvancedProperties {
-	public static final field Companion Lorg/icpclive/cds/tunning/AdvancedProperties$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Lkotlinx/datetime/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lorg/icpclive/cds/tunning/TeamOverrideTemplate;Lorg/icpclive/cds/tunning/TeamRegexOverrides;Lorg/icpclive/cds/tunning/TeamRegexOverrides;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lorg/icpclive/cds/tunning/RankingSettings;Lorg/icpclive/cds/tunning/AwardsSettingsOverride;Lorg/icpclive/cds/tunning/QueueSettingsOverride;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lkotlinx/datetime/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lorg/icpclive/cds/tunning/TeamOverrideTemplate;Lorg/icpclive/cds/tunning/TeamRegexOverrides;Lorg/icpclive/cds/tunning/TeamRegexOverrides;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lorg/icpclive/cds/tunning/RankingSettings;Lorg/icpclive/cds/tunning/AwardsSettingsOverride;Lorg/icpclive/cds/tunning/QueueSettingsOverride;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAwardsSettings ()Lorg/icpclive/cds/tunning/AwardsSettingsOverride;
-	public final fun getContestLength-FghU774 ()Lkotlin/time/Duration;
-	public final fun getContestName ()Ljava/lang/String;
-	public final fun getFreezeTime-FghU774 ()Lkotlin/time/Duration;
-	public final fun getGroupOverrides ()Ljava/util/Map;
-	public final fun getHoldTime-FghU774 ()Lkotlin/time/Duration;
-	public final fun getOrganizationOverrides ()Ljava/util/Map;
-	public final fun getProblemOverrides ()Ljava/util/Map;
-	public final fun getQueueSettings ()Lorg/icpclive/cds/tunning/QueueSettingsOverride;
-	public final fun getScoreboardOverrides ()Lorg/icpclive/cds/tunning/RankingSettings;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
-	public final fun getTeamIdRegexes ()Lorg/icpclive/cds/tunning/TeamRegexOverrides;
-	public final fun getTeamNameRegexes ()Lorg/icpclive/cds/tunning/TeamRegexOverrides;
-	public final fun getTeamOverrideTemplate ()Lorg/icpclive/cds/tunning/TeamOverrideTemplate;
-	public final fun getTeamOverrides ()Ljava/util/Map;
-}
-
-public synthetic class org/icpclive/cds/tunning/AdvancedProperties$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/tunning/AdvancedProperties$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/AdvancedProperties;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/AdvancedProperties;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/AdvancedProperties$Companion {
-	public final fun fromInputStream (Ljava/io/InputStream;)Lorg/icpclive/cds/tunning/AdvancedProperties;
-	public final fun fromString (Ljava/lang/String;)Lorg/icpclive/cds/tunning/AdvancedProperties;
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/AwardsSettingsOverride {
-	public static final field Companion Lorg/icpclive/cds/tunning/AwardsSettingsOverride$Companion;
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/util/Map;ILjava/util/List;Ljava/util/List;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/util/Map;ILjava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/util/Map;
-	public final fun component3 ()I
-	public final fun component4 ()Ljava/util/List;
-	public final fun component5 ()Ljava/util/List;
-	public final fun component6 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/String;Ljava/util/Map;ILjava/util/List;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/cds/tunning/AwardsSettingsOverride;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/AwardsSettingsOverride;Ljava/lang/String;Ljava/util/Map;ILjava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/AwardsSettingsOverride;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getChampionTitle ()Ljava/lang/String;
-	public final fun getGroupsChampionTitles ()Ljava/util/Map;
-	public final fun getManual ()Ljava/util/List;
-	public final fun getMedalGroups ()Ljava/util/List;
-	public final fun getMedals ()Ljava/util/List;
-	public final fun getRankAwardsMaxRank ()I
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/tunning/AwardsSettingsOverride$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/tunning/AwardsSettingsOverride$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/AwardsSettingsOverride;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/AwardsSettingsOverride;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/AwardsSettingsOverride$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
 public abstract interface class org/icpclive/cds/tunning/Desugarable {
 	public abstract fun desugar (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/tunning/TuningRule;
 }
@@ -2698,68 +2616,6 @@ public final class org/icpclive/cds/tunning/OverrideTeams$Override$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/tunning/QueueSettingsOverride {
-	public static final field Companion Lorg/icpclive/cds/tunning/QueueSettingsOverride$Companion;
-	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/lang/Integer;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1-FghU774 ()Lkotlin/time/Duration;
-	public final fun component2-FghU774 ()Lkotlin/time/Duration;
-	public final fun component3-FghU774 ()Lkotlin/time/Duration;
-	public final fun component4-FghU774 ()Lkotlin/time/Duration;
-	public final fun component5 ()Ljava/lang/Integer;
-	public final fun component6 ()Ljava/lang/Integer;
-	public final fun copy-21BF-PU (Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/lang/Integer;Ljava/lang/Integer;)Lorg/icpclive/cds/tunning/QueueSettingsOverride;
-	public static synthetic fun copy-21BF-PU$default (Lorg/icpclive/cds/tunning/QueueSettingsOverride;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/lang/Integer;Ljava/lang/Integer;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/QueueSettingsOverride;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getFeaturedRunWaitTime-FghU774 ()Lkotlin/time/Duration;
-	public final fun getFirstToSolveWaitTime-FghU774 ()Lkotlin/time/Duration;
-	public final fun getInProgressRunWaitTime-FghU774 ()Lkotlin/time/Duration;
-	public final fun getMaxQueueSize ()Ljava/lang/Integer;
-	public final fun getMaxUntestedRun ()Ljava/lang/Integer;
-	public final fun getWaitTime-FghU774 ()Lkotlin/time/Duration;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public synthetic class org/icpclive/cds/tunning/QueueSettingsOverride$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/tunning/QueueSettingsOverride$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/QueueSettingsOverride;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/QueueSettingsOverride;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/QueueSettingsOverride$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/RankingSettings {
-	public static final field Companion Lorg/icpclive/cds/tunning/RankingSettings$Companion;
-	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getPenaltyPerWrongAttempt-FghU774 ()Lkotlin/time/Duration;
-	public final fun getPenaltyRoundingMode ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
-	public final fun getShowTeamsWithoutSubmissions ()Ljava/lang/Boolean;
-}
-
-public synthetic class org/icpclive/cds/tunning/RankingSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/tunning/RankingSettings$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/RankingSettings;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/RankingSettings;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/RankingSettings$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
 public final class org/icpclive/cds/tunning/RegexSet {
 	public static final fun applyTo-impl (Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
 	public static final synthetic fun box-impl (Ljava/util/Map;)Lorg/icpclive/cds/tunning/RegexSet;
@@ -2788,63 +2644,11 @@ public synthetic class org/icpclive/cds/tunning/RegexSet$$serializer : kotlinx/s
 
 public final class org/icpclive/cds/tunning/RulesKt {
 	public static final fun toRulesList (Lorg/icpclive/cds/api/ContestInfo;)Ljava/util/List;
-	public static final fun toRulesList (Lorg/icpclive/cds/tunning/AdvancedProperties;)Ljava/util/List;
 }
 
 public abstract interface class org/icpclive/cds/tunning/SimpleDesugarable : org/icpclive/cds/tunning/Desugarable {
 	public abstract fun desugar ()Lorg/icpclive/cds/tunning/TuningRule;
 	public fun desugar (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/tunning/TuningRule;
-}
-
-public final class org/icpclive/cds/tunning/TeamOverrideTemplate {
-	public static final field Companion Lorg/icpclive/cds/tunning/TeamOverrideTemplate$Companion;
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getColor ()Ljava/lang/String;
-	public final fun getDisplayName ()Ljava/lang/String;
-	public final fun getFullName ()Ljava/lang/String;
-	public final fun getHashTag ()Ljava/lang/String;
-	public final fun getMedias ()Ljava/util/Map;
-}
-
-public synthetic class org/icpclive/cds/tunning/TeamOverrideTemplate$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/tunning/TeamOverrideTemplate$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/TeamOverrideTemplate;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/TeamOverrideTemplate;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/TeamOverrideTemplate$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/TeamRegexOverrides {
-	public static final field Companion Lorg/icpclive/cds/tunning/TeamRegexOverrides$Companion;
-	public synthetic fun <init> (Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getCustomFields ()Ljava/util/Map;
-	public final fun getGroupRegex ()Ljava/util/Map;
-	public final fun getOrganizationRegex-0vPN_Lw ()Ljava/util/Map;
-}
-
-public synthetic class org/icpclive/cds/tunning/TeamRegexOverrides$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/tunning/TeamRegexOverrides$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/TeamRegexOverrides;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/TeamRegexOverrides;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
-}
-
-public final class org/icpclive/cds/tunning/TeamRegexOverrides$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public abstract interface class org/icpclive/cds/tunning/TuningRule {
@@ -2856,6 +2660,8 @@ public final class org/icpclive/cds/tunning/TuningRule$Companion {
 	public final fun listFromInputStream (Ljava/io/InputStream;)Ljava/util/List;
 	public final fun listFromString (Ljava/lang/String;)Ljava/util/List;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public final fun tryListFromLegacyFormatFromInputStream (Ljava/io/InputStream;)Ljava/util/List;
+	public final fun tryListFromLegacyFormatFromString (Ljava/lang/String;)Ljava/util/List;
 }
 
 public final class org/icpclive/cds/utils/TeamRunsStorage {

@@ -14,11 +14,11 @@ import java.io.InputStream
 import kotlin.time.Duration
 
 @Serializable
-public class RankingSettings(
+internal class RankingSettings(
     @Serializable(with = DurationInMinutesSerializer::class)
-    public val penaltyPerWrongAttempt: Duration? = null,
-    public val showTeamsWithoutSubmissions: Boolean? = null,
-    public val penaltyRoundingMode: PenaltyRoundingMode? = null,
+    val penaltyPerWrongAttempt: Duration? = null,
+    val showTeamsWithoutSubmissions: Boolean? = null,
+    val penaltyRoundingMode: PenaltyRoundingMode? = null,
 )
 
 
@@ -65,36 +65,36 @@ public class RankingSettings(
  * @param scoreboardOverrides Overrides of scoreboard calculation settings
  */
 @Serializable
-public class AdvancedProperties(
-    public val contestName: String? = null,
+internal class AdvancedProperties(
+    val contestName: String? = null,
     @Serializable(with = HumanTimeSerializer::class)
-    public val startTime: Instant? = null,
+    val startTime: Instant? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
-    public val contestLength: Duration? = null,
+    val contestLength: Duration? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("freezeTimeSeconds")
-    public val freezeTime: Duration? = null,
+    val freezeTime: Duration? = null,
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("holdTimeSeconds")
-    public val holdTime: Duration? = null,
-    public val teamOverrideTemplate: TeamOverrideTemplate? = null,
-    public val teamNameRegexes: TeamRegexOverrides? = null,
-    public val teamIdRegexes: TeamRegexOverrides? = null,
-    public val teamOverrides: Map<TeamId, OverrideTeams.Override>? = null,
-    public val groupOverrides: Map<GroupId, OverrideGroups.Override>? = null,
-    public val organizationOverrides: Map<OrganizationId, OverrideOrganizations.Override>? = null,
-    public val problemOverrides: Map<ProblemId, OverrideProblems.Override>? = null,
-    public val scoreboardOverrides: RankingSettings? = null,
-    public val awardsSettings: AwardsSettingsOverride? = null,
-    public val queueSettings: QueueSettingsOverride? = null,
+    val holdTime: Duration? = null,
+    val teamOverrideTemplate: TeamOverrideTemplate? = null,
+    val teamNameRegexes: TeamRegexOverrides? = null,
+    val teamIdRegexes: TeamRegexOverrides? = null,
+    val teamOverrides: Map<TeamId, OverrideTeams.Override>? = null,
+    val groupOverrides: Map<GroupId, OverrideGroups.Override>? = null,
+    val organizationOverrides: Map<OrganizationId, OverrideOrganizations.Override>? = null,
+    val problemOverrides: Map<ProblemId, OverrideProblems.Override>? = null,
+    val scoreboardOverrides: RankingSettings? = null,
+    val awardsSettings: AwardsSettingsOverride? = null,
+    val queueSettings: QueueSettingsOverride? = null,
 ) {
-    public companion object {
+    companion object {
         private val json = Json {
             allowComments = true
             allowTrailingComma = true
         }
-        public fun fromString(input: String): AdvancedProperties = json.decodeFromString<AdvancedProperties>(input)
-        public fun fromInputStream(input: InputStream): AdvancedProperties = json.decodeFromStream<AdvancedProperties>(input)
+        fun fromString(input: String): AdvancedProperties = json.decodeFromString<AdvancedProperties>(input)
+        fun fromInputStream(input: InputStream): AdvancedProperties = json.decodeFromStream<AdvancedProperties>(input)
     }
 }
 
@@ -144,23 +144,23 @@ public value class RegexSet(public val regexes: Map<Regex, String>) {
  * @property groupRegex The group is added if the name matches regex.
  */
 @Serializable
-public class TeamRegexOverrides(
-    public val organizationRegex: RegexSet? = null,
-    public val customFields: Map<String, RegexSet>? = null,
-    public val groupRegex: Map<String, Regex>? = null,
+internal class TeamRegexOverrides(
+    val organizationRegex: RegexSet? = null,
+    val customFields: Map<String, RegexSet>? = null,
+    val groupRegex: Map<String, Regex>? = null,
 )
 
 @Serializable
-public class TeamOverrideTemplate(
-    public val displayName: String? = null,
-    public val fullName: String? = null,
-    public val hashTag: String? = null,
-    public val medias: Map<TeamMediaType, MediaType?>? = null,
-    public val color: String? = null,
+internal class TeamOverrideTemplate(
+    val displayName: String? = null,
+    val fullName: String? = null,
+    val hashTag: String? = null,
+    val medias: Map<TeamMediaType, MediaType?>? = null,
+    val color: String? = null,
 )
 
 @Serializable
-public data class QueueSettingsOverride(
+internal data class QueueSettingsOverride(
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("waitTimeSeconds")
     val waitTime: Duration? = null,
@@ -178,87 +178,11 @@ public data class QueueSettingsOverride(
 )
 
 @Serializable
-public data class AwardsSettingsOverride(
-    public val championTitle: String? = null,
-    public val groupsChampionTitles: Map<GroupId, String> = emptyMap(),
-    public val rankAwardsMaxRank: Int = 0,
-    public val medals: List<MedalSettings> = emptyList(),
-    public val medalGroups: List<MedalGroup> = emptyList(),
-    public val manual: List<ManualAwardSetting> = emptyList(),
+internal data class AwardsSettingsOverride(
+    val championTitle: String? = null,
+    val groupsChampionTitles: Map<GroupId, String> = emptyMap(),
+    val rankAwardsMaxRank: Int = 0,
+    val medals: List<MedalSettings> = emptyList(),
+    val medalGroups: List<MedalGroup> = emptyList(),
+    val manual: List<ManualAwardSetting> = emptyList(),
 )
-
-/**
- * Converts values in [ContestInfo] to overrides in [AdvancedProperties
- *
- * @param fields set of fields to include in returned value. Other would be set to null
- */
-@OptIn(InefficientContestInfoApi::class)
-public fun ContestInfo.toAdvancedProperties(fields: Set<String>): AdvancedProperties {
-    fun <T> T.takeIfAsked(name: String) = takeIf { name in fields || "all" in fields }
-    return AdvancedProperties(
-        startTime = startTime.takeIfAsked("startTime"),
-        contestLength = contestLength.takeIfAsked("contestLength"),
-        freezeTime = freezeTime.takeIfAsked("freezeTime"),
-        holdTime = (status as? ContestStatus.BEFORE)?.holdTime?.takeIfAsked("holdBeforeStartTime"),
-        teamOverrides = teamList.associate {
-            it.id to OverrideTeams.Override(
-                fullName = it.fullName.takeIfAsked("fullName"),
-                displayName = it.displayName.takeIfAsked("displayName"),
-                groups = it.groups.takeIfAsked("groups"),
-                organizationId = it.organizationId.takeIfAsked("organizationId"),
-                hashTag = it.hashTag.takeIfAsked("hashTag"),
-                medias = it.medias.takeIfAsked("medias"),
-                customFields = it.customFields.takeIfAsked("customFields"),
-                isHidden = it.isHidden.takeIfAsked("teamIsHidden"),
-                isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest")
-            )
-        },
-        problemOverrides = problemList.associate {
-            it.id to OverrideProblems.Override(
-                displayName = it.displayName.takeIfAsked("problemDisplayName"),
-                fullName = it.fullName.takeIfAsked("problemFullName"),
-                color = it.color.takeIfAsked("color"),
-                unsolvedColor = it.color.takeIfAsked("unsolvedColor"),
-                ordinal = it.ordinal.takeIfAsked("ordinal"),
-                minScore = it.minScore.takeIfAsked("minScore"),
-                maxScore = it.maxScore.takeIfAsked("maxScore"),
-                scoreMergeMode = it.scoreMergeMode.takeIfAsked("scoreMergeMode"),
-                isHidden = it.isHidden.takeIfAsked("problemIsHidden")
-            )
-        },
-        groupOverrides = groupList.associate {
-            it.id to OverrideGroups.Override(
-                displayName = it.displayName.takeIfAsked("groupDisplayName"),
-                isHidden = it.isHidden.takeIfAsked("groupIsHidden"),
-                isOutOfContest = it.isOutOfContest.takeIfAsked("isOutOfContest"),
-            )
-        },
-        organizationOverrides = organizationList.associate {
-            it.id to OverrideOrganizations.Override(
-                displayName = it.displayName.takeIfAsked("orgDisplayName"),
-                fullName = it.fullName.takeIfAsked("orgFullName"),
-                logo = it.logo.takeIfAsked("logo")
-            )
-        },
-        scoreboardOverrides = RankingSettings(
-            penaltyPerWrongAttempt = penaltyPerWrongAttempt.takeIfAsked("penaltyPerWrongAttempt"),
-            penaltyRoundingMode = penaltyRoundingMode.takeIfAsked("penaltyRoundingMode")
-        ),
-        awardsSettings = AwardsSettingsOverride(
-            championTitle = awardsSettings.championTitle,
-            groupsChampionTitles = awardsSettings.groupsChampionTitles,
-            rankAwardsMaxRank = awardsSettings.rankAwardsMaxRank,
-            medals = emptyList(),
-            medalGroups = awardsSettings.medalGroups,
-            manual = awardsSettings.manual,
-        ).takeIfAsked("awards"),
-        queueSettings = QueueSettingsOverride(
-            waitTime = queueSettings.waitTime,
-            firstToSolveWaitTime = queueSettings.firstToSolveWaitTime,
-            featuredRunWaitTime = queueSettings.featuredRunWaitTime,
-            inProgressRunWaitTime = queueSettings.inProgressRunWaitTime,
-            maxQueueSize = queueSettings.maxQueueSize,
-            maxUntestedRun = queueSettings.maxUntestedRun,
-        ).takeIfAsked("queue")
-    )
-}

@@ -14,11 +14,6 @@ private sealed interface AdvancedAdapterEvent {
     data object Trigger : AdvancedAdapterEvent
 }
 
-internal fun applyAdvancedProperties(flow: Flow<ContestUpdate>, advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> =
-    applyTuningRules(
-        flow, advancedPropsFlow.map { it.toRulesList() }
-    )
-
 internal fun applyTuningRules(flow: Flow<ContestUpdate>, advancedPropsFlow: Flow<List<TuningRule>>): Flow<ContestUpdate> {
     return flow {
         val triggerFlow = Channel<AdvancedAdapterEvent.Trigger>()

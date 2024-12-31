@@ -8,7 +8,6 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.settings.EmulationSettings
 import org.icpclive.cds.settings.PreviousDaySettings
-import org.icpclive.cds.tunning.AdvancedProperties
 import org.icpclive.cds.tunning.TuningRule
 
 
@@ -28,7 +27,6 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
 @JvmName("addPreviousDaysBySettings")
 public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<PreviousDaySettings>): Flow<ContestUpdate> = addPreviousDays(this, previousDays)
 
-public fun Flow<ContestUpdate>.applyAdvancedProperties(advancedPropsFlow: Flow<AdvancedProperties>): Flow<ContestUpdate> = applyAdvancedProperties(this, advancedPropsFlow)
 public fun Flow<ContestUpdate>.applyTuningRules(tuningRulesFlow: Flow<List<TuningRule>>): Flow<ContestUpdate> = applyTuningRules(this, tuningRulesFlow)
 public fun Flow<ContestUpdate>.applyCustomFieldsMap(customFieldsFlow: Flow<Map<TeamId, Map<String, String>>>): Flow<ContestUpdate> = applyCustomFieldsMap(this, customFieldsFlow)
 

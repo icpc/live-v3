@@ -1,86 +1,108 @@
-{
-  "problemOverrides": {
-    "A": {
-      "color": "#1E3A5F",
-      "unsolvedColor": "#808080"
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 14400
     },
-    "B": {
-      "color": "#F0CC00",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "org": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^([^:]*).*": {
+                        "id": "$1"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "[^:]*: (.*) \\([^)]*\\)": {
+                        "funnyNameValue": "$1"
+                    }
+                }
+            }
+        },
+        "organizationId": "{regexes.org.id}",
+        "customFields": {
+            "funnyName": "{regexes.custom.funnyNameValue}"
+        }
     },
-    "C": {
-      "color": "#006400",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {funnyName}"
     },
-    "D": {
-      "color": "#C0C0C0",
-      "unsolvedColor": "#808080"
-    },
-    "E": {
-      "color": "#40E0D0",
-      "unsolvedColor": "#808080"
-    },
-    "F": {
-      "color": "#D3B300",
-      "unsolvedColor": "#808080"
-    },
-    "G": {
-      "color": "#BF624F",
-      "unsolvedColor": "#808080"
-    },
-    "H": {
-      "color": "#60458C",
-      "unsolvedColor": "#808080"
-    },
-    "I": {
-      "color": "#3EB047",
-      "unsolvedColor": "#808080"
-    },
-    "J": {
-      "color": "#9B1C1C",
-      "unsolvedColor": "#808080"
-    },
-    "K": {
-      "color": "#FBABC5",
-      "unsolvedColor": "#808080"
-    },
-    "L": {
-      "color": "#FF6A13",
-      "unsolvedColor": "#808080"
-    },
-    "M": {
-      "color": "#202C45",
-      "unsolvedColor": "#808080"
-    },
-    "W": {
-      "color": "#000000",
-      "unsolvedColor": "#808080"
-    },
-    "X": {
-      "color": "#FF0000",
-      "unsolvedColor": "#808080"
-    },
-    "Y": {
-      "color": "#00FF00",
-      "unsolvedColor": "#808080"
-    },
-    "Z": {
-      "color": "#0000FF",
-      "unsolvedColor": "#808080"
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#1e3a5fff",
+                "unsolvedColor": "#808080ff"
+            },
+            "B": {
+                "color": "#f0cc00ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "C": {
+                "color": "#006400ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "D": {
+                "color": "#c0c0c0ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "E": {
+                "color": "#40e0d0ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "F": {
+                "color": "#d3b300ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "G": {
+                "color": "#bf624fff",
+                "unsolvedColor": "#808080ff"
+            },
+            "H": {
+                "color": "#60458cff",
+                "unsolvedColor": "#808080ff"
+            },
+            "I": {
+                "color": "#3eb047ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "J": {
+                "color": "#9b1c1cff",
+                "unsolvedColor": "#808080ff"
+            },
+            "K": {
+                "color": "#fbabc5ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "L": {
+                "color": "#ff6a13ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "M": {
+                "color": "#202c45ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "W": {
+                "color": "#000000ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "X": {
+                "color": "#ff0000ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "Y": {
+                "color": "#00ff00ff",
+                "unsolvedColor": "#808080ff"
+            },
+            "Z": {
+                "color": "#0000ffff",
+                "unsolvedColor": "#808080ff"
+            }
+        }
     }
-  },
-  "teamNameRegexes": {
-    "customFields": {
-      "funnyName": {
-        "[^:]*: (.*) \\([^)]*\\)": "$1"
-      }
-    },
-    "organizationRegex": {
-      "^([^:]*).*": "$1"
-    }
-  },
-  "teamOverrideTemplate": {
-    "displayName": "{orgDisplayName}: {funnyName}"
-  },
-  "freezeTimeSeconds": 14400
-}
+]

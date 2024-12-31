@@ -1,6 +1,7 @@
 package org.icpclive.cds.tunning
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -28,6 +29,13 @@ public sealed interface TuningRule {
 
         public fun listFromString(input: String): List<TuningRule> = json.decodeFromString(input)
         public fun listFromInputStream(input: InputStream): List<TuningRule> = json.decodeFromStream(input)
+        public fun tryListFromLegacyFormatFromString(input: String): List<TuningRule>? = runCatching {
+            AdvancedProperties.fromString(input).toRulesList()
+        }.getOrNull()
+
+        public fun tryListFromLegacyFormatFromInputStream(input: InputStream): List<TuningRule>? = runCatching {
+            AdvancedProperties.fromInputStream(input).toRulesList()
+        }.getOrNull()
     }
 
     public fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo
@@ -58,7 +66,7 @@ public interface SimpleDesugarable : Desugarable {
 private fun <K, V> mapOfNotNull(vararg pairs: Pair<K, V?>): Map<K, V> =
     pairs.filter { it.second != null }.associate { it.first to it.second!! }
 
-public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buildRulesList@{
+internal fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buildRulesList@{
     if (contestName != null || startTime != null || contestLength != null || freezeTime != null || holdTime != null) {
         add(OverrideContestSettings(
             name = contestName,
@@ -183,8 +191,6 @@ public fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buildR
 
 /**
  * Converts values in [ContestInfo] to overrides in [AdvancedProperties
- *
- * @param fields set of fields to include in returned value. Other would be set to null
  */
 @OptIn(InefficientContestInfoApi::class)
 public fun ContestInfo.toRulesList(): List<TuningRule> {

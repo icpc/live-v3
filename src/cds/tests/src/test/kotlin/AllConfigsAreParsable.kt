@@ -40,19 +40,20 @@ class AllConfigsAreParsable {
             it.name == "advanced.json"
         }.map { path ->
             DynamicTest.dynamicTest(path.relativeTo(configDir).toString()) {
-                path.toFile().inputStream().use { inStream ->
-                    try {
-                        AdvancedProperties.fromInputStream(inStream).also { adv ->
-                            path.outputStream().use { outStream ->
-                                json.encodeToStream(adv.toRulesList(), outStream)
-                            }
-                        }
-                    } catch (e: SerializationException) {
-                        System.err.println(e)
+                try {
+                    path.toFile().inputStream().use {
+                        TuningRule.listFromInputStream(it)
                     }
-                }
-                path.toFile().inputStream().use {
-                    TuningRule.listFromInputStream(it)
+                } catch (e: SerializationException) {
+                    val converted = path.toFile().inputStream().use { inStream ->
+                        TuningRule.tryListFromLegacyFormatFromInputStream(inStream)
+                    }
+                    if (converted != null) {
+                        path.outputStream().use { outStream ->
+                            json.encodeToStream(converted, outStream)
+                        }
+                    }
+                    throw e
                 }
             }
         }.toList().also {
