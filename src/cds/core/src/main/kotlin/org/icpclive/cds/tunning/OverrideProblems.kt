@@ -16,7 +16,7 @@ import org.icpclive.cds.util.logger
 @SerialName("overrideProblems")
 public data class OverrideProblems(public val rules: Map<ProblemId, Override>): TuningRule {
     @OptIn(InefficientContestInfoApi::class)
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
+    override fun process(info: ContestInfo): ContestInfo {
         return info.copy(
             problemList = mergeOverrides(
                 info.problemList,

@@ -17,7 +17,6 @@ private sealed interface AdvancedAdapterEvent {
 internal fun applyTuningRules(flow: Flow<ContestUpdate>, advancedPropsFlow: Flow<List<TuningRule>>): Flow<ContestUpdate> {
     return flow {
         val triggerFlow = Channel<AdvancedAdapterEvent.Trigger>()
-        val submittedTeams = mutableSetOf<TeamId>()
         val triggers = mutableSetOf<Instant>()
         coroutineScope {
             val advancedPropsStateFlow = advancedPropsFlow.stateIn(this)
@@ -37,7 +36,7 @@ internal fun applyTuningRules(flow: Flow<ContestUpdate>, advancedPropsFlow: Flow
                 val ci = contestInfo ?: return
                 val ap = advancedPropsStateFlow.value
                 val newInfo: ContestInfo = ap.fold(ci) { acc, tuningRule ->
-                    tuningRule.process(acc, submittedTeams)
+                    tuningRule.process(acc)
                 }
                 if (newInfo != last) {
                     emit(InfoUpdate(newInfo))
@@ -59,24 +58,13 @@ internal fun applyTuningRules(flow: Flow<ContestUpdate>, advancedPropsFlow: Flow
                     }
 
                     is AdvancedAdapterEvent.Update -> {
-                        when (it.update) {
-                            is InfoUpdate -> {
-                                if (contestInfo != it.update.newInfo) {
-                                    contestInfo = it.update.newInfo
-                                    apply()
-                                }
+                        if (it.update is InfoUpdate) {
+                            if (contestInfo != it.update.newInfo) {
+                                contestInfo = it.update.newInfo
+                                apply()
                             }
-
-                            is RunUpdate -> {
-                                if (submittedTeams.add(it.update.newInfo.teamId)) {
-                                    apply()
-                                }
-                                emit(it.update)
-                            }
-
-                            else -> {
-                                emit(it.update)
-                            }
+                        } else {
+                            emit(it.update)
                         }
                     }
                 }

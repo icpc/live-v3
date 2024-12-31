@@ -31,7 +31,7 @@ public data class OverrideAwards(
     public val manualAwards: List<ManualAwardSetting>? = null,
     public val extraManualAwards: List<ManualAwardSetting>? = null,
 ): TuningRule {
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
+    override fun process(info: ContestInfo): ContestInfo {
         val old = info.awardsSettings
         return info.copy(
             awardsSettings = old.copy(
@@ -78,7 +78,7 @@ public data class AddMedals(
         )
     }
 
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
-        return desugar().process(info, submittedTeams)
+    override fun process(info: ContestInfo): ContestInfo {
+        return desugar().process(info)
     }
 }

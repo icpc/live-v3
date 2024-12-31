@@ -17,8 +17,8 @@ public data class AddGroupToTeams(
     public val id: GroupId,
     public val teams: List<TeamId>,
 ): SimpleDesugarable, TuningRule {
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
-        return desugar().process(info, submittedTeams)
+    override fun process(info: ContestInfo): ContestInfo {
+        return desugar().process(info)
     }
     @OptIn(InefficientContestInfoApi::class)
     override fun desugar(): TuningRule {

@@ -14,6 +14,7 @@ export interface ContestInfo {
   awardsSettings: AwardsSettings;
   penaltyPerWrongAttemptSeconds: number;
   queueSettings: QueueSettings;
+  showTeamsWithoutSubmissions: boolean;
 }
 
 export type ContestStatus =

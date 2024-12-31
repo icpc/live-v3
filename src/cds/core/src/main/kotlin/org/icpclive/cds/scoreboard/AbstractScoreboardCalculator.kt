@@ -44,6 +44,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
         val orderList = info.teamList
             .filterNot { it.isHidden }
             .map { it.id to rows[it.id]!! }
+            .run { if (info.showTeamsWithoutSubmissions) this else filter { it.second.problemResults.any { it.lastSubmitTime != null } } }
             .sortedWith(comparatorWithName)
 
         val order = orderList.map { it.first }

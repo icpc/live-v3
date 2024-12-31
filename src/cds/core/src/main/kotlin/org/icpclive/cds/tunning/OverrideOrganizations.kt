@@ -18,7 +18,7 @@ public data class OverrideOrganizations(
     public val rules: Map<OrganizationId, Override>
 ): TuningRule {
     @OptIn(InefficientContestInfoApi::class)
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
+    override fun process(info: ContestInfo): ContestInfo {
         return info.copy(
             organizationList = mergeOverrides(
                 info.organizationList,

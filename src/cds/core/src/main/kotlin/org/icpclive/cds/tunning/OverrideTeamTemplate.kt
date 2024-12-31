@@ -135,8 +135,8 @@ public data class OverrideTeamTemplate(
     public val medias: Map<TeamMediaType, MediaType?>? = null,
     public val color: String? = null,
 ): Desugarable, TuningRule {
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
-        return desugar(info).process(info, submittedTeams)
+    override fun process(info: ContestInfo): ContestInfo {
+        return desugar(info).process(info)
     }
 
     @OptIn(InefficientContestInfoApi::class)

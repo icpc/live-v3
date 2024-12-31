@@ -3,7 +3,6 @@ package org.icpclive.cds.tunning
 import kotlinx.serialization.*
 import org.icpclive.cds.adapters.impl.autoCreateGroupsAndOrgs
 import org.icpclive.cds.api.*
-import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.util.logger
 
 /**
@@ -17,7 +16,7 @@ import org.icpclive.cds.util.logger
 @SerialName("overrideTeams")
 public data class OverrideTeams(public val rules: Map<TeamId, Override>): TuningRule {
     @OptIn(InefficientContestInfoApi::class)
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
+    override fun process(info: ContestInfo): ContestInfo {
         val newTeams = mergeOverrides(
             info.teamList,
             rules,

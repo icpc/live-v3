@@ -183,6 +183,7 @@ public data class ContestInfo(
     @SerialName("penaltyPerWrongAttemptSeconds")
     @Required val penaltyPerWrongAttempt: Duration = 20.minutes,
     @Required val queueSettings: QueueSettings = QueueSettings(),
+    @Required val showTeamsWithoutSubmissions: Boolean = true,
     @Transient val cdsSupportsFinalization: Boolean = false,
 ) {
     public constructor(

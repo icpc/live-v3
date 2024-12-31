@@ -40,7 +40,7 @@ public data class OverrideContestSettings(
     @SerialName("holdTimeSeconds")
     public val holdTime: Duration? = null,
 ): TuningRule {
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
+    override fun process(info: ContestInfo): ContestInfo {
         val status = ContestStatus.byCurrentTime(
             startTime ?: info.startTime ?: Instant.DISTANT_FUTURE,
             freezeTime ?: info.freezeTime,

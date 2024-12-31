@@ -1,7 +1,6 @@
 package org.icpclive.cds.tunning
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -38,7 +37,7 @@ public sealed interface TuningRule {
         }.getOrNull()
     }
 
-    public fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo
+    public fun process(info: ContestInfo): ContestInfo
 }
 
 // for schema generation

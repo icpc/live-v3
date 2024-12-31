@@ -58,7 +58,7 @@ object TeamInfoOverrideTemplateTest {
                     credential = null
                 )
             )
-        ).process(info, emptySet())
+        ).process(info)
         val team = newInfo.teams["a".toTeamId()]
         assertNotNull(team)
         assertEquals(teamName, team.displayName)

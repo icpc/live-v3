@@ -36,7 +36,7 @@ public data class OverrideQueue(
     public val maxQueueSize: Int? = null,
     public val maxUntestedRun: Int? = null,
 ): TuningRule {
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
+    override fun process(info: ContestInfo): ContestInfo {
         return info.copy(
             queueSettings = QueueSettings(
                 waitTime = waitTime ?: info.queueSettings.waitTime,

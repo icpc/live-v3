@@ -24,11 +24,11 @@ public data class OverrideScoreboardSettings(
     public val penaltyRoundingMode: PenaltyRoundingMode? = null,
 ): TuningRule {
     @OptIn(InefficientContestInfoApi::class)
-    override fun process(info: ContestInfo, submittedTeams: Set<TeamId>): ContestInfo {
+    override fun process(info: ContestInfo): ContestInfo {
         return info.copy(
-            teamList = if (showTeamsWithoutSubmissions != false) info.teamList else info.teamList.filter { it.id in submittedTeams },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt ?: info.penaltyPerWrongAttempt,
             penaltyRoundingMode = penaltyRoundingMode ?: info.penaltyRoundingMode,
+            showTeamsWithoutSubmissions = showTeamsWithoutSubmissions ?: info.showTeamsWithoutSubmissions,
         )
     }
 }
