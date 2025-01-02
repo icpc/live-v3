@@ -1,0 +1,9 @@
+// Add ICPC-style medals to overlay only
+[
+  {
+    "type": "addMedals",
+    "gold": 4,
+    "silver": 4,
+    "bronze": 4
+  }
+]

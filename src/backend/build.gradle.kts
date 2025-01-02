@@ -1,4 +1,5 @@
 import org.gradle.kotlin.dsl.run as runTask
+import org.icpclive.gradle.PackExamplesTask
 
 plugins {
     id("live.app-conventions")
@@ -48,6 +49,11 @@ tasks {
     }
 
 
+    val advancedExamples by registering(PackExamplesTask::class) {
+        sourceDirectory.set(rootProject.layout.projectDirectory.dir( provider { "config/_examples/_advanced" }))
+        packedDirectory.set(project.layout.buildDirectory.dir("advanced_examples"))
+    }
+
     runTask {
         this.args = listOfNotNull(
             "--no-auth",
@@ -77,6 +83,9 @@ tasks {
             }
             from(gitVersionFiles) {
                 into("main")
+            }
+            from(advancedExamples) {
+                into("examples/advanced")
             }
         }
     }

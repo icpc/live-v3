@@ -69,6 +69,9 @@ fun Application.module() {
         route("/") {
             install(ConditionalHeaders)
             staticResources("/schemas", "schemas")
+            route("/examples") {
+                staticResources("/advanced", "examples.advanced")
+            }
             staticResources("/", "main", index = "main.html")
             singlePageApplication {
                 useResources = true

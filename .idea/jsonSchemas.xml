@@ -16,6 +16,11 @@
                     <option name="path" value="advanced.json" />
                     <option name="mappingKind" value="Pattern" />
                   </Item>
+                  <Item>
+                    <option name="directory" value="true" />
+                    <option name="path" value="config/_examples/_advanced" />
+                    <option name="mappingKind" value="Directory" />
+                  </Item>
                 </list>
               </option>
             </SchemaInfo>
