@@ -7,13 +7,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.32.3",
+    "@playwright/test": "^1.47.1",
     "@types/node": "^22.5.4",
     "fs": "0.0.1-security",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "ts-node": "^10.9.2"
   },
   "scripts": {
     "install-browsers": "playwright install --with-deps",
     "teamview": "playwright test teamview.spec.ts"
+  },
+  "dependencies": {
+    "ws": "^8.13.0"
   }
 }

@@ -5,3 +5,4 @@ packages:
   - 'locator'
   - 'tests'
   - 'generated'
+  - 'content-gen'

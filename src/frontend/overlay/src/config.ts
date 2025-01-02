@@ -27,6 +27,10 @@ const config: Record<string, any> = new Proxy(config_, {
     }
 });
 
+config.SCREEN_WIDTH = 1920;
+config.SCREEN_HEIGHT = 1080;
+config.BACKGROUND = undefined;
+
 config.CONTEST_COLOR = "#4C83C3";
 config.CONTEST_CAPTION = "";
 
