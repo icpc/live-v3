@@ -132,10 +132,10 @@ export const MainLayout = () => {
                 return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? c.WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
-                            left={obj.location.positionX}
-                            top={obj.location.positionY}
-                            width={obj.location.sizeX}
-                            height={obj.location.sizeY}
+                            left={c.WIDGET_POSITIONS[obj.widgetLocationId].positionX}
+                            top={c.WIDGET_POSITIONS[obj.widgetLocationId].positionY}
+                            width={c.WIDGET_POSITIONS[obj.widgetLocationId].sizeX}
+                            height={c.WIDGET_POSITIONS[obj.widgetLocationId].sizeY}
                             shouldCrop={Widget.shouldCrop}
                             zIndex={Widget.zIndex ?? 0}
                             {...(!Widget.ignoreAnimation && transitionProps[state])}

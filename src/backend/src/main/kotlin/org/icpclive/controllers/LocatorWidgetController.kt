@@ -1,6 +1,5 @@
 package org.icpclive.controllers
 
-import kotlinx.coroutines.flow.first
 import org.icpclive.admin.ApiActionException
 import org.icpclive.api.*
 import org.icpclive.cds.api.ContestInfo
@@ -10,12 +9,11 @@ class LocatorWidgetController(manager: Manager<in TeamLocatorWidget>) :
     SingleWidgetController<ExternalTeamLocatorSettings, TeamLocatorWidget>(ExternalTeamLocatorSettings(), manager) {
     override suspend fun onDelete(id: Int) {}
 
-    fun TeamLocatorExternalCircleSettings.getTeam(info: ContestInfo) = info.teams[teamId]
+    private fun TeamLocatorExternalCircleSettings.getTeam(info: ContestInfo) = info.teams[teamId]
 
     override suspend fun checkSettings(settings: ExternalTeamLocatorSettings) {
         val info = DataBus.currentContestInfo()
         settings.circles.forEach {
-            if ((it.teamId == null) == (it.cdsTeamId == null)) throw ApiActionException("Only one of of teamId and cdsTeamsId can be specified")
             it.getTeam(info) ?: throw ApiActionException("No team for circle $it")
         }
     }

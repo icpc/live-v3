@@ -3,7 +3,6 @@ import React, { useEffect, useRef } from "react";
 import MainLayout from "./components/layouts/MainLayout";
 import { StatusLayout } from "./components/layouts/StatusLayout";
 import c from "./config";
-import { WEBSOCKETS } from "./consts";
 import { pushLog } from "./redux/debug";
 import { setWebsocketStatus, WebsocketStatus } from "./redux/status";
 import { WEBSOCKET_HANDLERS } from "./services/ws/ws";
@@ -34,7 +33,7 @@ const safeHandleMessage = <H extends (...args: unknown[]) => unknown,>(ws: WebSo
 const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
     const openSocket = () => {
         dispatch(setWebsocketStatus(wsName, WebsocketStatus.CONNECTING));
-        const url = c.WEBSOCKET_URL_OVERRIDE[WEBSOCKETS[wsName]] || `${c.BASE_URL_WS}/${WEBSOCKETS[wsName]}`;
+        const url = c.WEBSOCKETS[wsName];
         ws.current = new WebSocket(url);
         ws.current.onopen = () => {
             dispatch(pushLog(`Connected to WS ${wsName}`));
@@ -56,7 +55,7 @@ const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
 function App() {
     const dispatch = useAppDispatch();
     const makeWebsocket = useMakeWebsocket(dispatch);
-    const wss = Object.fromEntries(Object.keys(WEBSOCKETS).map((key) => {
+    const wss = Object.fromEntries(Object.keys(c.WEBSOCKETS).map((key) => {
         // since WEBSOCKETS is static.
         // eslint-disable-next-line react-hooks/rules-of-hooks
         return [key, useRef(null)];

@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { SCOREBOARD_TYPES } from "@/consts";
 import c from "../../../config";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel } from "../../atoms/ContestLabels";
 import { formatScore, useFormatPenalty } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award } from "@shared/api";
+import {Award, OptimismLevel} from "@shared/api";
 import { isShouldUseDarkColor } from "@/utils/colors";
 
 
@@ -49,9 +48,9 @@ const ContestantInfoScoreLabel = styled(ShrinkingBox)`
 
 export const ContestantInfo = ({ teamId, roundBR= true, className = null, useBG = true }) => {
     const contestInfo = useAppSelector((state) => state.contestInfo.info);
-    const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[teamId]);
-    const awards = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[teamId]);
-    const rank = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rankById[teamId]);
+    const scoreboardData = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].ids[teamId]);
+    const awards = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].idAwards[teamId]);
+    const rank = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].rankById[teamId]);
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
     const formatPenalty = useFormatPenalty();

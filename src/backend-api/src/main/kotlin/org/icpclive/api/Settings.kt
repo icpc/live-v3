@@ -91,7 +91,6 @@ data class TeamLocatorExternalCircleSettings(
     val y: Int,
     val radius: Int,
     val teamId: TeamId? = null,
-    val cdsTeamId: String? = null,
 )
 
 @Serializable

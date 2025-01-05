@@ -469,7 +469,7 @@ export namespace Widget {
   export interface AdvertisementWidget {
     type: Widget.Type.AdvertisementWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     advertisement: AdvertisementSettings;
   }
@@ -477,7 +477,7 @@ export namespace Widget {
   export interface FullScreenClockWidget {
     type: Widget.Type.FullScreenClockWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     settings: FullScreenClockSettings;
   }
@@ -485,7 +485,7 @@ export namespace Widget {
   export interface PictureWidget {
     type: Widget.Type.PictureWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     picture: PictureSettings;
   }
@@ -493,7 +493,7 @@ export namespace Widget {
   export interface QueueWidget {
     type: Widget.Type.QueueWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     settings: QueueSettings;
   }
@@ -501,7 +501,7 @@ export namespace Widget {
   export interface ScoreboardWidget {
     type: Widget.Type.ScoreboardWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     settings: ScoreboardSettings;
   }
@@ -509,7 +509,7 @@ export namespace Widget {
   export interface StatisticsWidget {
     type: Widget.Type.StatisticsWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     settings: StatisticsSettings;
   }
@@ -517,7 +517,7 @@ export namespace Widget {
   export interface SvgWidget {
     type: Widget.Type.SvgWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     content: string;
   }
@@ -525,7 +525,7 @@ export namespace Widget {
   export interface TeamLocatorWidget {
     type: Widget.Type.TeamLocatorWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     settings: TeamLocatorSettings;
   }
@@ -533,7 +533,7 @@ export namespace Widget {
   export interface TeamViewWidget {
     type: Widget.Type.TeamViewWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     settings: OverlayTeamViewSettings;
   }
@@ -541,17 +541,10 @@ export namespace Widget {
   export interface TickerWidget {
     type: Widget.Type.TickerWidget;
     widgetId: string;
-    location: LocationRectangle;
+    widgetLocationId: string;
     statisticsId: string;
     settings: TickerSettings;
   }
-}
-
-export interface LocationRectangle {
-  positionX: number;
-  positionY: number;
-  sizeX: number;
-  sizeY: number;
 }
 
 export interface AdvertisementSettings {
