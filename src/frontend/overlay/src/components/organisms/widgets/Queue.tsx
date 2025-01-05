@@ -2,7 +2,6 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 import styled, { css, CSSObject, Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
-import { SCOREBOARD_TYPES } from "@/consts";
 import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel, RunStatusLabel } from "../../atoms/ContestLabels";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
@@ -11,7 +10,7 @@ import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, LocationRectangle, RunInfo, Widget } from "@shared/api";
+import { Award, OptimismLevel, RunInfo, Widget } from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 
@@ -407,11 +406,11 @@ const QueueRightPart = styled.div`
 `;
 
 export const QueueRow = ({ runInfo }) => {
-    const scoreboardData = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].ids[runInfo.teamId]);
+    const scoreboardData = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].ids[runInfo.teamId]);
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[runInfo.teamId]);
     const probData = useAppSelector((state) => state.contestInfo.info?.problemsId[runInfo.problemId]);
-    const awards = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].idAwards[runInfo.teamId]);
-    const rank = useAppSelector((state) => state.scoreboard[SCOREBOARD_TYPES.normal].rankById[runInfo.teamId]);
+    const awards = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].idAwards[runInfo.teamId]);
+    const rank = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].rankById[runInfo.teamId]);
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const isFTSRun = runInfo?.result?.type === "ICPC" && runInfo.result.isFirstToSolveRun || runInfo?.result?.type === "IOI" && runInfo.result.isFirstBestRun;
     return <StyledQueueRow>
@@ -549,10 +548,10 @@ export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     </TransitionGroup>;
 };
 type QueueComponentProps = {
-    location: LocationRectangle;
     shouldShow: boolean;
 }
-const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ location, shouldShow }: QueueComponentProps) => {
+const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ shouldShow }: QueueComponentProps) => {
+    const location = c.WIDGET_POSITIONS.queue;
     const [height, setHeight] = useState<number>(VARIANT === "horizontal" ? undefined : location.sizeY - 200);
     const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
     const [headerWidth, setHeaderWidth] = useState<number>(0);
@@ -609,12 +608,12 @@ const HorizontalQueue = QueueComponent("horizontal");
 type QueueProps = {
     widgetData: Widget.QueueWidget,
 };
-export const Queue = ({ widgetData: { settings: { horizontal }, location } }: QueueProps) => {
+export const Queue = ({ widgetData: { settings: { horizontal } } }: QueueProps) => {
     const shouldShow = useDelayedBoolean(300);
     return (
         <>
-            {!horizontal && <VerticalQueue location={location} shouldShow={shouldShow} />}
-            {horizontal && <HorizontalQueue location={location} shouldShow={shouldShow} />}
+            {!horizontal && <VerticalQueue shouldShow={shouldShow} />}
+            {horizontal && <HorizontalQueue shouldShow={shouldShow} />}
         </>
     );
 };
