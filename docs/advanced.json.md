@@ -185,25 +185,22 @@ Check [full awards settings doc](https://icpc.io/live-v3/cds/cds/core/org.icpcli
 {
     "type": "overrideProblems",
     "rules": {
-        "A": {"color": "#0000ffff"},
-        "B": {"color": "#245840ff"},
-        "C": {"color": "#808080ff"},
-        "D": {"color": "#fdadaeff"},
-        "E": {"color": "#ff0000ff"},
-        "F": {"color": "#ede24cff"},
-        "G": {"color": "#fe8f34ff"},
-        "H": {"color": "#808080ff"},
-        "I": {"color": "#9f858bff"},
-        "J": {"color": "#d53863ff"},
-        "K": {"color": "#808080ff"},
-        "L": {"color": "#61b37cff"},
-        "M": {"color": "#ffffffff"},
-        "N": {"color": "#808080ff"},
-        "O": {"color": "#808080ff"},
-        "P": {"color": "#808080ff"},
-        "X": {"color": "#808080ff"},
-        "Y": {"color": "#808080ff"},
-        "Z": {"color": "#808080ff"}
+            "A": {"color": "#e6194B"},
+            "B": {"color": "#3cb44b"},
+            "C": {"color": "#ffe119"},
+            "D": {"color": "#4363d8"},
+            "E": {"color": "#f58231"},
+            "F": {"color": "#42d4f4"},
+            "G": {"color": "#f032e6"},
+            "H": {"color": "#fabed4"},
+            "I": {"color": "#469990"},
+            "J": {"color": "#dcbeff"},
+            "K": {"color": "#9A6324"},
+            "L": {"color": "#fffac8"},
+            "M": {"color": "#800000"},
+            "N": {"color": "#aaffc3"},
+            "O": {"color": "#000075"},
+            "P": {"color": "#a9a9a9"}
     }
 }
 ```

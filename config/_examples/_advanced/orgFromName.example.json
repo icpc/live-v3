@@ -1,4 +1,4 @@
-// Parse organizations from team full name
+// Parse and rename Uni Fullname: teamname (participants) 
 [
   {
     "type": "overrideTeamTemplate",

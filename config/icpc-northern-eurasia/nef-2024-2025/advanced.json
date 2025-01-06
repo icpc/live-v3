@@ -145,7 +145,7 @@
         "type": "overrideAwards",
         "championTitle": "Northern Eurasia Champions",
         "rankAwardsMaxRank": 13,
-        "medalGroups": [
+        "extraMedalGroups": [
             {
                 "medals": [
                     {
