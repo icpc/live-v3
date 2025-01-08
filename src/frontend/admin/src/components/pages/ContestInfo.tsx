@@ -104,7 +104,7 @@ const ContestInfoContainer = ({ contestInfo } : BasicContainerProps) => {
         <InfoRowContainer name="Status" value = {<ContestInfoStatus status={contestInfo?.status}/>} />
         <InfoRowContainer name="Contest length" value = {timeMsToDuration(contestInfo?.contestLengthMs)} />
         <InfoRowContainer name="Freeze time" value = {timeMsToDuration(contestInfo?.freezeTimeMs)} />
-        <InfoRowContainer name="Penalty per wrong attempt" value = {timeSecondsToDuration(contestInfo?.penaltyPerWrongAttemptSeconds * 1000)} />
+        <InfoRowContainer name="Penalty per wrong attempt" value = {timeSecondsToDuration(contestInfo?.penaltyPerWrongAttemptSeconds)} />
         <InfoRowContainer name="Penalty rounding mode" value = {contestInfo?.penaltyRoundingMode} />
         <InfoRowContainer name="Emulation speed" value = {contestInfo?.emulationSpeed} />
     </div>;
