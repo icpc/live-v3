@@ -224,8 +224,10 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
         val teamsReallyAffected = teamsAffected.filter {
             val newRow = calculator.getScoreboardRow(info, runsByTeamId.getRuns(it))
             val oldRow = rows[it]
+            val newInfo = state.infoBeforeEvent?.teams[it]
+            val oldInfo = state.infoAfterEvent.teams[it]
             rows = rows.put(it, newRow)
-            newRow != oldRow
+            newRow != oldRow || newInfo?.isOutOfContest != oldInfo?.isOutOfContest || newInfo?.isHidden != oldInfo?.isHidden
         }
         if (teamsReallyAffected.isNotEmpty() || state.infoBeforeEvent?.awardsSettings != state.infoAfterEvent.awardsSettings) {
             lastRanking = calculator.getRanking(info, rows)
