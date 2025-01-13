@@ -23,7 +23,38 @@ function Location(positionX: number, positionY: number, sizeX: number, sizeY: nu
         sizeY: sizeY
     });
 }
-
+/**
+ * Creates a Proxy-wrapped configuration object that can manage nested overrides.
+ *
+ * @param {Record<string, any>} override - An object containing override values for configuration keys.
+ * @returns {Record<string, any>} A proxy object that supports reading and writing nested properties,
+ *                                including dotted paths like "a.b.c".
+ *
+ * **How it works**:
+ * - On `get`: if `target[key]` is not found, it checks if the key is dotted (e.g. "a.b").
+ *   If yes, it extracts the prefix ("a"), looks for any sub-object proxy, and then delegates the remainder ("b") to that sub-proxy.
+ * - On `set`: if the value being set is an object, it recursively wraps it in another proxy, merging any override values that match the dotted path prefix.
+ *
+ * **Usage example**:
+ * ```js
+ * const config = createProxy({
+ *   "featureA.enabled": true,
+ *   "featureB.options": { debug: false }
+ * });
+ *
+ * // Accessing a nested path via dot-notation:
+ * config["featureA.enabled"] // true
+ *
+ * // Setting a nested object:
+ * config.featureB = { options: { debug: true, logLevel: 2 } };
+ *
+ * // Now config.featureB.options will return { debug: true, logLevel: 2 }
+ * ```
+ *
+ * **Potential errors**:
+ * - If you pass in non-object overrides or non-serializable data, it may behave unexpectedly.
+ * - Dot notation relies on the first segment being used as the 'prefix' for the sub-object. Make sure your keys are well-formed.
+ */
 function createProxy(
     override,
     // No known way to infer types from assignment yet.
