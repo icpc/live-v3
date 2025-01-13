@@ -5,3 +5,5 @@ tests/screenshots/
 playwright-report/
 blob-report/
 playwright/.cache/
+videos
+config

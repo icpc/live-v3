@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"name": "✨ root",
+			"path": "."
+		},
+		{
+			"name": "🚀 icpc-live-v3",
+			"path": "src/frontend"
+		},
+		{
+			"name": "🚀 icpc-live-v3-admin",
+			"path": "src/frontend/admin"
+		},
+		{
+			"name": "🚀 shared-code",
+			"path": "src/frontend/common"
+		},
+		{
+			"name": "🚀 content-gen",
+			"path": "src/frontend/content-gen"
+		},
+		{
+			"name": "🚀 icpc-live-v3-locator",
+			"path": "src/frontend/locator"
+		},
+		{
+			"name": "🚀 icpc-live-v3-overlay",
+			"path": "src/frontend/overlay"
+		}
+	],
+	"settings": {}
+}
