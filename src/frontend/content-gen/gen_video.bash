@@ -5,12 +5,18 @@ set -x
 
 OFFSET=4
 SPEEDUP=15
-CONTEST_NAME="vkoshp"
+CONTEST_NAME="nef"
 REPO_ROOT=$(git rev-parse --show-toplevel)
+
+mkdir config/$CONTEST_NAME || true
 
 # echo "Step 1: Download latest event-feed.json"
 # rm -f event-feed-$CONTEST_NAME.ndjson
-# timeout 10s wget --header 'cookie: JSESSIONID=0000ij9lihNPu7Xe7kc_R9VimX0:cde8627c-75ce-43c7-a09a-af5b62653e86:9eb3971a-d235-44b6-af0e-68c25f91e474:6e590761-52bd-44b0-8ab8-bb8884df8caf' \ -k https://172.24.0.7:7443/api/contests/wf48_$CONTEST_NAME/event-feed -q -O event-feed-$CONTEST_NAME.ndjson || true
+# timeout 10s wget --header 'cookie: JSESSIONID=redacted:redacted:redacted' \ -k https://redacted:7443/api/contests/wf48_$CONTEST_NAME/event-feed -q -O event-feed-$CONTEST_NAME.ndjson || true
+# wget -k https://nerc.itmo.ru/archive/2024/standings-redacted.xml -q -O config/$CONTEST_NAME/runs.xml || true
+sed -i -e 's/running/over/g' config/$CONTEST_NAME/runs.xml
+# sed -i -e 's/outcome="undefined"/outcome="compilation-error"/g' config/$CONTEST_NAME/runs.xml
+# sed -i -e 's/accepted="undefined"/accepted="no"/g' config/$CONTEST_NAME/runs.xml
 
 # echo "Step 2: Edit the config for backend"
 # cp $REPO_ROOT/artifacts/live-v3-dev.jar ./
@@ -32,6 +38,12 @@ print((datetime.datetime.now(datetime.timezone.utc).astimezone() - delta / $SPEE
 EOF
 )
 echo "Start time: $startTime"
+
+cat <<EOF > config/$CONTEST_NAME/advanced.json
+{
+  "freezeTimeSeconds": 9999999999,
+}
+EOF
 
 cat <<EOF > config/$CONTEST_NAME/settings.json
 {
@@ -59,13 +71,13 @@ cat <<EOF > config/$CONTEST_NAME/presets/ticker.json
         "type": "text",
         "part": "short",
         "periodMs": 30000,
-        "text": "ICPCLive"
+        "text": "NEF"
     }
 ]
 EOF
 
 echo "Step 4: Start backend"
-java -jar live-v3-dev.jar -c config/$CONTEST_NAME --no-auth > ./backend.log &
+java -jar live-v3-dev.jar -c config/$CONTEST_NAME --advanced-json config/$CONTEST_NAME/advanced.json --no-auth > ./backend.log &
 BACKEND_PID=$!
 function cleanup {
   echo "Step INF: Cleanup"
