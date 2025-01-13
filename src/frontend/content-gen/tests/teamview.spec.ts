@@ -1,9 +1,6 @@
 import test, { PlaywrightTestArgs, TestInfo, expect, request } from "@playwright/test";
 import { TeamMediaType, TeamId, ExternalTeamViewSettings, Widget, ContestInfo } from "../../generated/api"
-import * as fs from "node:fs";
-import * as path from "node:path";
-
-const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8080";
+import { BACKEND_URL, contestInfo } from "./test";
 
 const getTeamViewSettings = async (teamId: TeamId, media: TeamMediaType) => {
     const adminApiContext = await request.newContext({ baseURL: `${BACKEND_URL}/api/admin/` });
@@ -44,11 +41,7 @@ const testTeamViewOneMedia = (teamId: TeamId, media: TeamMediaType) =>
         });
     };
 
-
-const contestInfo = JSON.parse(fs.readFileSync(path.join(__dirname, "contestInfo.json")).toString("utf-8")) as ContestInfo;
-
 test.describe("TeamViews", async () => {
-    // const contestInfo = (await contestInfoRequest.json()) as ContestInfo;
     const medias = [TeamMediaType.camera, TeamMediaType.screen];
     for (let media of medias) {
         for (let team of contestInfo.teams) {
