@@ -265,7 +265,7 @@ config.PICTURE_NAME_FONT_FAMILY = config.GLOBAL_DEFAULT_FONT_FAMILY;
 // not used
 config.TEAMVIEW_SMALL_FACTOR = "50%"; // css property
 
-config.FULL_SCREEN_CLOCK_CENTERED = false;
+config.FULL_SCREEN_CLOCK_CENTERED = true;
 config.FULL_SCREEN_CLOCK_PADDING_TOP = "240px";
 config.FULL_SCREEN_CLOCK_FONT_SIZE = "400px";
 config.FULL_SCREEN_CLOCK_COLOR = "#eeeeee";
