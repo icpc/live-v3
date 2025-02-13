@@ -7,7 +7,7 @@ const ClockWrapper = styled.div`
   display: flex;
   justify-content: center;
 
-  ${c.FULL_SCREEN_CLOCK_PADDING_TOP == "center"
+  ${c.FULL_SCREEN_CLOCK_CENTERED
         ? css`
                 align-items: center;
                 width: 100%;
