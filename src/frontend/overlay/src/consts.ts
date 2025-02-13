@@ -1,30 +1,5 @@
 export const DEBUG = import.meta.env.DEV;
 
-
-export const WEBSOCKETS_OVERRIDE = {};
-
-export const WEBSOCKETS = {
-    mainScreen: "mainScreen",
-    contestInfo: "contestInfo",
-    queue: "queue",
-    statistics: "statistics",
-    ticker: "ticker",
-    scoreboardNormal: "scoreboard/normal",
-    scoreboardOptimistic: "scoreboard/optimistic",
-    scoreboardPessimistic: "scoreboard/pessimistic",
-    ...WEBSOCKETS_OVERRIDE
-};
-
-/**
- * @deprecated
- * Use enum from api.ts
- */
-export const SCOREBOARD_TYPES = Object.freeze({
-    normal: "normal",
-    optimistic: "optimistic",
-    pessimistic: "pessimistic"
-});
-
 export const faviconTemplate = `
 <svg fill="none" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#a)">

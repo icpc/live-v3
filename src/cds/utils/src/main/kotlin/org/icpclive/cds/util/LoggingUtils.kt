@@ -44,4 +44,5 @@ public object LoggerProvider {
 }
 
 public fun logger(klass: Class<*>): Logger = Logger(LoggerFactory.getLogger(klass))
+public fun logger(klass: KClass<*>): Logger = logger(klass.java)
 public fun getLogger(): LoggerProvider = LoggerProvider

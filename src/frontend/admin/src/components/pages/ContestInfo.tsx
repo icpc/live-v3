@@ -4,8 +4,18 @@ import { Tab, Container, Box, Grid } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { timeMsToDuration, unixTimeMsToLocalTime } from "@/utils";
-import { ContestStatus, ContestInfo, GroupId, TeamMediaType, MediaType, TeamInfo, ProblemInfo, OrganizationInfo } from "@shared/api.ts";
+import { timeMsToDuration, timeSecondsToDuration, unixTimeMsToLocalTime } from "@/utils";
+import {
+    ContestStatus,
+    ContestInfo,
+    GroupId,
+    TeamMediaType,
+    MediaType,
+    TeamInfo,
+    ProblemInfo,
+    OrganizationInfo,
+    GroupInfo
+} from "@shared/api.ts";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
@@ -76,94 +86,54 @@ type BasicContainerProps = {
     contestInfo: ContestInfo;
 };
 
+const InfoRowContainer = ({ name, value }) => {
+    return <Grid container direction="row">
+        <Grid item xs={6} md={4}>
+            {name}
+        </Grid>
+        <Grid item xs={6} md={8}>
+            {value}
+        </Grid>
+    </Grid>
+}
+
 const ContestInfoContainer = ({ contestInfo } : BasicContainerProps) => {
-    return <div><Grid container direction="row">
-        <Grid item xs={6} md={4}>
-            Name
-        </Grid>
-        <Grid item xs={6} md={8}>
-            {contestInfo && contestInfo.name}
-        </Grid>
-    </Grid>
-    <Grid container direction="row">
-        <Grid item xs={6} md={4}>
-            Result type
-        </Grid>
-        <Grid item xs={6} md={8}>
-            {contestInfo && contestInfo.resultType}
-        </Grid>
-    </Grid>
-    <Grid container direction="row">
-        <Grid item xs={6} md={4}>
-            Status
-        </Grid>
-        <Grid item xs={6} md={8}>
-            {contestInfo && <ContestInfoStatus status={contestInfo.status}/>}
-        </Grid>
-    </Grid>
-    <Grid container direction="row">
-        <Grid item xs={6} md={4}>
-            Contest length
-        </Grid>
-        <Grid item xs={6} md={8}>
-            {contestInfo && contestInfo.contestLengthMs && timeMsToDuration(contestInfo.contestLengthMs) || "??"}
-        </Grid>
-    </Grid>
-    <Grid container direction="row">
-        <Grid item xs={6} md={4}>
-            Freeze time
-        </Grid>
-        <Grid item xs={6} md={8}>
-            {contestInfo && contestInfo.freezeTimeMs && timeMsToDuration(contestInfo.freezeTimeMs)}
-            {!contestInfo || !contestInfo.freezeTimeMs && "??"}
-        </Grid>
-    </Grid></div>;
+    return <div>
+        <InfoRowContainer name="Name" value = {contestInfo?.name} />
+        <InfoRowContainer name="Result type" value = {contestInfo?.resultType} />
+        <InfoRowContainer name="Status" value = {<ContestInfoStatus status={contestInfo?.status}/>} />
+        <InfoRowContainer name="Contest length" value = {timeMsToDuration(contestInfo?.contestLengthMs)} />
+        <InfoRowContainer name="Freeze time" value = {timeMsToDuration(contestInfo?.freezeTimeMs)} />
+        <InfoRowContainer name="Penalty per wrong attempt" value = {timeSecondsToDuration(contestInfo?.penaltyPerWrongAttemptSeconds)} />
+        <InfoRowContainer name="Penalty rounding mode" value = {contestInfo?.penaltyRoundingMode} />
+        <InfoRowContainer name="Emulation speed" value = {contestInfo?.emulationSpeed} />
+    </div>;
 };
 
-const ProblemTableColumns: GridColDef<ProblemInfo>[] = [
-    {
-        field: "id",
-        headerName: "ID"
-    },
-    {
-        field: "letter",
-        headerName: "Letter",
-        flex: 1,
-    },
-    {
-        field: "name",
-        headerName: "Name",
-        flex: 4,
-    },
-    {
-        field: "color",
-        headerName: "Color",
-        renderCell: ({ value }) => (
-            <>
-                <Brightness1Icon sx={{ color: value }} fontSize="small"/> {value}
-            </>
-        ),
-        flex: 2,
-    },
-    {
-        field: "isHidden",
-        headerName: "Hidden",
-        valueFormatter: value => value ? "Hidden" : "",
-    },
-];
+const QueueSettingsContainer = ( { contestInfo } : BasicContainerProps) => {
+    return <div>
+        <InfoRowContainer name="Time in queue normal" value = {timeSecondsToDuration(contestInfo?.queueSettings?.waitTimeSeconds)} />
+        <InfoRowContainer name="Time in queue FTS" value = {timeSecondsToDuration(contestInfo?.queueSettings?.firstToSolveWaitTimeSeconds)} />
+        <InfoRowContainer name="Time in queue featured" value = {timeSecondsToDuration(contestInfo?.queueSettings?.featuredRunWaitTimeSeconds)} />
+        <InfoRowContainer name="Time in queue in progress" value = {timeSecondsToDuration(contestInfo?.queueSettings?.inProgressRunWaitTimeSeconds)} />
+        <InfoRowContainer name="Max queue size" value = {contestInfo?.queueSettings?.maxQueueSize} />
+        <InfoRowContainer name="Max untested runs" value = {contestInfo?.queueSettings?.maxUntestedRun} />
+    </div>;
+}
 
-const ProblemContainer = ({ contestInfo } : BasicContainerProps) => {
-    if (!contestInfo) {
-        return undefined;
-    }
+const SimpleGrid = ( { rows, columns }) => {
+    if (rows == undefined)
+        return undefined
     return <DataGrid
-        rows={contestInfo.problems}
-        columns={ProblemTableColumns}
+        rows={rows}
+        columns={columns}
         initialState={{
             pagination: { paginationModel: { pageSize: 100 } },
         }}
         pageSizeOptions={[100]}
         autoHeight
+        autosizeOnMount
+        autosizeOptions={{expand: true}}
         getRowHeight={() => "auto"}
         columnHeaderHeight={30}
         sx={{
@@ -176,13 +146,15 @@ const ProblemContainer = ({ contestInfo } : BasicContainerProps) => {
             }
         }}
     />;
-};
+
+}
 
 export interface SimpleDialogProps {
     open: boolean;
     onClose: () => void;
     medias: { [key in TeamMediaType]: MediaType };
 }
+
 function SimpleDialog({ onClose, open, medias }: SimpleDialogProps) {
     const handleClose = () => {
         onClose();
@@ -209,6 +181,49 @@ function SimpleDialog({ onClose, open, medias }: SimpleDialogProps) {
     );
 }
 
+const ProblemTableColumns: GridColDef<ProblemInfo>[] = [
+    {
+        field: "ordinal",
+        headerName: "Order",
+        type: "number"
+    },
+    {
+        field: "id",
+        headerName: "ID",
+    },
+    {
+        field: "letter",
+        headerName: "Letter",
+    },
+    {
+        field: "name",
+        headerName: "Name",
+    },
+    {
+        field: "color",
+        headerName: "Color",
+        renderCell: ({ value }) => (
+            value && <>
+                <Brightness1Icon sx={{ color: value }} fontSize="small"/> {value}
+            </>
+        ),
+    },
+    {
+        field: "isHidden",
+        headerName: "Hidden",
+        type: "boolean",
+    },
+    {
+        field: "maxScore",
+        headerName: "Max Score",
+        type: "number"
+    },
+    {
+        field: "scoreMergeMode",
+        headerName: "Merge mode",
+    }
+];
+
 const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (m: { [key in TeamMediaType]: MediaType }) => void): GridColDef<TeamInfo>[] => [
     {
         field: "id",
@@ -216,13 +231,11 @@ const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (
     },
     {
         field: "name",
-        headerName: "Name",
-        flex: 4,
+        headerName: "Full name",
     },
     {
         field: "shortName",
-        headerName: "Short name",
-        flex: 2,
+        headerName: "Display name",
     },
     {
         field: "groups",
@@ -234,12 +247,8 @@ const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (
         headerName: "HashTag"
     },
     {
-        field: "isOutOfContest",
-        headerName: "Is Out Of Contest"
-    },
-    {
         field: "organizationId",
-        headerName: "Organization Id"
+        headerName: "Organization"
     },
     {
         field: "medias",
@@ -257,47 +266,29 @@ const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (
                 <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                     Medias
                 </Button>
-
             </div>;
         },
     },
     {
+        field: "color",
+        headerName: "Color",
+        renderCell: ({ value }) => (
+            value && <>
+                <Brightness1Icon sx={{ color: value }} fontSize="small"/> {value}
+            </>
+        ),
+    },
+    {
+        field: "isOutOfContest",
+        headerName: "Out Of Contest",
+        type: "boolean",
+    },
+    {
         field: "isHidden",
         headerName: "Hidden",
-        valueFormatter: value => value ? "Hidden" : "",
-        flex: 0.5
+        type: "boolean"
     },
 ];
-
-type TeamContainerProps = {
-    setOpen: (newValue: boolean) => void;
-    setCurrentTeamMedias: (newMediaTypes : { [key in TeamMediaType]: MediaType }) => void;
-} & BasicContainerProps;
-const TeamContainer = ({ contestInfo, setOpen, setCurrentTeamMedias } : TeamContainerProps) => {
-    if (!contestInfo) {
-        return undefined;
-    }
-    return <DataGrid
-        rows={contestInfo.teams}
-        columns={TeamTableColumns(setOpen, setCurrentTeamMedias)}
-        initialState={{
-            pagination: { paginationModel: { pageSize: 100 } },
-        }}
-        pageSizeOptions={[100]}
-        autoHeight
-        getRowHeight={() => "auto"}
-        columnHeaderHeight={30}
-        sx={{
-            "& .MuiDataGrid-footerContainer": {
-                minHeight: 30,
-                maxHeight: 30,
-            },
-            "& .MuiDataGrid-cell:focus": {
-                outline: "0",
-            }
-        }}
-    />;
-};
 
 const OrganizationTableColumns: GridColDef<OrganizationInfo>[] = [
     {
@@ -307,46 +298,34 @@ const OrganizationTableColumns: GridColDef<OrganizationInfo>[] = [
     {
         field: "displayName",
         headerName: "Display name",
-        flex: 2,
     },
     {
         field: "fullName",
         headerName: "Full name",
-        flex: 4,
+    }
+];
+
+const GroupTableColumns: GridColDef<GroupInfo>[] = [
+    {
+        field: "id",
+        headerName: "ID"
+    },
+    {
+        field: "displayName",
+        headerName: "Display name",
+    },
+    {
+        field: "isOutOfContest",
+        headerName: "Out Of Contest",
+        type: "boolean",
     },
     {
         field: "isHidden",
         headerName: "Hidden",
-        valueFormatter: value => value ? "Hidden" : "",
-        flex: 0.5
+        type: "boolean"
     },
 ];
 
-const OrganizationContainer = ({ contestInfo } : BasicContainerProps) => {
-    if (!contestInfo) {
-        return undefined;
-    }
-    return <DataGrid
-        rows={contestInfo.organizations}
-        columns={OrganizationTableColumns}
-        initialState={{
-            pagination: { paginationModel: { pageSize: 100 } },
-        }}
-        pageSizeOptions={[100]}
-        autoHeight
-        getRowHeight={() => "auto"}
-        columnHeaderHeight={30}
-        sx={{
-            "& .MuiDataGrid-footerContainer": {
-                minHeight: 30,
-                maxHeight: 30,
-            },
-            "& .MuiDataGrid-cell:focus": {
-                outline: "0",
-            }
-        }}
-    />;
-};
 
 const ContestInfoPage = () => {
     const contestInfo = useContestInfo();
@@ -366,7 +345,7 @@ const ContestInfoPage = () => {
     };
 
     return (
-        <Container sx={{ pt: 2 }}>
+        <Container maxWidth={"xl"} sx={{ pt: 2 }}>
             <SimpleDialog open={open} onClose={handleClose} medias={currentTeamMedias}/>
             <Box sx={{ width: "100%", typography: "body1" }}>
                 <TabContext value={value}>
@@ -375,20 +354,28 @@ const ContestInfoPage = () => {
                             <Tab label="Contest" value="Contest" />
                             <Tab label="Problems" value="Problems" />
                             <Tab label="Teams" value="Teams" />
+                            <Tab label="Groups" value="Groups" />
                             <Tab label="Organizations" value="Organizations" />
+                            <Tab label="Queue" value="Queue" />
                         </TabList>
                     </Box>
                     <TabPanel value="Contest">
                         <ContestInfoContainer contestInfo={contestInfo}/>
                     </TabPanel>
                     <TabPanel value="Problems">
-                        <ProblemContainer contestInfo={contestInfo}/>
+                        <SimpleGrid rows={contestInfo?.problems} columns={ProblemTableColumns}/>
                     </TabPanel>
                     <TabPanel value="Teams">
-                        <TeamContainer contestInfo={contestInfo} setOpen={setOpen} setCurrentTeamMedias={setCurrentTeamMedias}/>
+                        <SimpleGrid rows={contestInfo?.teams} columns={TeamTableColumns(setOpen, setCurrentTeamMedias)}/>
+                    </TabPanel>
+                    <TabPanel value="Groups">
+                        <SimpleGrid rows={contestInfo?.groups} columns={GroupTableColumns}/>
                     </TabPanel>
                     <TabPanel value="Organizations">
-                        <OrganizationContainer contestInfo={contestInfo}/>
+                        <SimpleGrid rows={contestInfo?.organizations} columns={OrganizationTableColumns}/>
+                    </TabPanel>
+                    <TabPanel value="Queue">
+                        <QueueSettingsContainer contestInfo={contestInfo}/>
                     </TabPanel>
                 </TabContext>
             </Box>

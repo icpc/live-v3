@@ -116,6 +116,7 @@ export const MainLayout = () => {
         <TransitionGroup component={null}>
             {Object.values(widgets).map((obj) => {
                 const Widget = WIDGETS[obj.type];
+                const location = c.WIDGET_POSITIONS[obj.widgetLocationId];
                 if (Widget === undefined) {
                     return null;
                 }
@@ -132,10 +133,10 @@ export const MainLayout = () => {
                 return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? c.WIDGET_TRANSITION_TIME}>
                     {state =>
                         state !== "exited" && <WidgetWrap
-                            left={obj.location.positionX}
-                            top={obj.location.positionY}
-                            width={obj.location.sizeX}
-                            height={obj.location.sizeY}
+                            left={location.positionX}
+                            top={location.positionY}
+                            width={location.sizeX}
+                            height={location.sizeY}
                             shouldCrop={Widget.shouldCrop}
                             zIndex={Widget.zIndex ?? 0}
                             {...(!Widget.ignoreAnimation && transitionProps[state])}

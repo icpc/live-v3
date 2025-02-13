@@ -3,4 +3,4 @@ test/**
 **/media
 **/presets
 creds.json
-widget_positions.json
+widget-positions.json

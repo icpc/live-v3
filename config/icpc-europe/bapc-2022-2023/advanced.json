@@ -1,30 +1,35 @@
-{
-  "teamOverrides": {
-    "7": {
-      "shortname": "UvA: \uD83C\uDDFA\uD83C\uDDF3\uD83C\uDDEE\uD83C\uDDE8\uD83C\uDDF4\u200B\uD83C\uDDE9\uD83C\uDDEA"
+[
+    {
+        "type": "overrideContestSettings",
+        "holdTimeSeconds": 1000
     },
-    "6": {
-      "shortname": "RUG: Balloon Addicts, PC"
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "7": {
+                "displayName": "UvA: 🇺🇳🇮🇨🇴​🇩🇪"
+            },
+            "6": {
+                "displayName": "RUG: Balloon Addicts, PC"
+            },
+            "42": {
+                "displayName": "Uni Lu: local bruh moment d."
+            },
+            "5": {
+                "displayName": "Radboud: Bidoof Aron PC"
+            },
+            "11": {
+                "displayName": "VU: std::string name"
+            },
+            "29": {
+                "displayName": "UTwente: Team BBB"
+            }
+        }
     },
-    "42": {
-      "shortname": "Uni Lu: local bruh moment d."
-    },
-    "5": {
-      "shortname": "Radboud: Bidoof Aron PC"
-    },
-    "11": {
-      "shortname": "VU: std::string name"
-    },
-    "29": {
-      "shortname": "UTwente: Team BBB"
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
     }
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-    ]
-  },
-  "holdTimeSeconds": 1000
-}
+]

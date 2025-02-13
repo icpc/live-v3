@@ -38,7 +38,7 @@ Welcome to the ICPC Live Source Code Repository.
 * Check [emulation mode](https://github.com/icpc/live-v3/blob/main/docs/emulation.md) part of development doc for testing your setup before the contest started.
 * Check [troubleshooting guide](https://github.com/icpc/live-v3/blob/main/docs/troubleshooting.md) is something looks wrong.
 * Read our awesome auto-generated [documentation](https://icpc.io/live-v3/cds/core/org.icpclive.cds.settings/-c-d-s-settings/index.html) for extensive settings.json and advanced.json usage.
-* Download [OBS preset](https://gg.gg/icpclive_obs)
+* Download [OBS preset](https://news.icpc.global/obs)
 
 # Authorisation
 
@@ -73,5 +73,7 @@ If you don't need auth, you can disable it by `--no-auth` command-line option.
 * [Autoanalyst](https://github.com/icpc-live/autoanalyst)
 * OBS Video Scheduler [Plugin](https://github.com/pashkal/obs-video-scheduler) with web interface
 * Outdated OBS [plugin](https://github.com/pmavrin/obs-overlays/tree/master/overlaymaster) for shared memory ([dll](https://drive.google.com/file/d/1MvCmhlSpftUFC3N2gj0Lv88-ZV2dtnhP))
+* stinger generator [in browser](https://stinger.azat.uk/)
+* PWA [balloon management utility](https://github.com/icpc/balloons)
 
 For more information, email `live@icpc.global`

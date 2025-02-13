@@ -1,101 +1,119 @@
-{
-    
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": false
-  },
-      "problemOverrides": {
-        "0": {
-          "color": "#CF0A2C"
-        },
-        "1": {
-          "color": "#CF0A2C"
-        }
-      },
-
-  "teamNameRegexes": {
-      "groupRegex": {
-        "team": "^46.*|^47.*",
-        "coach": "^[^4]{2}.*|4[^67].*"
-      }
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
     },
-    "teamOverrides": {
-        "g30428=team46039": {
-          "shortname": "46: IIT (ISM), Dhanbad"
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^46.*|^47.*": {
+                        "id": "team"
+                    },
+                    "^[^4]{2}.*|4[^67].*": {
+                        "id": "coach"
+                    }
+                }
+            }
         },
-        "g30428=team47065": {
-          "shortname": "47: Higher Institute for Applied S&T"
-        },
-        "g30428=team46029": {
-          "shortname": "47: Hanoi University of S&T"
-        },
-        "g30428=team46092": {
-          "shortname": "46: Union University - Faculty of CS"
-        },
-        "g30428=team47122": {
-          "shortname": "47: University of ES&T of China"
-        },
-        "g30428=team46112": {
-          "shortname": "47: University of ES&T of China"
-        },
-        "g30428=team46077": {
-          "shortname": "46: St. Petersburg of HSE"
-        },
-        "g30428=team47034": {
-          "shortname": "47: Harbour.Space U"
-        },
-        "g30428=team47010": {
-          "shortname": "47: Belarusian SU"
-        },
-        "g30428=team47011": {
-          "shortname": "47: BSUIR"
-        },
-        "g30428=team46010": {
-          "shortname": "46: BUET"
-        },
-        "g30428=team47055": {
-          "shortname": "47: Kazakh-British TU"
-        },
-        "g30428=team46032": {
-          "shortname": "46: Higher Institute for Applied S&T"
-        },
-        "g30428=team46006": {
-          "shortname": "46: Applied Science Private U"
-        },
-        "g30428=team46103": {
-          "shortname": "46: U de São Paulo (São Carlos)"
-        },
-        "g30428=team47013": {
-          "shortname": "Birla Institute of T&S (Pilani)"
-        },
-        "g30428=team46049": {
-          "shortname": "46: Jordan University of S&T"
-        },
-        "g30428=team47041": {
-          "shortname": "47: IIT - Indore"
-        },
-        "g30428=team47096": {
-          "shortname": "47: U de Buenos Aires - FCEN"
-        },
-        "g30428=team47087": {
-          "shortname": "47: ITMO University"
-        },
-        "g30428=team46078": {
-          "shortname": "46: ITMO University"
-        },
-        "g30428=team46105": {
-          "shortname": "46: U Federal de Pernambuco"
-        },
-        "g30428=team46072": {
-          "shortname": "46: Rajshahi UET"
-        },
-        "g30428=team47086": {
-          "shortname": "47: St. Petersburg Campus of HSE"
-        },
-        "g30428=team46016": {
-          "shortname": "46: Cairo University - FCAI"
-        },
-        "g30428=team47037": {
-          "shortname": "47: Huazhong UST"
+        "extraGroups": [
+            "{regexes.group.id}"
+        ]
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "g30428=team46039": {
+                "displayName": "46: IIT (ISM), Dhanbad"
+            },
+            "g30428=team47065": {
+                "displayName": "47: Higher Institute for Applied S&T"
+            },
+            "g30428=team46029": {
+                "displayName": "47: Hanoi University of S&T"
+            },
+            "g30428=team46092": {
+                "displayName": "46: Union University - Faculty of CS"
+            },
+            "g30428=team47122": {
+                "displayName": "47: University of ES&T of China"
+            },
+            "g30428=team46112": {
+                "displayName": "47: University of ES&T of China"
+            },
+            "g30428=team46077": {
+                "displayName": "46: St. Petersburg of HSE"
+            },
+            "g30428=team47034": {
+                "displayName": "47: Harbour.Space U"
+            },
+            "g30428=team47010": {
+                "displayName": "47: Belarusian SU"
+            },
+            "g30428=team47011": {
+                "displayName": "47: BSUIR"
+            },
+            "g30428=team46010": {
+                "displayName": "46: BUET"
+            },
+            "g30428=team47055": {
+                "displayName": "47: Kazakh-British TU"
+            },
+            "g30428=team46032": {
+                "displayName": "46: Higher Institute for Applied S&T"
+            },
+            "g30428=team46006": {
+                "displayName": "46: Applied Science Private U"
+            },
+            "g30428=team46103": {
+                "displayName": "46: U de São Paulo (São Carlos)"
+            },
+            "g30428=team47013": {
+                "displayName": "Birla Institute of T&S (Pilani)"
+            },
+            "g30428=team46049": {
+                "displayName": "46: Jordan University of S&T"
+            },
+            "g30428=team47041": {
+                "displayName": "47: IIT - Indore"
+            },
+            "g30428=team47096": {
+                "displayName": "47: U de Buenos Aires - FCEN"
+            },
+            "g30428=team47087": {
+                "displayName": "47: ITMO University"
+            },
+            "g30428=team46078": {
+                "displayName": "46: ITMO University"
+            },
+            "g30428=team46105": {
+                "displayName": "46: U Federal de Pernambuco"
+            },
+            "g30428=team46072": {
+                "displayName": "46: Rajshahi UET"
+            },
+            "g30428=team47086": {
+                "displayName": "47: St. Petersburg Campus of HSE"
+            },
+            "g30428=team46016": {
+                "displayName": "46: Cairo University - FCAI"
+            },
+            "g30428=team47037": {
+                "displayName": "47: Huazhong UST"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "0": {
+                "color": "#cf0a2cff"
+            },
+            "1": {
+                "color": "#cf0a2cff"
+            }
         }
     }
-  }  
+]

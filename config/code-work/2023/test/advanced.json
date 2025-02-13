@@ -1,40 +1,43 @@
-{
-  "problemOverrides": {
-    "A": {
-      "color": "#FF00FE"
-    },
-    "B": {
-      "color": "#FFFFFF"
-    },
-    "C": {
-      "color": "#9B01FF"
-    },
-    "D": {
-      "color": "#FE0000"
-    },
-    "E": {
-      "color": "#FFFF00"
-    },
-    "F": {
-      "color": "#0000FE"
-    },
-    "G": {
-      "color": "#761946"
-    },
-    "H": {
-      "color": "#04FF00"
-    },
-    "I": {
-      "color": "#FE9900"
-    },
-    "J": {
-      "color": "#38771E"
-    },
-    "K": {
-      "color": "#E9D1DE"
-    },
-    "L": {
-      "color": "#45BEC6"
+[
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#ff00feff"
+            },
+            "B": {
+                "color": "#ffffffff"
+            },
+            "C": {
+                "color": "#9b01ffff"
+            },
+            "D": {
+                "color": "#fe0000ff"
+            },
+            "E": {
+                "color": "#ffff00ff"
+            },
+            "F": {
+                "color": "#0000feff"
+            },
+            "G": {
+                "color": "#761946ff"
+            },
+            "H": {
+                "color": "#04ff00ff"
+            },
+            "I": {
+                "color": "#fe9900ff"
+            },
+            "J": {
+                "color": "#38771eff"
+            },
+            "K": {
+                "color": "#e9d1deff"
+            },
+            "L": {
+                "color": "#45bec6ff"
+            }
+        }
     }
-  }
-}
+]

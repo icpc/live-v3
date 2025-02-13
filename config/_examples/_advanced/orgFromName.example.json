@@ -1,0 +1,24 @@
+// Parse and rename Uni Fullname: teamname (participants) 
+[
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "parsed": {
+        "from": "{team.fullName}",
+        "rules": {
+          "([^:]*): ([^(]*)\\([^)]*\\)": {
+            "org": "$1",
+            "name": "$2",
+            "participants": "$3"
+          },
+        }
+      },
+    },
+    "displayName": "{regexes.parsed.org}: {regexes.parsed.name}",
+    "organizationId": "{regexes.parsed.org}",
+    "customFields": {
+      "teamName": "{regexes.parsed.name}",
+      "participants": "{regexes.parsed.participants}"
+    }
+  }
+]

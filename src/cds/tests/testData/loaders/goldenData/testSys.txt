@@ -406,7 +406,8 @@
         "emulationSpeed": 1.0,
         "awardsSettings": {},
         "penaltyPerWrongAttemptSeconds": 1200,
-        "queueSettings": {}
+        "queueSettings": {},
+        "showTeamsWithoutSubmissions": true
     },
     "runs": [
         {

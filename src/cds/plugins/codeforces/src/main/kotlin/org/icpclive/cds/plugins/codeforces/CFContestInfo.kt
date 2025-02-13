@@ -14,6 +14,7 @@ private val HACKS_PROBLEM_ID = "hacks".toProblemId()
 
 internal class CFContestInfo {
     private var contestLength: Duration = 5.hours
+    private var freezeDuration: Duration? = null
     private var startTime: Instant = Instant.fromEpochMilliseconds(0)
     var status: ContestStatus = ContestStatus.BEFORE()
         private set
@@ -35,6 +36,7 @@ internal class CFContestInfo {
             CFContestPhase.CODING -> ContestStatus.RUNNING(startedAt = startTime, frozenAt = null)
             else -> ContestStatus.OVER(startedAt = startTime, finishedAt = startTime + contestLength, frozenAt = null)
         }
+        freezeDuration = contest.freezeDuration
     }
 
     fun updateStandings(standings: CFStandings) {
@@ -260,7 +262,7 @@ internal class CFContestInfo {
             CFContestType.ICPC -> ContestResultType.ICPC
         },
         contestLength = contestLength,
-        freezeTime = null,
+        freezeTime = freezeDuration?.let { contestLength - it },
         problemList = problems,
         teamList = participantsByCdsId.values.sortedBy { it.id.value },
         groupList = emptyList(),

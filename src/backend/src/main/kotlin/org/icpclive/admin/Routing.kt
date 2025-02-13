@@ -10,13 +10,13 @@ import io.ktor.server.websocket.*
 import io.ktor.util.cio.*
 import io.ktor.utils.io.*
 import kotlinx.serialization.SerializationException
+import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.*
 import org.icpclive.Config
 import org.icpclive.api.TeamViewPosition
 import org.icpclive.api.WidgetUsageStatisticsEntry
-import org.icpclive.cds.tunning.AdvancedProperties
-import org.icpclive.cds.tunning.toAdvancedProperties
+import org.icpclive.cds.tunning.*
 import org.icpclive.data.*
 import org.icpclive.util.sendFlow
 import kotlin.io.path.notExists
@@ -81,13 +81,51 @@ fun Route.configureAdminApiRouting() {
         get("/advancedJsonPreview") {
             val formatter = Json {
                 prettyPrint = true
-                encodeDefaults = false
+                encodeDefaults = true
+                explicitNulls = true
             }
             run {
                 call.respondText(contentType = ContentType.Application.Json) {
-                    formatter.encodeToString(DataBus.currentContestInfo().toAdvancedProperties(
-                        call.request.queryParameters["fields"]?.split(",")?.toSet() ?: emptySet()
-                    ))
+                    val fields = call.request.queryParameters["fields"]?.split(",")?.toSet() ?: emptySet()
+                    val rulesList = DataBus.currentContestInfo().toRulesList()
+                    val serializer = object : JsonTransformingSerializer<TuningRule>(TuningRule.serializer()) {
+                        override fun transformSerialize(element: JsonElement): JsonElement {
+                            if (element !is JsonObject) return element
+                            if ("all" in fields) return element
+                            val prefix = element["type"]?.jsonPrimitive?.content?.removePrefix("override")?.replaceFirstChar(Char::lowercase) ?: return element
+                            if (fields.none { it.startsWith(prefix) }) return JsonNull
+                            if ("$prefix.all" in fields) return element
+                            val filtered = if ("rules" !in element) {
+                                JsonObject(element.filterKeys { it == "type" || "$prefix.$it" in fields })
+                            } else {
+                                JsonObject(element.mapValues { (k, v) ->
+                                    if (k == "rules" && v is JsonObject) {
+                                        val filteredRules = v.mapValues { (_, value) ->
+                                            if (value is JsonObject) {
+                                                val sub = value.filterKeys { "$prefix.$it" in fields }
+                                                if (sub.isNotEmpty()) JsonObject(sub) else JsonNull
+                                            } else {
+                                                value
+                                            }
+                                        }.filterValues { it !is JsonNull }
+                                        if (filteredRules.isNotEmpty()) {
+                                            JsonObject(filteredRules)
+                                        } else {
+                                            JsonNull
+                                        }
+                                    } else {
+                                        v
+                                    }
+                                }.filterValues { it !is JsonNull })
+                            }
+                            if (filtered.keys.any { it != "type" }) return filtered
+                            return JsonNull
+                        }
+                    }
+                    val listSerializer = ListSerializer(serializer)
+                    val list = formatter.encodeToJsonElement(listSerializer, rulesList)
+                    val filtered = JsonArray((list as JsonArray).filter { it !is JsonNull })
+                    formatter.encodeToString(filtered)
                 }
             }
         }
@@ -105,7 +143,7 @@ fun Route.configureAdminApiRouting() {
                     val text = call.receiveText()
                     try {
                         // check if parsable
-                        AdvancedProperties.fromString(text)
+                        TuningRule.listFromString(text)
                     } catch (e: SerializationException) {
                         throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
                     }

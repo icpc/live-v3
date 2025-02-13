@@ -1,0 +1,42 @@
+[
+// Parse and rename testsys style (вк) | (1к) | (шк) teamname (participants) into groups, add emoji and set isOutOfContest
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "(^(?:\\(..\\) )?)(.*) (\\([^)]*\\))": {
+                        "funnyNameValue": "$2",
+                        "id": "$1"
+                    }
+                }
+            },
+            "style": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^\\(вк\\).*": {
+                        "emoji": ""
+                    },
+                    "^\\(1к\\).*": {
+                        "emoji": "1️⃣"
+                    },
+                    "^\\(шк\\).*": {
+                        "emoji": "👶"
+                    },
+                    "^.*": {
+                        "emoji":""
+                    }
+                }
+            }
+        },
+        "extraGroups": ["{regexes.custom.id}"],
+        "displayName": "{regexes.style.emoji}{regexes.custom.funnyNameValue}"
+    },
+    {
+        "type": "overrideGroups",
+        "rules": {
+            "(вк) ": {"isOutOfContest": true}
+        }
+    }
+]

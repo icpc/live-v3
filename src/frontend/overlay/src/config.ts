@@ -1,6 +1,7 @@
 import { setFavicon } from "@shared/setFavicon";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { faviconTemplate } from "@/consts";
+import { LocationRectangle } from "@/utils/location-rectangle";
 
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
@@ -13,19 +14,91 @@ const visualConfig = await fetch(VISUAL_CONFIG_URL)
     .then(r => r.json())
     .catch((e) => console.error("failed to load visual config: " + e)) ?? {};
 
-const config_: typeof config = {};
 
-// No known way to infer types from assignment yet.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const config: Record<string, any> = new Proxy(config_, {
-    get(target, key) {
-        return queryVisualConfig[key] ?? visualConfig[key] ?? target[key as string];
+function Location(positionX: number, positionY: number, sizeX: number, sizeY: number): LocationRectangle {
+    return Object.freeze({
+        positionX: positionX,
+        positionY: positionY,
+        sizeX: sizeX,
+        sizeY: sizeY
+    });
+}
+/**
+ * Creates a Proxy-wrapped configuration object that can manage nested overrides.
+ *
+ * @param {Record<string, any>} override - An object containing override values for configuration keys.
+ * @returns {Record<string, any>} A proxy object that supports reading and writing nested properties,
+ *                                including dotted paths like "a.b.c".
+ *
+ * **How it works**:
+ * - On `get`: if `target[key]` is not found, it checks if the key is dotted (e.g. "a.b").
+ *   If yes, it extracts the prefix ("a"), looks for any sub-object proxy, and then delegates the remainder ("b") to that sub-proxy.
+ * - On `set`: if the value being set is an object, it recursively wraps it in another proxy, merging any override values that match the dotted path prefix.
+ *
+ * **Usage example**:
+ * ```js
+ * const config = createProxy({
+ *   "featureA.enabled": true,
+ *   "featureB.options": { debug: false }
+ * });
+ *
+ * // Accessing a nested path via dot-notation:
+ * config["featureA.enabled"] // true
+ *
+ * // Setting a nested object:
+ * config.featureB = { options: { debug: true, logLevel: 2 } };
+ *
+ * // Now config.featureB.options will return { debug: true, logLevel: 2 }
+ * ```
+ *
+ * **Potential errors**:
+ * - If you pass in non-object overrides or non-serializable data, it may behave unexpectedly.
+ * - Dot notation relies on the first segment being used as the 'prefix' for the sub-object. Make sure your keys are well-formed.
+ */
+function createProxy(
+    override,
+    // No known way to infer types from assignment yet.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Record<string, any> {
+    const subObjects = {};
+    return new Proxy({}, {
+        get(target, key) {
+            const r = target[key];
+            if (r !== null && r !== undefined) return r;
+            const prefix = (key as string).split(".", 1)[0];
+            if (prefix in subObjects) {
+                return target[prefix][(key as string).substring(prefix.length + 1)];
+            }
+            return undefined;
+        },
+        set(target, key: string, value) {
+            if (typeof value === "object" && value !== null && value !== undefined) {
+                subObjects[key] = true;
+                const newOverride = override[key] ?? {};
+                Object.entries(override).forEach(([k, v]) => {
+                    if (k.startsWith(`${key}.`)) {
+                        newOverride[k.substring(key.length + 1)] = v;
+                    }
+                });
+                const subProxy = createProxy(newOverride);
+                target[key] = subProxy;
+                Object.entries(value).forEach(([k, v]) => {
+                    subProxy[k] = v;
+                });
+                return true;
+            }
+            target[key] = override[key] ?? value;
+            return true;
+        }
+    });
+}
+
+const config = createProxy(
+    {
+        ...visualConfig,
+        ...queryVisualConfig,
     },
-    set(target, key, value) {
-        target[key as string] = queryVisualConfig[key] ?? visualConfig[key] ?? value;
-        return true;
-    }
-});
+);
 
 config.CONTEST_COLOR = "#4C83C3";
 config.CONTEST_CAPTION = "";
@@ -255,10 +328,39 @@ config.QUEUE_BASIC_ZINDEX = 20;
 
 config.LOCATOR_MAGIC_CONSTANT = 343;
 
-config.WEBSOCKET_URL_OVERRIDE = {};
+config.WEBSOCKETS = {
+    mainScreen: `${config.BASE_URL_WS}/mainScreen`,
+    contestInfo: `${config.BASE_URL_WS}/contestInfo`,
+    queue: `${config.BASE_URL_WS}/queue`,
+    statistics: `${config.BASE_URL_WS}/statistics`,
+    ticker: `${config.BASE_URL_WS}/ticker`,
+    scoreboardNormal: `${config.BASE_URL_WS}/scoreboard/normal`,
+    scoreboardOptimistic: `${config.BASE_URL_WS}/scoreboard/optimistic`,
+    scoreboardPessimistic: `${config.BASE_URL_WS}/scoreboard/pessimistic`,
+};
+config.WIDGET_POSITIONS = {
+    advertisement: Location(16, 16, 1488, 984),
+    picture: Location(16, 16, 1488, 984),
+    svg: Location(0, 0, 1920, 1080),
+    queue: Location(1520, 248, 384, 752),
+    scoreboard: Location(16, 16, 1488, 984),
+    statistics: Location(16, 662, 1488, 338),
+    ticker: Location(16, 1016, 1888, 48),
+    fullScreenClock: Location(16, 16, 1488, 984),
+    teamLocator: Location(0, 0, 1920, 1080),
+    teamview: {
+        SINGLE: Location(16, 16, 1488, 984),
+        PVP_TOP: Location(16, 16, 1488, 984 / 2 + 16),
+        PVP_BOTTOM: Location(16, 16 + 984 / 2 - 16, 1488, 984 / 2 + 16),
+        TOP_LEFT: Location(16, 16, 1488 / 2, 837 / 2),
+        TOP_RIGHT: Location(16 + 1488 / 2, 16, 1488 / 2, 837 / 2),
+        BOTTOM_LEFT: Location(16, 16 + 837 / 2, 1488 / 2, 837 / 2),
+        BOTTOM_RIGHT: Location(16 + 1488 / 2, 16 + 837 / 2, 1488 / 2, 837 / 2),
+    }
+};
 
 setFavicon(faviconTemplate
-    .replaceAll("{CONTEST_COLOR}", config_["CONTEST_COLOR"])
-    .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(config_["CONTEST_COLOR"]) ? "#000000" : "#FFFFFF"));
+    .replaceAll("{CONTEST_COLOR}", config["CONTEST_COLOR"])
+    .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(config["CONTEST_COLOR"]) ? "#000000" : "#FFFFFF"));
 
-export default config_;
+export default config;

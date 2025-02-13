@@ -1,119 +1,346 @@
-{
-	"teamOverrides": {
-		"mrc2022finals-01": {"shortname": "HSE: It's raining in Kurkino"},
-		"mrc2022finals-02": {"shortname": "MEPhI: -3iq"},
-		"mrc2022finals-03": {"shortname": "MAI: MAI #1"},
-		"mrc2022finals-04": {"shortname": "MSUCE: Ictmges"},
-		"mrc2022finals-05": {"shortname": "HSE: We want to be employed"},
-		"mrc2022finals-06": {"shortname": "MIPT: HALYAVA_COME_PLEASE"},
-		"mrc2022finals-07": {"shortname": "RUDN: NAMASUTE"},
-		"mrc2022finals-08": {"shortname": "MISiS: 206 kg Ivana Yakimova"},
-		"mrc2022finals-09": {"shortname": "HSE: TRH 6bl"},
-		"mrc2022finals-10": {"shortname": "MRC: RESERVED 1"},
-		"mrc2022finals-11": {"shortname": "MISiS: Fiksiki"},
-		"mrc2022finals-12": {"shortname": "Mospolytech: #1"},
-		"mrc2022finals-13": {"shortname": "HSE: Yandex PTU"},
-		"mrc2022finals-15": {"shortname": "Bauman MSTU: 30 sec to parse"},
-		"mrc2022finals-16": {"shortname": "MSU: chaynik vitek"},
-		"mrc2022finals-17": {"shortname": "HSE: Izhevsk carriage"},
-		"mrc2022finals-18": {"shortname": "MIPT: Tricky Lemons"},
-		"mrc2022finals-19": {"shortname": "MIET: Infinity"},
-		"mrc2022finals-20": {"shortname": "MRC: RESERVED 2"},
-		"mrc2022finals-21": {"shortname": "HSE: Chao-cacao"},
-		"mrc2022finals-22": {"shortname": "MIPT: Yolki-palki"},
-		"mrc2022finals-23": {"shortname": "MTU - MIREA: Team 12"},
-		"mrc2022finals-24": {"shortname": "Financial U: FU"},
-		"mrc2022finals-25": {"shortname": "HSE: 213iq"},
-		"mrc2022finals-26": {"shortname": "MIPT: Tirlikurenduy"},
-		"mrc2022finals-27": {"shortname": "MTUCI: Sigma Chad Machines"},
-		"mrc2022finals-28": {"shortname": "MAI: #9"},
-		"mrc2022finals-29": {"shortname": "MEPhI: NAVI"},
-		"mrc2022finals-30": {"shortname": "MRC: RESERVED 3"},
-		"mrc2022finals-31": {"shortname": "MIET: __Thr33_m0r0n5__"},
-		"mrc2022finals-32": {"shortname": "MAI: #5"},
-		"mrc2022finals-33": {"shortname": "HSE: Remote Party"},
-		"mrc2022finals-34": {"shortname": "MIPT: Pshimaf Naniz"},
-		"mrc2022finals-35": {"shortname": "MSU: otolob2"},
-		"mrc2022finals-36": {"shortname": "Bauman MSTU: SweetHash"},
-		"mrc2022finals-37": {"shortname": "HSE: purpose of the trip: tourism"},
-		"mrc2022finals-38": {"shortname": "MIPT: Code 418"},
-		"mrc2022finals-39": {"shortname": "MISiS: smlt2"},
-		"mrc2022finals-40": {"shortname": "MRC: RESERVED 4"},
-		"mrc2022finals-41": {"shortname": "HSE: Elderly Passion Fruit"},
-		"mrc2022finals-42": {"shortname": "MIPT: Wake down"},
-		"mrc2022finals-43": {"shortname": "PSTGU: 4k"},
-		"mrc2022finals-44": {"shortname": "RUDN: GIM_RUDN2022"},
-		"mrc2022finals-45": {"shortname": "HSE: Muffix Sassif"},
-		"mrc2022finals-46": {"shortname": "MIPT: ieai"},
-		"mrc2022finals-47": {"shortname": "MAI: #2"},
-		"mrc2022finals-48": {"shortname": "MSU: apes together strong"},
-		"mrc2022finals-49": {"shortname": "MEPhI: based department"},
-		"mrc2022finals-50": {"shortname": "MRC: RESERVED 5"},
-		"mrc2022finals-51": {"shortname": "MSU: broken cisgenders"},
-		"mrc2022finals-52": {"shortname": "MISiS: Stop this round"},
-		"mrc2022finals-53": {"shortname": "HSE: FAT"},
-		"mrc2022finals-54": {"shortname": "MIPT: Hochland s vetchinoy"},
-		"mrc2022finals-55": {"shortname": "Skolkovo IST: Caravella"},
-		"mrc2022finals-56": {"shortname": "MIET: #1"},
-		"mrc2022finals-57": {"shortname": "HSE: FFTilted"},
-		"mrc2022finals-58": {"shortname": "MIPT: Ne bity ne krasheny"},
-		"mrc2022finals-59": {"shortname": "MSTUCA: InvTur"},
-		"mrc2022finals-60": {"shortname": "MRC: RESERVED 6"},
-		"mrc2022finals-61": {"shortname": "HSE: KIS"},
-		"mrc2022finals-62": {"shortname": "MIPT: Machula's fun club"},
-		"mrc2022finals-63": {"shortname": "Russian New U: RNUteam"},
-		"mrc2022finals-64": {"shortname": "Moscow S Ped U: Brain Limit"},
-		"mrc2022finals-65": {"shortname": "HSE: Lock, Stock"},
-		"mrc2022finals-66": {"shortname": "MIPT: Legends To Be"},
-		"mrc2022finals-67": {"shortname": "MSU: python.cpp"},
-		"mrc2022finals-68": {"shortname": "MTU - MIREA: Team 11"},
-		"mrc2022finals-69": {"shortname": "HSE: Popular Blogers"},
-		"mrc2022finals-70": {"shortname": "MRC: RESERVED 7"},
-		"mrc2022finals-71": {"shortname": "Bauman MSTU: Star NOT Geo"},
-		"mrc2022finals-72": {"shortname": "MAI: #3"},
-		"mrc2022finals-73": {"shortname": "HSE: It Has To Work"},
-		"mrc2022finals-74": {"shortname": "MIPT: Flying Penguins"},
-		"mrc2022finals-75": {"shortname": "MISiS: Yams"},
-		"mrc2022finals-76": {"shortname": "MTU - MIREA: Team 4"},
-		"mrc2022finals-77": {"shortname": "HSE: ICPSiiuu"},
-		"mrc2022finals-78": {"shortname": "MIPT: SkyFall"},
-		"mrc2022finals-79": {"shortname": "MRC: no team 1"},
-		"mrc2022finals-80": {"shortname": "MRC: RESERVED 8"},
-		"mrc2022finals-81": {"shortname": "HSE: beda"},
-		"mrc2022finals-82": {"shortname": "MIPT: Log-rank conjecture"},
-		"mrc2022finals-83": {"shortname": "MISiS: Eva Fan Club"},
-		"mrc2022finals-84": {"shortname": "Financial U: Nails"},
-		"mrc2022finals-85": {"shortname": "HSE: nether darkness"},
-		"mrc2022finals-86": {"shortname": "RUDN: GRS_RUDN2022"},
-		"mrc2022finals-87": {"shortname": "MIET: SPinHub"},
-		"mrc2022finals-88": {"shortname": "MAI: #4"},
-		"mrc2022finals-89": {"shortname": "HSE: BubbleSort enjoyers"},
-		"mrc2022finals-90": {"shortname": "MRC: RESERVED 9"},
-		"mrc2022finals-91": {"shortname": "MEPhI: Useless but powerful"},
-		"mrc2022finals-92": {"shortname": "Bauman MSTU: Dagger Final 2"},
-		"mrc2022finals-93": {"shortname": "HSE: Dirizhabl’"},
-		"mrc2022finals-94": {"shortname": "MSU: Meanwhile"},
-		"mrc2022finals-95": {"shortname": "MTUCI: & ."},
-		"mrc2022finals-96": {"shortname": "MTU - MIREA: Team 5"},
-		"mrc2022finals-97": {"shortname": "HSE: Hype Driven Development"},
-		"mrc2022finals-98": {"shortname": "MISiS: G Leps and co"},
-		"mrc2022finals-99": {"shortname": "MRC: no team 3"}
-	},
-	"scoreboardOverrides": {
-		"showTeamsWithoutSubmissions": false
-	},
-	"problemOverrides": {
-		"A":{"color":"#ffebee"},
-		"B":{"color":"#dc143c"},
-		"C":{"color":"#ffa500"},
-		"D":{"color":"#120a8f"},
-		"E":{"color":"#808080"},
-		"F":{"color":"#000000"},
-		"G":{"color":"#8b4513"},
-		"H":{"color":"#8b0000"},
-		"I":{"color":"#ffff00"},
-		"J":{"color":"#ffb6c1"},
-		"K":{"color":"#008000"},
-		"L":{"color":"#42aaff"}
-	}
-}
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "mrc2022finals-01": {
+                "displayName": "HSE: It's raining in Kurkino"
+            },
+            "mrc2022finals-02": {
+                "displayName": "MEPhI: -3iq"
+            },
+            "mrc2022finals-03": {
+                "displayName": "MAI: MAI #1"
+            },
+            "mrc2022finals-04": {
+                "displayName": "MSUCE: Ictmges"
+            },
+            "mrc2022finals-05": {
+                "displayName": "HSE: We want to be employed"
+            },
+            "mrc2022finals-06": {
+                "displayName": "MIPT: HALYAVA_COME_PLEASE"
+            },
+            "mrc2022finals-07": {
+                "displayName": "RUDN: NAMASUTE"
+            },
+            "mrc2022finals-08": {
+                "displayName": "MISiS: 206 kg Ivana Yakimova"
+            },
+            "mrc2022finals-09": {
+                "displayName": "HSE: TRH 6bl"
+            },
+            "mrc2022finals-10": {
+                "displayName": "MRC: RESERVED 1"
+            },
+            "mrc2022finals-11": {
+                "displayName": "MISiS: Fiksiki"
+            },
+            "mrc2022finals-12": {
+                "displayName": "Mospolytech: #1"
+            },
+            "mrc2022finals-13": {
+                "displayName": "HSE: Yandex PTU"
+            },
+            "mrc2022finals-15": {
+                "displayName": "Bauman MSTU: 30 sec to parse"
+            },
+            "mrc2022finals-16": {
+                "displayName": "MSU: chaynik vitek"
+            },
+            "mrc2022finals-17": {
+                "displayName": "HSE: Izhevsk carriage"
+            },
+            "mrc2022finals-18": {
+                "displayName": "MIPT: Tricky Lemons"
+            },
+            "mrc2022finals-19": {
+                "displayName": "MIET: Infinity"
+            },
+            "mrc2022finals-20": {
+                "displayName": "MRC: RESERVED 2"
+            },
+            "mrc2022finals-21": {
+                "displayName": "HSE: Chao-cacao"
+            },
+            "mrc2022finals-22": {
+                "displayName": "MIPT: Yolki-palki"
+            },
+            "mrc2022finals-23": {
+                "displayName": "MTU - MIREA: Team 12"
+            },
+            "mrc2022finals-24": {
+                "displayName": "Financial U: FU"
+            },
+            "mrc2022finals-25": {
+                "displayName": "HSE: 213iq"
+            },
+            "mrc2022finals-26": {
+                "displayName": "MIPT: Tirlikurenduy"
+            },
+            "mrc2022finals-27": {
+                "displayName": "MTUCI: Sigma Chad Machines"
+            },
+            "mrc2022finals-28": {
+                "displayName": "MAI: #9"
+            },
+            "mrc2022finals-29": {
+                "displayName": "MEPhI: NAVI"
+            },
+            "mrc2022finals-30": {
+                "displayName": "MRC: RESERVED 3"
+            },
+            "mrc2022finals-31": {
+                "displayName": "MIET: __Thr33_m0r0n5__"
+            },
+            "mrc2022finals-32": {
+                "displayName": "MAI: #5"
+            },
+            "mrc2022finals-33": {
+                "displayName": "HSE: Remote Party"
+            },
+            "mrc2022finals-34": {
+                "displayName": "MIPT: Pshimaf Naniz"
+            },
+            "mrc2022finals-35": {
+                "displayName": "MSU: otolob2"
+            },
+            "mrc2022finals-36": {
+                "displayName": "Bauman MSTU: SweetHash"
+            },
+            "mrc2022finals-37": {
+                "displayName": "HSE: purpose of the trip: tourism"
+            },
+            "mrc2022finals-38": {
+                "displayName": "MIPT: Code 418"
+            },
+            "mrc2022finals-39": {
+                "displayName": "MISiS: smlt2"
+            },
+            "mrc2022finals-40": {
+                "displayName": "MRC: RESERVED 4"
+            },
+            "mrc2022finals-41": {
+                "displayName": "HSE: Elderly Passion Fruit"
+            },
+            "mrc2022finals-42": {
+                "displayName": "MIPT: Wake down"
+            },
+            "mrc2022finals-43": {
+                "displayName": "PSTGU: 4k"
+            },
+            "mrc2022finals-44": {
+                "displayName": "RUDN: GIM_RUDN2022"
+            },
+            "mrc2022finals-45": {
+                "displayName": "HSE: Muffix Sassif"
+            },
+            "mrc2022finals-46": {
+                "displayName": "MIPT: ieai"
+            },
+            "mrc2022finals-47": {
+                "displayName": "MAI: #2"
+            },
+            "mrc2022finals-48": {
+                "displayName": "MSU: apes together strong"
+            },
+            "mrc2022finals-49": {
+                "displayName": "MEPhI: based department"
+            },
+            "mrc2022finals-50": {
+                "displayName": "MRC: RESERVED 5"
+            },
+            "mrc2022finals-51": {
+                "displayName": "MSU: broken cisgenders"
+            },
+            "mrc2022finals-52": {
+                "displayName": "MISiS: Stop this round"
+            },
+            "mrc2022finals-53": {
+                "displayName": "HSE: FAT"
+            },
+            "mrc2022finals-54": {
+                "displayName": "MIPT: Hochland s vetchinoy"
+            },
+            "mrc2022finals-55": {
+                "displayName": "Skolkovo IST: Caravella"
+            },
+            "mrc2022finals-56": {
+                "displayName": "MIET: #1"
+            },
+            "mrc2022finals-57": {
+                "displayName": "HSE: FFTilted"
+            },
+            "mrc2022finals-58": {
+                "displayName": "MIPT: Ne bity ne krasheny"
+            },
+            "mrc2022finals-59": {
+                "displayName": "MSTUCA: InvTur"
+            },
+            "mrc2022finals-60": {
+                "displayName": "MRC: RESERVED 6"
+            },
+            "mrc2022finals-61": {
+                "displayName": "HSE: KIS"
+            },
+            "mrc2022finals-62": {
+                "displayName": "MIPT: Machula's fun club"
+            },
+            "mrc2022finals-63": {
+                "displayName": "Russian New U: RNUteam"
+            },
+            "mrc2022finals-64": {
+                "displayName": "Moscow S Ped U: Brain Limit"
+            },
+            "mrc2022finals-65": {
+                "displayName": "HSE: Lock, Stock"
+            },
+            "mrc2022finals-66": {
+                "displayName": "MIPT: Legends To Be"
+            },
+            "mrc2022finals-67": {
+                "displayName": "MSU: python.cpp"
+            },
+            "mrc2022finals-68": {
+                "displayName": "MTU - MIREA: Team 11"
+            },
+            "mrc2022finals-69": {
+                "displayName": "HSE: Popular Blogers"
+            },
+            "mrc2022finals-70": {
+                "displayName": "MRC: RESERVED 7"
+            },
+            "mrc2022finals-71": {
+                "displayName": "Bauman MSTU: Star NOT Geo"
+            },
+            "mrc2022finals-72": {
+                "displayName": "MAI: #3"
+            },
+            "mrc2022finals-73": {
+                "displayName": "HSE: It Has To Work"
+            },
+            "mrc2022finals-74": {
+                "displayName": "MIPT: Flying Penguins"
+            },
+            "mrc2022finals-75": {
+                "displayName": "MISiS: Yams"
+            },
+            "mrc2022finals-76": {
+                "displayName": "MTU - MIREA: Team 4"
+            },
+            "mrc2022finals-77": {
+                "displayName": "HSE: ICPSiiuu"
+            },
+            "mrc2022finals-78": {
+                "displayName": "MIPT: SkyFall"
+            },
+            "mrc2022finals-79": {
+                "displayName": "MRC: no team 1"
+            },
+            "mrc2022finals-80": {
+                "displayName": "MRC: RESERVED 8"
+            },
+            "mrc2022finals-81": {
+                "displayName": "HSE: beda"
+            },
+            "mrc2022finals-82": {
+                "displayName": "MIPT: Log-rank conjecture"
+            },
+            "mrc2022finals-83": {
+                "displayName": "MISiS: Eva Fan Club"
+            },
+            "mrc2022finals-84": {
+                "displayName": "Financial U: Nails"
+            },
+            "mrc2022finals-85": {
+                "displayName": "HSE: nether darkness"
+            },
+            "mrc2022finals-86": {
+                "displayName": "RUDN: GRS_RUDN2022"
+            },
+            "mrc2022finals-87": {
+                "displayName": "MIET: SPinHub"
+            },
+            "mrc2022finals-88": {
+                "displayName": "MAI: #4"
+            },
+            "mrc2022finals-89": {
+                "displayName": "HSE: BubbleSort enjoyers"
+            },
+            "mrc2022finals-90": {
+                "displayName": "MRC: RESERVED 9"
+            },
+            "mrc2022finals-91": {
+                "displayName": "MEPhI: Useless but powerful"
+            },
+            "mrc2022finals-92": {
+                "displayName": "Bauman MSTU: Dagger Final 2"
+            },
+            "mrc2022finals-93": {
+                "displayName": "HSE: Dirizhabl’"
+            },
+            "mrc2022finals-94": {
+                "displayName": "MSU: Meanwhile"
+            },
+            "mrc2022finals-95": {
+                "displayName": "MTUCI: & ."
+            },
+            "mrc2022finals-96": {
+                "displayName": "MTU - MIREA: Team 5"
+            },
+            "mrc2022finals-97": {
+                "displayName": "HSE: Hype Driven Development"
+            },
+            "mrc2022finals-98": {
+                "displayName": "MISiS: G Leps and co"
+            },
+            "mrc2022finals-99": {
+                "displayName": "MRC: no team 3"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#ffebeeff"
+            },
+            "B": {
+                "color": "#dc143cff"
+            },
+            "C": {
+                "color": "#ffa500ff"
+            },
+            "D": {
+                "color": "#120a8fff"
+            },
+            "E": {
+                "color": "#808080ff"
+            },
+            "F": {
+                "color": "#000000ff"
+            },
+            "G": {
+                "color": "#8b4513ff"
+            },
+            "H": {
+                "color": "#8b0000ff"
+            },
+            "I": {
+                "color": "#ffff00ff"
+            },
+            "J": {
+                "color": "#ffb6c1ff"
+            },
+            "K": {
+                "color": "#008000ff"
+            },
+            "L": {
+                "color": "#42aaffff"
+            }
+        }
+    }
+]

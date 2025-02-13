@@ -39,8 +39,6 @@ abstract class DumpFileCommand(
     }.required()
         .check({ "Directory ${it.absolute().parent} doesn't exist"}) { it.absolute().parent.isDirectory() }
 
-    open fun Flow<ContestUpdate>.postprocess() = this
-
 
     companion object {
         val logger by getLogger()
@@ -57,7 +55,7 @@ abstract class DumpFileCommand(
             }
         val data = runBlocking {
             logger.info { "Waiting till contest become finalized..." }
-            val result = flow.postprocess().finalContestState()
+            val result = flow.finalContestState()
             logger.info { "Loaded contest data" }
             result
         }

@@ -1,77 +1,120 @@
-{    
-   "teamNameRegexes": {"customFields": {"funnyName": {"(.*)" : "$1"}}}, 
-  "teamIdRegexes": {
-    "groupRegex": {
-      "staff": "^STAFF.*",
-      "junior": "^JUNIOR.*",
-      "main": "^MAIN.*"
+[
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "(.*)": {
+                        "funnyNameValue": "$1"
+                    }
+                }
+            }
+        },
+        "customFields": {
+            "funnyName": "{regexes.custom.funnyNameValue}"
+        }
     },
-    "customFields": {
-      "emoji": {
-        "^MAIN.*":"",
-        "^STAFF.*":"👨‍💼",
-        "^JUNIOR.*":"👶"
-      }
-    }
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 3},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 5}
-    ]
-  },
-"teamOverrideTemplate": {
-  "displayName": "{emoji} {funnyName}",
-  "medias": {
-    "achievement": {
-      "type": "Object",
-      "url": "/media/achievements/{teamId}.svg"
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.id}",
+                "rules": {
+                    "^STAFF.*": {
+                        "id": "staff"
+                    },
+                    "^JUNIOR.*": {
+                        "id": "junior"
+                    },
+                    "^MAIN.*": {
+                        "id": "main"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "^MAIN.*": {
+                        "emojiValue": ""
+                    },
+                    "^STAFF.*": {
+                        "emojiValue": "👨‍💼"
+                    },
+                    "^JUNIOR.*": {
+                        "emojiValue": "👶"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.group.id}"
+        ],
+        "customFields": {
+            "emoji": "{regexes.custom.emojiValue}"
+        }
     },
-      "screen": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{peer}",
-        "url": "https://yandex.live.icpc.global",
-        "streamType": "desktop",
-        "credential": "pass"
-      },
-      "camera": {
-        "type": "WebRTCGrabberConnection",
-        "peerName": "{peer}",
-        "url": "https://yandex.live.icpc.global",
-        "streamType": "webcam",
-        "credential": "pass"
-      }
-  }
-},
-    "problemOverrides": {
-        "56307/2024_11_30/LfAiJSbpdW": {
-            "color": "#e6194B",
-            "maxScore": 10
-       },
-        "56307/2024_11_30/ByUUIToiQQ": {
-            "color": "#3cb44b",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/UYBPGhDMdO": {
-            "color": "#ffe119",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/TPLL0pPVOp": {
-            "color": "#4363d8",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/bDGtOdsC8h": {
-            "color": "#f58231",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/D5mc9AceYw": {
-            "color": "#42d4f4",
-            "maxScore": 10
-        },
-        "56307/2024_11_30/A2VKDuglQm": {
-          "color": "#f032e6",
-          "maxScore": 10
-      }
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{emoji} {funnyName}",
+        "medias": {
+            "achievement": {
+                "type": "Object",
+                "url": "/media/achievements/{team.id}.svg"
+            },
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://yandex.live.icpc.global",
+                "peerName": "{peer}",
+                "streamType": "desktop",
+                "credential": "pass"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://yandex.live.icpc.global",
+                "peerName": "{peer}",
+                "streamType": "webcam",
+                "credential": "pass"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "56307/2024_11_30/LfAiJSbpdW": {
+                "color": "#e6194bff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/ByUUIToiQQ": {
+                "color": "#3cb44bff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/UYBPGhDMdO": {
+                "color": "#ffe119ff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/TPLL0pPVOp": {
+                "color": "#4363d8ff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/bDGtOdsC8h": {
+                "color": "#f58231ff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/D5mc9AceYw": {
+                "color": "#42d4f4ff",
+                "maxScore": 10.0
+            },
+            "56307/2024_11_30/A2VKDuglQm": {
+                "color": "#f032e6ff",
+                "maxScore": 10.0
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 2
     }
-}
+]

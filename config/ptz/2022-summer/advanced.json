@@ -1,86 +1,396 @@
-{
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"},
-    "L":{"color":"#fffac8"}
-  },
-  "scoreboardOverrides": {
-    "showTeamsWithoutSubmissions": false
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 3},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 6}
-    ]
-  },
-  "teamOverrides": {
-"karelia22s-01": { "displayName": "ADA U:  HE", "groups": ["ADA U"]},
-"karelia22s-02": { "displayName": "ADA U:  Road to the Final", "groups": ["ADA U"]},
-"karelia22s-03": { "displayName": "Baltic FU:  Num4", "groups": ["Baltic FU"]},
-"karelia22s-04": { "displayName": "Belarusian SU 1", "groups": ["Belarusian SU"]},
-"karelia22s-05": { "displayName": "Belarusian SU 2", "groups": ["Belarusian SU"]},
-"karelia22s-06": { "displayName": "Belarusian SU 3", "groups": ["Belarusian SU"]},
-"karelia22s-07": { "displayName": "Central South U:  HolyK", "groups": ["Central South University"]},
-"karelia22s-08": { "displayName": "Chelyabinsk PhML 31", "groups": ["Chelyabinsk PhML 31"]},
-"karelia22s-09": { "displayName": "Dhaka U:  FlareBlitz_4.0", "groups": ["Dhaka University"]},
-"karelia22s-10": { "displayName": "Dhaka U:  NotStrongEnough", "groups": ["Dhaka University"]},
-"karelia22s-12": { "displayName": "Harbor Space U 1", "groups": ["Harbor Space U"]},
-"karelia22s-13": { "displayName": "Harbor Space U 2", "groups": ["Harbor Space U"]},
-"karelia22s-14": { "displayName": "Harbor Space U 3", "groups": ["Harbor Space U"]},
-"karelia22s-15": { "displayName": "Harbor Space U Backspace", "groups": ["Harbor Space U"]},
-"karelia22s-16": { "displayName": "HSE:  CANCELLED TP", "groups": ["HSE"]},
-"karelia22s-17": { "displayName": "HSE:  Dirizhabl'", "groups": ["HSE"]},
-"karelia22s-18": { "displayName": "HSE:  Koresha", "groups": ["HSE"]},
-"karelia22s-19": { "displayName": "HSE:  KresloStul", "groups": ["HSE"]},
-"karelia22s-20": { "displayName": "HSE:  ome", "groups": ["HSE"]},
-"karelia22s-21": { "displayName": "HSE:  Сырники из Кофемании", "groups": ["HSE"]},
-"karelia22s-22": { "displayName": "IITU 1", "groups": ["IITU"]},
-"karelia22s-24": { "displayName": "Izhevsk STU:  People++", "groups": ["Izhevsk STU"]},
-"karelia22s-25": { "displayName": "Izhevsk STU:  Skill++", "groups": ["Izhevsk STU"]},
-"karelia22s-26": { "displayName": "Izhevsk STU:  ZEDbl", "groups": ["Izhevsk STU"]},
-"karelia22s-27": { "displayName": "Kazakh-British TU 1", "groups": ["Kazakh-British TU"]},
-"karelia22s-29": { "displayName": "Kazan FU:  Konichiwa", "groups": ["Kazan Federal U"]},
-"karelia22s-30": { "displayName": "Kazan FU:  Öçpochmak", "groups": ["Kazan Federal U"]},
-"karelia22s-31": { "displayName": "KhNURE:  KB", "groups": ["KhNURE"]},
-"karelia22s-32": { "displayName": "Moscow IPT:  Lonely Coala", "groups": ["Moscow IPT"]},
-"karelia22s-33": { "displayName": "Moscow IPT:  Skyfall", "groups": ["Moscow IPT"]},
-"karelia22s-34": { "displayName": "MISiS:  Eva fan club", "groups": ["MISiS"]},
-"karelia22s-35": { "displayName": "MAI #1", "groups": ["MAI"]},
-"karelia22s-36": { "displayName": "MAI #2", "groups": ["MAI"]},
-"karelia22s-37": { "displayName": "NNSU:  Lera Almost Retired", "groups": ["NNSU"]},
-"karelia22s-38": { "displayName": "NNSU:  Presskachat", "groups": ["NNSU"]},
-"karelia22s-40": { "displayName": "Petrozavodsk SU 1", "groups": ["Petrozavodsk SU"]},
-"karelia22s-41": { "displayName": "Saratov SU 1", "groups": ["Saratov SU"]},
-"karelia22s-42": { "displayName": "Saratov SU 2", "groups": ["Saratov SU"]},
-"karelia22s-43": { "displayName": "SJTU:  willow", "groups": ["SJTU"]},
-"karelia22s-44": { "displayName": "South Ural SU", "groups": ["South Ural SU"]},
-"karelia22s-45": { "displayName": "SPb HSE:  Lemon Tree", "groups": ["SPb HSE"]},
-"karelia22s-46": { "displayName": "ITMO U:  Insert your name", "groups": ["ITMO University"]},
-"karelia22s-47": { "displayName": "ITMO U:  pengzoo", "groups": ["ITMO University"]},
-"karelia22s-48": { "displayName": "ITMO U:  Unexpected value", "groups": ["ITMO University"]},
-"karelia22s-49": { "displayName": "SPb SU:  Block of cats", "groups": ["SPb SU"]},
-"karelia22s-50": { "displayName": "SPb SU:  LOUD Enough", "groups": ["SPb SU"]},
-"karelia22s-51": { "displayName": "Ural FU:  CheezeKEK", "groups": ["Ural FU"]},
-"karelia22s-52": { "displayName": "Voronezh SU:  Tatakae", "groups": ["Voronezh SU"]},
-"karelia22s-53": { "displayName": "Zhejiang U:  jiangly_fan", "groups": ["Zhejiang U"]},
-"karelia22s-54": { "displayName": "Zhejiang U:  Solitary Dream", "groups": ["Zhejiang U"]},
-"karelia22s-55": { "displayName": "Zhejiang U:  Phantom Threshold", "groups": ["Zhejiang U"]},
-"karelia22s-56": { "displayName": "SUST:  BerlekampMassey", "groups": ["SUST"]},
-"karelia22s-57": { "displayName": "BUET: Nerd Herd", "groups": ["BUET"]},
-"karelia22s-58": { "displayName": "Moscow SU:  NoNames", "groups": ["Moscow SU"]},
-"karelia22s-68": { "displayName": "* MIPT/HSE/MSU Smirnov", "groups": ["Extra", "MIPT", "HSE"]},
-"karelia22s-70": { "displayName": "* Almost Past Glory", "groups": ["*Extra"]}
-  }
-}
-
-
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "karelia22s-01": {
+                "displayName": "ADA U:  HE",
+                "groups": [
+                    "ADA U"
+                ]
+            },
+            "karelia22s-02": {
+                "displayName": "ADA U:  Road to the Final",
+                "groups": [
+                    "ADA U"
+                ]
+            },
+            "karelia22s-03": {
+                "displayName": "Baltic FU:  Num4",
+                "groups": [
+                    "Baltic FU"
+                ]
+            },
+            "karelia22s-04": {
+                "displayName": "Belarusian SU 1",
+                "groups": [
+                    "Belarusian SU"
+                ]
+            },
+            "karelia22s-05": {
+                "displayName": "Belarusian SU 2",
+                "groups": [
+                    "Belarusian SU"
+                ]
+            },
+            "karelia22s-06": {
+                "displayName": "Belarusian SU 3",
+                "groups": [
+                    "Belarusian SU"
+                ]
+            },
+            "karelia22s-07": {
+                "displayName": "Central South U:  HolyK",
+                "groups": [
+                    "Central South University"
+                ]
+            },
+            "karelia22s-08": {
+                "displayName": "Chelyabinsk PhML 31",
+                "groups": [
+                    "Chelyabinsk PhML 31"
+                ]
+            },
+            "karelia22s-09": {
+                "displayName": "Dhaka U:  FlareBlitz_4.0",
+                "groups": [
+                    "Dhaka University"
+                ]
+            },
+            "karelia22s-10": {
+                "displayName": "Dhaka U:  NotStrongEnough",
+                "groups": [
+                    "Dhaka University"
+                ]
+            },
+            "karelia22s-12": {
+                "displayName": "Harbor Space U 1",
+                "groups": [
+                    "Harbor Space U"
+                ]
+            },
+            "karelia22s-13": {
+                "displayName": "Harbor Space U 2",
+                "groups": [
+                    "Harbor Space U"
+                ]
+            },
+            "karelia22s-14": {
+                "displayName": "Harbor Space U 3",
+                "groups": [
+                    "Harbor Space U"
+                ]
+            },
+            "karelia22s-15": {
+                "displayName": "Harbor Space U Backspace",
+                "groups": [
+                    "Harbor Space U"
+                ]
+            },
+            "karelia22s-16": {
+                "displayName": "HSE:  CANCELLED TP",
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-17": {
+                "displayName": "HSE:  Dirizhabl'",
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-18": {
+                "displayName": "HSE:  Koresha",
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-19": {
+                "displayName": "HSE:  KresloStul",
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-20": {
+                "displayName": "HSE:  ome",
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-21": {
+                "displayName": "HSE:  Сырники из Кофемании",
+                "groups": [
+                    "HSE"
+                ]
+            },
+            "karelia22s-22": {
+                "displayName": "IITU 1",
+                "groups": [
+                    "IITU"
+                ]
+            },
+            "karelia22s-24": {
+                "displayName": "Izhevsk STU:  People++",
+                "groups": [
+                    "Izhevsk STU"
+                ]
+            },
+            "karelia22s-25": {
+                "displayName": "Izhevsk STU:  Skill++",
+                "groups": [
+                    "Izhevsk STU"
+                ]
+            },
+            "karelia22s-26": {
+                "displayName": "Izhevsk STU:  ZEDbl",
+                "groups": [
+                    "Izhevsk STU"
+                ]
+            },
+            "karelia22s-27": {
+                "displayName": "Kazakh-British TU 1",
+                "groups": [
+                    "Kazakh-British TU"
+                ]
+            },
+            "karelia22s-29": {
+                "displayName": "Kazan FU:  Konichiwa",
+                "groups": [
+                    "Kazan Federal U"
+                ]
+            },
+            "karelia22s-30": {
+                "displayName": "Kazan FU:  Öçpochmak",
+                "groups": [
+                    "Kazan Federal U"
+                ]
+            },
+            "karelia22s-31": {
+                "displayName": "KhNURE:  KB",
+                "groups": [
+                    "KhNURE"
+                ]
+            },
+            "karelia22s-32": {
+                "displayName": "Moscow IPT:  Lonely Coala",
+                "groups": [
+                    "Moscow IPT"
+                ]
+            },
+            "karelia22s-33": {
+                "displayName": "Moscow IPT:  Skyfall",
+                "groups": [
+                    "Moscow IPT"
+                ]
+            },
+            "karelia22s-34": {
+                "displayName": "MISiS:  Eva fan club",
+                "groups": [
+                    "MISiS"
+                ]
+            },
+            "karelia22s-35": {
+                "displayName": "MAI #1",
+                "groups": [
+                    "MAI"
+                ]
+            },
+            "karelia22s-36": {
+                "displayName": "MAI #2",
+                "groups": [
+                    "MAI"
+                ]
+            },
+            "karelia22s-37": {
+                "displayName": "NNSU:  Lera Almost Retired",
+                "groups": [
+                    "NNSU"
+                ]
+            },
+            "karelia22s-38": {
+                "displayName": "NNSU:  Presskachat",
+                "groups": [
+                    "NNSU"
+                ]
+            },
+            "karelia22s-40": {
+                "displayName": "Petrozavodsk SU 1",
+                "groups": [
+                    "Petrozavodsk SU"
+                ]
+            },
+            "karelia22s-41": {
+                "displayName": "Saratov SU 1",
+                "groups": [
+                    "Saratov SU"
+                ]
+            },
+            "karelia22s-42": {
+                "displayName": "Saratov SU 2",
+                "groups": [
+                    "Saratov SU"
+                ]
+            },
+            "karelia22s-43": {
+                "displayName": "SJTU:  willow",
+                "groups": [
+                    "SJTU"
+                ]
+            },
+            "karelia22s-44": {
+                "displayName": "South Ural SU",
+                "groups": [
+                    "South Ural SU"
+                ]
+            },
+            "karelia22s-45": {
+                "displayName": "SPb HSE:  Lemon Tree",
+                "groups": [
+                    "SPb HSE"
+                ]
+            },
+            "karelia22s-46": {
+                "displayName": "ITMO U:  Insert your name",
+                "groups": [
+                    "ITMO University"
+                ]
+            },
+            "karelia22s-47": {
+                "displayName": "ITMO U:  pengzoo",
+                "groups": [
+                    "ITMO University"
+                ]
+            },
+            "karelia22s-48": {
+                "displayName": "ITMO U:  Unexpected value",
+                "groups": [
+                    "ITMO University"
+                ]
+            },
+            "karelia22s-49": {
+                "displayName": "SPb SU:  Block of cats",
+                "groups": [
+                    "SPb SU"
+                ]
+            },
+            "karelia22s-50": {
+                "displayName": "SPb SU:  LOUD Enough",
+                "groups": [
+                    "SPb SU"
+                ]
+            },
+            "karelia22s-51": {
+                "displayName": "Ural FU:  CheezeKEK",
+                "groups": [
+                    "Ural FU"
+                ]
+            },
+            "karelia22s-52": {
+                "displayName": "Voronezh SU:  Tatakae",
+                "groups": [
+                    "Voronezh SU"
+                ]
+            },
+            "karelia22s-53": {
+                "displayName": "Zhejiang U:  jiangly_fan",
+                "groups": [
+                    "Zhejiang U"
+                ]
+            },
+            "karelia22s-54": {
+                "displayName": "Zhejiang U:  Solitary Dream",
+                "groups": [
+                    "Zhejiang U"
+                ]
+            },
+            "karelia22s-55": {
+                "displayName": "Zhejiang U:  Phantom Threshold",
+                "groups": [
+                    "Zhejiang U"
+                ]
+            },
+            "karelia22s-56": {
+                "displayName": "SUST:  BerlekampMassey",
+                "groups": [
+                    "SUST"
+                ]
+            },
+            "karelia22s-57": {
+                "displayName": "BUET: Nerd Herd",
+                "groups": [
+                    "BUET"
+                ]
+            },
+            "karelia22s-58": {
+                "displayName": "Moscow SU:  NoNames",
+                "groups": [
+                    "Moscow SU"
+                ]
+            },
+            "karelia22s-68": {
+                "displayName": "* MIPT/HSE/MSU Smirnov",
+                "groups": [
+                    "Extra",
+                    "MIPT",
+                    "HSE"
+                ]
+            },
+            "karelia22s-70": {
+                "displayName": "* Almost Past Glory",
+                "groups": [
+                    "*Extra"
+                ]
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#f032e6ff"
+            },
+            "H": {
+                "color": "#fabed4ff"
+            },
+            "I": {
+                "color": "#469990ff"
+            },
+            "J": {
+                "color": "#dcbeffff"
+            },
+            "K": {
+                "color": "#9a6324ff"
+            },
+            "L": {
+                "color": "#fffac8ff"
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 3
+    }
+]

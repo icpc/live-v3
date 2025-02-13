@@ -83,14 +83,14 @@ jobs:
               body: 'Playwright tests screens\n\n<p float="left">' + images_grid + '</p>'
             });
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
           path: ./src/frontend/tests/playwright-report/
           retention-days: 3
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
             name: artifacts

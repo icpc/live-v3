@@ -1,187 +1,177 @@
-{
-  "freezeTimeSeconds": 14400,
-  "teamOverrides": {
-    "380424": {
-      "name": "*Ufa UST: Incognito#666 (God'sChoice) (Зинов, Тараторин)",
-      "shortname": "*Ufa UST: Incognito#666 (God'sChoice)"
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 14400
     },
-    "380425": {
-      "name": "Voronezh SU: The Only Thing I Know For Real (Шишко, Новоточинов, Бережнов)",
-      "shortname": "Voronezh SU: The Only Thing I Know For Real"
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "380424": {
+                "fullName": "*Ufa UST: Incognito#666 (God'sChoice) (Зинов, Тараторин)",
+                "displayName": "*Ufa UST: Incognito#666 (God'sChoice)"
+            },
+            "380425": {
+                "fullName": "Voronezh SU: The Only Thing I Know For Real (Шишко, Новоточинов, Бережнов)",
+                "displayName": "Voronezh SU: The Only Thing I Know For Real"
+            },
+            "380426": {
+                "fullName": "Orenburg SU: Feel Good © (Курынов, Белый, Сагитов)",
+                "displayName": "Orenburg SU: Feel Good ©"
+            },
+            "380427": {
+                "fullName": "MISIS: Фиксики (Скобелев, Шалимов, Максимов)",
+                "displayName": "MISIS: Фиксики"
+            },
+            "380428": {
+                "fullName": "South Ural SU: Undefined behavior brigade (Ильиных, Сарапульцев, Щипунов)",
+                "displayName": "South Ural SU: Undefined behavior brigade"
+            },
+            "380429": {
+                "fullName": "Irkutsk SU: ICPC means Irkutsk Competitive Programming Community (Грачев, Митрофанов, Муратов)",
+                "displayName": "Irkutsk SU: ICPC means Irkutsk Competitive Programming Community"
+            },
+            "380430": {
+                "fullName": "ITMO: I hate my team (Ивченко, Матвеев, Коновалов)",
+                "displayName": "ITMO: I hate my team"
+            },
+            "380431": {
+                "fullName": "Novosibirsk SU: MathWay (Фесенко, Владимиров, Гончаров)",
+                "displayName": "Novosibirsk SU: MathWay"
+            },
+            "380432": {
+                "fullName": "Ural FU: K&B++ (Малин, Дмитриев, Имаев)",
+                "displayName": "Ural FU: K&B++"
+            },
+            "380433": {
+                "fullName": "Ufa UST: USATU last gen (Зендель, Маланченко , Тлявсин)",
+                "displayName": "Ufa UST: USATU last gen"
+            },
+            "380434": {
+                "fullName": "Kazan FU: We have a break (Хасанов, Фазылов, Хаматнуров)",
+                "displayName": "Kazan FU: We have a break"
+            },
+            "380435": {
+                "fullName": "Ural FU: sesc boys (Вертипрахов, Сафронов, Соболев)",
+                "displayName": "Ural FU: sesc boys"
+            },
+            "380436": {
+                "fullName": "Orenburg SU: Three cats (Критинина, Игнатьев, Саар)",
+                "displayName": "Orenburg SU: Three cats"
+            },
+            "380437": {
+                "fullName": "Izhevsk STU: OV3RM!ND$ (Куликов, Ившин, Драчëв)",
+                "displayName": "Izhevsk STU: OV3RM!ND$"
+            },
+            "380438": {
+                "fullName": "Yaroslavl SU: Кодовые Ковбои (Дыбулина, Ракушин, Юргенсон)",
+                "displayName": "Yaroslavl SU: Кодовые Ковбои"
+            },
+            "380439": {
+                "fullName": "MIPT: Second_Wind (Белков, Иванов, Золин)",
+                "displayName": "MIPT: Second_Wind"
+            },
+            "380440": {
+                "fullName": "MIPT: Premeditatively Sesquipedalian Team (Лизюра, Порай, Костылев)",
+                "displayName": "MIPT: Premeditatively Sesquipedalian Team"
+            },
+            "380441": {
+                "fullName": "MISIS: t0TAlly r3t4rDed (Акманов, Колодин, Стрючков)",
+                "displayName": "MISIS: t0TAlly r3t4rDed"
+            },
+            "380442": {
+                "fullName": "HSE: M.O.S.C.O.W. (Бабин, Фёдоров, Кудряшов)",
+                "displayName": "HSE: M.O.S.C.O.W."
+            },
+            "380443": {
+                "fullName": "Novosibirsk SU: 4€by₽a$hk@ (Лылова, Мокроусов, Плюснин)",
+                "displayName": "Novosibirsk SU: 4€by₽a$hk@"
+            },
+            "380444": {
+                "fullName": "Financial U: basebillions (Бекиров, Коробков, Бабич)",
+                "displayName": "Financial U: basebillions"
+            },
+            "380445": {
+                "fullName": "RTU MIREA: bez dolgov (Исаков, Ишутин, Кирьяков)",
+                "displayName": "RTU MIREA: bez dolgov"
+            },
+            "380446": {
+                "fullName": "HSE: Youthful Passion Fruit (Некрасов, Васильев, Пустовалов)",
+                "displayName": "HSE: Youthful Passion Fruit"
+            },
+            "380447": {
+                "fullName": "UlSTU: +CC (Салин, Карамушко, Боровков)",
+                "displayName": "UlSTU: +CC"
+            },
+            "380448": {
+                "fullName": "Volgograd STU: .\";drop database (Царенок, Олейников, Олейников)",
+                "displayName": "Volgograd STU: .\";drop database"
+            },
+            "380449": {
+                "fullName": "South Ural SU: Barbieheimer enjoyer's (Горбатов, Рясов, Глазов)",
+                "displayName": "South Ural SU: Barbieheimer enjoyer's"
+            },
+            "380450": {
+                "fullName": "Izhevsk STU: KaKoVa (Корепанов, Кадуков, Васильев)",
+                "displayName": "Izhevsk STU: KaKoVa"
+            },
+            "380451": {
+                "fullName": "Ufa UST: dibrovtsy! (Адылханов, Тагиров, Ягудина)",
+                "displayName": "Ufa UST: dibrovtsy!"
+            },
+            "380452": {
+                "fullName": "Penza SU: Arbina | STALIN3000 (Абузяров, Калугин, Дорофеев)",
+                "displayName": "Penza SU: Arbina | STALIN3000"
+            },
+            "380453": {
+                "fullName": "Yaroslavl SU: FanatiKauperwooda (Кротов, Чирков, Агаев)",
+                "displayName": "Yaroslavl SU: FanatiKauperwooda"
+            },
+            "380454": {
+                "fullName": "Petrozavodsk SU: Помидоры без сопротивления (Смирнов, Кришталь, Кошкарёв)",
+                "displayName": "Petrozavodsk SU: Помидоры без сопротивления"
+            },
+            "380455": {
+                "fullName": "Ural FU: If True (Сенников, Рыбин, Хейфец)",
+                "displayName": "Ural FU: If True"
+            },
+            "380456": {
+                "fullName": "SPb SUAI: 1703 (Зарипов, Курилов, Семков)",
+                "displayName": "SPb SUAI: 1703"
+            },
+            "380457": {
+                "fullName": "ITMO: definitely not a square (Тихонов, Юлин, Попов)",
+                "displayName": "ITMO: definitely not a square"
+            },
+            "380458": {
+                "fullName": "UlSTU: AmpliTuda_reunited (Кувшинов, Медведков, Козырев)",
+                "displayName": "UlSTU: AmpliTuda_reunited"
+            },
+            "380459": {
+                "fullName": "Chelyabinsk SU: TrAkToR74 (Грибакин, Литвинов, Карпович)",
+                "displayName": "Chelyabinsk SU: TrAkToR74"
+            },
+            "380460": {
+                "fullName": "SPb SUAI: treap (Колесникова, Иванов, Петров)",
+                "displayName": "SPb SUAI: treap"
+            },
+            "380461": {
+                "fullName": "South Ural SU: Three-headed programmer 2.1 (Морозов, Губин, Алексеев)",
+                "displayName": "South Ural SU: Three-headed programmer 2.1"
+            },
+            "380462": {
+                "fullName": "School union: Mewing Machine (Габитов, Кузьмин, Глазков)",
+                "displayName": "School union: Mewing Machine"
+            },
+            "380463": {
+                "fullName": "SFedU ICTIS: Krakozabry (Лавшонок, Васильченко, Жуйков)",
+                "displayName": "SFedU ICTIS: Krakozabry"
+            }
+        }
     },
-    "380426": {
-      "name": "Orenburg SU: Feel Good © (Курынов, Белый, Сагитов)",
-      "shortname": "Orenburg SU: Feel Good ©"
-    },
-    "380427": {
-      "name": "MISIS: Фиксики (Скобелев, Шалимов, Максимов)",
-      "shortname": "MISIS: Фиксики"
-    },
-    "380428": {
-      "name": "South Ural SU: Undefined behavior brigade (Ильиных, Сарапульцев, Щипунов)",
-      "shortname": "South Ural SU: Undefined behavior brigade"
-    },
-    "380429": {
-      "name": "Irkutsk SU: ICPC means Irkutsk Competitive Programming Community (Грачев, Митрофанов, Муратов)",
-      "shortname": "Irkutsk SU: ICPC means Irkutsk Competitive Programming Community"
-    },
-    "380430": {
-      "name": "ITMO: I hate my team (Ивченко, Матвеев, Коновалов)",
-      "shortname": "ITMO: I hate my team"
-    },
-    "380431": {
-      "name": "Novosibirsk SU: MathWay (Фесенко, Владимиров, Гончаров)",
-      "shortname": "Novosibirsk SU: MathWay"
-    },
-    "380432": {
-      "name": "Ural FU: K&B++ (Малин, Дмитриев, Имаев)",
-      "shortname": "Ural FU: K&B++"
-    },
-    "380433": {
-      "name": "Ufa UST: USATU last gen (Зендель, Маланченко , Тлявсин)",
-      "shortname": "Ufa UST: USATU last gen"
-    },
-    "380434": {
-      "name": "Kazan FU: We have a break (Хасанов, Фазылов, Хаматнуров)",
-      "shortname": "Kazan FU: We have a break"
-    },
-    "380435": {
-      "name": "Ural FU: sesc boys (Вертипрахов, Сафронов, Соболев)",
-      "shortname": "Ural FU: sesc boys"
-    },
-    "380436": {
-      "name": "Orenburg SU: Three cats (Критинина, Игнатьев, Саар)",
-      "shortname": "Orenburg SU: Three cats"
-    },
-    "380437": {
-      "name": "Izhevsk STU: OV3RM!ND$ (Куликов, Ившин, Драчëв)",
-      "shortname": "Izhevsk STU: OV3RM!ND$"
-    },
-    "380438": {
-      "name": "Yaroslavl SU: Кодовые Ковбои (Дыбулина, Ракушин, Юргенсон)",
-      "shortname": "Yaroslavl SU: Кодовые Ковбои"
-    },
-    "380439": {
-      "name": "MIPT: Second_Wind (Белков, Иванов, Золин)",
-      "shortname": "MIPT: Second_Wind"
-    },
-    "380440": {
-      "name": "MIPT: Premeditatively Sesquipedalian Team (Лизюра, Порай, Костылев)",
-      "shortname": "MIPT: Premeditatively Sesquipedalian Team"
-    },
-    "380441": {
-      "name": "MISIS: t0TAlly r3t4rDed (Акманов, Колодин, Стрючков)",
-      "shortname": "MISIS: t0TAlly r3t4rDed"
-    },
-    "380442": {
-      "name": "HSE: M.O.S.C.O.W. (Бабин, Фёдоров, Кудряшов)",
-      "shortname": "HSE: M.O.S.C.O.W."
-    },
-    "380443": {
-      "name": "Novosibirsk SU: 4€by₽a$hk@ (Лылова, Мокроусов, Плюснин)",
-      "shortname": "Novosibirsk SU: 4€by₽a$hk@"
-    },
-    "380444": {
-      "name": "Financial U: basebillions (Бекиров, Коробков, Бабич)",
-      "shortname": "Financial U: basebillions"
-    },
-    "380445": {
-      "name": "RTU MIREA: bez dolgov (Исаков, Ишутин, Кирьяков)",
-      "shortname": "RTU MIREA: bez dolgov"
-    },
-    "380446": {
-      "name": "HSE: Youthful Passion Fruit (Некрасов, Васильев, Пустовалов)",
-      "shortname": "HSE: Youthful Passion Fruit"
-    },
-    "380447": {
-      "name": "UlSTU: +CC (Салин, Карамушко, Боровков)",
-      "shortname": "UlSTU: +CC"
-    },
-    "380448": {
-      "name": "Volgograd STU: .\";drop database (Царенок, Олейников, Олейников)",
-      "shortname": "Volgograd STU: .\";drop database"
-    },
-    "380449": {
-      "name": "South Ural SU: Barbieheimer enjoyer's (Горбатов, Рясов, Глазов)",
-      "shortname": "South Ural SU: Barbieheimer enjoyer's"
-    },
-    "380450": {
-      "name": "Izhevsk STU: KaKoVa (Корепанов, Кадуков, Васильев)",
-      "shortname": "Izhevsk STU: KaKoVa"
-    },
-    "380451": {
-      "name": "Ufa UST: dibrovtsy! (Адылханов, Тагиров, Ягудина)",
-      "shortname": "Ufa UST: dibrovtsy!"
-    },
-    "380452": {
-      "name": "Penza SU: Arbina | STALIN3000 (Абузяров, Калугин, Дорофеев)",
-      "shortname": "Penza SU: Arbina | STALIN3000"
-    },
-    "380453": {
-      "name": "Yaroslavl SU: FanatiKauperwooda (Кротов, Чирков, Агаев)",
-      "shortname": "Yaroslavl SU: FanatiKauperwooda"
-    },
-    "380454": {
-      "name": "Petrozavodsk SU: Помидоры без сопротивления (Смирнов, Кришталь, Кошкарёв)",
-      "shortname": "Petrozavodsk SU: Помидоры без сопротивления"
-    },
-    "380455": {
-      "name": "Ural FU: If True (Сенников, Рыбин, Хейфец)",
-      "shortname": "Ural FU: If True"
-    },
-    "380456": {
-      "name": "SPb SUAI: 1703 (Зарипов, Курилов, Семков)",
-      "shortname": "SPb SUAI: 1703"
-    },
-    "380457": {
-      "name": "ITMO: definitely not a square (Тихонов, Юлин, Попов)",
-      "shortname": "ITMO: definitely not a square"
-    },
-    "380458": {
-      "name": "UlSTU: AmpliTuda_reunited (Кувшинов, Медведков, Козырев)",
-      "shortname": "UlSTU: AmpliTuda_reunited"
-    },
-    "380459": {
-      "name": "Chelyabinsk SU: TrAkToR74 (Грибакин, Литвинов, Карпович)",
-      "shortname": "Chelyabinsk SU: TrAkToR74"
-    },
-    "380460": {
-      "name": "SPb SUAI: treap (Колесникова, Иванов, Петров)",
-      "shortname": "SPb SUAI: treap"
-    },
-    "380461": {
-      "name": "South Ural SU: Three-headed programmer 2.1 (Морозов, Губин, Алексеев)",
-      "shortname": "South Ural SU: Three-headed programmer 2.1"
-    },
-    "380462": {
-      "name": "School union: Mewing Machine (Габитов, Кузьмин, Глазков)",
-      "shortname": "School union: Mewing Machine"
-    },
-    "380463": {
-      "name": "SFedU ICTIS: Krakozabry (Лавшонок, Васильченко, Жуйков)",
-      "shortname": "SFedU ICTIS: Krakozabry"
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 3
     }
-  },
-  "awardsSettings": {
-    "medals": [
-      {
-        "id": "gold-medal",
-        "citation": "Gold Medal",
-        "color": "GOLD",
-        "maxRank": 1
-      },
-      {
-        "id": "silver-medal",
-        "citation": "Solver Medal",
-        "color": "SILVER",
-        "maxRank": 3
-      },
-      {
-        "id": "bronze-medal",
-        "citation": "Bronze Medal",
-        "color": "BRONZE",
-        "maxRank": 6
-      }
-    ]
-  }
-}
+]

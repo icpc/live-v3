@@ -1,43 +1,82 @@
 This doc is a bit outdated, although it is still a good source of examples.
-Full description of all properties supported can be found [here](https://icpc.io/live-v3/cds/cds/core/org.icpclive.cds.tunning/-advanced-properties/index.html)
+Full description of all properties supported can be found [here](https://icpc.io/live-v3/cds/cds/core/org.icpclive.cds.tunning/-tuning-rule/index.html)
 
 # How to setup advanced.json
 
-Apart from ```events.properties``` file, each contest can adjust imported from contest management system using ```advanced.json``` file.
+Apart from ```settings.json``` file, each contest can adjust imported from contest management system using ```advanced.json``` file.
+Check the current status at [http://localhost:8080/api/admin/advancedJsonPreview?fields=all](http://localhost:8080/api/admin/advancedJsonPreview?fields=all)
 
 ## Change contestant name, hashtag, group, medias and other properties
 
 You can adjust received participant information for each separate participant using ```advanced.json```. 
+
 ```
 {
-  "teamOverrides": {
-    "486861": {
-      "shortname": "ITMO test override", 
-      "name":"ITMO NAME test override",
-      "hashTag": "#ItMo",
-      "groups": ["SPb ITMO", "SPb"],
-      "isHidden": false,
-      "isOutOfContest": false, 
-      "medias": {
-        "screen": {
-          "type": "Video",
-          "url": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4"
-        },
-        "camera": {
-          "type": "Video",
-          "url": "https://cdn.videvo.net/videvo_files/video/free/2015-10/large_watermarked/Hacker_code_white_02_Videvo_preview.mp4"
+    "type": "overrideTeams",
+    "rules": {
+        "spb058": {
+            "fullName": "SPb ITMO: pengzoo (Iakovlev, Golikov, Perveev)",
+            "displayName": "SPb ITMO pengzoo",
+            "organizationId": "SPb ITMO",
+            "hashTag": "#spb058",
+            "isHidden": false,
+            "isOutOfContest": false
+            "groups": [
+                "spb-site", "SPb ITMO"
+            ],
+            "customFields": {
+                "funnyName": "pengzoo",
+                "grabberPeerName": "058",
+                "grabberIp": "192.168.0.112"
+            },
+            "medias": {
+                "achievement": {
+                    "type": "Image",
+                    "url": "/media/ach/spb058.svg"
+                },
+                "photo": {
+                    "type": "Image",
+                    "url": "/media/ach/spb058.svg"
+                },
+                "screen": {
+                    "type": "WebRTCGrabberConnection",
+                    "url": "http://192.168.0.112:8080",
+                    "peerName": "058",
+                    "streamType": "desktop",
+                    "credential": "live"
+                },
+                "camera": {
+                    "type": "WebRTCGrabberConnection",
+                    "url": "{grabberUrl}",
+                    "peerName": "http://192.168.0.112:8080",
+                    "streamType": "webcam",
+                    "credential": "live"
+                }
+            }
         }
-      }
     }
-  },
 }
 ```
 
 `isHidden` and `isOutOfContest` can be be applied to groups:
 ```
-  "groupOverrides": {
-    "test": {"isOutOfContest":true}
-  }
+{
+    "type": "overrideGroups",
+    "rules": {
+        "judges": {
+            "isHidden": true,
+            "isOutOfContest": false
+        },
+        "sponsors": {
+            "isHidden": false,
+            "isOutOfContest": true
+        },
+        "local": {
+            "isHidden": false,
+            "isOutOfContest": false
+        }
+    }
+}
 ```
 
 `isHidden`: allows to hide a team or a group of teams from everywhere
@@ -46,26 +85,29 @@ You can adjust received participant information for each separate participant us
 Also, you can create a template rule for medias, and it would be applied to all teams.
 
 ```
-  "teamOverrideTemplate": {
-    "medias": {
-      "record": {
-        "type": "Video",
-        "url": "http://localhost:8080/media/screen/record{teamId}.mp4"
-      },
-      "screen": {
-        "type": "Video",
-        "url": "http://localhost:8080/media/screen/screen{teamId}"
-      },
-      "camera": {
-        "type": "Video",
-        "url": "http://localhost:8080/media/camera/camera{teamId}"
-      },
-      "achievement": {
-        "type": "Photo",
-        "url": "http://localhost:8080/media/achievements/achievements{teamId}.svg"
-      }
+{
+    "type": "overrideTeamTemplate",
+   "medias": {
+        "screen": {
+            "type": "WebRTCGrabberConnection",
+            "url": "http://{grabberIp}:13478",
+            "peerName": "{grabberPeerName}",
+            "streamType": "desktop",
+            "credential": "live"
+        },
+        "camera": {
+            "type": "WebRTCGrabberConnection",
+            "url": "http://{grabberIp}:13478",
+            "peerName": "{grabberPeerName}",
+            "streamType": "webcam",
+            "credential": "live"
+        },
+        "achievement": {
+            "type": "Image",
+            "url": "/media/ach/{team.id}.svg"
+        }
     }
-  },
+}
 ```
 
 Avaliable medias: `"camera"`, `"screen"`, `"record"`, `"photo"`, `"reactionVideo"`, `"achievement"`. 
@@ -82,11 +124,10 @@ Avaliable media types:
 # Customize ranking rules
 ```
 {
-  "scoreboardOverrides": {
+    "type": "overrideScoreboardSettings",
     "penaltyPerWrongAttempt": 20,
-    "showTeamsWithoutSubmissions": true,
-    "penaltyRoundingMode": "each_submission_down_to_minute"
-  }
+    "penaltyRoundingMode": "each_submission_down_to_minute",
+    "showTeamsWithoutSubmissions": true
 }
 ```
 
@@ -99,14 +140,40 @@ Typical awards setup includes only medals, and can be done like this
 
 ```
 {
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
+    "type": "addMedals",
+    "gold": 4,
+    "silver": 4,
+    "bronze": 4
+},
+{
+    "type": "overrideAwards",
+    "championTitle": "Northern Eurasia Champions",
+    "rankAwardsMaxRank": 13,
+    "medalGroups": [
+        {
+            "medals": [
+                {
+                    "id": "first-diploma",
+                    "citation": "First Award",
+                    "minScore": 8.0,
+                    "tiebreakMode": "NONE"
+                },
+                {
+                    "id": "second-diploma",
+                    "citation": "Second Award",
+                    "minScore": 6.0,
+                    "tiebreakMode": "NONE"
+                },
+                {
+                    "id": "third-diploma",
+                    "citation": "Third Award",
+                    "minScore": 5.0,
+                    "tiebreakMode": "NONE"
+                }
+            ]
+        }
     ]
-  }
-}
+},
 ```
 
 More different types of awards are supported for cds-converter. 
@@ -116,31 +183,34 @@ Check [full awards settings doc](https://icpc.io/live-v3/cds/cds/core/org.icpcli
 ## Color
 ```
 {
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"},
-    "L":{"color":"#fffac8"},
-    "M":{"color":"#800000"},
-    "N":{"color":"#aaffc3"},
-    "O":{"color":"#000075"},
-    "P":{"color":"#a9a9a9"}
-  }
+    "type": "overrideProblems",
+    "rules": {
+            "A": {"color": "#e6194B"},
+            "B": {"color": "#3cb44b"},
+            "C": {"color": "#ffe119"},
+            "D": {"color": "#4363d8"},
+            "E": {"color": "#f58231"},
+            "F": {"color": "#42d4f4"},
+            "G": {"color": "#f032e6"},
+            "H": {"color": "#fabed4"},
+            "I": {"color": "#469990"},
+            "J": {"color": "#dcbeff"},
+            "K": {"color": "#9A6324"},
+            "L": {"color": "#fffac8"},
+            "M": {"color": "#800000"},
+            "N": {"color": "#aaffc3"},
+            "O": {"color": "#000075"},
+            "P": {"color": "#a9a9a9"}
+    }
 }
 ```
 
 ## Other
 ```
 {
-  "problemOverrides": {
+  "type": "overrideProblems",
+  "rules": {
+  {
     "A":{
       "name":"Pineapple",
       "color":"#a9a9a9",
@@ -175,10 +245,10 @@ A little more info on ```scoreMergeMode``` -- it is only applicable to score-bas
 
 ```
 {
-  "startTime": "2022-04-13 10:10",
-  "freezeTimeSeconds": 14400,
-  "holdTimeSeconds": 600
-}
+    "type": "overrideContestSettings",
+    "startTime": "2024-12-14 23:13:04 -08:00",
+    "freezeTimeSeconds": 14400
+},
 ```
 
 ```startTime``` -- Some systems (PCMS) don't provide contest start time, so this option allows you to have countdown before the contest start.

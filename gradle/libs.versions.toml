@@ -1,29 +1,29 @@
 [versions]
-ktor = "3.0.1"                     # https://ktor.io/
+ktor = "3.0.3"                     # https://ktor.io/
 datetime = "0.6.1"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.7.3"            # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "2.0.21"
-ksp = "2.0.21-1.0.27"              # https://github.com/google/ksp
+kotlin = "2.1.0"
+ksp = "2.1.0-1.0.29"               # https://github.com/google/ksp
 slf4j = "2.0.16"                   # https://www.slf4j.org/download.html
-logback = "1.5.12"                  # https://logback.qos.ch/download.html
+logback = "1.5.15"                 # https://logback.qos.ch/download.html
 node-plugin = "7.1.0"              # https://github.com/node-gradle/gradle-node-plugin
-coroutines = "1.9.0"               # https://github.com/Kotlin/kotlinx.coroutines/
+coroutines = "1.10.1"              # https://github.com/Kotlin/kotlinx.coroutines/
 exposed = "0.56.0"                 # https://github.com/JetBrains/Exposed
 telegram-bot = "6.2.0"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
 shadow-plugin = "8.3.5"            # https://github.com/GradleUp/shadow
 sqlite = "3.47.0.0"                # https://github.com/xerial/sqlite-jdbc
-clikt = "5.0.1"                    # https://ajalt.github.io/clikt/
+clikt = "5.0.2"                    # https://ajalt.github.io/clikt/
 immutable = "0.3.8"                # https://github.com/Kotlin/kotlinx.collections.immutable
 protobuf-plugin = "0.9.4"          # https://github.com/google/protobuf-gradle-plugin
-protobuf = "4.28.3"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
-grpc = "1.68.0"                    # https://mvnrepository.com/artifact/io.grpc/grpc-stub
+protobuf = "4.29.2"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
+grpc = "1.69.0"                    # https://mvnrepository.com/artifact/io.grpc/grpc-stub
 grpc-kotlin = "1.4.1"              # https://github.com/grpc/grpc-kotlin
-dokka = "2.0.0-Beta"               # https://github.com/Kotlin/dokka
+dokka = "2.0.0"                    # https://github.com/Kotlin/dokka
 retrofit = "2.11.0"                # https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.12.0"      # https://commons.apache.org/proper/commons-csv/
 graphql = "8.2.1"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
-bcv = "0.16.3"                     # https://github.com/Kotlin/binary-compatibility-validator
+bcv = "0.17.0"                     # https://github.com/Kotlin/binary-compatibility-validator
 
 [libraries]
 

@@ -17,13 +17,6 @@ To enable the emulation mode, add following in your `settings.json` file
 }
 ```
 
-Or, if you are using legacy `events.properties` format:
-
-```
-emulation.speed=10
-emulation.startTime=2022-04-03 22:50
-```
-
 This means that overlay would pretend that the contest was started at 22:50 
 local time at the 4-th of March 2022. This is recommended format of time, although
 some others would be parsed. Also, you can write `now` and it would be converted to time when

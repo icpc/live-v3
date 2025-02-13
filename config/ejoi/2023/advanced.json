@@ -1,30 +1,62 @@
-{
-  "freezeTimeSeconds": 18000,
-  "teamOverrides": {
-    "GEO5": {"isOutOfContest": true},
-    "GEO6": {"isOutOfContest": true},
-    "GEO7": {"isOutOfContest": true},
-    "GEO8": {"isOutOfContest": true}
-  },
-  "teamOverrideTemplate": {
-    "displayName": "[{country}] {first_name} {last_name}",
-    "medias": {
-      "photo": {"type": "Image", "url": "/media/photos/{teamId}.png"}
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 18000
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "[{country}] {first_name} {last_name}",
+        "medias": {
+            "photo": {
+                "type": "Image",
+                "url": "/media/photos/{team.id}.png"
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "GEO5": {
+                "isOutOfContest": true
+            },
+            "GEO6": {
+                "isOutOfContest": true
+            },
+            "GEO7": {
+                "isOutOfContest": true
+            },
+            "GEO8": {
+                "isOutOfContest": true
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "search": {
+                "displayName": "A1"
+            },
+            "teleport": {
+                "displayName": "B1"
+            },
+            "offices": {
+                "displayName": "C1"
+            },
+            "puzzle": {
+                "displayName": "A2"
+            },
+            "infection": {
+                "displayName": "B2"
+            },
+            "team": {
+                "displayName": "C2"
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 8,
+        "silver": 15,
+        "bronze": 23
     }
-  },
-  "problemOverrides": {
-    "search": {"displayName": "A1"},
-    "teleport": {"displayName": "B1"},
-    "offices": {"displayName": "C1"},
-    "puzzle": {"displayName": "A2"},
-    "infection": {"displayName": "B2"},
-    "team": {"displayName": "C2"}
-  },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal", "color": "GOLD", "maxRank": 8},
-      {"id": "silver-medal", "citation": "Solver Medal", "color": "SILVER", "maxRank": 23},
-      {"id": "bronze-medal", "citation": "Bronze Medal", "color": "BRONZE", "maxRank": 46}
-    ]
-  }
-}
+]

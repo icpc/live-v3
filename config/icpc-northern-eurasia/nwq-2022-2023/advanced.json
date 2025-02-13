@@ -1,212 +1,630 @@
-{
-  "teamOverrides": {
-"737780": {"shortname": "Makarov SU of Mar and IS: SeaTeaFrogs"},
-"738341": {"shortname": "SPb Mining U: MIO"},
-"738354": {"shortname": "SPb SU of Telecom: sugomA.SUT"},
-"738355": {"shortname": "* Russian S Hydromet U: Problems with Fantasy"},
-"738359": {"shortname": "SPb SU of Telecom: Hecall.SUT"},
-"738362": {"shortname": "Pskov SU: A&M"},
-"738368": {"shortname": "SPb SU of Telecom: BonchBotz.SUT"},
-"738371": {"shortname": "SPb SU of Telecom: rebest.SUT"},
-"738599": {"shortname": "Makarov SU of Mar and IS: Rave inside"},
-"738753": {"shortname": "SPb Mining U: 19"},
-"738772": {"shortname": "SPb SPU: Pyshki po 15"},
-"738835": {"shortname": "* Russian S Hydromet U: HidroMET"},
-"739042": {"shortname": "SPb Mining U: 21-RBO"},
-"739043": {"shortname": "SPb Mining U: 21-VSV"},
-"739130": {"shortname": "SPb HSE: Just3Keks"},
-"740239": {"shortname": "Makarov SU of Mar and IS: 1"},
-"740505": {"shortname": "Makarov SU of Mar and IS: 2"},
-"740506": {"shortname": "Makarov SU of Mar and IS: 3"},
-"740507": {"shortname": "Makarov SU of Mar and IS: 4"},
-"740508": {"shortname": "Makarov SU of Mar and IS: 5"},
-"740509": {"shortname": "Makarov SU of Mar and IS: 6"},
-"740970": {"shortname": "SPb ETU: Belaruskiya krakadzily"},
-"741162": {"shortname": "SPb Mozhaisky MSA: 1"},
-"741163": {"shortname": "SPb Mozhaisky MSA: 2"},
-"741164": {"shortname": "SPb Mozhaisky MSA: 3"},
-"741165": {"shortname": "SPb Mozhaisky MSA: 4"},
-"741203": {"shortname": "SPb SU of Arch: Shketi"},
-"741213": {"shortname": "SPb SU of Arch: Riverside"},
-"741214": {"shortname": "SPb SU of Arch: BorisTheAnimal"},
-"741215": {"shortname": "SPb SU of Arch: Momkins'"},
-"741288": {"shortname": "Mikhailovskaya Mil Artillery A: 1"},
-"741289": {"shortname": "Mikhailovskaya Mil Artillery A: 2"},
-"741329": {"shortname": "Mikhailovskaya Mil Artillery A: 3"},
-"741335": {"shortname": "Mil A of Comm: Number One"},
-"741400": {"shortname": "Mil A of Comm: Number Two"},
-"741401": {"shortname": "Mil A of Comm: Number Three"},
-"741402": {"shortname": "Mil A of Comm: Number Four"},
-"741403": {"shortname": "Mil A of Comm: Number Five"},
-"741404": {"shortname": "Mil A of Comm: Number Seven"},
-"741528": {"shortname": "Mil A of Comm: Number Eight"},
-"741829": {"shortname": "Murmansk STU: Fixiki"},
-"741920": {"shortname": "Murmansk STU: Tundra coders"},
-"741921": {"shortname": "Murmansk STU: bingus team"},
-"742283": {"shortname": "SPb ETU: survivors"},
-"742669": {"shortname": "SPb HSE: I need face, no, I need faith"},
-"742674": {"shortname": "SPb HSE: Pancake thieves"},
-"742677": {"shortname": "SPb HSE: Brawl Stars Stepdaddy"},
-"742678": {"shortname": "SPb HSE: Deep Learning Fantasies"},
-"742679": {"shortname": "SPb HSE: Deep Fantasies Search (dfs)"},
-"742718": {"shortname": "* SPb SU: 25"},
-"742737": {"shortname": "SPb SU: 25"},
-"742789": {"shortname": "Makarov SU of Mar and IS: lyubiteli morskih ezhov"},
-"742806": {"shortname": "SPb SU: From Zeroes To Heroes"},
-"742808": {"shortname": "SPb SU: DSU"},
-"742815": {"shortname": "SPb SU: Willing to chill in WF"},
-"742816": {"shortname": "Murmansk STU: Break the mind"},
-"742838": {"shortname": "SPb SU: Urgant Team"},
-"742841": {"shortname": "Murmansk STU: Bug report"},
-"742857": {"shortname": "SPb SU: RomanychevRudovichRomanov"},
-"742861": {"shortname": "SPb SU: Programmiruem v ume"},
-"742873": {"shortname": "Murmansk STU: NETRUNNERS"},
-"742882": {"shortname": "Murmansk STU: Triple zero"},
-"742890": {"shortname": "SPb SU: Grand Mystics"},
-"742913": {"shortname": "SPb BSTU: NeDebajim"},
-"742921": {"shortname": "SPb SU of Economics: le fishe au chocolat"},
-"742926": {"shortname": "SPb SPU: Primates"},
-"742946": {"shortname": "SPb ITMO: Cataleptodius"},
-"742951": {"shortname": "SPb ITMO: pengzoo"},
-"742954": {"shortname": "* SPb SU of Telecom: noobs"},
-"743029": {"shortname": "SPb SPU: Bank Clerks"},
-"743039": {"shortname": "Novgorod SU: KISS"},
-"743070": {"shortname": "Murmansk Arctic SU: 1"},
-"743073": {"shortname": "Novgorod SU: Erazmus"},
-"743084": {"shortname": "SPb ITMO: Team #2"},
-"743085": {"shortname": "SPb ITMO: ITMEM"},
-"743087": {"shortname": "SPb ITMO: MAKsimum"},
-"743088": {"shortname": "SPb ITMO: ITMO PTU"},
-"743089": {"shortname": "SPb ITMO: Psyk3rs"},
-"743090": {"shortname": "SPb ITMO: team for an hour"},
-"743091": {"shortname": "SPb ITMO: Nebudchadstudents"},
-"743092": {"shortname": "SPb ITMO: YaltaParus"},
-"743095": {"shortname": "SPb BSTU: IceTea gang"},
-"743096": {"shortname": "SPb BSTU: Polyuppers"},
-"743097": {"shortname": "SPb ITMO: I don't know"},
-"743098": {"shortname": "SPb ITMO: FeNiBuDiN"},
-"743099": {"shortname": "SPb ITMO: bad wolf"},
-"743100": {"shortname": "SPb ITMO: og buda"},
-"743101": {"shortname": "SPb ITMO: optimized out"},
-"743107": {"shortname": "SPb ITMO: :|"},
-"743110": {"shortname": "SPb ITMO: ITMEN"},
-"743111": {"shortname": "SPb ITMO: Kopilot Kotlin Klan"},
-"743114": {"shortname": "SPb ITMO: 3 CaTe"},
-"743116": {"shortname": "SPb ITMO: ArabicFlip"},
-"743122": {"shortname": "SPb SU: itmo_1"},
-"743123": {"shortname": "Petrozavodsk SU: _ = (1 - q^n) / (1 - q)"},
-"743124": {"shortname": "Petrozavodsk SU: Aboba"},
-"743125": {"shortname": "Petrozavodsk SU: belyashes with kittens"},
-"743126": {"shortname": "Petrozavodsk SU: DND"},
-"743127": {"shortname": "Petrozavodsk SU: Experts"},
-"743128": {"shortname": "Petrozavodsk SU: Karjalan Pies"},
-"743129": {"shortname": "Petrozavodsk SU: Razryvnye Kotyata"},
-"743130": {"shortname": "Petrozavodsk SU: Venedi"},
-"743275": {"shortname": "Murmansk STU: Straus Troop"},
-"743473": {"shortname": "SPb BSTU: Voenmeh_IT_0"},
-"743506": {"shortname": "SPb SU of AI: : 1703"},
-"743507": {"shortname": "SPb SU of AI: MegaSmetanka"},
-"743508": {"shortname": "SPb SU of AI: EOF"},
-"743509": {"shortname": "SPb SU of AI: Milky Way"},
-"743537": {"shortname": "SPb SU of AI: Mundo"},
-"743538": {"shortname": "SPb SU of AI: Victory hunters"},
-"743539": {"shortname": "SPb SU of AI: 3girls_1ICPC"},
-"743540": {"shortname": "SPb SU of AI: ProGuap"},
-"743570": {"shortname": "SPb SU of AI: 42'*2"},
-"743573": {"shortname": "SPb SU of AI: gigas"},
-"743575": {"shortname": "SPb SU of AI: 0x60D7EA44"},
-"743576": {"shortname": "SPb SU of AI: Guard of binary fury"},
-"743577": {"shortname": "SPb SU of AI: Begginer’s"},
-"743579": {"shortname": "SPb SU of AI: Le Cookie Lovers"},
-"743580": {"shortname": "SPb SU of AI: ZA GUAP"},
-"743609": {"shortname": "SPb ITMO: Last Hope"},
-"743610": {"shortname": "SPb ITMO: AnkaPetbka&VasilyIvanich"},
-"743611": {"shortname": "SPb ITMO: Delay"},
-"743612": {"shortname": "SPb ITMO: Alcorithms"},
-"743615": {"shortname": "SPb ITMO: chak-chak"},
-"743616": {"shortname": "SPb ITMO: cringe department"},
-"743617": {"shortname": "SPb ITMO: mathProg&Anton"},
-"743618": {"shortname": "SPb ITMO: Filet-Minions"},
-"743768": {"shortname": "SPb SU of Economics: Cringe pie"},
-"743770": {"shortname": "SPb ITMO: SMAK"},
-"743771": {"shortname": "SPb ITMO: LeGoShar"},
-"743773": {"shortname": "SPb ITMO: CKAKOB BCEPOC MAWUHA"},
-"743802": {"shortname": "SPb ITMO: cartesianTreeEnjoyers"},
-"743846": {"shortname": "SPb SU of Tech and Design: PMI"},
-"743867": {"shortname": "SPb Mozhaisky MSA: 5"},
-"743900": {"shortname": "* Murmansk Arctic SU: 2"},
-"743969": {"shortname": "SPb ITMO: SaVoG"},
-"743970": {"shortname": "SPb ITMO: Unexpected Value"},
-"743973": {"shortname": "SPb S Marine TU: DokolenaTeam"},
-"744001": {"shortname": "SPb ITMO: aga"},
-"744033": {"shortname": "SPb ITMO: V(k)"},
-"744100": {"shortname": "SPb SU of Economics: KneE"},
-"744131": {"shortname": "Petrozavodsk SU: Full HD"},
-"744132": {"shortname": "Petrozavodsk SU: WorkInProgressPTZ"},
-"744134": {"shortname": "SPb ITMO: Sunfire Aegis"},
-"744169": {"shortname": "SPb SU: Ave Maria"},
-"744198": {"shortname": "SPb SU: LeLiAl"},
-"744200": {"shortname": "SPb SU: PlasticSupra"},
-"744204": {"shortname": "SPb SU of AI: m228"},
-"744205": {"shortname": "SPb SU: Little honeys"},
-"744206": {"shortname": "SPb SU: Demid Is Chelyabinsk King"},
-"744207": {"shortname": "SPb SU: Oduvanchiki"},
-"744232": {"shortname": "SPb ITMO: 6highloads"},
-"744268": {"shortname": "Murmansk STU: Ololoha!"},
-"744395": {"shortname": "SPb ITMO: Centroid decomposition lovers"},
-"744396": {"shortname": "SPb ITMO: UPD"},
-"744462": {"shortname": "SPb ITMO: team.cpp"},
-"744596": {"shortname": "SPb ITMO: Vietnam"},
-"744693": {"shortname": "SPb SU: 6"},
-"744694": {"shortname": "SPb SU: 16"},
-"744699": {"shortname": "SPb SU: 20"},
-"744700": {"shortname": "SPb SU: 21"},
-"744701": {"shortname": "SPb SU: 22"},
-"744702": {"shortname": "SPb ETU: Fonbaza ABC"},
-"744703": {"shortname": "SPb SU: 30"},
-"744704": {"shortname": "SPb SU: 31"},
-"744705": {"shortname": "SPb SU: 32"},
-"744707": {"shortname": "SPb SU: 34"},
-"744708": {"shortname": "SPb SU: 35"},
-"744762": {"shortname": "SPb SU: 18"},
-"744796": {"shortname": "SPb SU: 19"},
-"744858": {"shortname": "SPb ITMO: NeBeyKotaPoPuzu"},
-"745057": {"shortname": "* Murmansk Arctic SU: 3"},
-"745058": {"shortname": "* Murmansk Arctic SU: 4"},
-"745089": {"shortname": "SPb SU of Tech and Design: Free Kassa"},
-"745090": {"shortname": "Murmansk STU: Iterativnaya recursiya"},
-"745121": {"shortname": "SPb Forest TU: Ideafix"},
-"745122": {"shortname": "SPb Forest TU: Brain++"},
-"745124": {"shortname": "SPb Forest TU: Scary raptors"},
-"745354": {"shortname": "SPb ETU: 2beltat"},
-"745422": {"shortname": "SPb SI of Technology: RPS"},
-"745423": {"shortname": "* SPb SI of Technology: Inspiration"},
-"745451": {"shortname": "Novgorod SU: Syndicate"},
-"745587": {"shortname": "SPb HSE: jaba"},
-"745750": {"shortname": "SPb SU: 36"},
-"745890": {"shortname": "Military Engineering I: ZhSN¹1"},
-"745891": {"shortname": "Military Engineering I: VRM"},
-"745892": {"shortname": "Military Engineering I: Fenix"},
-"746093": {"shortname": "Military Engineering I: Fakel"},
-"746099": {"shortname": "SPb HSE: Dead Sound"},
-"746264": {"shortname": "Makarov SU of Mar and IS: Balsa team"},
-"746277": {"shortname": "SPb SU: burdock"},
-"746346": {"shortname": "SPb ETU: 67 divizion"},
-"746563": {"shortname": "SPb SU: 37"},
-"746567": {"shortname": "SPb ITMO: 30 reunion"},
-"746647": {"shortname": "Russian S Hydromet U: Bedolagi"},
-"746648": {"shortname": "* Russian S Hydromet U: Brodyagi"},
-"746710": {"shortname": "* SPb ITMO: Winx"},
-"746746": {"shortname": "SPb ITMO: Ducks"},
-"746771": {"shortname": "Murmansk STU: I love this game!"},
-"746807": {"shortname": "SPb HSE: Poka ne pridumali"},
-"746873": {"shortname": "Murmansk STU: Kapusta"},
-"747499": {"shortname": "Military Engineering I: Giant"}
-  },
-  "problemOverrides": {
-    "W":{"color":"#e6194B"},
-    "X":{"color":"#3cb44b"},
-    "Y":{"color":"#ffe119"},
-    "Z":{"color":"#4363d8"}
-  }
-}
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "737780": {
+                "displayName": "Makarov SU of Mar and IS: SeaTeaFrogs"
+            },
+            "738341": {
+                "displayName": "SPb Mining U: MIO"
+            },
+            "738354": {
+                "displayName": "SPb SU of Telecom: sugomA.SUT"
+            },
+            "738355": {
+                "displayName": "* Russian S Hydromet U: Problems with Fantasy"
+            },
+            "738359": {
+                "displayName": "SPb SU of Telecom: Hecall.SUT"
+            },
+            "738362": {
+                "displayName": "Pskov SU: A&M"
+            },
+            "738368": {
+                "displayName": "SPb SU of Telecom: BonchBotz.SUT"
+            },
+            "738371": {
+                "displayName": "SPb SU of Telecom: rebest.SUT"
+            },
+            "738599": {
+                "displayName": "Makarov SU of Mar and IS: Rave inside"
+            },
+            "738753": {
+                "displayName": "SPb Mining U: 19"
+            },
+            "738772": {
+                "displayName": "SPb SPU: Pyshki po 15"
+            },
+            "738835": {
+                "displayName": "* Russian S Hydromet U: HidroMET"
+            },
+            "739042": {
+                "displayName": "SPb Mining U: 21-RBO"
+            },
+            "739043": {
+                "displayName": "SPb Mining U: 21-VSV"
+            },
+            "739130": {
+                "displayName": "SPb HSE: Just3Keks"
+            },
+            "740239": {
+                "displayName": "Makarov SU of Mar and IS: 1"
+            },
+            "740505": {
+                "displayName": "Makarov SU of Mar and IS: 2"
+            },
+            "740506": {
+                "displayName": "Makarov SU of Mar and IS: 3"
+            },
+            "740507": {
+                "displayName": "Makarov SU of Mar and IS: 4"
+            },
+            "740508": {
+                "displayName": "Makarov SU of Mar and IS: 5"
+            },
+            "740509": {
+                "displayName": "Makarov SU of Mar and IS: 6"
+            },
+            "740970": {
+                "displayName": "SPb ETU: Belaruskiya krakadzily"
+            },
+            "741162": {
+                "displayName": "SPb Mozhaisky MSA: 1"
+            },
+            "741163": {
+                "displayName": "SPb Mozhaisky MSA: 2"
+            },
+            "741164": {
+                "displayName": "SPb Mozhaisky MSA: 3"
+            },
+            "741165": {
+                "displayName": "SPb Mozhaisky MSA: 4"
+            },
+            "741203": {
+                "displayName": "SPb SU of Arch: Shketi"
+            },
+            "741213": {
+                "displayName": "SPb SU of Arch: Riverside"
+            },
+            "741214": {
+                "displayName": "SPb SU of Arch: BorisTheAnimal"
+            },
+            "741215": {
+                "displayName": "SPb SU of Arch: Momkins'"
+            },
+            "741288": {
+                "displayName": "Mikhailovskaya Mil Artillery A: 1"
+            },
+            "741289": {
+                "displayName": "Mikhailovskaya Mil Artillery A: 2"
+            },
+            "741329": {
+                "displayName": "Mikhailovskaya Mil Artillery A: 3"
+            },
+            "741335": {
+                "displayName": "Mil A of Comm: Number One"
+            },
+            "741400": {
+                "displayName": "Mil A of Comm: Number Two"
+            },
+            "741401": {
+                "displayName": "Mil A of Comm: Number Three"
+            },
+            "741402": {
+                "displayName": "Mil A of Comm: Number Four"
+            },
+            "741403": {
+                "displayName": "Mil A of Comm: Number Five"
+            },
+            "741404": {
+                "displayName": "Mil A of Comm: Number Seven"
+            },
+            "741528": {
+                "displayName": "Mil A of Comm: Number Eight"
+            },
+            "741829": {
+                "displayName": "Murmansk STU: Fixiki"
+            },
+            "741920": {
+                "displayName": "Murmansk STU: Tundra coders"
+            },
+            "741921": {
+                "displayName": "Murmansk STU: bingus team"
+            },
+            "742283": {
+                "displayName": "SPb ETU: survivors"
+            },
+            "742669": {
+                "displayName": "SPb HSE: I need face, no, I need faith"
+            },
+            "742674": {
+                "displayName": "SPb HSE: Pancake thieves"
+            },
+            "742677": {
+                "displayName": "SPb HSE: Brawl Stars Stepdaddy"
+            },
+            "742678": {
+                "displayName": "SPb HSE: Deep Learning Fantasies"
+            },
+            "742679": {
+                "displayName": "SPb HSE: Deep Fantasies Search (dfs)"
+            },
+            "742718": {
+                "displayName": "* SPb SU: 25"
+            },
+            "742737": {
+                "displayName": "SPb SU: 25"
+            },
+            "742789": {
+                "displayName": "Makarov SU of Mar and IS: lyubiteli morskih ezhov"
+            },
+            "742806": {
+                "displayName": "SPb SU: From Zeroes To Heroes"
+            },
+            "742808": {
+                "displayName": "SPb SU: DSU"
+            },
+            "742815": {
+                "displayName": "SPb SU: Willing to chill in WF"
+            },
+            "742816": {
+                "displayName": "Murmansk STU: Break the mind"
+            },
+            "742838": {
+                "displayName": "SPb SU: Urgant Team"
+            },
+            "742841": {
+                "displayName": "Murmansk STU: Bug report"
+            },
+            "742857": {
+                "displayName": "SPb SU: RomanychevRudovichRomanov"
+            },
+            "742861": {
+                "displayName": "SPb SU: Programmiruem v ume"
+            },
+            "742873": {
+                "displayName": "Murmansk STU: NETRUNNERS"
+            },
+            "742882": {
+                "displayName": "Murmansk STU: Triple zero"
+            },
+            "742890": {
+                "displayName": "SPb SU: Grand Mystics"
+            },
+            "742913": {
+                "displayName": "SPb BSTU: NeDebajim"
+            },
+            "742921": {
+                "displayName": "SPb SU of Economics: le fishe au chocolat"
+            },
+            "742926": {
+                "displayName": "SPb SPU: Primates"
+            },
+            "742946": {
+                "displayName": "SPb ITMO: Cataleptodius"
+            },
+            "742951": {
+                "displayName": "SPb ITMO: pengzoo"
+            },
+            "742954": {
+                "displayName": "* SPb SU of Telecom: noobs"
+            },
+            "743029": {
+                "displayName": "SPb SPU: Bank Clerks"
+            },
+            "743039": {
+                "displayName": "Novgorod SU: KISS"
+            },
+            "743070": {
+                "displayName": "Murmansk Arctic SU: 1"
+            },
+            "743073": {
+                "displayName": "Novgorod SU: Erazmus"
+            },
+            "743084": {
+                "displayName": "SPb ITMO: Team #2"
+            },
+            "743085": {
+                "displayName": "SPb ITMO: ITMEM"
+            },
+            "743087": {
+                "displayName": "SPb ITMO: MAKsimum"
+            },
+            "743088": {
+                "displayName": "SPb ITMO: ITMO PTU"
+            },
+            "743089": {
+                "displayName": "SPb ITMO: Psyk3rs"
+            },
+            "743090": {
+                "displayName": "SPb ITMO: team for an hour"
+            },
+            "743091": {
+                "displayName": "SPb ITMO: Nebudchadstudents"
+            },
+            "743092": {
+                "displayName": "SPb ITMO: YaltaParus"
+            },
+            "743095": {
+                "displayName": "SPb BSTU: IceTea gang"
+            },
+            "743096": {
+                "displayName": "SPb BSTU: Polyuppers"
+            },
+            "743097": {
+                "displayName": "SPb ITMO: I don't know"
+            },
+            "743098": {
+                "displayName": "SPb ITMO: FeNiBuDiN"
+            },
+            "743099": {
+                "displayName": "SPb ITMO: bad wolf"
+            },
+            "743100": {
+                "displayName": "SPb ITMO: og buda"
+            },
+            "743101": {
+                "displayName": "SPb ITMO: optimized out"
+            },
+            "743107": {
+                "displayName": "SPb ITMO: :|"
+            },
+            "743110": {
+                "displayName": "SPb ITMO: ITMEN"
+            },
+            "743111": {
+                "displayName": "SPb ITMO: Kopilot Kotlin Klan"
+            },
+            "743114": {
+                "displayName": "SPb ITMO: 3 CaTe"
+            },
+            "743116": {
+                "displayName": "SPb ITMO: ArabicFlip"
+            },
+            "743122": {
+                "displayName": "SPb SU: itmo_1"
+            },
+            "743123": {
+                "displayName": "Petrozavodsk SU: _ = (1 - q^n) / (1 - q)"
+            },
+            "743124": {
+                "displayName": "Petrozavodsk SU: Aboba"
+            },
+            "743125": {
+                "displayName": "Petrozavodsk SU: belyashes with kittens"
+            },
+            "743126": {
+                "displayName": "Petrozavodsk SU: DND"
+            },
+            "743127": {
+                "displayName": "Petrozavodsk SU: Experts"
+            },
+            "743128": {
+                "displayName": "Petrozavodsk SU: Karjalan Pies"
+            },
+            "743129": {
+                "displayName": "Petrozavodsk SU: Razryvnye Kotyata"
+            },
+            "743130": {
+                "displayName": "Petrozavodsk SU: Venedi"
+            },
+            "743275": {
+                "displayName": "Murmansk STU: Straus Troop"
+            },
+            "743473": {
+                "displayName": "SPb BSTU: Voenmeh_IT_0"
+            },
+            "743506": {
+                "displayName": "SPb SU of AI: : 1703"
+            },
+            "743507": {
+                "displayName": "SPb SU of AI: MegaSmetanka"
+            },
+            "743508": {
+                "displayName": "SPb SU of AI: EOF"
+            },
+            "743509": {
+                "displayName": "SPb SU of AI: Milky Way"
+            },
+            "743537": {
+                "displayName": "SPb SU of AI: Mundo"
+            },
+            "743538": {
+                "displayName": "SPb SU of AI: Victory hunters"
+            },
+            "743539": {
+                "displayName": "SPb SU of AI: 3girls_1ICPC"
+            },
+            "743540": {
+                "displayName": "SPb SU of AI: ProGuap"
+            },
+            "743570": {
+                "displayName": "SPb SU of AI: 42'*2"
+            },
+            "743573": {
+                "displayName": "SPb SU of AI: gigas"
+            },
+            "743575": {
+                "displayName": "SPb SU of AI: 0x60D7EA44"
+            },
+            "743576": {
+                "displayName": "SPb SU of AI: Guard of binary fury"
+            },
+            "743577": {
+                "displayName": "SPb SU of AI: Begginerï¿½s"
+            },
+            "743579": {
+                "displayName": "SPb SU of AI: Le Cookie Lovers"
+            },
+            "743580": {
+                "displayName": "SPb SU of AI: ZA GUAP"
+            },
+            "743609": {
+                "displayName": "SPb ITMO: Last Hope"
+            },
+            "743610": {
+                "displayName": "SPb ITMO: AnkaPetbka&VasilyIvanich"
+            },
+            "743611": {
+                "displayName": "SPb ITMO: Delay"
+            },
+            "743612": {
+                "displayName": "SPb ITMO: Alcorithms"
+            },
+            "743615": {
+                "displayName": "SPb ITMO: chak-chak"
+            },
+            "743616": {
+                "displayName": "SPb ITMO: cringe department"
+            },
+            "743617": {
+                "displayName": "SPb ITMO: mathProg&Anton"
+            },
+            "743618": {
+                "displayName": "SPb ITMO: Filet-Minions"
+            },
+            "743768": {
+                "displayName": "SPb SU of Economics: Cringe pie"
+            },
+            "743770": {
+                "displayName": "SPb ITMO: SMAK"
+            },
+            "743771": {
+                "displayName": "SPb ITMO: LeGoShar"
+            },
+            "743773": {
+                "displayName": "SPb ITMO: CKAKOB BCEPOC MAWUHA"
+            },
+            "743802": {
+                "displayName": "SPb ITMO: cartesianTreeEnjoyers"
+            },
+            "743846": {
+                "displayName": "SPb SU of Tech and Design: PMI"
+            },
+            "743867": {
+                "displayName": "SPb Mozhaisky MSA: 5"
+            },
+            "743900": {
+                "displayName": "* Murmansk Arctic SU: 2"
+            },
+            "743969": {
+                "displayName": "SPb ITMO: SaVoG"
+            },
+            "743970": {
+                "displayName": "SPb ITMO: Unexpected Value"
+            },
+            "743973": {
+                "displayName": "SPb S Marine TU: DokolenaTeam"
+            },
+            "744001": {
+                "displayName": "SPb ITMO: aga"
+            },
+            "744033": {
+                "displayName": "SPb ITMO: V(k)"
+            },
+            "744100": {
+                "displayName": "SPb SU of Economics: KneE"
+            },
+            "744131": {
+                "displayName": "Petrozavodsk SU: Full HD"
+            },
+            "744132": {
+                "displayName": "Petrozavodsk SU: WorkInProgressPTZ"
+            },
+            "744134": {
+                "displayName": "SPb ITMO: Sunfire Aegis"
+            },
+            "744169": {
+                "displayName": "SPb SU: Ave Maria"
+            },
+            "744198": {
+                "displayName": "SPb SU: LeLiAl"
+            },
+            "744200": {
+                "displayName": "SPb SU: PlasticSupra"
+            },
+            "744204": {
+                "displayName": "SPb SU of AI: m228"
+            },
+            "744205": {
+                "displayName": "SPb SU: Little honeys"
+            },
+            "744206": {
+                "displayName": "SPb SU: Demid Is Chelyabinsk King"
+            },
+            "744207": {
+                "displayName": "SPb SU: Oduvanchiki"
+            },
+            "744232": {
+                "displayName": "SPb ITMO: 6highloads"
+            },
+            "744268": {
+                "displayName": "Murmansk STU: Ololoha!"
+            },
+            "744395": {
+                "displayName": "SPb ITMO: Centroid decomposition lovers"
+            },
+            "744396": {
+                "displayName": "SPb ITMO: UPD"
+            },
+            "744462": {
+                "displayName": "SPb ITMO: team.cpp"
+            },
+            "744596": {
+                "displayName": "SPb ITMO: Vietnam"
+            },
+            "744693": {
+                "displayName": "SPb SU: 6"
+            },
+            "744694": {
+                "displayName": "SPb SU: 16"
+            },
+            "744699": {
+                "displayName": "SPb SU: 20"
+            },
+            "744700": {
+                "displayName": "SPb SU: 21"
+            },
+            "744701": {
+                "displayName": "SPb SU: 22"
+            },
+            "744702": {
+                "displayName": "SPb ETU: Fonbaza ABC"
+            },
+            "744703": {
+                "displayName": "SPb SU: 30"
+            },
+            "744704": {
+                "displayName": "SPb SU: 31"
+            },
+            "744705": {
+                "displayName": "SPb SU: 32"
+            },
+            "744707": {
+                "displayName": "SPb SU: 34"
+            },
+            "744708": {
+                "displayName": "SPb SU: 35"
+            },
+            "744762": {
+                "displayName": "SPb SU: 18"
+            },
+            "744796": {
+                "displayName": "SPb SU: 19"
+            },
+            "744858": {
+                "displayName": "SPb ITMO: NeBeyKotaPoPuzu"
+            },
+            "745057": {
+                "displayName": "* Murmansk Arctic SU: 3"
+            },
+            "745058": {
+                "displayName": "* Murmansk Arctic SU: 4"
+            },
+            "745089": {
+                "displayName": "SPb SU of Tech and Design: Free Kassa"
+            },
+            "745090": {
+                "displayName": "Murmansk STU: Iterativnaya recursiya"
+            },
+            "745121": {
+                "displayName": "SPb Forest TU: Ideafix"
+            },
+            "745122": {
+                "displayName": "SPb Forest TU: Brain++"
+            },
+            "745124": {
+                "displayName": "SPb Forest TU: Scary raptors"
+            },
+            "745354": {
+                "displayName": "SPb ETU: 2beltat"
+            },
+            "745422": {
+                "displayName": "SPb SI of Technology: RPS"
+            },
+            "745423": {
+                "displayName": "* SPb SI of Technology: Inspiration"
+            },
+            "745451": {
+                "displayName": "Novgorod SU: Syndicate"
+            },
+            "745587": {
+                "displayName": "SPb HSE: jaba"
+            },
+            "745750": {
+                "displayName": "SPb SU: 36"
+            },
+            "745890": {
+                "displayName": "Military Engineering I: ZhSNï¿½1"
+            },
+            "745891": {
+                "displayName": "Military Engineering I: VRM"
+            },
+            "745892": {
+                "displayName": "Military Engineering I: Fenix"
+            },
+            "746093": {
+                "displayName": "Military Engineering I: Fakel"
+            },
+            "746099": {
+                "displayName": "SPb HSE: Dead Sound"
+            },
+            "746264": {
+                "displayName": "Makarov SU of Mar and IS: Balsa team"
+            },
+            "746277": {
+                "displayName": "SPb SU: burdock"
+            },
+            "746346": {
+                "displayName": "SPb ETU: 67 divizion"
+            },
+            "746563": {
+                "displayName": "SPb SU: 37"
+            },
+            "746567": {
+                "displayName": "SPb ITMO: 30 reunion"
+            },
+            "746647": {
+                "displayName": "Russian S Hydromet U: Bedolagi"
+            },
+            "746648": {
+                "displayName": "* Russian S Hydromet U: Brodyagi"
+            },
+            "746710": {
+                "displayName": "* SPb ITMO: Winx"
+            },
+            "746746": {
+                "displayName": "SPb ITMO: Ducks"
+            },
+            "746771": {
+                "displayName": "Murmansk STU: I love this game!"
+            },
+            "746807": {
+                "displayName": "SPb HSE: Poka ne pridumali"
+            },
+            "746873": {
+                "displayName": "Murmansk STU: Kapusta"
+            },
+            "747499": {
+                "displayName": "Military Engineering I: Giant"
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "W": {
+                "color": "#e6194bff"
+            },
+            "X": {
+                "color": "#3cb44bff"
+            },
+            "Y": {
+                "color": "#ffe119ff"
+            },
+            "Z": {
+                "color": "#4363d8ff"
+            }
+        }
+    }
+]

@@ -69,6 +69,9 @@ fun Application.module() {
         route("/") {
             install(ConditionalHeaders)
             staticResources("/schemas", "schemas")
+            route("/examples") {
+                staticResources("/advanced", "examples.advanced")
+            }
             staticResources("/", "main", index = "main.html")
             singlePageApplication {
                 useResources = true
@@ -97,11 +100,18 @@ fun Application.module() {
             .toFlow()
             .addComputedData()
 
-        val emptyVisualConfig = JsonObject(emptyMap())
+        val emptyJson = JsonObject(emptyMap())
+        val visualConfigFlow = config.visualConfigFile?.let {
+            fileJsonContentFlow<JsonObject>(it)
+        } ?: flowOf(emptyJson)
+        val widgetPositionsFlow = config.widgetPositionsFile?.let {
+            fileJsonContentFlow<JsonObject>(it)
+        } ?: flowOf(emptyJson)
+
         DataBus.visualConfigFlow.completeOrThrow(
-            config.visualConfigFile?.let {
-                fileJsonContentFlow<JsonObject>(it).stateIn(this, SharingStarted.Eagerly, emptyVisualConfig)
-            } ?: MutableStateFlow(emptyVisualConfig)
+            combine(visualConfigFlow, widgetPositionsFlow) { a, b ->
+                JsonObject(a + ("WIDGET_POSITIONS" to b))
+            }.stateIn(this)
         )
 
         launchServices(loader)

@@ -44,6 +44,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
         val orderList = info.teamList
             .filterNot { it.isHidden }
             .map { it.id to rows[it.id]!! }
+            .run { if (info.showTeamsWithoutSubmissions) this else filter { it.second.problemResults.any { it.lastSubmitTime != null } } }
             .sortedWith(comparatorWithName)
 
         val order = orderList.map { it.first }
@@ -89,7 +90,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                     )
                 )
             }
-            for (medalGroup in awardsSettings.medalSettings) {
+            for (medalGroup in awardsSettings.medalGroups) {
                 var position = 1
                 val teamRanksFiltered = run {
                     if (medalGroup.excludedGroups.isEmpty() && medalGroup.groups.isEmpty()) {
@@ -117,7 +118,7 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                     val teams = buildSet {
                         while (position <= rankLimit) {
                             val teams = teamRanksFiltered[position] ?: break
-                            if (rows[teams[0]]!!.totalScore < medal.minScore) break
+                            if (rows[teams[0]]!!.totalScore < (medal.minScore ?: Double.MIN_VALUE)) break
                             if (medal.tiebreakMode == AwardsSettings.MedalTiebreakMode.NONE && (position + teams.size - 1) > rankLimit) break
                             position += teams.size
                             addAll(teams)
@@ -223,8 +224,10 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
         val teamsReallyAffected = teamsAffected.filter {
             val newRow = calculator.getScoreboardRow(info, runsByTeamId.getRuns(it))
             val oldRow = rows[it]
+            val newInfo = state.infoBeforeEvent?.teams[it]
+            val oldInfo = state.infoAfterEvent.teams[it]
             rows = rows.put(it, newRow)
-            newRow != oldRow
+            newRow != oldRow || newInfo?.isOutOfContest != oldInfo?.isOutOfContest || newInfo?.isHidden != oldInfo?.isHidden
         }
         if (teamsReallyAffected.isNotEmpty() || state.infoBeforeEvent?.awardsSettings != state.infoAfterEvent.awardsSettings) {
             lastRanking = calculator.getRanking(info, rows)

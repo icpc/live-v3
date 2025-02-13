@@ -1,22 +1,22 @@
-{
-"teamOverrideTemplate": {
-  "displayName": "{orgDisplayName}",
-  "medias": {
-    "achievement": {
-      "type": "Image",
-      "url": "/media/ach/{teamId}.svg"
+[
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}",
+        "medias": {
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{team.id}.svg"
+            },
+            "record": {
+                "type": "Video",
+                "url": "http://172.24.0.20/team_videos/team-{team.id}.MP4"
+            }
+        }
     },
-    "record": {
-      "type": "Video",
-      "url": "http://172.24.0.20/team_videos/team-{teamId}.MP4"
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
     }
-  }
-},
-"awardsSettings": {
-  "medals": [
-     {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 4},
-     {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 8},
-     {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 12}
-  ]
-}
-}
+]

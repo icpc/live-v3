@@ -5,8 +5,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.icpclive.cds.adapters.applyAdvancedProperties
-import org.icpclive.cds.adapters.finalContestState
+import org.icpclive.cds.adapters.*
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.*
 import org.opentest4j.AssertionFailedError
@@ -30,12 +29,10 @@ abstract class CdsLoadersTest {
         prettyPrint = true
     }
 
-    protected fun loaderTest(expectedFile: Path, args: CDSSettings, advanced: AdvancedProperties? = null) {
-        val loader = args.toFlow().applyAdvancedProperties(
-            flow {
-                if (advanced != null) emit(advanced) else emit(AdvancedProperties())
-            }
-        )
+    protected fun loaderTest(expectedFile: Path, args: CDSSettings, rules: List<TuningRule> = emptyList()) {
+        val loader = args.toFlow()
+            .applyTuningRules(flow { emit(rules) })
+            .autoCreateMissingGroupsAndOrgs()
         val result = runBlocking {
             withTimeout(1.minutes) {
                 loader.finalContestState().let {

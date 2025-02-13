@@ -1,0 +1,177 @@
+[
+    {
+        "type": "overrideContestSettings",
+        "startTime": "2024-12-14 23:13:04 -08:00",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": true
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "([^:]*): (.*) (\\([^)]*\\))": {
+                        "org": "$1",
+                        "funnyNameValue": "$2",
+                        "contestants": "$3"
+                    }
+                }
+            }
+        },
+        "organizationId": "{regexes.custom.org}",
+        "customFields": {
+            "funnyName": "{regexes.custom.funnyNameValue}"
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "$1",
+                        "grabberIpValue": "192.168.1.1",
+                        "site": "spb"
+                    },
+                    "geo(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "g$1",
+                        "grabberIpValue": "192.168.1.1",
+                        "site": "geo"
+                    },
+                    "nsk(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "n$1",
+                        "grabberIpValue": "192.168.1.1",
+                        "site": "nsk"
+                    },
+                    "kaz(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "kaz$1",
+                        "grabberIpValue": "192.168.1.1",
+                        "site": "kaz"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.custom.site}"
+        ],
+        "customFields": {
+            "grabberPeerName": "{regexes.custom.grabberPeerNameValue}",
+            "grabberIp": "{regexes.custom.grabberIpValue}"
+        }
+    },
+    {
+        "type": "overrideOrganizations",
+        "rules": {
+            "Moscow Tech U MIREA": {"displayName": "MIREA"},
+            "Komsomolsk-na-Amure SU": {"displayName": "KnASU"},
+            "South Ural SU": {"displayName": "SUSU"},
+            "Nizhny Novgorod HSE": {"displayName": "NN HSE"},
+            "St. Petersburg SU": {"displayName": "SPbSU"},
+            "Moscow SU": {"displayName": "MSU"},
+            "Petrozavodsk SU": {"displayName": "PetrSU"},
+            "Kalashnikov ISTU": {"displayName": "ISTU"}
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {funnyName}",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://{grabberIp}:13478",
+                "peerName": "{grabberPeerName}",
+                "streamType": "desktop",
+                "credential": "live"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://{grabberIp}:13478",
+                "peerName": "{grabberPeerName}",
+                "streamType": "webcam",
+                "credential": "live"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{team.id}.svg"
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "spb135": {"displayName": "MIREA: There is an idea"},
+            "spb207": {"displayName": "BSUIR: 5 Definition of limit"},
+            "spb318": {"displayName": "SPb ITMO: Shuffle, duffle"},
+            "spb628": {"displayName": "YarSU: 14 klava_myshka_monitor"},
+            "kaz013": {"displayName": "IIAU: Katen Kyokotsu Karamatsu Shinju"}
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {"color": "#0000ffff"},
+            "B": {"color": "#245840ff"},
+            "C": {"color": "#808080ff"},
+            "D": {"color": "#fdadaeff"},
+            "E": {"color": "#ff0000ff"},
+            "F": {"color": "#ede24cff"},
+            "G": {"color": "#fe8f34ff"},
+            "H": {"color": "#808080ff"},
+            "I": {"color": "#9f858bff"},
+            "J": {"color": "#d53863ff"},
+            "K": {"color": "#808080ff"},
+            "L": {"color": "#61b37cff"},
+            "M": {"color": "#ffffffff"},
+            "N": {"color": "#808080ff"},
+            "O": {"color": "#808080ff"},
+            "P": {"color": "#808080ff"},
+            "X": {"color": "#808080ff"},
+            "Y": {"color": "#808080ff"},
+            "Z": {"color": "#808080ff"}
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
+    },
+    {
+        "type": "overrideAwards",
+        "championTitle": "Northern Eurasia Champions",
+        "rankAwardsMaxRank": 13,
+        "extraMedalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "first-diploma",
+                        "citation": "First Award",
+                        "minScore": 8.0,
+                        "tiebreakMode": "NONE"
+                    },
+                    {
+                        "id": "second-diploma",
+                        "citation": "Second Award",
+                        "minScore": 6.0,
+                        "tiebreakMode": "NONE"
+                    },
+                    {
+                        "id": "third-diploma",
+                        "citation": "Third Award",
+                        "minScore": 5.0,
+                        "tiebreakMode": "NONE"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 20
+    }
+]

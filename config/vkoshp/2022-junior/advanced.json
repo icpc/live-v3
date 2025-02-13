@@ -1,45 +1,130 @@
-{
-  "teamOverrides": {
-    "g12548=vkoshp22fp610": {"shortname":"ЕКБ, ( ͡°͡° ͜ʖ ͡°͡°)  7"},
-    "g12548=vkoshp22fp619": {"shortname":"ЕКБ, 2 соцгума, матинф и семиклассница  8"},
-    "g12548=vkoshp22fp620": {"shortname":"ЕКБ, БaБkИ_B_KeDaX  8"},
-    "g12548=vkoshp22fp621": {"shortname":"ЕКБ, ЯМА  8"},
-    "g12548=vkoshp22fp622": {"shortname":"Ижевск, 7 пядей #2  8"},
-    "g12548=vkoshp22fp623": {"shortname":"Ижевск, Правда жизни  8"},
-    "g12548=vkoshp22fp611": {"shortname":"Казань, Костыли++  7"},
-    "g12548=vkoshp22fp612": {"shortname":"Казань, Назарус  7"},
-    "g12548=vkoshp22fp624": {"shortname":"Киров, Попытка Не Пытка  8"},
-    "g12548=vkoshp22fp613": {"shortname":"Королёв, Магистры Блинка  7"},
-    "g12548=vkoshp22fp625": {"shortname":"Липецк, Cyber Aliance  8"},
-    "g12548=vkoshp22fp601": {"shortname":"Липецк, Lipetsk.Junior  6"},
-    "g12548=vkoshp22fp602": {"shortname":"Москва, 1541NLOGN-6  5"},
-    "g12548=vkoshp22fp604": {"shortname":"Москва, Adeptus  6"},
-    "g12548=vkoshp22fp616": {"shortname":"Москва, Anonymous coders  7"},
-    "g12548=vkoshp22fp630": {"shortname":"Москва, LMQ  8"},
-    "g12548=vkoshp22fp631": {"shortname":"Москва, The cake is a lie  8"},
-    "g12548=vkoshp22fp603": {"shortname":"Москва, ЕТИ_НБ  6"},
-    "g12548=vkoshp22fp628": {"shortname":"Москва, Информатика - наш любимый предмет!  8"},
-    "g12548=vkoshp22fp614": {"shortname":"Москва, ИТ-решалы  7"},
-    "g12548=vkoshp22fp629": {"shortname":"Москва, перерыв  8"},
-    "g12548=vkoshp22fp615": {"shortname":"Москва, Туристы  7"},
-    "g12548=vkoshp22fp626": {"shortname":"Москва, Уточки  8"},
-    "g12548=vkoshp22fp627": {"shortname":"Москва, Ущемлённые  8"},
-    "g12548=vkoshp22fp617": {"shortname":"НН, Те самые математики-информаты  7"},
-    "g12548=vkoshp22fp632": {"shortname":"Оренбург, Команда 1  8"},
-    "g12548=vkoshp22fp633": {"shortname":"Пермь, клуб фанаток Феди Ильинова  8"},
-    "g12548=vkoshp22fp634": {"shortname":"СПб, 239  8"},
-    "g12548=vkoshp22fp608": {"shortname":"СПб, Wingers  6"},
-    "g12548=vkoshp22fp635": {"shortname":"СПб, бурьян в шоке  8"},
-    "g12548=vkoshp22fp605": {"shortname":"СПб, Инвариант  6"},
-    "g12548=vkoshp22fp606": {"shortname":"СПб, мынеможемопределиться  6"},
-    "g12548=vkoshp22fp618": {"shortname":"СПб, Три Дырявых Ведра  7"},
-    "g12548=vkoshp22fp607": {"shortname":"СПб, Учхицми  6"},
-    "g12548=vkoshp22fp637": {"shortname":"Саранск, bits/stdc++.hpp  8"},
-    "g12548=vkoshp22fp638": {"shortname":"Саранск, lwm  8"},
-    "g12548=vkoshp22fp636": {"shortname":"Саранск, ИЩВО  8"},
-    "g12548=vkoshp22fp639": {"shortname":"Улан-Удэ, Лингвистическая гимназия  3  8"},
-    "g12548=vkoshp22fp640": {"shortname":"Ульяновск, Подобные зюки  8"},
-    "g12548=vkoshp22fp609": {"shortname":"Уфа, fRuntime  5"},
-    "g12548=vkoshp22fp641": {"shortname":"Челябинск, 3x + 1  8"}
-  }
-}
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "g12548=vkoshp22fp610": {
+                "displayName": "ЕКБ, ( ͡°͡° ͜ʖ ͡°͡°)  7"
+            },
+            "g12548=vkoshp22fp619": {
+                "displayName": "ЕКБ, 2 соцгума, матинф и семиклассница  8"
+            },
+            "g12548=vkoshp22fp620": {
+                "displayName": "ЕКБ, БaБkИ_B_KeDaX  8"
+            },
+            "g12548=vkoshp22fp621": {
+                "displayName": "ЕКБ, ЯМА  8"
+            },
+            "g12548=vkoshp22fp622": {
+                "displayName": "Ижевск, 7 пядей #2  8"
+            },
+            "g12548=vkoshp22fp623": {
+                "displayName": "Ижевск, Правда жизни  8"
+            },
+            "g12548=vkoshp22fp611": {
+                "displayName": "Казань, Костыли++  7"
+            },
+            "g12548=vkoshp22fp612": {
+                "displayName": "Казань, Назарус  7"
+            },
+            "g12548=vkoshp22fp624": {
+                "displayName": "Киров, Попытка Не Пытка  8"
+            },
+            "g12548=vkoshp22fp613": {
+                "displayName": "Королёв, Магистры Блинка  7"
+            },
+            "g12548=vkoshp22fp625": {
+                "displayName": "Липецк, Cyber Aliance  8"
+            },
+            "g12548=vkoshp22fp601": {
+                "displayName": "Липецк, Lipetsk.Junior  6"
+            },
+            "g12548=vkoshp22fp602": {
+                "displayName": "Москва, 1541NLOGN-6  5"
+            },
+            "g12548=vkoshp22fp604": {
+                "displayName": "Москва, Adeptus  6"
+            },
+            "g12548=vkoshp22fp616": {
+                "displayName": "Москва, Anonymous coders  7"
+            },
+            "g12548=vkoshp22fp630": {
+                "displayName": "Москва, LMQ  8"
+            },
+            "g12548=vkoshp22fp631": {
+                "displayName": "Москва, The cake is a lie  8"
+            },
+            "g12548=vkoshp22fp603": {
+                "displayName": "Москва, ЕТИ_НБ  6"
+            },
+            "g12548=vkoshp22fp628": {
+                "displayName": "Москва, Информатика - наш любимый предмет!  8"
+            },
+            "g12548=vkoshp22fp614": {
+                "displayName": "Москва, ИТ-решалы  7"
+            },
+            "g12548=vkoshp22fp629": {
+                "displayName": "Москва, перерыв  8"
+            },
+            "g12548=vkoshp22fp615": {
+                "displayName": "Москва, Туристы  7"
+            },
+            "g12548=vkoshp22fp626": {
+                "displayName": "Москва, Уточки  8"
+            },
+            "g12548=vkoshp22fp627": {
+                "displayName": "Москва, Ущемлённые  8"
+            },
+            "g12548=vkoshp22fp617": {
+                "displayName": "НН, Те самые математики-информаты  7"
+            },
+            "g12548=vkoshp22fp632": {
+                "displayName": "Оренбург, Команда 1  8"
+            },
+            "g12548=vkoshp22fp633": {
+                "displayName": "Пермь, клуб фанаток Феди Ильинова  8"
+            },
+            "g12548=vkoshp22fp634": {
+                "displayName": "СПб, 239  8"
+            },
+            "g12548=vkoshp22fp608": {
+                "displayName": "СПб, Wingers  6"
+            },
+            "g12548=vkoshp22fp635": {
+                "displayName": "СПб, бурьян в шоке  8"
+            },
+            "g12548=vkoshp22fp605": {
+                "displayName": "СПб, Инвариант  6"
+            },
+            "g12548=vkoshp22fp606": {
+                "displayName": "СПб, мынеможемопределиться  6"
+            },
+            "g12548=vkoshp22fp618": {
+                "displayName": "СПб, Три Дырявых Ведра  7"
+            },
+            "g12548=vkoshp22fp607": {
+                "displayName": "СПб, Учхицми  6"
+            },
+            "g12548=vkoshp22fp637": {
+                "displayName": "Саранск, bits/stdc++.hpp  8"
+            },
+            "g12548=vkoshp22fp638": {
+                "displayName": "Саранск, lwm  8"
+            },
+            "g12548=vkoshp22fp636": {
+                "displayName": "Саранск, ИЩВО  8"
+            },
+            "g12548=vkoshp22fp639": {
+                "displayName": "Улан-Удэ, Лингвистическая гимназия  3  8"
+            },
+            "g12548=vkoshp22fp640": {
+                "displayName": "Ульяновск, Подобные зюки  8"
+            },
+            "g12548=vkoshp22fp609": {
+                "displayName": "Уфа, fRuntime  5"
+            },
+            "g12548=vkoshp22fp641": {
+                "displayName": "Челябинск, 3x + 1  8"
+            }
+        }
+    }
+]

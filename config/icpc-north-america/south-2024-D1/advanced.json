@@ -1,285 +1,1161 @@
-{
-      "teamOverrides": {
-        "1": {"groups": ["Mid-Atlantic"]},
-"2": {"groups": ["Mid-Atlantic"]},
-"3": {"groups": ["Mid-Atlantic"]},
-"4": {"groups": ["Mid-Atlantic"]},
-"5": {"groups": ["Mid-Atlantic"]},
-"6": {"groups": ["Mid-Atlantic"]},
-"7": {"groups": ["Mid-Atlantic"]},
-"8": {"groups": ["Mid-Atlantic"]},
-"9": {"groups": ["Mid-Atlantic"]},
-"10": {"groups": ["Mid-Atlantic"]},
-"11": {"groups": ["Mid-Atlantic"]},
-"12": {"groups": ["Mid-Atlantic"]},
-"13": {"groups": ["Mid-Atlantic"]},
-"14": {"groups": ["Mid-Atlantic"]},
-"15": {"groups": ["Mid-Atlantic"]},
-"16": {"groups": ["Mid-Atlantic"]},
-"17": {"groups": ["Mid-Atlantic"]},
-"18": {"groups": ["Mid-Atlantic"]},
-"19": {"groups": ["Mid-Atlantic"]},
-"20": {"groups": ["Mid-Atlantic"]},
-"21": {"groups": ["Mid-Atlantic"]},
-"22": {"groups": ["Mid-Atlantic"]},
-"23": {"groups": ["Mid-Atlantic"]},
-"24": {"groups": ["Mid-Atlantic"]},
-"25": {"groups": ["Mid-Atlantic"]},
-"26": {"groups": ["Mid-Atlantic"]},
-"27": {"groups": ["Mid-Atlantic"]},
-"28": {"groups": ["Mid-Atlantic"]},
-"29": {"groups": ["Mid-Atlantic"]},
-"30": {"groups": ["Mid-Atlantic"]},
-"31": {"groups": ["Mid-Atlantic"]},
-"32": {"groups": ["Mid-Atlantic"]},
-"33": {"groups": ["Mid-Atlantic"]},
-"34": {"groups": ["Mid-Atlantic"]},
-"35": {"groups": ["Mid-Atlantic"]},
-"36": {"groups": ["Mid-Atlantic"]},
-"37": {"groups": ["Mid-Atlantic"]},
-"38": {"groups": ["Mid-Atlantic"]},
-"39": {"groups": ["Mid-Atlantic"]},
-"40": {"groups": ["Mid-Atlantic"]},
-"41": {"groups": ["Mid-Atlantic"]},
-"42": {"groups": ["Mid-Atlantic"]},
-"43": {"groups": ["Mid-Atlantic"]},
-"44": {"groups": ["Mid-Atlantic"]},
-"45": {"groups": ["Mid-Atlantic"]},
-"46": {"groups": ["Mid-Atlantic"]},
-"47": {"groups": ["Mid-Atlantic"]},
-"48": {"groups": ["Mid-Atlantic"]},
-"49": {"groups": ["Mid-Atlantic"]},
-"50": {"groups": ["Mid-Atlantic"]},
-"51": {"groups": ["Mid-Atlantic"]},
-"52": {"groups": ["Mid-Atlantic"]},
-"53": {"groups": ["Mid-Atlantic"]},
-"54": {"groups": ["Mid-Atlantic"]},
-"55": {"groups": ["Mid-Atlantic"]},
-"56": {"groups": ["Mid-Atlantic"]},
-"57": {"groups": ["Mid-Atlantic"]},
-"58": {"groups": ["Mid-Atlantic"]},
-"59": {"groups": ["Mid-Atlantic"]},
-"60": {"groups": ["Mid-Atlantic"]},
-"61": {"groups": ["Mid-Atlantic"]},
-"62": {"groups": ["Mid-Atlantic"]},
-"63": {"groups": ["Mid-Atlantic"]},
-"64": {"groups": ["Mid-Atlantic"]},
-"65": {"groups": ["Mid-Atlantic"]},
-"66": {"groups": ["Mid-Atlantic"]},
-"67": {"groups": ["Mid-Atlantic"]},
-"68": {"groups": ["Mid-Atlantic"]},
-"69": {"groups": ["South Central"]},
-"70": {"groups": ["South Central"]},
-"71": {"groups": ["South Central"]},
-"72": {"groups": ["South Central"]},
-"73": {"groups": ["South Central"]},
-"74": {"groups": ["South Central"]},
-"75": {"groups": ["South Central"]},
-"76": {"groups": ["South Central"]},
-"77": {"groups": ["South Central"]},
-"78": {"groups": ["South Central"]},
-"79": {"groups": ["South Central"]},
-"80": {"groups": ["South Central"]},
-"81": {"groups": ["South Central"]},
-"82": {"groups": ["South Central"]},
-"83": {"groups": ["South Central"]},
-"84": {"groups": ["South Central"]},
-"85": {"groups": ["South Central"]},
-"86": {"groups": ["South Central"]},
-"87": {"groups": ["South Central"]},
-"88": {"groups": ["South Central"]},
-"89": {"groups": ["South Central"]},
-"90": {"groups": ["South Central"]},
-"91": {"groups": ["South Central"]},
-"92": {"groups": ["South Central"]},
-"93": {"groups": ["South Central"]},
-"94": {"groups": ["South Central"]},
-"95": {"groups": ["South Central"]},
-"96": {"groups": ["South Central"]},
-"97": {"groups": ["South Central"]},
-"98": {"groups": ["South Central"]},
-"99": {"groups": ["South Central"]},
-"100": {"groups": ["South Central"]},
-"101": {"groups": ["South Central"]},
-"102": {"groups": ["South Central"]},
-"103": {"groups": ["South Central"]},
-"104": {"groups": ["South Central"]},
-"105": {"groups": ["Southeast"]},
-"106": {"groups": ["Southeast"]},
-"107": {"groups": ["Southeast"]},
-"108": {"groups": ["Southeast"]},
-"109": {"groups": ["Southeast"]},
-"110": {"groups": ["Southeast"]},
-"111": {"groups": ["Southeast"]},
-"112": {"groups": ["Southeast"]},
-"113": {"groups": ["Southeast"]},
-"114": {"groups": ["Southeast"]},
-"115": {"groups": ["Southeast"]},
-"116": {"groups": ["Southeast"]},
-"117": {"groups": ["Southeast"]},
-"118": {"groups": ["Southeast"]},
-"119": {"groups": ["Southeast"]},
-"120": {"groups": ["Southeast"]},
-"121": {"groups": ["Southeast"]},
-"122": {"groups": ["Southeast"]},
-"123": {"groups": ["Southeast"]},
-"124": {"groups": ["Southeast"]},
-"125": {"groups": ["Southeast"]},
-"126": {"groups": ["Southeast"]},
-"127": {"groups": ["Southeast"]},
-"128": {"groups": ["Southeast"]},
-"129": {"groups": ["Southeast"]},
-"130": {"groups": ["Southeast"]},
-"131": {"groups": ["Southeast"]},
-"132": {"groups": ["Southeast"]},
-"133": {"groups": ["Southeast"]},
-"134": {"groups": ["Southeast"]},
-"135": {"groups": ["Southeast"]},
-"136": {"groups": ["Southeast"]},
-"137": {"groups": ["Southeast"]},
-"138": {"groups": ["Southeast"]},
-"139": {"groups": ["Southeast"]},
-"140": {"groups": ["Southeast"]},
-"141": {"groups": ["Southeast"]},
-"142": {"groups": ["Southeast"]},
-"143": {"groups": ["Southeast"]},
-"144": {"groups": ["Southeast"]},
-"145": {"groups": ["Southeast"]},
-"146": {"groups": ["Southeast"]},
-"147": {"groups": ["Southeast"]},
-"148": {"groups": ["Southeast"]},
-"149": {"groups": ["Southeast"]},
-"150": {"groups": ["Southeast"]},
-"151": {"groups": ["Southeast"]},
-"152": {"groups": ["Southeast"]},
-"153": {"groups": ["Southeast"]},
-"154": {"groups": ["Southeast"]},
-"155": {"groups": ["Southeast"]},
-"156": {"groups": ["Southeast"]},
-"157": {"groups": ["Southeast"]},
-"158": {"groups": ["Southeast"]},
-"159": {"groups": ["Southeast"]}
-
-      }
-      
-      "teamOverrideTemplate": {"displayName": "{orgDisplayName}: {clicsTeamDisplayName}"},
-      "organizationOverrides": {
-    "cnu.edu": {"displayName": "Christopher Newport U"},
-    "bucknell.edu": {"displayName": "Bucknell U"},
-    "udel.edu": {"displayName": "U of Delaware"},
-    "umd.edu": {"displayName": "U of Maryland"},
-    "unc.edu": {"displayName": "UNC Chapel Hill"},
-    "uncg.edu": {"displayName": "UNC Greensboro"},
-    "ohio.edu": {"displayName": "Ohio U"},
-    "upenn.edu": {"displayName": "U of Pennsylvania"},
-    "richmond.edu": {"displayName": "U of Richmond"},
-    "vcu.edu": {"displayName": "VA Commonwealth U"},
-    "virginia.edu": {"displayName": "U of Virginia"},
-    "wilkes.edu": {"displayName": "Wilkes U"},
-    "auburn.edu": {"displayName": "Auburn U"},
-    "clemson.edu": {"displayName": "Clemson U"},
-    "wm.edu": {"displayName": "William & Mary"},
-    "davidson.edu": {"displayName": "Davidson"},
-    "drexel.edu": {"displayName": "Drexel U"},
-    "duke.edu": {"displayName": "Duke U"},
-    "elon.edu": {"displayName": "Elon U"},
-    "emory.edu": {"displayName": "Emory U"},
-    "fiu.edu": {"displayName": "Florida Int'l U"},
-    "gatech.edu": {"displayName": "Georgia Tech"},
-    "gettysburg.edu": {"displayName": "Gettysburg"},
-    "jmu.edu": {"displayName": "James Madison U"},
-    "jhu.edu": {"displayName": "Johns Hopkins U"},
-    "lafayette.edu": {"displayName": "Lafayette"},
-    "letu.edu": {"displayName": "LeTourneau U"},
-    "lve.edu": {"displayName": "Lebanon Valley"},
-    "lehigh.edu": {"displayName": "Lehigh U"},
-    "liberty.edu": {"displayName": "Liberty U"},
-    "lsu.edu": {"displayName": "Louisiana State U"},
-    "mcneese.edu": {"displayName": "McNeese State U"},
-    "millersville.edu": {"displayName": "Millersville U of Penn"},
-    "morgan.edu": {"displayName": "Morgan State U"},
-    "ncsu.edu": {"displayName": "NC State U"},
-    "oc.edu": {"displayName": "Oklahoma Christian U"},
-    "rice.edu": {"displayName": "Rice U"},
-    "southeastern.edu": {"displayName": "Southeastern LA U"},
-    "tamu.edu": {"displayName": "Texas A&M U"},
-    "trinity.edu": {"displayName": "Trinity U"},
-    "ua.edu": {"displayName": "U of Alabama"},
-    "ucf.edu": {"displayName": "U Central Florida"},
-    "udallas.edu": {"displayName": "U of Dallas"},
-    "ufl.edu": {"displayName": "U of Florida"},
-    "uh.edu": {"displayName": "U of Houston"},
-    "ou.edu": {"displayName": "U of Oklahoma"},
-    "sc.edu": {"displayName": "U of South Carolina"},
-    "usf.edu": {"displayName": "U of South Florida"},
-    "uta.edu": {"displayName": "UT Arlington"},
-    "utexas.edu": {"displayName": "UT Austin"},
-    "utdallas.edu": {"displayName": "UT Dallas"},
-    "utsa.edu": {"displayName": "UT San Antonio"},
-    "utulsa.edu": {"displayName": "U of Tulsa"},
-    "bju.edu": {"displayName": "Bob Jones U"},
-    "arcadia.edu": {"displayName": "Arcadia U"},
-    "bowiestate.edu": {"displayName": "Bowie State U"},
-    "bridgewater.edu": {"displayName": "Bridgewater"},
-    "csuniv.edu": {"displayName": "Charleston Southern U"},
-    "charleston.edu": {"displayName": "Charleston"},
-    "ecu.edu": {"displayName": "East Carolina U"},
-    "uncfsu.edu": {"displayName": "Fayetteville State U"},
-    "fit.edu": {"displayName": "Florida Tech"},
-    "flsouthern.edu": {"displayName": "Florida Southern"},
-    "fsu.edu": {"displayName": "Florida State"},
-    "lasalle.edu": {"displayName": "La Salle U"},
-    "lamar.edu": {"displayName": "Lamar U"},
-    "mercer.edu": {"displayName": "Mercer U"},
-    "mdc.edu": {"displayName": "Miami Dade"},
-    "morehouse.edu": {"displayName": "Morehouse"},
-    "radford.edu": {"displayName": "Radford U"},
-    "ship.edu": {"displayName": "Shippensburg U"},
-    "uga.edu": {"displayName": "U of Georgia"},
-    "una.edu": {"displayName": "U North Alabama"},
-    "uncc.edu": {"displayName": "UNC Charlotte"},
-    "unf.edu": {"displayName": "U North Florida"},
-    "uwf.edu": {"displayName": "U West Florida"},
-    "villanova.edu": {"displayName": "Villanova U"},
-    "vmi.edu": {"displayName": "VA Military Inst"},
-    "wcupa.edu": {"displayName": "West Chester U"},
-    "wvutech.edu": {"displayName": "WVU Tech"},
-    "winthrop.edu": {"displayName": "Winthrop U"},
-    "swarthmore.edu": {"displayName": "Swarthmore"},
-    "htu.edu": {"displayName": "HTU"},
-    "cofc.edu": {"displayName": "Charleston"},
-    "stetson.edu": {"displayName": "Stetson"},
-    "rowan.edu": {"displayName": "Rowan"},
-    "commonwealthu.edu": {"displayName": "Commonwealth U of PA"},
-    "umw.edu": {"displayName": "U of Mary Washington"},
-    "kings.edu": {"displayName": "King's College PA"},
-    "nsula.edu": {"displayName": "Northwestern SU of LA"},
-    "wtamu.edu": {"displayName": "West Texas A&M U"},
-    "utep.edu": {"displayName": "UT El Paso"},
-    "hc.edu": {"displayName": "Houston Christian U"},
-    "shsu.edu": {"displayName": "Sam Houston State"},
-    "msstate.edu": {"displayName": "Mississippi State"},
-    "aum.edu": {"displayName": "Auburn U Montgomery"},
-    "lvc.edu": {"displayName": "Lebanon Valley"},
-    "na.edu": {"displayName": "North America U"},
-    "ulm.edu": {"displayName": "U of LA Monroe"}
-  },
-    "problemOverrides": {
-    "welcomesign": {"color": "#e6194B"},
-    "trianglesofasquare": {"color": "#3cb44b"},
-    "citybike": {"color": "#ffe119"},
-    "duelofcards": {"color": "#4363d8"},
-    "elevatedrails": {"color": "#f58231"},
-    "findingkeys": {"color": "#42d4f4"},
-    "intergalacticteam": {"color": "#f032e6"},
-    "herbmixing": {"color": "#fabed4"},
-    "islandmemories": {"color": "#469990"},
-    "perfectsquares": {"color": "#dcbeff"},
-    "optimizedcheating": {"color": "#9A6324"},
-    "pianissimo": {"color": "#fffac8"},
-    "vrplayspace": {"color": "#800000"},
-    "N": {"color": "#aaffc3"},
-    "O": {"color": "#000075"},
-    "P": {"color": "#a9a9a9"}
-  }
-}
+[
+    {
+        "type": "overrideOrganizations",
+        "rules": {
+            "cnu.edu": {
+                "displayName": "Christopher Newport U"
+            },
+            "bucknell.edu": {
+                "displayName": "Bucknell U"
+            },
+            "udel.edu": {
+                "displayName": "U of Delaware"
+            },
+            "umd.edu": {
+                "displayName": "U of Maryland"
+            },
+            "unc.edu": {
+                "displayName": "UNC Chapel Hill"
+            },
+            "uncg.edu": {
+                "displayName": "UNC Greensboro"
+            },
+            "ohio.edu": {
+                "displayName": "Ohio U"
+            },
+            "upenn.edu": {
+                "displayName": "U of Pennsylvania"
+            },
+            "richmond.edu": {
+                "displayName": "U of Richmond"
+            },
+            "vcu.edu": {
+                "displayName": "VA Commonwealth U"
+            },
+            "virginia.edu": {
+                "displayName": "U of Virginia"
+            },
+            "wilkes.edu": {
+                "displayName": "Wilkes U"
+            },
+            "auburn.edu": {
+                "displayName": "Auburn U"
+            },
+            "clemson.edu": {
+                "displayName": "Clemson U"
+            },
+            "wm.edu": {
+                "displayName": "William & Mary"
+            },
+            "davidson.edu": {
+                "displayName": "Davidson"
+            },
+            "drexel.edu": {
+                "displayName": "Drexel U"
+            },
+            "duke.edu": {
+                "displayName": "Duke U"
+            },
+            "elon.edu": {
+                "displayName": "Elon U"
+            },
+            "emory.edu": {
+                "displayName": "Emory U"
+            },
+            "fiu.edu": {
+                "displayName": "Florida Int'l U"
+            },
+            "gatech.edu": {
+                "displayName": "Georgia Tech"
+            },
+            "gettysburg.edu": {
+                "displayName": "Gettysburg"
+            },
+            "jmu.edu": {
+                "displayName": "James Madison U"
+            },
+            "jhu.edu": {
+                "displayName": "Johns Hopkins U"
+            },
+            "lafayette.edu": {
+                "displayName": "Lafayette"
+            },
+            "letu.edu": {
+                "displayName": "LeTourneau U"
+            },
+            "lve.edu": {
+                "displayName": "Lebanon Valley"
+            },
+            "lehigh.edu": {
+                "displayName": "Lehigh U"
+            },
+            "liberty.edu": {
+                "displayName": "Liberty U"
+            },
+            "lsu.edu": {
+                "displayName": "Louisiana State U"
+            },
+            "mcneese.edu": {
+                "displayName": "McNeese State U"
+            },
+            "millersville.edu": {
+                "displayName": "Millersville U of Penn"
+            },
+            "morgan.edu": {
+                "displayName": "Morgan State U"
+            },
+            "ncsu.edu": {
+                "displayName": "NC State U"
+            },
+            "oc.edu": {
+                "displayName": "Oklahoma Christian U"
+            },
+            "rice.edu": {
+                "displayName": "Rice U"
+            },
+            "southeastern.edu": {
+                "displayName": "Southeastern LA U"
+            },
+            "tamu.edu": {
+                "displayName": "Texas A&M U"
+            },
+            "trinity.edu": {
+                "displayName": "Trinity U"
+            },
+            "ua.edu": {
+                "displayName": "U of Alabama"
+            },
+            "ucf.edu": {
+                "displayName": "U Central Florida"
+            },
+            "udallas.edu": {
+                "displayName": "U of Dallas"
+            },
+            "ufl.edu": {
+                "displayName": "U of Florida"
+            },
+            "uh.edu": {
+                "displayName": "U of Houston"
+            },
+            "ou.edu": {
+                "displayName": "U of Oklahoma"
+            },
+            "sc.edu": {
+                "displayName": "U of South Carolina"
+            },
+            "usf.edu": {
+                "displayName": "U of South Florida"
+            },
+            "uta.edu": {
+                "displayName": "UT Arlington"
+            },
+            "utexas.edu": {
+                "displayName": "UT Austin"
+            },
+            "utdallas.edu": {
+                "displayName": "UT Dallas"
+            },
+            "utsa.edu": {
+                "displayName": "UT San Antonio"
+            },
+            "utulsa.edu": {
+                "displayName": "U of Tulsa"
+            },
+            "bju.edu": {
+                "displayName": "Bob Jones U"
+            },
+            "arcadia.edu": {
+                "displayName": "Arcadia U"
+            },
+            "bowiestate.edu": {
+                "displayName": "Bowie State U"
+            },
+            "bridgewater.edu": {
+                "displayName": "Bridgewater"
+            },
+            "csuniv.edu": {
+                "displayName": "Charleston Southern U"
+            },
+            "charleston.edu": {
+                "displayName": "Charleston"
+            },
+            "ecu.edu": {
+                "displayName": "East Carolina U"
+            },
+            "uncfsu.edu": {
+                "displayName": "Fayetteville State U"
+            },
+            "fit.edu": {
+                "displayName": "Florida Tech"
+            },
+            "flsouthern.edu": {
+                "displayName": "Florida Southern"
+            },
+            "fsu.edu": {
+                "displayName": "Florida State"
+            },
+            "lasalle.edu": {
+                "displayName": "La Salle U"
+            },
+            "lamar.edu": {
+                "displayName": "Lamar U"
+            },
+            "mercer.edu": {
+                "displayName": "Mercer U"
+            },
+            "mdc.edu": {
+                "displayName": "Miami Dade"
+            },
+            "morehouse.edu": {
+                "displayName": "Morehouse"
+            },
+            "radford.edu": {
+                "displayName": "Radford U"
+            },
+            "ship.edu": {
+                "displayName": "Shippensburg U"
+            },
+            "uga.edu": {
+                "displayName": "U of Georgia"
+            },
+            "una.edu": {
+                "displayName": "U North Alabama"
+            },
+            "uncc.edu": {
+                "displayName": "UNC Charlotte"
+            },
+            "unf.edu": {
+                "displayName": "U North Florida"
+            },
+            "uwf.edu": {
+                "displayName": "U West Florida"
+            },
+            "villanova.edu": {
+                "displayName": "Villanova U"
+            },
+            "vmi.edu": {
+                "displayName": "VA Military Inst"
+            },
+            "wcupa.edu": {
+                "displayName": "West Chester U"
+            },
+            "wvutech.edu": {
+                "displayName": "WVU Tech"
+            },
+            "winthrop.edu": {
+                "displayName": "Winthrop U"
+            },
+            "swarthmore.edu": {
+                "displayName": "Swarthmore"
+            },
+            "htu.edu": {
+                "displayName": "HTU"
+            },
+            "cofc.edu": {
+                "displayName": "Charleston"
+            },
+            "stetson.edu": {
+                "displayName": "Stetson"
+            },
+            "rowan.edu": {
+                "displayName": "Rowan"
+            },
+            "commonwealthu.edu": {
+                "displayName": "Commonwealth U of PA"
+            },
+            "umw.edu": {
+                "displayName": "U of Mary Washington"
+            },
+            "kings.edu": {
+                "displayName": "King's College PA"
+            },
+            "nsula.edu": {
+                "displayName": "Northwestern SU of LA"
+            },
+            "wtamu.edu": {
+                "displayName": "West Texas A&M U"
+            },
+            "utep.edu": {
+                "displayName": "UT El Paso"
+            },
+            "hc.edu": {
+                "displayName": "Houston Christian U"
+            },
+            "shsu.edu": {
+                "displayName": "Sam Houston State"
+            },
+            "msstate.edu": {
+                "displayName": "Mississippi State"
+            },
+            "aum.edu": {
+                "displayName": "Auburn U Montgomery"
+            },
+            "lvc.edu": {
+                "displayName": "Lebanon Valley"
+            },
+            "na.edu": {
+                "displayName": "North America U"
+            },
+            "ulm.edu": {
+                "displayName": "U of LA Monroe"
+            }
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "1": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "2": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "3": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "4": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "5": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "6": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "7": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "8": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "9": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "10": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "11": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "12": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "13": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "14": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "15": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "16": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "17": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "18": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "19": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "20": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "21": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "22": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "23": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "24": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "25": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "26": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "27": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "28": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "29": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "30": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "31": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "32": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "33": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "34": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "35": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "36": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "37": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "38": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "39": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "40": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "41": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "42": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "43": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "44": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "45": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "46": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "47": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "48": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "49": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "50": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "51": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "52": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "53": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "54": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "55": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "56": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "57": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "58": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "59": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "60": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "61": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "62": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "63": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "64": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "65": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "66": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "67": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "68": {
+                "groups": [
+                    "Mid-Atlantic"
+                ]
+            },
+            "69": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "70": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "71": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "72": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "73": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "74": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "75": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "76": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "77": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "78": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "79": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "80": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "81": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "82": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "83": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "84": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "85": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "86": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "87": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "88": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "89": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "90": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "91": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "92": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "93": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "94": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "95": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "96": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "97": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "98": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "99": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "100": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "101": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "102": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "103": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "104": {
+                "groups": [
+                    "South Central"
+                ]
+            },
+            "105": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "106": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "107": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "108": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "109": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "110": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "111": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "112": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "113": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "114": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "115": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "116": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "117": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "118": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "119": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "120": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "121": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "122": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "123": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "124": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "125": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "126": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "127": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "128": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "129": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "130": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "131": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "132": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "133": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "134": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "135": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "136": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "137": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "138": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "139": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "140": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "141": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "142": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "143": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "144": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "145": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "146": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "147": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "148": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "149": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "150": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "151": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "152": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "153": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "154": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "155": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "156": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "157": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "158": {
+                "groups": [
+                    "Southeast"
+                ]
+            },
+            "159": {
+                "groups": [
+                    "Southeast"
+                ]
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "welcomesign": {
+                "color": "#e6194bff"
+            },
+            "trianglesofasquare": {
+                "color": "#3cb44bff"
+            },
+            "citybike": {
+                "color": "#ffe119ff"
+            },
+            "duelofcards": {
+                "color": "#4363d8ff"
+            },
+            "elevatedrails": {
+                "color": "#f58231ff"
+            },
+            "findingkeys": {
+                "color": "#42d4f4ff"
+            },
+            "intergalacticteam": {
+                "color": "#f032e6ff"
+            },
+            "herbmixing": {
+                "color": "#fabed4ff"
+            },
+            "islandmemories": {
+                "color": "#469990ff"
+            },
+            "perfectsquares": {
+                "color": "#dcbeffff"
+            },
+            "optimizedcheating": {
+                "color": "#9a6324ff"
+            },
+            "pianissimo": {
+                "color": "#fffac8ff"
+            },
+            "vrplayspace": {
+                "color": "#800000ff"
+            },
+            "N": {
+                "color": "#aaffc3ff"
+            },
+            "O": {
+                "color": "#000075ff"
+            },
+            "P": {
+                "color": "#a9a9a9ff"
+            }
+        }
+    }
+]

@@ -1,17 +1,53 @@
-import org.icpclive.cds.adapters.impl.instantiateTemplate
-import org.icpclive.cds.api.MediaType
-import org.icpclive.cds.api.TeamMediaType
-import org.icpclive.cds.tunning.TeamOverrideTemplate
+import kotlinx.datetime.Instant
+import org.icpclive.cds.api.*
+import org.icpclive.cds.tunning.*
 import kotlin.test.*
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
 
 object TeamInfoOverrideTemplateTest {
-    private fun TeamOverrideTemplate.instantiate(map: Map<String, String>) = instantiateTemplate {
-        map[it]
-    }
 
     @Test
     fun `check url encodes`() {
-        val template = TeamOverrideTemplate(
+        val teamName = "Team name with spaces & other / strange : symbols?"
+        val teamReplaced = "Team%20name%20with%20spaces%20%26%20other%20%2F%20strange%20%3A%20symbols%3F"
+        val url = "http://this-should-not-be-replaced:12345/url"
+
+        val info = ContestInfo(
+            teamList = listOf(
+                TeamInfo(
+                    id = "a".toTeamId(),
+                    fullName = "WRONG",
+                    displayName = "WRONG",
+                    groups = emptyList(),
+                    medias = emptyMap(),
+                    isHidden = false,
+
+                    customFields = mapOf(
+                        "teamName" to teamName,
+                        "grabberUrl" to url
+                    ),
+                    hashTag = null,
+                    isOutOfContest = false,
+                    organizationId = null,
+                    color = null
+                )
+            ),
+            name = "",
+            resultType = ContestResultType.ICPC,
+            startTime = Instant.fromEpochMilliseconds(123456),
+            contestLength = 18000.seconds,
+            freezeTime = 14400.seconds,
+            problemList = emptyList(),
+            groupList = emptyList(),
+            organizationList = emptyList(),
+            languagesList = emptyList(),
+            penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
+            penaltyPerWrongAttempt = 20.minutes,
+            cdsSupportsFinalization = false,
+        )
+
+        val newInfo = OverrideTeamTemplate(
             displayName = "{teamName}",
             medias = mapOf(
                 TeamMediaType.CAMERA to MediaType.Image("http://photos-server/{teamName}"),
@@ -22,17 +58,12 @@ object TeamInfoOverrideTemplateTest {
                     credential = null
                 )
             )
-        )
-        val teamName = "Team name with spaces & other / strange : symbols?"
-        val teamReplaced = "Team%20name%20with%20spaces%20%26%20other%20%2F%20strange%20%3A%20symbols%3F"
-        val url = "http://this-should-not-be-replaced:12345/url"
-        val instantiated = template.instantiate(mapOf(
-            "teamName" to teamName,
-            "grabberUrl" to url
-        ))
-        assertEquals(teamName, instantiated.displayName)
-        assertEquals("http://photos-server/${teamReplaced}", (instantiated.medias?.get(TeamMediaType.CAMERA) as MediaType.Image).url)
-        assertEquals(url, (instantiated.medias?.get(TeamMediaType.REACTION_VIDEO) as MediaType.WebRTCGrabberConnection).url)
-        assertEquals(teamName, (instantiated.medias?.get(TeamMediaType.REACTION_VIDEO) as MediaType.WebRTCGrabberConnection).peerName)
+        ).process(info)
+        val team = newInfo.teams["a".toTeamId()]
+        assertNotNull(team)
+        assertEquals(teamName, team.displayName)
+        assertEquals("http://photos-server/${teamReplaced}", (team.medias[TeamMediaType.CAMERA] as MediaType.Image).url)
+        assertEquals(url, (team.medias[TeamMediaType.REACTION_VIDEO] as MediaType.WebRTCGrabberConnection).url)
+        assertEquals(teamName, (team.medias[TeamMediaType.REACTION_VIDEO] as MediaType.WebRTCGrabberConnection).peerName)
     }
 }

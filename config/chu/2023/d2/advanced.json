@@ -1,59 +1,650 @@
-{
-    "freezeTimeSeconds": 14400,
-    "teamOverrides": {
-
-"361273": { "name": "4 Ufa UST: ZvEzDoChKi (Парфёнов, Зайцев, Татьянкин)", "shortname": "Ufa UST: ZvEzDoChKi", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "004", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "004", "streamType": "webcam", "credential": "password" }}},
-"361269": { "name": "6 Ufa SPTU: Accent Club (Ильясов, Байгускаров)", "shortname": "Ufa SPTU: Accent Club", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "006", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "006", "streamType": "webcam", "credential": "password" }}},
-"361270": { "name": "9 Ufa UST: Самостоятельность (Булатова)", "shortname": "Ufa UST: Самостоятельность", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "009", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "009", "streamType": "webcam", "credential": "password" }}},
-"361260": { "name": "11 MAI: UPSOLVING_MONSTERS (Чувилин, Речинская, Почечура)", "shortname": "MAI: UPSOLVING_MONSTERS", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "011", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "011", "streamType": "webcam", "credential": "password" }}},
-"361250": { "name": "12 HSE: Lock, Stock and Two Broken Chairs (Шукалов, Бойков, Кауркин)", "shortname": "HSE: Lock, Stock and Two Broken Chairs", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "012", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "012", "streamType": "webcam", "credential": "password" }}},
-"361268": { "name": "13 Ufa Lyceum 153 (Хисамутдинов, Габбасов, Чековинский)", "shortname": "Ufa Lyceum 153", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "013", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "013", "streamType": "webcam", "credential": "password" }}},
-"361271": { "name": "14 Ufa UST: dvaUnika (Балгазин, Ханмурзин)", "shortname": "Ufa UST: dvaUnika", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "014", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "014", "streamType": "webcam", "credential": "password" }}},
-"361266": { "name": "15 SFedU: ICTIS 1 (Лавшонок, Герасимова, Жуйков)", "shortname": "SFedU: ICTIS 1", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "015", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "015", "streamType": "webcam", "credential": "password" }}},
-"361258": { "name": "17 Kazan FU: Road to the Dream (Газизов, Сергеев, Ананьев)", "shortname": "Kazan FU: Road to the Dream", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "017", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "017", "streamType": "webcam", "credential": "password" }}},
-"361254": { "name": "18 Izhevsk STU Col: Everlasting Python (Ворончихин, Нелюбин, Вохмин)", "shortname": "Izhevsk STU Col: Everlasting Python", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "018", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "018", "streamType": "webcam", "credential": "password" }}},
-"361256": { "name": "21 Izhevsk STU: Бархатные_тяги++ (Варламов, Бабинцев, Тулегенов)", "shortname": "Izhevsk STU: Бархатные_тяги++", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "021", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "021", "streamType": "webcam", "credential": "password" }}},
-"361252": { "name": "26 Izhevsk IE Col + STU Col: derg (Ардашев, Чукавин, Глибко)", "shortname": "Izhevsk IE Col + STU Col: derg", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "026", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "026", "streamType": "webcam", "credential": "password" }}},
-"361267": { "name": "27 Syktyvkar SU: Houyhnhnm (Сауков, Осипов, Артеев)", "shortname": "Syktyvkar SU: Houyhnhnm", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "027", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "027", "streamType": "webcam", "credential": "password" }}},
-"361264": { "name": "33 Perm HSE: Paws (Белякова, Горюнова, Мартюшев)", "shortname": "Perm HSE: Paws", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "033", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "033", "streamType": "webcam", "credential": "password" }}},
-"361253": { "name": "35 Izhevsk IE Col: 3boys1task (Андриянов, Дударев, Савин)", "shortname": "Izhevsk IE Col: 3boys1task", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "035", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "035", "streamType": "webcam", "credential": "password" }}},
-"361251": { "name": "39 HSE: Scamaton (Смирнягин, Ваньян, Цыганов)", "shortname": "HSE: Scamaton", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "039", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "039", "streamType": "webcam", "credential": "password" }}},
-"361263": { "name": "41 Perm HSE: Inspired by the dream (Голованова, Мустафина, Микишева)", "shortname": "Perm HSE: Inspired by the dream", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "041", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "041", "streamType": "webcam", "credential": "password" }}},
-"361249": { "name": "44 Belarusian SU: Пьяные Ежи (Матус, Захаренков)", "shortname": "Belarusian SU: Пьяные Ежи", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "044", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "044", "streamType": "webcam", "credential": "password" }}},
-"361275": { "name": "49 UlSTU: byteBYbyte (Медведков, Козырев, Кузнецов)", "shortname": "UlSTU: byteBYbyte", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "049", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "049", "streamType": "webcam", "credential": "password" }}},
-"361261": { "name": "50 MISIS: ACMMLP (Пластинина, Серебрянников, Макуров)", "shortname": "MISIS: ACMMLP", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "050", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "050", "streamType": "webcam", "credential": "password" }}},
-"361277": { "name": "56 Voronezh SU: Trying out best (Рогачев, Улезько, Скарга)", "shortname": "Voronezh SU: Trying out best", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "056", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "056", "streamType": "webcam", "credential": "password" }}},
-"361255": { "name": "58 Izhevsk STU Col: GGшиншила (Валиуллин, Бушков, Акрамов)", "shortname": "Izhevsk STU Col: GGшиншила", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "058", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "058", "streamType": "webcam", "credential": "password" }}},
-"361262": { "name": "64 Orenburg SU: Three cats (Сукманюк, Саар, Критинина)", "shortname": "Orenburg SU: Three cats", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "064", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "064", "streamType": "webcam", "credential": "password" }}},
-"361276": { "name": "65 Voronezh SU: Academicals (Барышев, Ащеулов, Чиркин)", "shortname": "Voronezh SU: Academicals", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "065", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "065", "streamType": "webcam", "credential": "password" }}},
-"361257": { "name": "67 Kazan FU: Jade rod (Билалов, Хасанов, Хайруллин)", "shortname": "Kazan FU: Jade rod", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "067", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "067", "streamType": "webcam", "credential": "password" }}},
-"361265": { "name": "68 Perm HSE: WAU_979-7 (Елизаров, Воронов, Максимов)", "shortname": "Perm HSE: WAU_979-7", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "068", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "068", "streamType": "webcam", "credential": "password" }}},
-"361272": { "name": "69 Ufa UST: SolarWings (Сагидуллин, Боровикова, Мунасыпов)", "shortname": "Ufa UST: SolarWings", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "069", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "069", "streamType": "webcam", "credential": "password" }}},
-"361274": { "name": "70 UlSTU: antihype (Разживин, Карамушко, Кувшинов)", "shortname": "UlSTU: antihype", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "070", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "070", "streamType": "webcam", "credential": "password" }}},
-"361259": { "name": "71 MAI: IT-центр (Чеснов, Глушин, Ткаченко)", "shortname": "MAI: IT-центр", "medias": { "screen": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "071", "streamType": "desktop", "credential": "password" }, "camera": { "type": "WebRTCGrabberConnection", "url": "https://grabber.kbats.ru", "peerName": "071", "streamType": "webcam", "credential": "password" }}}
-     },
-  "awardsSettings": {
-    "medals": [
-      {"id": "gold-medal", "citation": "Gold Medal","color": "GOLD", "maxRank": 1},
-      {"id": "silver-medal", "citation": "Solver Medal","color": "SILVER", "maxRank": 3},
-      {"id": "bronze-medal", "citation": "Bronze Medal","color": "BRONZE", "maxRank": 6}
-    ]
-  },
-  "problemOverrides": {
-    "A":{"color":"#e6194B"},
-    "B":{"color":"#3cb44b"},
-    "C":{"color":"#ffe119"},
-    "D":{"color":"#4363d8"},
-    "E":{"color":"#f58231"},
-    "F":{"color":"#42d4f4"},
-    "G":{"color":"#f032e6"},
-    "H":{"color":"#fabed4"},
-    "I":{"color":"#469990"},
-    "J":{"color":"#dcbeff"},
-    "K":{"color":"#9A6324"},
-    "L":{"color":"#fffac8"},
-    "M":{"color":"#800000"},
-    "N":{"color":"#aaffc3"},
-    "O":{"color":"#000075"},
-    "P":{"color":"#a9a9a9"}
-  }}
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "361273": {
+                "fullName": "4 Ufa UST: ZvEzDoChKi (Парфёнов, Зайцев, Татьянкин)",
+                "displayName": "Ufa UST: ZvEzDoChKi",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "004",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "004",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361269": {
+                "fullName": "6 Ufa SPTU: Accent Club (Ильясов, Байгускаров)",
+                "displayName": "Ufa SPTU: Accent Club",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "006",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "006",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361270": {
+                "fullName": "9 Ufa UST: Самостоятельность (Булатова)",
+                "displayName": "Ufa UST: Самостоятельность",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "009",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "009",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361260": {
+                "fullName": "11 MAI: UPSOLVING_MONSTERS (Чувилин, Речинская, Почечура)",
+                "displayName": "MAI: UPSOLVING_MONSTERS",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "011",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "011",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361250": {
+                "fullName": "12 HSE: Lock, Stock and Two Broken Chairs (Шукалов, Бойков, Кауркин)",
+                "displayName": "HSE: Lock, Stock and Two Broken Chairs",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "012",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "012",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361268": {
+                "fullName": "13 Ufa Lyceum 153 (Хисамутдинов, Габбасов, Чековинский)",
+                "displayName": "Ufa Lyceum 153",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "013",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "013",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361271": {
+                "fullName": "14 Ufa UST: dvaUnika (Балгазин, Ханмурзин)",
+                "displayName": "Ufa UST: dvaUnika",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "014",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "014",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361266": {
+                "fullName": "15 SFedU: ICTIS 1 (Лавшонок, Герасимова, Жуйков)",
+                "displayName": "SFedU: ICTIS 1",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "015",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "015",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361258": {
+                "fullName": "17 Kazan FU: Road to the Dream (Газизов, Сергеев, Ананьев)",
+                "displayName": "Kazan FU: Road to the Dream",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "017",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "017",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361254": {
+                "fullName": "18 Izhevsk STU Col: Everlasting Python (Ворончихин, Нелюбин, Вохмин)",
+                "displayName": "Izhevsk STU Col: Everlasting Python",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "018",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "018",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361256": {
+                "fullName": "21 Izhevsk STU: Бархатные_тяги++ (Варламов, Бабинцев, Тулегенов)",
+                "displayName": "Izhevsk STU: Бархатные_тяги++",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "021",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "021",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361252": {
+                "fullName": "26 Izhevsk IE Col + STU Col: derg (Ардашев, Чукавин, Глибко)",
+                "displayName": "Izhevsk IE Col + STU Col: derg",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "026",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "026",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361267": {
+                "fullName": "27 Syktyvkar SU: Houyhnhnm (Сауков, Осипов, Артеев)",
+                "displayName": "Syktyvkar SU: Houyhnhnm",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "027",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "027",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361264": {
+                "fullName": "33 Perm HSE: Paws (Белякова, Горюнова, Мартюшев)",
+                "displayName": "Perm HSE: Paws",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "033",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "033",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361253": {
+                "fullName": "35 Izhevsk IE Col: 3boys1task (Андриянов, Дударев, Савин)",
+                "displayName": "Izhevsk IE Col: 3boys1task",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "035",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "035",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361251": {
+                "fullName": "39 HSE: Scamaton (Смирнягин, Ваньян, Цыганов)",
+                "displayName": "HSE: Scamaton",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "039",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "039",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361263": {
+                "fullName": "41 Perm HSE: Inspired by the dream (Голованова, Мустафина, Микишева)",
+                "displayName": "Perm HSE: Inspired by the dream",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "041",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "041",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361249": {
+                "fullName": "44 Belarusian SU: Пьяные Ежи (Матус, Захаренков)",
+                "displayName": "Belarusian SU: Пьяные Ежи",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "044",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "044",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361275": {
+                "fullName": "49 UlSTU: byteBYbyte (Медведков, Козырев, Кузнецов)",
+                "displayName": "UlSTU: byteBYbyte",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "049",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "049",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361261": {
+                "fullName": "50 MISIS: ACMMLP (Пластинина, Серебрянников, Макуров)",
+                "displayName": "MISIS: ACMMLP",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "050",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "050",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361277": {
+                "fullName": "56 Voronezh SU: Trying out best (Рогачев, Улезько, Скарга)",
+                "displayName": "Voronezh SU: Trying out best",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "056",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "056",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361255": {
+                "fullName": "58 Izhevsk STU Col: GGшиншила (Валиуллин, Бушков, Акрамов)",
+                "displayName": "Izhevsk STU Col: GGшиншила",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "058",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "058",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361262": {
+                "fullName": "64 Orenburg SU: Three cats (Сукманюк, Саар, Критинина)",
+                "displayName": "Orenburg SU: Three cats",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "064",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "064",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361276": {
+                "fullName": "65 Voronezh SU: Academicals (Барышев, Ащеулов, Чиркин)",
+                "displayName": "Voronezh SU: Academicals",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "065",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "065",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361257": {
+                "fullName": "67 Kazan FU: Jade rod (Билалов, Хасанов, Хайруллин)",
+                "displayName": "Kazan FU: Jade rod",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "067",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "067",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361265": {
+                "fullName": "68 Perm HSE: WAU_979-7 (Елизаров, Воронов, Максимов)",
+                "displayName": "Perm HSE: WAU_979-7",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "068",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "068",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361272": {
+                "fullName": "69 Ufa UST: SolarWings (Сагидуллин, Боровикова, Мунасыпов)",
+                "displayName": "Ufa UST: SolarWings",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "069",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "069",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361274": {
+                "fullName": "70 UlSTU: antihype (Разживин, Карамушко, Кувшинов)",
+                "displayName": "UlSTU: antihype",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "070",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "070",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            },
+            "361259": {
+                "fullName": "71 MAI: IT-центр (Чеснов, Глушин, Ткаченко)",
+                "displayName": "MAI: IT-центр",
+                "medias": {
+                    "screen": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "071",
+                        "streamType": "desktop",
+                        "credential": "password"
+                    },
+                    "camera": {
+                        "type": "WebRTCGrabberConnection",
+                        "url": "https://grabber.kbats.ru",
+                        "peerName": "071",
+                        "streamType": "webcam",
+                        "credential": "password"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#e6194bff"
+            },
+            "B": {
+                "color": "#3cb44bff"
+            },
+            "C": {
+                "color": "#ffe119ff"
+            },
+            "D": {
+                "color": "#4363d8ff"
+            },
+            "E": {
+                "color": "#f58231ff"
+            },
+            "F": {
+                "color": "#42d4f4ff"
+            },
+            "G": {
+                "color": "#f032e6ff"
+            },
+            "H": {
+                "color": "#fabed4ff"
+            },
+            "I": {
+                "color": "#469990ff"
+            },
+            "J": {
+                "color": "#dcbeffff"
+            },
+            "K": {
+                "color": "#9a6324ff"
+            },
+            "L": {
+                "color": "#fffac8ff"
+            },
+            "M": {
+                "color": "#800000ff"
+            },
+            "N": {
+                "color": "#aaffc3ff"
+            },
+            "O": {
+                "color": "#000075ff"
+            },
+            "P": {
+                "color": "#a9a9a9ff"
+            }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 3
+    }
+]

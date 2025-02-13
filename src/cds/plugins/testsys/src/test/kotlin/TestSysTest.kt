@@ -17,6 +17,7 @@ object TestSysTest : CdsLoadersTest() {
         )
     }
 
+
     @Test
     fun testSysWithAdvancedOverride() {
         loaderTest(
@@ -24,23 +25,31 @@ object TestSysTest : CdsLoadersTest() {
             TestSysSettings(
                 source = UrlOrLocalPath.Local(testDataDir.resolve("testsys.dat"))
             ),
-            AdvancedProperties(
-                teamNameRegexes = TeamRegexOverrides(
-                    groupRegex = mapOf(
-                        "outOfContest" to Regex("^\\(вк\\).*"),
-                        "firstGrade" to Regex("^\\(1к\\).*"),
-                        "school" to Regex("^\\(шк\\).*")
+            listOf(
+                OverrideTeamTemplate(
+                    regexes = mapOf(
+                        "groups" to OverrideTeamTemplate.RegexParser(
+                            from = "{team.fullName}",
+                            rules = mapOf(
+                                Regex("^\\(1к\\).*") to mapOf("id" to "firstGrade"),
+                                Regex("^\\(шк\\).*") to mapOf("id" to "school"),
+                                Regex("^\\(вк\\).*") to mapOf("id" to "outOfContest"),
+                            )
+                        ),
+                        "custom" to OverrideTeamTemplate.RegexParser(
+                            from = "{team.fullName}",
+                            rules = mapOf(
+                                Regex("^(?:\\(..\\) )?(.*) \\([^)]*\\)") to mapOf("funnyNameValue" to "$1")
+                            )
+                        )
                     ),
+                    extraGroups = listOf("{regexes.groups.id}"),
                     customFields = mapOf(
-                        "funnyName" to RegexSet(mapOf(Regex("^(?:\\(..\\) )?(.*) \\([^)]*\\)") to "$1"))
-                    ),
+                        "funnyName" to "{regexes.custom.funnyNameValue}"
+                    )
                 ),
-                groupOverrides = mapOf(
-                    "outOfContest".toGroupId() to GroupInfoOverride(isOutOfContest = true)
-                ),
-                teamOverrideTemplate = TeamOverrideTemplate(
-                    displayName = "{funnyName}"
-                )
+                OverrideGroups(mapOf("outOfContest".toGroupId() to OverrideGroups.Override(isOutOfContest = true))),
+                OverrideTeamTemplate(displayName = "{funnyName}")
             )
         )
     }

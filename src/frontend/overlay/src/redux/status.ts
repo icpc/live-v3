@@ -1,4 +1,4 @@
-import { WEBSOCKETS } from "@/consts";
+import c from "../config";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export enum WebsocketStatus {
@@ -12,7 +12,7 @@ export interface StatusState {
 }
 
 const initialState: StatusState = {
-    websockets: Object.fromEntries(Object.keys(WEBSOCKETS).map((key) => {
+    websockets: Object.fromEntries(Object.keys(c.WEBSOCKETS).map((key) => {
         return [key, undefined];
     })),
 };

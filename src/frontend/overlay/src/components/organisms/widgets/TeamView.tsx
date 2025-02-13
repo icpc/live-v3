@@ -1,12 +1,13 @@
 import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
-import { LocationRectangle, OverlayTeamViewSettings, TeamViewPosition, Widget } from "@shared/api";
+import { OverlayTeamViewSettings, TeamViewPosition, Widget } from "@shared/api";
 import { OverlayWidgetC, OverlayWidgetProps } from "@/components/organisms/widgets/types";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 import TimeLine from "@/components/organisms/holder/TimeLine";
 import { ContestantViewCorner } from "@/components/molecules/info/ContestantViewCorner";
 import { ContestantViewLine } from "@/components/molecules/info/ContestantViewLine";
+import { LocationRectangle } from "@/utils/location-rectangle";
 
 const slideIn = keyframes`
     from {
@@ -303,8 +304,9 @@ type TeamViewSingleContentProps = OverlayWidgetProps<Widget.TeamViewWidget> & {
     onLoaded?: () => void
 }
 
-export const TeamViewSingleContent = ({ widgetData: { settings, location }, transitionState, onLoaded }: TeamViewSingleContentProps) => {
+export const TeamViewSingleContent = ({ widgetData: { settings, widgetLocationId }, transitionState, onLoaded }: TeamViewSingleContentProps) => {
     const { primary, secondary, achievement, position } = settings;
+    const location = c.WIDGET_POSITIONS[widgetLocationId];
     const variant = teamViewVariant(position);
 
     const [primaryLoaded, setPrimaryLoaded] = useState(false);

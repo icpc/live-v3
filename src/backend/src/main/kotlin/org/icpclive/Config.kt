@@ -6,10 +6,6 @@ import com.github.ajalt.clikt.output.MordantHelpFormatter
 import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.*
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
-import org.icpclive.api.LocationRectangle
-import org.icpclive.api.defaultWidgetPositions
 import org.icpclive.cds.cli.CdsCommandLineOptions
 import org.icpclive.server.LoggingOptions
 import org.icpclive.server.ServerOptions
@@ -36,12 +32,10 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
         .path(canBeDir = false, canBeFile = true)
         .defaultLazy("configDirectory/users.json") { cdsSettings.configDirectory.resolve("users.json") }
 
-    val widgetPositions by option(
+    val widgetPositionsFile by option(
         "--widget-positions",
         help = "File with custom widget positions"
-    ).path(canBeDir = false, mustExist = true, canBeFile = true).convert { path ->
-        path.toFile().inputStream().use { Json.decodeFromStream<Map<String, LocationRectangle>>(it) }
-    }.default(emptyMap(), "none")
+    ).path(canBeFile = true, canBeDir = false, mustExist = true)
 
     val analyticsTemplatesFile by option(
         "--analytics-template",
@@ -56,7 +50,6 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
 
     override fun run() {
         loggingSettings.setupLogging(extraLoggers = listOf(::FlowLogger))
-        defaultWidgetPositions = widgetPositions
         presetsDirectory.toFile().mkdirs()
         mediaDirectory.toFile().mkdirs()
         serverSettings.start()
