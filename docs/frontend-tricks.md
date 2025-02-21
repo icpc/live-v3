@@ -10,6 +10,8 @@ Examples:
 
 - `https://host/overlay?forceWidgets=[{"type":"ScoreboardWidget","widgetId":"scoreboard","location":{"positionX":16,"positionY":16,"sizeX":1488,"sizeY":984},"settings":{"isInfinite":true,"startFromRow":1,"optimismLevel":"normal","group":"all"}}]`
 
+- `https://host/overlay?noStatus&forceWidgets=[{"type":"QueueWidget","widgetId":"queue","location":{"positionX":16,"positionY":832,"sizeX":1888,"sizeY":168},"settings":{"horizontal":%20true}},{"type":"TickerWidget","widgetId":"ticker","location":{"positionX":16,"positionY":1016,"sizeX":1888,"sizeY":48},"statisticsId":"ticker","settings":{}}]&forceVisualConfig={"QUEUE_BACKGROUND_COLOR":"%234C83C300","QUEUE_ROW_BACKGROUND":"%234C83C3","QUEUE_TITLE":"","CONTEST_NAME":""}`
+
 ## forceVisualConfig
 
 You can pass forces visual config using the forceVisualConfig 
