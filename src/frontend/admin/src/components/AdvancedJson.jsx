@@ -23,7 +23,7 @@ function ExamplesContainer() {
         examplesApiGet("/descriptions.json")
             .then(data => {setOptions(data);})
             .catch(error => console.log(error));
-    })
+    }, [])
     useEffect(() => {
         fetch(EXAMPLES_URL + `/${selection}`)
             .then(response => response.text())
