@@ -47,6 +47,9 @@ tasks {
         emptyJson("", "widget-positions")
         emptyJson("", "visual-config")
         from(projectDir.dir("scripts"))
+        from(configDir) {
+            include("analytics-en.json")
+        }
         from(projectDir.dir("vscode")) {
             into(".vscode")
         }
