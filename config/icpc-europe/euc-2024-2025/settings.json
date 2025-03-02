@@ -1,0 +1,16 @@
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "source": {
+          "url": "https://cds.lifo.dev/api",
+          "login": "",
+          "password": ""
+       },
+      "contestId": "euc2025"
+    }
+  ],
+  "network": {
+      "allowUnsecureConnections": true
+  }
+}
