@@ -1,0 +1,141 @@
+[
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "http://10.206.214.177:8000",
+                "peerName": "{regexes.peer.name}",
+                "streamType": "desktop",
+                "credential": ""
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{icpc_id}.svg"
+            },
+            "photo": {
+                "type": "Image",
+                "url": "/media/photo2/{regexes.peer.name}.jpg"
+            }
+        },
+        "regexes": {
+            "peer": {
+                "from": "{team.id}",
+                "rules": {
+                    "([0-9])": {"name": "0$1"},
+                    "([0-9]{2})": {"name": "$1"}
+                }
+            }
+        },
+        "customFields": {
+            "screenPeerName": "{regexes.peer.name}"
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 2,
+        "silver": 4,
+        "bronze": 6
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "2": {
+                "displayName": "Ecole Polytechnique FL"
+            },
+            "10": {
+                "displayName": "Genoble INP"
+            },
+            "14": {
+                "displayName": "Sant'Anna School of Advanced Studies"
+            },
+            "15": {
+                "displayName": "Sts' Cyril and Methodius University"
+            },
+            "19": {
+                "displayName": "Israel Institute of Technology"
+            },
+            "30": {
+                "displayName": "TU Delft"
+            },
+            "33": {
+                "displayName": "UAIC"
+            },
+            "36": {
+                "displayName": "Chalmers"
+            },
+            "38": {
+                "displayName": "Kharkiv NURE"
+            },
+            "40": {
+                "displayName": "Kyiv University"
+            },
+            "41": {
+                "displayName": "AGH University"
+            },
+            "49": {
+                "displayName": "Union University Belgrade"
+            },
+            "50": {
+                "displayName": "Politehnica University of Bucharest"
+            },
+            "53": {
+                "displayName": "NUST"
+            }
+        }
+    },
+    {
+        "type": "addGroupToTeams",
+        "id": "Not yet qualified for World Finals",
+        "teams": [
+            "1", "2", "4", "6", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17",
+            "18", "19", "20", "23", "24", "25", "26",
+            "28", "29", "31", "33", "36", "38", "39",
+            "40", "41", "42", "43", "44", "45", "46",
+            "47", "48", "50", "51", "53"
+        ]
+    },
+    {
+        "type": "overrideAwards",
+        "championTitle": "Europe Champion",
+        "extraMedalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "advanced-euc",
+                        "citation": "Qualified to World Finals through EUC",
+                        "maxRank": 4
+                    }
+                ],
+                "groups": ["Not yet qualified for World Finals"]
+            }
+        ],
+        "extraManualAwards": [
+            {
+                "id": "advanced-swerc",
+                "citation": "Qualified to World Finals through SWERC",
+                "teamCdsIds": ["3", "22", "32"]
+            },
+            {
+                "id": "advanced-nwerc",
+                "citation": "Qualified to World Finals through NWERC",
+                "teamCdsIds": ["5", "27", "30"]
+            },
+            {
+                "id": "advanced-cerc",
+                "citation": "Qualified to World Finals through CERC",
+                "teamCdsIds": ["21", "34", "52"]
+            },
+            {
+                "id": "advanced-seerc",
+                "citation": "Qualified to World Finals through SEERC",
+                "teamCdsIds": ["35", "37", "49"]
+            }
+        ]
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "penaltyPerWrongAttempt": 20
+    }
+]
