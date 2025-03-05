@@ -45,6 +45,7 @@ public final class org/icpclive/cds/util/SerializationUtilsKt {
 
 public final class org/icpclive/cds/util/XmlUtilsKt {
 	public static final fun child (Lorg/w3c/dom/Element;Ljava/lang/String;)Lorg/w3c/dom/Element;
+	public static final fun childOrNull (Lorg/w3c/dom/Element;Ljava/lang/String;)Lorg/w3c/dom/Element;
 	public static final fun children (Lorg/w3c/dom/Element;)Lkotlin/sequences/Sequence;
 	public static final fun children (Lorg/w3c/dom/Element;Ljava/lang/String;)Lkotlin/sequences/Sequence;
 	public static final fun createChild (Lorg/w3c/dom/Element;Ljava/lang/String;)Lorg/w3c/dom/Element;
