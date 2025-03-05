@@ -74,6 +74,7 @@ export enum PenaltyRoundingMode {
 }
 
 export interface AwardsSettings {
+  firstToSolveProblems?: boolean;
   championTitle?: string | null;
   groupsChampionTitles?: { [key: GroupId]: string };
   rankAwardsMaxRank?: number;
@@ -101,6 +102,7 @@ export interface ProblemInfo {
   unsolvedColor: string | null;
   scoreMergeMode: ScoreMergeMode | null;
   isHidden: boolean;
+  weight: number;
 }
 
 export interface TeamInfo {

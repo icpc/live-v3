@@ -204,6 +204,9 @@
                     "const": "overrideAwards",
                     "default": "overrideAwards"
                 },
+                "firstToSolveProblems": {
+                    "type": "boolean"
+                },
                 "championTitle": {
                     "type": "string"
                 },
