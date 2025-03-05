@@ -9,6 +9,7 @@ import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.child
+import org.icpclive.cds.util.childOrNull
 import org.icpclive.cds.util.children
 import org.w3c.dom.Element
 import kotlin.time.Duration
@@ -46,7 +47,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 ordinal = index,
                 minScore = if (settings.resultType == ContestResultType.IOI) 0.0 else null,
                 maxScore = if (settings.resultType == ContestResultType.IOI) 100.0 else null,
-                scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
+                scoreMergeMode = if (settings.resultType == ContestResultType.IOI) ScoreMergeMode.MAX_PER_GROUP else null
             )
         }.toList()
 
@@ -99,6 +100,12 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         }
         val teams = parseTeamsInfo(element)
 
+        val userStartTime = element.childOrNull("userrunheaders")?.children()?.mapNotNull {
+            val userId = it.getAttribute("user_id").ifEmpty { null } ?: return@mapNotNull null
+            val userStartTime = it.getAttribute("start_time").ifEmpty { null } ?: return@mapNotNull null
+            userId.toTeamId() to (parseEjudgeTime(userStartTime) - startTime)
+        }?.toMap() ?: emptyMap()
+
         val problems = parseProblemsInfo(element)
         return ContestParseResult(
             contestInfo = ContestInfo(
@@ -118,7 +125,12 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 }
             ),
             runs = element.child("runs").children().mapNotNull { run ->
-                parseRunInfo(run, currentTime - startTime, settings.problemScoreLimit)
+                parseRunInfo(
+                    run,
+                    currentTime - startTime,
+                    userStartTime,
+                    settings.problemScoreLimit
+                )
             }.toList(),
             emptyList(),
         )
@@ -127,6 +139,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
     private fun parseRunInfo(
         element: Element,
         currentTime: Duration,
+        userStartTime: Map<TeamId, Duration>,
         problemScoreLimit: Map<String, Double>,
     ): RunInfo? {
         val time = element.getAttribute("time").toLong().seconds + element.getAttribute("nsec").toLong().nanoseconds
@@ -158,25 +171,26 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
 
         val problemId = element.getAttribute("prob_id")
 
+        val runResult = if (result == null) RunResult.InProgress(0.0) else when (settings.resultType) {
+            ContestResultType.ICPC -> result.toICPCRunResult()
+            ContestResultType.IOI -> {
+                if (result != Verdict.Accepted) {
+                    RunResult.IOI(score = listOf(0.0), wrongVerdict = result)
+                } else {
+                    val result = element.getAttribute("group_scores").ifEmpty { element.getAttribute("score") }.ifEmpty { "0.0" }
+                    RunResult.IOI(
+                        score = result.split(" ").map { maxOf(0.0, minOf(it.toDouble(), problemScoreLimit[problemId] ?: Double.POSITIVE_INFINITY)) }
+                    )
+                }
+            }
+        }
+
         return RunInfo(
             id = runId,
-            when (settings.resultType) {
-                ContestResultType.ICPC -> result?.toICPCRunResult() ?: RunResult.InProgress(0.0)
-
-                ContestResultType.IOI -> {
-                    if (result != Verdict.Accepted) {
-                        RunResult.IOI(score = listOf(0.0), wrongVerdict = result)
-                    } else {
-                        val score = element.getAttribute("score").ifEmpty { null }?.toDouble() ?: 0.0
-                        RunResult.IOI(
-                            score = listOf(minOf(score, problemScoreLimit[problemId] ?: Double.POSITIVE_INFINITY)),
-                        )
-                    }
-                }
-            },
+            result = runResult,
             problemId = problemId.toProblemId(),
             teamId = teamId,
-            time = time,
+            time = time - (userStartTime[teamId] ?: Duration.ZERO),
             languageId = null,
         )
     }

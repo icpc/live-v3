@@ -6,8 +6,11 @@ import org.w3c.dom.NodeList
 
 public fun Element.children(): Sequence<Element> = childNodes.toSequence()
 public fun Element.children(tag: String): Sequence<Element> = getElementsByTagName(tag).toSequence()
-public fun Element.child(tag: String): Element = getElementsByTagName(tag).toSequence().singleOrNull()
+public fun Element.child(tag: String): Element = childOrNull(tag)
     ?: throw IllegalArgumentException("No child node named $tag")
+
+public fun Element.childOrNull(tag: String): Element? = getElementsByTagName(tag).toSequence().singleOrNull()
+
 
 public fun NodeList.toSequence(): Sequence<Element> =
     (0 until length)
