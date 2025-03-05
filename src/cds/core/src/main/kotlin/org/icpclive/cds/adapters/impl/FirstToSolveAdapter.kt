@@ -34,16 +34,16 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
             is RunResult.InProgress -> RunType.NotBest
         }
     },
-    transformGroup = { k, runs, _, _ ->
+    transformGroup = { k, runs, _, info ->
         when (k) {
             is RunType.NotBest -> runs
             is RunType.ICPCBest -> runs.mapIndexed { index, run ->
-                run.setFTS(index == 0)
+                run.setFTS(index == 0 && info?.awardsSettings?.firstToSolveProblems != false)
             }
 
             is RunType.IOIBest -> {
                 val bestRun = runs.maxByOrNull { (it.result as RunResult.IOI).scoreAfter }
-                runs.map { it.setFTS(it == bestRun) }
+                runs.map { it.setFTS(it == bestRun && info?.awardsSettings?.firstToSolveProblems != false) }
             }
         }
     }

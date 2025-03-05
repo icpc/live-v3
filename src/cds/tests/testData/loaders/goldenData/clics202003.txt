@@ -22,7 +22,8 @@
                 "color": "#ed0206ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "domes",
@@ -34,7 +35,8 @@
                 "color": "#85abf3ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "genefolding",
@@ -46,7 +48,8 @@
                 "color": "#60a001ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "landscape",
@@ -58,7 +61,8 @@
                 "color": "#d7a476ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "leylines",
@@ -70,7 +74,8 @@
                 "color": "#ff8600ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "opportunity",
@@ -82,7 +87,8 @@
                 "color": "#ff70b2ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "planets",
@@ -94,7 +100,8 @@
                 "color": "#000000ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "qcqc",
@@ -106,7 +113,8 @@
                 "color": "#0086deff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "quests",
@@ -118,7 +126,8 @@
                 "color": "#b073e0ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "snoproblem",
@@ -130,7 +139,8 @@
                 "color": "#ffffffff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "space",
@@ -142,7 +152,8 @@
                 "color": "#032abfff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "speedlimit",
@@ -154,7 +165,8 @@
                 "color": "#af6b29ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "sweepstakes",
@@ -166,7 +178,8 @@
                 "color": "#08b4b3ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "trailingdigits",
@@ -178,7 +191,8 @@
                 "color": "#6800cfff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "vector",
@@ -190,7 +204,8 @@
                 "color": "#fff400ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             }
         ],
         "teams": [

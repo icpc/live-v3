@@ -22,7 +22,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "2",
@@ -34,7 +35,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "3",
@@ -46,7 +48,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "4",
@@ -58,7 +61,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "5",
@@ -70,7 +74,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "6",
@@ -82,7 +87,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "7",
@@ -94,7 +100,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "8",
@@ -106,7 +113,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "9",
@@ -118,7 +126,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "10",
@@ -130,7 +139,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "11",
@@ -142,7 +152,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "12",
@@ -154,7 +165,8 @@
                 "color": null,
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             }
         ],
         "teams": [

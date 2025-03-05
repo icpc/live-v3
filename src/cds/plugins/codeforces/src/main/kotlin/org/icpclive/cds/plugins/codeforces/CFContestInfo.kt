@@ -5,6 +5,7 @@ import kotlinx.datetime.isDistantFuture
 import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.codeforces.api.data.*
 import org.icpclive.cds.plugins.codeforces.api.results.CFStandings
+import org.icpclive.cds.util.logger
 import kotlin.math.ceil
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
@@ -46,16 +47,17 @@ internal class CFContestInfo {
             for ((id, problem) in standings.problems.withIndex()) {
                 val problemInfo = ProblemInfo(
                     id = id.toProblemId(),
-                    displayName = problem.index,
+                    displayName = if (contestType == CFContestType.BLITZ) problem.points!!.toInt().toString() else problem.index,
                     fullName = problem.name!!,
                     ordinal = id,
                     minScore = if (problem.points != null) 0.0 else null,
                     maxScore = problem.points,
                     scoreMergeMode = when (contestType) {
                         CFContestType.CF -> ScoreMergeMode.LAST_OK
-                        CFContestType.ICPC -> null
+                        CFContestType.ICPC, CFContestType.BLITZ -> null
                         CFContestType.IOI -> ScoreMergeMode.MAX_TOTAL
-                    }
+                    },
+                    weight = if (contestType == CFContestType.BLITZ) problem.points!!.toInt() else 1
                 )
                 problemsMap[problem.index] = problemInfo
                 problems.add(problemInfo)
@@ -124,6 +126,15 @@ internal class CFContestInfo {
         return when (contestType) {
             CFContestType.ICPC -> {
                 submission.processedVerdict?.toICPCRunResult()
+            }
+
+            CFContestType.BLITZ -> {
+                val prelim = submission.processedVerdict?.toICPCRunResult()
+                if (prelim?.verdict == Verdict.Accepted && submission.points == null) {
+                    Verdict.Ignored.toICPCRunResult()
+                } else {
+                    prelim
+                }
             }
 
             CFContestType.IOI -> {
@@ -257,9 +268,8 @@ internal class CFContestInfo {
         name = name,
         status = status,
         resultType = when (contestType) {
-            CFContestType.CF -> ContestResultType.IOI
-            CFContestType.IOI -> ContestResultType.IOI
-            CFContestType.ICPC -> ContestResultType.ICPC
+            CFContestType.CF, CFContestType.IOI -> ContestResultType.IOI
+            CFContestType.ICPC, CFContestType.BLITZ -> ContestResultType.ICPC
         },
         contestLength = contestLength,
         freezeTime = freezeDuration?.let { contestLength - it },
@@ -269,10 +279,14 @@ internal class CFContestInfo {
         penaltyRoundingMode = when (contestType) {
             CFContestType.CF -> PenaltyRoundingMode.ZERO
             CFContestType.IOI -> PenaltyRoundingMode.ZERO
+            CFContestType.BLITZ -> PenaltyRoundingMode.ZERO
             CFContestType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
         },
         organizationList = emptyList(),
         languagesList = emptyList(),
+        awardsSettings = AwardsSettings(
+            firstToSolveProblems = contestType != CFContestType.BLITZ,
+        )
     )
 
     companion object {

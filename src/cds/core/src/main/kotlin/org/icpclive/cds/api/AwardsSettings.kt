@@ -3,6 +3,7 @@ package org.icpclive.cds.api
 import kotlinx.serialization.Serializable
 
 /**
+ * @param firstToSolveProblems are FTS awards enabled?
  * @param championTitle If not null, the winner award with the corresponding title would be generated
  * @param groupsChampionTitles For group ids used as keys, a group champion award with corresponding value as title would be generated
  * @param rankAwardsMaxRank For first [rankAwardsMaxRank] places award stating "this place" would be awarded
@@ -11,6 +12,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 public data class AwardsSettings(
+    public val firstToSolveProblems: Boolean = true,
     public val championTitle: String? = null,
     public val groupsChampionTitles: Map<GroupId, String> = emptyMap(),
     public val rankAwardsMaxRank: Int = 0,

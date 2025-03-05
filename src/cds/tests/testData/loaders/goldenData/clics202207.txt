@@ -22,7 +22,8 @@
                 "color": "#327c4bff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "B-uniform-jumps-small-SRWPWS",
@@ -34,7 +35,8 @@
                 "color": "#c2b000ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "C-binary-string-HVFWFC",
@@ -46,7 +48,8 @@
                 "color": "#a5a695ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "D-railways-CLLTEH",
@@ -58,7 +61,8 @@
                 "color": "#160d09ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "E-spinach-pizza-WAUHYC",
@@ -70,7 +74,8 @@
                 "color": "#86639aff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "F-chat-SEOHSI",
@@ -82,7 +87,8 @@
                 "color": "#edeeebff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "G-tree-game-TNLSWY",
@@ -94,7 +100,8 @@
                 "color": "#cc6600ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "H-controller-VPDPII",
@@ -106,7 +113,8 @@
                 "color": "#c53748ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "I-game-with-intervals-OVKMEY",
@@ -118,7 +126,8 @@
                 "color": "#7caba3ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "J-italian-graph-RXDVPR",
@@ -130,7 +139,8 @@
                 "color": "#c68886ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "K-graph-coloring-JXMMZU",
@@ -142,7 +152,8 @@
                 "color": "#274082ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             },
             {
                 "id": "L-lego-tree-LEXJJO",
@@ -154,7 +165,8 @@
                 "color": "#949e00ff",
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
-                "isHidden": false
+                "isHidden": false,
+                "weight": 1
             }
         ],
         "teams": [

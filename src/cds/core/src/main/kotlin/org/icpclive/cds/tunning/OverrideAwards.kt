@@ -12,6 +12,7 @@ import org.icpclive.cds.api.AwardsSettings.*
  *
  * Most of the awards are only useful for export, and don't affect visual representation in overlay.
  *
+ * @param firstToSolveProblems are first-to-solved enabled in contest
  * @param championTitle citation for award for winner of the contest
  * @param groupsChampionTitles map from group id to citation of award for best team in the group
  * @param rankAwardsMaxRank How many awards of "Rank #rank" to award
@@ -23,6 +24,7 @@ import org.icpclive.cds.api.AwardsSettings.*
 @Serializable
 @SerialName("overrideAwards")
 public data class OverrideAwards(
+    public val firstToSolveProblems: Boolean? = null,
     public val championTitle: String? = null,
     public val groupsChampionTitles: Map<GroupId, String?>? = null,
     public val rankAwardsMaxRank: Int? = null,
@@ -35,6 +37,7 @@ public data class OverrideAwards(
         val old = info.awardsSettings
         return info.copy(
             awardsSettings = old.copy(
+                firstToSolveProblems = firstToSolveProblems ?: old.firstToSolveProblems,
                 championTitle = championTitle ?: old.championTitle,
                 groupsChampionTitles = mergeMaps(old.groupsChampionTitles, groupsChampionTitles),
                 rankAwardsMaxRank = rankAwardsMaxRank ?: old.rankAwardsMaxRank,

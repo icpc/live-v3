@@ -56,6 +56,7 @@ public data class ProblemInfo(
     @Required val unsolvedColor: Color? = null,
     @Required val scoreMergeMode: ScoreMergeMode? = null,
     @Required val isHidden: Boolean = false,
+    @Required val weight: Int = 1,
 )
 
 @JvmInline

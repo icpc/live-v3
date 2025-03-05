@@ -10,7 +10,7 @@ import org.icpclive.cds.util.serializers.UnixSecondsSerializer
 import kotlin.time.Duration
 
 internal enum class CFContestType {
-    CF, IOI, ICPC
+    CF, IOI, ICPC, BLITZ
 }
 
 internal enum class CFContestPhase {

@@ -48,7 +48,7 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
                 (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
             ).also {
                 if (it.isSolved) {
-                    solved++
+                    solved += problem.weight
                     penaltyCalculator.addSolvedProblem(okRun!!.time, it.wrongAttempts)
                     lastAccepted = maxOf(lastAccepted, okRun.time)
                 }
