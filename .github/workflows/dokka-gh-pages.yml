@@ -38,7 +38,7 @@ jobs:
         with:
           arguments: doc -i
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
 
   # Deployment job
   deploy:
