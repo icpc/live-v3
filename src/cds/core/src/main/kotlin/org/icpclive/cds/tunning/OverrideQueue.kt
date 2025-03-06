@@ -37,14 +37,15 @@ public data class OverrideQueue(
     public val maxUntestedRun: Int? = null,
 ): TuningRule {
     override fun process(info: ContestInfo): ContestInfo {
+        val queueSettings = info.queueSettings
         return info.copy(
-            queueSettings = QueueSettings(
-                waitTime = waitTime ?: info.queueSettings.waitTime,
-                firstToSolveWaitTime = firstToSolveWaitTime ?: info.queueSettings.firstToSolveWaitTime,
-                featuredRunWaitTime = featuredRunWaitTime ?: info.queueSettings.featuredRunWaitTime,
-                inProgressRunWaitTime = inProgressRunWaitTime ?: info.queueSettings.inProgressRunWaitTime,
-                maxQueueSize = maxQueueSize ?: info.queueSettings.maxQueueSize,
-                maxUntestedRun = maxUntestedRun ?: info.queueSettings.maxUntestedRun,
+            queueSettings = queueSettings.copy(
+                waitTime = waitTime ?: queueSettings.waitTime,
+                firstToSolveWaitTime = firstToSolveWaitTime ?: queueSettings.firstToSolveWaitTime,
+                featuredRunWaitTime = featuredRunWaitTime ?: queueSettings.featuredRunWaitTime,
+                inProgressRunWaitTime = inProgressRunWaitTime ?: queueSettings.inProgressRunWaitTime,
+                maxQueueSize = maxQueueSize ?: queueSettings.maxQueueSize,
+                maxUntestedRun = maxUntestedRun ?: queueSettings.maxUntestedRun,
             )
         )
     }

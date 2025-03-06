@@ -26,8 +26,7 @@ public data class OverrideOrganizations(
                 { id },
                 logUnused = { logger.warning { "No organization for override: $it" } }
             ) { org, override ->
-                OrganizationInfo(
-                    id = org.id,
+                org.copy(
                     displayName = override.displayName ?: org.displayName,
                     fullName = override.fullName ?: org.fullName,
                     logo = override.logo ?: org.logo

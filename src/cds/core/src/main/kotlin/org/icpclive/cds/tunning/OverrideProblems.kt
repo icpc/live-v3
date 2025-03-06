@@ -24,8 +24,7 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
                 { id },
                 logUnused = { logger(OverrideProblems::class).warning { "No problem for override: $it" } }
             ) { problem, override ->
-                ProblemInfo(
-                    id = problem.id,
+                problem.copy(
                     displayName = override.displayName ?: problem.displayName,
                     fullName = override.fullName ?: problem.fullName,
                     ordinal = override.ordinal ?: problem.ordinal,
@@ -35,6 +34,7 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
                     unsolvedColor = override.unsolvedColor ?: problem.unsolvedColor,
                     scoreMergeMode = override.scoreMergeMode ?: problem.scoreMergeMode,
                     isHidden = override.isHidden ?: problem.isHidden,
+                    weight = override.weight ?: problem.weight,
                 )
             }
         )
@@ -53,6 +53,7 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
      * @param maxScore In ioi mode maximal possible value of points in this problem
      * @param scoreMergeMode In ioi mode, select the ruleset to calculate the final score based on the scores for each submission.
      * @param isHidden If true, ignore all runs on that problem and remove it from the scoreboard, and hide the corresponding column.
+     * @param weight in icpc mode count as this number of problems
      */
     @Serializable
     public class Override(
@@ -65,5 +66,6 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
         public val maxScore: Double? = null,
         public val scoreMergeMode: ScoreMergeMode? = null,
         public val isHidden: Boolean? = null,
+        public val weight: Int? = null,
     )
 }

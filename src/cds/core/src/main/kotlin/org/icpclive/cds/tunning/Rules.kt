@@ -50,7 +50,7 @@ internal value class TuningRuleList(val list: List<TuningRule>)
  * A helper interface for rules that can be represented as more basic but verbose rule, if [ContestInfo] provided.
  */
 public interface Desugarable {
-    public abstract fun desugar(info: ContestInfo): TuningRule
+    public fun desugar(info: ContestInfo): TuningRule
 }
 
 /**
@@ -58,7 +58,7 @@ public interface Desugarable {
  * Mostly, such rules are just shortcuts to something more basic
  */
 public interface SimpleDesugarable : Desugarable {
-    public abstract fun desugar(): TuningRule
+    public fun desugar(): TuningRule
     override fun desugar(info: ContestInfo): TuningRule = desugar()
 }
 
@@ -227,7 +227,8 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
                     minScore = it.minScore,
                     maxScore = it.maxScore,
                     scoreMergeMode = it.scoreMergeMode,
-                    isHidden = it.isHidden
+                    isHidden = it.isHidden,
+                    weight = it.weight,
                 )
             }
         ),

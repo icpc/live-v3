@@ -575,7 +575,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?>": {
+        "org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -604,6 +604,9 @@
                 },
                 "isHidden": {
                     "type": "boolean"
+                },
+                "weight": {
+                    "type": "number"
                 }
             },
             "additionalProperties": false,
@@ -613,7 +616,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?>"
                 }
             }
         },

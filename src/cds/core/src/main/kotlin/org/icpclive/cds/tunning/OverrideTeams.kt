@@ -23,8 +23,7 @@ public data class OverrideTeams(public val rules: Map<TeamId, Override>): Tuning
             { id },
             logUnused = { logger(OverrideTeams::class).warning { "No team for override: $it" } },
         ) { team, override ->
-            TeamInfo(
-                id = team.id,
+            team.copy(
                 fullName = override.fullName ?: team.fullName,
                 displayName = override.displayName ?: team.displayName,
                 groups = (override.groups ?: team.groups) + override.extraGroups.orEmpty(),

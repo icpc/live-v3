@@ -24,8 +24,7 @@ public data class OverrideGroups(public val rules: Map<GroupId, Override>): Tuni
                 { id },
                 logUnused = { logger(OverrideGroups::class).warning { "No group for override: $it" } }
             ) { group, override ->
-                GroupInfo(
-                    id = group.id,
+                group.copy(
                     displayName = override.displayName ?: group.displayName,
                     isHidden = override.isHidden ?: group.isHidden,
                     isOutOfContest = override.isOutOfContest ?: group.isOutOfContest,

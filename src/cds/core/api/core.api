@@ -2393,8 +2393,8 @@ public final class org/icpclive/cds/tunning/OverrideProblems$Companion {
 
 public final class org/icpclive/cds/tunning/OverrideProblems$Override {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideProblems$Override$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Ljava/lang/Integer;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getColor-_jCth4M ()Ljava/lang/String;
 	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getFullName ()Ljava/lang/String;
@@ -2403,6 +2403,7 @@ public final class org/icpclive/cds/tunning/OverrideProblems$Override {
 	public final fun getOrdinal ()Ljava/lang/Integer;
 	public final fun getScoreMergeMode ()Lorg/icpclive/cds/api/ScoreMergeMode;
 	public final fun getUnsolvedColor-_jCth4M ()Ljava/lang/String;
+	public final fun getWeight ()Ljava/lang/Integer;
 	public final fun isHidden ()Ljava/lang/Boolean;
 }
 
