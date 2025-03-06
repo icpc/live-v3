@@ -96,7 +96,7 @@ export type VerticalSubmissionRowProps = {
 
 export const VerticalSubmissionRow = ({ teamData, result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, isTop }: VerticalSubmissionRowProps) => {
     const dark = isShouldUseDarkColor(teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR);
-    if (!result || !problemColor || !problemLetter || !lastSubmitTimeMs) {
+    if (!result || !problemLetter || !lastSubmitTimeMs) {
         return <SubmissionColumnWrap bg_color={teamData?.color} darkText={dark}>
             <div style={{ order: isTop ? 1 : 3 }}/>
             <div style={{ order: 2 }}/>
