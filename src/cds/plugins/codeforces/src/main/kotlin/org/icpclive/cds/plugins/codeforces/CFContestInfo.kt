@@ -268,7 +268,7 @@ internal class CFContestInfo {
         },
         contestLength = contestLength,
         freezeTime = freezeDuration?.let { contestLength - it },
-        problemList = problems,
+        problemList = problems.sortedBy { it.ordinal },
         teamList = participants.sortedBy { it.id.value },
         groupList = emptyList(),
         penaltyRoundingMode = when (contestType) {
