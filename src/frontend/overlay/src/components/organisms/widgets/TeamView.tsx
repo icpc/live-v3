@@ -123,7 +123,7 @@ const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecond
                     <TeamMediaHolder media={achievement} onLoadStatus={setAchievementLoaded} />
                 </AchievementWrapper>
             )}
-            <TeamViewGrid $secondaryY={secondaryY} $achievementY={achievementY}>
+            <TeamViewGrid $secondaryY={secondaryY} $achievementY={achievementY > 0 ? achievementY : 0}>
                 {secondary && (
                     <SecondaryMediaWrapper withAchievement={!!achievement}>
                         <RoundedTeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
