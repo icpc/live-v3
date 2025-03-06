@@ -84,8 +84,10 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         ).toInstant(settings.timeZone)
     }
 
+    private val CONTEST_TIME = (3600L * 5).seconds
+
     private fun parseContestInfo(element: Element): ContestParseResult {
-        val contestLength = element.getAttribute("duration").toLong().seconds
+        val contestLength = element.getAttribute("duration").toLongOrNull()?.seconds ?: CONTEST_TIME
         val startTime = element.getAttribute("start_time").ifEmpty {
             element.getAttribute("sched_start_time").ifEmpty { null }
         }?.let { parseEjudgeTime(it) } ?: Instant.fromEpochMilliseconds(0)
