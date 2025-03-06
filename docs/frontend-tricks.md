@@ -4,13 +4,13 @@ You can pass forceWidgets query params to force which widgets to show on the scr
 showing from the admin interface.
 
 Examples: 
-- `http://host/overlay?forceWidgets=[{%22type%22:%22QueueWidget%22,%22widgetId%22:%22queue%22,%22location%22:{%22positionX%22:1520,%22positionY%22:248,%22sizeX%22:384,%22sizeY%22:400},%22settings%22:{}}]`  
+- `http://host/overlay?forceWidgets=[{%22type%22:%22QueueWidget%22,%22widgetId%22:%22queue%22,%widgetLocationId%22:%22queue%22,%22settings%22:{}}]`  
    show only queue
 
 
-- `https://host/overlay?forceWidgets=[{"type":"ScoreboardWidget","widgetId":"scoreboard","location":{"positionX":16,"positionY":16,"sizeX":1488,"sizeY":984},"settings":{"isInfinite":true,"startFromRow":1,"optimismLevel":"normal","group":"all"}}]`
+- `https://host/overlay?forceWidgets=[{"type":"ScoreboardWidget","widgetId":"scoreboard","widgetLocationId":"scoreboard","settings":{"isInfinite":true,"startFromRow":1,"optimismLevel":"normal","group":"all"}}]`
 
-- `https://host/overlay?noStatus&forceWidgets=[{"type":"QueueWidget","widgetId":"queue","location":{"positionX":16,"positionY":832,"sizeX":1888,"sizeY":168},"settings":{"horizontal":%20true}},{"type":"TickerWidget","widgetId":"ticker","location":{"positionX":16,"positionY":1016,"sizeX":1888,"sizeY":48},"statisticsId":"ticker","settings":{}}]&forceVisualConfig={"QUEUE_BACKGROUND_COLOR":"%234C83C300","QUEUE_ROW_BACKGROUND":"%234C83C3","QUEUE_TITLE":"","CONTEST_NAME":""}`
+- `https://host/overlay?noStatus&forceWidgets=[{"type":"QueueWidget","widgetId":"queue","widgetLocationId":"customQueue","settings":{"horizontal":%20true}},{"type":"TickerWidget","widgetId":"ticker","widgetLocationId":"customTicker","statisticsId":"ticker","settings":{}}]&forceVisualConfig={"QUEUE_BACKGROUND_COLOR":"%234C83C300","QUEUE_ROW_BACKGROUND":"%234C83C3","QUEUE_TITLE":"","CONTEST_NAME":"","WIDGET_POSITIONS":{"customQueue":{"positionX":16,"positionY":832,"sizeX":1888,"sizeY":168}},"customTicker":{"positionX":16,"positionY":1016,"sizeX":1888,"sizeY":48}}`
 
 ## forceVisualConfig
 
