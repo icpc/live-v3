@@ -52,7 +52,9 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build with gradle
-        run: ./gradlew build release apiCheck --scan -Pnpm.download=false
+        run: |
+          ./gradlew :schema-generator:gen
+          ./gradlew build release apiCheck --scan -Pnpm.download=false
 
       - name: PR playwright - upload
         id: pr_playwright-upload
