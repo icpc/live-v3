@@ -26,6 +26,8 @@ public sealed interface EjudgeSettings : CDSSettings, KtorNetworkSettingsProvide
         get() = TimeZone.of("Europe/Moscow")
     public val problemScoreLimit: Map<String, Double>
         get() = emptyMap()
+    public val unfrozeOfflineGroup: Boolean
+        get() = false
 
     override fun toDataSource(): ContestDataSource = EjudgeDataSource(this)
 }
@@ -179,7 +181,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
                 } else {
                     val result = element.getAttribute("group_scores").ifEmpty { element.getAttribute("score") }.ifEmpty { "0.0" }
                     RunResult.IOI(
-                        score = result.split(" ").map { maxOf(0.0, minOf(it.toDouble(), problemScoreLimit[problemId] ?: Double.POSITIVE_INFINITY)) }
+                        score = result.split(" ").map { maxOf(0.0, minOf(it.toDoubleGroupScore(), problemScoreLimit[problemId] ?: Double.POSITIVE_INFINITY)) }
                     )
                 }
             }
@@ -193,6 +195,14 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
             time = time - (userStartTime[teamId] ?: Duration.ZERO),
             languageId = null,
         )
+    }
+
+    private fun String.toDoubleGroupScore(): Double {
+        val value = toDouble()
+        if (settings.unfrozeOfflineGroup && value < 0) {
+            return -value + 1
+        }
+        return value
     }
 
     private val xmlLoader = DataLoader.xml(settings.network, settings.source)
