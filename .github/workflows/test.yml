@@ -53,8 +53,8 @@ jobs:
 
       - name: Build with gradle
         run: |
-          ./gradlew :schema-generator:gen
           ./gradlew :ejudge:apiDump
+          ./gradlew :schema-generator:gen
           ./gradlew build release apiCheck --scan -Pnpm.download=false
 
       - name: PR playwright - upload
