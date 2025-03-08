@@ -53,7 +53,7 @@ jobs:
 
       - name: Build with gradle
         run: |
-          ./gradlew :ejudge:apiDump
+          ./gradlew apiDump
           ./gradlew :schema-generator:gen
           ./gradlew build release apiCheck --scan -Pnpm.download=false
 
