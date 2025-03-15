@@ -28,8 +28,9 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
                     finalRun.time,
                     problemRuns.subList(0, finalRunIndex).count { (it.result as? RunResult.IOI)?.wrongVerdict?.isAddingPenalty == true })
             }
+            val scoreboardRun = finalRun ?: problemRuns.lastOrNull()
             IOIProblemResult(
-                (finalRun?.result as? RunResult.IOI?)?.scoreAfter,
+                (scoreboardRun?.result as? RunResult.IOI?)?.scoreAfter,
                 finalRun?.time,
                 (finalRun?.result as? RunResult.IOI?)?.isFirstBestRun == true
             )
