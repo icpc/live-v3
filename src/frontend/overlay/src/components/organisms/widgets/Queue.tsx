@@ -560,7 +560,7 @@ const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ shouldShow }: 
     const RowsContainerComponent = VARIANT === "horizontal" ? HorizontalRowsContainer : RowsContainer;
     return (
         <>
-            <HorizontalFeatured runInfo={featured}/>
+            {VARIANT === "horizontal" ? <HorizontalFeatured runInfo={featured} /> : <Featured runInfo={featured} />}
             <QueueWrap hasFeatured={!!featured} variant={VARIANT}>
                 <QueueHeader ref={(el) => (el != null) && setHeaderWidth(el.getBoundingClientRect().width)}>
                     <Title>
