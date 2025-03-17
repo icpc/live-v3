@@ -1,6 +1,6 @@
-query JudgeContestSubmissions($id: ID!, $after: String, $count: Int!) {
+query JudgeContestSubmissions($id: ID!, $offset: Int, $count: Int!) {
     contest(id: $id) {
-        submissions(after: $after, first: $count, extra: ["GROUPS"]) {
+        submissions(offset: $offset, first: $count, extra: ["GROUPS"]) {
             pageInfo {
                 hasNextPage
                 endCursor
