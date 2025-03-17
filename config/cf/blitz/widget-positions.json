@@ -1,0 +1,32 @@
+{
+  "ticker": {
+    "positionX": 0,
+    "positionY": 0,
+    "sizeX": 1920,
+    "sizeY": 50
+  },
+  "scoreboard": {
+    "positionX": 0,
+    "positionY": 50,
+    "sizeX": 1920,
+    "sizeY": 110
+  },
+    "teamview.SINGLE": {
+        "positionX": 0,
+        "positionY": 160,
+        "sizeX": 1920,
+        "sizeY": 920
+      },
+      "teamview.PVP_TOP": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 1920,
+        "sizeY": 556
+      },
+      "teamview.PVP_BOTTOM": {
+        "positionX": 0,
+        "positionY": 524,
+        "sizeX": 1920,
+        "sizeY": 556
+      }
+}

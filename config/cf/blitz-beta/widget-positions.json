@@ -1,0 +1,63 @@
+{
+  "ticker": {
+    "positionX": 640,
+    "positionY": 372,
+    "sizeX": 640,
+    "sizeY": 50
+  },
+  "queue": {
+    "positionX": 640,
+    "positionY": 422,
+    "sizeX": 640,
+    "sizeY": 50
+
+  },
+  "scoreboard": {
+    "positionX": 640,
+    "positionY": 230,
+    "sizeX": 640,
+    "sizeY": 142
+  },
+    "teamview.SINGLE": {
+        "positionX": 0,
+        "positionY": 160,
+        "sizeX": 1920,
+        "sizeY": 920
+      },
+      "teamview.PVP_TOP": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 640,
+        "sizeY": 1080
+      },
+      "teamview.PVP_BOTTOM": {
+        "positionX": 1280,
+        "positionY": 0,
+        "sizeX": 640,
+        "sizeY": 1080
+      },
+      "teamview.TOP_LEFT": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 640,
+        "sizeY": 1080
+      },
+      "teamview.TOP_RIGHT": {
+        "positionX": 1280,
+        "positionY": 0,
+        "sizeX": 640,
+        "sizeY": 1080
+      },
+      "teamview.BOTTOM_LEFT": {
+        "positionX": 640,
+        "positionY": -144,
+        "sizeX": 320,
+        "sizeY": 360
+      },
+      "teamview.BOTTOM_RIGHT": {
+        "positionX": 960,
+        "positionY": -144,
+        "sizeX": 320,
+        "sizeY": 360        
+      }
+}
