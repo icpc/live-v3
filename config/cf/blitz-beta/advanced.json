@@ -1,0 +1,52 @@
+[
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {"color": "#42d4f4"},
+            "B": {"color": "#f032e6"},
+            "C": {"color": "#fabed4"},
+            "D": {"color": "#469990"},
+            "E": {"color": "#dcbeff"},
+            "F": {"color": "#9A6324"},
+            "G": {"color": "#fffac8"}
+        }
+    },
+    {
+        "type": "overrideQueue",
+        "waitTimeSeconds": 120
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "errorgorn": {"color": "#B22C1C"},
+            "ksun48": {"color": "#4C83C4"}
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://blitz.live.icpc.global",
+                "peerName": "{peer}",
+                "streamType": "desktop",
+                "vertical": true,
+                "credential": "secret"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://blitz.live.icpc.global",
+                "peerName": "{peer}",
+                "streamType": "webcam",
+                "vertical": false,
+                "credential": "secret"
+            },
+            "photo": {
+                "type": "Image",
+                "url": "media/grey.png"
+            }
+
+        }
+    }
+
+]
