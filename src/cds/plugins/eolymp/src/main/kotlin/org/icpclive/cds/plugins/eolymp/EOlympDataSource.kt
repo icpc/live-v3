@@ -35,22 +35,22 @@ private suspend fun GraphQLKtorClient.judgeContest(id: String) = checkedExecute(
     )
 ).contest
 
-private suspend fun GraphQLKtorClient.submissions(contestId: String, after: String?, count: Int) = checkedExecute(
+private suspend fun GraphQLKtorClient.submissions(contestId: String, offset: Int?, count: Int) = checkedExecute(
     JudgeContestSubmissions(
         JudgeContestSubmissions.Variables(
             id = contestId,
-            after = after,
+            offset = offset,
             count = count
         )
     )
 ).contest
 
 
-private suspend fun GraphQLKtorClient.teams(contestId: String, after: String?, count: Int) = checkedExecute(
+private suspend fun GraphQLKtorClient.teams(contestId: String, offset: Int?, count: Int) = checkedExecute(
     JudgeContestTeams(
         JudgeContestTeams.Variables(
             id = contestId,
-            after = after,
+            offset = offset,
             count = count
         )
     )
@@ -132,7 +132,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
     private suspend fun loadContest(contestId: String): ContestParseResult {
         val result = graphQLClient.judgeContest(contestId)
         val teams = buildList {
-            var cursor: String? = null
+            var cursor: Int = 0
             while (true) {
                 val x = graphQLClient.teams(
                     contestId,
@@ -152,8 +152,8 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                         organizationId = null
                     )
                 })
-                if (!x.participants.pageInfo.hasNextPage) break
-                cursor = x.participants.pageInfo.endCursor
+                if (x.participants!!.nodes.size < 100) break
+                cursor += 100
             }
         }
         val resultType = convertResultType(result.format)
@@ -161,7 +161,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         val contestLength = result.duration.seconds
         val freezeTime = result.scoreboard?.freezingTime?.seconds?.let { contestLength - it }
         val runs = buildList {
-            var cursor: String? = null
+            var cursor: Int = 0
             while (true) {
                 val x = graphQLClient.submissions(
                     contestId,
@@ -183,8 +183,8 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                         languageId = it.lang.toLanguageId()
                     )
                 })
-                if (!x.submissions.pageInfo.hasNextPage) break
-                cursor = x.submissions.pageInfo.endCursor
+                if (x.submissions!!.nodes.size < 100) break
+                cursor += 100
             }
         }
         val contestInfo = ContestInfo(
