@@ -172,10 +172,14 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                     val verdict = parseVerdict(it.status, it.verdict, it.percentage)
                     RunInfo(
                         id = it.id.toRunId(),
-                        result = when (resultType) {
-                            ContestResultType.ICPC -> verdict?.toICPCRunResult()
-                            ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }).takeIf { verdict != null }
-                        } ?: RunResult.InProgress(0.0),
+                        result = if (verdict == null) {
+                            RunResult.InProgress(0.0)
+                        } else {
+                            when (resultType) {
+                                ContestResultType.ICPC -> verdict.toICPCRunResult()
+                                ContestResultType.IOI -> RunResult.IOI(it.groups.map { it.score }.ifEmpty { listOf(it.score) })
+                            }
+                        },
                         problemId = it.problem!!.id.toProblemId(),
                         teamId = it.participant!!.id.toTeamId(),
                         time = parseTime(it.submittedAt) - startTime,
@@ -183,7 +187,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                         languageId = it.lang.toLanguageId()
                     )
                 })
-                if (x.submissions!!.nodes.size < 100) break
+                if (x.submissions.nodes.size < 100) break
                 cursor += 100
             }
         }
