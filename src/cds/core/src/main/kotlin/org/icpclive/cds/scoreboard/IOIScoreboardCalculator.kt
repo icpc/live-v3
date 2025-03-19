@@ -22,10 +22,10 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
         val problemResults = info.scoreboardProblems.map { problem ->
             val problemRuns = runsByProblem.getOrElse(problem.id) { emptyList() }
             val finalRunIndex = problemRuns.indexOfLast { it.result is RunResult.IOI && it.result.difference != 0.0 }
-            val finalRun = if (finalRunIndex == -1) null else problemRuns[finalRunIndex]
-            if (finalRun != null) {
+            val finalRun = if (finalRunIndex == -1) problemRuns.lastOrNull() else problemRuns[finalRunIndex]
+            if (finalRunIndex != -1) {
                 penaltyCalculator.addSolvedProblem(
-                    finalRun.time,
+                    finalRun!!.time,
                     problemRuns.subList(0, finalRunIndex).count { (it.result as? RunResult.IOI)?.wrongVerdict?.isAddingPenalty == true })
             }
             IOIProblemResult(
