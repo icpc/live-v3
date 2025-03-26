@@ -61,7 +61,7 @@ public fun Flow<ContestUpdate>.addComputedData(configure: ComputedDataConfig.() 
         .applyIf(config.propagateHidden) { hideHiddenGroupsTeams() }
         .applyIf(config.propagateHidden) { hideHiddenTeamsRuns() }
         .applyIf(config.propagateHidden) { hideHiddenProblemsRuns() }
-        .applyIf(config.firstToSolves) { addFirstToSolves() }
         .applyIf(config.ioiScoreDifferences) { calculateScoreDifferences() }
+        .applyIf(config.firstToSolves) { addFirstToSolves() }
         .applyIf(config.replaceCommentaryTags) { processCommentaryTags() }
 }
