@@ -17,7 +17,8 @@ public sealed interface KRSUSettings : CDSSettings, KtorNetworkSettingsProvider 
     public val contestSource: UrlOrLocalPath
     public val timeZone: TimeZone
         get() = TimeZone.of("Asia/Bishkek")
-
+    public val resultType: ContestResultType
+        get() = ContestResultType.ICPC
     override fun toDataSource(): ContestDataSource = KRSUDataSource(this)
 }
 
@@ -26,6 +27,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         contestInfoLoader.load(), submissionsLoader.load()
     )
 
+    private val resultType = settings.resultType
     private val teams = mutableMapOf<String, TeamInfo>()
     private var lastTeamId: Int = 0
 
@@ -38,6 +40,9 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
                 displayName = "" + ('A' + index),
                 fullName = "" + ('A' + index),
                 ordinal = index,
+                minScore = if (resultType == ContestResultType.IOI) 0.0 else null,
+                maxScore = if (resultType == ContestResultType.IOI) 100.0 else null,
+                scoreMergeMode = if (resultType == ContestResultType.IOI) ScoreMergeMode.MAX_TOTAL else null
             )
         }
 //        val problemById = problemsList.associateBy { it.id }
@@ -64,7 +69,14 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
             val result = outcomeMap[it.StatusName]
             RunInfo(
                 id = it.Id.toRunId(),
-                result?.toICPCRunResult() ?: RunResult.InProgress(0.0),
+                result = when (resultType) {
+                    ContestResultType.IOI ->
+                        RunResult.IOI(
+                            score = listOf(it.Points)
+                        )
+                    ContestResultType.ICPC ->
+                        result?.toICPCRunResult() ?: RunResult.InProgress(0.0)
+                },
                 problemId = it.Problem.toProblemId(),
                 teamId = it.Login.toTeamId(),
                 time = (it.ReceivedTime.toInstant(settings.timeZone)) - startTime,
@@ -75,7 +87,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         return ContestParseResult(
             ContestInfo(
                 name = "",
-                resultType = ContestResultType.ICPC,
+                resultType = resultType,
                 startTime = startTime,
                 contestLength = contestLength,
                 freezeTime = freezeTime,
@@ -83,7 +95,10 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
                 teamList = teams.values.toList(),
                 groupList = emptyList(),
                 organizationList = emptyList(),
-                penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
+                penaltyRoundingMode = when (resultType) {
+                    ContestResultType.IOI -> PenaltyRoundingMode.ZERO
+                    ContestResultType.ICPC -> PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE
+                },
                 languagesList = emptyList()
             ),
             runs,
@@ -106,6 +121,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
             "Wrong Answer" to Verdict.WrongAnswer,
             "Accepted" to Verdict.Accepted,
             "Presentation Error" to Verdict.PresentationError,
+            "Partial Solution" to Verdict.Accepted,
         )
     }
 
@@ -122,6 +138,7 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
         val TestPassed: Int,
         val ReceivedTime: LocalDateTime,
         val AuthorName: String,
+        val Points: Double,
     )
 
     @Serializable

@@ -1,9 +1,12 @@
 name: Tests
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
 jobs:
   test:
     timeout-minutes: 20
@@ -79,7 +82,7 @@ jobs:
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
-              repo: context.repo.repo,                                                                                                                                                                                              
+              repo: context.repo.repo,                                                                                                                                                                  [...]
               body: 'Playwright tests screens\n\n<p float="left">' + images_grid + '</p>'
             });
 
