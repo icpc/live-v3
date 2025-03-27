@@ -1,0 +1,6 @@
+{
+  "type": "krsu",
+  "submissionsSource": "https://olymp.krsu.edu.kg:8085/web/api/contestsubmissions/submissions?apiKey=a1f4d25se3&size=1000000&lowerBound=-1&upperBound=2000000000&contest=16373&probe=0&isAdmin=1",
+  "contestSource": "https://olymp.krsu.edu.kg:8085/web/api/contestsubmissions/contestinfo?apiKey=a1f4d25se3&id=16373",
+  "resultType": "IOI"
+}
