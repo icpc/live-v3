@@ -1,5 +1,6 @@
 public abstract interface class org/icpclive/cds/plugins/krsu/KRSUSettings : org/icpclive/cds/ktor/KtorNetworkSettingsProvider, org/icpclive/cds/settings/CDSSettings {
 	public abstract fun getContestSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
+	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public abstract fun getSubmissionsSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
@@ -13,12 +14,14 @@ public final class org/icpclive/cds/plugins/krsu/KRSUSettingsBuilder : org/icpcl
 	public fun getEmulation ()Lorg/icpclive/cds/settings/EmulationSettings;
 	public fun getNetwork ()Lorg/icpclive/cds/ktor/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
+	public fun getResultType ()Lorg/icpclive/cds/api/ContestResultType;
 	public fun getSubmissionsSource ()Lorg/icpclive/cds/settings/UrlOrLocalPath;
 	public fun getTimeZone ()Lkotlinx/datetime/TimeZone;
 	public fun setContestSource (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public fun setEmulation (Lorg/icpclive/cds/settings/EmulationSettings;)V
 	public fun setNetwork (Lorg/icpclive/cds/ktor/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V
+	public fun setResultType (Lorg/icpclive/cds/api/ContestResultType;)V
 	public fun setSubmissionsSource (Lorg/icpclive/cds/settings/UrlOrLocalPath;)V
 	public fun setTimeZone (Lkotlinx/datetime/TimeZone;)V
 }
