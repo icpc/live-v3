@@ -1,0 +1,130 @@
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "org": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^([^:]*).*": {
+                        "id": "$1"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "[^:]*: (.*) \\([^)]*\\)": {
+                        "funnyNameValue": "$1"
+                    }
+                }
+            }
+        },
+        "organizationId": "{regexes.org.id}",
+        "customFields": {
+            "funnyName": "{regexes.custom.funnyNameValue}"
+        }
+    },
+    {
+        "type": "overrideOrganizations",
+        "rules": {
+            "Moscow State University": {
+                "displayName": "MSU"
+            },
+            "Moscow Aviation Institute": {
+                "displayName": "MAI"
+            },
+            "* Moscow Aviation Institute": {
+                "displayName": "* MAI"
+            },
+            "Moscow Pedagogical State University": {
+                "displayName": "MPSU"
+            },
+            "Moscow Institute of Physics and Technology": {
+                "displayName": "MIPT"
+            },
+            "Moscow Technological University - MIREA": {
+                "displayName": "MIREA"
+            },
+            "National Research University Higher School of Economics": {
+                "displayName": "HSE"
+            },
+            "Peoples’ Friendship University of Russia": {
+                "displayName": "RUDN"
+            },
+            "National University of Science and Technology \"MISiS\"": {
+                "displayName": "MISiS"
+            },
+            "Moscow Technical University": {
+                "displayName": "MTU"
+            },
+            "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)": {
+                "displayName": "MEPhI"
+            },
+            "National Research Nuclear University MEPhI": {
+                "displayName": "MEPhI"
+            },
+            "NRU HSE Moscow State Institute of Electronics and Mathematics": {
+                "displayName": "MIEM"
+            },
+            "Bauman Moscow State Technical University": {
+                "displayName": "Bauman MSTU"
+            },
+            "National Research University Moscow State University of Civil Engineering": {
+                "displayName": "MGSU"
+            },
+            "Moscow State Technical University of Civil Aviation": {
+                "displayName": "MSTUCA"
+            },
+            "Moscow Technical University of Communications and Informatics": {
+                "displayName": "MTUCI"
+            },
+            "Moscow Institute of Electronic Technology": {
+                "displayName": "MIET"
+            },
+            "* Moscow Institute of Electronic Technology": {
+                "displayName": "* MIET"
+            },
+            "St. Tikhon Orthodox University": {
+                "displayName": "PSTGU"
+            },
+            "Financial University Under the Government of the Russian Federation": {
+                "displayName": "FinU"
+            },
+            "Skolkovo Institute of Science and Technology": {
+                "displayName": "Skolkovo IST"
+            }
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {funnyName}"
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "mrcq-2024-129" : {"displayName": "➡️HSE: Surstrumien bobra"}
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+"7/2024_10_09/b97gkJd4ej":{"color":"#ffebeeff"},
+"7/2024_10_09/ywvZAifXCB":{"color":"#dc143cff"},
+"7/2024_10_09/zYRaqrFgkw":{"color":"#ffa500ff"},
+"7/2024_10_09/nDfgLOSW2k":{"color":"#120a8fff"},
+"7/2024_10_09/lFaGkfsVBa":{"color":"#808080ff"},
+"7/2024_10_09/l7jvJbW2kG":{"color":"#000000ff"},
+"7/2024_10_09/mg0LKBYClc":{"color":"#8b4513ff"},
+"7/2024_10_09/uSPkt0kfTW":{"color":"#8b0000ff"},
+"7/2024_10_09/gG6FM9oF8W":{"color":"#ffff00ff"},
+"7/2024_10_09/xaO4zXFfNp":{"color":"#ffb6c1ff"},
+"7/2024_10_09/QIhHC9Jy0J":{"color":"#008000ff"},
+"7/2024_10_09/PFaHu8v1xV":{"color":"#42aaffff"},
+"7/2024_10_09/e2fbZc17Bl":{"color":"#800000ff"}
+        }
+    }
+]
