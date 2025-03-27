@@ -1,0 +1,13 @@
+{
+    "type":"clics",
+    "feeds": [
+      {
+        "source": {
+          "url": "https://icpcapac2025championship.gusmachine.com/api",
+          "login":"api_reader3",
+          "password":"password"
+        },
+        "contestId": "4"
+      }
+    ]
+  }

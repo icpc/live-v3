@@ -1,0 +1,46 @@
+[
+  {
+      "type": "overrideTeamTemplate",
+      "regexes": {
+          "custom": {
+              "from": "{team.fullName}",
+              "rules": {
+                  "(.*): (.*)": {
+                      "funnyNameValue": "$2",
+                      "compValue": "$1"
+                  }
+              }
+          }
+      },
+      "customFields": {
+          "funnyName": "{regexes.custom.funnyNameValue}",
+          "comp": "{regexes.custom.compValue}",
+          "svgInfo": "{regexes.custom.compValue}"
+      }
+  },
+  {
+      "type": "overrideTeamTemplate",
+      "displayName": "{org.displayName}: {funnyName}",
+      "medias": {
+        "photo": {
+            "type": "Image",
+            "url": "/media/photos/{team.id}.png"
+        },
+        "achievement": {
+            "type": "Image",
+            "url": "/api/overlay/svgAchievement/easy-achievements-icpc.svg?teamId={team.id}"
+        }
+      }
+  },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 20,
+        "maxUntestedRun": 5
+    },
+  {
+    "type": "addMedals",
+    "gold": 4,
+    "silver": 6,
+    "bronze": 8
+  }    
+]
