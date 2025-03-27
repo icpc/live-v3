@@ -12,4 +12,5 @@ fun serverResponseJsonSettings(): Json = Json {
     prettyPrint = false
     useArrayPolymorphism = false
     explicitNulls = false
+    ignoreUnknownKeys = true
 }

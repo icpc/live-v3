@@ -1,5 +1,6 @@
 package org.icpclive.api
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.TeamId
 
@@ -12,8 +13,14 @@ sealed class SocialEvent {
 
 @Serializable
 data class ChatMessage(
+    @SerialName("chatmessage")
     override val rawText: String,
+
     override val teamIds: List<TeamId> = emptyList(),
+
+    @SerialName("chatname")
     override val author: String,
+
+    @SerialName("type")
     val platform: String,
 ) : SocialEvent()
