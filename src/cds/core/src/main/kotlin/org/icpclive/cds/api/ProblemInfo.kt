@@ -43,7 +43,6 @@ public enum class ScoreMergeMode {
      */
     SUM
 }
-
 @Serializable
 @SerialName("ftsMode")
 public data class FtsMode(val type: FtsModeType, val runId: RunId? = null) {

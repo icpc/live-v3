@@ -45,15 +45,12 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
             is RunType.ICPCBest -> runs.mapIndexed { index, run ->
                 val ftsMode = info?.problems?.get(run.problemId)?.ftsMode
                 when (ftsMode?.type) {
-                    FtsMode.FtsModeType.HIDE -> {
-                        return@mapIndexed run
-                    }
-                    FtsMode.FtsModeType.CUSTOM -> {
-                        return@mapIndexed run.setFTS(ftsMode.runId == run.id && info.awardsSettings.firstToSolveProblems)
-                    }
-                    else ->  return@mapIndexed run.setFTS(index == 0 && info?.awardsSettings?.firstToSolveProblems != false)
-                }
+                    FtsMode.FtsModeType.HIDE -> run
+                    FtsMode.FtsModeType.CUSTOM ->
+                        run.setFTS(ftsMode.runId == run.id && info.awardsSettings.firstToSolveProblems)
 
+                    else -> run.setFTS(index == 0 && info?.awardsSettings?.firstToSolveProblems != false)
+                }
             }
 
             is RunType.IOIBest -> {
@@ -61,13 +58,11 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
                 runs.map {
                     val ftsMode = info?.problems?.get(it.problemId)?.ftsMode
                     when (ftsMode?.type) {
-                        FtsMode.FtsModeType.HIDE -> {
-                            return@map it
-                        }
-                        FtsMode.FtsModeType.CUSTOM -> {
-                            return@map it.setFTS(ftsMode.runId == it.id && info.awardsSettings.firstToSolveProblems)
-                        }
-                        else -> return@map it.setFTS(it == bestRun && info?.awardsSettings?.firstToSolveProblems != false)
+                        FtsMode.FtsModeType.HIDE -> it
+                        FtsMode.FtsModeType.CUSTOM ->
+                            it.setFTS(ftsMode.runId == it.id && info.awardsSettings.firstToSolveProblems)
+
+                        else -> it.setFTS(it == bestRun && info?.awardsSettings?.firstToSolveProblems != false)
                     }
                 }
             }
