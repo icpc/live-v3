@@ -229,6 +229,7 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
                     scoreMergeMode = it.scoreMergeMode,
                     isHidden = it.isHidden,
                     weight = it.weight,
+                    ftsMode = it.ftsMode,
                 )
             }
         ),

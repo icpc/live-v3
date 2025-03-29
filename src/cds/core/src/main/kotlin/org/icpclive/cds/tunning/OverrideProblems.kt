@@ -35,6 +35,7 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
                     scoreMergeMode = override.scoreMergeMode ?: problem.scoreMergeMode,
                     isHidden = override.isHidden ?: problem.isHidden,
                     weight = override.weight ?: problem.weight,
+                    ftsMode = override.ftsMode ?: problem.ftsMode,
                 )
             }
         )
@@ -54,6 +55,7 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
      * @param scoreMergeMode In ioi mode, select the ruleset to calculate the final score based on the scores for each submission.
      * @param isHidden If true, ignore all runs on that problem and remove it from the scoreboard, and hide the corresponding column.
      * @param weight in icpc mode count as this number of problems
+     * @param ftsMode Defines how the first to solve is determined and displayed for the problem.
      */
     @Serializable
     public class Override(
@@ -67,5 +69,6 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
         public val scoreMergeMode: ScoreMergeMode? = null,
         public val isHidden: Boolean? = null,
         public val weight: Int? = null,
+        public val ftsMode: FtsMode? = null,
     )
 }
