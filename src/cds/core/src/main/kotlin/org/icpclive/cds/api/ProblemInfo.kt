@@ -45,6 +45,20 @@ public enum class ScoreMergeMode {
 }
 
 @Serializable
+@SerialName("ftsMode")
+public data class FtsMode(val type: FtsModeType, val runId: RunId? = null) {
+    @Serializable
+    public enum class FtsModeType {
+        @SerialName("auto")
+        AUTO,
+        @SerialName("hide")
+        HIDE,
+        @SerialName("custom")
+        CUSTOM,
+    }
+}
+
+@Serializable
 public data class ProblemInfo(
     val id: ProblemId,
     @SerialName("letter") val displayName: String,
@@ -57,6 +71,7 @@ public data class ProblemInfo(
     @Required val scoreMergeMode: ScoreMergeMode? = null,
     @Required val isHidden: Boolean = false,
     @Required val weight: Int = 1,
+    @Required val ftsMode: FtsMode = FtsMode(FtsMode.FtsModeType.AUTO),
 )
 
 @JvmInline

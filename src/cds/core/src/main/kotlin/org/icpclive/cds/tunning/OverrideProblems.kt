@@ -35,6 +35,7 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
                     scoreMergeMode = override.scoreMergeMode ?: problem.scoreMergeMode,
                     isHidden = override.isHidden ?: problem.isHidden,
                     weight = override.weight ?: problem.weight,
+                    ftsMode = override.ftsMode,
                 )
             }
         )
@@ -67,5 +68,6 @@ public data class OverrideProblems(public val rules: Map<ProblemId, Override>): 
         public val scoreMergeMode: ScoreMergeMode? = null,
         public val isHidden: Boolean? = null,
         public val weight: Int? = null,
+        public val ftsMode: FtsMode = FtsMode(FtsMode.FtsModeType.AUTO),
     )
 }

@@ -38,12 +38,33 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
         when (k) {
             is RunType.NotBest -> runs
             is RunType.ICPCBest -> runs.mapIndexed { index, run ->
-                run.setFTS(index == 0 && info?.awardsSettings?.firstToSolveProblems != false)
+                val ftsMode = info?.problems?.get(run.problemId)?.ftsMode
+                when (ftsMode?.type) {
+                    FtsMode.FtsModeType.HIDE -> {
+                        return@mapIndexed run
+                    }
+                    FtsMode.FtsModeType.CUSTOM -> {
+                        return@mapIndexed run.setFTS(ftsMode.runId == run.id && info.awardsSettings.firstToSolveProblems)
+                    }
+                    else ->  return@mapIndexed run.setFTS(index == 0 && info?.awardsSettings?.firstToSolveProblems != false)
+                }
+
             }
 
             is RunType.IOIBest -> {
                 val bestRun = runs.maxByOrNull { (it.result as RunResult.IOI).scoreAfter }
-                runs.map { it.setFTS(it == bestRun && info?.awardsSettings?.firstToSolveProblems != false) }
+                runs.map {
+                    val ftsMode = info?.problems?.get(it.problemId)?.ftsMode
+                    when (ftsMode?.type) {
+                        FtsMode.FtsModeType.HIDE -> {
+                            return@map it
+                        }
+                        FtsMode.FtsModeType.CUSTOM -> {
+                            return@map it.setFTS(ftsMode.runId == it.id && info.awardsSettings.firstToSolveProblems)
+                        }
+                        else -> return@map it.setFTS(it == bestRun && info?.awardsSettings?.firstToSolveProblems != false)
+                    }
+                }
             }
         }
     }
