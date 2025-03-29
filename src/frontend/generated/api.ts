@@ -103,6 +103,7 @@ export interface ProblemInfo {
   scoreMergeMode: ScoreMergeMode | null;
   isHidden: boolean;
   weight: number;
+  ftsMode: ftsMode;
 }
 
 export interface TeamInfo {
@@ -147,6 +148,11 @@ export enum ScoreMergeMode {
   LAST = "LAST",
   LAST_OK = "LAST_OK",
   SUM = "SUM",
+}
+
+export interface ftsMode {
+  type: FtsModeType;
+  runId?: RunId | null;
 }
 
 export type TeamId = string;
@@ -243,6 +249,14 @@ export interface ManualAwardSetting {
   teamCdsIds: TeamId[];
 }
 
+export enum FtsModeType {
+  auto = "auto",
+  hide = "hide",
+  custom = "custom",
+}
+
+export type RunId = string;
+
 export enum TeamMediaType {
   camera = "camera",
   screen = "screen",
@@ -285,8 +299,6 @@ export interface RunInfo {
   reactionVideos: MediaType[];
   isHidden: boolean;
 }
-
-export type RunId = string;
 
 export type RunResult =
   | RunResult.ICPC
