@@ -34,6 +34,11 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
             is RunResult.InProgress -> RunType.NotBest
         }
     },
+    needUpdateGroup = { new, old, _ ->
+        new.problems.any {
+            it.value.ftsMode != old?.problems?.get(it.key)?.ftsMode
+        }
+    },
     transformGroup = { k, runs, _, info ->
         when (k) {
             is RunType.NotBest -> runs
