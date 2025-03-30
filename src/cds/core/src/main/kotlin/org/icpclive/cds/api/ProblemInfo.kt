@@ -43,18 +43,18 @@ public enum class ScoreMergeMode {
      */
     SUM
 }
+
 @Serializable
-@SerialName("ftsMode")
-public data class FtsMode(val type: FtsModeType, val runId: RunId? = null) {
+public sealed class FtsMode {
     @Serializable
-    public enum class FtsModeType {
-        @SerialName("auto")
-        AUTO,
-        @SerialName("hide")
-        HIDE,
-        @SerialName("custom")
-        CUSTOM,
-    }
+    @SerialName("auto")
+    public object Auto : FtsMode()
+    @Serializable
+    @SerialName("hidden")
+    public object Hidden : FtsMode()
+    @Serializable
+    @SerialName("custom")
+    public data class Custom(val runId: RunId) : FtsMode()
 }
 
 @Serializable
@@ -70,7 +70,7 @@ public data class ProblemInfo(
     @Required val scoreMergeMode: ScoreMergeMode? = null,
     @Required val isHidden: Boolean = false,
     @Required val weight: Int = 1,
-    @Required val ftsMode: FtsMode = FtsMode(FtsMode.FtsModeType.AUTO),
+    @Required val ftsMode: FtsMode = FtsMode.Auto,
 )
 
 @JvmInline
