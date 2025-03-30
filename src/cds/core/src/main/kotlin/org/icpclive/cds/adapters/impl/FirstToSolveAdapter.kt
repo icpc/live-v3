@@ -37,35 +37,26 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
     needUpdateGroup = { new, old, _ ->
         new.problems.any {
             it.value.ftsMode != old?.problems?.get(it.key)?.ftsMode
-        }
+        } || new.awardsSettings.firstToSolveProblems != old?.awardsSettings?.firstToSolveProblems
     },
-    transformGroup = { k, runs, _, info ->
-        when (k) {
-            is RunType.NotBest -> runs
-            is RunType.ICPCBest -> runs.mapIndexed { index, run ->
-                val ftsMode = info?.problems?.get(run.problemId)?.ftsMode
-                when (ftsMode?.type) {
-                    FtsMode.FtsModeType.HIDE -> run
-                    FtsMode.FtsModeType.CUSTOM ->
-                        run.setFTS(ftsMode.runId == run.id && info.awardsSettings.firstToSolveProblems)
-
-                    else -> run.setFTS(index == 0 && info?.awardsSettings?.firstToSolveProblems != false)
-                }
+    transformGroup = transform@{ k, runs, _, info ->
+        if (runs.isEmpty()) return@transform runs
+        val ftsMode = info?.problems?.get(runs[0].problemId)?.ftsMode
+        val bestRunId = when (ftsMode?.type) {
+            FtsMode.FtsModeType.HIDE, null -> null
+            FtsMode.FtsModeType.CUSTOM -> ftsMode.runId
+            FtsMode.FtsModeType.AUTO -> {
+                when (k) {
+                    is RunType.NotBest -> null
+                    is RunType.ICPCBest -> runs.firstOrNull()
+                    is RunType.IOIBest -> runs.maxByOrNull { (it.result as RunResult.IOI).scoreAfter }
+                }?.id.takeIf { info.awardsSettings.firstToSolveProblems == true }
             }
-
-            is RunType.IOIBest -> {
-                val bestRun = runs.maxByOrNull { (it.result as RunResult.IOI).scoreAfter }
-                runs.map {
-                    val ftsMode = info?.problems?.get(it.problemId)?.ftsMode
-                    when (ftsMode?.type) {
-                        FtsMode.FtsModeType.HIDE -> it
-                        FtsMode.FtsModeType.CUSTOM ->
-                            it.setFTS(ftsMode.runId == it.id && info.awardsSettings.firstToSolveProblems)
-
-                        else -> it.setFTS(it == bestRun && info?.awardsSettings?.firstToSolveProblems != false)
-                    }
-                }
-            }
+        }
+        if (bestRunId == null) {
+            runs
+        } else {
+            runs.map { if (it.id == bestRunId) it.setFTS(true) else it }
         }
     }
 ).map { it.event }
