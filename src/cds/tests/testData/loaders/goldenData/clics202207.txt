@@ -23,7 +23,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "B-uniform-jumps-small-SRWPWS",
@@ -36,7 +39,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "C-binary-string-HVFWFC",
@@ -49,7 +55,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "D-railways-CLLTEH",
@@ -62,7 +71,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "E-spinach-pizza-WAUHYC",
@@ -75,7 +87,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "F-chat-SEOHSI",
@@ -88,7 +103,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "G-tree-game-TNLSWY",
@@ -101,7 +119,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "H-controller-VPDPII",
@@ -114,7 +135,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "I-game-with-intervals-OVKMEY",
@@ -127,7 +151,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "J-italian-graph-RXDVPR",
@@ -140,7 +167,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "K-graph-coloring-JXMMZU",
@@ -153,7 +183,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "L-lego-tree-LEXJJO",
@@ -166,7 +199,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             }
         ],
         "teams": [
