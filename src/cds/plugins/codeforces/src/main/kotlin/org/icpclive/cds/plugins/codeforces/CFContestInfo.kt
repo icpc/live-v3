@@ -68,6 +68,7 @@ internal class CFContestInfo {
                 minScore = null,
                 maxScore = null,
                 scoreMergeMode = ScoreMergeMode.SUM,
+                ftsMode = FtsMode.Hidden
             )
             problems.add(hacksInfo)
         }
