@@ -8,7 +8,7 @@ import io.ktor.http.*
 import org.icpclive.cds.settings.*
 import io.ktor.client.plugins.auth.Auth as AuthPlugin
 
-public fun HttpMessageBuilder.setupHeaders(auth: Authorization) {
+private fun HttpMessageBuilder.setupHeaders(auth: Authorization) {
     for ((name, value) in auth.cookies) {
         cookie(name, decodeCookieValue(value.value, CookieEncoding.URI_ENCODING))
     }
