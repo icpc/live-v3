@@ -8,6 +8,16 @@ import io.ktor.http.*
 import org.icpclive.cds.settings.*
 import io.ktor.client.plugins.auth.Auth as AuthPlugin
 
+public fun HttpMessageBuilder.setupHeaders(auth: Authorization) {
+    for ((name, value) in auth.cookies) {
+        cookie(name, decodeCookieValue(value.value, CookieEncoding.URI_ENCODING))
+    }
+    for ((name, value) in auth.headers) {
+        header(name, value)
+    }
+}
+
+
 public fun HttpClientConfig<*>.setupAuth(auth: Authorization?) {
     if (auth == null) return
     auth.basic?.let {
@@ -19,12 +29,7 @@ public fun HttpClientConfig<*>.setupAuth(auth: Authorization?) {
         }
     }
     defaultRequest {
-        for ((name, value) in auth.cookies) {
-            cookie(name, value.value)
-        }
-        for ((name, value) in auth.headers) {
-            header(name, value)
-        }
+        setupHeaders(auth)
     }
 }
 
@@ -32,12 +37,7 @@ public fun HttpClientConfig<*>.setupAuth(auth: Authorization?) {
 public fun HttpRequestBuilder.setupAuth(auth: Authorization?) {
     if (auth == null) return
     auth.basic?.let { basicAuth(it.login.value, it.password.value) }
-    for ((name, value) in auth.cookies) {
-        cookie(name, value.value)
-    }
-    for ((name, value) in auth.headers) {
-        header(name, value)
-    }
+    setupHeaders(auth)
 }
 
 public fun Authorization.withOAuth(token: Credential?): Authorization = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("OAuth ${token.value}", "OAuth ${token.displayValue}"))
