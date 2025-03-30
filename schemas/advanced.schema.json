@@ -575,36 +575,69 @@
                 }
             ]
         },
-        "org.icpclive.cds.api.FtsMode.FtsModeType<org.icpclive.cds.api.FtsMode.FtsModeType.auto,org.icpclive.cds.api.FtsMode.FtsModeType.hide,org.icpclive.cds.api.FtsMode.FtsModeType.custom>": {
-            "enum": [
-                "auto",
-                "hide",
-                "custom"
-            ]
+        "auto": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "auto",
+                    "default": "auto"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "title": "auto"
         },
-        "ftsMode?<org.icpclive.cds.api.FtsMode.FtsModeType,org.icpclive.cds.api.RunId?>": {
+        "custom": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "custom",
+                    "default": "custom"
+                },
+                "runId": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "runId"
+            ],
+            "title": "custom"
+        },
+        "hidden": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "hidden",
+                    "default": "hidden"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "title": "hidden"
+        },
+        "org.icpclive.cds.api.FtsMode?<kotlin.String,kotlinx.serialization.Sealed<FtsMode>>": {
             "oneOf": [
                 {
-                    "type": "object",
-                    "properties": {
-                        "type": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.FtsMode.FtsModeType<org.icpclive.cds.api.FtsMode.FtsModeType.auto,org.icpclive.cds.api.FtsMode.FtsModeType.hide,org.icpclive.cds.api.FtsMode.FtsModeType.custom>"
-                        },
-                        "runId": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "type"
-                    ]
+                    "$ref": "#/$defs/auto"
+                },
+                {
+                    "$ref": "#/$defs/custom"
+                },
+                {
+                    "$ref": "#/$defs/hidden"
                 },
                 {
                     "type": "null"
                 }
             ]
         },
-        "org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?,ftsMode?>": {
+        "org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?,org.icpclive.cds.api.FtsMode?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -638,7 +671,7 @@
                     "type": "number"
                 },
                 "ftsMode": {
-                    "$ref": "#/$defs/ftsMode?<org.icpclive.cds.api.FtsMode.FtsModeType,org.icpclive.cds.api.RunId?>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.FtsMode?<kotlin.String,kotlinx.serialization.Sealed<FtsMode>>"
                 }
             },
             "additionalProperties": false,
@@ -648,7 +681,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?,ftsMode?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?,org.icpclive.cds.api.FtsMode?>"
                 }
             }
         },

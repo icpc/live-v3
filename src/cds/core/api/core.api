@@ -755,47 +755,50 @@ public final class org/icpclive/cds/api/ContestStatus$RUNNING$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/api/FtsMode {
+public abstract class org/icpclive/cds/api/FtsMode {
 	public static final field Companion Lorg/icpclive/cds/api/FtsMode$Companion;
-	public synthetic fun <init> (Lorg/icpclive/cds/api/FtsMode$FtsModeType;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lorg/icpclive/cds/api/FtsMode$FtsModeType;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lorg/icpclive/cds/api/FtsMode$FtsModeType;
-	public final fun component2-wo-FfPQ ()Ljava/lang/String;
-	public final fun copy-jMH48cc (Lorg/icpclive/cds/api/FtsMode$FtsModeType;Ljava/lang/String;)Lorg/icpclive/cds/api/FtsMode;
-	public static synthetic fun copy-jMH48cc$default (Lorg/icpclive/cds/api/FtsMode;Lorg/icpclive/cds/api/FtsMode$FtsModeType;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/FtsMode;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getRunId-wo-FfPQ ()Ljava/lang/String;
-	public final fun getType ()Lorg/icpclive/cds/api/FtsMode$FtsModeType;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public static final synthetic fun write$Self (Lorg/icpclive/cds/api/FtsMode;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
-public synthetic class org/icpclive/cds/api/FtsMode$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/api/FtsMode$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/FtsMode;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/FtsMode;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+public final class org/icpclive/cds/api/FtsMode$Auto : org/icpclive/cds/api/FtsMode {
+	public static final field INSTANCE Lorg/icpclive/cds/api/FtsMode$Auto;
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/api/FtsMode$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/api/FtsMode$FtsModeType : java/lang/Enum {
-	public static final field AUTO Lorg/icpclive/cds/api/FtsMode$FtsModeType;
-	public static final field CUSTOM Lorg/icpclive/cds/api/FtsMode$FtsModeType;
-	public static final field Companion Lorg/icpclive/cds/api/FtsMode$FtsModeType$Companion;
-	public static final field HIDE Lorg/icpclive/cds/api/FtsMode$FtsModeType;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/cds/api/FtsMode$FtsModeType;
-	public static fun values ()[Lorg/icpclive/cds/api/FtsMode$FtsModeType;
+public final class org/icpclive/cds/api/FtsMode$Custom : org/icpclive/cds/api/FtsMode {
+	public static final field Companion Lorg/icpclive/cds/api/FtsMode$Custom$Companion;
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-1iip4kg ()Ljava/lang/String;
+	public final fun copy-XwPs5oM (Ljava/lang/String;)Lorg/icpclive/cds/api/FtsMode$Custom;
+	public static synthetic fun copy-XwPs5oM$default (Lorg/icpclive/cds/api/FtsMode$Custom;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/FtsMode$Custom;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getRunId-1iip4kg ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/cds/api/FtsMode$FtsModeType$Companion {
+public synthetic class org/icpclive/cds/api/FtsMode$Custom$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/FtsMode$Custom$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/FtsMode$Custom;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/FtsMode$Custom;)V
+	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/FtsMode$Custom$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/FtsMode$Hidden : org/icpclive/cds/api/FtsMode {
+	public static final field INSTANCE Lorg/icpclive/cds/api/FtsMode$Hidden;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 

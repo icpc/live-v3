@@ -103,7 +103,7 @@ export interface ProblemInfo {
   scoreMergeMode: ScoreMergeMode | null;
   isHidden: boolean;
   weight: number;
-  ftsMode: ftsMode;
+  ftsMode: FtsMode;
 }
 
 export interface TeamInfo {
@@ -150,9 +150,30 @@ export enum ScoreMergeMode {
   SUM = "SUM",
 }
 
-export interface ftsMode {
-  type: FtsModeType;
-  runId?: RunId | null;
+export type FtsMode =
+  | FtsMode.auto
+  | FtsMode.custom
+  | FtsMode.hidden;
+
+export namespace FtsMode {
+  export enum Type {
+    auto = "auto",
+    custom = "custom",
+    hidden = "hidden",
+  }
+  
+  export interface auto {
+    type: FtsMode.Type.auto;
+  }
+  
+  export interface custom {
+    type: FtsMode.Type.custom;
+    runId: RunId;
+  }
+  
+  export interface hidden {
+    type: FtsMode.Type.hidden;
+  }
 }
 
 export type TeamId = string;
@@ -247,12 +268,6 @@ export interface ManualAwardSetting {
   id: string;
   citation: string;
   teamCdsIds: TeamId[];
-}
-
-export enum FtsModeType {
-  auto = "auto",
-  hide = "hide",
-  custom = "custom",
 }
 
 export type RunId = string;
