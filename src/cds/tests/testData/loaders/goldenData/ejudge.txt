@@ -23,7 +23,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "2",
@@ -36,7 +39,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "3",
@@ -49,7 +55,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "4",
@@ -62,7 +71,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "5",
@@ -75,7 +87,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "6",
@@ -88,7 +103,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "7",
@@ -101,7 +119,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "8",
@@ -114,7 +135,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "9",
@@ -127,7 +151,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "10",
@@ -140,7 +167,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "11",
@@ -153,7 +183,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             },
             {
                 "id": "12",
@@ -166,7 +199,10 @@
                 "unsolvedColor": null,
                 "scoreMergeMode": null,
                 "isHidden": false,
-                "weight": 1
+                "weight": 1,
+                "ftsMode": {
+                    "type": "auto"
+                }
             }
         ],
         "teams": [
