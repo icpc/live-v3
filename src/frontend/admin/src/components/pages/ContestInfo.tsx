@@ -14,7 +14,8 @@ import {
     TeamInfo,
     ProblemInfo,
     OrganizationInfo,
-    GroupInfo
+    GroupInfo,
+    FtsMode
 } from "@shared/api.ts";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Button from "@material-ui/core/Button";
@@ -221,6 +222,20 @@ const ProblemTableColumns: GridColDef<ProblemInfo>[] = [
     {
         field: "scoreMergeMode",
         headerName: "Merge mode",
+    },
+    {
+        field: "ftsMode",
+        headerName: "FTS mode",
+        valueGetter: (v: FtsMode) => {
+            switch (v.type) {
+                case FtsMode.Type.auto:
+                    return "auto";
+                case FtsMode.Type.custom:
+                    return `custom(${v.runId})`;
+                case FtsMode.Type.hidden:
+                    return "hidden";
+            }
+        }
     }
 ];
 
