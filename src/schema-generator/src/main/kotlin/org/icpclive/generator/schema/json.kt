@@ -151,7 +151,7 @@ fun SerialDescriptor.toJsonSchemaType(
                 mapOf("enum" to JsonArray(elementNames.map { JsonPrimitive(it) }))
             }
 
-            StructureKind.CLASS -> {
+            StructureKind.CLASS, StructureKind.OBJECT  -> {
                 JsonObject(
                     mapOf(
                         "type" to JsonPrimitive("object"),
@@ -225,8 +225,6 @@ fun SerialDescriptor.toJsonSchemaType(
                     else -> error("Unsupported map key: $keysSerializer")
                 }
             }
-
-            StructureKind.OBJECT -> TODO("Object types are not supported")
         }.let {
             if (isNullable) {
                 val schemaNull = JsonObject(mapOf("type" to JsonPrimitive("null")))
