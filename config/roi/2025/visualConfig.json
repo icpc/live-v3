@@ -1,0 +1,10 @@
+
+{
+    "QUEUE_TITLE": "Очередь",
+    "STATISTICS_TITLE": "Статистика",
+    "SCOREBOARD_NORMAL_NAME": "Текущие",
+    "SCOREBOARD_STANDINGS_NAME": "результаты",
+    "TICKER_SMALL_BACKGROUND": "#4C83C3",
+    "TIMELINE_WRAP_HEIGHT": 100,
+    "SCOREBOARD_SCROLL_INTERVAL": 10000
+}
