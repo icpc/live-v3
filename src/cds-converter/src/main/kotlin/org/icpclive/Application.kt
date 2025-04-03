@@ -64,6 +64,7 @@ fun Application.module() {
         .addComputedData {
             submissionResultsAfterFreeze = !ServerCommand.cdsOptions.freeze
             submissionsAfterEnd = ServerCommand.cdsOptions.upsolving
+            autoFinalize = !ServerCommand.cdsOptions.noAutoFinalize
         }
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 

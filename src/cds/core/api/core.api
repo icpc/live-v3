@@ -90,6 +90,7 @@ public final class org/icpclive/cds/adapters/AutoFinalizeKt {
 
 public final class org/icpclive/cds/adapters/ComputedDataConfig {
 	public final fun getAutoCreateMissingGroups ()Z
+	public final fun getAutoFinalize ()Z
 	public final fun getFirstToSolves ()Z
 	public final fun getIoiScoreDifferences ()Z
 	public final fun getPropagateHidden ()Z
@@ -98,6 +99,7 @@ public final class org/icpclive/cds/adapters/ComputedDataConfig {
 	public final fun getSubmissionsAfterEnd ()Z
 	public final fun getUnhideColorWhenSolved ()Z
 	public final fun setAutoCreateMissingGroups (Z)V
+	public final fun setAutoFinalize (Z)V
 	public final fun setFirstToSolves (Z)V
 	public final fun setIoiScoreDifferences (Z)V
 	public final fun setPropagateHidden (Z)V

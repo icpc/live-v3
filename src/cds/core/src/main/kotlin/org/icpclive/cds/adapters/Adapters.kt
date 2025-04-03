@@ -47,6 +47,7 @@ public class ComputedDataConfig internal constructor() {
     public var propagateHidden: Boolean = true
     public var unhideColorWhenSolved: Boolean = true
     public var replaceCommentaryTags: Boolean = true
+    public var autoFinalize: Boolean = false
 }
 
 private inline fun Flow<ContestUpdate>.applyIf(cond: Boolean, adapter: Flow<ContestUpdate>.() -> Flow<ContestUpdate>) = if (cond) adapter() else this
@@ -64,4 +65,5 @@ public fun Flow<ContestUpdate>.addComputedData(configure: ComputedDataConfig.() 
         .applyIf(config.ioiScoreDifferences) { calculateScoreDifferences() }
         .applyIf(config.firstToSolves) { addFirstToSolves() }
         .applyIf(config.replaceCommentaryTags) { processCommentaryTags() }
+        .applyIf(config.autoFinalize) { autoFinalize() }
 }

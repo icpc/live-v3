@@ -22,7 +22,7 @@ import org.icpclive.clics.v202306.objects.*
 import org.icpclive.clics.v202306.events.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.calculateScoreboard
-import org.icpclive.cds.util.loopFlow
+import org.icpclive.cds.util.onIdle
 import org.icpclive.clics.events.*
 import org.icpclive.clics.v202306.events.AwardEvent
 import org.icpclive.clics.v202306.events.CommentaryEvent
@@ -272,6 +272,7 @@ object ClicsExporter  {
     private val languagesMap = mutableMapOf<LanguageId, LanguageInfo>()
     private val problemsMap = mutableMapOf<ProblemId, ProblemInfo>()
     private val teamsMap = mutableMapOf<TeamId, TeamInfo>()
+    private val awardsMap = mutableMapOf<String, Award>()
 
     @OptIn(InefficientContestInfoApi::class)
     private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
@@ -312,14 +313,21 @@ object ClicsExporter  {
     }
 
 
-    private fun generateEventFeed(updates: Flow<ContestUpdate>) : Flow<Event> {
+    private fun generateEventFeed(updates: Flow<ContestStateWithScoreboard>) : Flow<Event> {
         var eventCounter = 1
-        return updates.contestState().transform {state ->
-            when (val event = state.lastEvent) {
-                is InfoUpdate -> calculateDiff(state.infoBeforeEvent, event.newInfo)
-                is RunUpdate -> processRun(state.infoBeforeEvent!!, event.newInfo)
+        return updates.transform { state ->
+            when (val event = state.state.lastEvent) {
+                is InfoUpdate -> calculateDiff(state.state.infoBeforeEvent, event.newInfo)
+                is RunUpdate -> processRun(state.state.infoBeforeEvent!!, event.newInfo)
                 is CommentaryMessagesUpdate -> processCommentaryMessage(event.message)
             }
+            diff(
+                awardsMap,
+                state.toClicsAwards(),
+                Award::id,
+                { this },
+                ::AwardEvent
+            )
         }.map { it(EventToken("live-cds-${eventCounter++}")) }
     }
 
@@ -367,19 +375,6 @@ object ClicsExporter  {
         }
     }
 
-    private val awardsMap = mutableMapOf<String, Award>()
-    private var awardEventId = 0
-
-    private fun generateAwardEvents(awards: Flow<List<Award>>) = awards.transform {
-        diff(
-            awardsMap,
-            it,
-            Award::id,
-            { this },
-            ::AwardEvent
-        )
-    }.map { it(EventToken("live-cds-award-${awardEventId++}")) }
-
 
     fun Route.setUp(scope: CoroutineScope, updates: Flow<ContestUpdate>) {
         val scoreboardFlow = updates
@@ -387,11 +382,12 @@ object ClicsExporter  {
             .stateIn(scope, SharingStarted.Eagerly, null)
             .filterNotNull()
 
-        val eventFeed =
-            merge(
-                generateEventFeed(updates),
-                generateAwardEvents(scoreboardFlow.map { it.toClicsAwards() }.distinctUntilChanged())
-            ).shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+        val eventFeed = generateEventFeed(scoreboardFlow)
+            .shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
+            .transformWhile {
+                emit(it)
+                it !is StateEvent || it.data?.endOfUpdates == null
+            }
         val contestFlow = eventFeed.filterGlobalEvent<Contest, _, ContestEvent>(scope)
         val stateFlow = eventFeed.filterGlobalEvent<State, _, StateEvent>(scope)
 
@@ -451,13 +447,13 @@ object ClicsExporter  {
                     get("/scoreboard") { call.respond(scoreboardFlow.first().toClicsScoreboard()) }
                     get("/event-feed") {
                         call.respondBytesWriter {
-                            merge(
-                                eventFeed.map { json.encodeToString(it) },
-                                loopFlow(2.minutes, onError = {}) { "" }
-                            ).collect {
-                                writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
-                                flush()
-                            }
+                            eventFeed
+                                .map { json.encodeToString(it) }
+                                .onIdle(1.minutes) { channel.send("") }
+                                .collect {
+                                    writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
+                                    flush()
+                                }
                         }
                     }
                     get("/access") {
