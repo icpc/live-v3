@@ -216,6 +216,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
         ) {
             imports("kotlinx.serialization.*")
             +"@Serializable"
+            +"@SerialName(\"${obj.names.first()}\")"
             withParameters(
                 "public class ${obj.eventName}",
                 buildList {
@@ -247,6 +248,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
             }
             if (feedVersion >= FeedVersion.`2022_07` && obj.eventType == EventType.ID) {
                 +"@Serializable"
+                +"@SerialName(\"${obj.names.first()}\")"
                 withParameters(
                     "public class ${obj.batchEventName}",
                     buildList {
