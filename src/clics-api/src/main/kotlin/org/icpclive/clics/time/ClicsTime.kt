@@ -21,22 +21,31 @@ private fun DateTimeFormatBuilder.WithDateTimeComponents.formatBase(padding: Pad
     second(padding)
     optional {
         char('.')
-        secondFraction()
+        alternativeParsing({ secondFraction() }) {
+            secondFraction(3)
+        }
     }
     alternativeParsing({}, { char('z') }) {
         optional(ifZero = "Z") {
             offsetHours(padding)
-            optional {
+            alternativeParsing({}) {
                 alternativeParsing({}) { chars(":") }
                 offsetMinutesOfHour()
+                optional {
+                    char(':')
+                    offsetSecondsOfMinute()
+                }
             }
         }
     }
 }
 
+// Basically DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET, but with several tweaks
+// 1. Skipping leading zeros is allowed
+// 2. Exactly 3 digits of the second fraction are printed if any
 private val format = DateTimeComponents.Format {
     alternativeParsing({ formatBase(Padding.NONE) }) {
-        dateTimeComponents(DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET)
+        formatBase(Padding.ZERO)
     }
 }
 
