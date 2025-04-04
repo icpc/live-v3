@@ -377,15 +377,12 @@ object ClicsExporter  {
 
 
     fun Route.setUp(scope: CoroutineScope, updates: Flow<ContestUpdate>) {
-        val scoreboardFlow = updates
-            .calculateScoreboard(OptimismLevel.NORMAL)
-            .stateIn(scope, SharingStarted.Eagerly, null)
-            .filterNotNull()
 
-        val eventFeed = generateEventFeed(scoreboardFlow)
+        val eventFeed = generateEventFeed(updates.calculateScoreboard(OptimismLevel.NORMAL))
             .shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
             .transformWhile {
                 emit(it)
+
                 it !is StateEvent || it.data?.endOfUpdates == null
             }
         val contestFlow = eventFeed.filterGlobalEvent<Contest, _, ContestEvent>(scope)
@@ -444,7 +441,9 @@ object ClicsExporter  {
                     //getId("accounts", accountsFlow)
                     //getId("clarifications", clarificationsFlow)
                     getId("awards", awardsFlow)
-                    get("/scoreboard") { call.respond(scoreboardFlow.first().toClicsScoreboard()) }
+                    get("/scoreboard") { call.respond(
+                        updates
+                            .calculateScoreboard(OptimismLevel.NORMAL).first().toClicsScoreboard()) }
                     get("/event-feed") {
                         call.respondBytesWriter {
                             eventFeed

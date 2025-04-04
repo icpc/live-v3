@@ -23,7 +23,7 @@ public fun Flow<ContestUpdate>.autoFinalize(progress: suspend (ContestStatus?, I
                     frozenAt = status.frozenAt
                 )
             )))
-            logger.info { "Contest finished. Finalizing." }
+            logger.info { "Contest finished. Finalizing. Found ${it.runs[true]?.size} total runs" }
             false
         } else {
             progress(info?.status, it.runs[false]?.size ?: 0)
