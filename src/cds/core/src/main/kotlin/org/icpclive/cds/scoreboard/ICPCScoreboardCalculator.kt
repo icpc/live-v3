@@ -41,11 +41,11 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
             }
 
             ICPCProblemResult(
-                runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
-                runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
-                okRun != null,
-                (okRun?.result as? RunResult.ICPC)?.isFirstToSolveRun == true,
-                (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
+                wrongAttempts = runsBeforeFirstOk.withIndex().count { isAddingPenalty(it.value, it.index, problemRuns.size) },
+                pendingAttempts = runsBeforeFirstOk.withIndex().count { isPending(it.value, it.index, problemRuns.size) },
+                isSolved = okRun != null,
+                isFirstToSolve = (okRun?.result as? RunResult.ICPC)?.isFirstToSolveRun == true,
+                lastSubmitTime = (okRun ?: runsBeforeFirstOk.lastOrNull())?.time
             ).also {
                 if (it.isSolved) {
                     solved += problem.weight
@@ -55,10 +55,10 @@ internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator(
             }
         }
         return ScoreboardRow(
-            solved.toDouble(),
-            penaltyCalculator.penalty,
-            lastAccepted,
-            problemResults,
+            totalScore = solved.toDouble(),
+            penalty = penaltyCalculator.penalty,
+            lastAccepted = lastAccepted,
+            problemResults = problemResults,
         )
     }
 }

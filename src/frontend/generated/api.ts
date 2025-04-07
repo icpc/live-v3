@@ -438,6 +438,7 @@ export namespace ProblemResult {
     score: number | null;
     lastSubmitTimeMs: number | null;
     isFirstBest: boolean;
+    pendingAttempts: number;
   }
 }
 

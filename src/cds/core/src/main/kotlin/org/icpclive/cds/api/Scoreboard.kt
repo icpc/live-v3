@@ -44,6 +44,7 @@ public data class IOIProblemResult(
     @Serializable(with = DurationInMillisecondsSerializer::class)
     override val lastSubmitTime: Duration?,
     val isFirstBest: Boolean,
+    val pendingAttempts: Int,
 ) : ProblemResult()
 
 @Serializable

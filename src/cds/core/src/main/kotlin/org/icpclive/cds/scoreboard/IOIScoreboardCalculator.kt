@@ -29,16 +29,17 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
                     problemRuns.subList(0, finalRunIndex).count { (it.result as? RunResult.IOI)?.wrongVerdict?.isAddingPenalty == true })
             }
             IOIProblemResult(
-                (finalRun?.result as? RunResult.IOI?)?.scoreAfter,
-                finalRun?.time,
-                (finalRun?.result as? RunResult.IOI?)?.isFirstBestRun == true
+                score = (finalRun?.result as? RunResult.IOI?)?.scoreAfter,
+                lastSubmitTime = finalRun?.time,
+                isFirstBest = (finalRun?.result as? RunResult.IOI?)?.isFirstBestRun == true,
+                pendingAttempts = problemRuns.count { it.result is RunResult.InProgress }
             )
         }
         return ScoreboardRow(
-            problemResults.sumOf { it.score ?: 0.0 },
-            penaltyCalculator.penalty,
-            problemResults.maxOfOrNull { it.lastSubmitTime ?: Duration.ZERO } ?: Duration.ZERO,
-            problemResults,
+            totalScore = problemResults.sumOf { it.score ?: 0.0 },
+            penalty = penaltyCalculator.penalty,
+            lastAccepted = problemResults.maxOfOrNull { it.lastSubmitTime ?: Duration.ZERO } ?: Duration.ZERO,
+            problemResults = problemResults,
         )
     }
 }
