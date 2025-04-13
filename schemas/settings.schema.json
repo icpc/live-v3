@@ -485,6 +485,9 @@
                 "problemScoreLimit": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>"
                 },
+                "unfreezeOfflineGroup": {
+                    "type": "boolean"
+                },
                 "emulation": {
                     "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
                 },
