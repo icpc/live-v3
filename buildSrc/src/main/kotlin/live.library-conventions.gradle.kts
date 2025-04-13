@@ -1,4 +1,3 @@
-import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import java.net.*
 
 plugins {
@@ -11,6 +10,13 @@ plugins {
 
 kotlin {
     explicitApi()
+}
+
+// looks like a bcv plugin bug
+tasks {
+    apiCheck {
+        mustRunAfter(tasks.apiDump)
+    }
 }
 
 publishing {

@@ -53,7 +53,6 @@ public synthetic class org/icpclive/cds/ktor/NetworkSettings$$serializer : kotli
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/ktor/NetworkSettings;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/ktor/NetworkSettings$Companion {

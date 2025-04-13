@@ -33,11 +33,15 @@ tasks {
     }
     val buildOverlay = pnpmBuild("pnpm_run_buildOverlay", layout.projectDirectory.dir("overlay")) {
         inputs.file(it.file("index.html"))
+        mustRunAfter(":schema-generator:exportTs")
     }
     val buildAdmin = pnpmBuild("pnpm_run_buildAdmin", layout.projectDirectory.dir("admin")) {
         inputs.file(it.file("index.html"))
+        mustRunAfter(":schema-generator:exportTs")
     }
-    val buildLocatorAdmin = pnpmBuild("pnpm_run_buildLocatorAdmin", layout.projectDirectory.dir("locator"))
+    val buildLocatorAdmin = pnpmBuild("pnpm_run_buildLocatorAdmin", layout.projectDirectory.dir("locator")) {
+        mustRunAfter(":schema-generator:exportTs")
+    }
     //val installBrowsers = named<NpmTask>("pnpm_run_install-browsers") // probably want to cache it somehow
     val runTests = named<PnpmTask>("pnpm_run_test") {
         //dependsOn(installBrowsers)

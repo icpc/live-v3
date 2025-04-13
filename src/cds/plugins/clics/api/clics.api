@@ -18,7 +18,6 @@ public synthetic class org/icpclive/cds/plugins/clics/ClicsFeed$$serializer : ko
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/plugins/clics/ClicsFeed;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/plugins/clics/ClicsFeed$Companion {

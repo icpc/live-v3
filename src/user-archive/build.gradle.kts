@@ -3,7 +3,7 @@ plugins {
 }
 
 tasks {
-    val emptyJson by creating {
+    val emptyJson by registering {
         val file = project.layout.buildDirectory.file("empty.json")
         outputs.file(file)
         doLast {

@@ -43,7 +43,6 @@ public synthetic class org/icpclive/cds/plugins/merger/SubFeed$$serializer : kot
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/plugins/merger/SubFeed;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/plugins/merger/SubFeed$Companion {

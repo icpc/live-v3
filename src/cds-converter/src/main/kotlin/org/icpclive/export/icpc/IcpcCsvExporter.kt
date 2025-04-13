@@ -34,7 +34,7 @@ object IcpcCsvExporter : SingleFileExporter("standings.csv", ContentType.Text.CS
         val icpcTeamIds = info.teams.values.associate { it.id to it.icpcId() }
 
         return buildString {
-            val printer = CSVPrinter(this, CSVFormat.DEFAULT.builder().setHeader(*fields.toTypedArray()).build())
+            val printer = CSVPrinter(this, CSVFormat.DEFAULT.builder().setHeader(*fields.toTypedArray()).get())
             for (teamId in ranking.order.reversed()) {
                 printer.printRecord(getFields(icpcTeamIds[teamId]!!, ranks[teamId]!!, rows[teamId]!!, ranking.awards.filter { teamId in it.teams }))
             }

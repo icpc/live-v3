@@ -17,7 +17,6 @@ public synthetic class com/eolymp/graphql/JudgeContestDetails$$serializer : kotl
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestDetails;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestDetails$Companion {
@@ -44,7 +43,6 @@ public synthetic class com/eolymp/graphql/JudgeContestDetails$Result$$serializer
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestDetails$Result;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestDetails$Result$Companion {
@@ -73,7 +71,6 @@ public synthetic class com/eolymp/graphql/JudgeContestDetails$Variables$$seriali
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestDetails$Variables;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestDetails$Variables$Companion {
@@ -103,7 +100,6 @@ public synthetic class com/eolymp/graphql/JudgeContestSubmissions$$serializer : 
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestSubmissions;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestSubmissions$Companion {
@@ -130,7 +126,6 @@ public synthetic class com/eolymp/graphql/JudgeContestSubmissions$Result$$serial
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestSubmissions$Result;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestSubmissions$Result$Companion {
@@ -162,7 +157,6 @@ public synthetic class com/eolymp/graphql/JudgeContestSubmissions$Variables$$ser
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestSubmissions$Variables;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestSubmissions$Variables$Companion {
@@ -192,7 +186,6 @@ public synthetic class com/eolymp/graphql/JudgeContestTeams$$serializer : kotlin
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestTeams;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestTeams$Companion {
@@ -219,7 +212,6 @@ public synthetic class com/eolymp/graphql/JudgeContestTeams$Result$$serializer :
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestTeams$Result;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestTeams$Result$Companion {
@@ -251,7 +243,6 @@ public synthetic class com/eolymp/graphql/JudgeContestTeams$Variables$$serialize
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/JudgeContestTeams$Variables;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/JudgeContestTeams$Variables$Companion {
@@ -297,7 +288,6 @@ public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeContest$$seri
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestdetails/JudgeContest;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestdetails/JudgeContest$Companion {
@@ -324,7 +314,6 @@ public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeContestScoreb
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestdetails/JudgeContestScoreboard;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestdetails/JudgeContestScoreboard$Companion {
@@ -360,7 +349,6 @@ public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblem$$seri
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestdetails/JudgeProblem;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestdetails/JudgeProblem$Companion {
@@ -387,7 +375,6 @@ public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblemConnec
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestdetails/JudgeProblemConnection;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestdetails/JudgeProblemConnection$Companion {
@@ -414,7 +401,6 @@ public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblemStatem
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestdetails/JudgeProblemStatement;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestdetails/JudgeProblemStatement$Companion {
@@ -443,7 +429,6 @@ public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeContest$$
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestsubmissions/JudgeContest;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestsubmissions/JudgeContest$Companion {
@@ -470,7 +455,6 @@ public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeParticipa
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestsubmissions/JudgeParticipant;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestsubmissions/JudgeParticipant$Companion {
@@ -497,7 +481,6 @@ public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeProblem$$
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestsubmissions/JudgeProblem;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestsubmissions/JudgeProblem$Companion {
@@ -545,7 +528,6 @@ public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissio
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmission;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmission$Companion {
@@ -574,7 +556,6 @@ public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissio
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionConnection;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionConnection$Companion {
@@ -601,7 +582,6 @@ public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissio
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionGroup;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionGroup$Companion {
@@ -630,7 +610,6 @@ public synthetic class com/eolymp/graphql/judgecontestsubmissions/PageInfo$$seri
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestsubmissions/PageInfo;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestsubmissions/PageInfo$Companion {
@@ -659,7 +638,6 @@ public synthetic class com/eolymp/graphql/judgecontestteams/JudgeContest$$serial
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestteams/JudgeContest;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestteams/JudgeContest$Companion {
@@ -690,7 +668,6 @@ public synthetic class com/eolymp/graphql/judgecontestteams/JudgeParticipant$$se
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestteams/JudgeParticipant;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestteams/JudgeParticipant$Companion {
@@ -719,7 +696,6 @@ public synthetic class com/eolymp/graphql/judgecontestteams/JudgeParticipantConn
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestteams/JudgeParticipantConnection;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestteams/JudgeParticipantConnection$Companion {
@@ -748,7 +724,6 @@ public synthetic class com/eolymp/graphql/judgecontestteams/PageInfo$$serializer
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lcom/eolymp/graphql/judgecontestteams/PageInfo;)V
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun typeParametersSerializers ()[Lkotlinx/serialization/KSerializer;
 }
 
 public final class com/eolymp/graphql/judgecontestteams/PageInfo$Companion {

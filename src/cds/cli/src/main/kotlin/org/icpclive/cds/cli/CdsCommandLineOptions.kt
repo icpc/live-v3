@@ -61,7 +61,7 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
             customFieldsCsvPath,
             noData = emptyMap()
         ) {
-            val parser = CSVParser(it.reader(), CSVFormat.EXCEL.builder().setHeader().setSkipHeaderRecord(true).build())
+            val parser = CSVParser.parse(it.reader(), CSVFormat.EXCEL.builder().setHeader().setSkipHeaderRecord(true).get())
             val names = parser.headerNames
             if (names.isEmpty()) {
                 log.warning { "Ignoring malformed ${customFieldsCsvPath.name}: empty file" }

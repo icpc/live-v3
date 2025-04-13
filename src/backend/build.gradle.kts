@@ -1,5 +1,6 @@
 import org.gradle.kotlin.dsl.run as runTask
 import org.icpclive.gradle.PackExamplesTask
+import org.gradle.process.ExecOperations
 
 plugins {
     id("live.app-conventions")
@@ -13,6 +14,13 @@ application {
     mainClass = "org.icpclive.ApplicationKt"
 }
 
+// no idea what does it mean
+// copy-pasted from https://docs.gradle.org/8.13/userguide/service_injection.html#execoperations and
+// https://docs.gradle.org/8.13/userguide/upgrading_version_8.html#deprecated_project_exec
+interface InjectedExecOps {
+    @get:Inject val execOps: ExecOperations
+}
+
 tasks {
     val gitVersionFiles by registering {
         val branch = layout.buildDirectory.file("git_branch")
@@ -20,9 +28,11 @@ tasks {
         val description = layout.buildDirectory.file("git_description")
         outputs.files(branch, commit, description)
         outputs.upToDateWhen { false }
+        val injected = project.objects.newInstance<InjectedExecOps>()
+
         doLast {
             branch.get().asFile.outputStream().use { stream ->
-                exec {
+                injected.execOps.exec {
                     executable = "git"
                     args = listOf("rev-parse", "--abbrev-ref", "HEAD")
                     standardOutput = stream
@@ -30,7 +40,7 @@ tasks {
                 }
             }
             commit.get().asFile.outputStream().use { stream ->
-                exec {
+                injected.execOps.exec {
                     executable = "git"
                     args = listOf("rev-parse", "HEAD")
                     standardOutput = stream
@@ -38,7 +48,7 @@ tasks {
                 }
             }
             description.get().asFile.outputStream().use { stream ->
-                exec {
+                injected.execOps.exec {
                     executable = "git"
                     args = listOf("describe", "--all", "--always", "--dirty", "--match=origin/*", "--match=v*")
                     standardOutput = stream

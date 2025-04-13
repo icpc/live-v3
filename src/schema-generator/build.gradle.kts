@@ -47,6 +47,8 @@ fun TaskContainerScope.genTask(
     val checkTask = register<Task>("testSchema${taskSuffix}") {
         group = "verification"
         dependsOn(genTask)
+        mustRunAfter(named("exportSchemas"))
+        mustRunAfter(named("exportTs"))
         inputs.files(generatedSchemaFile, repositorySchemaFile)
         doLast {
             val newContent = generatedSchemaFile.get().asFile.readText()
