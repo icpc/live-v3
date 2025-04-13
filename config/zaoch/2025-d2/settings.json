@@ -1,0 +1,16 @@
+{
+  "type": "ejudge",
+  "resultType": "IOI",
+  "source": "https://olympiads.ru/zaoch/2024-25/0WsLtOZ5J9A5IjHN.xml",
+  "previousDays": [
+    {
+      "settings": {
+        "type": "ejudge",
+        "resultType": "IOI",
+        "source": "https://olympiads.ru/zaoch/2024-25/PV6dkts5UkjrM8wT.xml",
+        "unfreezeOfflineGroup": true
+      }
+    }
+  ]
+}
+
