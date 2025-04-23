@@ -211,6 +211,7 @@ export const useScoreboardRows = (optimismLevel: OptimismLevel, selectedGroup: s
  * @param {number} singleScreenRowCount - total number of rows that can fit on a single screen
  * @param {number} interval - interval of scrolling
  * @param {number | undefined} direction - row to start from inclusive
+ * @returns {number} - index of the first row to show
  */
 export const useScroller = (
     totalRows: number,
@@ -220,7 +221,7 @@ export const useScroller = (
 ) => {
     const showRows = totalRows;
     const numPages = Math.ceil(showRows / singleScreenRowCount);
-    const singlePageRowCount = Math.floor(showRows / numPages);
+    const singlePageRowCount = Math.ceil(showRows / numPages);
     const [curPage, setCurPage] = useState(0);
     useEffect(() => {
         if (direction === ScoreboardScrollDirection.FirstPage) {
