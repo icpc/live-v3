@@ -1,0 +1,32 @@
+// Parse and rename roi style firstname secondname lastname (region, N class) into groups
+[
+    {
+      "type": "overrideTeamTemplate",
+        "regexes": {
+          "parsed": {
+            "from": "{team.fullName}",
+            "rules": {
+              "([^(]*) ([^(]*) ([^(]*) \\((.*), (.*) класс\\)": {
+                "name1": "$1",
+                "name2": "$2",
+                "name3": "$3",
+                "region": "$4",
+                "class": "$5"
+              },
+            },
+          },
+        },
+        "organizationId": "{regexes.parsed.region}",
+        "customFields": {
+          "name1": "{regexes.parsed.name1}",
+          "name2": "{regexes.parsed.name2}",
+          "name3": "{regexes.parsed.name3}",
+          "region": "{regexes.parsed.region}",
+          "class": "{regexes.parsed.class}",
+          "peerName": "{team.id}"
+        },
+        "displayName": "{regexes.parsed.name1} {regexes.parsed.name2}, {regexes.parsed.class}",
+        "extraGroups": ["{regexes.parsed.class}","{regexes.parsed.region}"],
+        "hashTag": "#{team.id}",
+    }
+]

@@ -1,5 +1,5 @@
-[
 // Parse and rename testsys style (вк) | (1к) | (шк) teamname (participants) into groups, add emoji and set isOutOfContest
+[
     {
         "type": "overrideTeamTemplate",
         "regexes": {
