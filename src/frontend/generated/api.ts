@@ -15,6 +15,7 @@ export interface ContestInfo {
   penaltyPerWrongAttemptSeconds: number;
   queueSettings: QueueSettings;
   showTeamsWithoutSubmissions: boolean;
+  problemColorPolicy: ProblemColorPolicy;
 }
 
 export type ContestStatus =
@@ -91,6 +92,33 @@ export interface QueueSettings {
   maxUntestedRun?: number;
 }
 
+export type ProblemColorPolicy =
+  | ProblemColorPolicy.afterStart
+  | ProblemColorPolicy.always
+  | ProblemColorPolicy.whenSolved;
+
+export namespace ProblemColorPolicy {
+  export enum Type {
+    afterStart = "afterStart",
+    always = "always",
+    whenSolved = "whenSolved",
+  }
+  
+  export interface afterStart {
+    type: ProblemColorPolicy.Type.afterStart;
+    colorBeforeStart?: string | null;
+  }
+  
+  export interface always {
+    type: ProblemColorPolicy.Type.always;
+  }
+  
+  export interface whenSolved {
+    type: ProblemColorPolicy.Type.whenSolved;
+    colorBeforeSolved?: string | null;
+  }
+}
+
 export interface ProblemInfo {
   id: ProblemId;
   letter: string;
@@ -99,7 +127,6 @@ export interface ProblemInfo {
   minScore: number | null;
   maxScore: number | null;
   color: string | null;
-  unsolvedColor: string | null;
   scoreMergeMode: ScoreMergeMode | null;
   isHidden: boolean;
   weight: number;

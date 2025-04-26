@@ -11,16 +11,14 @@ private fun RunInfo.shouldDiscloseColor() = (result as? RunResult.ICPC)?.verdict
 @OptIn(InefficientContestInfoApi::class)
 private fun ContestInfo.applyColors(problems: Set<Pair<ProblemId, Boolean?>>): ContestInfo {
     val newProblemList = problemList.map {
-        if ((it.id to true) in problems || it.unsolvedColor == null) {
-            it
-        } else {
-            it.copy(color = it.unsolvedColor)
+        when (problemColorPolicy) {
+            is ProblemColorPolicy.WhenSolved if (it.id to true) !in problems -> it.copy(color = problemColorPolicy.colorBeforeSolved)
+            is ProblemColorPolicy.AfterStart if status is ContestStatus.BEFORE -> it.copy(color = problemColorPolicy.colorBeforeStart)
+            is ProblemColorPolicy.Always, is ProblemColorPolicy.AfterStart, is ProblemColorPolicy.WhenSolved -> it
         }
     }
     return if (newProblemList != problemList) {
-        copy(
-            problemList = newProblemList
-        )
+        this.copy(problemList = newProblemList)
     } else {
         this
     }

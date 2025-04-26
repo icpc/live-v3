@@ -15,7 +15,8 @@ import {
     ProblemInfo,
     OrganizationInfo,
     GroupInfo,
-    FtsMode
+    FtsMode,
+    ProblemColorPolicy
 } from "@shared/api.ts";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Button from "@material-ui/core/Button";
@@ -98,6 +99,15 @@ const InfoRowContainer = ({ name, value }) => {
     </Grid>
 }
 
+const problemPolicyStr = (policy?: ProblemColorPolicy) => {
+    switch (policy?.type) {
+        case null: return "??";
+        case ProblemColorPolicy.Type.afterStart: return `Replace with ${policy.colorBeforeStart || "null"} before start`;
+        case ProblemColorPolicy.Type.whenSolved: return `Replace with ${policy.colorBeforeSolved || "null"} before problem is solved`;
+        case ProblemColorPolicy.Type.always: return `Always show problem color`;
+    }
+}
+
 const ContestInfoContainer = ({ contestInfo } : BasicContainerProps) => {
     return <div>
         <InfoRowContainer name="Name" value = {contestInfo?.name} />
@@ -108,6 +118,8 @@ const ContestInfoContainer = ({ contestInfo } : BasicContainerProps) => {
         <InfoRowContainer name="Penalty per wrong attempt" value = {timeSecondsToDuration(contestInfo?.penaltyPerWrongAttemptSeconds)} />
         <InfoRowContainer name="Penalty rounding mode" value = {contestInfo?.penaltyRoundingMode} />
         <InfoRowContainer name="Emulation speed" value = {contestInfo?.emulationSpeed} />
+        <InfoRowContainer name="Show team without submissions" value = {contestInfo?.showTeamsWithoutSubmissions ? "Yes" : "No"} />
+        <InfoRowContainer name="Problem color policy" value = {problemPolicyStr(contestInfo?.problemColorPolicy)} />
     </div>;
 };
 

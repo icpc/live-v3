@@ -500,8 +500,8 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public static final field Companion Lorg/icpclive/cds/api/ContestInfo$Companion;
 	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/util/List;
 	public final fun component11 ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
@@ -510,7 +510,8 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun component14-UwyO8pc ()J
 	public final fun component15 ()Lorg/icpclive/cds/api/QueueSettings;
 	public final fun component16 ()Z
-	public final fun component17 ()Z
+	public final fun component17 ()Lorg/icpclive/cds/api/ProblemColorPolicy;
+	public final fun component18 ()Z
 	public final fun component2 ()Lorg/icpclive/cds/api/ContestStatus;
 	public final fun component3 ()Lorg/icpclive/cds/api/ContestResultType;
 	public final fun component4-UwyO8pc ()J
@@ -519,8 +520,8 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy-chBxrks (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZZ)Lorg/icpclive/cds/api/ContestInfo;
-	public static synthetic fun copy-chBxrks$default (Lorg/icpclive/cds/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZZILjava/lang/Object;)Lorg/icpclive/cds/api/ContestInfo;
+	public final fun copy-U38k7z8 (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;Z)Lorg/icpclive/cds/api/ContestInfo;
+	public static synthetic fun copy-U38k7z8$default (Lorg/icpclive/cds/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZILjava/lang/Object;)Lorg/icpclive/cds/api/ContestInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAwardsSettings ()Lorg/icpclive/cds/api/AwardsSettings;
 	public final fun getCdsSupportsFinalization ()Z
@@ -536,6 +537,7 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun getOrganizations ()Ljava/util/Map;
 	public final fun getPenaltyPerWrongAttempt-UwyO8pc ()J
 	public final fun getPenaltyRoundingMode ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
+	public final fun getProblemColorPolicy ()Lorg/icpclive/cds/api/ProblemColorPolicy;
 	public final fun getProblemList ()Ljava/util/List;
 	public final fun getProblems ()Ljava/util/Map;
 	public final fun getQueueSettings ()Lorg/icpclive/cds/api/QueueSettings;
@@ -1329,6 +1331,78 @@ public final class org/icpclive/cds/api/PenaltyRoundingMode$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public abstract class org/icpclive/cds/api/ProblemColorPolicy {
+	public static final field Companion Lorg/icpclive/cds/api/ProblemColorPolicy$Companion;
+	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public static final synthetic fun write$Self (Lorg/icpclive/cds/api/ProblemColorPolicy;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
+}
+
+public final class org/icpclive/cds/api/ProblemColorPolicy$AfterStart : org/icpclive/cds/api/ProblemColorPolicy {
+	public static final field Companion Lorg/icpclive/cds/api/ProblemColorPolicy$AfterStart$Companion;
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-_jCth4M ()Ljava/lang/String;
+	public final fun copy-Isxsm5g (Ljava/lang/String;)Lorg/icpclive/cds/api/ProblemColorPolicy$AfterStart;
+	public static synthetic fun copy-Isxsm5g$default (Lorg/icpclive/cds/api/ProblemColorPolicy$AfterStart;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/ProblemColorPolicy$AfterStart;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColorBeforeStart-_jCth4M ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/cds/api/ProblemColorPolicy$AfterStart$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/ProblemColorPolicy$AfterStart$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/ProblemColorPolicy$AfterStart;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/ProblemColorPolicy$AfterStart;)V
+}
+
+public final class org/icpclive/cds/api/ProblemColorPolicy$AfterStart$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ProblemColorPolicy$Always : org/icpclive/cds/api/ProblemColorPolicy {
+	public static final field INSTANCE Lorg/icpclive/cds/api/ProblemColorPolicy$Always;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/api/ProblemColorPolicy$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/ProblemColorPolicy$WhenSolved : org/icpclive/cds/api/ProblemColorPolicy {
+	public static final field Companion Lorg/icpclive/cds/api/ProblemColorPolicy$WhenSolved$Companion;
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-_jCth4M ()Ljava/lang/String;
+	public final fun copy-Isxsm5g (Ljava/lang/String;)Lorg/icpclive/cds/api/ProblemColorPolicy$WhenSolved;
+	public static synthetic fun copy-Isxsm5g$default (Lorg/icpclive/cds/api/ProblemColorPolicy$WhenSolved;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/ProblemColorPolicy$WhenSolved;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getColorBeforeSolved-_jCth4M ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public synthetic class org/icpclive/cds/api/ProblemColorPolicy$WhenSolved$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/ProblemColorPolicy$WhenSolved$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/ProblemColorPolicy$WhenSolved;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/ProblemColorPolicy$WhenSolved;)V
+}
+
+public final class org/icpclive/cds/api/ProblemColorPolicy$WhenSolved$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/api/ProblemId {
 	public static final field Companion Lorg/icpclive/cds/api/ProblemId$Companion;
 	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/ProblemId;
@@ -1359,22 +1433,21 @@ public final class org/icpclive/cds/api/ProblemId$Companion {
 
 public final class org/icpclive/cds/api/ProblemInfo {
 	public static final field Companion Lorg/icpclive/cds/api/ProblemInfo$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/ScoreMergeMode;ZILorg/icpclive/cds/api/FtsMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/ScoreMergeMode;ZILorg/icpclive/cds/api/FtsMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/lang/String;Lorg/icpclive/cds/api/ScoreMergeMode;ZILorg/icpclive/cds/api/FtsMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/lang/String;Lorg/icpclive/cds/api/ScoreMergeMode;ZILorg/icpclive/cds/api/FtsMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-Xzdl60o ()Ljava/lang/String;
-	public final fun component10 ()Z
-	public final fun component11 ()I
-	public final fun component12 ()Lorg/icpclive/cds/api/FtsMode;
+	public final fun component10 ()I
+	public final fun component11 ()Lorg/icpclive/cds/api/FtsMode;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()I
 	public final fun component5 ()Ljava/lang/Double;
 	public final fun component6 ()Ljava/lang/Double;
 	public final fun component7-_jCth4M ()Ljava/lang/String;
-	public final fun component8-_jCth4M ()Ljava/lang/String;
-	public final fun component9 ()Lorg/icpclive/cds/api/ScoreMergeMode;
-	public final fun copy-B34niNg (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/ScoreMergeMode;ZILorg/icpclive/cds/api/FtsMode;)Lorg/icpclive/cds/api/ProblemInfo;
-	public static synthetic fun copy-B34niNg$default (Lorg/icpclive/cds/api/ProblemInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/ScoreMergeMode;ZILorg/icpclive/cds/api/FtsMode;ILjava/lang/Object;)Lorg/icpclive/cds/api/ProblemInfo;
+	public final fun component8 ()Lorg/icpclive/cds/api/ScoreMergeMode;
+	public final fun component9 ()Z
+	public final fun copy-QeUGnp4 (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/lang/String;Lorg/icpclive/cds/api/ScoreMergeMode;ZILorg/icpclive/cds/api/FtsMode;)Lorg/icpclive/cds/api/ProblemInfo;
+	public static synthetic fun copy-QeUGnp4$default (Lorg/icpclive/cds/api/ProblemInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Double;Ljava/lang/Double;Ljava/lang/String;Lorg/icpclive/cds/api/ScoreMergeMode;ZILorg/icpclive/cds/api/FtsMode;ILjava/lang/Object;)Lorg/icpclive/cds/api/ProblemInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColor-_jCth4M ()Ljava/lang/String;
 	public final fun getDisplayName ()Ljava/lang/String;
@@ -1385,7 +1458,6 @@ public final class org/icpclive/cds/api/ProblemInfo {
 	public final fun getMinScore ()Ljava/lang/Double;
 	public final fun getOrdinal ()I
 	public final fun getScoreMergeMode ()Lorg/icpclive/cds/api/ScoreMergeMode;
-	public final fun getUnsolvedColor-_jCth4M ()Ljava/lang/String;
 	public final fun getWeight ()I
 	public fun hashCode ()I
 	public final fun isHidden ()Z
@@ -2388,8 +2460,8 @@ public final class org/icpclive/cds/tunning/OverrideProblems$Companion {
 
 public final class org/icpclive/cds/tunning/OverrideProblems$Override {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideProblems$Override$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Ljava/lang/Integer;Lorg/icpclive/cds/api/FtsMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Ljava/lang/Integer;Lorg/icpclive/cds/api/FtsMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Ljava/lang/Integer;Lorg/icpclive/cds/api/FtsMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Ljava/lang/Integer;Lorg/icpclive/cds/api/FtsMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getColor-_jCth4M ()Ljava/lang/String;
 	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getFtsMode ()Lorg/icpclive/cds/api/FtsMode;
@@ -2398,7 +2470,6 @@ public final class org/icpclive/cds/tunning/OverrideProblems$Override {
 	public final fun getMinScore ()Ljava/lang/Double;
 	public final fun getOrdinal ()Ljava/lang/Integer;
 	public final fun getScoreMergeMode ()Lorg/icpclive/cds/api/ScoreMergeMode;
-	public final fun getUnsolvedColor-_jCth4M ()Ljava/lang/String;
 	public final fun getWeight ()Ljava/lang/Integer;
 	public final fun isHidden ()Ljava/lang/Boolean;
 }
@@ -2457,16 +2528,18 @@ public final class org/icpclive/cds/tunning/OverrideQueue$Companion {
 
 public final class org/icpclive/cds/tunning/OverrideScoreboardSettings : org/icpclive/cds/tunning/TuningRule {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideScoreboardSettings$Companion;
-	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lorg/icpclive/cds/api/ProblemColorPolicy;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lorg/icpclive/cds/api/ProblemColorPolicy;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-FghU774 ()Lkotlin/time/Duration;
 	public final fun component2 ()Ljava/lang/Boolean;
 	public final fun component3 ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
-	public final fun copy-k1IrOU0 (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;)Lorg/icpclive/cds/tunning/OverrideScoreboardSettings;
-	public static synthetic fun copy-k1IrOU0$default (Lorg/icpclive/cds/tunning/OverrideScoreboardSettings;Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideScoreboardSettings;
+	public final fun component4 ()Lorg/icpclive/cds/api/ProblemColorPolicy;
+	public final fun copy-5EIzBIU (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lorg/icpclive/cds/api/ProblemColorPolicy;)Lorg/icpclive/cds/tunning/OverrideScoreboardSettings;
+	public static synthetic fun copy-5EIzBIU$default (Lorg/icpclive/cds/tunning/OverrideScoreboardSettings;Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lorg/icpclive/cds/api/ProblemColorPolicy;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideScoreboardSettings;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getPenaltyPerWrongAttempt-FghU774 ()Lkotlin/time/Duration;
 	public final fun getPenaltyRoundingMode ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
+	public final fun getProblemColorPolicy ()Lorg/icpclive/cds/api/ProblemColorPolicy;
 	public final fun getShowTeamsWithoutSubmissions ()Ljava/lang/Boolean;
 	public fun hashCode ()I
 	public fun process (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/api/ContestInfo;

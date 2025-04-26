@@ -637,7 +637,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?,org.icpclive.cds.api.FtsMode?>": {
+        "org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?,org.icpclive.cds.api.FtsMode?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -647,9 +647,6 @@
                     "type": "string"
                 },
                 "color": {
-                    "type": "string"
-                },
-                "unsolvedColor": {
                     "type": "string"
                 },
                 "ordinal": {
@@ -681,7 +678,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?,org.icpclive.cds.api.FtsMode?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideProblems.Override<kotlin.String?,kotlin.String?,Color?,kotlin.Int?,kotlin.Double?,kotlin.Double?,org.icpclive.cds.api.ScoreMergeMode?,kotlin.Boolean?,kotlin.Int?,org.icpclive.cds.api.FtsMode?>"
                 }
             }
         },
@@ -752,6 +749,70 @@
                 }
             ]
         },
+        "afterStart": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "afterStart",
+                    "default": "afterStart"
+                },
+                "colorBeforeStart": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "title": "afterStart"
+        },
+        "always": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "always",
+                    "default": "always"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "title": "always"
+        },
+        "whenSolved": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "whenSolved",
+                    "default": "whenSolved"
+                },
+                "colorBeforeSolved": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "title": "whenSolved"
+        },
+        "org.icpclive.cds.api.ProblemColorPolicy?<kotlin.String,kotlinx.serialization.Sealed<ProblemColorPolicy>>": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/afterStart"
+                },
+                {
+                    "$ref": "#/$defs/always"
+                },
+                {
+                    "$ref": "#/$defs/whenSolved"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
         "overrideScoreboardSettings": {
             "type": "object",
             "properties": {
@@ -767,6 +828,9 @@
                 },
                 "penaltyRoundingMode": {
                     "$ref": "#/$defs/org.icpclive.cds.api.PenaltyRoundingMode?<org.icpclive.cds.api.PenaltyRoundingMode.each_submission_down_to_minute,org.icpclive.cds.api.PenaltyRoundingMode.each_submission_up_to_minute,org.icpclive.cds.api.PenaltyRoundingMode.sum_down_to_minute,org.icpclive.cds.api.PenaltyRoundingMode.sum_in_seconds,org.icpclive.cds.api.PenaltyRoundingMode.last,org.icpclive.cds.api.PenaltyRoundingMode.zero>"
+                },
+                "problemColorPolicy": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.ProblemColorPolicy?<kotlin.String,kotlinx.serialization.Sealed<ProblemColorPolicy>>"
                 }
             },
             "additionalProperties": false,

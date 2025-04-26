@@ -5,7 +5,11 @@
     },
     {
         "type": "overrideScoreboardSettings",
-        "showTeamsWithoutSubmissions": true
+        "showTeamsWithoutSubmissions": true,
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
     },
     {
         "type": "overrideTeamTemplate",
@@ -108,54 +112,18 @@
     {
         "type": "overrideProblems",
         "rules": {
-            "A": {
-                "color": "#ffff00ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "B": {
-                "color": "#ff00feff",
-                "unsolvedColor": "#808080ff"
-            },
-            "C": {
-                "color": "#761946ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "D": {
-                "color": "#fe9900ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "E": {
-                "color": "#0000feff",
-                "unsolvedColor": "#808080ff"
-            },
-            "F": {
-                "color": "#000000ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "G": {
-                "color": "#04ff00ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "H": {
-                "color": "#38771eff",
-                "unsolvedColor": "#808080ff"
-            },
-            "I": {
-                "color": "#9b01ffff",
-                "unsolvedColor": "#808080ff"
-            },
-            "J": {
-                "color": "#e9d1deff",
-                "unsolvedColor": "#808080ff"
-            },
-            "K": {
-                "color": "#ffffffff",
-                "unsolvedColor": "#808080ff"
-            },
-            "L": {
-                "color": "#fe0000ff",
-                "unsolvedColor": "#808080ff"
-            }
+            "A": {"color": "#ffff00ff"},
+            "B": {"color": "#ff00feff"},
+            "C": {"color": "#761946ff"},
+            "D": {"color": "#fe9900ff"},
+            "E": {"color": "#0000feff"},
+            "F": {"color": "#000000ff"},
+            "G": {"color": "#04ff00ff"},
+            "H": {"color": "#38771eff"},
+            "I": {"color": "#9b01ffff"},
+            "J": {"color": "#e9d1deff"},
+            "K": {"color": "#ffffffff"},
+            "L": {"color": "#fe0000ff"}
         }
     },
     {

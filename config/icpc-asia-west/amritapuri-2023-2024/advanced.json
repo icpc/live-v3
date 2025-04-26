@@ -778,56 +778,27 @@
         "displayName": "{org.displayName}: {funnyName}"
     },
     {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
         "type": "overrideProblems",
         "rules": {
-            "3071": {
-                "color": "#e6194bff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3140": {
-                "color": "#3cb44bff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3133": {
-                "color": "#ffe119ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3007": {
-                "color": "#4363d8ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3074": {
-                "color": "#f58231ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3124": {
-                "color": "#42d4f4ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3127": {
-                "color": "#f032e6ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3125": {
-                "color": "#fabed4ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3128": {
-                "color": "#469990ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3122": {
-                "color": "#dcbeffff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3072": {
-                "color": "#9a6324ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "3075": {
-                "color": "#fffac8ff",
-                "unsolvedColor": "#808080ff"
-            }
+            "3071": {"color": "#e6194bff"},
+            "3140": {"color": "#3cb44bff"},
+            "3133": {"color": "#ffe119ff"},
+            "3007": {"color": "#4363d8ff"},
+            "3074": {"color": "#f58231ff"},
+            "3124": {"color": "#42d4f4ff"},
+            "3127": {"color": "#f032e6ff"},
+            "3125": {"color": "#fabed4ff"},
+            "3128": {"color": "#469990ff"},
+            "3122": {"color": "#dcbeffff"},
+            "3072": {"color": "#9a6324ff"},
+            "3075": {"color": "#fffac8ff"}
         }
     }
 ]

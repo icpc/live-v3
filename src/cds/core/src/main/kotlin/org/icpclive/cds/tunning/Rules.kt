@@ -222,7 +222,6 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
                     displayName = it.displayName,
                     fullName = it.fullName,
                     color = it.color,
-                    unsolvedColor = it.color,
                     ordinal = it.ordinal,
                     minScore = it.minScore,
                     maxScore = it.maxScore,
