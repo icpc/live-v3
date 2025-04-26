@@ -8,47 +8,15 @@
         }
     },
     {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
         "type": "overrideProblems",
         "rules": {
-            "ThreeDice-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "Alchemy-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "ChampernowneCount-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "TriangleContainment-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "ColorTubes-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "FoodProcessor-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "DigitsofUnity-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "BranchManager-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "CountingSatellites-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "SunandMoon-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "AdvertisingICPC-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "ExponentExchange-1": {
-                "unsolvedColor": "#808080ff"
-            },
-            "LoneKnight-1": {
-                "unsolvedColor": "#808080ff"
-            },
             "ThreeDice-2": {
                 "isHidden": true
             },

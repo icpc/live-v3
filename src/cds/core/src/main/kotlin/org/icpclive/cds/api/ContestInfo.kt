@@ -160,6 +160,30 @@ public data class QueueSettings(
 )
 
 @Serializable
+public sealed class ProblemColorPolicy {
+    /**
+     * Always show problem colors
+     */
+    @Serializable
+    @SerialName("always")
+    public data object Always : ProblemColorPolicy()
+
+    /**
+     * Replace problem colors with [colorBeforeStart] until contest start
+     */
+    @Serializable
+    @SerialName("afterStart")
+    public data class AfterStart(val colorBeforeStart: Color? = null) : ProblemColorPolicy()
+
+    /**
+     * Replace problem colors with [colorBeforeSolved] until a problem is solved
+     */
+    @Serializable
+    @SerialName("whenSolved")
+    public data class WhenSolved(val colorBeforeSolved: Color? = null) : ProblemColorPolicy()
+}
+
+@Serializable
 @OptIn(InefficientContestInfoApi::class)
 public data class ContestInfo(
     val name: String,
@@ -184,6 +208,7 @@ public data class ContestInfo(
     @Required val penaltyPerWrongAttempt: Duration = 20.minutes,
     @Required val queueSettings: QueueSettings = QueueSettings(),
     @Required val showTeamsWithoutSubmissions: Boolean = true,
+    @Required val problemColorPolicy: ProblemColorPolicy = ProblemColorPolicy.Always,
     @Transient val cdsSupportsFinalization: Boolean = false,
 ) {
     public constructor(

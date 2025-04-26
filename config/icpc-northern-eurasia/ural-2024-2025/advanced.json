@@ -4,6 +4,13 @@
         "freezeTimeSeconds": 14400
     },
     {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
         "type": "overrideTeamTemplate",
         "regexes": {
             "org": {
@@ -35,74 +42,23 @@
     {
         "type": "overrideProblems",
         "rules": {
-            "A": {
-                "color": "#1e3a5fff",
-                "unsolvedColor": "#808080ff"
-            },
-            "B": {
-                "color": "#f0cc00ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "C": {
-                "color": "#006400ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "D": {
-                "color": "#c0c0c0ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "E": {
-                "color": "#40e0d0ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "F": {
-                "color": "#d3b300ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "G": {
-                "color": "#bf624fff",
-                "unsolvedColor": "#808080ff"
-            },
-            "H": {
-                "color": "#60458cff",
-                "unsolvedColor": "#808080ff"
-            },
-            "I": {
-                "color": "#3eb047ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "J": {
-                "color": "#9b1c1cff",
-                "unsolvedColor": "#808080ff"
-            },
-            "K": {
-                "color": "#fbabc5ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "L": {
-                "color": "#ff6a13ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "M": {
-                "color": "#202c45ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "W": {
-                "color": "#000000ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "X": {
-                "color": "#ff0000ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "Y": {
-                "color": "#00ff00ff",
-                "unsolvedColor": "#808080ff"
-            },
-            "Z": {
-                "color": "#0000ffff",
-                "unsolvedColor": "#808080ff"
-            }
+            "A": {"color": "#1e3a5fff"},
+            "B": {"color": "#f0cc00ff"},
+            "C": {"color": "#006400ff"},
+            "D": {"color": "#c0c0c0ff"},
+            "E": {"color": "#40e0d0ff"},
+            "F": {"color": "#d3b300ff"},
+            "G": {"color": "#bf624fff"},
+            "H": {"color": "#60458cff"},
+            "I": {"color": "#3eb047ff"},
+            "J": {"color": "#9b1c1cff"},
+            "K": {"color": "#fbabc5ff"},
+            "L": {"color": "#ff6a13ff"},
+            "M": {"color": "#202c45ff"},
+            "W": {"color": "#000000ff"},
+            "X": {"color": "#ff0000ff"},
+            "Y": {"color": "#00ff00ff"},
+            "Z": {"color": "#0000ffff"}
         }
     }
 ]

@@ -8,6 +8,13 @@
         }
     },
     {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
         "type": "overrideProblems",
         "rules": {
             "ThreeDice-1": {
@@ -48,45 +55,6 @@
             },
             "LoneKnight-1": {
                 "isHidden": true
-            },
-            "ThreeDice-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "Alchemy-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "ChampernowneCount-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "HunttheWumpus-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "ColorTubes-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "FoodProcessor-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "FadingWind-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "CreativeAccounting-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "ICouldHaveWon-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "SunandMoon-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "ChocolateChipFabrication-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "DistinctParityExcess-2": {
-                "unsolvedColor": "#808080ff"
-            },
-            "RestaurantOpening-2": {
-                "unsolvedColor": "#808080ff"
             },
             "BlueberryWaffle-3": {
                 "isHidden": true

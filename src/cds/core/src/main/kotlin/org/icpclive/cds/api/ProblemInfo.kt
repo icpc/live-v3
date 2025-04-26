@@ -66,7 +66,6 @@ public data class ProblemInfo(
     @Required val minScore: Double? = null,
     @Required val maxScore: Double? = null,
     @Required val color: Color? = null,
-    @Required val unsolvedColor: Color? = null,
     @Required val scoreMergeMode: ScoreMergeMode? = null,
     @Required val isHidden: Boolean = false,
     @Required val weight: Int = 1,
