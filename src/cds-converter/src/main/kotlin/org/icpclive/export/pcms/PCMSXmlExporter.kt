@@ -15,7 +15,7 @@ import javax.xml.transform.stream.StreamResult
 import kotlin.time.Duration
 
 
-object PCMSExporter : SingleFileExporter("standings.xml", ContentType.Text.Xml) {
+object PCMSXmlExporter : SingleFileExporter("standings.xml", ContentType.Text.Xml) {
 
     private fun convertOutcome(outcome: Verdict?) = when (outcome) {
         null -> "undefined"
@@ -91,14 +91,8 @@ object PCMSExporter : SingleFileExporter("standings.xml", ContentType.Text.Xml) 
         setAttribute("penalty", row.penalty.inWholeMinutes.toString())
         setAttribute("solved", row.totalScore.toInt().toString())
         for (award in awards) {
-            when (award.id) {
-                "gold-medal" -> setAttribute("gold", "1")
-                "silver-medal" -> setAttribute("silver", "1")
-                "bronze-medal" -> setAttribute("bronze", "1")
-                "qualified" -> setAttribute("qual", "1")
-                "first-diploma" -> setAttribute("first", "1")
-                "second-diploma" -> setAttribute("second", "1")
-                "third-diploma" -> setAttribute("third", "1")
+            KnownAwards.entries.singleOrNull { it.awardId == award.id }?.let {
+                setAttribute(it.xmlAttribute, "1")
             }
         }
         val runsByProblem = runs.groupBy { it.problemId }
@@ -126,6 +120,9 @@ object PCMSExporter : SingleFileExporter("standings.xml", ContentType.Text.Xml) 
 
     override fun format(info: ContestInfo, runs: List<RunInfo>) : String {
         val runsByTeam = runs.groupBy { it.teamId }
+        val scoreboardCalculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
+        val rows = info.teams.keys.associateWith { scoreboardCalculator.getScoreboardRow(info, runsByTeam[it] ?: emptyList()) }
+        val ranking = scoreboardCalculator.getRanking(info, rows)
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
         val documentFactory = DocumentBuilderFactory.newInstance()!!
         val documentBuilder = documentFactory.newDocumentBuilder()!!
@@ -137,9 +134,6 @@ object PCMSExporter : SingleFileExporter("standings.xml", ContentType.Text.Xml) 
         contest.buildContestNode(info)
         val challenge = contest.createChild("challenge")
         challenge.buildChallengeNode(info)
-        val scoreboardCalculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
-        val rows = info.teams.keys.associateWith { scoreboardCalculator.getScoreboardRow(info, runsByTeam[it] ?: emptyList()) }
-        val ranking = scoreboardCalculator.getRanking(info, rows)
         ranking.order.forEach {
             contest.createChild("session").also { session ->
                 session.buildSessionNode(

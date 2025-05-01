@@ -19,7 +19,8 @@ import kotlinx.coroutines.plus
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.export.clics.ClicsExporter
 import org.icpclive.export.icpc.IcpcCsvExporter
-import org.icpclive.export.pcms.PCMSExporter
+import org.icpclive.export.pcms.PCMSHtmlExporter
+import org.icpclive.export.pcms.PCMSXmlExporter
 import org.icpclive.server.setupDefaultKtorPlugins
 import kotlin.system.exitProcess
 
@@ -46,6 +47,7 @@ object MainCommand : CliktCommand(name = "java -jar cds-converter.jar") {
 
 fun main(args: Array<String>): Unit = MainCommand.subcommands(
     PCMSDumpCommand,
+    PCMSScoreboardDumpCommand,
     ServerCommand,
     IcpcCSVDumpCommand
 ).main(args)
@@ -94,7 +96,12 @@ fun Application.module() {
                 setUp(application + handler, loaded)
             }
         }
-        with (PCMSExporter) {
+        with (PCMSXmlExporter) {
+            route("/pcms") {
+                setUp(application + handler, loaded)
+            }
+        }
+        with(PCMSHtmlExporter) {
             route("/pcms") {
                 setUp(application + handler, loaded)
             }

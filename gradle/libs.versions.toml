@@ -20,6 +20,7 @@ kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-seria
 apache-commons-csv = "1.14.0"      # https://commons.apache.org/proper/commons-csv/
 graphql = "8.5.0"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
 bcv = "0.17.0"                     # https://github.com/Kotlin/binary-compatibility-validator
+kotlinx-html = "0.12.0"            # https://github.com/Kotlin/kotlinx.html
 
 [libraries]
 
@@ -50,6 +51,7 @@ kotlinx-datetime = { version.ref = "datetime", group = "org.jetbrains.kotlinx", 
 kotlinx-serialization-json = { version.ref = "serialization", group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json" }
 kotlinx-coroutines-core = { version.ref = "coroutines", group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
 kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable"}
+kotlinx-html = { version.ref = "kotlinx-html", group = "org.jetbrains.kotlinx", name = "kotlinx-html"}
 
 kotlin-junit   = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
 kotlin-reflect = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-reflect" }
@@ -75,6 +77,8 @@ apache-commons-csv = { version.ref = "apache-commons-csv", group = "org.apache.c
 graphql-ktor-client = { version.ref = "graphql", group = "com.expediagroup", name = "graphql-kotlin-ktor-client"}
 
 ksp = { version.ref = "ksp", group = "com.google.devtools.ksp", name = "symbol-processing-api" }
+
+
 
 gradleplugin-kotlin-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 gradleplugin-shadow = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version.ref = "shadow-plugin" }
