@@ -22,6 +22,7 @@ import org.icpclive.export.icpc.IcpcCsvExporter
 import org.icpclive.export.pcms.PCMSHtmlExporter
 import org.icpclive.export.pcms.PCMSXmlExporter
 import org.icpclive.server.setupDefaultKtorPlugins
+import org.icpclive.server.startPublisher
 import kotlin.system.exitProcess
 
 
@@ -61,6 +62,8 @@ fun Application.module() {
         environment.log.error("Uncaught exception in coroutine context $coroutineContext", throwable)
         exitProcess(1)
     }
+
+    ServerCommand.publisher?.let { startPublisher(it) }
 
     val loaded = ServerCommand.cdsOptions.toFlow()
         .addComputedData {

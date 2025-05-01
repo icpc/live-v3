@@ -13,5 +13,7 @@ dependencies {
     implementation(libs.ktor.server.netty)
     implementation(libs.ktor.server.statusPages)
     implementation(libs.ktor.server.compression)
+    implementation(libs.ktor.client.core)
+    implementation(projects.cds.utils)
     api(libs.logback)
 }
