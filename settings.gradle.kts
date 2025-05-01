@@ -30,7 +30,6 @@ val simpleProjects = listOf(
     "cds-converter",
     "clics-api",
     "frontend",
-    "reactions-bot",
     "schema-generator",
     "server-shared",
     "oracle-tools",

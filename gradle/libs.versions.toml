@@ -8,10 +8,7 @@ slf4j = "2.0.17"                   # https://www.slf4j.org/download.html
 logback = "1.5.18"                 # https://logback.qos.ch/download.html
 node-plugin = "7.1.0"              # https://github.com/node-gradle/gradle-node-plugin
 coroutines = "1.10.2"              # https://github.com/Kotlin/kotlinx.coroutines/
-exposed = "0.60.0"                 # https://github.com/JetBrains/Exposed
-telegram-bot = "6.3.0"             # https://github.com/kotlin-telegram-bot/kotlin-telegram-bot
 shadow-plugin = "8.3.6"            # https://github.com/GradleUp/shadow
-sqlite = "3.49.1.0"                # https://github.com/xerial/sqlite-jdbc
 clikt = "5.0.3"                    # https://ajalt.github.io/clikt/
 immutable = "0.3.8"                # https://github.com/Kotlin/kotlinx.collections.immutable
 protobuf-plugin = "0.9.5"          # https://github.com/google/protobuf-gradle-plugin
@@ -19,7 +16,6 @@ protobuf = "4.30.2"                # https://mvnrepository.com/artifact/com.goog
 grpc = "1.71.0"                    # https://mvnrepository.com/artifact/io.grpc/grpc-stub
 grpc-kotlin = "1.4.1"              # https://github.com/grpc/grpc-kotlin
 dokka = "2.0.0"                    # https://github.com/Kotlin/dokka
-retrofit = "2.11.0"                # https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.14.0"      # https://commons.apache.org/proper/commons-csv/
 graphql = "8.5.0"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
@@ -58,16 +54,9 @@ kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbra
 kotlin-junit   = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
 kotlin-reflect = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-reflect" }
 
-exposed-core = { version.ref = "exposed", group = "org.jetbrains.exposed", name = "exposed-core"}
-exposed-dao  = { version.ref = "exposed", group = "org.jetbrains.exposed", name = "exposed-dao"}
-exposed-jdbc = { version.ref = "exposed", group = "org.jetbrains.exposed", name = "exposed-jdbc"}
-
 slf4j = { version.ref = "slf4j", group = "org.slf4j", name = "slf4j-api" }
 logback = { version.ref = "logback", group = "ch.qos.logback", name = "logback-classic" }
 
-telegram-bot = { version.ref = "telegram-bot", group = "io.github.kotlin-telegram-bot.kotlin-telegram-bot", name = "telegram" }
-retrofit = { version.ref = "retrofit", group = "com.squareup.retrofit2", name = "retrofit" }
-db-sqlite = { version.ref = "sqlite", group = "org.xerial", name = "sqlite-jdbc" }
 
 cli = { version.ref = "clikt", group = "com.github.ajalt.clikt", name = "clikt" }
 
