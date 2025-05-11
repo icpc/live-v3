@@ -86,23 +86,23 @@ fun Route.configureAdminApiRouting() {
             }
             run {
                 call.respondText(contentType = ContentType.Application.Json) {
-                    val fields = call.request.queryParameters["fields"]?.split(",")?.toSet() ?: emptySet()
+                    val fields = call.request.queryParameters["fields"]?.split(",")?.map { it.lowercase() }?.toSet() ?: emptySet()
                     val rulesList = DataBus.currentContestInfo().toRulesList()
                     val serializer = object : JsonTransformingSerializer<TuningRule>(TuningRule.serializer()) {
                         override fun transformSerialize(element: JsonElement): JsonElement {
                             if (element !is JsonObject) return element
                             if ("all" in fields) return element
-                            val prefix = element["type"]?.jsonPrimitive?.content?.removePrefix("override")?.replaceFirstChar(Char::lowercase) ?: return element
+                            val prefix = element["type"]?.jsonPrimitive?.content?.removePrefix("override")?.lowercase() ?: return element
                             if (fields.none { it.startsWith(prefix) }) return JsonNull
-                            if ("$prefix.all" in fields) return element
+                            if ("$prefix.all" in fields || prefix in fields) return element
                             val filtered = if ("rules" !in element) {
-                                JsonObject(element.filterKeys { it == "type" || "$prefix.$it" in fields })
+                                JsonObject(element.filterKeys { it == "type" || "$prefix.${it.lowercase()}" in fields })
                             } else {
                                 JsonObject(element.mapValues { (k, v) ->
                                     if (k == "rules" && v is JsonObject) {
                                         val filteredRules = v.mapValues { (_, value) ->
                                             if (value is JsonObject) {
-                                                val sub = value.filterKeys { "$prefix.$it" in fields }
+                                                val sub = value.filterKeys { "$prefix.${it.lowercase()}" in fields }
                                                 if (sub.isNotEmpty()) JsonObject(sub) else JsonNull
                                             } else {
                                                 value
