@@ -59,7 +59,7 @@ const ContestInfoStatus = ({ status } : ContestInfoStatusProps) => {
                 ],
                 [
                     "Hold time",
-                    status.holdTimeMs && unixTimeMsToLocalTime(status.holdTimeMs) || "??"
+                    status.holdTimeMs && timeMsToDuration(status.holdTimeMs) || "??"
                 ]
             ]}/>
         );
