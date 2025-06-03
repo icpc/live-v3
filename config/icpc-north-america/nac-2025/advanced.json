@@ -1,0 +1,22 @@
+[
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 3
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 18
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "achievement": {
+                "type": "Image",
+                "url": "/media/achievements/{team.id}.svg"
+            }
+
+        }
+    }
+]
