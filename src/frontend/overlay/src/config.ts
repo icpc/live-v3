@@ -356,7 +356,8 @@ config.WIDGET_POSITIONS = {
         TOP_RIGHT: Location(16 + 1488 / 2, 16, 1488 / 2, 837 / 2),
         BOTTOM_LEFT: Location(16, 16 + 837 / 2, 1488 / 2, 837 / 2),
         BOTTOM_RIGHT: Location(16 + 1488 / 2, 16 + 837 / 2, 1488 / 2, 837 / 2),
-    }
+    },
+    ...queryVisualConfig.WIDGET_POSITIONS
 };
 
 setFavicon(faviconTemplate

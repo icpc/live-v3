@@ -4,7 +4,7 @@ import c from "../../../config";
 import { OverlayTeamViewSettings, TeamViewPosition, Widget } from "@shared/api";
 import { OverlayWidgetC, OverlayWidgetProps } from "@/components/organisms/widgets/types";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
-import TimeLine from "@/components/organisms/holder/TimeLine";
+import TimeLine, { TimeLineBackground} from "@/components/organisms/holder/TimeLine";
 import { ContestantViewCorner } from "@/components/molecules/info/ContestantViewCorner";
 import { ContestantViewLine } from "@/components/molecules/info/ContestantViewLine";
 import { LocationRectangle } from "@/utils/location-rectangle";
@@ -94,7 +94,7 @@ const TaskStatusWrapper = styled.div<{ withAchievement: boolean; withSecondary: 
 
 const TimelineWrapper = styled.div`
     grid-column: 1 / 2;
-    grid-row: 3 / 4;
+    grid-row: 4 / 4;
     display: grid;
     align-items: end;
 `;
@@ -138,6 +138,9 @@ const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecond
                     <TimelineWrapper>
                         <div><TimeLine teamId={teamId} /></div>
                     </TimelineWrapper>
+                )}
+                {showTimeLine && (
+                    <TimeLineBackground teamId={teamId} />
                 )}
             </TeamViewGrid>
         </>

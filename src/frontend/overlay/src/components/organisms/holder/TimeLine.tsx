@@ -35,7 +35,6 @@ const ChangeScoreOrVerdictAnimation = keyframes`
 const TimeLineContainer = styled.div`
     align-items: center;
     width: 100%;
-    border-top-right-radius: ${c.TIMELINE_BORDER_RADIUS};
     border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS};
     display: grid;
     height: ${c.TIMELINE_WRAP_HEIGHT}px;
@@ -181,6 +180,18 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
             </Label>
         </ProblemWrap>
     );
+};
+
+const TimelineBackground = styled.div`
+    background-color: ${props => props.color};
+    grid-column: 2 / 2;
+    grid-row: 4 / 4;
+`;
+
+export const TimeLineBackground = ({ teamId, classname = null }) => {
+    const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
+
+    return <TimelineBackground className={classname} color={teamData?.color ? teamData?.color : c.CONTEST_COLOR} />;
 };
 
 export const TimeLine = ({ teamId, className = null }) => {
