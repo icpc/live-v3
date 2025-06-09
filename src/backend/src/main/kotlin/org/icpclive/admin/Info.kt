@@ -1,8 +1,5 @@
 package org.icpclive.admin
 
-import kotlinx.coroutines.flow.first
-import org.icpclive.api.ExternalRunInfo
-import org.icpclive.api.ExternalTeamInfo
 import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfo
@@ -19,4 +16,3 @@ suspend fun getRegions() : List<GroupInfo> {
 
 suspend fun getHashtags() = getTeams().filter { it.hashTag != null }.associateBy({ it.hashTag!! }, { it.id })
 
-suspend fun getExternalRun(id: RunId) = DataBus.externalRunsFlow.await().first()[id]

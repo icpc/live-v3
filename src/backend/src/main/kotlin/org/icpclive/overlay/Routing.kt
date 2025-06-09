@@ -5,17 +5,12 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
-import io.ktor.websocket.*
-import kotlinx.collections.immutable.toPersistentMap
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
-import org.icpclive.admin.getExternalRun
-import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow
-import kotlin.time.Duration
 
 inline fun <reified T : Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend (ApplicationCall) -> Flow<T>?) {
     webSocket(name) {
@@ -61,12 +56,4 @@ fun Route.configureOverlayRouting() {
         configureSvgAchievementRouting(Config.mediaDirectory)
     }
     get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
-    get("/externalRun/{id}") {
-        val runInfo = getExternalRun(call.parameters["id"]!!.toRunId())
-        if (runInfo == null) {
-            call.respond(HttpStatusCode.NotFound)
-        } else {
-            call.respond(runInfo)
-        }
-    }
 }

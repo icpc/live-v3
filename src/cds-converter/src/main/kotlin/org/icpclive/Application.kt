@@ -9,7 +9,10 @@ import com.github.ajalt.clikt.parameters.arguments.multiple
 import com.github.ajalt.mordant.terminal.danger
 import com.github.ajalt.mordant.terminal.info
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
+import io.ktor.server.application.install
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -21,6 +24,8 @@ import org.icpclive.export.clics.ClicsExporter
 import org.icpclive.export.icpc.IcpcCsvExporter
 import org.icpclive.export.pcms.PCMSHtmlExporter
 import org.icpclive.export.pcms.PCMSXmlExporter
+import org.icpclive.export.reactions.ReactionsExporter
+import org.icpclive.server.serverResponseJsonSettings
 import org.icpclive.server.setupDefaultKtorPlugins
 import org.icpclive.server.startPublisher
 import kotlin.system.exitProcess
@@ -74,15 +79,18 @@ fun Application.module() {
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     routing {
+        install(ContentNegotiation) { json(serverResponseJsonSettings()) }
         get {
             call.respondText(
                 """
                     <html>
                     <body>
                     <a href="/pcms/standings.xml">PCMS xml</a> <br/>
+                    <a href="/pcms/standings.html">PCMS html</a> <br/>
                     <a href="/clics/api/contests/contest">CLICS api root</a> <br/>
                     <a href="/clics/api/contests/contest/event-feed">CLICS event feed</a> <br/>
                     <a href="/icpc/standings.csv">ICPC global csv</a> <br/>
+                    <a href="/reactions">Reaction videos API</a> <br/>
                     </body>
                     </html>
                 """.trimIndent(),
@@ -106,6 +114,11 @@ fun Application.module() {
         }
         with(PCMSHtmlExporter) {
             route("/pcms") {
+                setUp(application + handler, loaded)
+            }
+        }
+        with (ReactionsExporter) {
+            route("/reactions") {
                 setUp(application + handler, loaded)
             }
         }
