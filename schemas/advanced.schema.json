@@ -235,6 +235,21 @@
             ],
             "title": "overrideAwards"
         },
+        "kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String?>": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
         "overrideContestSettings": {
             "type": "object",
             "properties": {
@@ -256,6 +271,9 @@
                 },
                 "holdTimeSeconds": {
                     "type": "number"
+                },
+                "customFields": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String?>"
                 }
             },
             "additionalProperties": false,

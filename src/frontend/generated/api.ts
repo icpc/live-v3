@@ -16,6 +16,7 @@ export interface ContestInfo {
   queueSettings: QueueSettings;
   showTeamsWithoutSubmissions: boolean;
   problemColorPolicy: ProblemColorPolicy;
+  customFields: { [key: string]: string };
 }
 
 export type ContestStatus =

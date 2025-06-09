@@ -39,6 +39,7 @@ public data class OverrideContestSettings(
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("holdTimeSeconds")
     public val holdTime: Duration? = null,
+    public val customFields: Map<String, String?>? = null,
 ): TuningRule {
     override fun process(info: ContestInfo): ContestInfo {
         val status = ContestStatus.byCurrentTime(
@@ -65,6 +66,7 @@ public data class OverrideContestSettings(
             status = realStatus,
             contestLength = contestLength ?: info.contestLength,
             freezeTime = freezeTime ?: info.freezeTime,
+            customFields = mergeMaps(info.customFields, customFields)
         )
     }
 

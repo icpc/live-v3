@@ -120,6 +120,9 @@ const ContestInfoContainer = ({ contestInfo } : BasicContainerProps) => {
         <InfoRowContainer name="Emulation speed" value = {contestInfo?.emulationSpeed} />
         <InfoRowContainer name="Show team without submissions" value = {contestInfo?.showTeamsWithoutSubmissions ? "Yes" : "No"} />
         <InfoRowContainer name="Problem color policy" value = {problemPolicyStr(contestInfo?.problemColorPolicy)} />
+        {contestInfo?.customFields && Object.entries(contestInfo.customFields).map(([key, value]) => (
+            <InfoRowContainer name={"Custom:" + key} value={value} />
+        ))}
     </div>;
 };
 

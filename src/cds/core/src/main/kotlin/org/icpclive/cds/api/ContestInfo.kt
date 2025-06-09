@@ -210,6 +210,7 @@ public data class ContestInfo(
     @Required val showTeamsWithoutSubmissions: Boolean = true,
     @Required val problemColorPolicy: ProblemColorPolicy = ProblemColorPolicy.Always,
     @Transient val cdsSupportsFinalization: Boolean = false,
+    @Required val customFields: Map<String, String> = emptyMap()
 ) {
     public constructor(
         name: String,
@@ -225,7 +226,8 @@ public data class ContestInfo(
         penaltyRoundingMode: PenaltyRoundingMode,
         penaltyPerWrongAttempt: Duration = 20.minutes,
         cdsSupportsFinalization: Boolean = false,
-        ) : this(
+        customFields: Map<String, String> = emptyMap()
+    ) : this(
             name = name,
             status = ContestStatus.byCurrentTime(startTime, freezeTime, contestLength),
             resultType = resultType, contestLength = contestLength, freezeTime = freezeTime,
@@ -234,6 +236,7 @@ public data class ContestInfo(
             penaltyRoundingMode = penaltyRoundingMode,
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             cdsSupportsFinalization = cdsSupportsFinalization,
+            customFields = customFields,
         )
 
     val groups: Map<GroupId, GroupInfo> by lazy { groupList.associateBy { it.id } }
