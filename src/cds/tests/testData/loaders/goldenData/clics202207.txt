@@ -3661,7 +3661,8 @@
         "showTeamsWithoutSubmissions": true,
         "problemColorPolicy": {
             "type": "always"
-        }
+        },
+        "customFields": {}
     },
     "runs": [
         {
