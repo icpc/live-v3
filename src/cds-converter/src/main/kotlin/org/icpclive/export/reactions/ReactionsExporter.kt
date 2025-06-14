@@ -4,11 +4,11 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.Required
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.CommentaryMessagesUpdate
 import org.icpclive.cds.ContestUpdate
@@ -24,11 +24,39 @@ import kotlin.time.Duration
 @Serializable
 class ShortRun(
     val id: RunId,
-    val result: RunResult,
+    val verdict: String,
+    val isAccepted: Boolean,
     val problemId: ProblemId,
     val teamId: TeamId,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
+    val isFirstToSolve: Boolean = false,
+    val rankAfter: Int? = null,
+    val rankBefore: Int? = null,
+)
+
+@Serializable
+class ShortTeamInfo(
+    val id: TeamId,
+    val fullName: String,
+    val displayName: String,
+    val isOutOfContest: Boolean = false,
+)
+
+@Serializable
+class ShortContestInfo(
+    val name: String,
+    val status: ContestStatus,
+    val resultType: ContestResultType,
+    @SerialName("contestLengthMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val contestLength: Duration,
+    @SerialName("freezeTimeMs")
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    val freezeTime: Duration?,
+    val problems: List<ProblemInfo>,
+    val teams: List<ShortTeamInfo>,
+    val customFields: Map<String, String>,
 )
 
 @Serializable
@@ -36,7 +64,7 @@ class FullReactionsRunInfo(
     val id: String,
     val result: RunResult,
     val problem: ProblemInfo,
-    val team: ReactionsTeamInfo,
+    val team: FullReactionsTeamInfo,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
     @Serializable(with = DurationInMillisecondsSerializer::class)
@@ -46,7 +74,7 @@ class FullReactionsRunInfo(
 )
 
 @Serializable
-class ReactionsTeamInfo(
+class FullReactionsTeamInfo(
     val id: String,
     val fullName: String,
     val displayName: String,
@@ -84,10 +112,10 @@ private fun Ranking.getTeamRank(id: TeamId) : Int? {
     return ranks[listId]
 }
 
-private fun TeamInfo.toFullReactionsTeam(contestState: ContestStateWithScoreboard) : ReactionsTeamInfo? {
+private fun TeamInfo.toFullReactionsTeam(contestState: ContestStateWithScoreboard) : FullReactionsTeamInfo? {
     if (isHidden) return null
     val contestInfo = contestState.state.infoAfterEvent ?: return null
-    return ReactionsTeamInfo(
+    return FullReactionsTeamInfo(
         id = id.value,
         fullName = fullName,
         displayName = displayName,
@@ -122,6 +150,43 @@ inline fun <T> Flow<ContestStateWithScoreboard>.toRunsMap(crossinline convert: (
     }
 }
 
+private fun TeamInfo.toShortTeamInfo() = ShortTeamInfo(
+    id = id,
+    fullName = fullName,
+    displayName = displayName,
+    isOutOfContest = isOutOfContest
+)
+
+private fun ContestInfo.toShortContestInfo() = ShortContestInfo(
+    name = name,
+    status = status,
+    resultType = resultType,
+    contestLength = contestLength,
+    freezeTime = freezeTime,
+    problems = problems.values.toList(),
+    teams = teams.values.filterNot { it.isHidden }.map { it.toShortTeamInfo() },
+    customFields = customFields
+)
+
+private fun RunInfo.toShortRun(state: ContestStateWithScoreboard): ShortRun {
+    val (verdict, isAccepted, isFirstToSolve) = when (val result = result) {
+        is RunResult.ICPC -> Triple(result.verdict.shortName, result.verdict.isAccepted, result.isFirstToSolveRun)
+        is RunResult.IOI -> Triple(result.wrongVerdict?.shortName ?: result.score.toString(), result.wrongVerdict == null, result.isFirstBestRun)
+        is RunResult.InProgress -> Triple("IN_PROGRESS", false, false)
+    }
+    return ShortRun(
+        id = id,
+        verdict = verdict,
+        isAccepted = isAccepted,
+        isFirstToSolve = isFirstToSolve,
+        problemId = problemId,
+        teamId = teamId,
+        time = time,
+        rankBefore = if (isAccepted) state.rankingBefore.getTeamRank(teamId) else null,
+        rankAfter = if (isAccepted) state.rankingAfter.getTeamRank(teamId) else null,
+    )
+}
+
 
 object ReactionsExporter {
     fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
@@ -130,22 +195,17 @@ object ReactionsExporter {
             .shareIn(scope, SharingStarted.Eagerly, Int.MAX_VALUE)
         val stateFlow =
             intermediateFlow
-            .stateIn(scope, SharingStarted.Eagerly, null)
-            .filterNotNull()
-            .filter { it.state.infoAfterEvent != null }
+                .mapNotNull { it.state.infoAfterEvent?.toShortContestInfo() }
+                .stateIn(scope, SharingStarted.Eagerly, null)
+                .filterNotNull()
 
-        val shortRuns = intermediateFlow.toRunsMap { run, _ ->
-            ShortRun(
-                id = run.id,
-                result = run.result,
-                problemId = run.problemId,
-                teamId = run.teamId,
-                time = run.time
-            )
-        }.stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
-        val fullRuns = intermediateFlow.toRunsMap { run, info ->
-            run.toFullReactionsRun(info)
-        }.stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
+
+        val shortRuns = intermediateFlow
+            .toRunsMap { run, state -> run.toShortRun(state) }
+            .stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
+        val fullRuns = intermediateFlow
+            .toRunsMap { run, info -> run.toFullReactionsRun(info) }
+            .stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
         get {
             call.respondText(
                 """
@@ -162,7 +222,7 @@ object ReactionsExporter {
             )
         }
         get("/contestInfo.json") {
-            call.respond(stateFlow.first().state.infoAfterEvent!!)
+            call.respond(stateFlow.first())
         }
         get("/runs.json") {
             call.respond(shortRuns.first().values.toList())
