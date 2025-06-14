@@ -144,7 +144,10 @@ object ClicsExporter  {
         countdownPauseTime = (info.status as? ContestStatus.BEFORE)?.holdTime,
         duration = info.contestLength,
         scoreboardFreezeDuration = info.freezeTime?.let { info.contestLength - it },
-        scoreboardType = "pass-fail",
+        scoreboardType = when (info.resultType) {
+            ContestResultType.ICPC -> "pass-fail"
+            ContestResultType.IOI -> "score"
+        },
         penaltyTime = info.penaltyPerWrongAttempt
     )
 
@@ -225,28 +228,19 @@ object ClicsExporter  {
         )
     }
 
-    private val submissionsCreated = mutableSetOf<RunId>()
+    private val submissions = mutableMapOf<RunId, Pair<Submission, Judgement>>()
 
     private suspend fun FlowCollector<EventProducer>.processRun(info: ContestInfo, run: RunInfo) {
-        if (run.id !in submissionsCreated) {
-            submissionsCreated.add(run.id)
-            updateEvent(
-                run.id.toString(),
-                Submission(
-                    id = run.id.toString(),
-                    languageId = (run.languageId ?: unknownLanguage.id).value,
-                    problemId = run.problemId.value,
-                    teamId = run.teamId.value,
-                    time = info.startTimeOrZero + run.time,
-                    contestTime = run.time,
-                ),
-                ::SubmissionEvent
-            )
-        }
-        val result = run.result as? RunResult.ICPC ?: return
-        updateEvent(
-            run.id.toString(),
-            Judgement(
+        val submission = Submission(
+            id = run.id.toString(),
+            languageId = (run.languageId ?: unknownLanguage.id).value,
+            problemId = run.problemId.value,
+            teamId = run.teamId.value,
+            time = info.startTimeOrZero + run.time,
+            contestTime = run.time,
+        )
+        val judgement = when (val result = run.result) {
+            is RunResult.ICPC -> Judgement(
                 id = run.id.toString(),
                 submissionId = run.id.toString(),
                 judgementTypeId = judgmentTypes[result.verdict]?.id,
@@ -254,9 +248,43 @@ object ClicsExporter  {
                 startContestTime = run.time,
                 endTime = info.startTimeOrZero + run.time,
                 endContestTime = run.time
-            ),
-            ::JudgementEvent
-        )
+            )
+
+            is RunResult.IOI -> Judgement(
+                id = run.id.toString(),
+                submissionId = run.id.toString(),
+                judgementTypeId = judgmentTypes[result.wrongVerdict ?: Verdict.Accepted]?.id,
+                score = when (info.problems[run.problemId]?.scoreMergeMode) {
+                    ScoreMergeMode.MAX_PER_GROUP, ScoreMergeMode.SUM, null -> result.scoreAfter
+                    ScoreMergeMode.MAX_TOTAL, ScoreMergeMode.LAST, ScoreMergeMode.LAST_OK -> result.score.sum()
+                },
+                startTime = info.startTimeOrZero + run.time,
+                startContestTime = run.time,
+                endTime = info.startTimeOrZero + run.time,
+                endContestTime = run.time
+            )
+            is RunResult.InProgress -> Judgement(
+                id = run.id.toString(),
+                submissionId = run.id.toString(),
+                startTime = info.startTimeOrZero + run.time,
+                startContestTime = run.time,
+            )
+        }
+        val (curSubmission, curJudgment) = submissions[run.id] ?: (null to null)
+        if (submission != curSubmission) {
+            updateEvent(
+                run.id.toString(),
+                submission,
+                ::SubmissionEvent
+            )
+        }
+        if (judgement != curJudgment) {
+            updateEvent(
+                run.id.toString(),
+                judgement,
+                ::JudgementEvent
+            )
+        }
     }
 
     private suspend fun <T> FlowCollector<EventProducer>.diff(oldInfo: ContestInfo?, newInfo: ContestInfo, getter: ContestInfo.() -> T, event : (EventToken, T?) -> Event) {
@@ -510,7 +538,12 @@ object ClicsExporter  {
                 "first-to-solve-${problem.id}",
                 "First to solve problem ${problem.displayName}",
                 rankingAfter.order.map { it to scoreboardRowAfter(it) }
-                    .filter { (it.second.problemResults[index] as? ICPCProblemResult)?.isFirstToSolve == true }
+                    .filter {
+                        when (val result = it.second.problemResults[index]) {
+                            is ICPCProblemResult -> result.isFirstToSolve
+                            is IOIProblemResult -> result.isFirstBest
+                        }
+                    }
                     .map { it.first.value }
             ))
         }
