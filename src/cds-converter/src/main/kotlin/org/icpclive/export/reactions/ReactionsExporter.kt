@@ -1,3 +1,4 @@
+@file:Suppress("UNUSED")
 package org.icpclive.export.reactions
 
 import io.ktor.http.ContentType
@@ -7,6 +8,7 @@ import io.ktor.server.routing.*
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Required
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -30,9 +32,9 @@ class ShortRun(
     val teamId: TeamId,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val time: Duration,
-    val isFirstToSolve: Boolean = false,
-    val rankAfter: Int? = null,
-    val rankBefore: Int? = null,
+    @EncodeDefault(EncodeDefault.Mode.NEVER) val isFirstToSolve: Boolean = false,
+    @EncodeDefault(EncodeDefault.Mode.NEVER) val rankAfter: Int? = null,
+    @EncodeDefault(EncodeDefault.Mode.NEVER) val rankBefore: Int? = null,
 )
 
 @Serializable
@@ -40,7 +42,7 @@ class ShortTeamInfo(
     val id: TeamId,
     val fullName: String,
     val displayName: String,
-    val isOutOfContest: Boolean = false,
+    @EncodeDefault(EncodeDefault.Mode.NEVER) val isOutOfContest: Boolean = false,
 )
 
 @Serializable
@@ -69,7 +71,6 @@ class FullReactionsRunInfo(
     val time: Duration,
     @Serializable(with = DurationInMillisecondsSerializer::class)
     val testedTime: Duration? = null,
-    @Required val featuredRunMedia: MediaType? = null,
     @Required val reactionVideos: List<MediaType> = emptyList(),
 )
 
@@ -101,7 +102,6 @@ private fun RunInfo.toFullReactionsRun(contestState: ContestStateWithScoreboard)
         team = info.teams[teamId]?.toFullReactionsTeam(contestState) ?: return null,
         time = time,
         testedTime = testedTime,
-        featuredRunMedia = featuredRunMedia,
         reactionVideos = reactionVideos,
     )
 }
