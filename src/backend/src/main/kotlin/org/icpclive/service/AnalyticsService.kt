@@ -11,7 +11,7 @@ import org.icpclive.api.AnalyticsMessage
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.util.completeOrThrow
+import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.getLogger
 import org.icpclive.controllers.PresetsController
 import org.icpclive.data.*
@@ -214,7 +214,6 @@ class AnalyticsService : Service {
         launch {
             val featuredRunFlow = DataBus.queueFeaturedRunsFlow.await()
             val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
-            log.info { "Analytics service is started" }
             merge(
                 subscriberFlow.map { Subscribe },
                 actionFlow,

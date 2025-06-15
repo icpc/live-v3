@@ -1,8 +1,8 @@
 package org.icpclive.data
 
 import org.icpclive.api.*
+import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.getLogger
-import org.icpclive.util.completeOrThrow
 import kotlin.time.Duration
 import kotlin.time.TimeSource
 

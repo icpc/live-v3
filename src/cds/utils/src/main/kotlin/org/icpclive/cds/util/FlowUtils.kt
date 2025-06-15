@@ -5,6 +5,9 @@ import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.selects.onTimeout
 import kotlinx.coroutines.selects.select
+import kotlin.concurrent.atomics.AtomicInt
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
+import kotlin.concurrent.atomics.decrementAndFetch
 import kotlin.time.Duration
 
 public fun <T> Flow<T>.logAndRetryWithDelay(duration: Duration, log: (Throwable) -> Unit): Flow<T> = retryWhen { cause: Throwable, _: Long ->
@@ -47,5 +50,52 @@ public fun <T> Flow<T>.onIdle(interval: Duration, block: suspend ProducerScope<T
                 block()
             }
         }
+    }
+}
+
+public fun <T> CompletableDeferred<T>.completeOrThrow(value: T) {
+    complete(value) || throw IllegalStateException("Double complete of CompletableDeferred")
+}
+
+public class SharedFlowSubscriptionScope<T> @PublishedApi internal constructor(
+    @PublishedApi internal val flow: SharedFlow<T>,
+    private val subscriptionWaitingFlow: MutableStateFlow<Int>
+) {
+
+    @PublishedApi
+    internal fun acquire(count: Int) {
+        subscriptionWaitingFlow.update { it + count }
+    }
+    @PublishedApi
+    internal fun release() {
+        subscriptionWaitingFlow.update { it - 1 }
+    }
+
+    @OptIn(ExperimentalAtomicApi::class)
+    public inline fun withSubscription(count: Int = 1, block: (Flow<T>) -> Unit) {
+        acquire(count)
+        val remaining = AtomicInt(count)
+        block(flow.onSubscription {
+            require(remaining.decrementAndFetch() >= 0) { "Can't subscribe more than $count times"}
+            release()
+        })
+    }
+}
+
+public inline fun <T> Flow<T>.shareWith(scope: CoroutineScope, subscribers: SharedFlowSubscriptionScope<T>.() -> Unit) {
+    val subscriptionWaitingFlow = MutableStateFlow(1)
+    val starter = SharingStarted {
+        subscriptionWaitingFlow.transformWhile {
+            if (it == 0) {
+                emit(SharingCommand.START)
+                false
+            } else {
+                true
+            }
+        }
+    }
+    SharedFlowSubscriptionScope(shareIn(scope, starter), subscriptionWaitingFlow).apply {
+        subscribers()
+        subscriptionWaitingFlow.update { it - 1 }
     }
 }

@@ -6,10 +6,12 @@ public final class org/icpclive/cds/util/FileChangesWatcherKt {
 }
 
 public final class org/icpclive/cds/util/FlowUtilsKt {
+	public static final fun completeOrThrow (Lkotlinx/coroutines/CompletableDeferred;Ljava/lang/Object;)V
 	public static final fun logAndRetryWithDelay-8Mi8wO0 (Lkotlinx/coroutines/flow/Flow;JLkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun loopFlow-KLykuaI (JLkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun onIdle-8Mi8wO0 (Lkotlinx/coroutines/flow/Flow;JLkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun runCatchingIfNotCancellation (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun shareWith (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function1;)V
 }
 
 public final class org/icpclive/cds/util/Logger {
@@ -42,6 +44,15 @@ public final class org/icpclive/cds/util/LoggingUtilsKt {
 
 public final class org/icpclive/cds/util/SerializationUtilsKt {
 	public static final fun map (Lkotlinx/serialization/KSerializer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/util/SharedFlowSubscriptionScope {
+	public fun <init> (Lkotlinx/coroutines/flow/SharedFlow;Lkotlinx/coroutines/flow/MutableStateFlow;)V
+	public final fun acquire (I)V
+	public final fun getFlow ()Lkotlinx/coroutines/flow/SharedFlow;
+	public final fun release ()V
+	public final fun withSubscription (ILkotlin/jvm/functions/Function1;)V
+	public static synthetic fun withSubscription$default (Lorg/icpclive/cds/util/SharedFlowSubscriptionScope;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 }
 
 public final class org/icpclive/cds/util/XmlUtilsKt {

@@ -2,7 +2,6 @@ package org.icpclive
 
 import com.github.ajalt.clikt.core.main
 import io.ktor.serialization.kotlinx.json.*
-import org.icpclive.util.completeOrThrow
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.http.content.*

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.api.CommentaryMessageId
 import org.icpclive.cds.api.toCommentaryMessageId
+import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.service.AnalyticsAction

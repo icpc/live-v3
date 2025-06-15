@@ -12,7 +12,6 @@ import org.icpclive.data.DataBus
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.toScoreboardDiff
 import org.icpclive.cds.util.*
-import org.icpclive.util.completeOrThrow
 import kotlin.time.Duration.Companion.seconds
 
 

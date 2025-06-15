@@ -8,54 +8,42 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.generateCommentary
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
+import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.shareWith
 import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator
-import org.icpclive.util.completeOrThrow
 
 private val log by getLogger()
 
 fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
-    val started = MutableStateFlow(1)
-    val starter = SharingStarted {
-        started
-            .filter { it == 0 }
-            .map { SharingCommand.START }
-            .onEach { log.info { "Start loading data" } }
-            .take(1)
-    }
     val commentaryGenerator = AnalyticsGenerator(Config.analyticsTemplatesFile)
-    val normalScoreboardState = loader
+    loader
         .calculateScoreboard(OptimismLevel.NORMAL)
         .generateCommentary(commentaryGenerator::getMessages)
         .buffer(Int.MAX_VALUE)
-        .shareIn(this, starter)
-
-    fun CoroutineScope.launchService(service: Service) = launch {
-        started.update { it + 1 }
-        var subscribed = false
-        launch(CoroutineName(service::class.simpleName!!)) {
-            with(service) {
-                runOn(normalScoreboardState.onSubscription {
-                    log.info { "Service ${service::class.simpleName} subscribed to cds data" }
-                    require(!subscribed) { "Service ${service::class.simpleName} shouldn't subscribe twice" }
-                    subscribed = true
-                    started.update { it - 1 }
-                })
+        .onStart { log.info { "Start loading data" } }
+        .shareWith(this) {
+            fun CoroutineScope.launchService(service: Service) = withSubscription {
+                launch(CoroutineName(service::class.simpleName!!)) {
+                    with(service) {
+                        this@launch.runOn(it.onStart {
+                            log.info { "Service ${service::class.simpleName} subscribed to cds data" }
+                        })
+                    }
+                }
             }
+
+            val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
+            DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
+
+            launchService(ContestStateService())
+            launchService(QueueService())
+            launchService(ScoreboardService())
+            launchService(StatisticsService())
+            launchService(AnalyticsService())
+            launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
+            launchService(RegularLoggingService())
+            launchService(TimelineService())
         }
-    }
-
-    val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
-    DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
-
-    launchService(ContestStateService())
-    launchService(QueueService())
-    launchService(ScoreboardService())
-    launchService(StatisticsService())
-    launchService(AnalyticsService())
-    launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
-    launchService(RegularLoggingService())
-    launchService(TimelineService())
-    started.update { it - 1 }
 }

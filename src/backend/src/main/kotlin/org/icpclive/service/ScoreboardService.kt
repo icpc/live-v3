@@ -19,7 +19,6 @@ class ScoreboardService : Service {
     }
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
-        log.info { "Scoreboard service for started" }
         val mainScoreboardFlow = flow.shareIn(this, SharingStarted.Eagerly, replay = 1)
         setUp(OptimismLevel.NORMAL, mainScoreboardFlow)
         launch {
