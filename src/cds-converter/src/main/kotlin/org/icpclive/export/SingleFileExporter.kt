@@ -7,30 +7,30 @@ import io.ktor.server.routing.*
 import io.ktor.server.util.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+import org.icpclive.Exporter
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.api.RunInfo
+import org.icpclive.cds.api.ScoreboardRow
+import org.icpclive.cds.api.TeamId
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 
-abstract class SingleFileExporter(private val exportName: String, private val contentType: ContentType) {
-    abstract fun format(info: ContestInfo, runs: List<RunInfo>): String
+abstract class SingleFileExporter(private val exportName: String, private val contentType: ContentType) : Exporter {
+    abstract fun format(state: ContestStateWithScoreboard): String
 
-    fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
+    override fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestStateWithScoreboard>) {
         val stateFlow = contestUpdates
-            .contestState()
             .stateIn(scope, SharingStarted.Eagerly, null)
             .filterNotNull()
-            .filter { it.infoAfterEvent != null }
+            .filter { it.state.infoAfterEvent != null }
         get {
             call.respondRedirect(call.url { pathSegments += exportName }, permanent = true)
         }
         get(exportName) {
             call.respondText(contentType = contentType) {
                 val state = stateFlow.first()
-                format(
-                    state.infoAfterEvent!!,
-                    state.runsAfterEvent.values.toList()
-                )
+                format(state)
             }
         }
     }

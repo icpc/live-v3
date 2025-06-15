@@ -2,16 +2,13 @@ package org.icpclive
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
-import com.github.ajalt.clikt.parameters.groups.*
+import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.runBlocking
-import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.addComputedData
-import org.icpclive.cds.adapters.finalContestState
-import org.icpclive.cds.api.ContestInfo
-import org.icpclive.cds.api.RunInfo
+import org.icpclive.cds.adapters.finalContestStateWithScoreboard
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.getLogger
 import org.icpclive.server.LoggingOptions
 import kotlin.io.path.absolute
@@ -21,9 +18,9 @@ abstract class DumpFileCommand(
     name: String,
     val help: String,
     defaultFileName: String,
-    outputHelp: String
+    outputHelp: String,
 ) : CliktCommand(name = name) {
-    abstract fun format(info: ContestInfo, runs: List<RunInfo>): String
+    abstract fun format(data: ContestStateWithScoreboard): String
 
     override fun help(context: Context) = help
     override val printHelpOnEmptyArgs = true
@@ -55,14 +52,11 @@ abstract class DumpFileCommand(
             }
         val data = runBlocking {
             logger.info { "Waiting till contest become finalized..." }
-            val result = flow.finalContestState()
+            val result = flow.finalContestStateWithScoreboard()
             logger.info { "Loaded contest data" }
             result
         }
-        val dump = format(
-            data.infoAfterEvent!!,
-            data.runsAfterEvent.values.toList(),
-        )
+        val dump = format(data)
         output.toFile().printWriter().use {
             it.println(dump)
         }

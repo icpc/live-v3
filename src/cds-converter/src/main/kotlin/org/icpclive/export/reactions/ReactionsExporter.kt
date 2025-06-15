@@ -12,6 +12,7 @@ import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Required
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import org.icpclive.Exporter
 import org.icpclive.cds.CommentaryMessagesUpdate
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
@@ -21,6 +22,7 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.Ranking
 import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.cds.util.serializers.DurationInMillisecondsSerializer
+import org.icpclive.cds.util.shareWith
 import kotlin.time.Duration
 
 @Serializable
@@ -188,22 +190,18 @@ private fun RunInfo.toShortRun(state: ContestStateWithScoreboard): ShortRun {
 }
 
 
-object ReactionsExporter {
-    fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestUpdate>) {
-        val intermediateFlow = contestUpdates
-            .calculateScoreboard(OptimismLevel.NORMAL)
-            .shareIn(scope, SharingStarted.Eagerly, Int.MAX_VALUE)
+object ReactionsExporter : Exporter {
+    override fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestStateWithScoreboard>) {
         val stateFlow =
-            intermediateFlow
+            contestUpdates
                 .mapNotNull { it.state.infoAfterEvent?.toShortContestInfo() }
                 .stateIn(scope, SharingStarted.Eagerly, null)
                 .filterNotNull()
 
-
-        val shortRuns = intermediateFlow
+        val shortRuns = contestUpdates
             .toRunsMap { run, state -> run.toShortRun(state) }
             .stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
-        val fullRuns = intermediateFlow
+        val fullRuns = contestUpdates
             .toRunsMap { run, info -> run.toFullReactionsRun(info) }
             .stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
         get {

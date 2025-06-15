@@ -7,13 +7,12 @@ import org.icpclive.cds.api.Award
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.api.ContestResultType
 import org.icpclive.cds.api.ICPCProblemResult
-import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.api.RunInfo
 import org.icpclive.cds.api.RunResult
 import org.icpclive.cds.api.ScoreboardRow
 import org.icpclive.cds.api.TeamInfo
 import org.icpclive.cds.api.currentContestTime
-import org.icpclive.cds.scoreboard.getScoreboardCalculator
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.export.SingleFileExporter
 import org.icpclive.export.pcms.PCMSXmlExporter.toPcmsStatus
 import kotlin.time.Duration
@@ -159,12 +158,10 @@ object PCMSHtmlExporter : SingleFileExporter("standings.html", ContentType.Text.
 
 
 
-    override fun format(info: ContestInfo, runs: List<RunInfo>): String {
-        val runsByTeam = runs.groupBy { it.teamId }
-        val scoreboardCalculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
-        val rows = info.teams.keys.associateWith { scoreboardCalculator.getScoreboardRow(info, runsByTeam[it] ?: emptyList()) }
-        val ranking = scoreboardCalculator.getRanking(info, rows)
-        val runsByProblem = runs.groupBy { it.problemId }
+    override fun format(state: ContestStateWithScoreboard): String {
+        val info = state.state.infoAfterEvent!!
+        val ranking = state.rankingAfter
+        val runsByProblem = state.state.runsAfterEvent.values.groupBy { it.problemId }
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
 
 
@@ -184,7 +181,7 @@ object PCMSHtmlExporter : SingleFileExporter("standings.html", ContentType.Text.
                                         var problemColorParity = 1
                                         var rowParity = 0
                                         for ((teamId, rank) in ranking.order.zip(ranking.ranks)) {
-                                            val r = rows[teamId]!!
+                                            val r = state.scoreboardRowAfter(teamId)
                                             rowParity = 1 - rowParity
                                             if (currentProblemNum != r.totalScore) {
                                                 currentProblemNum = r.totalScore
@@ -199,7 +196,6 @@ object PCMSHtmlExporter : SingleFileExporter("standings.html", ContentType.Text.
                                         info.scoreboardProblems.map { runsByProblem[it.id]?.filter { it.teamId in ranking.order && ((it.result as? RunResult.ICPC)?.verdict?.isAccepted == true) } ?: emptyList() },
                                         info.scoreboardProblems.map { runsByProblem[it.id]?.filter { it.teamId in ranking.order && ((it.result as? RunResult.ICPC)?.verdict?.isAccepted != true) } ?: emptyList() }
                                     )
-
                                 }
                             }
                         }

@@ -13,6 +13,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
 import kotlinx.serialization.json.Json
+import org.icpclive.Exporter
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
@@ -21,7 +22,6 @@ import org.icpclive.clics.*
 import org.icpclive.clics.v202306.objects.*
 import org.icpclive.clics.v202306.events.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.cds.util.onIdle
 import org.icpclive.clics.events.*
 import org.icpclive.clics.v202306.events.AwardEvent
@@ -97,7 +97,7 @@ private fun TeamInfo.toClicsTeam() = Team(
 )
 
 
-object ClicsExporter  {
+object ClicsExporter : Exporter {
 
     private fun Verdict.toJudgmentType() = when (this) {
         Verdict.Accepted -> JudgementType("AC", "correct", solved = true, penalty = false)
@@ -340,10 +340,12 @@ object ClicsExporter  {
         )
     }
 
+    private val currentState = MutableStateFlow<ContestStateWithScoreboard?>(null)
 
     private fun generateEventFeed(updates: Flow<ContestStateWithScoreboard>) : Flow<Event> {
         var eventCounter = 1
         return updates.transform { state ->
+            currentState.value = state
             when (val event = state.state.lastEvent) {
                 is InfoUpdate -> calculateDiff(state.state.infoBeforeEvent, event.newInfo)
                 is RunUpdate -> processRun(state.state.infoBeforeEvent!!, event.newInfo)
@@ -404,13 +406,11 @@ object ClicsExporter  {
     }
 
 
-    fun Route.setUp(scope: CoroutineScope, updates: Flow<ContestUpdate>) {
-
-        val eventFeed = generateEventFeed(updates.calculateScoreboard(OptimismLevel.NORMAL))
+    override fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestStateWithScoreboard>) {
+        val eventFeed = generateEventFeed(contestUpdates)
             .shareIn(scope, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
             .transformWhile {
                 emit(it)
-
                 it !is StateEvent || it.data?.endOfUpdates == null
             }
         val contestFlow = eventFeed.filterGlobalEvent<Contest, _, ContestEvent>(scope)
@@ -469,9 +469,7 @@ object ClicsExporter  {
                     //getId("accounts", accountsFlow)
                     //getId("clarifications", clarificationsFlow)
                     getId("awards", awardsFlow)
-                    get("/scoreboard") { call.respond(
-                        updates
-                            .calculateScoreboard(OptimismLevel.NORMAL).first().toClicsScoreboard()) }
+                    get("/scoreboard") { call.respond(currentState.filterNotNull().first().toClicsScoreboard()) }
                     get("/event-feed") {
                         call.respondBytesWriter {
                             eventFeed

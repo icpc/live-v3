@@ -1,7 +1,5 @@
 package org.icpclive.export.pcms
 
-import kotlinx.html.TD
-
 enum class KnownAwards(
     val awardId: String,
     val xmlAttribute: String,

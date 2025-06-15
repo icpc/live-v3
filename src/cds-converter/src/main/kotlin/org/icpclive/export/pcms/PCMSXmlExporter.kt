@@ -2,7 +2,7 @@ package org.icpclive.export.pcms
 
 import io.ktor.http.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.scoreboard.getScoreboardCalculator
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.createChild
 import org.icpclive.export.SingleFileExporter
 import org.w3c.dom.Element
@@ -118,11 +118,10 @@ object PCMSXmlExporter : SingleFileExporter("standings.xml", ContentType.Text.Xm
     }
 
 
-    override fun format(info: ContestInfo, runs: List<RunInfo>) : String {
-        val runsByTeam = runs.groupBy { it.teamId }
-        val scoreboardCalculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
-        val rows = info.teams.keys.associateWith { scoreboardCalculator.getScoreboardRow(info, runsByTeam[it] ?: emptyList()) }
-        val ranking = scoreboardCalculator.getRanking(info, rows)
+    override fun format(state: ContestStateWithScoreboard) : String {
+        val info = state.state.infoAfterEvent!!
+        val ranking = state.rankingAfter
+        val runsByTeam = state.state.runsAfterEvent.values.groupBy { it.teamId }
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
         val documentFactory = DocumentBuilderFactory.newInstance()!!
         val documentBuilder = documentFactory.newDocumentBuilder()!!
@@ -139,7 +138,7 @@ object PCMSXmlExporter : SingleFileExporter("standings.xml", ContentType.Text.Xm
                 session.buildSessionNode(
                     info = info,
                     teamInfo = info.teams[it]!!,
-                    row = rows[it]!!,
+                    row = state.scoreboardRowAfter(it),
                     runs = runsByTeam[it] ?: emptyList(),
                     awards = ranking.awards.filter { award -> it in award.teams }
                 )

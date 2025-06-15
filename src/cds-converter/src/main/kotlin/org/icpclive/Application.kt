@@ -20,6 +20,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.plus
 import org.icpclive.cds.adapters.addComputedData
+import org.icpclive.cds.api.OptimismLevel
+import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.export.clics.ClicsExporter
 import org.icpclive.export.icpc.IcpcCsvExporter
 import org.icpclive.export.pcms.PCMSHtmlExporter
@@ -76,6 +78,7 @@ fun Application.module() {
             submissionsAfterEnd = ServerCommand.cdsOptions.upsolving
             autoFinalize = !ServerCommand.cdsOptions.noAutoFinalize
         }
+        .calculateScoreboard(OptimismLevel.NORMAL)
         .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
 
     routing {

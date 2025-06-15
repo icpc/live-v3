@@ -4,6 +4,8 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.api.*
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
+import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.utils.withGroupedRuns
 
@@ -34,8 +36,12 @@ public fun Flow<ContestUpdate>.autoFinalize(progress: suspend (ContestStatus?, I
 public fun Flow<ContestUpdate>.autoFinalize(): Flow<ContestUpdate> = autoFinalize { _, _ ->  }
 
 public suspend fun Flow<ContestUpdate>.finalContestState(): ContestState = finalContestState { _, _ -> }
-
-
 public suspend fun Flow<ContestUpdate>.finalContestState(progress: suspend (ContestStatus?, Int) -> Unit): ContestState = autoFinalize(progress)
     .contestState()
     .first { it.infoAfterEvent?.status is ContestStatus.FINALIZED }
+
+public suspend fun Flow<ContestUpdate>.finalContestStateWithScoreboard(optimismLevel: OptimismLevel = OptimismLevel.NORMAL): ContestStateWithScoreboard = finalContestStateWithScoreboard(optimismLevel) { _, _ -> }
+public suspend fun Flow<ContestUpdate>.finalContestStateWithScoreboard(optimismLevel: OptimismLevel = OptimismLevel.NORMAL, progress: suspend (ContestStatus?, Int) -> Unit): ContestStateWithScoreboard =
+    autoFinalize(progress)
+    .calculateScoreboard(optimismLevel)
+    .first { it.state.infoAfterEvent?.status is ContestStatus.FINALIZED }

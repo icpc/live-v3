@@ -1,6 +1,7 @@
 package org.icpclive
 
 import org.icpclive.cds.api.*
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.export.icpc.IcpcCsvExporter
 
 object IcpcCSVDumpCommand : DumpFileCommand(
@@ -9,5 +10,5 @@ object IcpcCSVDumpCommand : DumpFileCommand(
     outputHelp = "Path to new csv file",
     defaultFileName = "standings.csv"
 ) {
-    override fun format(info: ContestInfo, runs: List<RunInfo>) = IcpcCsvExporter.format(info, runs)
+    override fun format(data: ContestStateWithScoreboard) = IcpcCsvExporter.format(data)
 }

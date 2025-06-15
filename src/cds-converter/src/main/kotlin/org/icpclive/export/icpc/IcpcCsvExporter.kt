@@ -4,7 +4,7 @@ import io.ktor.http.*
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVPrinter
 import org.icpclive.cds.api.*
-import org.icpclive.cds.scoreboard.getScoreboardCalculator
+import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.export.SingleFileExporter
 
 
@@ -24,19 +24,17 @@ object IcpcCsvExporter : SingleFileExporter("standings.csv", ContentType.Text.CS
 
     fun TeamInfo.icpcId() = customFields["icpc_id"] ?: id.value
 
-    override fun format(info: ContestInfo, runs: List<RunInfo>): String {
+    override fun format(state: ContestStateWithScoreboard): String {
+        val info = state.state.infoAfterEvent!!
         if (info.resultType == ContestResultType.IOI) TODO("IOI is not supported yet")
-        val runsByTeam = runs.groupBy { it.teamId }
-        val scoreboardCalculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
-        val rows = info.teams.keys.associateWith { scoreboardCalculator.getScoreboardRow(info, runsByTeam[it] ?: emptyList()) }
-        val ranking = scoreboardCalculator.getRanking(info, rows)
+        val ranking = state.rankingAfter
         val ranks = ranking.order.zip(ranking.ranks).toMap()
         val icpcTeamIds = info.teams.values.associate { it.id to it.icpcId() }
 
         return buildString {
             val printer = CSVPrinter(this, CSVFormat.DEFAULT.builder().setHeader(*fields.toTypedArray()).get())
             for (teamId in ranking.order.reversed()) {
-                printer.printRecord(getFields(icpcTeamIds[teamId]!!, ranks[teamId]!!, rows[teamId]!!, ranking.awards.filter { teamId in it.teams }))
+                printer.printRecord(getFields(icpcTeamIds[teamId]!!, ranks[teamId]!!, state.scoreboardRowAfter(teamId), ranking.awards.filter { teamId in it.teams }))
             }
         }
     }
