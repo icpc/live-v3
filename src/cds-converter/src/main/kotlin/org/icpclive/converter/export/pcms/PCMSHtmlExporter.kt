@@ -9,7 +9,12 @@ import org.icpclive.converter.export.SingleFileExporter
 import org.icpclive.converter.export.pcms.PCMSXmlExporter.toPcmsStatus
 import kotlin.time.Duration
 
-object PCMSHtmlExporter : SingleFileExporter("pcms","standings.html", ContentType.Text.Html) {
+object PCMSHtmlExporter : SingleFileExporter(
+    httpPath = "pcms",
+    exportName = "standings.html",
+    exportDescription = "PCMS scoreboard",
+    contentType = ContentType.Text.Html
+) {
     private fun HTML.htmlHeader() {
         head {
             meta {

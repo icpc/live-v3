@@ -3,11 +3,13 @@
 package org.icpclive.converter.export.reactions
 
 import io.ktor.http.*
+import io.ktor.server.html.respondHtml
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+import kotlinx.html.*
 import kotlinx.serialization.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
@@ -200,38 +202,43 @@ object ReactionsExporter : Exporter {
             .toRunsMap { run, info -> run.toFullReactionsRun(info) }
             .stateIn(this, SharingStarted.Eagerly, persistentMapOf())
 
-        return Router {
-            route("/reactions") {
-                get {
-                    call.respondText(
-                        """
-                    <html>
-                    <body>
-                    <a href="/reactions/contestInfo.json">contestInfo.json</a> <br/>
-                    <a href="/reactions/runs.json">runs.json</a> <br/>
-                    <a href="/reactions/fullRuns.json">fullRuns.json</a> <br/>
-                    <a href="/reactions/fullRuns/id">Full run for run id</a> <br/>
-                    </body>
-                    </html>
-                """.trimIndent(),
-                        ContentType.Text.Html
-                    )
+        return object : Router {
+            override fun HtmlBlockTag.mainPage() {
+                a("/reactions") {
+                    +"Reaction videos API"
                 }
-                get("/contestInfo.json") {
-                    call.respond(stateFlow.first())
-                }
-                get("/runs.json") {
-                    call.respond(shortRuns.first().values.toList())
-                }
-                get("/fullRuns.json") {
-                    call.respond(fullRuns.first().values.toList())
-                }
-                get("/fullRuns/{id}") {
-                    val runInfo = fullRuns.first()[call.parameters["id"]!!.toRunId()]
-                    if (runInfo == null) {
-                        call.respond(HttpStatusCode.NotFound)
-                    } else {
-                        call.respond(runInfo)
+            }
+            override fun Route.setUpRoutes() {
+                route("/reactions") {
+                    get {
+                        call.respondHtml {
+                            body {
+                                a("reactions/contestInfo.json") { +"contestInfo.json" }
+                                br
+                                a("reactions/runs.json") { +"runs.json" }
+                                br
+                                a("reactions/fullRuns.json") { +"fullRuns.json" }
+                                br
+                                a("reactions/fullRuns/id") { +"Full run for run id" }
+                            }
+                        }
+                    }
+                    get("/contestInfo.json") {
+                        call.respond(stateFlow.first())
+                    }
+                    get("/runs.json") {
+                        call.respond(shortRuns.first().values.toList())
+                    }
+                    get("/fullRuns.json") {
+                        call.respond(fullRuns.first().values.toList())
+                    }
+                    get("/fullRuns/{id}") {
+                        val runInfo = fullRuns.first()[call.parameters["id"]!!.toRunId()]
+                        if (runInfo == null) {
+                            call.respond(HttpStatusCode.NotFound)
+                        } else {
+                            call.respond(runInfo)
+                        }
                     }
                 }
             }

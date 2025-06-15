@@ -8,7 +8,12 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.converter.export.SingleFileExporter
 
 
-object IcpcCsvExporter : SingleFileExporter("/icpc","standings.csv", ContentType.Text.CSV) {
+object IcpcCsvExporter : SingleFileExporter(
+    httpPath = "/icpc",
+    exportName = "standings.csv",
+    exportDescription = "icpc.global csv",
+    contentType = ContentType.Text.CSV
+) {
     val fields = listOf(
         "teamId",
         "rank",

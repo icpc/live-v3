@@ -7,14 +7,14 @@ import com.github.ajalt.clikt.output.MordantHelpFormatter
 import com.github.ajalt.clikt.parameters.arguments.*
 import com.github.ajalt.mordant.terminal.danger
 import com.github.ajalt.mordant.terminal.info
-import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.html.respondHtml
 import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.onStart
+import kotlinx.html.*
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
@@ -101,21 +101,16 @@ fun Application.module() {
     routing {
         install(ContentNegotiation) { json(serverResponseJsonSettings()) }
         get {
-            call.respondText(
-                """
-                    <html>
-                    <body>
-                    <a href="/pcms/standings.xml">PCMS xml</a> <br/>
-                    <a href="/pcms/standings.html">PCMS html</a> <br/>
-                    <a href="/clics/api/contests/contest">CLICS api root</a> <br/>
-                    <a href="/clics/api/contests/contest/event-feed">CLICS event feed</a> <br/>
-                    <a href="/icpc/standings.csv">ICPC global csv</a> <br/>
-                    <a href="/reactions">Reaction videos API</a> <br/>
-                    </body>
-                    </html>
-                """.trimIndent(),
-                ContentType.Text.Html
-            )
+            call.respondHtml {
+                body {
+                    for (router in routers) {
+                        with (router) {
+                            mainPage()
+                            br
+                        }
+                    }
+                }
+            }
         }
         for (router in routers) {
             with(router) {

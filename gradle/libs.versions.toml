@@ -19,7 +19,6 @@ dokka = "2.0.0"                    # https://github.com/Kotlin/dokka
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.14.0"      # https://commons.apache.org/proper/commons-csv/
 graphql = "8.8.0"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
-kotlinx-html = "0.12.0"            # https://github.com/Kotlin/kotlinx.html
 
 [libraries]
 
@@ -44,13 +43,13 @@ ktor-server-conditionalHeaders  = { version.ref = "ktor", group = "io.ktor", nam
 ktor-server-compression         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-compression" }
 ktor-server-tests               = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-tests" }
 ktor-server-websockets          = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-websockets" }
+ktor-server-html                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-html-builder" }
 
 
 kotlinx-datetime = { version.ref = "datetime", group = "org.jetbrains.kotlinx", name = "kotlinx-datetime" }
 kotlinx-serialization-json = { version.ref = "serialization", group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json" }
 kotlinx-coroutines-core = { version.ref = "coroutines", group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core" }
 kotlinx-collections-immutable = { version.ref = "immutable", group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable"}
-kotlinx-html = { version.ref = "kotlinx-html", group = "org.jetbrains.kotlinx", name = "kotlinx-html"}
 
 kotlin-junit   = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
 kotlin-reflect = { version.ref = "kotlin", group = "org.jetbrains.kotlin", name = "kotlin-reflect" }

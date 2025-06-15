@@ -1,5 +1,6 @@
 package org.icpclive.converter.export.clics
 
+import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
@@ -9,6 +10,7 @@ import io.ktor.utils.io.*
 import kotlinx.collections.immutable.persistentMapOf
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
+import kotlinx.html.*
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
@@ -436,63 +438,72 @@ object ClicsExporter : Exporter {
             explicitNulls = false
             serializersModule = clicsEventsSerializersModule(FeedVersion.`2023_06`, tokenPrefix = "")
         }
-        return Router {
-            route("/clics/api") {
-                install(ContentNegotiation) { json(json) }
-                get {
-                    call.respond(
-                        ApiInformation(
-                            version = FeedVersion.`2023_06`.name,
-                            versionUrl = FeedVersion.`2023_06`.url,
-                            provider = ApiInformationProvider(
-                                name = "icpc live"
-                            )
-                        )
-                    )
-                }
-                route("/contests") {
-                    get { call.respond(listOf(contestFlow.first())) }
-                    getGlobal("contest", contestFlow)
-                    route("contest") {
-                        getGlobal("state", stateFlow)
-                        getId("judgement-types", judgementTypesFlow)
-                        getId("languages", languagesFlow)
-                        getId("problems", problemsFlow)
-                        getId("groups", groupsFlow)
-                        getId("organizations", organizationsFlow)
-                        getId("teams", teamsFlow)
-                        getId("submissions", submissionsFlow)
-                        getId("judgements", judgementsFlow)
-                        //getId("runs", runsFlow)
-                        getId("commentary", commentaryFlow)
-                        //getId("persons", personsFlow)
-                        //getId("accounts", accountsFlow)
-                        //getId("clarifications", clarificationsFlow)
-                        getId("awards", awardsFlow)
-                        get("/scoreboard") { call.respond(currentState.filterNotNull().first().toClicsScoreboard()) }
-                        get("/event-feed") {
-                            call.respondBytesWriter {
-                                eventFeed
-                                    .map { json.encodeToString(it) }
-                                    .onIdle(1.minutes) { channel.send("") }
-                                    .collect {
-                                        writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
-                                        flush()
-                                    }
-                            }
-                        }
-                        get("/access") {
-                            call.respond(
-                                Access(
-                                    emptyList(),
-                                    endpoint.entries.map { (k, v) ->
-                                        Endpoint(
-                                            k,
-                                            v.elementNames.toList()
-                                        )
-                                    }
+        return object : Router {
+            override fun HtmlBlockTag.mainPage() {
+                a("/clics/api") { +"Clics api root" }
+                br
+                a("/clics/api/contests/contest") { +"Clics contest api root" }
+                br
+                a("/clics/api/contests/contest/event-feed") { +"Clics event feed" }
+            }
+            override fun Route.setUpRoutes() {
+                route("/clics/api") {
+                    install(ContentNegotiation) { json(json) }
+                    get {
+                        call.respond(
+                            ApiInformation(
+                                version = FeedVersion.`2023_06`.name,
+                                versionUrl = FeedVersion.`2023_06`.url,
+                                provider = ApiInformationProvider(
+                                    name = "icpc live"
                                 )
                             )
+                        )
+                    }
+                    route("/contests") {
+                        get { call.respond(listOf(contestFlow.first())) }
+                        getGlobal("contest", contestFlow)
+                        route("contest") {
+                            getGlobal("state", stateFlow)
+                            getId("judgement-types", judgementTypesFlow)
+                            getId("languages", languagesFlow)
+                            getId("problems", problemsFlow)
+                            getId("groups", groupsFlow)
+                            getId("organizations", organizationsFlow)
+                            getId("teams", teamsFlow)
+                            getId("submissions", submissionsFlow)
+                            getId("judgements", judgementsFlow)
+                            //getId("runs", runsFlow)
+                            getId("commentary", commentaryFlow)
+                            //getId("persons", personsFlow)
+                            //getId("accounts", accountsFlow)
+                            //getId("clarifications", clarificationsFlow)
+                            getId("awards", awardsFlow)
+                            get("/scoreboard") { call.respond(currentState.filterNotNull().first().toClicsScoreboard()) }
+                            get("/event-feed") {
+                                call.respondBytesWriter(contentType = ContentType("application", "x-ndjson")) {
+                                    eventFeed
+                                        .map { json.encodeToString(it) }
+                                        .onIdle(1.minutes) { channel.send("") }
+                                        .collect {
+                                            writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
+                                            flush()
+                                        }
+                                }
+                            }
+                            get("/access") {
+                                call.respond(
+                                    Access(
+                                        emptyList(),
+                                        endpoint.entries.map { (k, v) ->
+                                            Endpoint(
+                                                k,
+                                                v.elementNames.toList()
+                                            )
+                                        }
+                                    )
+                                )
+                            }
                         }
                     }
                 }
