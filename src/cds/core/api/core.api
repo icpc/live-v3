@@ -85,6 +85,10 @@ public final class org/icpclive/cds/adapters/AutoFinalizeKt {
 	public static final fun autoFinalize (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun finalContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun finalContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun finalContestStateWithScoreboard (Lkotlinx/coroutines/flow/Flow;Lorg/icpclive/cds/api/OptimismLevel;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun finalContestStateWithScoreboard (Lkotlinx/coroutines/flow/Flow;Lorg/icpclive/cds/api/OptimismLevel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun finalContestStateWithScoreboard$default (Lkotlinx/coroutines/flow/Flow;Lorg/icpclive/cds/api/OptimismLevel;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun finalContestStateWithScoreboard$default (Lkotlinx/coroutines/flow/Flow;Lorg/icpclive/cds/api/OptimismLevel;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class org/icpclive/cds/adapters/ComputedDataConfig {
