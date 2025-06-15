@@ -1,12 +1,21 @@
+@file:OptIn(ExperimentalAbiValidation::class)
+
 import com.google.protobuf.gradle.*
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 plugins {
     id("live.cds-plugin-conventions")
     alias(libs.plugins.protobuf)
 }
 
-apiValidation {
-    ignoredPackages.add("io.codedrills.proto")
+kotlin {
+    abiValidation {
+        filters {
+            excluded {
+                byNames.add("io.codedrills.proto.**")
+            }
+        }
+    }
 }
 
 protobuf {

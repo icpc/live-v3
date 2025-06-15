@@ -19,7 +19,6 @@ dokka = "2.0.0"                    # https://github.com/Kotlin/dokka
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.14.0"      # https://commons.apache.org/proper/commons-csv/
 graphql = "8.8.0"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
-bcv = "0.17.0"                     # https://github.com/Kotlin/binary-compatibility-validator
 kotlinx-html = "0.12.0"            # https://github.com/Kotlin/kotlinx.html
 
 [libraries]
@@ -83,7 +82,6 @@ ksp = { version.ref = "ksp", group = "com.google.devtools.ksp", name = "symbol-p
 gradleplugin-kotlin-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 gradleplugin-shadow = { group = "com.gradleup.shadow", name = "shadow-gradle-plugin", version.ref = "shadow-plugin" }
 gradleplugin-dokka = { group = "org.jetbrains.dokka", name = "dokka-gradle-plugin", version.ref = "dokka"}
-gradleplugin-bcv = { group = "org.jetbrains.kotlinx.binary-compatibility-validator", name = "org.jetbrains.kotlinx.binary-compatibility-validator.gradle.plugin", version.ref = "bcv" }
 gradleplugin-ksp = { group = "com.google.devtools.ksp", name = "symbol-processing-gradle-plugin", version.ref = "ksp"}
 gradleplugin-kotlin-serialization = { group = "org.jetbrains.kotlin.plugin.serialization", name = "org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
 

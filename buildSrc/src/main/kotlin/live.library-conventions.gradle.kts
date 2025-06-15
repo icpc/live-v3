@@ -1,21 +1,28 @@
+@file:OptIn(ExperimentalAbiValidation::class)
+
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 import java.net.*
 
 plugins {
     id("live.kotlin-conventions")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
     `java-library`
     `maven-publish`
 }
 
 kotlin {
     explicitApi()
+    abiValidation {
+        enabled = true
+    }
 }
 
-// looks like a bcv plugin bug
 tasks {
-    apiCheck {
-        mustRunAfter(tasks.apiDump)
+    val apiDump by registering {
+        dependsOn(updateLegacyAbi)
+    }
+    val apiCheck by registering {
+        dependsOn(checkLegacyAbi)
     }
 }
 

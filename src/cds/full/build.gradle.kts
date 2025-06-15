@@ -1,11 +1,16 @@
+@file:OptIn(ExperimentalAbiValidation::class)
+
 import org.gradle.api.internal.catalog.DelegatingProjectDependency
+import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 plugins {
     id("live.library-conventions")
 }
 
-apiValidation {
-    validationDisabled = true
+kotlin {
+    abiValidation {
+        enabled = false
+    }
 }
 
 dokka {
