@@ -1,4 +1,4 @@
-package org.icpclive.export.pcms
+package org.icpclive.converter.export.pcms
 
 enum class KnownAwards(
     val awardId: String,

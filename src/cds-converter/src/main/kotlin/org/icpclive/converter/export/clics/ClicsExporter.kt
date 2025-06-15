@@ -1,4 +1,4 @@
-package org.icpclive.export.clics
+package org.icpclive.converter.export.clics
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -13,18 +13,14 @@ import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
 import kotlinx.serialization.json.Json
-import org.icpclive.Exporter
-import org.icpclive.Router
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.api.CommentaryMessage
-import org.icpclive.clics.*
-import org.icpclive.clics.v202306.objects.*
-import org.icpclive.clics.v202306.events.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.onIdle
+import org.icpclive.clics.*
 import org.icpclive.clics.events.*
+import org.icpclive.clics.v202306.events.*
 import org.icpclive.clics.v202306.events.AwardEvent
 import org.icpclive.clics.v202306.events.CommentaryEvent
 import org.icpclive.clics.v202306.events.ContestEvent
@@ -37,9 +33,11 @@ import org.icpclive.clics.v202306.events.ProblemEvent
 import org.icpclive.clics.v202306.events.StateEvent
 import org.icpclive.clics.v202306.events.SubmissionEvent
 import org.icpclive.clics.v202306.events.TeamEvent
-import org.icpclive.clics.v202306.objects.ScoreboardRowProblem
+import org.icpclive.clics.v202306.objects.*
 import org.icpclive.clics.v202306.objects.Award
 import org.icpclive.clics.v202306.objects.ScoreboardRow
+import org.icpclive.converter.export.Exporter
+import org.icpclive.converter.export.Router
 import java.nio.ByteBuffer
 import kotlin.time.Duration.Companion.minutes
 

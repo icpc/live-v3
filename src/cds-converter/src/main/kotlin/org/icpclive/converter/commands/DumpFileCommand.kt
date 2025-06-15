@@ -1,4 +1,4 @@
-package org.icpclive
+package org.icpclive.converter.commands
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context

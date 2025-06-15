@@ -1,12 +1,10 @@
-package org.icpclive
+package org.icpclive.converter.commands
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.groups.cooccurring
 import com.github.ajalt.clikt.parameters.groups.provideDelegate
-import org.icpclive.server.LoggingOptions
-import org.icpclive.server.Publisher
-import org.icpclive.server.ServerOptions
+import org.icpclive.server.*
 
 object ServerCommand : CliktCommand(name = "server") {
     override val printHelpOnEmptyArgs = true

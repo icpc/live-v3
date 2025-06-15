@@ -1,11 +1,11 @@
-package org.icpclive.export.icpc
+package org.icpclive.converter.export.icpc
 
 import io.ktor.http.*
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVPrinter
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.export.SingleFileExporter
+import org.icpclive.converter.export.SingleFileExporter
 
 
 object IcpcCsvExporter : SingleFileExporter("/icpc","standings.csv", ContentType.Text.CSV) {

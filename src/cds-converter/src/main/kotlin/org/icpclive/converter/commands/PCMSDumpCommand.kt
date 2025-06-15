@@ -1,8 +1,8 @@
-package org.icpclive
+package org.icpclive.converter.commands
 
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.export.pcms.PCMSHtmlExporter
-import org.icpclive.export.pcms.PCMSXmlExporter
+import org.icpclive.converter.export.pcms.PCMSHtmlExporter
+import org.icpclive.converter.export.pcms.PCMSXmlExporter
 
 object PCMSDumpCommand : DumpFileCommand(
     name = "pcms",

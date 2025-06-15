@@ -1,8 +1,7 @@
-package org.icpclive
+package org.icpclive.converter.commands
 
-import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.export.icpc.IcpcCsvExporter
+import org.icpclive.converter.export.icpc.IcpcCsvExporter
 
 object IcpcCSVDumpCommand : DumpFileCommand(
     name = "icpc-csv",

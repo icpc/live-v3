@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass = "org.icpclive.ApplicationKt"
+    mainClass = "org.icpclive.converter.ApplicationKt"
 }
 
 tasks.runTask {
