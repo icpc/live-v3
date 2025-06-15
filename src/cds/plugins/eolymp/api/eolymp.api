@@ -9,7 +9,7 @@ public final class com/eolymp/graphql/JudgeContestDetails : com/expediagroup/gra
 	public fun responseType ()Lkotlin/reflect/KClass;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestDetails$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestDetails$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestDetails$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestDetails;
@@ -35,7 +35,7 @@ public final class com/eolymp/graphql/JudgeContestDetails$Result {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestDetails$Result$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestDetails$Result$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestDetails$Result$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestDetails$Result;
@@ -63,7 +63,7 @@ public final class com/eolymp/graphql/JudgeContestDetails$Variables {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestDetails$Variables$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestDetails$Variables$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestDetails$Variables$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestDetails$Variables;
@@ -92,7 +92,7 @@ public final class com/eolymp/graphql/JudgeContestSubmissions : com/expediagroup
 	public fun responseType ()Lkotlin/reflect/KClass;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestSubmissions$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestSubmissions$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestSubmissions$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestSubmissions;
@@ -118,7 +118,7 @@ public final class com/eolymp/graphql/JudgeContestSubmissions$Result {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestSubmissions$Result$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestSubmissions$Result$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestSubmissions$Result$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestSubmissions$Result;
@@ -149,7 +149,7 @@ public final class com/eolymp/graphql/JudgeContestSubmissions$Variables {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestSubmissions$Variables$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestSubmissions$Variables$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestSubmissions$Variables$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestSubmissions$Variables;
@@ -178,7 +178,7 @@ public final class com/eolymp/graphql/JudgeContestTeams : com/expediagroup/graph
 	public fun responseType ()Lkotlin/reflect/KClass;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestTeams$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestTeams$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestTeams$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestTeams;
@@ -204,7 +204,7 @@ public final class com/eolymp/graphql/JudgeContestTeams$Result {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestTeams$Result$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestTeams$Result$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestTeams$Result$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestTeams$Result;
@@ -235,7 +235,7 @@ public final class com/eolymp/graphql/JudgeContestTeams$Variables {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/JudgeContestTeams$Variables$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/JudgeContestTeams$Variables$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/JudgeContestTeams$Variables$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/JudgeContestTeams$Variables;
@@ -280,7 +280,7 @@ public final class com/eolymp/graphql/judgecontestdetails/JudgeContest {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeContest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestdetails/JudgeContest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestdetails/JudgeContest$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestdetails/JudgeContest;
@@ -306,7 +306,7 @@ public final class com/eolymp/graphql/judgecontestdetails/JudgeContestScoreboard
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeContestScoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestdetails/JudgeContestScoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestdetails/JudgeContestScoreboard$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestdetails/JudgeContestScoreboard;
@@ -341,7 +341,7 @@ public final class com/eolymp/graphql/judgecontestdetails/JudgeProblem {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestdetails/JudgeProblem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestdetails/JudgeProblem;
@@ -367,7 +367,7 @@ public final class com/eolymp/graphql/judgecontestdetails/JudgeProblemConnection
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblemConnection$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblemConnection$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestdetails/JudgeProblemConnection$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestdetails/JudgeProblemConnection;
@@ -393,7 +393,7 @@ public final class com/eolymp/graphql/judgecontestdetails/JudgeProblemStatement 
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblemStatement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestdetails/JudgeProblemStatement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestdetails/JudgeProblemStatement$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestdetails/JudgeProblemStatement;
@@ -421,7 +421,7 @@ public final class com/eolymp/graphql/judgecontestsubmissions/JudgeContest {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeContest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeContest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestsubmissions/JudgeContest$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestsubmissions/JudgeContest;
@@ -447,7 +447,7 @@ public final class com/eolymp/graphql/judgecontestsubmissions/JudgeParticipant {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeParticipant$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeParticipant$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestsubmissions/JudgeParticipant$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestsubmissions/JudgeParticipant;
@@ -473,7 +473,7 @@ public final class com/eolymp/graphql/judgecontestsubmissions/JudgeProblem {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestsubmissions/JudgeProblem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestsubmissions/JudgeProblem;
@@ -520,7 +520,7 @@ public final class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmission {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmission$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmission;
@@ -548,7 +548,7 @@ public final class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionCon
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionConnection$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionConnection$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionConnection$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionConnection;
@@ -574,7 +574,7 @@ public final class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionGro
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionGroup$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionGroup$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionGroup$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestsubmissions/JudgeSubmissionGroup;
@@ -602,7 +602,7 @@ public final class com/eolymp/graphql/judgecontestsubmissions/PageInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestsubmissions/PageInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestsubmissions/PageInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestsubmissions/PageInfo$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestsubmissions/PageInfo;
@@ -630,7 +630,7 @@ public final class com/eolymp/graphql/judgecontestteams/JudgeContest {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestteams/JudgeContest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestteams/JudgeContest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestteams/JudgeContest$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestteams/JudgeContest;
@@ -660,7 +660,7 @@ public final class com/eolymp/graphql/judgecontestteams/JudgeParticipant {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestteams/JudgeParticipant$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestteams/JudgeParticipant$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestteams/JudgeParticipant$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestteams/JudgeParticipant;
@@ -688,7 +688,7 @@ public final class com/eolymp/graphql/judgecontestteams/JudgeParticipantConnecti
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestteams/JudgeParticipantConnection$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestteams/JudgeParticipantConnection$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestteams/JudgeParticipantConnection$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestteams/JudgeParticipantConnection;
@@ -716,7 +716,7 @@ public final class com/eolymp/graphql/judgecontestteams/PageInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class com/eolymp/graphql/judgecontestteams/PageInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class com/eolymp/graphql/judgecontestteams/PageInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lcom/eolymp/graphql/judgecontestteams/PageInfo$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lcom/eolymp/graphql/judgecontestteams/PageInfo;

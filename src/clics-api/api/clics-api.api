@@ -108,7 +108,7 @@ public final class org/icpclive/clics/events/EventToken {
 	public final synthetic fun unbox-impl ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/events/EventToken$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/events/EventToken$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/events/EventToken$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -421,7 +421,7 @@ public final class org/icpclive/clics/v202003/events/AwardEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/AwardEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -445,7 +445,7 @@ public final class org/icpclive/clics/v202003/events/ClarificationEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/ClarificationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -469,7 +469,7 @@ public final class org/icpclive/clics/v202003/events/CommentaryEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/CommentaryEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -492,7 +492,7 @@ public final class org/icpclive/clics/v202003/events/ContestEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/ContestEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -516,7 +516,7 @@ public final class org/icpclive/clics/v202003/events/GroupEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/GroupEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -540,7 +540,7 @@ public final class org/icpclive/clics/v202003/events/JudgementEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/JudgementEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -564,7 +564,7 @@ public final class org/icpclive/clics/v202003/events/JudgementTypeEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/JudgementTypeEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -588,7 +588,7 @@ public final class org/icpclive/clics/v202003/events/LanguageEvent : org/icpcliv
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/LanguageEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -626,7 +626,7 @@ public final class org/icpclive/clics/v202003/events/OrganizationEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/OrganizationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -650,7 +650,7 @@ public final class org/icpclive/clics/v202003/events/ProblemEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/ProblemEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -674,7 +674,7 @@ public final class org/icpclive/clics/v202003/events/RunEvent : org/icpclive/cli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/RunEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -697,7 +697,7 @@ public final class org/icpclive/clics/v202003/events/StateEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/StateEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -721,7 +721,7 @@ public final class org/icpclive/clics/v202003/events/SubmissionEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/SubmissionEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -745,7 +745,7 @@ public final class org/icpclive/clics/v202003/events/TeamEvent : org/icpclive/cl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/events/TeamEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -776,7 +776,7 @@ public final class org/icpclive/clics/v202003/objects/Award : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Award$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Award$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Award$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -817,7 +817,7 @@ public final class org/icpclive/clics/v202003/objects/Clarification : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Clarification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Clarification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Clarification$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -858,7 +858,7 @@ public final class org/icpclive/clics/v202003/objects/Commentary : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Commentary$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Commentary$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Commentary$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -911,7 +911,7 @@ public final class org/icpclive/clics/v202003/objects/Contest : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Contest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Contest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Contest$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -946,7 +946,7 @@ public final class org/icpclive/clics/v202003/objects/File : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/File$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/File$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/File$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -982,7 +982,7 @@ public final class org/icpclive/clics/v202003/objects/Group : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Group$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Group$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Group$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1025,7 +1025,7 @@ public final class org/icpclive/clics/v202003/objects/Judgement : org/icpclive/c
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Judgement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Judgement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Judgement$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1057,7 +1057,7 @@ public final class org/icpclive/clics/v202003/objects/JudgementType : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/JudgementType$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/JudgementType$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/JudgementType$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1086,7 +1086,7 @@ public final class org/icpclive/clics/v202003/objects/Language : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Language$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Language$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Language$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1116,7 +1116,7 @@ public final class org/icpclive/clics/v202003/objects/Location : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Location$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1163,7 +1163,7 @@ public final class org/icpclive/clics/v202003/objects/Organization : org/icpcliv
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Organization$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1210,7 +1210,7 @@ public final class org/icpclive/clics/v202003/objects/Problem : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Problem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Problem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Problem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1249,7 +1249,7 @@ public final class org/icpclive/clics/v202003/objects/Run : org/icpclive/clics/o
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Run$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Run$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Run$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1282,7 +1282,7 @@ public final class org/icpclive/clics/v202003/objects/Scoreboard : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Scoreboard$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1315,7 +1315,7 @@ public final class org/icpclive/clics/v202003/objects/ScoreboardRow : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/ScoreboardRow$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1350,7 +1350,7 @@ public final class org/icpclive/clics/v202003/objects/ScoreboardRowProblem : org
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/ScoreboardRowProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/ScoreboardRowProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/ScoreboardRowProblem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1378,7 +1378,7 @@ public final class org/icpclive/clics/v202003/objects/ScoreboardRowScore : org/i
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/ScoreboardRowScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/ScoreboardRowScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/ScoreboardRowScore$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1418,7 +1418,7 @@ public final class org/icpclive/clics/v202003/objects/State : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/State$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/State$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/State$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1461,7 +1461,7 @@ public final class org/icpclive/clics/v202003/objects/Submission : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Submission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Submission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Submission$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1518,7 +1518,7 @@ public final class org/icpclive/clics/v202003/objects/Team : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202003/objects/Team$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202003/objects/Team$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202003/objects/Team$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1542,7 +1542,7 @@ public final class org/icpclive/clics/v202207/events/AccountEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/AccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/AccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/AccountEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1566,7 +1566,7 @@ public final class org/icpclive/clics/v202207/events/AwardEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/AwardEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1589,7 +1589,7 @@ public final class org/icpclive/clics/v202207/events/BatchAccountEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchAccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchAccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchAccountEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1612,7 +1612,7 @@ public final class org/icpclive/clics/v202207/events/BatchAwardEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchAwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchAwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchAwardEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1635,7 +1635,7 @@ public final class org/icpclive/clics/v202207/events/BatchClarificationEvent : o
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchClarificationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1658,7 +1658,7 @@ public final class org/icpclive/clics/v202207/events/BatchCommentaryEvent : org/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchCommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchCommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchCommentaryEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1681,7 +1681,7 @@ public final class org/icpclive/clics/v202207/events/BatchGroupEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchGroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchGroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchGroupEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1704,7 +1704,7 @@ public final class org/icpclive/clics/v202207/events/BatchJudgementEvent : org/i
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchJudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchJudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchJudgementEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1727,7 +1727,7 @@ public final class org/icpclive/clics/v202207/events/BatchJudgementTypeEvent : o
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchJudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchJudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchJudgementTypeEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1750,7 +1750,7 @@ public final class org/icpclive/clics/v202207/events/BatchLanguageEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchLanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchLanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchLanguageEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1773,7 +1773,7 @@ public final class org/icpclive/clics/v202207/events/BatchOrganizationEvent : or
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchOrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchOrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchOrganizationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1796,7 +1796,7 @@ public final class org/icpclive/clics/v202207/events/BatchPersonEvent : org/icpc
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchPersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchPersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchPersonEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1819,7 +1819,7 @@ public final class org/icpclive/clics/v202207/events/BatchProblemEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchProblemEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1842,7 +1842,7 @@ public final class org/icpclive/clics/v202207/events/BatchRunEvent : org/icpcliv
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchRunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchRunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchRunEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1865,7 +1865,7 @@ public final class org/icpclive/clics/v202207/events/BatchSubmissionEvent : org/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchSubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchSubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchSubmissionEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1888,7 +1888,7 @@ public final class org/icpclive/clics/v202207/events/BatchTeamEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/BatchTeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/BatchTeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/BatchTeamEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1912,7 +1912,7 @@ public final class org/icpclive/clics/v202207/events/ClarificationEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/ClarificationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1936,7 +1936,7 @@ public final class org/icpclive/clics/v202207/events/CommentaryEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/CommentaryEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1959,7 +1959,7 @@ public final class org/icpclive/clics/v202207/events/ContestEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/ContestEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -1983,7 +1983,7 @@ public final class org/icpclive/clics/v202207/events/GroupEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/GroupEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2007,7 +2007,7 @@ public final class org/icpclive/clics/v202207/events/JudgementEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/JudgementEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2031,7 +2031,7 @@ public final class org/icpclive/clics/v202207/events/JudgementTypeEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/JudgementTypeEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2055,7 +2055,7 @@ public final class org/icpclive/clics/v202207/events/LanguageEvent : org/icpcliv
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/LanguageEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2079,7 +2079,7 @@ public final class org/icpclive/clics/v202207/events/OrganizationEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/OrganizationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2103,7 +2103,7 @@ public final class org/icpclive/clics/v202207/events/PersonEvent : org/icpclive/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/PersonEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2127,7 +2127,7 @@ public final class org/icpclive/clics/v202207/events/ProblemEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/ProblemEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2151,7 +2151,7 @@ public final class org/icpclive/clics/v202207/events/RunEvent : org/icpclive/cli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/RunEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2174,7 +2174,7 @@ public final class org/icpclive/clics/v202207/events/StateEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/StateEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2198,7 +2198,7 @@ public final class org/icpclive/clics/v202207/events/SubmissionEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/SubmissionEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2222,7 +2222,7 @@ public final class org/icpclive/clics/v202207/events/TeamEvent : org/icpclive/cl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/events/TeamEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2252,7 +2252,7 @@ public final class org/icpclive/clics/v202207/objects/Access : org/icpclive/clic
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Access$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Access$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Access$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2291,7 +2291,7 @@ public final class org/icpclive/clics/v202207/objects/Account : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Account$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Account$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Account$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2325,7 +2325,7 @@ public final class org/icpclive/clics/v202207/objects/ApiInformation : org/icpcl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/ApiInformation$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/ApiInformation$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/ApiInformation$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2356,7 +2356,7 @@ public final class org/icpclive/clics/v202207/objects/Award : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Award$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Award$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Award$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2397,7 +2397,7 @@ public final class org/icpclive/clics/v202207/objects/Clarification : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Clarification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Clarification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Clarification$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2440,7 +2440,7 @@ public final class org/icpclive/clics/v202207/objects/Commentary : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Commentary$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Commentary$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Commentary$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2493,7 +2493,7 @@ public final class org/icpclive/clics/v202207/objects/Contest : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Contest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Contest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Contest$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2523,7 +2523,7 @@ public final class org/icpclive/clics/v202207/objects/Endpoint : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Endpoint$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Endpoint$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Endpoint$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2560,7 +2560,7 @@ public final class org/icpclive/clics/v202207/objects/File : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/File$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/File$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/File$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2596,7 +2596,7 @@ public final class org/icpclive/clics/v202207/objects/Group : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Group$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Group$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Group$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2639,7 +2639,7 @@ public final class org/icpclive/clics/v202207/objects/Judgement : org/icpclive/c
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Judgement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Judgement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Judgement$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2671,7 +2671,7 @@ public final class org/icpclive/clics/v202207/objects/JudgementType : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/JudgementType$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/JudgementType$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/JudgementType$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2702,7 +2702,7 @@ public final class org/icpclive/clics/v202207/objects/Language : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Language$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Language$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Language$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2732,7 +2732,7 @@ public final class org/icpclive/clics/v202207/objects/Location : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Location$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2779,7 +2779,7 @@ public final class org/icpclive/clics/v202207/objects/Organization : org/icpcliv
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Organization$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2822,7 +2822,7 @@ public final class org/icpclive/clics/v202207/objects/Person : org/icpclive/clic
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Person$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Person$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Person$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2869,7 +2869,7 @@ public final class org/icpclive/clics/v202207/objects/Problem : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Problem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Problem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Problem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2908,7 +2908,7 @@ public final class org/icpclive/clics/v202207/objects/Run : org/icpclive/clics/o
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Run$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Run$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Run$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2941,7 +2941,7 @@ public final class org/icpclive/clics/v202207/objects/Scoreboard : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Scoreboard$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -2974,7 +2974,7 @@ public final class org/icpclive/clics/v202207/objects/ScoreboardRow : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/ScoreboardRow$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3009,7 +3009,7 @@ public final class org/icpclive/clics/v202207/objects/ScoreboardRowProblem : org
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/ScoreboardRowProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/ScoreboardRowProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/ScoreboardRowProblem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3037,7 +3037,7 @@ public final class org/icpclive/clics/v202207/objects/ScoreboardRowScore : org/i
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/ScoreboardRowScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/ScoreboardRowScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/ScoreboardRowScore$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3077,7 +3077,7 @@ public final class org/icpclive/clics/v202207/objects/State : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/State$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/State$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/State$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3120,7 +3120,7 @@ public final class org/icpclive/clics/v202207/objects/Submission : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Submission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Submission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Submission$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3177,7 +3177,7 @@ public final class org/icpclive/clics/v202207/objects/Team : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202207/objects/Team$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202207/objects/Team$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202207/objects/Team$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3201,7 +3201,7 @@ public final class org/icpclive/clics/v202306/events/AccountEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/AccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/AccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/AccountEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3225,7 +3225,7 @@ public final class org/icpclive/clics/v202306/events/AwardEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/AwardEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3248,7 +3248,7 @@ public final class org/icpclive/clics/v202306/events/BatchAccountEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchAccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchAccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchAccountEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3271,7 +3271,7 @@ public final class org/icpclive/clics/v202306/events/BatchAwardEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchAwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchAwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchAwardEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3294,7 +3294,7 @@ public final class org/icpclive/clics/v202306/events/BatchClarificationEvent : o
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchClarificationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3317,7 +3317,7 @@ public final class org/icpclive/clics/v202306/events/BatchCommentaryEvent : org/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchCommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchCommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchCommentaryEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3340,7 +3340,7 @@ public final class org/icpclive/clics/v202306/events/BatchGroupEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchGroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchGroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchGroupEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3363,7 +3363,7 @@ public final class org/icpclive/clics/v202306/events/BatchJudgementEvent : org/i
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchJudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchJudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchJudgementEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3386,7 +3386,7 @@ public final class org/icpclive/clics/v202306/events/BatchJudgementTypeEvent : o
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchJudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchJudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchJudgementTypeEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3409,7 +3409,7 @@ public final class org/icpclive/clics/v202306/events/BatchLanguageEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchLanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchLanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchLanguageEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3432,7 +3432,7 @@ public final class org/icpclive/clics/v202306/events/BatchOrganizationEvent : or
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchOrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchOrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchOrganizationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3455,7 +3455,7 @@ public final class org/icpclive/clics/v202306/events/BatchPersonEvent : org/icpc
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchPersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchPersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchPersonEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3478,7 +3478,7 @@ public final class org/icpclive/clics/v202306/events/BatchProblemEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchProblemEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3501,7 +3501,7 @@ public final class org/icpclive/clics/v202306/events/BatchRunEvent : org/icpcliv
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchRunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchRunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchRunEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3524,7 +3524,7 @@ public final class org/icpclive/clics/v202306/events/BatchSubmissionEvent : org/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchSubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchSubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchSubmissionEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3547,7 +3547,7 @@ public final class org/icpclive/clics/v202306/events/BatchTeamEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/BatchTeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/BatchTeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/BatchTeamEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3571,7 +3571,7 @@ public final class org/icpclive/clics/v202306/events/ClarificationEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/ClarificationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3595,7 +3595,7 @@ public final class org/icpclive/clics/v202306/events/CommentaryEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/CommentaryEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3618,7 +3618,7 @@ public final class org/icpclive/clics/v202306/events/ContestEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/ContestEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3642,7 +3642,7 @@ public final class org/icpclive/clics/v202306/events/GroupEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/GroupEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3666,7 +3666,7 @@ public final class org/icpclive/clics/v202306/events/JudgementEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/JudgementEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3690,7 +3690,7 @@ public final class org/icpclive/clics/v202306/events/JudgementTypeEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/JudgementTypeEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3714,7 +3714,7 @@ public final class org/icpclive/clics/v202306/events/LanguageEvent : org/icpcliv
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/LanguageEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3738,7 +3738,7 @@ public final class org/icpclive/clics/v202306/events/OrganizationEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/OrganizationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3762,7 +3762,7 @@ public final class org/icpclive/clics/v202306/events/PersonEvent : org/icpclive/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/PersonEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3786,7 +3786,7 @@ public final class org/icpclive/clics/v202306/events/ProblemEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/ProblemEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3810,7 +3810,7 @@ public final class org/icpclive/clics/v202306/events/RunEvent : org/icpclive/cli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/RunEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3833,7 +3833,7 @@ public final class org/icpclive/clics/v202306/events/StateEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/StateEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3857,7 +3857,7 @@ public final class org/icpclive/clics/v202306/events/SubmissionEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/SubmissionEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3881,7 +3881,7 @@ public final class org/icpclive/clics/v202306/events/TeamEvent : org/icpclive/cl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/events/TeamEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3911,7 +3911,7 @@ public final class org/icpclive/clics/v202306/objects/Access : org/icpclive/clic
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Access$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Access$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Access$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3950,7 +3950,7 @@ public final class org/icpclive/clics/v202306/objects/Account : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Account$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Account$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Account$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -3983,7 +3983,7 @@ public final class org/icpclive/clics/v202306/objects/ApiInformation : org/icpcl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/ApiInformation$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/ApiInformation$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/ApiInformation$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4015,7 +4015,7 @@ public final class org/icpclive/clics/v202306/objects/ApiInformationProvider : o
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/ApiInformationProvider$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/ApiInformationProvider$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/ApiInformationProvider$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4046,7 +4046,7 @@ public final class org/icpclive/clics/v202306/objects/Award : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Award$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Award$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Award$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4087,7 +4087,7 @@ public final class org/icpclive/clics/v202306/objects/Clarification : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Clarification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Clarification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Clarification$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4130,7 +4130,7 @@ public final class org/icpclive/clics/v202306/objects/Commentary : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Commentary$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Commentary$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Commentary$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4182,7 +4182,7 @@ public final class org/icpclive/clics/v202306/objects/Contest : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Contest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Contest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Contest$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4212,7 +4212,7 @@ public final class org/icpclive/clics/v202306/objects/Endpoint : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Endpoint$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Endpoint$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Endpoint$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4249,7 +4249,7 @@ public final class org/icpclive/clics/v202306/objects/File : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/File$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/File$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/File$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4285,7 +4285,7 @@ public final class org/icpclive/clics/v202306/objects/Group : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Group$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Group$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Group$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4328,7 +4328,7 @@ public final class org/icpclive/clics/v202306/objects/Judgement : org/icpclive/c
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Judgement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Judgement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Judgement$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4360,7 +4360,7 @@ public final class org/icpclive/clics/v202306/objects/JudgementType : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/JudgementType$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/JudgementType$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/JudgementType$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4391,7 +4391,7 @@ public final class org/icpclive/clics/v202306/objects/Language : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Language$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Language$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Language$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4421,7 +4421,7 @@ public final class org/icpclive/clics/v202306/objects/Location : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Location$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4469,7 +4469,7 @@ public final class org/icpclive/clics/v202306/objects/Organization : org/icpcliv
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Organization$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4512,7 +4512,7 @@ public final class org/icpclive/clics/v202306/objects/Person : org/icpclive/clic
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Person$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Person$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Person$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4559,7 +4559,7 @@ public final class org/icpclive/clics/v202306/objects/Problem : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Problem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Problem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Problem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4598,7 +4598,7 @@ public final class org/icpclive/clics/v202306/objects/Run : org/icpclive/clics/o
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Run$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Run$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Run$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4631,7 +4631,7 @@ public final class org/icpclive/clics/v202306/objects/Scoreboard : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Scoreboard$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4664,7 +4664,7 @@ public final class org/icpclive/clics/v202306/objects/ScoreboardRow : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/ScoreboardRow$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4699,7 +4699,7 @@ public final class org/icpclive/clics/v202306/objects/ScoreboardRowProblem : org
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/ScoreboardRowProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/ScoreboardRowProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/ScoreboardRowProblem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4727,7 +4727,7 @@ public final class org/icpclive/clics/v202306/objects/ScoreboardRowScore : org/i
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/ScoreboardRowScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/ScoreboardRowScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/ScoreboardRowScore$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4767,7 +4767,7 @@ public final class org/icpclive/clics/v202306/objects/State : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/State$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/State$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/State$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4810,7 +4810,7 @@ public final class org/icpclive/clics/v202306/objects/Submission : org/icpclive/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Submission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Submission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Submission$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4867,7 +4867,7 @@ public final class org/icpclive/clics/v202306/objects/Team : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/v202306/objects/Team$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/v202306/objects/Team$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/v202306/objects/Team$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4891,7 +4891,7 @@ public final class org/icpclive/clics/vDRAFT/events/AccountEvent : org/icpclive/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/AccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/AccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/AccountEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4915,7 +4915,7 @@ public final class org/icpclive/clics/vDRAFT/events/AwardEvent : org/icpclive/cl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/AwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/AwardEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4938,7 +4938,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchAccountEvent : org/icpc
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchAccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchAccountEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchAccountEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4961,7 +4961,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchAwardEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchAwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchAwardEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchAwardEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -4984,7 +4984,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchClarificationEvent : or
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchClarificationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5007,7 +5007,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchCommentaryEvent : org/i
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchCommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchCommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchCommentaryEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5030,7 +5030,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchGroupEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchGroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchGroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchGroupEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5053,7 +5053,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchJudgementEvent : org/ic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchJudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchJudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchJudgementEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5076,7 +5076,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchJudgementTypeEvent : or
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchJudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchJudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchJudgementTypeEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5099,7 +5099,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchLanguageEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchLanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchLanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchLanguageEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5122,7 +5122,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchOrganizationEvent : org
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchOrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchOrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchOrganizationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5145,7 +5145,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchPersonEvent : org/icpcl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchPersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchPersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchPersonEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5168,7 +5168,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchProblemEvent : org/icpc
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchProblemEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5191,7 +5191,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchRunEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchRunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchRunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchRunEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5214,7 +5214,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchSubmissionEvent : org/i
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchSubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchSubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchSubmissionEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5237,7 +5237,7 @@ public final class org/icpclive/clics/vDRAFT/events/BatchTeamEvent : org/icpcliv
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/BatchTeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/BatchTeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/BatchTeamEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5261,7 +5261,7 @@ public final class org/icpclive/clics/vDRAFT/events/ClarificationEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/ClarificationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/ClarificationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5285,7 +5285,7 @@ public final class org/icpclive/clics/vDRAFT/events/CommentaryEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/CommentaryEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/CommentaryEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5308,7 +5308,7 @@ public final class org/icpclive/clics/vDRAFT/events/ContestEvent : org/icpclive/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/ContestEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/ContestEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5332,7 +5332,7 @@ public final class org/icpclive/clics/vDRAFT/events/GroupEvent : org/icpclive/cl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/GroupEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/GroupEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5356,7 +5356,7 @@ public final class org/icpclive/clics/vDRAFT/events/JudgementEvent : org/icpcliv
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/JudgementEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/JudgementEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5380,7 +5380,7 @@ public final class org/icpclive/clics/vDRAFT/events/JudgementTypeEvent : org/icp
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/JudgementTypeEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/JudgementTypeEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5404,7 +5404,7 @@ public final class org/icpclive/clics/vDRAFT/events/LanguageEvent : org/icpclive
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/LanguageEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/LanguageEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5428,7 +5428,7 @@ public final class org/icpclive/clics/vDRAFT/events/OrganizationEvent : org/icpc
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/OrganizationEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/OrganizationEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5452,7 +5452,7 @@ public final class org/icpclive/clics/vDRAFT/events/PersonEvent : org/icpclive/c
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/PersonEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/PersonEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5476,7 +5476,7 @@ public final class org/icpclive/clics/vDRAFT/events/ProblemEvent : org/icpclive/
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/ProblemEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/ProblemEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5500,7 +5500,7 @@ public final class org/icpclive/clics/vDRAFT/events/RunEvent : org/icpclive/clic
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/RunEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/RunEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5523,7 +5523,7 @@ public final class org/icpclive/clics/vDRAFT/events/StateEvent : org/icpclive/cl
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/StateEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/StateEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5547,7 +5547,7 @@ public final class org/icpclive/clics/vDRAFT/events/SubmissionEvent : org/icpcli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/SubmissionEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/SubmissionEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5571,7 +5571,7 @@ public final class org/icpclive/clics/vDRAFT/events/TeamEvent : org/icpclive/cli
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/events/TeamEvent$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/events/TeamEvent$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5601,7 +5601,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Access : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Access$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Access$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Access$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5640,7 +5640,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Account : org/icpclive/clic
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Account$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Account$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Account$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5673,7 +5673,7 @@ public final class org/icpclive/clics/vDRAFT/objects/ApiInformation : org/icpcli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/ApiInformation$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/ApiInformation$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/ApiInformation$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5705,7 +5705,7 @@ public final class org/icpclive/clics/vDRAFT/objects/ApiInformationProvider : or
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/ApiInformationProvider$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/ApiInformationProvider$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/ApiInformationProvider$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5736,7 +5736,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Award : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Award$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Award$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Award$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5777,7 +5777,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Clarification : org/icpcliv
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Clarification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Clarification$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Clarification$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5820,7 +5820,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Commentary : org/icpclive/c
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Commentary$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Commentary$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Commentary$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5872,7 +5872,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Contest : org/icpclive/clic
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Contest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Contest$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Contest$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5902,7 +5902,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Endpoint : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Endpoint$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Endpoint$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Endpoint$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5939,7 +5939,7 @@ public final class org/icpclive/clics/vDRAFT/objects/File : org/icpclive/clics/o
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/File$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/File$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/File$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -5975,7 +5975,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Group : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Group$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Group$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Group$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6018,7 +6018,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Judgement : org/icpclive/cl
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Judgement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Judgement$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Judgement$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6050,7 +6050,7 @@ public final class org/icpclive/clics/vDRAFT/objects/JudgementType : org/icpcliv
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/JudgementType$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/JudgementType$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/JudgementType$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6081,7 +6081,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Language : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Language$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Language$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Language$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6111,7 +6111,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Location : org/icpclive/cli
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Location$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Location$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6159,7 +6159,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Organization : org/icpclive
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Organization$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Organization$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6202,7 +6202,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Person : org/icpclive/clics
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Person$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Person$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Person$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6249,7 +6249,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Problem : org/icpclive/clic
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Problem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Problem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Problem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6288,7 +6288,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Run : org/icpclive/clics/ob
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Run$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Run$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Run$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6321,7 +6321,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Scoreboard : org/icpclive/c
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Scoreboard$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Scoreboard$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6354,7 +6354,7 @@ public final class org/icpclive/clics/vDRAFT/objects/ScoreboardRow : org/icpcliv
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/ScoreboardRow$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/ScoreboardRow$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6389,7 +6389,7 @@ public final class org/icpclive/clics/vDRAFT/objects/ScoreboardRowProblem : org/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/ScoreboardRowProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/ScoreboardRowProblem$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/ScoreboardRowProblem$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6417,7 +6417,7 @@ public final class org/icpclive/clics/vDRAFT/objects/ScoreboardRowScore : org/ic
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/ScoreboardRowScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/ScoreboardRowScore$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/ScoreboardRowScore$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6457,7 +6457,7 @@ public final class org/icpclive/clics/vDRAFT/objects/State : org/icpclive/clics/
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/State$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/State$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/State$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6500,7 +6500,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Submission : org/icpclive/c
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Submission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Submission$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Submission$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -6557,7 +6557,7 @@ public final class org/icpclive/clics/vDRAFT/objects/Team : org/icpclive/clics/o
 	public fun toString ()Ljava/lang/String;
 }
 
-public synthetic class org/icpclive/clics/vDRAFT/objects/Team$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/clics/vDRAFT/objects/Team$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/clics/vDRAFT/objects/Team$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;

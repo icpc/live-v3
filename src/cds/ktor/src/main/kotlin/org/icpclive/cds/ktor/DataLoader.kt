@@ -4,7 +4,6 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.datetime.Clock
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.settings.*
@@ -102,7 +101,7 @@ public fun interface DataLoader<out T> {
 }
 
 public inline fun <T, R> DataLoader<T>.map(crossinline f: suspend (T) -> R): DataLoader<R> = DataLoader { f(this@map.load()) }
-public fun <T:Any> DataLoader<T>.cached(interval: Duration) = object : DataLoader<T> {
+public fun <T:Any> DataLoader<T>.cached(interval: Duration): DataLoader<T> = object : DataLoader<T> {
     var nextLoad: TimeMark? = null
     lateinit var cache: T
     override suspend fun load(): T {

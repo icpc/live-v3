@@ -35,7 +35,7 @@ public final class org/icpclive/cds/plugins/merger/SubFeed {
 	public final fun getTeamIdRegex-0vPN_Lw ()Ljava/util/Map;
 }
 
-public synthetic class org/icpclive/cds/plugins/merger/SubFeed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/cds/plugins/merger/SubFeed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/cds/plugins/merger/SubFeed$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;

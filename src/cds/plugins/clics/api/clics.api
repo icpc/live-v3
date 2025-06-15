@@ -10,7 +10,7 @@ public final class org/icpclive/cds/plugins/clics/ClicsFeed {
 	public final fun getUrlPrefixMapping ()Ljava/util/Map;
 }
 
-public synthetic class org/icpclive/cds/plugins/clics/ClicsFeed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+public final synthetic class org/icpclive/cds/plugins/clics/ClicsFeed$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
 	public static final field INSTANCE Lorg/icpclive/cds/plugins/clics/ClicsFeed$$serializer;
 	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;

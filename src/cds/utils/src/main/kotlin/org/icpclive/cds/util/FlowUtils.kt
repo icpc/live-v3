@@ -31,7 +31,7 @@ public fun <T> runCatchingIfNotCancellation(block: () -> T): Result<T> = runCatc
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-public fun <T> Flow<T>.onIdle(interval: Duration, block: suspend ProducerScope<T>.() -> Unit) = channelFlow {
+public fun <T> Flow<T>.onIdle(interval: Duration, block: suspend ProducerScope<T>.() -> Unit): Flow<T> = channelFlow {
     val data = produceIn(this)
     var finished = false
     while (!finished) {
