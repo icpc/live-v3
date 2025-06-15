@@ -6,5 +6,11 @@ import kotlinx.coroutines.flow.Flow
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 
 interface Exporter {
-    fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestStateWithScoreboard>)
+    val subscriptionCount: Int
+        get() = 1
+    fun CoroutineScope.runOn(contestUpdates: Flow<ContestStateWithScoreboard>): Router
+}
+
+fun interface Router {
+    fun Route.setUpRoutes()
 }

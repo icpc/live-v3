@@ -11,17 +11,18 @@ import com.github.ajalt.mordant.terminal.info
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
-import io.ktor.server.application.install
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.plus
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
+import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.shareWith
 import org.icpclive.export.clics.ClicsExporter
 import org.icpclive.export.icpc.IcpcCsvExporter
 import org.icpclive.export.pcms.PCMSHtmlExporter
@@ -30,6 +31,7 @@ import org.icpclive.export.reactions.ReactionsExporter
 import org.icpclive.server.serverResponseJsonSettings
 import org.icpclive.server.setupDefaultKtorPlugins
 import org.icpclive.server.startPublisher
+import kotlin.getValue
 import kotlin.system.exitProcess
 
 
@@ -61,6 +63,9 @@ fun main(args: Array<String>): Unit = MainCommand.subcommands(
 ).main(args)
 
 
+private val logger by getLogger()
+
+
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
     setupDefaultKtorPlugins()
@@ -72,14 +77,29 @@ fun Application.module() {
 
     ServerCommand.publisher?.let { startPublisher(it) }
 
-    val loaded = ServerCommand.cdsOptions.toFlow()
+    val routers = mutableListOf<Router>()
+
+    val scope = this + handler
+
+    ServerCommand.cdsOptions.toFlow()
         .addComputedData {
             submissionResultsAfterFreeze = !ServerCommand.cdsOptions.freeze
             submissionsAfterEnd = ServerCommand.cdsOptions.upsolving
             autoFinalize = !ServerCommand.cdsOptions.noAutoFinalize
         }
         .calculateScoreboard(OptimismLevel.NORMAL)
-        .shareIn(this + handler, SharingStarted.Eagerly, Int.MAX_VALUE)
+        .shareWith(scope) {
+            fun Exporter.run() = withSubscription(subscriptionCount) {
+                routers += (scope + CoroutineName(this@run::class.simpleName!!)).runOn(it.onStart {
+                    logger.info { "Exporter ${this@run::class.simpleName} subscribed to cds data" }
+                })
+            }
+            PCMSXmlExporter.run()
+            PCMSHtmlExporter.run()
+            IcpcCsvExporter.run()
+            ClicsExporter.run()
+            ReactionsExporter.run()
+        }
 
     routing {
         install(ContentNegotiation) { json(serverResponseJsonSettings()) }
@@ -100,29 +120,9 @@ fun Application.module() {
                 ContentType.Text.Html
             )
         }
-        with (IcpcCsvExporter) {
-            route("/icpc") {
-                setUp(application + handler, loaded)
-            }
-        }
-        with (ClicsExporter) {
-            route("/clics") {
-                setUp(application + handler, loaded)
-            }
-        }
-        with (PCMSXmlExporter) {
-            route("/pcms") {
-                setUp(application + handler, loaded)
-            }
-        }
-        with(PCMSHtmlExporter) {
-            route("/pcms") {
-                setUp(application + handler, loaded)
-            }
-        }
-        with (ReactionsExporter) {
-            route("/reactions") {
-                setUp(application + handler, loaded)
+        for (router in routers) {
+            with(router) {
+                setUpRoutes()
             }
         }
     }

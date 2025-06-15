@@ -15,7 +15,7 @@ import javax.xml.transform.stream.StreamResult
 import kotlin.time.Duration
 
 
-object PCMSXmlExporter : SingleFileExporter("standings.xml", ContentType.Text.Xml) {
+object PCMSXmlExporter : SingleFileExporter("pcms", "standings.xml", ContentType.Text.Xml) {
 
     private fun convertOutcome(outcome: Verdict?) = when (outcome) {
         null -> "undefined"

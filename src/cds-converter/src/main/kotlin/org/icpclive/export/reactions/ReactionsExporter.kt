@@ -13,6 +13,7 @@ import kotlinx.serialization.Required
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.Exporter
+import org.icpclive.Router
 import org.icpclive.cds.CommentaryMessagesUpdate
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.InfoUpdate
@@ -191,22 +192,27 @@ private fun RunInfo.toShortRun(state: ContestStateWithScoreboard): ShortRun {
 
 
 object ReactionsExporter : Exporter {
-    override fun Route.setUp(scope: CoroutineScope, contestUpdates: Flow<ContestStateWithScoreboard>) {
+    override val subscriptionCount: Int
+        get() = 3
+    override fun CoroutineScope.runOn(contestUpdates: Flow<ContestStateWithScoreboard>): Router {
         val stateFlow =
             contestUpdates
                 .mapNotNull { it.state.infoAfterEvent?.toShortContestInfo() }
-                .stateIn(scope, SharingStarted.Eagerly, null)
+                .stateIn(this, SharingStarted.Eagerly, null)
                 .filterNotNull()
 
         val shortRuns = contestUpdates
             .toRunsMap { run, state -> run.toShortRun(state) }
-            .stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
+            .stateIn(this, SharingStarted.Eagerly, persistentMapOf())
         val fullRuns = contestUpdates
             .toRunsMap { run, info -> run.toFullReactionsRun(info) }
-            .stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
-        get {
-            call.respondText(
-                """
+            .stateIn(this, SharingStarted.Eagerly, persistentMapOf())
+
+        return Router {
+            route("/reactions") {
+                get {
+                    call.respondText(
+                        """
                     <html>
                     <body>
                     <a href="/reactions/contestInfo.json">contestInfo.json</a> <br/>
@@ -216,24 +222,26 @@ object ReactionsExporter : Exporter {
                     </body>
                     </html>
                 """.trimIndent(),
-                ContentType.Text.Html
-            )
-        }
-        get("/contestInfo.json") {
-            call.respond(stateFlow.first())
-        }
-        get("/runs.json") {
-            call.respond(shortRuns.first().values.toList())
-        }
-        get("/fullRuns.json") {
-            call.respond(fullRuns.first().values.toList())
-        }
-        get("/fullRuns/{id}") {
-            val runInfo = fullRuns.first()[call.parameters["id"]!!.toRunId()]
-            if (runInfo == null) {
-                call.respond(HttpStatusCode.NotFound)
-            } else {
-                call.respond(runInfo)
+                        ContentType.Text.Html
+                    )
+                }
+                get("/contestInfo.json") {
+                    call.respond(stateFlow.first())
+                }
+                get("/runs.json") {
+                    call.respond(shortRuns.first().values.toList())
+                }
+                get("/fullRuns.json") {
+                    call.respond(fullRuns.first().values.toList())
+                }
+                get("/fullRuns/{id}") {
+                    val runInfo = fullRuns.first()[call.parameters["id"]!!.toRunId()]
+                    if (runInfo == null) {
+                        call.respond(HttpStatusCode.NotFound)
+                    } else {
+                        call.respond(runInfo)
+                    }
+                }
             }
         }
     }
