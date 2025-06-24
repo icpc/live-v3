@@ -1,7 +1,6 @@
 package org.icpclive.cds.tunning
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.api.*
@@ -84,13 +83,13 @@ internal fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buil
                 OverrideTeamTemplate(
                     regexes = mapOfNotNull(
                         "org" to organizationRegex?.regexes?.let {
-                            OverrideTeamTemplate.RegexParser(
+                            TemplateRegexParser(
                                 from = from,
                                 rules = it.mapValues { mapOf("id" to it.value) }
                             )
                         },
                         "group" to groupRegex?.entries?.let {
-                            OverrideTeamTemplate.RegexParser(
+                            TemplateRegexParser(
                                 from = from,
                                 rules = it.associate { it.value to mapOf("id" to it.key) }
                             )
@@ -104,7 +103,7 @@ internal fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buil
                                 }
                             }.groupBy({ it.second.toString() }, { it.first to it.third })
                                 .mapValues { it.value.toMap() }
-                            OverrideTeamTemplate.RegexParser(
+                            TemplateRegexParser(
                                 from = from,
                                 rules = data.mapKeys { Regex(it.key) }
                             )

@@ -2393,6 +2393,42 @@ public final class org/icpclive/cds/tunning/OverrideGroups$Override$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/cds/tunning/OverrideOrganisationTemplate : org/icpclive/cds/tunning/Desugarable, org/icpclive/cds/tunning/TuningRule {
+	public static final field Companion Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lorg/icpclive/cds/api/MediaType;
+	public final fun copy (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;)Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;
+	public fun desugar (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/tunning/TuningRule;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getFullName ()Ljava/lang/String;
+	public final fun getLogo ()Lorg/icpclive/cds/api/MediaType;
+	public final fun getRegexes ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun process (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/api/ContestInfo;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/icpclive/cds/tunning/OverrideOrganisationTemplate$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;)V
+}
+
+public final class org/icpclive/cds/tunning/OverrideOrganisationTemplate$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/tunning/OverrideOrganizations : org/icpclive/cds/tunning/TuningRule {
 	public fun <init> (Ljava/util/Map;)V
 	public final fun component1 ()Ljava/util/Map;
@@ -2616,27 +2652,6 @@ public final class org/icpclive/cds/tunning/OverrideTeamTemplate$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
-public final class org/icpclive/cds/tunning/OverrideTeamTemplate$RegexParser {
-	public static final field Companion Lorg/icpclive/cds/tunning/OverrideTeamTemplate$RegexParser$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/util/Map;)V
-	public final fun getFrom ()Ljava/lang/String;
-	public final fun getRules ()Ljava/util/Map;
-}
-
-public final synthetic class org/icpclive/cds/tunning/OverrideTeamTemplate$RegexParser$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/tunning/OverrideTeamTemplate$RegexParser$$serializer;
-	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate$RegexParser;
-	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/OverrideTeamTemplate$RegexParser;)V
-}
-
-public final class org/icpclive/cds/tunning/OverrideTeamTemplate$RegexParser$Companion {
-	public final fun serializer ()Lkotlinx/serialization/KSerializer;
-}
-
 public final class org/icpclive/cds/tunning/OverrideTeams : org/icpclive/cds/tunning/TuningRule {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideTeams$Companion;
 	public fun <init> (Ljava/util/Map;)V
@@ -2727,6 +2742,27 @@ public final class org/icpclive/cds/tunning/RulesKt {
 public abstract interface class org/icpclive/cds/tunning/SimpleDesugarable : org/icpclive/cds/tunning/Desugarable {
 	public abstract fun desugar ()Lorg/icpclive/cds/tunning/TuningRule;
 	public fun desugar (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/tunning/TuningRule;
+}
+
+public final class org/icpclive/cds/tunning/TemplateRegexParser {
+	public static final field Companion Lorg/icpclive/cds/tunning/TemplateRegexParser$Companion;
+	public fun <init> (Ljava/lang/String;Ljava/util/Map;)V
+	public final fun getFrom ()Ljava/lang/String;
+	public final fun getRules ()Ljava/util/Map;
+}
+
+public final synthetic class org/icpclive/cds/tunning/TemplateRegexParser$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/tunning/TemplateRegexParser$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/TemplateRegexParser;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/TemplateRegexParser;)V
+}
+
+public final class org/icpclive/cds/tunning/TemplateRegexParser$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public abstract interface class org/icpclive/cds/tunning/TuningRule {

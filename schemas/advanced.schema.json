@@ -324,6 +324,46 @@
             ],
             "title": "overrideGroups"
         },
+        "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "string"
+                }
+            }
+        },
+        "kotlin.collections.LinkedHashMap<Regex,kotlin.collections.LinkedHashMap>": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
+                }
+            }
+        },
+        "org.icpclive.cds.tunning.TemplateRegexParser<kotlin.String,kotlin.collections.LinkedHashMap>": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "string"
+                },
+                "rules": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.collections.LinkedHashMap>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "from",
+                "rules"
+            ]
+        },
+        "kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.TemplateRegexParser>": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.TemplateRegexParser<kotlin.String,kotlin.collections.LinkedHashMap>"
+                }
+            }
+        },
         "Audio": {
             "type": "object",
             "properties": {
@@ -534,6 +574,32 @@
                     "type": "null"
                 }
             ]
+        },
+        "overrideOrganisationTemplate": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "overrideOrganisationTemplate",
+                    "default": "overrideOrganisationTemplate"
+                },
+                "regexes": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.TemplateRegexParser>"
+                },
+                "fullName": {
+                    "type": "string"
+                },
+                "displayName": {
+                    "type": "string"
+                },
+                "logo": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "title": "overrideOrganisationTemplate"
         },
         "org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.MediaType?>": {
             "type": "object",
@@ -857,46 +923,6 @@
             ],
             "title": "overrideScoreboardSettings"
         },
-        "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "type": "string"
-                }
-            }
-        },
-        "kotlin.collections.LinkedHashMap<Regex,kotlin.collections.LinkedHashMap>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
-                }
-            }
-        },
-        "org.icpclive.cds.tunning.OverrideTeamTemplate.RegexParser<kotlin.String,kotlin.collections.LinkedHashMap>": {
-            "type": "object",
-            "properties": {
-                "from": {
-                    "type": "string"
-                },
-                "rules": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.collections.LinkedHashMap>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "from",
-                "rules"
-            ]
-        },
-        "kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.OverrideTeamTemplate.RegexParser>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideTeamTemplate.RegexParser<kotlin.String,kotlin.collections.LinkedHashMap>"
-                }
-            }
-        },
         "kotlin.collections.ArrayList?<kotlin.String>": {
             "oneOf": [
                 {
@@ -966,7 +992,7 @@
                     "default": "overrideTeamTemplate"
                 },
                 "regexes": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.OverrideTeamTemplate.RegexParser>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.TemplateRegexParser>"
                 },
                 "fullName": {
                     "type": "string"
@@ -1097,6 +1123,9 @@
                 },
                 {
                     "$ref": "#/$defs/overrideGroups"
+                },
+                {
+                    "$ref": "#/$defs/overrideOrganisationTemplate"
                 },
                 {
                     "$ref": "#/$defs/overrideOrganizations"
