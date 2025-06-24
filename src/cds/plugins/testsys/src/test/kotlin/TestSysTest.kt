@@ -28,7 +28,7 @@ object TestSysTest : CdsLoadersTest() {
             listOf(
                 OverrideTeamTemplate(
                     regexes = mapOf(
-                        "groups" to OverrideTeamTemplate.RegexParser(
+                        "groups" to TemplateRegexParser(
                             from = "{team.fullName}",
                             rules = mapOf(
                                 Regex("^\\(1к\\).*") to mapOf("id" to "firstGrade"),
@@ -36,7 +36,7 @@ object TestSysTest : CdsLoadersTest() {
                                 Regex("^\\(вк\\).*") to mapOf("id" to "outOfContest"),
                             )
                         ),
-                        "custom" to OverrideTeamTemplate.RegexParser(
+                        "custom" to TemplateRegexParser(
                             from = "{team.fullName}",
                             rules = mapOf(
                                 Regex("^(?:\\(..\\) )?(.*) \\([^)]*\\)") to mapOf("funnyNameValue" to "$1")
