@@ -174,10 +174,16 @@ object ClicsExporter : Exporter {
         toFinalEvent: (ID, EventToken, Nothing?) -> Event
     ) {
         val values = new.map { it.id() }.toSet()
-        for (k in old.keys) {
-            if (k !in values) {
-                updateEvent(k, null, toFinalEvent)
+        val toRemove = buildList {
+            for (k in old.keys) {
+                if (k !in values) {
+                    updateEvent(k, null, toFinalEvent)
+                    add(k)
+                }
             }
+        }
+        for (i in toRemove) {
+            old.remove(i)
         }
     }
 
