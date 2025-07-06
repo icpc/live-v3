@@ -1145,6 +1145,32 @@ public final class org/icpclive/cds/api/MediaType$Object$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/cds/api/MediaType$Text : org/icpclive/cds/api/MediaType {
+	public static final field Companion Lorg/icpclive/cds/api/MediaType$Text$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Text;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Text;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Text;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/icpclive/cds/api/MediaType$Text$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/MediaType$Text$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/MediaType$Text;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/MediaType$Text;)V
+}
+
+public final class org/icpclive/cds/api/MediaType$Text$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/api/MediaType$Video : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Video$Companion;
 	public fun <init> (Ljava/lang/String;Z)V
@@ -1237,6 +1263,32 @@ public final synthetic class org/icpclive/cds/api/MediaType$WebRTCProxyConnectio
 }
 
 public final class org/icpclive/cds/api/MediaType$WebRTCProxyConnection$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/MediaType$ZipArchive : org/icpclive/cds/api/MediaType {
+	public static final field Companion Lorg/icpclive/cds/api/MediaType$ZipArchive$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$ZipArchive;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$ZipArchive;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$ZipArchive;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/icpclive/cds/api/MediaType$ZipArchive$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/MediaType$ZipArchive$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/MediaType$ZipArchive;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/MediaType$ZipArchive;)V
+}
+
+public final class org/icpclive/cds/api/MediaType$ZipArchive$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
@@ -1877,12 +1929,15 @@ public final class org/icpclive/cds/api/TeamInfoKt {
 public final class org/icpclive/cds/api/TeamMediaType : java/lang/Enum {
 	public static final field ACHIEVEMENT Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field AUDIO Lorg/icpclive/cds/api/TeamMediaType;
+	public static final field BACKUP Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field CAMERA Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field Companion Lorg/icpclive/cds/api/TeamMediaType$Companion;
+	public static final field KEYLOG Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field PHOTO Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field REACTION_VIDEO Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field RECORD Lorg/icpclive/cds/api/TeamMediaType;
 	public static final field SCREEN Lorg/icpclive/cds/api/TeamMediaType;
+	public static final field TOOL_DATA Lorg/icpclive/cds/api/TeamMediaType;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/cds/api/TeamMediaType;
 	public static fun values ()[Lorg/icpclive/cds/api/TeamMediaType;

@@ -15,6 +15,14 @@ public sealed class MediaType {
     public data class Audio(val url: String) : MediaType()
 
     @Serializable
+    @SerialName("Text")
+    public data class Text(val url: String) : MediaType()
+
+    @Serializable
+    @SerialName("ZipArchive")
+    public data class ZipArchive(val url: String) : MediaType()
+    
+    @Serializable
     @SerialName("Object")
     public data class Object(val url: String) : MediaType()
 

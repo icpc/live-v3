@@ -78,6 +78,8 @@ private fun MediaType.toClicsMedia() = when (this) {
     is MediaType.Image -> File("image", Url(url))
     is MediaType.Video -> File("video", Url(url))
     is MediaType.Audio -> File("audio", Url(url))
+    is MediaType.Text -> File("text/plain", Url(url))
+    is MediaType.ZipArchive -> File("application/zip", Url(url))
     is MediaType.M2tsVideo -> File("video/m2ts", Url(url))
     is MediaType.HLSVideo -> File("application/vnd.apple.mpegurl", Url(url))
     is MediaType.WebRTCGrabberConnection -> null
@@ -95,6 +97,10 @@ private fun TeamInfo.toClicsTeam() = Team(
     video = listOfNotNull(medias[TeamMediaType.RECORD]?.toClicsMedia()),
     desktop = listOfNotNull(medias[TeamMediaType.SCREEN]?.toClicsMedia()),
     webcam = listOfNotNull(medias[TeamMediaType.CAMERA]?.toClicsMedia()),
+    audio = listOfNotNull(medias[TeamMediaType.AUDIO]?.toClicsMedia()),
+    backup = listOfNotNull(medias[TeamMediaType.BACKUP]?.toClicsMedia()),
+    key_log = listOfNotNull(medias[TeamMediaType.KEYLOG]?.toClicsMedia()),
+    tool_data = listOfNotNull(medias[TeamMediaType.TOOL_DATA]?.toClicsMedia()),
 )
 
 

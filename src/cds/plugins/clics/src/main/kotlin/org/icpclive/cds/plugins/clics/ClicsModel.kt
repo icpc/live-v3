@@ -80,6 +80,8 @@ internal class ClicsModel {
             mime.startsWith("video/m2ts") -> MediaType.M2tsVideo(href)
             mime.startsWith("application/vnd.apple.mpegurl") -> MediaType.HLSVideo(href)
             mime.startsWith("video") -> MediaType.Video(href)
+            mime.startsWith("text") -> MediaType.Text(href)
+            mime.startsWith("application/zip") -> MediaType.ZipArchive(href)
             else -> null
         }
     }
@@ -108,6 +110,9 @@ internal class ClicsModel {
                 mediaType(webcam.firstOrNull())?.let { put(TeamMediaType.CAMERA, it) }
                 mediaType(desktop.firstOrNull())?.let { put(TeamMediaType.SCREEN, it) }
                 mediaType(audio.firstOrNull())?.let { put(TeamMediaType.AUDIO, it) }
+                mediaType(backup.firstOrNull())?.let { put(TeamMediaType.BACKUP, it) }
+                mediaType(key_log.firstOrNull())?.let { put(TeamMediaType.KEYLOG, it) }
+                mediaType(tool_data.firstOrNull())?.let { put(TeamMediaType.TOOL_DATA, it) }
             },
             organizationId = organizationId?.toOrganizationId(),
             isOutOfContest = false,

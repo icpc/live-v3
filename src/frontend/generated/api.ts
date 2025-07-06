@@ -216,9 +216,11 @@ export type MediaType =
   | MediaType.Image
   | MediaType.M2tsVideo
   | MediaType.Object
+  | MediaType.Text
   | MediaType.Video
   | MediaType.WebRTCGrabberConnection
-  | MediaType.WebRTCProxyConnection;
+  | MediaType.WebRTCProxyConnection
+  | MediaType.ZipArchive;
 
 export namespace MediaType {
   export enum Type {
@@ -227,9 +229,11 @@ export namespace MediaType {
     Image = "Image",
     M2tsVideo = "M2tsVideo",
     Object = "Object",
+    Text = "Text",
     Video = "Video",
     WebRTCGrabberConnection = "WebRTCGrabberConnection",
     WebRTCProxyConnection = "WebRTCProxyConnection",
+    ZipArchive = "ZipArchive",
   }
   
   export interface Audio {
@@ -261,6 +265,11 @@ export namespace MediaType {
     url: string;
   }
   
+  export interface Text {
+    type: MediaType.Type.Text;
+    url: string;
+  }
+  
   export interface Video {
     type: MediaType.Type.Video;
     url: string;
@@ -281,6 +290,11 @@ export namespace MediaType {
     url: string;
     audioUrl?: string | null;
     vertical?: boolean;
+  }
+  
+  export interface ZipArchive {
+    type: MediaType.Type.ZipArchive;
+    url: string;
   }
 }
 
@@ -308,6 +322,9 @@ export enum TeamMediaType {
   reactionVideo = "reactionVideo",
   achievement = "achievement",
   audio = "audio",
+  backup = "backup",
+  keylog = "keylog",
+  toolData = "toolData",
 }
 
 export interface MedalSettings {

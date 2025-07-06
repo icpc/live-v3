@@ -35,6 +35,15 @@ public enum class TeamMediaType {
 
     @SerialName("audio")
     AUDIO,
+
+    @SerialName("backup")
+    BACKUP,
+
+    @SerialName("keylog")
+    KEYLOG,
+
+    @SerialName("toolData")
+    TOOL_DATA,
 }
 
 @Serializable

@@ -466,6 +466,24 @@
             ],
             "title": "Object"
         },
+        "Text": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "Text",
+                    "default": "Text"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "Text"
+        },
         "Video": {
             "type": "object",
             "properties": {
@@ -544,6 +562,24 @@
             ],
             "title": "WebRTCProxyConnection"
         },
+        "ZipArchive": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "ZipArchive",
+                    "default": "ZipArchive"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url"
+            ],
+            "title": "ZipArchive"
+        },
         "org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>": {
             "oneOf": [
                 {
@@ -562,6 +598,9 @@
                     "$ref": "#/$defs/Object"
                 },
                 {
+                    "$ref": "#/$defs/Text"
+                },
+                {
                     "$ref": "#/$defs/Video"
                 },
                 {
@@ -569,6 +608,9 @@
                 },
                 {
                     "$ref": "#/$defs/WebRTCProxyConnection"
+                },
+                {
+                    "$ref": "#/$defs/ZipArchive"
                 },
                 {
                     "type": "null"
@@ -975,6 +1017,15 @@
                             "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
                         },
                         "audio": {
+                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "backup": {
+                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "keylog": {
+                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                        },
+                        "toolData": {
                             "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
                         }
                     }
