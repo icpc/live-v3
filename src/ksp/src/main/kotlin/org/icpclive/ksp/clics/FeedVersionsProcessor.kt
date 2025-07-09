@@ -322,14 +322,15 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                     for (i in goodObjects) {
                         val serializer = "Serializer" + if (feedVersion == FeedVersion.`2020_03`) "New" else ""
                         if (i.eventType != EventType.NO) {
-                            +"internal object ${i.eventName}$serializer : ${i.eventType.toString().lowercase().replaceFirstChar { it.uppercase() }}EventSerializer<${i.eventName}, ${i.qualifiedName}>(org.icpclive.clics.${feedVersion.packageName}.serializers.${i.simpleName}Serializer, \"${i.names.first()}\", ::${i.eventName})"
+                            val params = if (i.eventType == EventType.ID) "a, b, c" else "b, c"
+                            +"internal val ${i.eventName}$serializer = ${i.eventType.toString().lowercase().replaceFirstChar { it.uppercase() }}EventSerializer(org.icpclive.clics.${feedVersion.packageName}.serializers.${i.simpleName}Serializer, \"${i.names.first()}\", {$params -> ${i.eventName}(${params.replace("b", "b?.let(::EventToken)")}) })"
                             if (feedVersion == FeedVersion.`2020_03`) {
-                                +"internal object ${i.eventName}Serializer : LegacyEventSerializer<${i.eventName}>(${i.eventName}$serializer)"
+                                +"internal val ${i.eventName}Serializer = LegacyEventSerializer(${i.eventName}$serializer)"
                             }
                             add("${i.eventName}Serializer" to i.eventName)
                         }
                         if (i.eventType == EventType.ID && feedVersion != FeedVersion.`2020_03`) {
-                            +"internal object ${i.batchEventName}Serializer : BatchEventSerializer<${i.batchEventName}, ${i.qualifiedName}>(org.icpclive.clics.${feedVersion.packageName}.serializers.${i.simpleName}Serializer, \"${i.names.first()}\", ::${i.batchEventName})"
+                            +"internal val ${i.batchEventName}Serializer = BatchEventSerializer(org.icpclive.clics.${feedVersion.packageName}.serializers.${i.simpleName}Serializer, \"${i.names.first()}\", { a, b -> ${i.batchEventName}(a?.let(::EventToken), b) })"
                             add("${i.batchEventName}Serializer" to i.batchEventName)
                         }
                     }
@@ -367,14 +368,10 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                 +"@Suppress(\"UNCHECKED_CAST\")"
                 withCodeBlock("internal fun serializersModule(): SerializersModule = SerializersModule") {
                     for ((serializer, superClass) in objects) {
-                        withCodeBlock("contextual(${superClass}::class)") {
-                            +serializer
-                        }
+                        +"contextual(${superClass}::class, $serializer)"
                     }
                     for ((serializer, superClass) in events) {
-                        withCodeBlock("contextual(${superClass}::class)") {
-                            +serializer
-                        }
+                        +"contextual(${superClass}::class, $serializer)"
                     }
                     withCodeBlock("polymorphicDefaultSerializer(org.icpclive.clics.events.Event::class)") {
                         withCodeBlock("when (it)") {
