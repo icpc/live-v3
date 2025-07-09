@@ -15,6 +15,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.*
 import org.icpclive.cds.api.*
@@ -22,22 +23,9 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.onIdle
 import org.icpclive.clics.*
 import org.icpclive.clics.events.*
-import org.icpclive.clics.v202306.events.*
-import org.icpclive.clics.v202306.events.AwardEvent
-import org.icpclive.clics.v202306.events.CommentaryEvent
-import org.icpclive.clics.v202306.events.ContestEvent
-import org.icpclive.clics.v202306.events.GroupEvent
-import org.icpclive.clics.v202306.events.JudgementEvent
-import org.icpclive.clics.v202306.events.JudgementTypeEvent
-import org.icpclive.clics.v202306.events.LanguageEvent
-import org.icpclive.clics.v202306.events.OrganizationEvent
-import org.icpclive.clics.v202306.events.ProblemEvent
-import org.icpclive.clics.v202306.events.StateEvent
-import org.icpclive.clics.v202306.events.SubmissionEvent
-import org.icpclive.clics.v202306.events.TeamEvent
-import org.icpclive.clics.v202306.objects.*
-import org.icpclive.clics.v202306.objects.Award
-import org.icpclive.clics.v202306.objects.ScoreboardRow
+import org.icpclive.clics.objects.*
+import org.icpclive.clics.objects.Award
+import org.icpclive.clics.objects.ScoreboardRow
 import org.icpclive.converter.export.Exporter
 import org.icpclive.converter.export.Router
 import java.nio.ByteBuffer
@@ -141,7 +129,7 @@ object ClicsExporter : Exporter {
         block(id, it, data)
     }
 
-    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(data: T, block : (EventToken, T?) -> Event) = emit { block(it, data) }
+    private suspend fun <T> FlowCollector<EventProducer>.updateEvent(data: T, block : (EventToken, T) -> Event) = emit { block(it, data) }
 
     private fun getContest(info: ContestInfo) = Contest(
         id = "contest",
@@ -300,7 +288,7 @@ object ClicsExporter : Exporter {
         }
     }
 
-    private suspend fun <T> FlowCollector<EventProducer>.diff(oldInfo: ContestInfo?, newInfo: ContestInfo, getter: ContestInfo.() -> T, event : (EventToken, T?) -> Event) {
+    private suspend fun <T> FlowCollector<EventProducer>.diff(oldInfo: ContestInfo?, newInfo: ContestInfo, getter: ContestInfo.() -> T, event : (EventToken, T) -> Event) {
         val old = oldInfo?.getter()
         val new = newInfo.getter()
         if (old != new) {
@@ -391,10 +379,9 @@ object ClicsExporter : Exporter {
     @Serializable
     data class Error(val code: Int, val message: String)
 
-    private val endpoint = mutableMapOf<String, SerialDescriptor>()
 
-    private inline fun <reified T> Route.getId(prefix: String, flow: Flow<Map<String, T>>) {
-        endpoint[prefix] = serializer<T>().descriptor
+    private inline fun <reified T: Any> Route.getId(prefix: String, flow: Flow<Map<String, T>>, endpoint: MutableMap<String, SerialDescriptor>, module: SerializersModule) {
+        endpoint[prefix] = module.getContextual(T::class)!!.descriptor
         route("/$prefix") {
             get { call.respond(flow.first().entries.sortedBy { it.key }.map { it.value }) }
             get("/{id}") {
@@ -411,8 +398,8 @@ object ClicsExporter : Exporter {
         }
     }
 
-    private inline fun <reified T: Any> Route.getGlobal(prefix: String, flow: Flow<T>) {
-        endpoint[prefix] = serializer<T>().descriptor
+    private inline fun <reified T: Any> Route.getGlobal(prefix: String, flow: Flow<T>, endpoint: MutableMap<String, SerialDescriptor>, module: SerializersModule) {
+        endpoint[prefix] = module.getContextual(T::class)!!.descriptor
         route("/$prefix") {
             get { call.respond(flow.first()) }
         }
@@ -424,7 +411,7 @@ object ClicsExporter : Exporter {
             .shareIn(this, SharingStarted.Eagerly, replay = Int.MAX_VALUE)
             .transformWhile {
                 emit(it)
-                it !is StateEvent || it.data?.endOfUpdates == null
+                it !is StateEvent || it.data.endOfUpdates == null
             }
         val contestFlow = eventFeed.filterGlobalEvent<Contest, _, ContestEvent>(this)
         val stateFlow = eventFeed.filterGlobalEvent<State, _, StateEvent>(this)
@@ -444,78 +431,128 @@ object ClicsExporter : Exporter {
         //val clarificationsFlow = eventFeed.filterIdEvent<Clarification, Event.ClarificationEvent>(scope)
         val awardsFlow = eventFeed.filterIdEvent<Award, _, AwardEvent>(this)
 
-        val json = Json {
-            encodeDefaults = true
-            prettyPrint = false
-            explicitNulls = false
-            serializersModule = clicsEventsSerializersModule(FeedVersion.`2023_06`, tokenPrefix = "")
-        }
         return object : Router {
             override fun HtmlBlockTag.mainPage() {
-                a("/clics/api") { +"Clics api root" }
                 br
-                a("/clics/api/contests/contest") { +"Clics contest api root" }
+                script {
+                    unsafe {
+                        +$$"""
+                            function setClicsVersion(v) {
+                                console.log("Setting clics version to " + v);
+                                const prefix =`/clics/${v}api`
+                                document.getElementById('clics1').href = prefix;
+                                document.getElementById('clics2').href = `${prefix}/contests/contest`;
+                                document.getElementById('clics3').href = `${prefix}/contests/contest/event-feed`;
+                            }
+                        """.trimIndent()
+                    }
+                }
+                + "Clics feed Version:  "
+                select {
+                    onChange = "setClicsVersion( this.value )"
+                    for (i in FeedVersion.entries) {
+                        option {
+                            value = if (i == FeedVersion.DRAFT) "" else "$i/"
+                            if (i == FeedVersion.DRAFT) {
+                                selected = true
+                            }
+                            +i.toString()
+                        }
+                    }
+                }
                 br
-                a("/clics/api/contests/contest/event-feed") { +"Clics event feed" }
+                a("/clics/api") {
+                    id = "clics1"
+                    +"Clics api root"
+                }
+                br
+                a("/clics/api/contests/contest") {
+                    id = "clics2"
+                    +"Clics contest api root"
+                }
+                br
+                a("/clics/api/contests/contest/event-feed") {
+                    id = "clics3"
+                    +"Clics event feed"
+                }
+                br
             }
             override fun Route.setUpRoutes() {
                 route("/clics/api") {
-                    install(ContentNegotiation) { json(json) }
-                    get {
-                        call.respond(
-                            ApiInformation(
-                                version = FeedVersion.`2023_06`.name,
-                                versionUrl = FeedVersion.`2023_06`.url,
-                                provider = ApiInformationProvider(
-                                    name = "icpc live"
-                                )
+                    setupClics(FeedVersion.DRAFT)
+                }
+                for (version in FeedVersion.entries) {
+                    if (version != FeedVersion.DRAFT) {
+                        route("/clics/${version}/api") {
+                            setupClics(version)
+                        }
+                    }
+                }
+            }
+            private fun Route.setupClics(version: FeedVersion) {
+                val clicsEventsSerializersModule = clicsEventsSerializersModule(version, tokenPrefix = "")
+                val endpoint = mutableMapOf<String, SerialDescriptor>()
+                val json = Json {
+                    encodeDefaults = true
+                    prettyPrint = false
+                    explicitNulls = false
+                    serializersModule = clicsEventsSerializersModule
+                }
+                install(ContentNegotiation) { json(json) }
+                get {
+                    call.respond(
+                        ApiInformation(
+                            version = version.name,
+                            versionUrl = version.url,
+                            provider = ApiInformationProvider(
+                                name = "icpc live"
                             )
                         )
-                    }
-                    route("/contests") {
-                        get { call.respond(listOf(contestFlow.first())) }
-                        getGlobal("contest", contestFlow)
-                        route("contest") {
-                            getGlobal("state", stateFlow)
-                            getId("judgement-types", judgementTypesFlow)
-                            getId("languages", languagesFlow)
-                            getId("problems", problemsFlow)
-                            getId("groups", groupsFlow)
-                            getId("organizations", organizationsFlow)
-                            getId("teams", teamsFlow)
-                            getId("submissions", submissionsFlow)
-                            getId("judgements", judgementsFlow)
-                            //getId("runs", runsFlow)
-                            getId("commentary", commentaryFlow)
-                            //getId("persons", personsFlow)
-                            //getId("accounts", accountsFlow)
-                            //getId("clarifications", clarificationsFlow)
-                            getId("awards", awardsFlow)
-                            get("/scoreboard") { call.respond(currentState.filterNotNull().first().toClicsScoreboard()) }
-                            get("/event-feed") {
-                                call.respondBytesWriter(contentType = ContentType("application", "x-ndjson")) {
-                                    eventFeed
-                                        .map { json.encodeToString(it) }
-                                        .onIdle(1.minutes) { channel.send("") }
-                                        .collect {
-                                            writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
-                                            flush()
-                                        }
-                                }
+                    )
+                }
+                route("/contests") {
+                    get { call.respond(listOf(contestFlow.first())) }
+                    getGlobal("contest", contestFlow, endpoint, clicsEventsSerializersModule)
+                    route("contest") {
+                        getGlobal("state", stateFlow, endpoint, clicsEventsSerializersModule)
+                        getId("judgement-types", judgementTypesFlow, endpoint, clicsEventsSerializersModule)
+                        getId("languages", languagesFlow, endpoint, clicsEventsSerializersModule)
+                        getId("problems", problemsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("groups", groupsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("organizations", organizationsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("teams", teamsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("submissions", submissionsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("judgements", judgementsFlow, endpoint, clicsEventsSerializersModule)
+                        //getId("runs", runsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("commentary", commentaryFlow, endpoint, clicsEventsSerializersModule)
+                        //getId("persons", personsFlow, endpoint, clicsEventsSerializersModule)
+                        //getId("accounts", accountsFlow, endpoint, clicsEventsSerializersModule)
+                        //getId("clarifications", clarificationsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("awards", awardsFlow, endpoint, clicsEventsSerializersModule)
+                        get("/scoreboard") { call.respond(currentState.filterNotNull().first().toClicsScoreboard()) }
+                        get("/event-feed") {
+                            call.respondBytesWriter(contentType = ContentType("application", "x-ndjson")) {
+                                eventFeed
+                                    .map { json.encodeToString(it) }
+                                    .onIdle(1.minutes) { channel.send("") }
+                                    .collect {
+                                        writeFully(ByteBuffer.wrap("$it\n".toByteArray()))
+                                        flush()
+                                    }
                             }
-                            get("/access") {
-                                call.respond(
-                                    Access(
-                                        emptyList(),
-                                        endpoint.entries.map { (k, v) ->
-                                            Endpoint(
-                                                k,
-                                                v.elementNames.toList()
-                                            )
-                                        }
-                                    )
+                        }
+                        get("/access") {
+                            call.respond(
+                                Access(
+                                    emptyList(),
+                                    endpoint.entries.map { (k, v) ->
+                                        Endpoint(
+                                            k,
+                                            v.elementNames.toList()
+                                        )
+                                    }
                                 )
-                            }
+                            )
                         }
                     }
                 }

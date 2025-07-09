@@ -4,13 +4,13 @@ import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2020_03`)
 @NoEvent
-public interface ScoreboardRow {
+public data class ScoreboardRow(
     @Required
-    public val rank: Int
+    public val rank: Int,
     @Required
-    public val teamId: String
+    public val teamId: String,
     @Required
-    public val score: ScoreboardRowScore
+    public val score: ScoreboardRowScore,
     @Required
     public val problems: List<ScoreboardRowProblem>
-}
+)

@@ -4,7 +4,7 @@ import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2022_07`)
 @NoEvent
-public interface Endpoint {
-    public val type: String?
-    public val properties: List<String>
-}
+public data class Endpoint(
+    public val type: String? = null,
+    public val properties: List<String> = emptyList()
+)

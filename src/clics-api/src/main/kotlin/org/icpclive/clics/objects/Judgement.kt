@@ -6,14 +6,14 @@ import kotlin.time.Duration
 
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("judgements")
-public interface Judgement {
-    @Required public val id: String
-    @Required public val submissionId: String
-    @Required public val startContestTime: Duration
-    @Required public val startTime: Instant
-    public val endTime: Instant?
-    public val endContestTime: Duration?
-    public val judgementTypeId: String?
-    public val score: Double?
-    public val maxRunTime: Double?
-}
+public data class Judgement(
+    @Required public val id: String,
+    @Required public val submissionId: String,
+    @Required public val startContestTime: Duration,
+    @Required public val startTime: Instant,
+    public val endTime: Instant? = null,
+    public val endContestTime: Duration? = null,
+    public val judgementTypeId: String? = null,
+    public val score: Double? = null,
+    public val maxRunTime: Double? = null
+)

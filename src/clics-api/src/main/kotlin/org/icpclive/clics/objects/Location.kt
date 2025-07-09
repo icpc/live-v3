@@ -4,7 +4,7 @@ import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2020_03`)
 @NoEvent
-public interface Location {
-    public val longitude: Double?
-    public val latitude: Double?
-}
+public data class Location(
+    public val longitude: Double? = null,
+    public val latitude: Double? = null
+)

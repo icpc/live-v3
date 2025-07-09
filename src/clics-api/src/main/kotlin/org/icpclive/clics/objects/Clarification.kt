@@ -6,13 +6,13 @@ import kotlin.time.Duration
 
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("clarifications")
-public interface Clarification {
-    @Required public val id: String
-    public val fromTeamId: String?
-    public val toTeamId: String?
-    public val replyToId: String?
-    public val problemId: String?
-    public val text: String?
-    public val time: Instant?
-    public val contestTime: Duration?
-}
+public data class Clarification(
+    @Required public val id: String,
+    public val fromTeamId: String? = null,
+    public val toTeamId: String? = null,
+    public val replyToId: String? = null,
+    public val problemId: String? = null,
+    public val text: String? = null,
+    public val time: Instant? = null,
+    public val contestTime: Duration? = null
+)

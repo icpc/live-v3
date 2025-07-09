@@ -4,8 +4,8 @@ import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("awards")
-public interface Award {
-    @Required public val id: String
-    public val citation: String?
-    public val teamIds: List<String>
-}
+public data class Award(
+    @Required public val id: String,
+    public val citation: String? = null,
+    public val teamIds: List<String> = emptyList()
+)

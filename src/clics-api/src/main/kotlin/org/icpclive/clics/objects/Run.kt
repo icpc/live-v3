@@ -6,12 +6,12 @@ import kotlin.time.Duration
 
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("runs")
-public interface Run {
-    @Required public val id: String
-    @Required public val judgementId: String
-    @Required public val time: Instant
-    public val ordinal: Int?
-    public val judgementTypeId: String?
-    public val contestTime: Duration?
-    public val runtime: Double?
-}
+public data class Run(
+    @Required public val id: String,
+    @Required public val judgementId: String,
+    @Required public val time: Instant,
+    public val ordinal: Int? = null,
+    public val judgementTypeId: String? = null,
+    public val contestTime: Duration? = null,
+    public val runtime: Double? = null
+)

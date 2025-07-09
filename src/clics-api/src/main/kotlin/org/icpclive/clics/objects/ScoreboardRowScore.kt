@@ -5,10 +5,10 @@ import kotlin.time.Duration
 
 @SinceClics(FeedVersion.`2020_03`)
 @NoEvent
-public interface ScoreboardRowScore {
+public data class ScoreboardRowScore(
     @Required
-    public val numSolved: Int
+    public val numSolved: Int,
     @Required
     @LongMinutesBefore(FeedVersion.DRAFT)
     public val totalTime: Duration
-}
+)

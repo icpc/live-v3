@@ -5,11 +5,11 @@ import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2020_03`)
 @NoEvent
-public interface File {
-    public val mime: String?
-    public val href: Url?
-    public val width: Int?
-    public val height: Int?
-    @SinceClics(FeedVersion.`2022_07`) public val fileName: String?
-    @SinceClics(FeedVersion.`2022_07`) public val hash: String?
-}
+public data class File(
+    public val mime: String? = null,
+    public val href: Url? = null,
+    public val width: Int? = null,
+    public val height: Int? = null,
+    @SinceClics(FeedVersion.`2022_07`) public val fileName: String? = null,
+    @SinceClics(FeedVersion.`2022_07`) public val hash: String? = null
+)

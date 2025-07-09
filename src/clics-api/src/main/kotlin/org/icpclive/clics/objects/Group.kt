@@ -4,10 +4,10 @@ import org.icpclive.ksp.clics.*
 
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("groups")
-public interface Group {
-    @Required public val id: String
-    public val icpcId: String?
-    public val name: String?
-    public val type: String?
-    public val location: Location?
-}
+public data class Group(
+    @Required public val id: String,
+    public val icpcId: String? = null,
+    public val name: String? = null,
+    public val type: String? = null,
+    public val location: Location? = null
+)
