@@ -10,6 +10,13 @@ tasks {
             file.get().asFile.writeText("{\n}\n")
         }
     }
+    val emptyJsonArray by registering {
+        val file = project.layout.buildDirectory.file("empty-array.json")
+        outputs.file(file)
+        doLast {
+            file.get().asFile.writeText("[\n]\n")
+        }
+    }
     val userArchive = register<Sync>("userArchive") {
         destinationDir = project.layout.buildDirectory.dir("archive").get().asFile
         val configDir = rootProject.layout.projectDirectory.dir("config")
@@ -37,12 +44,12 @@ tasks {
         from(project(":schema-generator").tasks.named("generateAllSchemas")) {
             into(".vscode/schemas")
         }
-        fun emptyJson(dir:String, name: String) = from(emptyJson) {
+        fun emptyJson(dir:String, name: String, task: TaskProvider<Task> = emptyJson) = from(task) {
             into(dir)
             rename { "$name.json"}
         }
         emptyJson("config", "settings")
-        emptyJson("config", "advanced")
+        emptyJson("config", "advanced", emptyJsonArray)
         emptyJson("", "creds")
         emptyJson("", "widget-positions")
         emptyJson("", "visual-config")
