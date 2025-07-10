@@ -248,7 +248,8 @@ object ClicsExporter : Exporter {
                 startTime = info.startTimeOrZero + run.time,
                 startContestTime = run.time,
                 endTime = info.startTimeOrZero + run.time,
-                endContestTime = run.time
+                endContestTime = run.time,
+                current = true,
             )
 
             is RunResult.IOI -> Judgement(
@@ -262,13 +263,15 @@ object ClicsExporter : Exporter {
                 startTime = info.startTimeOrZero + run.time,
                 startContestTime = run.time,
                 endTime = info.startTimeOrZero + run.time,
-                endContestTime = run.time
+                endContestTime = run.time,
+                current = true,
             )
             is RunResult.InProgress -> Judgement(
                 id = run.id.toString(),
                 submissionId = run.id.toString(),
                 startTime = info.startTimeOrZero + run.time,
                 startContestTime = run.time,
+                current = true,
             )
         }.takeUnless { run.isHidden }
         val (curSubmission, curJudgment) = submissions[run.id] ?: (null to null)

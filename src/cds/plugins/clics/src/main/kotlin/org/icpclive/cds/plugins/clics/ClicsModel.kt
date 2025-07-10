@@ -127,7 +127,7 @@ internal class ClicsModel {
     }
 
     private fun Submission.toApi(): RunInfo {
-        val judgment = submissionJudgmentIds[id]?.mapNotNull { judgements[it] }?.maxByOrNull { it.startContestTime }
+        val judgment = submissionJudgmentIds[id]?.mapNotNull { judgements[it] }?.filter { it.current != false }?.maxByOrNull { it.startContestTime }
         val problem = problems[problemId]
         val passedTests = judgment?.id?.let { judgmentRunIds[it] }?.size ?: 0
         val judgementType = judgementTypes[judgment?.judgementTypeId]

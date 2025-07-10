@@ -11,6 +11,8 @@ public data class Organization(
     public val formalName: String? = null,
     public val country: String? = null,
     public val countryFlag: List<File>? = null,
+    @SinceClics(FeedVersion.DRAFT) public val countrySubdivision: String? = null,
+    @SinceClics(FeedVersion.DRAFT) public val countrySubdivisionFlag: List<File>? = null,
     public val url: String? = null,
     public val twitterHashtag: String? = null,
     @SinceClics(FeedVersion.`2023_06`) public val twitterAccount: String? = null,

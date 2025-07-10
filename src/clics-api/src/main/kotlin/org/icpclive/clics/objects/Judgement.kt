@@ -15,5 +15,6 @@ public data class Judgement(
     public val endContestTime: Duration? = null,
     public val judgementTypeId: String? = null,
     public val score: Double? = null,
-    public val maxRunTime: Double? = null
+    public val maxRunTime: Double? = null,
+    @SinceClics(FeedVersion.DRAFT) public val current: Boolean? = null
 )
