@@ -21,6 +21,7 @@ internal class ClicsModel {
     private val organizations = mutableMapOf<String, ClicsOrganizationInfo>()
     private val teams = mutableMapOf<String, Team>()
     private val submissions = mutableMapOf<String, Submission>()
+    private val removedSubmissionIds = mutableSetOf<String>()
     private val commentaries = mutableMapOf<String, Commentary>()
     private val submissionJudgmentIds = mutableMapOf<String, MutableSet<String>>()
     private val judgements = mutableMapOf<String, Judgement>()
@@ -150,7 +151,8 @@ internal class ClicsModel {
             time = contestTime,
             testedTime = judgment?.endContestTime,
             reactionVideos = reaction?.mapNotNull { mediaType(it) } ?: emptyList(),
-            languageId = languageId?.toLanguageId()
+            languageId = languageId?.toLanguageId(),
+            isHidden = id in removedSubmissionIds
         )
     }
 
@@ -285,42 +287,51 @@ internal class ClicsModel {
     }
 
     private suspend fun processSubmission(id: String, submission: Submission?) {
-        require(submission != null) { "Removing submissions is not supported" }
-        submissions[id] = submission
+        if (submission == null) {
+            removedSubmissionIds.add(id)
+        } else {
+            require(id == submission.id)
+            submissions[id] = submission
+            removedSubmissionIds.remove(id)
+        }
         submissionUpdated(id)
     }
 
     private suspend fun processJudgement(id: String, judgement: Judgement?) {
         val oldJudgment = judgements[id]
         if (judgement == oldJudgment) return
-        val submissionId = (judgement ?: oldJudgment)!!.submissionId
-        if (judgement != null && oldJudgment != null) require(judgement.submissionId == oldJudgment.submissionId) { "Judgment ${judgement.id} submission id changed from ${oldJudgment.submissionId} to ${judgement.submissionId}" }
+        oldJudgment?.submissionId?.takeIf { it != judgement?.submissionId }?.let {
+            submissionJudgmentIds[it]?.remove(id)
+            submissionUpdated(it)
+        }
         if (judgement == null) {
             judgements.remove(id)
-            submissionJudgmentIds[submissionId]?.remove(id)
         } else {
+            require(id == judgement.id)
+            val submissionId = judgement.submissionId
             judgements[judgement.id] = judgement
             submissionJudgmentIds.getOrPut(submissionId) { mutableSetOf() }.add(judgement.id)
+            submissionUpdated(judgement.submissionId)
         }
-        submissionUpdated(submissionId)
     }
 
     private suspend fun processRun(id: String, run: Run?) {
         val oldRun = runs[id]
-        if (oldRun == run) {
-            return
-        }
+        if (oldRun == run) return
         val judgementId = (run ?: oldRun)!!.judgementId
-        if (oldRun != null && run != null) require(run.judgementId == oldRun.judgementId) { "Run $id judgment id changed from ${oldRun.id} to ${run.id}" }
-        val judgement = judgements[judgementId]
+        oldRun?.judgementId?.takeIf { it != run?.judgementId }?.let {
+            judgmentRunIds[it]?.remove(id)
+            submissionUpdated(judgements[it]?.submissionId)
+        }
         if (run == null) {
-            judgmentRunIds[judgementId]?.remove(id)
             runs.remove(id)
         } else {
+            val judgement = judgements[judgementId]
+            require(id == run.id)
             runs[id] = run
             judgmentRunIds.getOrPut(judgementId) { mutableSetOf() }.add(id)
+            submissionUpdated(judgement?.submissionId)
         }
-        submissionUpdated(judgement?.submissionId)
     }
 
     private suspend fun processCommentary(id: String, commentary: Commentary?) {

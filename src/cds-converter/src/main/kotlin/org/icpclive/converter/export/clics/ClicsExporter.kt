@@ -239,7 +239,7 @@ object ClicsExporter : Exporter {
             teamId = run.teamId.value,
             time = info.startTimeOrZero + run.time,
             contestTime = run.time,
-        )
+        ).takeUnless { run.isHidden }
         val judgement = when (val result = run.result) {
             is RunResult.ICPC -> Judgement(
                 id = run.id.toString(),
@@ -270,7 +270,7 @@ object ClicsExporter : Exporter {
                 startTime = info.startTimeOrZero + run.time,
                 startContestTime = run.time,
             )
-        }
+        }.takeUnless { run.isHidden }
         val (curSubmission, curJudgment) = submissions[run.id] ?: (null to null)
         if (submission != curSubmission) {
             updateEvent(
