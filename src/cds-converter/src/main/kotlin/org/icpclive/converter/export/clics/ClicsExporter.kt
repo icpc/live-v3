@@ -365,17 +365,18 @@ object ClicsExporter : Exporter {
         }.map { it(EventToken("live-cds-${eventCounter++}")) }
     }
 
-    private inline fun <reified X, Y, reified T: GlobalEvent<Y>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>().map {
-        it.data as X
-    }.stateIn(scope, SharingStarted.Eagerly, null)
+    private inline fun <X: Any, reified T: GlobalEvent<X>> Flow<Event>.filterGlobalEvent(scope: CoroutineScope) = filterIsInstance<T>()
+        .map { it.data }
+        .stateIn(scope, SharingStarted.Eagerly, null)
         .filterNotNull()
 
-    private inline fun <reified X : Y, Y, reified T: IdEvent<Y>> Flow<Event>.filterIdEvent(scope: CoroutineScope) = filterIsInstance<T>()
+    private inline fun <X: Any, reified T: IdEvent<X>> Flow<Event>.filterIdEvent(scope: CoroutineScope) = filterIsInstance<T>()
         .runningFold(persistentMapOf<String, X>()) { accumulator, value ->
-            if (value.data == null) {
+            val data = value.data
+            if (data == null) {
                 accumulator.remove(value.id)
             } else {
-                accumulator.put(value.id, value.data as X)
+                accumulator.put(value.id, data)
             }
     }.stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
 
@@ -416,23 +417,23 @@ object ClicsExporter : Exporter {
                 emit(it)
                 it !is StateEvent || it.data.endOfUpdates == null
             }
-        val contestFlow = eventFeed.filterGlobalEvent<Contest, _, ContestEvent>(this)
-        val stateFlow = eventFeed.filterGlobalEvent<State, _, StateEvent>(this)
+        val contestFlow = eventFeed.filterGlobalEvent<_, ContestEvent>(this)
+        val stateFlow = eventFeed.filterGlobalEvent<_, StateEvent>(this)
 
-        val judgementTypesFlow = eventFeed.filterIdEvent<JudgementType, _, JudgementTypeEvent>(this)
-        val languagesFlow = eventFeed.filterIdEvent<Language, _, LanguageEvent>(this)
-        val problemsFlow = eventFeed.filterIdEvent<Problem, _, ProblemEvent>(this)
-        val groupsFlow = eventFeed.filterIdEvent<Group, _, GroupEvent>(this)
-        val organizationsFlow = eventFeed.filterIdEvent<Organization, _, OrganizationEvent>(this)
-        val teamsFlow = eventFeed.filterIdEvent<Team, _, TeamEvent>(this)
-        val submissionsFlow = eventFeed.filterIdEvent<Submission, _, SubmissionEvent>(this)
-        val judgementsFlow = eventFeed.filterIdEvent<Judgement, _, JudgementEvent>(this)
-        //val runsFlow = eventFeed.filterIdEvent<Run, Event.RunsEvent>(scope)
-        val commentaryFlow = eventFeed.filterIdEvent<Commentary, _, CommentaryEvent>(this)
-        //val personsFlow = eventFeed.filterIdEvent<Person, Event.PersonEvent>(scope)
-        //val accountsFlow = eventFeed.filterIdEvent<Account, Event.AccountEvent>(scope)
-        //val clarificationsFlow = eventFeed.filterIdEvent<Clarification, Event.ClarificationEvent>(scope)
-        val awardsFlow = eventFeed.filterIdEvent<Award, _, AwardEvent>(this)
+        val judgementTypesFlow = eventFeed.filterIdEvent<_, JudgementTypeEvent>(this)
+        val languagesFlow = eventFeed.filterIdEvent<_, LanguageEvent>(this)
+        val problemsFlow = eventFeed.filterIdEvent<_, ProblemEvent>(this)
+        val groupsFlow = eventFeed.filterIdEvent<_, GroupEvent>(this)
+        val organizationsFlow = eventFeed.filterIdEvent<_, OrganizationEvent>(this)
+        val teamsFlow = eventFeed.filterIdEvent<_, TeamEvent>(this)
+        val submissionsFlow = eventFeed.filterIdEvent<_, SubmissionEvent>(this)
+        val judgementsFlow = eventFeed.filterIdEvent<_, JudgementEvent>(this)
+        //val runsFlow = eventFeed.filterIdEvent<_, RunsEvent>(scope)
+        val commentaryFlow = eventFeed.filterIdEvent<_, CommentaryEvent>(this)
+        //val personsFlow = eventFeed.filterIdEvent<_, PersonEvent>(scope)
+        //val accountsFlow = eventFeed.filterIdEvent<_, AccountEvent>(scope)
+        //val clarificationsFlow = eventFeed.filterIdEvent<_, ClarificationEvent>(scope)
+        val awardsFlow = eventFeed.filterIdEvent<_, AwardEvent>(this)
 
         return object : Router {
             override fun HtmlBlockTag.mainPage() {
