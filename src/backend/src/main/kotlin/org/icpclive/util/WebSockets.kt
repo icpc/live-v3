@@ -5,7 +5,6 @@ import io.ktor.websocket.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.serialization.encodeToString
 import org.icpclive.server.serverResponseJsonSettings
 
 suspend fun DefaultWebSocketServerSession.sendFlow(flow: Flow<String>) {

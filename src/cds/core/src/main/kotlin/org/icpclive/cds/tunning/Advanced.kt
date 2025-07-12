@@ -1,17 +1,16 @@
 package org.icpclive.cds.tunning
 
-import kotlinx.datetime.Instant
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.api.*
-import org.icpclive.cds.api.AwardsSettings.ManualAwardSetting
-import org.icpclive.cds.api.AwardsSettings.MedalGroup
-import org.icpclive.cds.api.AwardsSettings.MedalSettings
+import org.icpclive.cds.api.AwardsSettings.*
 import org.icpclive.cds.util.getLogger
-import org.icpclive.cds.util.serializers.RegexSerializer
 import org.icpclive.cds.util.serializers.*
 import java.io.InputStream
 import kotlin.time.Duration
+import kotlin.time.Instant
 
 @Serializable
 internal class RankingSettings(

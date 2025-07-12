@@ -3,18 +3,18 @@ package org.icpclive.cds.plugins.eolymp
 import com.eolymp.graphql.*
 import com.expediagroup.graphql.client.ktor.GraphQLKtorClient
 import com.expediagroup.graphql.client.types.GraphQLClientRequest
-import kotlinx.datetime.Instant
 import kotlinx.datetime.format.DateTimeComponents
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.util.getLogger
+import org.icpclive.ksp.cds.Builder
 import java.net.URL
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.ZERO
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 
 private suspend fun <T : Any> GraphQLKtorClient.checkedExecute(request: GraphQLClientRequest<T>) =
@@ -257,7 +257,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         }
     }
 
-    private fun parseTime(s: String) = Instant.parse(s, DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET)
+    private fun parseTime(s: String) = DateTimeComponents.Formats.ISO_DATE_TIME_OFFSET.parse(s).toInstantUsingOffset()
 
     companion object {
         val log by getLogger()

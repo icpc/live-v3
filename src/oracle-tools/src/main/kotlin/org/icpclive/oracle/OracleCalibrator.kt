@@ -1,26 +1,16 @@
 package org.icpclive.oracle
 
 import kotlinx.coroutines.runBlocking
-import java.awt.Color
-import java.awt.Graphics2D
-import java.awt.Image
-import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
-import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
+import java.awt.*
+import java.awt.event.*
 import java.awt.image.BufferedImage
 import java.io.*
 import java.net.URI
 import java.nio.file.Path
 import java.util.*
-import javax.swing.ImageIcon
-import javax.swing.JFrame
-import javax.swing.JLabel
-import javax.swing.WindowConstants
+import javax.swing.*
 import kotlin.io.path.bufferedReader
-import kotlin.math.abs
-import kotlin.math.sign
-import kotlin.math.sqrt
+import kotlin.math.*
 import kotlin.system.exitProcess
 
 class OracleCalibrator(private val url: String, private val configPath: Path) : MJpegViewer, MouseListener,

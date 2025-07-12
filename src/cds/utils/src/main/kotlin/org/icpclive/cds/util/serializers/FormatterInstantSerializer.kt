@@ -7,6 +7,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.time.Instant
 
 public abstract class FormatterInstantSerializer(private val formatter: DateTimeFormat<DateTimeComponents>) : KSerializer<Instant> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Instant", PrimitiveKind.STRING)
@@ -14,6 +15,6 @@ public abstract class FormatterInstantSerializer(private val formatter: DateTime
         encoder.encodeString(value.format(formatter, TimeZone.currentSystemDefault().offsetAt(value)))
     }
     override fun deserialize(decoder: Decoder): Instant {
-        return Instant.parse(decoder.decodeString(), formatter)
+        return formatter.parse(decoder.decodeString()).toInstantUsingOffset()
     }
 }

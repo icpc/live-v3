@@ -1,7 +1,7 @@
 package org.icpclive.clics.objects
 
-import kotlinx.datetime.Instant
 import org.icpclive.ksp.clics.*
+import kotlin.time.Instant
 
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("state")

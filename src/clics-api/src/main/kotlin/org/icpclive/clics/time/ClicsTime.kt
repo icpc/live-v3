@@ -6,13 +6,14 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 private fun DateTimeFormatBuilder.WithDateTimeComponents.formatBase(padding: Padding) {
     year(padding)
     char('-')
     monthNumber(padding)
     char('-')
-    dayOfMonth(padding)
+    day(padding)
     char('T')
     hour(padding)
     char(':')

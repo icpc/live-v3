@@ -3,11 +3,13 @@ package org.icpclive.cds.adapters.impl
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import org.icpclive.cds.*
-import org.icpclive.cds.api.*
-import org.icpclive.cds.tunning.*
+import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.InfoUpdate
+import org.icpclive.cds.api.ContestInfo
+import org.icpclive.cds.api.startTime
+import org.icpclive.cds.tunning.TuningRule
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 private sealed interface AdvancedAdapterEvent {
     data class Update(val update: ContestUpdate) : AdvancedAdapterEvent

@@ -1,16 +1,8 @@
 package org.icpclive.clics.events
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SealedSerializationApi
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationException
+import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonNull
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.JsonTransformingSerializer
-import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.*
 
 @Serializable
 internal class IdEventSurrogate<T>(

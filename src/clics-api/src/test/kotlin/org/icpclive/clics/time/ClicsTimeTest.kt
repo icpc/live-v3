@@ -1,19 +1,16 @@
 package org.icpclive.clics.time
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import org.icpclive.clics.time.*
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.*
-import kotlin.test.*
-import kotlin.time.Duration
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.time.*
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.DurationUnit
 
 object ClicsTimeTest {
     var years = arrayOf(

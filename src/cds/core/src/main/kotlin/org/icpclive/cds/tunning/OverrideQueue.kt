@@ -2,7 +2,7 @@ package org.icpclive.cds.tunning
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.api.*
+import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.util.serializers.DurationInSecondsSerializer
 import kotlin.time.Duration
 

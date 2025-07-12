@@ -5,7 +5,8 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.cds.adapters.finalContestState
 import org.icpclive.cds.api.*
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.PreviousDaySettings
+import org.icpclive.cds.settings.toFlow
 import org.icpclive.cds.tunning.TuningRule
 import kotlin.time.Duration
 

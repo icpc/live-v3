@@ -1,10 +1,11 @@
-import kotlinx.serialization.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.fromFile
-import org.icpclive.cds.tunning.*
-import org.junit.jupiter.api.*
-import kotlin.io.path.*
+import org.icpclive.cds.tunning.TuningRule
+import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.TestFactory
 import java.nio.file.Path
+import kotlin.io.path.*
 
 
 class AllConfigsAreParsable {

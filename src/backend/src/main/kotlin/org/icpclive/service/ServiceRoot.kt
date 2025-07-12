@@ -8,9 +8,7 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.generateCommentary
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
-import org.icpclive.cds.util.completeOrThrow
-import org.icpclive.cds.util.getLogger
-import org.icpclive.cds.util.shareWith
+import org.icpclive.cds.util.*
 import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator
 

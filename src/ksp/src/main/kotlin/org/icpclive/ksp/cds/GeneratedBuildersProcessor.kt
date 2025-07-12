@@ -3,9 +3,9 @@ package org.icpclive.ksp.cds
 import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
-import com.google.devtools.ksp.symbol.Modifier
-import kotlinx.serialization.*
+import kotlinx.serialization.SerialName
 import org.icpclive.ksp.common.*
+import kotlin.time.*
 
 class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logger: KSPLogger) : SymbolProcessor {
     @OptIn(KspExperimental::class)
@@ -31,9 +31,9 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
                 "org.icpclive.cds.settings.UrlOrLocalPath.Local",
                 "org.icpclive.cds.settings.UrlOrLocalPath.Url" -> +"@Contextual"
 
-                "kotlin.text.Regex" -> serializable("RegexSerializer")
+                Regex::class.qualifiedName -> serializable("RegexSerializer")
 
-                "kotlinx.datetime.Instant" -> {
+                Instant::class.qualifiedName -> {
                     when {
                         member.isAnnotationPresent(Human::class) -> serializable("HumanTimeSerializer")
                         member.isAnnotationPresent(UnixMilliSeconds::class) -> {
@@ -53,7 +53,7 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
                     }
                 }
 
-                "kotlin.time.Duration" -> {
+                Duration::class.qualifiedName -> {
                     when {
                         member.isAnnotationPresent(Seconds::class) -> {
                             serializable("DurationInSecondsSerializer")

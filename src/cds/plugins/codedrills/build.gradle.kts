@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalAbiValidation::class)
 
-import com.google.protobuf.gradle.*
+import com.google.protobuf.gradle.id
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 plugins {

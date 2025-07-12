@@ -1,12 +1,10 @@
 package org.icpclive.clics.time
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import org.icpclive.clics.time.formatClicsTime
-import org.icpclive.clics.time.parseClicsTime
+import kotlin.time.Instant
 
 internal object InstantSerializer : KSerializer<Instant> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ClicsInstant", PrimitiveKind.STRING)

@@ -1,11 +1,11 @@
 package org.icpclive.admin
 
-import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.combine
-import org.icpclive.api.*
+import org.icpclive.api.AddTeamScoreRequest
+import org.icpclive.api.InterestingTeam
 import org.icpclive.cds.api.InefficientContestInfoApi
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.data.DataBus

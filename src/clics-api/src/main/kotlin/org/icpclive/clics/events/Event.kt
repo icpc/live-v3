@@ -1,6 +1,5 @@
 package org.icpclive.clics.events
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable

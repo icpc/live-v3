@@ -1,17 +1,11 @@
 package org.icpclive.cds.adapters.impl
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.*
 import org.icpclive.cds.CommentaryMessagesUpdate
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.applyEvent
 import org.icpclive.cds.adapters.contestState
-import org.icpclive.cds.api.CommentaryMessage
-import org.icpclive.cds.api.ContestInfo
-import org.icpclive.cds.api.ContestState
-import org.icpclive.cds.api.toProblemId
-import org.icpclive.cds.api.toTeamId
+import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.getLogger
 

@@ -1,13 +1,13 @@
 package org.icpclive.cds.plugins.dmoj
 
-import kotlinx.datetime.Instant
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.*
 import org.icpclive.cds.settings.*
 import org.icpclive.ksp.cds.Builder
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 @Builder("dmoj")
 public sealed interface DmojSettings : CDSSettings, KtorNetworkSettingsProvider {

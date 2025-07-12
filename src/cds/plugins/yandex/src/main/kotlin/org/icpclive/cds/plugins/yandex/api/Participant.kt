@@ -1,7 +1,8 @@
 package org.icpclive.cds.plugins.yandex.api
 
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.api.*
+import org.icpclive.cds.api.TeamInfo
+import org.icpclive.cds.api.toTeamId
 
 @Serializable
 internal data class Participant(

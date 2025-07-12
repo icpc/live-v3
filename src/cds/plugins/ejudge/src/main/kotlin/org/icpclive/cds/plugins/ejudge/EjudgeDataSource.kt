@@ -5,17 +5,18 @@ import kotlinx.datetime.format.alternativeParsing
 import kotlinx.datetime.format.char
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
+import org.icpclive.cds.ktor.DataLoader
+import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.util.*
 import org.icpclive.ksp.cds.Builder
-import org.icpclive.cds.ktor.*
-import org.icpclive.cds.settings.*
-import org.icpclive.cds.util.child
-import org.icpclive.cds.util.childOrNull
-import org.icpclive.cds.util.children
 import org.w3c.dom.Element
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 @Builder("ejudge")
 public sealed interface EjudgeSettings : CDSSettings, KtorNetworkSettingsProvider {
@@ -75,7 +76,7 @@ internal class EjudgeDataSource(val settings: EjudgeSettings) : FullReloadContes
         alternativeParsing({ char('/') }) { char('-') }
         monthNumber()
         alternativeParsing({ char('/') }) { char('-') }
-        dayOfMonth()
+        day()
         char(' ')
         time(LocalTime.Formats.ISO)
     }

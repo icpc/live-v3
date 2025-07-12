@@ -1,12 +1,13 @@
 package org.icpclive.service
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.api.*
-import org.icpclive.data.DataBus
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.completeOrThrow
+import org.icpclive.data.DataBus
 import kotlin.time.Duration.Companion.milliseconds
 
 class StatisticsService : Service {

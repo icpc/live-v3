@@ -3,7 +3,6 @@ package org.icpclive.service
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
-import kotlinx.datetime.Clock
 import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
@@ -11,6 +10,7 @@ import org.icpclive.cds.api.QueueSettings
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.*
 import org.icpclive.data.DataBus
+import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 

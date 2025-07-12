@@ -2,7 +2,8 @@ package org.icpclive.cds.plugins.ejudge
 
 import org.icpclive.cds.CdsLoadersTest
 import org.icpclive.cds.api.ContestResultType
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.PreviousDaySettings
+import org.icpclive.cds.settings.UrlOrLocalPath
 import kotlin.test.Test
 
 object EjudgeTest : CdsLoadersTest() {

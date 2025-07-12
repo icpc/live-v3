@@ -3,7 +3,6 @@ package org.icpclive.ksp.common
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.symbol.Modifier
-import java.io.OutputStream
 import java.io.PrintWriter
 
 class MyCodeGenerator {

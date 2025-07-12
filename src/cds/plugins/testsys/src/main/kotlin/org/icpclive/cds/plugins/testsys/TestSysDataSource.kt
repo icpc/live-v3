@@ -1,16 +1,18 @@
 package org.icpclive.cds.plugins.testsys
 
 import kotlinx.datetime.*
-import kotlinx.datetime.format.*
+import kotlinx.datetime.format.char
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.ksp.cds.Builder
 import org.icpclive.cds.ktor.*
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.ksp.cds.Builder
 import java.nio.charset.Charset
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 @Builder("testsys")
 public sealed interface TestSysSettings : CDSSettings, KtorNetworkSettingsProvider {
@@ -127,7 +129,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
     }
 
     private val dateFormat = LocalDateTime.Format {
-        dayOfMonth()
+        day()
         char('.')
         monthNumber()
         char('.')

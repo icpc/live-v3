@@ -4,14 +4,14 @@ public abstract interface class org/icpclive/cds/plugins/allcups/AllCupsSettings
 	public abstract fun getContestName ()Ljava/lang/String;
 	public abstract fun getFreezeTime-UwyO8pc ()J
 	public abstract fun getProblemIds ()Ljava/util/List;
-	public abstract fun getStartTime ()Lkotlinx/datetime/Instant;
+	public abstract fun getStartTime ()Lkotlin/time/Instant;
 	public abstract fun getTeamIds ()Ljava/util/List;
 	public abstract fun getToken ()Lorg/icpclive/cds/settings/Credential;
 	public fun toDataSource ()Lorg/icpclive/cds/ContestDataSource;
 }
 
 public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsBuilder : org/icpclive/cds/plugins/allcups/AllCupsSettings {
-	public synthetic fun <init> (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlin/time/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun <init> (Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;)V
 	public final fun build ()Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
 	public fun getContestId ()I
@@ -22,7 +22,7 @@ public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsBuilder : org
 	public fun getNetwork ()Lorg/icpclive/cds/ktor/NetworkSettings;
 	public fun getPreviousDays ()Ljava/util/List;
 	public fun getProblemIds ()Ljava/util/List;
-	public fun getStartTime ()Lkotlinx/datetime/Instant;
+	public fun getStartTime ()Lkotlin/time/Instant;
 	public fun getTeamIds ()Ljava/util/List;
 	public fun getToken ()Lorg/icpclive/cds/settings/Credential;
 	public fun setContestId (I)V
@@ -33,14 +33,14 @@ public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsBuilder : org
 	public fun setNetwork (Lorg/icpclive/cds/ktor/NetworkSettings;)V
 	public fun setPreviousDays (Ljava/util/List;)V
 	public fun setProblemIds (Ljava/util/List;)V
-	public fun setStartTime (Lkotlinx/datetime/Instant;)V
+	public fun setStartTime (Lkotlin/time/Instant;)V
 	public fun setTeamIds (Ljava/util/List;)V
 	public fun setToken (Lorg/icpclive/cds/settings/Credential;)V
 }
 
 public final class org/icpclive/cds/plugins/allcups/AllCupsSettingsImplKt {
-	public static final fun AllCupsSettings-yeyM-xY (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
-	public static synthetic fun AllCupsSettings-yeyM-xY$default (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlinx/datetime/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
+	public static final fun AllCupsSettings-yeyM-xY (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlin/time/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
+	public static synthetic fun AllCupsSettings-yeyM-xY$default (ILorg/icpclive/cds/settings/Credential;Ljava/lang/String;Lkotlin/time/Instant;JJLjava/util/List;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
 	public static final fun copy (Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
 	public static synthetic fun copy$default (Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/icpclive/cds/plugins/allcups/AllCupsSettings;
 }

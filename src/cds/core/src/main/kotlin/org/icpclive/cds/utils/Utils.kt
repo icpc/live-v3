@@ -1,7 +1,7 @@
 package org.icpclive.cds.utils
 
 import kotlinx.collections.immutable.*
-import org.icpclive.cds.api.*
+import org.icpclive.cds.api.RunInfo
 
 private fun PersistentList<RunInfo>.resort(index_: Int) = builder().apply {
     var index = index_

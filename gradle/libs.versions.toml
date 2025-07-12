@@ -1,9 +1,9 @@
 [versions]
-ktor = "3.2.0"                     # https://ktor.io/
-datetime = "0.6.2"                 # https://github.com/Kotlin/kotlinx-datetime
-serialization = "1.8.1"            # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "2.2.0-RC2"
-ksp = "2.2.0-RC2-2.0.2"               # https://github.com/google/ksp
+ktor = "3.2.1"                     # https://ktor.io/
+datetime = "0.7.1"                 # https://github.com/Kotlin/kotlinx-datetime
+serialization = "1.9.0"            # https://github.com/Kotlin/kotlinx.serialization
+kotlin = "2.2.0"
+ksp = "2.2.0-2.0.2"                # https://github.com/google/ksp
 slf4j = "2.0.17"                   # https://www.slf4j.org/download.html
 logback = "1.5.18"                 # https://logback.qos.ch/download.html
 node-plugin = "7.1.0"              # https://github.com/node-gradle/gradle-node-plugin
@@ -18,7 +18,7 @@ grpc-kotlin = "1.4.1"              # https://github.com/grpc/grpc-kotlin
 dokka = "2.0.0"                    # https://github.com/Kotlin/dokka
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.14.0"      # https://commons.apache.org/proper/commons-csv/
-graphql = "8.8.0"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
+graphql = "8.8.1"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
 
 [libraries]
 

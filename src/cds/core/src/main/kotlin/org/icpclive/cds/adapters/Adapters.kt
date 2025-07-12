@@ -1,8 +1,8 @@
 package org.icpclive.cds.adapters
 
 
+import kotlinx.coroutines.flow.Flow
 import org.icpclive.cds.ContestUpdate
-import kotlinx.coroutines.flow.*
 import org.icpclive.cds.adapters.impl.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard

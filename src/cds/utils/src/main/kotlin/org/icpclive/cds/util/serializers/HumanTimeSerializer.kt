@@ -1,13 +1,14 @@
 package org.icpclive.cds.util.serializers
 
 import kotlinx.datetime.*
-import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 public object HumanTimeSerializer : KSerializer<Instant> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("InstantH", PrimitiveKind.STRING)
@@ -23,7 +24,7 @@ public object HumanTimeSerializer : KSerializer<Instant> {
         char('-')
         monthNumber()
         char('-')
-        dayOfMonth()
+        day()
         char(' ')
         hour()
         char(':')
@@ -62,7 +63,7 @@ public object HumanTimeSerializer : KSerializer<Instant> {
 
     private inline fun <reified T> catchToNull(f: () -> T) = try {
         f()
-    } catch (e: Exception) {
+    } catch (_: Exception) {
         null
     }
 
@@ -74,7 +75,7 @@ public object HumanTimeSerializer : KSerializer<Instant> {
         Clock.System.now().takeIf { time == "now" }
             ?: catchToNull { Instant.fromEpochMilliseconds(time.toLong() * 1000L) }
             ?: catchToNull { Instant.parse(time) }
-            ?: catchToNull { Instant.parse(time, readableFormat) }
+            ?: catchToNull { readableFormat.parse(time).toInstantUsingOffset() }
             ?: guessDatetimeFormatLocal(time)?.toInstant(TimeZone.currentSystemDefault())
             ?: throw SerializationException("Failed to parse date: $time")
 }

@@ -12,7 +12,7 @@ import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.service.AnalyticsAction
-import org.icpclive.util.*
+import org.icpclive.util.sendJsonFlow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 

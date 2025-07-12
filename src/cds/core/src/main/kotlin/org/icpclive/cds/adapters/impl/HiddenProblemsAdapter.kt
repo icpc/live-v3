@@ -2,8 +2,8 @@ package org.icpclive.cds.adapters.impl
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.ContestUpdate
+import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.api.ProblemId
 import org.icpclive.cds.utils.withGroupedRuns
 

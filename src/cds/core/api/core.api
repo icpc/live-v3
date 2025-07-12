@@ -433,18 +433,18 @@ public final class org/icpclive/cds/api/Color$Companion {
 
 public final class org/icpclive/cds/api/CommentaryMessage {
 	public static final field Companion Lorg/icpclive/cds/api/CommentaryMessage$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-K1kcfRo ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Lkotlinx/datetime/Instant;
+	public final fun component3 ()Lkotlin/time/Instant;
 	public final fun component4-UwyO8pc ()J
 	public final fun component5 ()Ljava/util/List;
 	public final fun component6 ()Ljava/util/List;
 	public final fun component7 ()I
 	public final fun component8 ()Ljava/util/List;
-	public final fun copy-JTcP2wc (Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;)Lorg/icpclive/cds/api/CommentaryMessage;
-	public static synthetic fun copy-JTcP2wc$default (Lorg/icpclive/cds/api/CommentaryMessage;Ljava/lang/String;Ljava/lang/String;Lkotlinx/datetime/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/CommentaryMessage;
+	public final fun copy-JTcP2wc (Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;)Lorg/icpclive/cds/api/CommentaryMessage;
+	public static synthetic fun copy-JTcP2wc$default (Lorg/icpclive/cds/api/CommentaryMessage;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/util/List;Ljava/util/List;ILjava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/CommentaryMessage;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getId-K1kcfRo ()Ljava/lang/String;
 	public final fun getMessage ()Ljava/lang/String;
@@ -453,7 +453,7 @@ public final class org/icpclive/cds/api/CommentaryMessage {
 	public final fun getRunIds ()Ljava/util/List;
 	public final fun getTags ()Ljava/util/List;
 	public final fun getTeamIds ()Ljava/util/List;
-	public final fun getTime ()Lkotlinx/datetime/Instant;
+	public final fun getTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -502,8 +502,8 @@ public final class org/icpclive/cds/api/CommentaryMessageId$Companion {
 
 public final class org/icpclive/cds/api/ContestInfo {
 	public static final field Companion Lorg/icpclive/cds/api/ContestInfo$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlinx/datetime/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLjava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlin/time/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlin/time/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLjava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -573,9 +573,9 @@ public final class org/icpclive/cds/api/ContestInfo$Companion {
 
 public final class org/icpclive/cds/api/ContestInfoKt {
 	public static final fun getCurrentContestTime (Lorg/icpclive/cds/api/ContestInfo;)J
-	public static final fun getStartTime (Lorg/icpclive/cds/api/ContestInfo;)Lkotlinx/datetime/Instant;
-	public static final fun getStartTimeOrZero (Lorg/icpclive/cds/api/ContestInfo;)Lkotlinx/datetime/Instant;
-	public static final fun instantAt-HG0u8IE (Lorg/icpclive/cds/api/ContestInfo;J)Lkotlinx/datetime/Instant;
+	public static final fun getStartTime (Lorg/icpclive/cds/api/ContestInfo;)Lkotlin/time/Instant;
+	public static final fun getStartTimeOrZero (Lorg/icpclive/cds/api/ContestInfo;)Lkotlin/time/Instant;
+	public static final fun instantAt-HG0u8IE (Lorg/icpclive/cds/api/ContestInfo;J)Lkotlin/time/Instant;
 	public static final fun languages (Ljava/util/List;)Ljava/util/List;
 }
 
@@ -626,15 +626,15 @@ public abstract class org/icpclive/cds/api/ContestStatus {
 
 public final class org/icpclive/cds/api/ContestStatus$BEFORE : org/icpclive/cds/api/ContestStatus {
 	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$BEFORE$Companion;
-	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlinx/datetime/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlinx/datetime/Instant;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/time/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/time/Instant;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-FghU774 ()Lkotlin/time/Duration;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
-	public final fun copy-dnQKTGw (Lkotlin/time/Duration;Lkotlinx/datetime/Instant;)Lorg/icpclive/cds/api/ContestStatus$BEFORE;
-	public static synthetic fun copy-dnQKTGw$default (Lorg/icpclive/cds/api/ContestStatus$BEFORE;Lkotlin/time/Duration;Lkotlinx/datetime/Instant;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$BEFORE;
+	public final fun component2 ()Lkotlin/time/Instant;
+	public final fun copy-dnQKTGw (Lkotlin/time/Duration;Lkotlin/time/Instant;)Lorg/icpclive/cds/api/ContestStatus$BEFORE;
+	public static synthetic fun copy-dnQKTGw$default (Lorg/icpclive/cds/api/ContestStatus$BEFORE;Lkotlin/time/Duration;Lkotlin/time/Instant;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$BEFORE;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getHoldTime-FghU774 ()Lkotlin/time/Duration;
-	public final fun getScheduledStartAt ()Lkotlinx/datetime/Instant;
+	public final fun getScheduledStartAt ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 }
 
@@ -653,25 +653,25 @@ public final class org/icpclive/cds/api/ContestStatus$BEFORE$Companion {
 }
 
 public final class org/icpclive/cds/api/ContestStatus$Companion {
-	public final fun byCurrentTime-qoljjlM (Lkotlinx/datetime/Instant;Lkotlin/time/Duration;J)Lorg/icpclive/cds/api/ContestStatus;
+	public final fun byCurrentTime-qoljjlM (Lkotlin/time/Instant;Lkotlin/time/Duration;J)Lorg/icpclive/cds/api/ContestStatus;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/api/ContestStatus$FINALIZED : org/icpclive/cds/api/ContestStatus {
 	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$FINALIZED$Companion;
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;)V
-	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
-	public final fun component3 ()Lkotlinx/datetime/Instant;
-	public final fun component4 ()Lkotlinx/datetime/Instant;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;)Lorg/icpclive/cds/api/ContestStatus$FINALIZED;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ContestStatus$FINALIZED;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$FINALIZED;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;)V
+	public synthetic fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
+	public final fun component3 ()Lkotlin/time/Instant;
+	public final fun component4 ()Lkotlin/time/Instant;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;)Lorg/icpclive/cds/api/ContestStatus$FINALIZED;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ContestStatus$FINALIZED;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$FINALIZED;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getFinalizedAt ()Lkotlinx/datetime/Instant;
-	public final fun getFinishedAt ()Lkotlinx/datetime/Instant;
-	public final fun getFrozenAt ()Lkotlinx/datetime/Instant;
-	public final fun getStartedAt ()Lkotlinx/datetime/Instant;
+	public final fun getFinalizedAt ()Lkotlin/time/Instant;
+	public final fun getFinishedAt ()Lkotlin/time/Instant;
+	public final fun getFrozenAt ()Lkotlin/time/Instant;
+	public final fun getStartedAt ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 }
 
@@ -691,17 +691,17 @@ public final class org/icpclive/cds/api/ContestStatus$FINALIZED$Companion {
 
 public final class org/icpclive/cds/api/ContestStatus$OVER : org/icpclive/cds/api/ContestStatus {
 	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$OVER$Companion;
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;)V
-	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
-	public final fun component3 ()Lkotlinx/datetime/Instant;
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;)Lorg/icpclive/cds/api/ContestStatus$OVER;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ContestStatus$OVER;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$OVER;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;)V
+	public synthetic fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
+	public final fun component3 ()Lkotlin/time/Instant;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;)Lorg/icpclive/cds/api/ContestStatus$OVER;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ContestStatus$OVER;Lkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Instant;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$OVER;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getFinishedAt ()Lkotlinx/datetime/Instant;
-	public final fun getFrozenAt ()Lkotlinx/datetime/Instant;
-	public final fun getStartedAt ()Lkotlinx/datetime/Instant;
+	public final fun getFinishedAt ()Lkotlin/time/Instant;
+	public final fun getFrozenAt ()Lkotlin/time/Instant;
+	public final fun getStartedAt ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 }
 
@@ -721,16 +721,16 @@ public final class org/icpclive/cds/api/ContestStatus$OVER$Companion {
 
 public final class org/icpclive/cds/api/ContestStatus$RUNNING : org/icpclive/cds/api/ContestStatus {
 	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$RUNNING$Companion;
-	public fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Z)V
-	public synthetic fun <init> (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lkotlinx/datetime/Instant;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;Z)V
+	public synthetic fun <init> (Lkotlin/time/Instant;Lkotlin/time/Instant;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lkotlin/time/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3 ()Z
-	public final fun copy (Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;Z)Lorg/icpclive/cds/api/ContestStatus$RUNNING;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ContestStatus$RUNNING;Lkotlinx/datetime/Instant;Lkotlinx/datetime/Instant;ZILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$RUNNING;
+	public final fun copy (Lkotlin/time/Instant;Lkotlin/time/Instant;Z)Lorg/icpclive/cds/api/ContestStatus$RUNNING;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/ContestStatus$RUNNING;Lkotlin/time/Instant;Lkotlin/time/Instant;ZILjava/lang/Object;)Lorg/icpclive/cds/api/ContestStatus$RUNNING;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getFrozenAt ()Lkotlinx/datetime/Instant;
-	public final fun getStartedAt ()Lkotlinx/datetime/Instant;
+	public final fun getFrozenAt ()Lkotlin/time/Instant;
+	public final fun getStartedAt ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public final fun isFake ()Z
 }
@@ -2177,10 +2177,10 @@ public abstract interface class org/icpclive/cds/settings/CredentialProvider {
 
 public final class org/icpclive/cds/settings/EmulationSettings {
 	public static final field Companion Lorg/icpclive/cds/settings/EmulationSettings$Companion;
-	public fun <init> (DLkotlinx/datetime/Instant;Z)V
-	public synthetic fun <init> (DLkotlinx/datetime/Instant;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (DLkotlin/time/Instant;Z)V
+	public synthetic fun <init> (DLkotlin/time/Instant;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getSpeed ()D
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public final fun getUseRandomInProgress ()Z
 }
 
@@ -2365,23 +2365,23 @@ public final class org/icpclive/cds/tunning/OverrideAwards$Companion {
 }
 
 public final class org/icpclive/cds/tunning/OverrideContestSettings : org/icpclive/cds/tunning/TuningRule {
-	public synthetic fun <init> (Ljava/lang/String;Lkotlinx/datetime/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lkotlinx/datetime/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Lkotlinx/datetime/Instant;
+	public final fun component2 ()Lkotlin/time/Instant;
 	public final fun component3-FghU774 ()Lkotlin/time/Duration;
 	public final fun component4-FghU774 ()Lkotlin/time/Duration;
 	public final fun component5-FghU774 ()Lkotlin/time/Duration;
 	public final fun component6 ()Ljava/util/Map;
-	public final fun copy-dOnIrbo (Ljava/lang/String;Lkotlinx/datetime/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;)Lorg/icpclive/cds/tunning/OverrideContestSettings;
-	public static synthetic fun copy-dOnIrbo$default (Lorg/icpclive/cds/tunning/OverrideContestSettings;Ljava/lang/String;Lkotlinx/datetime/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideContestSettings;
+	public final fun copy-dOnIrbo (Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;)Lorg/icpclive/cds/tunning/OverrideContestSettings;
+	public static synthetic fun copy-dOnIrbo$default (Lorg/icpclive/cds/tunning/OverrideContestSettings;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideContestSettings;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getContestLength-FghU774 ()Lkotlin/time/Duration;
 	public final fun getCustomFields ()Ljava/util/Map;
 	public final fun getFreezeTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getHoldTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getName ()Ljava/lang/String;
-	public final fun getStartTime ()Lkotlinx/datetime/Instant;
+	public final fun getStartTime ()Lkotlin/time/Instant;
 	public fun hashCode ()I
 	public fun process (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/api/ContestInfo;
 	public fun toString ()Ljava/lang/String;

@@ -1,8 +1,8 @@
 package org.icpclive.cds.plugins.clics
 
 import org.icpclive.cds.CdsLoadersTest
-import org.icpclive.cds.settings.*
-import org.icpclive.cds.tunning.*
+import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.tunning.OverrideTeamTemplate
 import kotlin.test.Test
 
 object ClicsTest : CdsLoadersTest() {

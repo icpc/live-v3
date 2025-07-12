@@ -4,14 +4,15 @@ import io.codedrills.proto.external.*
 import io.grpc.ManagedChannelBuilder
 import io.grpc.Metadata
 import io.grpc.stub.MetadataUtils
-import kotlinx.datetime.Instant
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.cds.settings.*
-import org.icpclive.ksp.cds.Builder
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.util.getLogger
+import org.icpclive.ksp.cds.Builder
 import java.util.concurrent.*
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 
 @Builder("codedrills")

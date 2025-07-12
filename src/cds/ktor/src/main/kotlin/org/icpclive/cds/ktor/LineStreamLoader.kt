@@ -7,7 +7,7 @@ import io.ktor.http.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.cds.util.getLogger
 
 internal fun getLineFlow(networkSettings: NetworkSettings, url: UrlOrLocalPath): Flow<String> = flow {

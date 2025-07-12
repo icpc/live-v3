@@ -1,8 +1,6 @@
 package org.icpclive.oracle
 
-import kotlin.math.cos
-import kotlin.math.hypot
-import kotlin.math.sin
+import kotlin.math.*
 
 class LocatorPoint(var id: String, var x: Double, var y: Double, var z: Double, var r: Double = 0.0) {
     constructor(x: Double, y: Double, z: Double, r: Double = 0.0) : this("", x, y, z, r)

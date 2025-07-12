@@ -6,8 +6,8 @@ import kotlinx.coroutines.launch
 import org.icpclive.cds.api.ContestResultType
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.*
-import org.icpclive.data.DataBus
 import org.icpclive.cds.util.getLogger
+import org.icpclive.data.DataBus
 
 class ScoreboardService : Service {
     private fun setUp(level: OptimismLevel, flow: Flow<ContestStateWithScoreboard>) {

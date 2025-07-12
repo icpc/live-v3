@@ -1,18 +1,23 @@
 package org.icpclive.cds.plugins.cats
 
 import kotlinx.datetime.*
-import kotlinx.datetime.format.*
-import kotlinx.serialization.*
+import kotlinx.datetime.format.DateTimeComponents
+import kotlinx.datetime.format.char
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.ksp.cds.Builder
-import org.icpclive.cds.ktor.*
+import org.icpclive.cds.ktor.DataLoader
+import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.util.serializers.*
+import org.icpclive.cds.util.serializers.FormatterInstantSerializer
+import org.icpclive.cds.util.serializers.FormatterLocalDateSerializer
+import org.icpclive.ksp.cds.Builder
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 private object ContestTimeSerializer : FormatterLocalDateSerializer(LocalDateTime.Format {
-    dayOfMonth()
+    day()
     char('.')
     monthNumber()
     char('.')

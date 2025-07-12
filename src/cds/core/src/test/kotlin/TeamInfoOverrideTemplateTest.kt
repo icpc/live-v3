@@ -1,9 +1,9 @@
-import kotlinx.datetime.Instant
 import org.icpclive.cds.api.*
-import org.icpclive.cds.tunning.*
+import org.icpclive.cds.tunning.OverrideTeamTemplate
 import kotlin.test.*
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 object TeamInfoOverrideTemplateTest {
 

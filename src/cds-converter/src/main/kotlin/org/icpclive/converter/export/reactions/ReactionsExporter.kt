@@ -3,7 +3,7 @@
 package org.icpclive.converter.export.reactions
 
 import io.ktor.http.*
-import io.ktor.server.html.respondHtml
+import io.ktor.server.html.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.collections.immutable.persistentMapOf

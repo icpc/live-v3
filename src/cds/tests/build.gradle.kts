@@ -1,5 +1,3 @@
-import java.net.*
-
 plugins {
     id("live.kotlin-conventions")
 }

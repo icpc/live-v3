@@ -1,11 +1,11 @@
 package org.icpclive.cds.plugins.pcms
 
-import kotlinx.datetime.Instant
 import org.icpclive.cds.CdsLoadersTest
 import org.icpclive.cds.api.ContestResultType
-import org.icpclive.cds.settings.*
-import org.icpclive.cds.tunning.*
+import org.icpclive.cds.settings.UrlOrLocalPath
+import org.icpclive.cds.tunning.OverrideContestSettings
 import kotlin.test.Test
+import kotlin.time.Instant
 
 object PCMSTest : CdsLoadersTest() {
     @Test

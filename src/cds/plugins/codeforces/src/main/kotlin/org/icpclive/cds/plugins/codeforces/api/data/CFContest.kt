@@ -2,12 +2,12 @@
 
 package org.icpclive.cds.plugins.codeforces.api.data
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.util.serializers.DurationInSecondsSerializer
 import org.icpclive.cds.util.serializers.UnixSecondsSerializer
 import kotlin.time.Duration
+import kotlin.time.Instant
 
 internal enum class CFContestType {
     CF, IOI, ICPC, BLITZ

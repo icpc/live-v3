@@ -7,7 +7,8 @@ import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
-import org.icpclive.cds.api.*
+import org.icpclive.cds.api.OptimismLevel
+import org.icpclive.cds.api.toTeamId
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow

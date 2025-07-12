@@ -6,7 +6,8 @@ import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.DataLoader
 import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.ksp.cds.Builder
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds

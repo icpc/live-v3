@@ -1,7 +1,8 @@
 package org.icpclive.cds.util
 
 import org.slf4j.LoggerFactory
-import kotlin.reflect.*
+import kotlin.reflect.KClass
+import kotlin.reflect.KProperty
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.javaGetter
 import org.slf4j.Logger as Slf4jLogger

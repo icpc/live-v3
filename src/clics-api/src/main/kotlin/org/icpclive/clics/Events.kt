@@ -2,7 +2,6 @@ package org.icpclive.clics
 
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.contextual
 import org.icpclive.cds.util.postProcess
 import org.icpclive.clics.events.EventToken
 

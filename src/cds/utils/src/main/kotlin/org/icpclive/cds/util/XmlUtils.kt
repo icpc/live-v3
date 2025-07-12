@@ -1,8 +1,6 @@
 package org.icpclive.cds.util
 
-import org.w3c.dom.Element
-import org.w3c.dom.Node
-import org.w3c.dom.NodeList
+import org.w3c.dom.*
 
 public fun Element.children(): Sequence<Element> = childNodes.toSequence()
 public fun Element.children(tag: String): Sequence<Element> = getElementsByTagName(tag).toSequence()

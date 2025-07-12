@@ -1,6 +1,5 @@
-import org.gradle.kotlin.dsl.run as runTask
 import org.icpclive.gradle.PackExamplesTask
-import org.gradle.process.ExecOperations
+import org.gradle.kotlin.dsl.run as runTask
 
 plugins {
     id("live.app-conventions")

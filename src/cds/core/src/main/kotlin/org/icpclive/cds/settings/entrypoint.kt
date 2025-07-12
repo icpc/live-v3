@@ -1,7 +1,7 @@
 package org.icpclive.cds.settings
 
-import kotlinx.serialization.json.*
-import java.io.InputStream
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import java.nio.file.Path
 
 public fun interface CredentialProvider {

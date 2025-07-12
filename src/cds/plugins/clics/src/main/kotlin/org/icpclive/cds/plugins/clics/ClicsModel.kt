@@ -1,6 +1,5 @@
 package org.icpclive.cds.plugins.clics
 
-import kotlinx.datetime.Instant
 import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
 import org.icpclive.cds.plugins.clics.model.ClicsOrganizationInfo
@@ -9,6 +8,7 @@ import org.icpclive.clics.objects.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Instant
 
 internal class ClicsModel {
     private val contestInfoListeners = mutableListOf<suspend (ContestInfo) -> Unit>()

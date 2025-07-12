@@ -4,6 +4,7 @@ import com.google.devtools.ksp.*
 import com.google.devtools.ksp.processing.*
 import com.google.devtools.ksp.symbol.*
 import org.icpclive.ksp.common.*
+import kotlin.time.*
 
 @OptIn(KspExperimental::class)
 private fun KSType.render(feedVersion: FeedVersion?) : String = render {
@@ -199,8 +200,8 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
 
                 return when (type.declaration.qualifiedName!!.asString()) {
                     "org.icpclive.clics.Url" -> "org.icpclive.clics.UrlSerializer"
-                    "kotlinx.datetime.Instant" -> "org.icpclive.clics.time.InstantSerializer"
-                    "kotlin.time.Duration" -> {
+                    Instant::class.qualifiedName -> "org.icpclive.clics.time.InstantSerializer"
+                    Duration::class.qualifiedName -> {
                         val longBefore = annotated.getAnnotationsByType(LongMinutesBefore::class).singleOrNull()
                         if (longBefore != null && feedVersion < longBefore.feedVersion) {
                             "org.icpclive.cds.util.serializers.DurationInMinutesSerializer"
@@ -208,7 +209,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                             "org.icpclive.clics.time.DurationSerializer"
                         }
                     }
-                    "kotlin.collections.List" -> {
+                    List::class.qualifiedName -> {
                        val listType = type.arguments.single().type!!.resolve()
                        "ListSerializer(" + getSerializer(listType, annotated) + ")"
                     }

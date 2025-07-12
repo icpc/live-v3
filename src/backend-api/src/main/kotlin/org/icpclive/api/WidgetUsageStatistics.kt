@@ -3,7 +3,8 @@ package org.icpclive.api
 import kotlinx.serialization.*
 import org.icpclive.cds.api.TeamId
 import org.icpclive.cds.util.serializers.DurationInSecondsSerializer
-import kotlin.time.*
+import kotlin.time.Duration
+import kotlin.time.TimeSource
 
 @Serializable
 data class WidgetUsageStatistics(

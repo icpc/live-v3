@@ -1,6 +1,7 @@
 package org.icpclive.admin
 
-import org.icpclive.cds.api.*
+import org.icpclive.cds.api.GroupInfo
+import org.icpclive.cds.api.InefficientContestInfoApi
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfo
 

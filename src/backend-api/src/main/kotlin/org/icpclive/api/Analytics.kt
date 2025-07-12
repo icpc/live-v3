@@ -1,11 +1,11 @@
 package org.icpclive.api
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.util.serializers.DurationInMillisecondsSerializer
 import org.icpclive.cds.util.serializers.UnixMillisecondsSerializer
 import kotlin.time.Duration
+import kotlin.time.Instant
 
 @JvmInline
 @Serializable

@@ -14,9 +14,11 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
-import org.icpclive.ksp.cds.Builder
-import org.icpclive.cds.ktor.*
+import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
+import org.icpclive.cds.ktor.createHttpClient
 import org.icpclive.cds.settings.*
+import org.icpclive.ksp.cds.Builder
+import kotlin.time.Instant
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 

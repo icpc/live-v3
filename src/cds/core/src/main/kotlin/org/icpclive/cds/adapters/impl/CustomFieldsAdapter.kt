@@ -1,6 +1,6 @@
 package org.icpclive.cds.adapters.impl
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*

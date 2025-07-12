@@ -1,6 +1,5 @@
 package org.icpclive.cds.tunning
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
@@ -8,6 +7,7 @@ import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.util.serializers.DurationInSecondsSerializer
 import org.icpclive.cds.util.serializers.HumanTimeSerializer
 import kotlin.time.Duration
+import kotlin.time.Instant
 
 /**
  * A rule overriding basic settings of contest.

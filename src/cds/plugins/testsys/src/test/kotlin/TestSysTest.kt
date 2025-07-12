@@ -2,7 +2,7 @@ package org.icpclive.cds.plugins.testsys
 
 import org.icpclive.cds.CdsLoadersTest
 import org.icpclive.cds.api.toGroupId
-import org.icpclive.cds.settings.*
+import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.cds.tunning.*
 import kotlin.test.Test
 

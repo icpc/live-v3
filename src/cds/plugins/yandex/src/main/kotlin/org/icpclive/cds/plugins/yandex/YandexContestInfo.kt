@@ -1,11 +1,9 @@
 package org.icpclive.cds.plugins.yandex
 
-import kotlinx.datetime.Instant
 import org.icpclive.cds.api.*
 import org.icpclive.cds.plugins.yandex.api.*
-import org.icpclive.cds.plugins.yandex.api.Participant
-import org.icpclive.cds.plugins.yandex.api.Problem
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Instant
 
 private fun Problem.toApi(index: Int, resultType: ContestResultType) = ProblemInfo(
     id = id.toProblemId(),
