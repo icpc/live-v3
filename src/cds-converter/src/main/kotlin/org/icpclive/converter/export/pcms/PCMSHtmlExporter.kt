@@ -113,7 +113,10 @@ object PCMSHtmlExporter : SingleFileExporter(
     }
 
     private fun TR.teamRow(info: TeamInfo, r: ScoreboardRow, rank: Int, awards: List<Award>) {
-        td("rankl") { +rank.toString() }
+        td("rankl") {
+            val rankStr = if (rank == 0) "*" else rank.toString()
+            +rankStr
+        }
         td("party") { +info.displayName }
         for (probResult in r.problemResults) {
             td {
