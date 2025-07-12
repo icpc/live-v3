@@ -33,7 +33,7 @@ internal fun generateCommentary(
             contestState = contestState.applyEvent(event)
             emit(
                 ContestStateWithScoreboard(
-                    state = contestState!!,
+                    state = contestState,
                     scoreboardRowsAfter = it.scoreboardRowsAfter,
                     scoreboardRowsBefore = it.scoreboardRowsAfter,
                     scoreboardRowsChanged = emptyList(),

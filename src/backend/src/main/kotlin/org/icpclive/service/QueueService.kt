@@ -137,7 +137,7 @@ class QueueService : Service {
                                 if (firstEventTime == null) {
                                     firstEventTime = contestInfo.currentContestTime
                                 }
-                                val runUpdateTime = contestInfo.currentContestTime.takeIf { it > firstEventTime!! + 60.seconds } ?: run.time
+                                val runUpdateTime = contestInfo.currentContestTime.takeIf { it > firstEventTime + 60.seconds } ?: run.time
                                 lastUpdateTime[run.id] = runUpdateTime
                                 if (run.isHidden) {
                                     if (run.id in runs) {

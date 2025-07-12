@@ -63,7 +63,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
 
     private val model = ClicsModel()
 
-    private val Event.isFinalEvent get() = this is StateEvent && data?.endOfUpdates != null
+    private val Event.isFinalEvent get() = this is StateEvent && data.endOfUpdates != null
 
     private suspend fun runLoader(
         onRun: suspend (RunInfo) -> Unit,
@@ -105,7 +105,7 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         withTimeout(1.seconds) {
                             channel.receiveCatching().getOrNull()
                         }?.let { prefix.add(it) } ?: break
-                    } catch (e: TimeoutCancellationException) {
+                    } catch (_: TimeoutCancellationException) {
                         break
                     }
                 }

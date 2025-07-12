@@ -174,7 +174,7 @@ class OracleCalibrator(private val url: String, private val configPath: Path) : 
                 try {
                     val id = ss[y]
                     input.add(Position(id, x, y))
-                } catch (ignored: NumberFormatException) {
+                } catch (_: NumberFormatException) {
                 }
             }
             x++
@@ -304,7 +304,7 @@ with open('input.txt', 'w') as file:
                 val xt = r[0] * xc + r[1] * yc + r[2]
                 val yt = r[3] * xc + r[4] * yc + r[5]
                 val zt = r[6] * xc + r[7] * yc + r[8]
-                out.println(input[i].id.toString() + " " + xt + " " + yt + " " + zt)
+                out.println("${input[i].id} $xt $yt $zt")
                 points.add(LocatorPoint(xt, yt, zt))
             }
             out.close()

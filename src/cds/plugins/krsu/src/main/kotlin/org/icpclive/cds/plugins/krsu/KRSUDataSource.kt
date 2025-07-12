@@ -30,7 +30,6 @@ internal class KRSUDataSource(val settings: KRSUSettings) : FullReloadContestDat
 
     private val resultType = settings.resultType
     private val teams = mutableMapOf<String, TeamInfo>()
-    private var lastTeamId: Int = 0
 
     private fun parseAndUpdateStandings(contest: Contest, submissions: List<Submission>): ContestParseResult {
         val startTime = contest.StartTime.toInstant(settings.timeZone)

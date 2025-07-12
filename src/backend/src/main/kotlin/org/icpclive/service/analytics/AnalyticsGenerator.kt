@@ -7,7 +7,6 @@ import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.toScoreboardDiff
-import org.icpclive.cds.util.getLogger
 import java.nio.file.Path
 import kotlin.io.path.inputStream
 import kotlin.time.Clock
@@ -169,6 +168,5 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
             text.replace(it.key, it.value)
         }
 
-        val log by getLogger()
     }
 }

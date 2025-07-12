@@ -132,7 +132,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
     private suspend fun loadContest(contestId: String): ContestParseResult {
         val result = graphQLClient.judgeContest(contestId)
         val teams = buildList {
-            var cursor: Int = 0
+            var cursor = 0
             while (true) {
                 val x = graphQLClient.teams(
                     contestId,
@@ -152,7 +152,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
                         organizationId = null
                     )
                 })
-                if (x.participants!!.nodes.size < 100) break
+                if (x.participants.nodes.size < 100) break
                 cursor += 100
             }
         }
@@ -161,7 +161,7 @@ internal class EOlympDataSource(val settings: EOlympSettings) : FullReloadContes
         val contestLength = result.duration.seconds
         val freezeTime = result.scoreboard?.freezingTime?.seconds?.let { contestLength - it }
         val runs = buildList {
-            var cursor: Int = 0
+            var cursor = 0
             while (true) {
                 val x = graphQLClient.submissions(
                     contestId,
