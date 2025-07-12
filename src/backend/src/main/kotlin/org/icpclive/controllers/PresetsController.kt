@@ -13,9 +13,10 @@ import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.concurrent.atomic.*
+import kotlin.concurrent.atomics.*
 import kotlin.time.Duration
 
+@OptIn(ExperimentalAtomicApi::class)
 class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeWithId>(
     private val presetsPath: Path,
     private val widgetManager: Manager<OverlayWidgetType>,
@@ -25,7 +26,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     private val fileSerializer = ListSerializer(settingsSerializer)
     private val mutex = Mutex()
 
-    private val currentID = AtomicInteger(0)
+    private val currentID = AtomicInt(0)
     private var innerData = load()
 
     suspend fun getStatus() = mutex.withLock {
@@ -37,7 +38,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     }
 
     suspend fun createWidget(settings: SettingsType, ttl: Duration?, onDelete: suspend (Int) -> Unit = {}): Int = mutex.withLock {
-        val id = currentID.incrementAndGet()
+        val id = currentID.incrementAndFetch()
         val wrapper = SingleWidgetController(settings, widgetManager, widgetConstructor, id, onDelete)
         innerData = innerData.plus(wrapper)
         save()
@@ -101,7 +102,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
 
     private fun load() = presetsPath.toFile().takeIf { it.exists() }?.inputStream()?.use {
             Json.decodeFromStream(fileSerializer, it).map { content ->
-                SingleWidgetController(content, widgetManager, widgetConstructor, currentID.incrementAndGet())
+                SingleWidgetController(content, widgetManager, widgetConstructor, currentID.incrementAndFetch())
             }
         } ?: emptyList()
 

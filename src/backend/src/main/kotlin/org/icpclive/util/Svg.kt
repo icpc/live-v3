@@ -1,7 +1,7 @@
 package org.icpclive.util
 
 import java.nio.file.Path
-import java.util.*
+import kotlin.io.encoding.Base64
 
 object Svg {
     fun loadAndSubstitute(paths: Path, substitute: Map<String, String>): String =
@@ -11,4 +11,4 @@ object Svg {
 }
 
 fun String.toBase64SVG() =
-    "data: image/svg+xml; utf8; base64," + Base64.getEncoder().encodeToString(this.toByteArray())
+    "data: image/svg+xml; utf8; base64," + Base64.encode(this.toByteArray())
