@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import { useEffect, useState, useRef } from "react";
+import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
@@ -7,30 +7,6 @@ import { RunResult } from "@shared/api";
 import { getStartTime } from "@/components/molecules/Clock";
 import { DateTime } from "luxon";
 import { isShouldUseDarkColor } from "@/utils/colors";
-
-const ChangeProblemAnimation = keyframes`
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-`;
-
-const ChangeScoreOrVerdictAnimation = keyframes`
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-`;
 
 const TimeLineContainer = styled.div`
     align-items: center;
@@ -53,7 +29,7 @@ const Line = styled.div.attrs<LineProps>(({ lineWidth, left }) => ({
         width: `${lineWidth}%`,
         left: `${left}%`,
     },
-}))<LineProps>`
+})) <LineProps>`
     height: ${c.TIMELINE_LINE_HEIGHT};
     background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
     position: absolute;
@@ -67,7 +43,7 @@ const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth }) => ({
     style: {
         left: `${lineWidth}%`,
     },
-}))<CircleAtEndProps>`
+})) <CircleAtEndProps>`
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -83,7 +59,7 @@ const Circle = styled.div`
     border-radius: 50%;
     position: absolute;
     align-content: center;
-    background-color: ${( { color } ) => color };
+    background-color: ${({ color }) => color};
 `;
 
 const Label = styled.div`
@@ -108,7 +84,6 @@ const ProblemWrap = styled.div<{ left: string, top: string }>`
 `;
 
 const ProblemWithAnimation = styled.div`
-    animation: ${ChangeProblemAnimation} 10s infinite;
     justify-content: center;
     position: absolute;
     align-items: center;
@@ -116,7 +91,6 @@ const ProblemWithAnimation = styled.div`
 `;
 
 const ScoreOrVerdictWithAnimation = styled.div`
-    animation: ${ChangeScoreOrVerdictAnimation} 10s infinite;
     justify-content: center;
     position: absolute;
     align-items: center;
@@ -154,7 +128,9 @@ const getColor = (problemResult, contestInfo) => {
     }
 };
 
-const Problem = ({ problemResult, contestInfo, animationKey }) => {
+const Problem = ({ problemResult, contestInfo, syncStartTime }) => {
+    const problemLetterRef = useRef(null);
+    const scoreVerdictRef = useRef(null);
     const contestLengthMs = contestInfo?.contestLengthMs;
     const problemNumber = contestInfo?.problems.findIndex(elem => elem.id === problemResult.problemId);
     const problemsCount = contestInfo?.problems.length;
@@ -164,19 +140,57 @@ const Problem = ({ problemResult, contestInfo, animationKey }) => {
     const color = getColor(problemResult, contestInfo);
     const letter = useAppSelector((state) => state.contestInfo.info?.problemsId[problemResult.problemId].letter);
 
+    const shouldAnimateProblem = problemResult.type === RunResult.Type.IOI ||
+        (problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted);
+    const shouldAnimateScoreVerdict = problemResult.type === RunResult.Type.IOI ||
+        (problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted);
+
+    useEffect(() => {
+        if (shouldAnimateProblem && problemLetterRef.current && syncStartTime) {
+            const animation = problemLetterRef.current.animate([
+                { opacity: 1 },
+                { opacity: 0 },
+                { opacity: 1 }
+            ], {
+                duration: 10000,
+                iterations: Infinity
+            });
+            animation.startTime = syncStartTime;
+        }
+    }, [shouldAnimateProblem, syncStartTime]);
+
+    useEffect(() => {
+        if (shouldAnimateScoreVerdict && scoreVerdictRef.current && syncStartTime) {
+            const animation = scoreVerdictRef.current.animate([
+                { opacity: 0 },
+                { opacity: 1 },
+                { opacity: 0 }
+            ], {
+                duration: 10000,
+                iterations: Infinity
+            });
+            animation.startTime = syncStartTime;
+        }
+    }, [shouldAnimateScoreVerdict, syncStartTime]);
+
     return (
-        <ProblemWrap left={left + "%"} top={top + "px"} key={animationKey}>
+        <ProblemWrap left={left + "%"} top={top + "px"}>
             <Circle color={color} />
             <Label>
-                {(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                        && !problemResult.isAccepted)
-                    && <ProblemWithAnimation>{letter}</ProblemWithAnimation> }
-                {!(problemResult.type === RunResult.Type.IOI || problemResult.type === RunResult.Type.ICPC
-                    && !problemResult.isAccepted) && <Text>{letter}</Text>}
-                {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted
-                    && <ScoreOrVerdictWithAnimation>{problemResult.shortName}</ScoreOrVerdictWithAnimation>}
-                {problemResult.type === RunResult.Type.IOI
-                    && <ScoreOrVerdictWithAnimation>{Math.round(problemResult.score * 100) / 100}</ScoreOrVerdictWithAnimation>}
+                {shouldAnimateProblem && (
+                    <ProblemWithAnimation ref={problemLetterRef}>{letter}</ProblemWithAnimation>
+                )}
+                {!shouldAnimateProblem && <Text>{letter}</Text>}
+                {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && (
+                    <ScoreOrVerdictWithAnimation ref={scoreVerdictRef}>
+                        {problemResult.shortName}
+                    </ScoreOrVerdictWithAnimation>
+                )}
+                {problemResult.type === RunResult.Type.IOI && (
+                    <ScoreOrVerdictWithAnimation ref={scoreVerdictRef}>
+                        {Math.round(problemResult.score * 100) / 100}
+                    </ScoreOrVerdictWithAnimation>
+                )}
             </Label>
         </ProblemWrap>
     );
@@ -197,8 +211,8 @@ export const TimeLineBackground = ({ teamId, classname = null }) => {
 export const TimeLine = ({ teamId, className = null }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
-    const [animationKey, setAnimationKey] = useState(0);
-    const [lineWidth, setLineWidth] = useState(100);
+    const [syncStartTime, setSyncStartTime] = useState(null);
+    const [lineWidth, setLineWidth] = useState(0);
 
     useEffect(() => {
         const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns/" + teamId);
@@ -209,15 +223,17 @@ export const TimeLine = ({ teamId, className = null }) => {
         socket.onmessage = function (event) {
             const obj = JSON.parse(event.data);
             setRunsResults(obj);
-            setAnimationKey(prev => prev + 1);
+
+            setSyncStartTime(prevTime => prevTime || performance.now());
+
             console.debug(`WebSocket /teamRuns/${teamId}: ` + obj);
         };
 
-        socket.onclose = function() {
+        socket.onclose = function () {
             console.debug(`WebSocket /teamRuns/${teamId} is closed`);
         };
 
-        socket.onerror = function(error) {
+        socket.onerror = function (error) {
             console.log(`WebSocket /teamRuns/${teamId} error: `, error);
         };
 
@@ -250,10 +266,15 @@ export const TimeLine = ({ teamId, className = null }) => {
             {Array.from(Array((Math.floor((contestInfo?.contestLengthMs ?? 0) / 3600000) + 1)).keys()).map(elem => {
                 return (<TimeBorder key={elem}
                     color={teamData?.color ?? "#000"}
-                    left={(((elem) * 3600000 / contestInfo?.contestLengthMs * 100 + c.TIMELINE_LEFT_TIME_PADDING) * c.TIMELINE_REAL_WIDTH) + "%"} />); })}
+                    left={(((elem) * 3600000 / contestInfo?.contestLengthMs * 100 + c.TIMELINE_LEFT_TIME_PADDING) * c.TIMELINE_REAL_WIDTH) + "%"} />);
+            })}
             {runsResults?.map((problemResult, index) => (
-                <Problem problemResult={problemResult} contestInfo={contestInfo} key={`${animationKey}-${index}`}
-                    animationKey={animationKey}/>
+                <Problem
+                    key={`${problemResult.problemId}-${problemResult.time}-${index}`}
+                    problemResult={problemResult}
+                    contestInfo={contestInfo}
+                    syncStartTime={syncStartTime}
+                />
             ))}
         </TimeLineContainer>
     );

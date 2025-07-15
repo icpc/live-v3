@@ -62,7 +62,7 @@ const PrimaryMediaWrapper = styled.div`
 `;
 
 const AchievementWrapper = styled(PrimaryMediaWrapper)`
-    z-index: 2;
+    z-index: 4;
 `;
 
 const TeamViewGrid = styled.div<{ $secondaryY: number; $achievementY: number }>`
