@@ -166,7 +166,7 @@ const Problem = ({ problemResult, contestInfo, syncStartTime, isPvp = false }) =
     const problemsCount = contestInfo?.problems.length;
 
     const { top } = getProblemPosition(problemNumber, problemsCount, isPvp);
-    const left = (100 * problemResult.time / contestLengthMs) * c.TIMELINE_REAL_WIDTH;
+    const left = (100 * problemResult.time / contestLengthMs) * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP : c.TIMELINE_REAL_WIDTH);
     const leftInPx = `calc(${left}% + ${c.TIMELINE_LEFT_TIME_PADDING}px)`;
     const color = getColor(problemResult, contestInfo);
     const letter = useAppSelector((state) => state.contestInfo.info?.problemsId[problemResult.problemId].letter);
@@ -278,7 +278,7 @@ export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
             if (!contestInfo) return;
             const elapsedTime = DateTime.fromMillis(getStartTime(contestInfo.status)).diffNow().negate().milliseconds;
             const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 100 * (contestInfo.emulationSpeed ?? 1));
-            setLineWidth(progress * c.TIMELINE_REAL_WIDTH);
+            setLineWidth(progress * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP : c.TIMELINE_REAL_WIDTH));
         };
 
         const interval = setInterval(updateLineWidth, 1000);
@@ -303,7 +303,8 @@ export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
                     <TimeBorder
                         key={elem}
                         color={teamData?.color ?? "#000"}
-                        left={`calc(${((elem) * 3600000 / contestInfo?.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH}% + ${c.TIMELINE_LEFT_TIME_PADDING}px)`}
+                        left={`calc(${((elem) * 3600000 / contestInfo?.contestLengthMs * 100) * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP 
+                            : c.TIMELINE_REAL_WIDTH)}% + ${c.TIMELINE_LEFT_TIME_PADDING}px)`}
                         isPvp={isPvp}
                     />
                 );
