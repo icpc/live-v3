@@ -203,9 +203,10 @@ const PVPAchievementInnerWrapper = styled.div`
     position: absolute;
     width: 676px;
     bottom: -4px;
+    z-index: 4;
 `;
 
-const PVPContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, location, position }: CommonContentProps) => {
+const PVPContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, showTimeLine, location, position }: CommonContentProps) => {
     const isTop = position === TeamViewPosition.PVP_TOP;
     const primaryY = location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT;
     const secondaryY = (location.sizeX - (location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT) / 9 * 16) / 16 * 9;
@@ -231,6 +232,11 @@ const PVPContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondary
                         <PVPAchievementInnerWrapper>
                             <TeamMediaHolder media={achievement} onLoadStatus={setAchievementLoaded} />
                         </PVPAchievementInnerWrapper>
+                    </PVPAchievementWrapper>
+                )}
+                {showTimeLine && (
+                    <PVPAchievementWrapper $isTop={isTop}>
+                        <TimeLine teamId={teamId} isPvp={true} />
                     </PVPAchievementWrapper>
                 )}
                 <PVPTackStatusBackWrapper $isTop={isTop}/>
@@ -325,7 +331,6 @@ export const TeamViewSingleContent = ({ widgetData: { settings, widgetLocationId
     }, [isLoaded]);
 
     const props = { ...settings, setPrimaryLoaded, setSecondaryLoaded, setAchievementLoaded, location };
-
     return (
         <TeamViewContainer
             show={isLoaded}

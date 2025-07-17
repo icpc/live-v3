@@ -8,12 +8,19 @@ import { getStartTime } from "@/components/molecules/Clock";
 import { DateTime } from "luxon";
 import { isShouldUseDarkColor } from "@/utils/colors";
 
-const TimeLineContainer = styled.div`
+interface TimeLineContainerProps {
+    isPvp: boolean;
+}
+
+const TimeLineContainer = styled.div.attrs<TimeLineContainerProps>(({ isPvp }) => ({
+    style: {
+        height: `${isPvp ? c.TIMELINE_WRAP_HEIGHT_PVP : c.TIMELINE_WRAP_HEIGHT}px`,
+    }
+})) <TimeLineContainerProps>`
     align-items: center;
     width: 100%;
-    border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS};
+    border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS}px;
     display: grid;
-    height: ${c.TIMELINE_WRAP_HEIGHT}px;
     background-color: ${props => props.color};
     position: relative;
 `;
@@ -23,25 +30,25 @@ interface LineProps {
     left: number;
 }
 
-
 const Line = styled.div.attrs<LineProps>(({ lineWidth, left }) => ({
     style: {
         width: `${lineWidth}%`,
-        left: `${left}%`,
+        left: `${left}px`,
     },
 })) <LineProps>`
-    height: ${c.TIMELINE_LINE_HEIGHT};
+    height: ${c.TIMELINE_LINE_HEIGHT}px;
     background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
     position: absolute;
 `;
 
 interface CircleAtEndProps {
     lineWidth: number;
+    leftPadding: number;
 }
 
-const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth }) => ({
+const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth, leftPadding }) => ({
     style: {
-        left: `${lineWidth}%`,
+        left: `calc(${lineWidth}% + ${leftPadding}px)`,
     },
 })) <CircleAtEndProps>`
     width: 10px;
@@ -53,9 +60,16 @@ const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth }) => ({
     background: linear-gradient(270deg, #D13D23 -28.28%, #FFC239 33.33%, #1A63D8 100%);
 `;
 
-const Circle = styled.div`
-    width: ${c.TIMELINE_ELEMENT_DIAMETER}px;
-    height: ${c.TIMELINE_ELEMENT_DIAMETER}px;
+interface CircleProps {
+    isPvp: boolean;
+}
+
+const Circle = styled.div.attrs<CircleProps>(({ isPvp }) => ({
+    style: {
+        width: `${isPvp ? c.TIMELINE_ELEMENT_DIAMETER_PVP : c.TIMELINE_ELEMENT_DIAMETER}px`,
+        height: `${isPvp ? c.TIMELINE_ELEMENT_DIAMETER_PVP : c.TIMELINE_ELEMENT_DIAMETER}px`,
+    }
+})) <CircleProps>`
     border-radius: 50%;
     position: absolute;
     align-content: center;
@@ -104,14 +118,30 @@ const Text = styled.div`
     text-align: center;
 `;
 
-const TimeBorder = styled.div<{ left: string, color: string }>`
-    height: ${c.TIMELINE_WRAP_HEIGHT}px;
+const TimeBorder = styled.div<{ left: string, color: string, isPvp: boolean }>`
+    height: ${props => props.isPvp ? c.TIMELINE_WRAP_HEIGHT_PVP : c.TIMELINE_WRAP_HEIGHT}px;
     background-color: ${({ color }) => isShouldUseDarkColor(color) ? "#000" : "#fff"};
     width: 2px;
     position: absolute;
     left: ${({ left }) => left};
 `;
 
+const getProblemPosition = (problemNumber, problemsCount, isPvp) => {
+    const config = isPvp ? {
+        wrapHeight: c.TIMELINE_WRAP_HEIGHT_PVP,
+        padding: c.TIMELINE_PADDING_PVP,
+        diameter: c.TIMELINE_ELEMENT_DIAMETER_PVP
+    } : {
+        wrapHeight: c.TIMELINE_WRAP_HEIGHT,
+        padding: c.TIMELINE_PADDING,
+        diameter: c.TIMELINE_ELEMENT_DIAMETER
+    };
+
+    const height = Math.max(config.wrapHeight - 2 * config.padding - config.diameter, 0);
+    const top = height / (problemsCount - 1) * problemNumber + config.padding + config.diameter / 2;
+
+    return { top };
+};
 
 const getColor = (problemResult, contestInfo) => {
     if (problemResult.type === RunResult.Type.IN_PROGRESS) {
@@ -128,22 +158,23 @@ const getColor = (problemResult, contestInfo) => {
     }
 };
 
-const Problem = ({ problemResult, contestInfo, syncStartTime }) => {
+const Problem = ({ problemResult, contestInfo, syncStartTime, isPvp = false }) => {
     const problemLetterRef = useRef(null);
     const scoreVerdictRef = useRef(null);
     const contestLengthMs = contestInfo?.contestLengthMs;
     const problemNumber = contestInfo?.problems.findIndex(elem => elem.id === problemResult.problemId);
     const problemsCount = contestInfo?.problems.length;
-    const height = Math.max(c.TIMELINE_WRAP_HEIGHT - 2 * c.TIMELINE_PADDING - c.TIMELINE_ELEMENT_DIAMETER, 0);
-    const top = height / (problemsCount - 1) * problemNumber + c.TIMELINE_PADDING + c.TIMELINE_ELEMENT_DIAMETER / 2;
-    const left = (100 * problemResult.time / contestLengthMs + c.TIMELINE_LEFT_TIME_PADDING) * c.TIMELINE_REAL_WIDTH;
+
+    const { top } = getProblemPosition(problemNumber, problemsCount, isPvp);
+    const left = (100 * problemResult.time / contestLengthMs) * c.TIMELINE_REAL_WIDTH;
+    const leftInPx = `calc(${left}% + ${c.TIMELINE_LEFT_TIME_PADDING}px)`;
     const color = getColor(problemResult, contestInfo);
     const letter = useAppSelector((state) => state.contestInfo.info?.problemsId[problemResult.problemId].letter);
 
-    const shouldAnimateProblem = problemResult.type === RunResult.Type.IOI ||
-        (problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted);
-    const shouldAnimateScoreVerdict = problemResult.type === RunResult.Type.IOI ||
-        (problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted);
+    const shouldAnimateProblem = !isPvp && problemResult.type === RunResult.Type.IOI ||
+        !isPvp && (problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted);
+    const shouldAnimateScoreVerdict = !isPvp && problemResult.type === RunResult.Type.IOI ||
+        !isPvp && (problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted);
 
     useEffect(() => {
         if (shouldAnimateProblem && problemLetterRef.current && syncStartTime) {
@@ -174,19 +205,19 @@ const Problem = ({ problemResult, contestInfo, syncStartTime }) => {
     }, [shouldAnimateScoreVerdict, syncStartTime]);
 
     return (
-        <ProblemWrap left={left + "%"} top={top + "px"}>
-            <Circle color={color} />
+        <ProblemWrap left={leftInPx} top={top + "px"}>
+            <Circle color={color} isPvp={isPvp} />
             <Label>
                 {shouldAnimateProblem && (
                     <ProblemWithAnimation ref={problemLetterRef}>{letter}</ProblemWithAnimation>
                 )}
                 {!shouldAnimateProblem && <Text>{letter}</Text>}
-                {problemResult.type === RunResult.Type.ICPC && !problemResult.isAccepted && (
+                {(!isPvp && problemResult.type === RunResult.Type.ICPC) && !problemResult.isAccepted && (
                     <ScoreOrVerdictWithAnimation ref={scoreVerdictRef}>
                         {problemResult.shortName}
                     </ScoreOrVerdictWithAnimation>
                 )}
-                {problemResult.type === RunResult.Type.IOI && (
+                {(!isPvp && problemResult.type === RunResult.Type.IOI) && (
                     <ScoreOrVerdictWithAnimation ref={scoreVerdictRef}>
                         {Math.round(problemResult.score * 100) / 100}
                     </ScoreOrVerdictWithAnimation>
@@ -208,7 +239,7 @@ export const TimeLineBackground = ({ teamId, classname = null }) => {
     return <TimelineBackground className={classname} color={teamData?.color ? teamData?.color : c.CONTEST_COLOR} />;
 };
 
-export const TimeLine = ({ teamId, className = null }) => {
+export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
     const [syncStartTime, setSyncStartTime] = useState(null);
@@ -260,13 +291,22 @@ export const TimeLine = ({ teamId, className = null }) => {
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
 
     return (
-        <TimeLineContainer className={className} color={teamData?.color ? teamData?.color : c.CONTEST_COLOR}>
-            <Line lineWidth={lineWidth} left={c.TIMELINE_LEFT_TIME_PADDING} />
-            <CircleAtEnd lineWidth={lineWidth + c.TIMELINE_LEFT_TIME_PADDING} />
+        <TimeLineContainer
+            className={className}
+            color={teamData?.color ? teamData?.color : c.CONTEST_COLOR}
+            isPvp={isPvp}
+        >
+            <Line lineWidth={lineWidth} left={c.TIMELINE_LEFT_TIME_PADDING}/>
+            <CircleAtEnd lineWidth={lineWidth} leftPadding={c.TIMELINE_LEFT_TIME_PADDING}/>
             {Array.from(Array((Math.floor((contestInfo?.contestLengthMs ?? 0) / 3600000) + 1)).keys()).map(elem => {
-                return (<TimeBorder key={elem}
-                    color={teamData?.color ?? "#000"}
-                    left={(((elem) * 3600000 / contestInfo?.contestLengthMs * 100 + c.TIMELINE_LEFT_TIME_PADDING) * c.TIMELINE_REAL_WIDTH) + "%"} />);
+                return (
+                    <TimeBorder
+                        key={elem}
+                        color={teamData?.color ?? "#000"}
+                        left={`calc(${((elem) * 3600000 / contestInfo?.contestLengthMs * 100) * c.TIMELINE_REAL_WIDTH}% + ${c.TIMELINE_LEFT_TIME_PADDING}px)`}
+                        isPvp={isPvp}
+                    />
+                );
             })}
             {runsResults?.map((problemResult, index) => (
                 <Problem
@@ -274,6 +314,7 @@ export const TimeLine = ({ teamId, className = null }) => {
                     problemResult={problemResult}
                     contestInfo={contestInfo}
                     syncStartTime={syncStartTime}
+                    isPvp={isPvp}
                 />
             ))}
         </TimeLineContainer>

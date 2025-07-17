@@ -327,7 +327,7 @@ const TeamViewManager = () => {
             teamId: selectedTeamId,
             showTaskStatus: statusShown,
             showAchievement: achievementShown && variant !== "split",
-            showTimeLine: timeLineShown && variant === "single",
+            showTimeLine: timeLineShown && (variant === "single" || variant === "pvp"),
         };
         if (isMultipleMode) {
             currentService.setSettings(selectedInstance, settings);
@@ -453,7 +453,7 @@ const TeamViewManager = () => {
                                         </Grid>
                                     </>
                                 )}
-                                {variant === "single" && (
+                                {(variant === "single" || variant === "pvp") && (
                                     <>
                                         <Grid item xs={10} sm={4}>
                                             <FormLabel component="legend">TimeLine</FormLabel>
