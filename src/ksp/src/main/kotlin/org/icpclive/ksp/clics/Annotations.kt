@@ -35,3 +35,7 @@ annotation class Required
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS)
 annotation class EventSerialName(vararg val names: String)
+
+@Retention(AnnotationRetention.SOURCE)
+@Target(AnnotationTarget.PROPERTY)
+annotation class JsonName(val name: String)

@@ -170,7 +170,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                     SerialProperty(
                         property.simpleName.asString(),
                         property.type.resolve(),
-                        property.simpleName.asString().toSnakeCase(),
+                        property.getAnnotationsByType(JsonName::class).singleOrNull()?.name ?: property.simpleName.asString().toSnakeCase(),
                         property.simpleName.asString(),
                         property
                     )
@@ -218,7 +218,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
             }
 
             withCodeBlock(
-                "public object ${obj.simpleName}Serializer : KSerializer<org.icpclive.clics.objects.${obj.simpleName}>"
+                "internal object ${obj.simpleName}Serializer : KSerializer<org.icpclive.clics.objects.${obj.simpleName}>"
             ) {
                 for (i in serialProperties) {
                     +"private val ${i.name}SerializerCache = ${getSerializer(i.type.makeNotNullable(), i.annotated)}"

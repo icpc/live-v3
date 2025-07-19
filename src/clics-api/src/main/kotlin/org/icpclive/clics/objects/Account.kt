@@ -7,6 +7,7 @@ import org.icpclive.ksp.clics.*
 public data class Account(
     @Required public val id: String,
     @Required public val username: String,
+    val name: String? = null,
     public val password: String? = null,
     @Required public val type: String,
     public val ip: String? = null,
