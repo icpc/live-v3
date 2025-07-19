@@ -39,7 +39,6 @@ private fun ProblemInfo.toClicsProblem() = Problem(
     label = displayName,
     name = fullName,
     rgb = color?.value,
-    testDataCount = 1,
 )
 
 private fun GroupInfo.toClicsGroup() = Group(
@@ -385,7 +384,7 @@ object ClicsExporter : Exporter {
 
 
     private inline fun <reified T: Any> Route.getId(prefix: String, flow: Flow<Map<String, T>>, endpoint: MutableMap<String, SerialDescriptor>, module: SerializersModule) {
-        endpoint[prefix] = module.getContextual(T::class)!!.descriptor
+        endpoint[prefix] = module.getContextual(T::class)?.descriptor ?: return
         route("/$prefix") {
             get { call.respond(flow.first().entries.sortedBy { it.key }.map { it.value }) }
             get("/{id}") {
@@ -403,7 +402,7 @@ object ClicsExporter : Exporter {
     }
 
     private inline fun <reified T: Any> Route.getGlobal(prefix: String, flow: Flow<T>, endpoint: MutableMap<String, SerialDescriptor>, module: SerializersModule) {
-        endpoint[prefix] = module.getContextual(T::class)!!.descriptor
+        endpoint[prefix] = module.getContextual(T::class)?.descriptor ?: return
         route("/$prefix") {
             get { call.respond(flow.first()) }
         }
@@ -428,11 +427,11 @@ object ClicsExporter : Exporter {
         val teamsFlow = eventFeed.filterIdEvent<_, TeamEvent>(this)
         val submissionsFlow = eventFeed.filterIdEvent<_, SubmissionEvent>(this)
         val judgementsFlow = eventFeed.filterIdEvent<_, JudgementEvent>(this)
-        //val runsFlow = eventFeed.filterIdEvent<_, RunsEvent>(scope)
+        //val runsFlow = eventFeed.filterIdEvent<_, RunsEvent>(this)
         val commentaryFlow = eventFeed.filterIdEvent<_, CommentaryEvent>(this)
-        //val personsFlow = eventFeed.filterIdEvent<_, PersonEvent>(scope)
-        //val accountsFlow = eventFeed.filterIdEvent<_, AccountEvent>(scope)
-        //val clarificationsFlow = eventFeed.filterIdEvent<_, ClarificationEvent>(scope)
+        val personsFlow = eventFeed.filterIdEvent<_, PersonEvent>(this)
+        //val accountsFlow = eventFeed.filterIdEvent<_, AccountEvent>(this)
+        //val clarificationsFlow = eventFeed.filterIdEvent<_, ClarificationEvent>(this)
         val awardsFlow = eventFeed.filterIdEvent<_, AwardEvent>(this)
 
         return object : Router {
@@ -504,15 +503,17 @@ object ClicsExporter : Exporter {
                 }
                 install(ContentNegotiation) { json(json) }
                 get {
-                    call.respond(
-                        ApiInformation(
-                            version = version.name,
-                            versionUrl = version.url,
-                            provider = ApiInformationProvider(
-                                name = "icpc live"
+                    if (clicsEventsSerializersModule.getContextual(ApiInformation::class) != null) {
+                        call.respond(
+                            ApiInformation(
+                                version = version.name,
+                                versionUrl = version.url,
+                                provider = ApiInformationProvider(
+                                    name = "icpc live"
+                                )
                             )
                         )
-                    )
+                    }
                 }
                 route("/contests") {
                     get { call.respond(listOf(contestFlow.first())) }
@@ -529,7 +530,7 @@ object ClicsExporter : Exporter {
                         getId("judgements", judgementsFlow, endpoint, clicsEventsSerializersModule)
                         //getId("runs", runsFlow, endpoint, clicsEventsSerializersModule)
                         getId("commentary", commentaryFlow, endpoint, clicsEventsSerializersModule)
-                        //getId("persons", personsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("persons", personsFlow, endpoint, clicsEventsSerializersModule)
                         //getId("accounts", accountsFlow, endpoint, clicsEventsSerializersModule)
                         //getId("clarifications", clarificationsFlow, endpoint, clicsEventsSerializersModule)
                         getId("awards", awardsFlow, endpoint, clicsEventsSerializersModule)
@@ -537,6 +538,7 @@ object ClicsExporter : Exporter {
                         get("/event-feed") {
                             call.respondBytesWriter(contentType = ContentType("application", "x-ndjson")) {
                                 eventFeed
+                                    .filter { clicsEventsSerializersModule.getContextual(it::class) != null }
                                     .map { json.encodeToString(it) }
                                     .onIdle(1.minutes) { channel.send("") }
                                     .collect {
