@@ -21,7 +21,7 @@ public data class Team(
     public val key_log: List<File> = emptyList(),
     public val tool_data: List<File> = emptyList(),
     public val audio: List<File> = emptyList(),
-    public val location: List<TeamLocation> = emptyList()
+    public val location: TeamLocation? = null
 )
 
 @SinceClics(FeedVersion.`2020_03`)
