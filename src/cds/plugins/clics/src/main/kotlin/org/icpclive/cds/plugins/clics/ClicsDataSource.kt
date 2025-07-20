@@ -16,6 +16,7 @@ import org.icpclive.clics.Url
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.events.*
 import org.icpclive.ksp.cds.Builder
+import java.net.URI
 import kotlin.time.Duration.Companion.seconds
 
 public enum class FeedVersion {
@@ -192,9 +193,9 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
                         Url(mapped)
                     } else {
                         Url(
-                            when (val path = settings.baseUrl.subDir(it)) {
-                                is UrlOrLocalPath.Local -> path.value.joinToString("/")
-                                is UrlOrLocalPath.Url -> path.value
+                            when (val path = settings.baseUrl) {
+                                is UrlOrLocalPath.Local -> path.subDir(it).value.joinToString("/")
+                                is UrlOrLocalPath.Url -> URI(path.value.removeSuffix("/") + "/").resolve(it).toString()
                             }
                         )
                     }
