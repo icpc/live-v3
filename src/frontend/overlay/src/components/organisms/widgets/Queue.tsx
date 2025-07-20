@@ -344,7 +344,9 @@ const useHorizontalQueueRowsData = ({
             rows.push(row);
         });
         return [featured, rows];
-    }, [queue, loadedMediaRun, setLoadedMediaRun, height]);
+    }, [queue, loadedMediaRun, setLoadedMediaRun, height, allowedFts, allowedMaxBatches,
+        basicZIndex, bottomPosition, rightPosition, totalQueueItems
+    ]);
 };
 
 const QueueRankLabel = styled(RankLabel)`
@@ -558,14 +560,13 @@ const VerticalQueueComponent = ({ shouldShow }: QueueComponentProps) => {
     const location = c.WIDGET_POSITIONS.queue;
     const [height, setHeight] = useState<number>(location.sizeY - 200);
     const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
-    const [headerWidth, setHeaderWidth] = useState<number>(0);
     const [featured, queueRows] = useVerticalQueueRowsData({ height, width });
     
     return (
         <>
             <Featured runInfo={featured} />
             <QueueWrap hasFeatured={!!featured} variant="vertical">
-                <QueueHeader ref={(el) => (el != null) && setHeaderWidth(el.getBoundingClientRect().width)}>
+                <QueueHeader ref={(el) => (el != null)}>
                     <Title>{c.QUEUE_TITLE}</Title>
                     <Caption>{c.QUEUE_CAPTION}</Caption>
                 </QueueHeader>
