@@ -10,6 +10,6 @@ public data class File(
     public val href: Url? = null,
     public val width: Int? = null,
     public val height: Int? = null,
-    @SinceClics(FeedVersion.`2022_07`) public val fileName: String? = null,
-    @SinceClics(FeedVersion.`2022_07`) public val hash: String? = null
+    @SinceClics(FeedVersion.`2022_07`) public val filename: String? = null,
+    @SinceClics(FeedVersion.`2022_07`) public val hash: String? = null,
 )

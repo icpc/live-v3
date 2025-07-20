@@ -20,5 +20,14 @@ public data class Team(
     public val backup: List<File> = emptyList(),
     public val key_log: List<File> = emptyList(),
     public val tool_data: List<File> = emptyList(),
-    public val audio: List<File> = emptyList()
+    public val audio: List<File> = emptyList(),
+    public val location: List<TeamLocation> = emptyList()
+)
+
+@SinceClics(FeedVersion.`2020_03`)
+@NoEvent
+public class TeamLocation(
+    public val x: Double,
+    public val y: Double,
+    public val rotation: Double
 )

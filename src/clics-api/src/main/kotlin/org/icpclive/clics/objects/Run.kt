@@ -13,5 +13,5 @@ public data class Run(
     public val ordinal: Int? = null,
     public val judgementTypeId: String? = null,
     public val contestTime: Duration? = null,
-    public val runtime: Double? = null
+    public val runTime: Double? = null
 )
