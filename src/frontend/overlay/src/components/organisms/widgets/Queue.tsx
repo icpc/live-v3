@@ -214,12 +214,15 @@ const useHorizontalQueueRowsData = ({
     const bottomPosition = useCallback((index: number) => {
         return (c.QUEUE_ROW_HEIGHT + c.QUEUE_HORIZONTAL_ROW_Y_PADDING) * index;
     }, []);
+
     const rightPosition = useCallback((index: number) => {
         return horizontalQueueRowGridOffsetX * index;
     }, []);
+
     const allowedMaxBatches = useMemo(() => {
         return Math.floor(height / horizontalQueueRowGridOffsetY) - 1;
-    }, [width, height]);
+    }, [height]);
+    
     const allowedFts = useMemo(() => {
         return Math.floor(ftsRowWidth / horizontalQueueRowGridOffsetX) * horizontalQueueRowGridOffsetX;
     }, [ftsRowWidth]);
@@ -550,27 +553,74 @@ export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
 type QueueComponentProps = {
     shouldShow: boolean;
 }
-const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ shouldShow }: QueueComponentProps) => {
+
+const VerticalQueueComponent = ({ shouldShow }: QueueComponentProps) => {
     const location = c.WIDGET_POSITIONS.queue;
-    const [height, setHeight] = useState<number>(VARIANT === "horizontal" ? undefined : location.sizeY - 200);
+    const [height, setHeight] = useState<number>(location.sizeY - 200);
     const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
     const [headerWidth, setHeaderWidth] = useState<number>(0);
-    const [featured, queueRows] = VARIANT === "horizontal" ? useHorizontalQueueRowsData({ height, width, ftsRowWidth: width - headerWidth }):
-        useVerticalQueueRowsData({ height, width });
-    const RowsContainerComponent = VARIANT === "horizontal" ? HorizontalRowsContainer : RowsContainer;
+    const [featured, queueRows] = useVerticalQueueRowsData({ height, width });
+    
     return (
         <>
-            {VARIANT === "horizontal" ? <HorizontalFeatured runInfo={featured} /> : <Featured runInfo={featured} />}
-            <QueueWrap hasFeatured={!!featured} variant={VARIANT}>
+            <Featured runInfo={featured} />
+            <QueueWrap hasFeatured={!!featured} variant="vertical">
                 <QueueHeader ref={(el) => (el != null) && setHeaderWidth(el.getBoundingClientRect().width)}>
-                    <Title>
-                        {c.QUEUE_TITLE}
-                    </Title>
-                    <Caption>
-                        {c.QUEUE_CAPTION}
-                    </Caption>
+                    <Title>{c.QUEUE_TITLE}</Title>
+                    <Caption>{c.QUEUE_CAPTION}</Caption>
                 </QueueHeader>
-                <RowsContainerComponent ref={(el) => {
+                <RowsContainer ref={(el) => {
+                    if (el != null) {
+                        const bounding = el.getBoundingClientRect();
+                        setHeight(bounding.height);
+                    }
+                }}>
+                    <TransitionGroup>
+                        {shouldShow && queueRows.map(row => (
+                            <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
+                                {state => {
+                                    return state !== "exited" && (
+                                        <QueueRowAnimator
+                                            bottom={row.bottom}
+                                            right={row.right}
+                                            zIndex={row.zIndex}
+                                            fts={row.isFts}
+                                            horizontal={false}
+                                            {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
+                                        >
+                                            <QueueRow runInfo={row}/>
+                                        </QueueRowAnimator>
+                                    );
+                                }}
+                            </Transition>
+                        ))}
+                    </TransitionGroup>
+                </RowsContainer>
+            </QueueWrap>
+        </>
+    );
+};
+
+const HorizontalQueueComponent = ({ shouldShow }: QueueComponentProps) => {
+    const location = c.WIDGET_POSITIONS.queue;
+    const [height, setHeight] = useState<number>(undefined);
+    const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
+    const [headerWidth, setHeaderWidth] = useState<number>(0);
+    const [featured, queueRows] = useHorizontalQueueRowsData({ 
+        height, 
+        width, 
+        ftsRowWidth: width - headerWidth 
+    });
+    
+    return (
+        <>
+            <HorizontalFeatured runInfo={featured} />
+            <QueueWrap hasFeatured={!!featured} variant="horizontal">
+                <QueueHeader ref={(el) => (el != null) && setHeaderWidth(el.getBoundingClientRect().width)}>
+                    <Title>{c.QUEUE_TITLE}</Title>
+                    <Caption>{c.QUEUE_CAPTION}</Caption>
+                </QueueHeader>
+                <HorizontalRowsContainer ref={(el) => {
                     if (el != null) {
                         const bounding = el.getBoundingClientRect();
                         setHeight(bounding.height);
@@ -596,14 +646,11 @@ const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ shouldShow }: 
                             </Transition>
                         ))}
                     </TransitionGroup>
-                </RowsContainerComponent>
+                </HorizontalRowsContainer>
             </QueueWrap>
         </>
     );
 };
-
-const VerticalQueue = QueueComponent("vertical");
-const HorizontalQueue = QueueComponent("horizontal");
 
 type QueueProps = {
     widgetData: Widget.QueueWidget,
@@ -612,8 +659,8 @@ export const Queue = ({ widgetData: { settings: { horizontal } } }: QueueProps) 
     const shouldShow = useDelayedBoolean(300);
     return (
         <>
-            {!horizontal && <VerticalQueue shouldShow={shouldShow} />}
-            {horizontal && <HorizontalQueue shouldShow={shouldShow} />}
+            {!horizontal && <VerticalQueueComponent shouldShow={shouldShow} />}
+            {horizontal && <HorizontalQueueComponent shouldShow={shouldShow} />}
         </>
     );
 };
