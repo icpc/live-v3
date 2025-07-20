@@ -8,6 +8,8 @@ import kotlinx.serialization.json.*
 import org.icpclive.cds.util.map
 import java.nio.file.Path
 import kotlin.io.path.exists
+import kotlin.io.path.name
+import kotlin.io.path.relativeTo
 
 /**
  * Represents a URL or a local file path.
@@ -63,13 +65,16 @@ private interface UrlOrLocalPathSurrogate {
     class WithWholeAuth(val url: String, val auth: Authorization): UrlOrLocalPathSurrogate
 }
 
-internal class UrlOrLocalPathSerializer(val relativeTo: Path) : KSerializer<UrlOrLocalPath> {
+internal class UrlOrLocalPathSerializer(
+    val localFilesDeserializationBase: Path,
+    val localFilesSerializationBase: UrlOrLocalPath = UrlOrLocalPath.Local(localFilesDeserializationBase),
+) : KSerializer<UrlOrLocalPath> {
     override fun serialize(encoder: Encoder, value: UrlOrLocalPath) {
         when (value) {
             is UrlOrLocalPath.Local -> raw.serialize(encoder, value)
             is UrlOrLocalPath.Url -> when {
                 value.auth == null -> raw.serialize(encoder, value)
-                value.auth.cookies.isEmpty() && value.auth.basic != null -> withLoginPassword.serialize(encoder, value)
+                value.auth.headers.isEmpty() && value.auth.cookies.isEmpty() && value.auth.basic != null -> withLoginPassword.serialize(encoder, value)
                 else -> withWholeAuth.serialize(encoder, value)
             }
         }
@@ -92,16 +97,23 @@ internal class UrlOrLocalPathSerializer(val relativeTo: Path) : KSerializer<UrlO
             if (isHttpUrl(it.s)) {
                 UrlOrLocalPath.Url(it.s)
             } else {
-                val fixedPath = relativeTo.parent.resolve(it.s).toAbsolutePath()
+                val fixedPath = localFilesDeserializationBase.parent.resolve(it.s).toAbsolutePath()
                 require(fixedPath.exists()) { "File $fixedPath mentioned in settings doesn't exist" }
                 UrlOrLocalPath.Local(fixedPath)
             }
         },
-        onSerialize = { UrlOrLocalPathSurrogate.Raw(it.toString()) }
+        onSerialize = {
+            when (it) {
+                is UrlOrLocalPath.Url -> UrlOrLocalPathSurrogate.Raw(it.toString())
+                is UrlOrLocalPath.Local -> {
+                    UrlOrLocalPathSurrogate.Raw(it.value.relativeTo(localFilesDeserializationBase).fold(localFilesSerializationBase) { acc, part -> acc.subDir(part.name)}.toString())
+                }
+            }
+        }
     )
     internal val withLoginPassword = UrlOrLocalPathSurrogate.WithLoginPassword.serializer().map(
         onDeserialize = { UrlOrLocalPath.Url(it.url, Authorization(Authorization.BasicAuth(it.login, it.password), emptyMap())) },
-        onSerialize = { UrlOrLocalPathSurrogate.WithLoginPassword(it.value, it.auth!!.basic!!.login, it.auth.basic!!.password) }
+        onSerialize = { UrlOrLocalPathSurrogate.WithLoginPassword(it.value, it.auth!!.basic!!.login, it.auth.basic.password) }
     )
     internal val withWholeAuth = UrlOrLocalPathSurrogate.WithWholeAuth.serializer().map(
         onDeserialize = { UrlOrLocalPath.Url(it.url, it.auth) },
