@@ -8,7 +8,7 @@ import {
     Tooltip,
 } from "@mui/material";
 import { ArrowForward as ArrowForwardIcon, StarHalf, EmojiEvents, LooksOne, Check } from "@mui/icons-material";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowSelectionModel } from "@mui/x-data-grid";
 import { activeRowColor } from "@/styles.js";
 import { timeMsToDuration, unixTimeMsToLocalTime } from "@/utils";
 import { FeaturedRunStatus, useAnalyticsService } from "@/services/analytics";
@@ -152,6 +152,10 @@ function MessagesTable({
     onSelectComment
 }: MessagesTableProps) {
     const ref = useRef<HTMLTableElement>();
+    const rowSelectionModel: GridRowSelectionModel = selectedRowId 
+        ? { type: 'include', ids: new Set([selectedRowId]) }
+        : { type: 'include', ids: new Set() };
+
     return (
         <DataGrid
             ref={ref}
@@ -160,15 +164,17 @@ function MessagesTable({
             initialState={{
                 pagination: { paginationModel: { pageSize: 100 } },
             }}
-            // autoPageSize
             pageSizeOptions={[10, 25, 50, 100]}
             autoHeight
             getRowHeight={() => "auto"}
             columnHeaderHeight={30}
             onRowSelectionModelChange={(newRowSelectionModel) => {
-                onSelectRow(newRowSelectionModel[0] as string);
+                const selectedId = newRowSelectionModel.ids.size > 0 
+                    ? Array.from(newRowSelectionModel.ids)[0] as string 
+                    : null;
+                onSelectRow(selectedId);
             }}
-            rowSelectionModel={[selectedRowId]}
+            rowSelectionModel={rowSelectionModel}
             sx={{
                 "& .MuiDataGrid-footerContainer": {
                     minHeight: 30,

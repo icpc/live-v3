@@ -15,4 +15,7 @@ export default defineConfig({
         target: "esnext",
         outDir: process.env.BUILD_PATH ?? "dist"
     },
+    experimental: {
+        enableNativePlugin: true,
+    }
 });
