@@ -47,6 +47,8 @@
     "globals": "^16.3.0",
     "postcss-styled-syntax": "^0.7.1",
     "stylelint": "^16.22.0",
+    "stylelint-config-recommended": "^16.0.0",
+    "stylelint-no-unsupported-browser-features": "^8.0.4",
     "typescript-eslint": "^8.37.0",
     "vite-tsconfig-paths": "^5.1.4"
   }
