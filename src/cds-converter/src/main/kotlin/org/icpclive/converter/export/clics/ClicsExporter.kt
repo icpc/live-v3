@@ -86,8 +86,8 @@ private fun TeamInfo.toClicsTeam() = Team(
     webcam = listOfNotNull(medias[TeamMediaType.CAMERA]?.toClicsMedia()),
     audio = listOfNotNull(medias[TeamMediaType.AUDIO]?.toClicsMedia()),
     backup = listOfNotNull(medias[TeamMediaType.BACKUP]?.toClicsMedia()),
-    key_log = listOfNotNull(medias[TeamMediaType.KEYLOG]?.toClicsMedia()),
-    tool_data = listOfNotNull(medias[TeamMediaType.TOOL_DATA]?.toClicsMedia()),
+    keyLog = listOfNotNull(medias[TeamMediaType.KEYLOG]?.toClicsMedia()),
+    toolData = listOfNotNull(medias[TeamMediaType.TOOL_DATA]?.toClicsMedia()),
 )
 
 

@@ -18,8 +18,8 @@ public data class Team(
     public val desktop: List<File> = emptyList(),
     public val webcam: List<File> = emptyList(),
     public val backup: List<File> = emptyList(),
-    public val key_log: List<File> = emptyList(),
-    public val tool_data: List<File> = emptyList(),
+    public val keyLog: List<File> = emptyList(),
+    public val toolData: List<File> = emptyList(),
     public val audio: List<File> = emptyList(),
     public val location: TeamLocation? = null
 )

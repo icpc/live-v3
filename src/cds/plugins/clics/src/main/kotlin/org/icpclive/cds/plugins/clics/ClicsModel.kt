@@ -112,8 +112,8 @@ internal class ClicsModel {
                 mediaType(desktop.firstOrNull())?.let { put(TeamMediaType.SCREEN, it) }
                 mediaType(audio.firstOrNull())?.let { put(TeamMediaType.AUDIO, it) }
                 mediaType(backup.firstOrNull())?.let { put(TeamMediaType.BACKUP, it) }
-                mediaType(key_log.firstOrNull())?.let { put(TeamMediaType.KEYLOG, it) }
-                mediaType(tool_data.firstOrNull())?.let { put(TeamMediaType.TOOL_DATA, it) }
+                mediaType(keyLog.firstOrNull())?.let { put(TeamMediaType.KEYLOG, it) }
+                mediaType(toolData.firstOrNull())?.let { put(TeamMediaType.TOOL_DATA, it) }
             },
             organizationId = organizationId?.toOrganizationId(),
             isOutOfContest = false,
