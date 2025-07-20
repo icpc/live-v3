@@ -896,13 +896,13 @@ public final class org/icpclive/clics/objects/Team {
 	public final fun getHidden ()Ljava/lang/Boolean;
 	public final fun getIcpcId ()Ljava/lang/String;
 	public final fun getId ()Ljava/lang/String;
-	public final fun getKey_log ()Ljava/util/List;
+	public final fun getKeyLog ()Ljava/util/List;
 	public final fun getLabel ()Ljava/lang/String;
 	public final fun getLocation ()Lorg/icpclive/clics/objects/TeamLocation;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getOrganizationId ()Ljava/lang/String;
 	public final fun getPhoto ()Ljava/util/List;
-	public final fun getTool_data ()Ljava/util/List;
+	public final fun getToolData ()Ljava/util/List;
 	public final fun getVideo ()Ljava/util/List;
 	public final fun getWebcam ()Ljava/util/List;
 	public fun hashCode ()I
