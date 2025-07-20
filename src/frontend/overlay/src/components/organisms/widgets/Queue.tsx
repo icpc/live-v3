@@ -386,7 +386,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
   line-height: ${c.QUEUE_ROW_HEIGHT}px;
   flex-shrink: 0;
-  background-image: ${({ isFts }) => isFts ? `url(${star})` : null};
+  background-image: ${({ isFts }) => isFts ? `url("${star}")` : null};
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: contain;
@@ -396,7 +396,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   I don't belive it, but we have to check.
    */
     /* stylelint-disable plugin/no-unsupported-browser-features */
-  mask: ${({ isFts }) => isFts ? `url(${star_mask}) 50% 50% no-repeat` : null};
+  mask: ${({ isFts }) => isFts ? `url("${star_mask}") 50% 50% no-repeat` : null};
   mask-position: 50%;
   mask-size: contain;
     /* stylelint-enable plugin/no-unsupported-browser-features */
