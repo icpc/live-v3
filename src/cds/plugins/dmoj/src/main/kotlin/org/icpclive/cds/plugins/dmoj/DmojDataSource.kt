@@ -101,7 +101,9 @@ internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDat
             "ioi" -> ContestResultType.IOI
             else -> error("Unknown contest format: ${contest.format.name}")
         }
-        val startTimeMap = mutableMapOf<TeamId, Instant>()
+        val startTimeMap = contest.rankings.associate {
+            it.user to (it.start_time ?: contest.start_time)
+        }
         val submissions = buildList {
             var page = 0
             val loader = DataLoader.json<Wrapper<SubmissionsResult>>(
@@ -113,7 +115,7 @@ internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDat
                 ++page
                 val data = loader.load()
                 for (submission in data.objects) {
-                    val userStartTime = startTimeMap[submission.user.toTeamId()] ?: continue
+                    val userStartTime = startTimeMap[submission.user] ?: continue
                     val time = submission.date - userStartTime
                     if (time > contestLength) continue
 
@@ -173,9 +175,7 @@ internal class DmojDataSource(val settings: DmojSettings) : FullReloadContestDat
                     isHidden = it.is_disqualified == true,
                     isOutOfContest = false,
                     organizationId = null
-                ).also { team ->
-                    startTimeMap[team.id] = it.start_time ?: contest.start_time
-                }
+                )
             },
             organizationList = emptyList(),
             problemList = contest.problems.mapIndexed { index, it ->
