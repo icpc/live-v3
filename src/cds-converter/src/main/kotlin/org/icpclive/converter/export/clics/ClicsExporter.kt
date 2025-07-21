@@ -39,6 +39,7 @@ private fun ProblemInfo.toClicsProblem() = Problem(
     label = displayName,
     name = fullName,
     rgb = color?.value,
+    testDataCount = 1,
 )
 
 private fun GroupInfo.toClicsGroup() = Group(
