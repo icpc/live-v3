@@ -186,18 +186,18 @@ const InstancesManager = ({ variant, ...props }: InstancesManagerProps) => {
             {variant === "split" && (
                 <>
                     <Grid container columnSpacing={1}>
-                        <Grid item md={6} sm={12}>
+                        <Grid size={{md: 6, sm: 12}}>
                             <InstanceStatus instanceId={TeamViewPosition.TOP_LEFT} Icon={TopLeftIcon} {...props} />
                         </Grid>
-                        <Grid item md={6} sm={12}>
+                        <Grid size={{md: 6, sm: 12}}>
                             <InstanceStatus instanceId={TeamViewPosition.TOP_RIGHT} Icon={TopRightIcon} {...props} />
                         </Grid>
                     </Grid>
                     <Grid container columnSpacing={1}>
-                        <Grid item md={6} sm={12}>
+                        <Grid size={{md: 6, sm: 12}}>
                             <InstanceStatus instanceId={TeamViewPosition.BOTTOM_LEFT} Icon={BottomLeftIcon} {...props} />
                         </Grid>
-                        <Grid item md={6} sm={12}>
+                        <Grid size={{md: 6, sm: 12}}>
                             <InstanceStatus instanceId={TeamViewPosition.BOTTOM_RIGHT} Icon={BottomRightIcon} {...props} />
                         </Grid>
                     </Grid>
@@ -408,30 +408,30 @@ const TeamViewManager = () => {
                     {selectedTeamId !== undefined && (
                         <>
                             <Grid container>
-                                <Grid item xs={12} sm={4}>
+                                <Grid size={{xs: 12, sm: 4}}>
                                     <FormLabel component="legend">Main content</FormLabel>
                                 </Grid>
-                                <Grid item xs={12} sm={8}>
+                                <Grid size={{xs: 12, sm: 8}}>
                                     <TeamMediaSwitcher
                                         switchedMediaType={mediaType1}
                                         onSwitch={ts => setMediaType1(ts)}
                                         disabledMediaTypes={disableMediaTypes}
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={4}>
+                                <Grid size={{xs: 12, sm: 4}}>
                                     <FormLabel component="legend">Additional content</FormLabel>
                                 </Grid>
-                                <Grid item xs={12} sm={8}>
+                                <Grid size={{xs: 12, sm: 8}}>
                                     <TeamMediaSwitcher
                                         switchedMediaType={mediaType2}
                                         onSwitch={ts => setMediaType2(ts)}
                                         disabledMediaTypes={[...disableMediaTypes, mediaType1].filter(t => t !== null)}
                                     />
                                 </Grid>
-                                <Grid item xs={10} sm={4}>
+                                <Grid size={{xs: 10, sm: 4}}>
                                     <FormLabel component="legend">Name, ranking, submissions</FormLabel>
                                 </Grid>
-                                <Grid item xs={2} sm={8}>
+                                <Grid size={{xs: 2, sm: 8}}>
                                     <ShowPresetButton
                                         checked={statusShown}
                                         onClick={(v) => setStatusShown(v)}
@@ -440,10 +440,10 @@ const TeamViewManager = () => {
                                 </Grid>
                                 {variant !== "split" && (
                                     <>
-                                        <Grid item xs={10} sm={4}>
+                                        <Grid size={{xs: 10, sm: 4}}>
                                             <FormLabel component="legend">Achievements</FormLabel>
                                         </Grid>
-                                        <Grid item xs={2} sm={8}>
+                                        <Grid size={{xs: 2, sm: 8}}>
                                             <ShowPresetButton
                                                 checked={achievementShown}
                                                 onClick={(v) => setAchievementShown(v)}
@@ -455,10 +455,10 @@ const TeamViewManager = () => {
                                 )}
                                 {(variant === "single" || variant === "pvp") && (
                                     <>
-                                        <Grid item xs={10} sm={4}>
+                                        <Grid size={{xs: 10, sm: 4}}>
                                             <FormLabel component="legend">TimeLine</FormLabel>
                                         </Grid>
-                                        <Grid item xs={2} sm={8}>
+                                        <Grid size={{xs: 2, sm: 8}}>
                                             <ShowPresetButton
                                                 checked={timeLineShown}
                                                 onClick={(v) => setTimeLineShown(v)}

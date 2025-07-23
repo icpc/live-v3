@@ -29,11 +29,11 @@ const ContestInfoStatusTable = ({ rows }: { rows: [React.ReactNode, React.ReactN
     return (
         <Grid container direction="column">
             {rows.map(([h, v], i) => (
-                <Grid container direction="row" md={12} key={i}>
-                    <Grid item xs={6} md={4}>
+                <Grid container direction="row" size={{ md: 12 }} key={i}>
+                    <Grid size={{ xs: 6, md: 4 }}>
                         {h}
                     </Grid>
-                    <Grid item xs={6} md={8}>
+                    <Grid size={{xs: 6, md: 8}}>
                         {v}
                     </Grid>
                 </Grid>
@@ -90,10 +90,10 @@ type BasicContainerProps = {
 
 const InfoRowContainer = ({ name, value }) => {
     return <Grid container direction="row">
-        <Grid item xs={6} md={4}>
+        <Grid size={{xs: 6, md: 4}}>
             {name}
         </Grid>
-        <Grid item xs={6} md={8}>
+        <Grid size={{xs: 6, md: 8}}>
             {value}
         </Grid>
     </Grid>
@@ -186,9 +186,9 @@ function SimpleDialog({ onClose, open, medias }: SimpleDialogProps) {
                 {medias && Object.entries(medias).map(([key, media]) => (
                     <ListItem key={key}>
                         <Grid container direction="row">
-                            <Grid item xs={4} md={2}>{key}</Grid>
-                            <Grid item xs={4} md={3}>{media.type}</Grid>
-                            <Grid item xs={4} md={7}>{media.url}</Grid>
+                            <Grid size={{xs: 4, md: 2}}>{key}</Grid>
+                            <Grid size={{xs: 4, md: 3}}>{media.type}</Grid>
+                            <Grid size={{xs: 4, md: 7}}>{media.url}</Grid>
                         </Grid>
                     </ListItem>
                 ))}

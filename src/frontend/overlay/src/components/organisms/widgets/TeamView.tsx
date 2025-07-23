@@ -4,7 +4,7 @@ import c from "../../../config";
 import { OverlayTeamViewSettings, TeamViewPosition, Widget } from "@shared/api";
 import { OverlayWidgetC, OverlayWidgetProps } from "@/components/organisms/widgets/types";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
-import TimeLine, { TimeLineBackground} from "@/components/organisms/holder/TimeLine";
+import TimeLine, { TimeLineBackground } from "@/components/organisms/holder/TimeLine";
 import { ContestantViewCorner } from "@/components/molecules/info/ContestantViewCorner";
 import { ContestantViewLine } from "@/components/molecules/info/ContestantViewLine";
 import { LocationRectangle } from "@/utils/location-rectangle";
@@ -61,8 +61,12 @@ const PrimaryMediaWrapper = styled.div`
     overflow: hidden;
 `;
 
-const AchievementWrapper = styled(PrimaryMediaWrapper)`
-    z-index: 4;
+interface AchievementWrapperProps {
+    showTimeline: boolean;
+}
+
+const AchievementWrapper = styled(PrimaryMediaWrapper)<AchievementWrapperProps>`
+    z-index: ${props => props.showTimeline ? 4 : 2};
 `;
 
 const TeamViewGrid = styled.div<{ $secondaryY: number; $achievementY: number }>`
@@ -119,7 +123,7 @@ const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecond
                 </PrimaryMediaWrapper>
             )}
             {achievement && (
-                <AchievementWrapper>
+                <AchievementWrapper showTimeline={showTimeLine}>
                     <TeamMediaHolder media={achievement} onLoadStatus={setAchievementLoaded} />
                 </AchievementWrapper>
             )}
@@ -292,7 +296,7 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
         if (settings.teamId != curSettings.teamId) {
             setNextSettings(settings);
         }
-    }, [settings]);
+    }, [settings, curSettings.teamId]);
 
     const onNextLoaded = () => {
         setTimeout(() => {
@@ -303,7 +307,7 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
 
     return <>
         {/** Current */}
-        <TeamViewSingleContent key={curSettings?.teamId} widgetData={{ settings: curSettings, ...restProps }} transitionState={transitionState}/> 
+        <TeamViewSingleContent key={curSettings?.teamId} widgetData={{ settings: curSettings, ...restProps }} transitionState={transitionState}/>
         {/** Next */}
         {nextSettings && <TeamViewSingleContent key={nextSettings?.teamId} widgetData={{ settings: nextSettings, ...restProps }} transitionState={transitionState} onLoaded={onNextLoaded}/> }
     </>;
@@ -328,7 +332,7 @@ export const TeamViewSingleContent = ({ widgetData: { settings, widgetLocationId
         if (isLoaded && onLoaded) {
             onLoaded();
         }
-    }, [isLoaded]);
+    }, [isLoaded, onLoaded]);
 
     const props = { ...settings, setPrimaryLoaded, setSecondaryLoaded, setAchievementLoaded, location };
     return (
