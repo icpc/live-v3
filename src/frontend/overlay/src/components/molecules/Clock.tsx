@@ -60,11 +60,12 @@ export const ContestClock = ({
         }
         switch (contestInfo.status.type) {
         case ContestStatus.Type.before: {
-            const milliseconds = DateTime.fromMillis(contestInfo.status.scheduledStartAtUnixMs)
-                .diffNow().negate().milliseconds * (contestInfo.emulationSpeed ?? 1);
             if (contestInfo.status.holdTimeMs !== undefined) {
                 return "-" + formatTime(contestInfo.status.holdTimeMs, true);
-            } else if (contestInfo.status.scheduledStartAtUnixMs !== undefined && milliseconds <= 0) {
+            }
+            const milliseconds = DateTime.fromMillis(contestInfo.status.scheduledStartAtUnixMs)
+                .diffNow().negate().milliseconds * (contestInfo.emulationSpeed ?? 1);
+            if (contestInfo.status.scheduledStartAtUnixMs !== undefined && milliseconds <= 0) {
                 return "-" + formatTime(-milliseconds + 1000, true);
             } else if (contestInfo.status.scheduledStartAtUnixMs !== undefined && milliseconds <= 60 * 1000) {
                 // hack just in case backend is slow in sending contest state
