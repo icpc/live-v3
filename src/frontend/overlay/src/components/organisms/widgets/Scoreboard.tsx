@@ -131,7 +131,7 @@ export const ScoreboardRow = ({ teamId,
     const medal = awards?.find((award) => award.type == Award.Type.medal) as Award.medal;
     const needPenalty = useNeedPenalty();
     const formatPenalty = useFormatPenalty();
-    return <ScoreboardRowWrap nProblems={contestData?.problems?.length ?? 1} needPenalty={needPenalty}>
+    return <ScoreboardRowWrap nProblems={Math.max(contestData?.problems?.length ?? 0, 1)} needPenalty={needPenalty}>
         <ScoreboardRankLabel rank={rank} medal={medal?.medalColor}/>
         <ScoreboardRowName align={c.SCOREBOARD_CELL_TEAMNANE_ALIGN} text={teamData?.shortName ?? "??"}/>
         <ShrinkingBox align={c.SCOREBOARD_CELL_POINTS_ALIGN}
@@ -293,7 +293,7 @@ const ScoreboardProblemLabel = styled(ProblemLabel)`
 const ScoreboardTableHeader = () => {
     const problems = useAppSelector((state) => state.contestInfo.info?.problems);
     const needPenalty = useNeedPenalty();
-    return <ScoreboardTableHeaderWrap nProblems={problems?.length ?? 1} needPenalty={needPenalty}>
+    return <ScoreboardTableHeaderWrap nProblems={Math.max(problems?.length ?? 0, 1)} needPenalty={needPenalty}>
         <ScoreboardTableHeaderCell>#</ScoreboardTableHeaderCell>
         <ScoreboardTableHeaderNameCell>Name</ScoreboardTableHeaderNameCell>
         <ScoreboardTableHeaderCell>Σ</ScoreboardTableHeaderCell>
