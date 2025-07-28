@@ -214,12 +214,15 @@ const useHorizontalQueueRowsData = ({
     const bottomPosition = useCallback((index: number) => {
         return (c.QUEUE_ROW_HEIGHT + c.QUEUE_HORIZONTAL_ROW_Y_PADDING) * index;
     }, []);
+
     const rightPosition = useCallback((index: number) => {
         return horizontalQueueRowGridOffsetX * index;
     }, []);
+
     const allowedMaxBatches = useMemo(() => {
         return Math.floor(height / horizontalQueueRowGridOffsetY) - 1;
-    }, [width, height]);
+    }, [height]);
+
     const allowedFts = useMemo(() => {
         return Math.floor(ftsRowWidth / horizontalQueueRowGridOffsetX) * horizontalQueueRowGridOffsetX;
     }, [ftsRowWidth]);
@@ -341,7 +344,9 @@ const useHorizontalQueueRowsData = ({
             rows.push(row);
         });
         return [featured, rows];
-    }, [queue, loadedMediaRun, setLoadedMediaRun, height]);
+    }, [queue, loadedMediaRun, setLoadedMediaRun, height, allowedFts, allowedMaxBatches,
+        basicZIndex, bottomPosition, rightPosition, totalQueueItems
+    ]);
 };
 
 const QueueRankLabel = styled(RankLabel)`
@@ -383,7 +388,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
   line-height: ${c.QUEUE_ROW_HEIGHT}px;
   flex-shrink: 0;
-  background-image: ${({ isFts }) => isFts ? `url(${star})` : null};
+  background-image: ${({ isFts }) => isFts ? `url("${star}")` : null};
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: contain;
@@ -393,7 +398,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   I don't belive it, but we have to check.
    */
     /* stylelint-disable plugin/no-unsupported-browser-features */
-  mask: ${({ isFts }) => isFts ? `url(${star_mask}) 50% 50% no-repeat` : null};
+  mask: ${({ isFts }) => isFts ? `url("${star_mask}") 50% 50% no-repeat` : null};
   mask-position: 50%;
   mask-size: contain;
     /* stylelint-enable plugin/no-unsupported-browser-features */
@@ -547,35 +552,53 @@ export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
         }
     </TransitionGroup>;
 };
+
 type QueueComponentProps = {
     shouldShow: boolean;
-}
-const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ shouldShow }: QueueComponentProps) => {
+    horizontal: boolean;
+};
+
+const QueueComponent = ({ shouldShow, horizontal }: QueueComponentProps) => {
     const location = c.WIDGET_POSITIONS.queue;
-    const [height, setHeight] = useState<number>(VARIANT === "horizontal" ? undefined : location.sizeY - 200);
+    const [height, setHeight] = useState<number>(horizontal ? undefined : location.sizeY - 200);
     const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
     const [headerWidth, setHeaderWidth] = useState<number>(0);
-    const [featured, queueRows] = VARIANT === "horizontal" ? useHorizontalQueueRowsData({ height, width, ftsRowWidth: width - headerWidth }):
-        useVerticalQueueRowsData({ height, width });
-    const RowsContainerComponent = VARIANT === "horizontal" ? HorizontalRowsContainer : RowsContainer;
+
+    const [verticalFeatured, verticalQueueRows] = useVerticalQueueRowsData({ height, width });
+    const [horizontalFeatured, horizontalQueueRows] = useHorizontalQueueRowsData({
+        height,
+        width,
+        ftsRowWidth: width - headerWidth
+    });
+
+    const featured = horizontal ? horizontalFeatured : verticalFeatured;
+    const queueRows = horizontal ? horizontalQueueRows : verticalQueueRows;
+
+    const FeaturedComponent = horizontal ? HorizontalFeatured : Featured;
+    const RowsContainerComponent = horizontal ? HorizontalRowsContainer : RowsContainer;
+
+    const handleHeaderRef = (el: HTMLElement | null) => {
+        if (horizontal && el != null) {
+            setHeaderWidth(el.getBoundingClientRect().width);
+        }
+    };
+
+    const handleRowsContainerRef = (el: HTMLElement | null) => {
+        if (el != null) {
+            const bounding = el.getBoundingClientRect();
+            setHeight(bounding.height);
+        }
+    };
+
     return (
         <>
-            {VARIANT === "horizontal" ? <HorizontalFeatured runInfo={featured} /> : <Featured runInfo={featured} />}
-            <QueueWrap hasFeatured={!!featured} variant={VARIANT}>
-                <QueueHeader ref={(el) => (el != null) && setHeaderWidth(el.getBoundingClientRect().width)}>
-                    <Title>
-                        {c.QUEUE_TITLE}
-                    </Title>
-                    <Caption>
-                        {c.QUEUE_CAPTION}
-                    </Caption>
+            <FeaturedComponent runInfo={featured} />
+            <QueueWrap hasFeatured={!!featured} variant={horizontal ? "horizontal" : "vertical"}>
+                <QueueHeader ref={handleHeaderRef}>
+                    <Title>{c.QUEUE_TITLE}</Title>
+                    <Caption>{c.QUEUE_CAPTION}</Caption>
                 </QueueHeader>
-                <RowsContainerComponent ref={(el) => {
-                    if (el != null) {
-                        const bounding = el.getBoundingClientRect();
-                        setHeight(bounding.height);
-                    }
-                }}>
+                <RowsContainerComponent ref={handleRowsContainerRef}>
                     <TransitionGroup>
                         {shouldShow && queueRows.map(row => (
                             <Transition key={row.id} timeout={c.QUEUE_ROW_APPEAR_TIME}>
@@ -586,7 +609,7 @@ const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ shouldShow }: 
                                             right={row.right}
                                             zIndex={row.zIndex}
                                             fts={row.isFts}
-                                            horizontal={true}
+                                            horizontal={horizontal}
                                             {...queueRowContractionStates(c.QUEUE_ROW_HEIGHT)[state]}
                                         >
                                             <QueueRow runInfo={row}/>
@@ -602,21 +625,16 @@ const QueueComponent = (VARIANT: "vertical" | "horizontal") => ({ shouldShow }: 
     );
 };
 
-const VerticalQueue = QueueComponent("vertical");
-const HorizontalQueue = QueueComponent("horizontal");
 
 type QueueProps = {
     widgetData: Widget.QueueWidget,
 };
+
 export const Queue = ({ widgetData: { settings: { horizontal } } }: QueueProps) => {
     const shouldShow = useDelayedBoolean(300);
-    return (
-        <>
-            {!horizontal && <VerticalQueue shouldShow={shouldShow} />}
-            {horizontal && <HorizontalQueue shouldShow={shouldShow} />}
-        </>
-    );
+    return <QueueComponent shouldShow={shouldShow} horizontal={horizontal} />;
 };
+
 Queue.shouldCrop = false;
 Queue.zIndex=1;
 export default Queue;

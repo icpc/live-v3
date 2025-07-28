@@ -3,8 +3,9 @@ import c from "../../../config";
 import { stackedBarsData } from "../../../statistics/barData";
 import { StatisticsLegend } from "../../molecules/statistics/StatisticsLegend";
 import { StackedBars } from "../../molecules/statistics/StackedBars";
-import { useElementSize } from "usehooks-ts";
+import { useResizeObserver } from "usehooks-ts";
 import { useAppSelector } from "@/redux/hooks";
+import { useRef } from "react";
 
 const StatisticsWrap = styled.div`
   position: relative;
@@ -48,8 +49,11 @@ export const Statistics = () => {
     const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
     const data = stackedBarsData(tasks, statistics);
 
-    const [componentRef, { height }] = useElementSize();
-    const [headerRef, { height: headerHeight }] = useElementSize();
+    const componentRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    
+    const { height = 0 } = useResizeObserver({ ref: componentRef });
+    const { height: headerHeight = 0 } = useResizeObserver({ ref: headerRef });
 
     return (
         <StatisticsWrap ref={componentRef}>

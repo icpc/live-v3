@@ -17,23 +17,26 @@ export class GrabberSocket {
             return;
         }
         const ws = new WebSocket(this.url);
-        const _this = this;
-        ws.onopen = function () {
-            while (_this.messageQueue.length > 0) {
-                ws.send(JSON.stringify(_this.messageQueue[0]));
-                _this.messageQueue.splice(0, 1);
+        
+        ws.onopen = () => {
+            while (this.messageQueue.length > 0) {
+                ws.send(JSON.stringify(this.messageQueue[0]));
+                this.messageQueue.splice(0, 1);
             }
         };
-        ws.onmessage = function ({ data }) {
+        
+        ws.onmessage = ({ data }) => {
             const payload = JSON.parse(data);
-            _this.target.dispatchEvent(new CustomEvent(payload.event, { detail: payload }));
+            this.target.dispatchEvent(new CustomEvent(payload.event, { detail: payload }));
         };
-        ws.onclose = function () {
-            if (_this.isClosed) {
+        
+        ws.onclose = () => {
+            if (this.isClosed) {
                 return;
             }
-            // setTimeout(() => _this.connect(), 1000);
+            // setTimeout(() => this.connect(), 1000);
         };
+        
         this.ws = ws;
     }
 

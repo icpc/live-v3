@@ -135,6 +135,7 @@ const LiveIcon = styled.img`
 `;
 
 export const SingleTicker = ({ part, color }) => {
+    const curMessage = useAppSelector((state) => state.ticker.tickers[part].curDisplaying);
     if (part === "short") {
         return (
             <SingleTickerWrap color={color}>
@@ -147,7 +148,7 @@ export const SingleTicker = ({ part, color }) => {
             </SingleTickerWrap>
         );
     }
-    const curMessage = useAppSelector((state) => state.ticker.tickers[part].curDisplaying);
+
     const wrapColor = (curMessage?.type === "scoreboard" || curMessage?.type === "empty") ? c.TICKER_DEFAULT_SCOREBOARD_BACKGROUND : color;
     return (
         <SingleTickerWrap color={wrapColor}>
@@ -184,7 +185,7 @@ export const Ticker = () => {
         }
         dispatch(startScrolling());
         return () => dispatch(stopScrolling());
-    }, [isLoaded]);
+    }, [isLoaded, dispatch]);
     return <TickerWrap>
         {isLoaded &&
             <>
