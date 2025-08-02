@@ -1,0 +1,95 @@
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "^USA.*": {"emojiValue": "🇺🇸"},
+                    "^CHN.*": {"emojiValue": "🇨🇳"}
+                    
+                }
+            }
+        },
+        "customFields": {
+            "emoji": "{regexes.custom.emojiValue}"
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{country}: {first_name} {last_name}",
+        "medias": {
+            "camera":{"type": "Image", "url": "/media/transparent.png"}
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "bol21": {
+                "isOutOfContest": true
+            },
+            "bol22": {
+                "isOutOfContest": true
+            },
+            "bol23": {
+                "isOutOfContest": true
+            },
+            "bol24": {
+                "isOutOfContest": true
+            }
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "souvenirs": {
+                "displayName": "A1",
+                "color": "#e6194bff"
+            },
+            "triples": {
+                "displayName": "B1",
+                "color": "#3cb44bff"
+            },
+            "worldmap": {
+                "displayName": "C1",
+                "color": "#ffe119ff"
+            }
+        }
+    },
+    {
+        "type": "overrideAwards",
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "gold-medal",
+                        "citation": "Gold Medal",
+                        "color": "GOLD",
+                        "maxRank": 28
+                    },
+                    {
+                        "id": "silver-medal",
+                        "citation": "Silver Medal",
+                        "color": "SILVER",
+                        "maxRank": 83
+                    },
+                    {
+                        "id": "bronze-medal",
+                        "citation": "Bronze Medal",
+                        "color": "BRONZE",
+                        "maxRank": 167
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 15,
+        "maxUntestedRun": 5
+    }
+]
