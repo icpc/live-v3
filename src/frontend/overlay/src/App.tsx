@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo } from "react";
 import MainLayout from "./components/layouts/MainLayout";
 import { StatusLayout } from "./components/layouts/StatusLayout";
 import c from "./config";
@@ -55,11 +55,9 @@ const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
 function App() {
     const dispatch = useAppDispatch();
     const makeWebsocket = useMakeWebsocket(dispatch);
-    const wss = Object.fromEntries(Object.keys(c.WEBSOCKETS).map((key) => {
-        // since WEBSOCKETS is static.
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        return [key, useRef(null)];
-    }));
+    const wss = useMemo(() => {
+        return Object.fromEntries(Object.keys(c.WEBSOCKETS).map((key) => [key, React.createRef()]));
+    }, []);
 
     useMountEffect(() => {
         _.forEach(wss, (v, k) => {
