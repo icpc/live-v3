@@ -201,7 +201,7 @@ const useVerticalQueueRowsData = ({
 const horizontalQueueRowGridOffsetX = c.QUEUE_ROW_WIDTH + c.QUEUE_HORIZONTAL_ROW_X_PADDING;
 const horizontalQueueRowGridOffsetY = c.QUEUE_ROW_HEIGHT + c.QUEUE_HORIZONTAL_ROW_Y_PADDING;
 const useHorizontalQueueRowsData = ({
-    width,
+    width, // eslint-disable-line @typescript-eslint/no-unused-vars
     height,
     ftsRowWidth,
     basicZIndex = c.QUEUE_BASIC_ZINDEX,

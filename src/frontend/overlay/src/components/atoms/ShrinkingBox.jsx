@@ -37,8 +37,8 @@ export const getTextWidth = (text, font) => {
 };
 export const ShrinkingBox = ({
     text,
-    fontFamily = c.GLOBAL_DEFAULT_FONT_FAMILY,
-    fontSize = c.GLOBAL_DEFAULT_FONT_SIZE,
+    fontFamily = c.GLOBAL_DEFAULT_FONT_FAMILY, // eslint-disable-line @typescript-eslint/no-unused-vars
+    fontSize = c.GLOBAL_DEFAULT_FONT_SIZE, // eslint-disable-line @typescript-eslint/no-unused-vars
     align = "left",
     className
 }) => {
