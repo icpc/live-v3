@@ -1,5 +1,5 @@
 import React from "react";
-import { Transition, TransitionGroup } from "react-transition-group";
+import { useTransition } from "react-transition-state";
 import styled, { Keyframes, keyframes } from "styled-components";
 import bg from "../../assets/images/bg.png";
 import c from "../../config";
@@ -110,45 +110,65 @@ const useWidgets = () => {
     }
 };
 
+const WidgetWithTransition = ({ obj, params }: { obj: Widget, params: URLSearchParams }) => {
+    const WidgetComponent = WIDGETS[obj.type];
+    const location = c.WIDGET_POSITIONS[obj.widgetLocationId];
+    
+    const [transition, toggle] = useTransition({
+        timeout: WidgetComponent.overrideTimeout ?? c.WIDGET_TRANSITION_TIME,
+        mountOnEnter: true,
+        unmountOnExit: true,
+        enter: true,
+        exit: true
+    });
+
+    const shouldShow = React.useMemo(() => {
+        if (WidgetComponent === undefined) {
+            return false;
+        }
+        if (obj.type === "TeamLocatorWidget" && obj.settings?.scene !== (params.get("scene") || undefined)) {
+            return false;
+        }
+        if (params.get("scene") && obj.type !== "TeamLocatorWidget") {
+            return false;
+        }
+        if (params.get("onlyWidgets") && !params.get("onlyWidgets").split(",").includes(obj.widgetId)) {
+            return false;
+        }
+        return true;
+    }, [WidgetComponent, obj, params]);
+
+    React.useEffect(() => {
+        toggle(shouldShow);
+    }, [shouldShow, toggle]);
+
+    if (!shouldShow || !transition.isMounted) {
+        return null;
+    }
+
+    return (
+        <WidgetWrap
+            left={location.positionX}
+            top={location.positionY}
+            width={location.sizeX}
+            height={location.sizeY}
+            shouldCrop={WidgetComponent.shouldCrop}
+            zIndex={WidgetComponent.zIndex ?? 0}
+            {...(!WidgetComponent.ignoreAnimation && transitionProps[transition.status])}
+        >
+            <WidgetComponent widgetData={obj} transitionState={transition.status}/>
+        </WidgetWrap>
+    );
+};
+
 export const MainLayout = () => {
     const widgets = useWidgets();
     const params = useQueryParams();
     return <MainLayoutWrap>
         <StatusLightBulbs compact={true}/>
-        <TransitionGroup component={null}>
-            {Object.values(widgets).map((obj) => {
-                const Widget = WIDGETS[obj.type];
-                const location = c.WIDGET_POSITIONS[obj.widgetLocationId];
-                if (Widget === undefined) {
-                    return null;
-                }
-                if (obj.type === "TeamLocatorWidget" && obj.settings?.scene !== (params.get("scene") || undefined)) {
-                    // FIXME: feature for multi vmix sources coordination. Should be moved to the Widget class
-                    return null;
-                }
-                if (params.get("scene") && obj.type !== "TeamLocatorWidget") {
-                    return null;
-                }
-                if (params.get("onlyWidgets") && !params.get("onlyWidgets").split(",").includes(obj.widgetId)) {
-                    return null;
-                }
-                return <Transition key={obj.widgetId} timeout={Widget.overrideTimeout ?? c.WIDGET_TRANSITION_TIME}>
-                    {state =>
-                        state !== "exited" && <WidgetWrap
-                            left={location.positionX}
-                            top={location.positionY}
-                            width={location.sizeX}
-                            height={location.sizeY}
-                            shouldCrop={Widget.shouldCrop}
-                            zIndex={Widget.zIndex ?? 0}
-                            {...(!Widget.ignoreAnimation && transitionProps[state])}
-                        >
-                            <Widget widgetData={obj} transitionState={state}/>
-                        </WidgetWrap>
-                    }
-                </Transition>;
-            })}
-        </TransitionGroup>
+        {Object.values(widgets).map((obj) => (
+            <WidgetWithTransition key={obj.widgetId} obj={obj} params={params} />
+        ))}
     </MainLayoutWrap>;
 };
 

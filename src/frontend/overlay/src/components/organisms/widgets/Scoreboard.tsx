@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import styled from "styled-components";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
@@ -223,12 +223,28 @@ export const useScroller = (
     const numPages = Math.ceil(showRows / singleScreenRowCount);
     const singlePageRowCount = Math.ceil(showRows / numPages);
     const [curPage, setCurPage] = useState(0);
-    useEffect(() => {
+    
+    // Handle immediate page changes
+    const targetPage = useMemo(() => {
         if (direction === ScoreboardScrollDirection.FirstPage) {
-            setCurPage(0);
+            return 0;
         } else if (direction === ScoreboardScrollDirection.LastPage) {
-            setCurPage(numPages - 1);
-        } else if (direction !== ScoreboardScrollDirection.Pause) {
+            return numPages - 1;
+        }
+        return null;
+    }, [direction, numPages]);
+    
+    useEffect(() => {
+        if (targetPage !== null) {
+            setCurPage(targetPage);
+        }
+    }, [targetPage]);
+    
+    // Handle scrolling
+    useEffect(() => {
+        if (direction !== ScoreboardScrollDirection.Pause && 
+            direction !== ScoreboardScrollDirection.FirstPage && 
+            direction !== ScoreboardScrollDirection.LastPage) {
             const intervalId = setInterval(() => {
                 setCurPage(page => Math.max(0, (page + (direction === ScoreboardScrollDirection.Back ? -1 : 1)) % numPages));
             }, interval);

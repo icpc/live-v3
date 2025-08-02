@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React from "react";
 import { StackedBarsData } from "./types";
 import styled from "styled-components";
 import c from "../../../config";
@@ -78,10 +78,8 @@ interface StackedBarsProps {
 const oneBarHeight = c.STATISTICS_BAR_HEIGHT_PX + c.STATISTICS_BAR_GAP_PX;
 
 export const StackedBars = ({ data, height }: StackedBarsProps) => {
-    const rowsCount = useMemo(() => {
-        const columns = Math.ceil(data.length / Math.floor(height / oneBarHeight));
-        return height ? Math.min(data.length, Math.ceil(data.length / columns)) : data.length;
-    }, [data.length, height]);
+    const columns = Math.ceil(data.length / Math.floor(height / oneBarHeight));
+    const rowsCount = height ? Math.min(data.length, Math.ceil(data.length / columns)) : data.length;
 
     return (
         <BarsWrapper rowsCount={rowsCount}>

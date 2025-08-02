@@ -2,6 +2,7 @@ const js = require("@eslint/js");
 const globals = require("globals");
 const react = require("eslint-plugin-react");
 const reactHooks = require("eslint-plugin-react-hooks");
+const reactCompiler = require("eslint-plugin-react-compiler");
 const tseslint = require("typescript-eslint");
 
 module.exports = tseslint.config(
@@ -29,6 +30,7 @@ module.exports = tseslint.config(
         plugins: {
             react,
             "react-hooks": reactHooks,
+            "react-compiler": reactCompiler,
         },
         
         settings: {
@@ -40,6 +42,7 @@ module.exports = tseslint.config(
         rules: {
             ...react.configs.recommended.rules,
             ...reactHooks.configs.recommended.rules,
+            "react-compiler/react-compiler": "warn",
             
             "indent": ["error", 4],
             "linebreak-style": ["warn", "unix"],
