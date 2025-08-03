@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 public class NetworkSettings(
     public val allowUnsecureConnections: Boolean = false,
+    public val checkedServerName: String? = null,
 )
 
 public interface KtorNetworkSettingsProvider {

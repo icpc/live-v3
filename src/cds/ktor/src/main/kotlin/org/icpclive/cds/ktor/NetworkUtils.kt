@@ -20,6 +20,7 @@ public fun NetworkSettings.createHttpClient(block: HttpClientConfig<*>.() -> Uni
                         override fun checkServerTrusted(certs: Array<X509Certificate>, authType: String?) {}
                     }
                 }
+                serverName = checkedServerName
             }
             requestTimeout = 40000
         }
