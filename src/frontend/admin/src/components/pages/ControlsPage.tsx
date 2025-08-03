@@ -30,12 +30,20 @@ const WidgetGroup = ({ title, children, isShown, onClickShow }: WidgetGroupProp)
             onChange={(_, e) => setExpanded(e)}
             className="WidgetGroupAccordion"
         >
-            <AccordionSummary expandIcon={children && <ExpandMoreIcon />}>
+            <AccordionSummary 
+                expandIcon={children && <ExpandMoreIcon />}
+                sx={{
+                    '& .MuiAccordionSummary-content': {
+                        alignItems: 'center',
+                        gap: 1
+                    }
+                }}
+            >
                 <ShowPresetButton
                     onClick={onClickShow}
                     checked={isShown}
                 />
-                <Typography className="aboba" variant="body2" gutterBottom>{title}</Typography>
+                <Typography className="aboba" variant="body2">{title}</Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ py: 1 }}>
                 {children}
