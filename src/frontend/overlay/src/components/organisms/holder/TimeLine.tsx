@@ -19,12 +19,11 @@ const TimeLineContainer = styled.div.attrs<TimeLineContainerProps>(({ isPvp }) =
 })) <TimeLineContainerProps>`
     align-items: center;
     width: 100%;
-    border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS}px;
     display: grid;
     background-color: ${props => props.color};
     position: relative;
-    border-bottom-left-radius: ${c.GLOBAL_BORDER_RADIUS};
-    border-top-left-radius: ${c.GLOBAL_BORDER_RADIUS};
+    border-bottom-left-radius: ${c.TIMELINE_BORDER_RADIUS};
+    border-top-left-radius: ${c.TIMELINE_BORDER_RADIUS};
 `;
 
 interface LineProps {
