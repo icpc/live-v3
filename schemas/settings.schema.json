@@ -33,11 +33,14 @@
                 }
             ]
         },
-        "org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>": {
+        "org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>": {
             "type": "object",
             "properties": {
                 "allowUnsecureConnections": {
                     "type": "boolean"
+                },
+                "checkedServerName": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -69,7 +72,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -218,7 +221,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -257,7 +260,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -336,7 +339,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -375,7 +378,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -446,7 +449,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -495,7 +498,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -531,7 +534,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -569,7 +572,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -700,7 +703,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -740,7 +743,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -770,7 +773,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -806,7 +809,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
@@ -932,7 +935,7 @@
                     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
                 }
             },
             "additionalProperties": false,
