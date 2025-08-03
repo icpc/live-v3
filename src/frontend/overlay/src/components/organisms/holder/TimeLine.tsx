@@ -23,6 +23,8 @@ const TimeLineContainer = styled.div.attrs<TimeLineContainerProps>(({ isPvp }) =
     display: grid;
     background-color: ${props => props.color};
     position: relative;
+    border-bottom-left-radius: ${c.GLOBAL_BORDER_RADIUS};
+    border-top-left-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 interface LineProps {
@@ -183,7 +185,7 @@ const Problem = ({ problemResult, contestInfo, syncStartTime, isPvp = false }) =
                 { opacity: 0 },
                 { opacity: 1 }
             ], {
-                duration: 10000,
+                duration: c.TIMELINE_ANIMATION_TIME,
                 iterations: Infinity
             });
             animation.startTime = syncStartTime;
@@ -197,7 +199,7 @@ const Problem = ({ problemResult, contestInfo, syncStartTime, isPvp = false }) =
                 { opacity: 1 },
                 { opacity: 0 }
             ], {
-                duration: 10000,
+                duration: c.TIMELINE_ANIMATION_TIME,
                 iterations: Infinity
             });
             animation.startTime = syncStartTime;
@@ -231,6 +233,7 @@ const TimelineBackground = styled.div`
     background-color: ${props => props.color};
     grid-column: 2 / 2;
     grid-row: 4 / 4;
+    border-bottom-right-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 export const TimeLineBackground = ({ teamId, classname = null }) => {
@@ -303,7 +306,7 @@ export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
                     <TimeBorder
                         key={elem}
                         color={teamData?.color ?? "#000"}
-                        left={`calc(${((elem) * 3600000 / contestInfo?.contestLengthMs * 100) * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP 
+                        left={`calc(${((elem) * 3600000 / contestInfo?.contestLengthMs * 100) * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP
                             : c.TIMELINE_REAL_WIDTH)}% + ${c.TIMELINE_LEFT_TIME_PADDING}px)`}
                         isPvp={isPvp}
                     />

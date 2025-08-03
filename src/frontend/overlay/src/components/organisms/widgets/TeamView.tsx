@@ -29,6 +29,7 @@ const slideOut = keyframes`
 
 const RoundedTeamMediaHolder = styled(TeamMediaHolder)`
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
+    border-top-right-radius: 0;
 `;
 
 const TeamViewContainer = styled.div.attrs({
@@ -65,8 +66,12 @@ interface AchievementWrapperProps {
     showTimeline: boolean;
 }
 
-const AchievementWrapper = styled(PrimaryMediaWrapper)<AchievementWrapperProps>`
-    z-index: ${props => props.showTimeline ? 4 : 2};
+const AchievementWrapper = styled.div<AchievementWrapperProps>`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 2;
 `;
 
 const TeamViewGrid = styled.div<{ $secondaryY: number; $achievementY: number }>`
@@ -84,6 +89,7 @@ const SecondaryMediaWrapper = styled.div<{ withAchievement: boolean }>`
     grid-row-start: ${props => props.withAchievement ? 3 : 2};
     grid-row-end: ${props => props.withAchievement ? 5 : 4};
     overflow: hidden;
+    z-index: 3;
 `;
 
 const TaskStatusWrapper = styled.div<{ withAchievement: boolean; withSecondary: boolean }>`
@@ -101,6 +107,13 @@ const TimelineWrapper = styled.div`
     grid-row: 4 / 4;
     display: grid;
     align-items: end;
+`;
+
+const AchievementGridWrapper = styled.div`
+    grid-column: 1 / 3;
+    grid-row: 1 / 5;
+    position: relative;
+    z-index: 2;
 `;
 
 const teamViewVariant = (position: TeamViewPosition | undefined) => {
@@ -122,19 +135,21 @@ const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecond
                     <RoundedTeamMediaHolder media={primary} onLoadStatus={setPrimaryLoaded} />
                 </PrimaryMediaWrapper>
             )}
-            {achievement && (
-                <AchievementWrapper showTimeline={showTimeLine}>
-                    <TeamMediaHolder media={achievement} onLoadStatus={setAchievementLoaded} />
-                </AchievementWrapper>
-            )}
             <TeamViewGrid $secondaryY={secondaryY} $achievementY={achievementY > 0 ? achievementY : 0}>
+                {achievement && (
+                    <AchievementGridWrapper>
+                        <AchievementWrapper showTimeline={showTimeLine}>
+                            <TeamMediaHolder media={achievement} onLoadStatus={setAchievementLoaded} />
+                        </AchievementWrapper>
+                    </AchievementGridWrapper>
+                )}
                 {secondary && (
-                    <SecondaryMediaWrapper withAchievement={!!achievement}>
+                    <SecondaryMediaWrapper withAchievement={!!achievement || showTimeLine}>
                         <RoundedTeamMediaHolder media={secondary} onLoadStatus={setSecondaryLoaded} />
                     </SecondaryMediaWrapper>
                 )}
                 {showTaskStatus && (
-                    <TaskStatusWrapper withAchievement={!!achievement} withSecondary={!!secondary}>
+                    <TaskStatusWrapper withAchievement={!!achievement || showTimeLine} withSecondary={!!secondary}>
                         <ContestantViewCorner teamId={teamId} isSmall={false} />
                     </TaskStatusWrapper>
                 )}
