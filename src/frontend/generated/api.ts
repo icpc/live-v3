@@ -888,7 +888,7 @@ export enum TickerPart {
 export interface clock {
   part: TickerPart;
   periodMs: number;
-  clockType?: string;
+  clockType?: ClockType;
   showSeconds?: boolean;
   timeZone?: string | null;
 }
