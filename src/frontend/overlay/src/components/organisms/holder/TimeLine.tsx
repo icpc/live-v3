@@ -4,8 +4,7 @@ import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
 import { RunResult } from "@shared/api";
-import { getStartTime } from "@/components/molecules/Clock";
-import { DateTime } from "luxon";
+import { calculateContestTime } from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 
 interface TimeLineContainerProps {
@@ -278,8 +277,8 @@ export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
     useEffect(() => {
         const updateLineWidth = () => {
             if (!contestInfo) return;
-            const elapsedTime = DateTime.fromMillis(getStartTime(contestInfo.status)).diffNow().negate().milliseconds;
-            const progress = Math.min(100, elapsedTime / contestInfo?.contestLengthMs * 100 * (contestInfo.emulationSpeed ?? 1));
+            const elapsedTime = calculateContestTime(contestInfo);
+            const progress = Math.min(100, elapsedTime / contestInfo.contestLengthMs * 100 * (contestInfo.emulationSpeed ?? 1));
             setLineWidth(progress * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP : c.TIMELINE_REAL_WIDTH));
         };
 
@@ -288,7 +287,7 @@ export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
         return () => {
             clearInterval(interval);
         };
-    }, [contestInfo]);
+    }, [contestInfo, isPvp]);
 
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
 

@@ -2,6 +2,7 @@ import React from "react";
 import ContestClock from "../../molecules/Clock";
 import styled, { css } from "styled-components";
 import c from "../../../config";
+import { ClockType } from "@shared/api";
 
 const ClockWrapper = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ export const FullScreenClock = ({ widgetData: { settings } }) => {
     return <ClockWrapper>
         <ContestClock 
             noStatusText=""
-            clockType={settings.clockType ?? "standard"}
+            clockType={settings.clockType ?? ClockType.standard}
             showSeconds={settings.showSeconds ?? true}
             timeZone={settings.timeZone ?? null}
         />
