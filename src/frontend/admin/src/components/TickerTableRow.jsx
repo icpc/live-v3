@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DateTime } from "luxon";
-import { TableCell, TableRow, TextField } from "@mui/material";
+import { TableCell, TableRow, TextField, Select, MenuItem, FormControl, Switch, FormControlLabel } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
@@ -13,6 +13,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import ShowPresetButton from "./controls/ShowPresetButton.tsx";
 import { activeRowColor } from "../styles";
 import PropTypes from "prop-types";
+import { ClockType } from "../../../generated/api.ts";
 import { onChangeFieldEventHandler } from "./PresetsTableRow";
 
 export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
@@ -21,7 +22,10 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
 
     const onClickEdit = () => {
         if (editData === undefined) {
-            setEditData(() => data);
+            setEditData(() => ({
+                ...data,
+                settings: { ...data.settings }
+            }));
         } else {
             onEdit(editData).then(() => setEditData(undefined));
         }
@@ -44,21 +48,60 @@ export function TickerTableRow({ data, onShow, onEdit, onDelete }) {
             </TableCell>
             <TableCell component="th" scope="row">
                 {data.settings.type === "clock" &&
-                    (editData === undefined ? data.settings.timeZone : (
-                        <Box onSubmit={onSubmitEdit} component="form" type="submit">
-                            <TextField autoFocus hiddenLabel fullWidth defaultValue={data.settings.timeZone} 
-                                id="filled-hidden-label-small" type="text" size="small" sx={{ width: 1 }}
-                                error={errorMessage !== ""}
-                                helperText={errorMessage}
-                                onChange={(event) => {
-                                    const dateTime = DateTime.now().setZone(event.target.value);
-                                    if (dateTime.isValid || event.target.value === "") {
-                                        setErrorMessage("");
-                                        onChangeFieldEventHandler(setEditData, "timeZone")(event);
-                                    } else {
-                                        setErrorMessage(dateTime.invalidReason);
-                                    }
-                                }}/>
+                    (editData === undefined ? 
+                        `${data.settings.clockType || ClockType.standard} ${data.settings.showSeconds !== false ? "w/ seconds" : "no seconds"}${data.settings.timeZone ? ` (${data.settings.timeZone})` : ""}` : (
+                        <Box onSubmit={onSubmitEdit} component="form" type="submit" sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                            <FormControl size="small" fullWidth>
+                                <Select
+                                    value={editData.settings?.clockType || ClockType.standard}
+                                    onChange={(event) => {
+                                        setEditData(prev => ({
+                                            ...prev,
+                                            settings: { ...prev.settings, clockType: event.target.value }
+                                        }));
+                                    }}
+                                >
+                                    <MenuItem value={ClockType.standard}>Standard</MenuItem>
+                                    <MenuItem value={ClockType.countdown}>Countdown</MenuItem>
+                                    <MenuItem value={ClockType.global}>Global</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={editData.settings?.showSeconds !== false}
+                                        onChange={(event) => {
+                                            setEditData(prev => ({
+                                                ...prev,
+                                                settings: { ...prev.settings, showSeconds: event.target.checked }
+                                            }));
+                                        }}
+                                        size="small"
+                                    />
+                                }
+                                label="Show seconds"
+                            />
+                            {(editData.settings?.clockType === ClockType.global) && (
+                                <TextField
+                                    size="small"
+                                    placeholder="Timezone"
+                                    defaultValue={data.settings.timeZone || ""}
+                                    error={errorMessage !== ""}
+                                    helperText={errorMessage}
+                                    onChange={(event) => {
+                                        const dateTime = DateTime.now().setZone(event.target.value);
+                                        if (dateTime.isValid || event.target.value === "") {
+                                            setErrorMessage("");
+                                            setEditData(prev => ({
+                                                ...prev,
+                                                settings: { ...prev.settings, timeZone: event.target.value || null }
+                                            }));
+                                        } else {
+                                            setErrorMessage(dateTime.invalidReason);
+                                        }
+                                    }}
+                                />
+                            )}
                         </Box>)
                     )}
                 {data.settings.type === "text" &&

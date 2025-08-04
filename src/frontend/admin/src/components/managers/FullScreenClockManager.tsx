@@ -1,13 +1,13 @@
 import { SlimTableCell } from "../atoms/Table.js";
-import { Button, ButtonGroup, Switch, Table, TableBody, TableRow } from "@mui/material";
+import { Button, ButtonGroup, Switch, Table, TableBody, TableRow, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, TextField } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
-import { FullScreenClockSettings } from "../../../../generated/api.ts";
+import { FullScreenClockSettings, ClockType } from "@shared/api.ts";
 import { AbstractSingleWidgetService } from "@/services/abstractSingleWidget.ts";
 
 export const DEFAULT_FULL_SCREEN_CLOCK_SETTINGS: FullScreenClockSettings = {
-    globalTimeMode: false,
-    quietMode: false,
-    contestCountdownMode: false
+    clockType: ClockType.standard,
+    showSeconds: true,
+    timeZone: null
 };
 
 export type FullScreenClockManagerProps = {
@@ -23,37 +23,46 @@ const FullScreenClockManager = ({ service, isShown, settings, setSettings }: Ful
             <TableBody>
                 <TableRow>
                     <SlimTableCell>
-                        Global time instead contest
-                    </SlimTableCell>
-                    <SlimTableCell align={"center"}>
-                        <Switch
-                            checked={settings.globalTimeMode}
-                            onChange={(e) => setSettings(s => ({ ...s, globalTimeMode: e.target.checked }))}
-                        />
-                    </SlimTableCell>
-                </TableRow>
-                <TableRow>
-                    <SlimTableCell>
-                        Contest time countdown
-                    </SlimTableCell>
-                    <SlimTableCell align={"center"}>
-                        <Switch
-                            checked={settings.contestCountdownMode}
-                            onChange={(e) => setSettings(s => ({ ...s, contestCountdownMode: e.target.checked }))}
-                        />
+                        <FormControl component="fieldset">
+                            <FormLabel component="legend">Clock Type</FormLabel>
+                            <RadioGroup
+                                value={settings.clockType}
+                                onChange={(e) => setSettings(s => ({ ...s, clockType: e.target.value as ClockType }))}
+                            >
+                                <FormControlLabel value={ClockType.standard} control={<Radio />} label="Standard (countdown → contest time → over)" />
+                                <FormControlLabel value={ClockType.countdown} control={<Radio />} label="Countdown (countdown to start → countdown to finish → over)" />
+                                <FormControlLabel value={ClockType.global} control={<Radio />} label="Global time (timezone based)" />
+                            </RadioGroup>
+                        </FormControl>
                     </SlimTableCell>
                 </TableRow>
                 <TableRow>
                     <SlimTableCell>
-                        Quiet mode (seconds only in countdown)
+                        Show seconds
                     </SlimTableCell>
                     <SlimTableCell align={"center"}>
                         <Switch
-                            checked={settings.quietMode}
-                            onChange={(e) => setSettings(s => ({ ...s, quietMode: e.target.checked }))}
+                            checked={settings.showSeconds}
+                            onChange={(e) => setSettings(s => ({ ...s, showSeconds: e.target.checked }))}
                         />
                     </SlimTableCell>
                 </TableRow>
+                {settings.clockType === ClockType.global && (
+                    <TableRow>
+                        <SlimTableCell>
+                            Timezone
+                        </SlimTableCell>
+                        <SlimTableCell align={"center"}>
+                            <TextField
+                                value={settings.timeZone || ""}
+                                onChange={(e) => setSettings(s => ({ ...s, timeZone: e.target.value || null }))}
+                                placeholder="e.g., Europe/London, America/New_York"
+                                size="small"
+                                fullWidth
+                            />
+                        </SlimTableCell>
+                    </TableRow>
+                )}
             </TableBody>
         </Table>
         <div>

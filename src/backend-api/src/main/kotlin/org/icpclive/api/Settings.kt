@@ -65,10 +65,22 @@ data class OverlayTeamViewSettings(
 ) : ObjectSettings
 
 @Serializable
+enum class ClockType {
+    @SerialName("standard")
+    STANDARD,
+    
+    @SerialName("countdown")
+    COUNTDOWN,
+    
+    @SerialName("global")
+    GLOBAL
+}
+
+@Serializable
 class FullScreenClockSettings(
-    val globalTimeMode: Boolean = false,
-    val quietMode: Boolean = false,
-    val contestCountdownMode: Boolean = false,
+    val clockType: ClockType = ClockType.STANDARD,
+    val showSeconds: Boolean = true,
+    val timeZone: String? = null,
 ) : ObjectSettings
 
 @Serializable
@@ -137,11 +149,13 @@ data class ImageTickerSettings(
 data class ClockTickerSettings(
     override val part: TickerPart,
     override val periodMs: Long,
-    val timeZone: String? = null
+    val clockType: ClockType = ClockType.STANDARD,
+    val showSeconds: Boolean = true,
+    val timeZone: String? = null,
 ) : TickerMessageSettings() {
     override fun toMessage(): ClockTickerMessage {
         if (timeZone != null && timeZone.isEmpty()) {
-            return ClockTickerMessage(ClockTickerSettings(part, periodMs, null))
+            return ClockTickerMessage(ClockTickerSettings(part, periodMs, clockType, showSeconds, null))
         }
         return ClockTickerMessage(this)
     }

@@ -14,12 +14,13 @@ import Dashboard from "./Dashboard";
 import { usePresetWidgetService } from "../services/presetWidget";
 import { PresetsManager } from "./PresetsManager";
 import { AbstractWidgetImpl } from "../services/abstractWidgetImpl";
+import { ClockType } from "../../../generated/api";
 
 const addPresetButtons = [
     {
         type: "clock",
         component: ClockIcon,
-        settings: { periodMs: 30000, timeZone: null },
+        settings: { periodMs: 30000, clockType: ClockType.standard, showSeconds: true, timeZone: null },
     }, {
         part: "long",
         type: "scoreboard",

@@ -627,9 +627,9 @@ export interface AdvertisementSettings {
 }
 
 export interface FullScreenClockSettings {
-  globalTimeMode?: boolean;
-  quietMode?: boolean;
-  contestCountdownMode?: boolean;
+  clockType?: ClockType;
+  showSeconds?: boolean;
+  timeZone?: string | null;
 }
 
 export interface PictureSettings {
@@ -666,6 +666,12 @@ export interface OverlayTeamViewSettings {
 }
 
 export interface TickerSettings {
+}
+
+export enum ClockType {
+  standard = "standard",
+  countdown = "countdown",
+  global = "global",
 }
 
 export enum ScoreboardScrollDirection {
@@ -882,6 +888,8 @@ export enum TickerPart {
 export interface clock {
   part: TickerPart;
   periodMs: number;
+  clockType?: string;
+  showSeconds?: boolean;
   timeZone?: string | null;
 }
 

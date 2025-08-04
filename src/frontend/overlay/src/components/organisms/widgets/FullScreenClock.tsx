@@ -26,7 +26,12 @@ const ClockWrapper = styled.div`
 
 export const FullScreenClock = ({ widgetData: { settings } }) => {
     return <ClockWrapper>
-        <ContestClock noStatusText={""} { ...settings }/>
+        <ContestClock 
+            noStatusText=""
+            clockType={settings.clockType ?? "standard"}
+            showSeconds={settings.showSeconds ?? true}
+            timeZone={settings.timeZone ?? null}
+        />
     </ClockWrapper>;
 };
 
