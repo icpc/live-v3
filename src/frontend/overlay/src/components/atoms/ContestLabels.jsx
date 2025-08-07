@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import styled from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
@@ -67,11 +67,11 @@ const RankLabelWrap = styled(ShrinkingBox)`
   background-color: ${({ color }) => color};
 `;
 
-export const RankLabel = memo(({ rank, medal, className, bg_color }) => {
+export const RankLabel = ({ rank, medal, className, bg_color }) => {
     const color = c.MEDAL_COLORS[medal?.toLowerCase()] ? c.MEDAL_COLORS[medal?.toLowerCase()] : bg_color;
     const dark = isShouldUseDarkColor(color);
     return <RankLabelWrap color={color} className={className} dark={dark} text={formatRank(rank)} />;
-});
+};
 
 const VerdictCellProgressBar2 = styled.div.attrs(({ width }) => ({
     style: {
@@ -155,9 +155,9 @@ const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScor
     </TaskResultLabelWrapper2>;
 };
 
-export const TaskResultLabel = memo(({ problemResult, ...props }) => {
+export const TaskResultLabel = ({ problemResult, ...props }) => {
     return <>
         {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}
         {problemResult.type === "IOI" && <IOITaskResultLabel2 problemResult={problemResult}  {...props}/>}
     </>;
-});
+};

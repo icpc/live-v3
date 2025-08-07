@@ -1,6 +1,12 @@
-import { EffectCallback, useEffect } from "react";
+import { EffectCallback, useEffect, useRef } from "react";
 
 export const useMountEffect = (effect: EffectCallback) => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(effect, []);
+    const hasMount = useRef(false);
+    
+    useEffect(() => {
+        if (!hasMount.current) {
+            hasMount.current = true;
+            return effect();
+        }
+    }, [effect]);
 };

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState, useMemo } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
 import { OverlayTeamViewSettings, TeamViewPosition, Widget } from "@shared/api";
@@ -307,11 +307,16 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
     const [curSettings, setCurSettings] = useState<OverlayTeamViewSettings>(settings);
     const [nextSettings, setNextSettings] = useState<OverlayTeamViewSettings>(null);
 
+    // Derive the next settings when team ID changes
+    const shouldUpdateSettings = useMemo(() => {
+        return settings.teamId != curSettings.teamId;
+    }, [settings.teamId, curSettings.teamId]);
+
     useEffect(() => {
-        if (settings.teamId != curSettings.teamId) {
+        if (shouldUpdateSettings) {
             setNextSettings(settings);
         }
-    }, [settings, curSettings.teamId]);
+    }, [shouldUpdateSettings, settings]);
 
     const onNextLoaded = () => {
         setTimeout(() => {

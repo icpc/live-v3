@@ -73,7 +73,7 @@ export const VideoMediaHolder = ({ onLoadStatus, className, media: { url, vertic
 export const HLSVideoMediaHolder = ({ onLoadStatus, className, media: { url, jwtToken, vertical } }: MediaHolderProps<MediaType.HLSVideo>) => {
     const audio = useIsTeamMediaAudio();
 
-    const playerRef = useRef<HTMLVideoElement>();
+    const playerRef = useRef<HTMLVideoElement>(null);
     useEffect(() => {
         let hls: Hls;
 
@@ -162,7 +162,7 @@ export const HLSVideoMediaHolder = ({ onLoadStatus, className, media: { url, jwt
 export const M2tsVideoMediaHolder = ({ onLoadStatus, className, media: { url, vertical } }: MediaHolderProps<MediaType.M2tsVideo>) => {
     const audio = useIsTeamMediaAudio();
 
-    const videoRef = useRef<HTMLVideoElement>();
+    const videoRef = useRef<HTMLVideoElement>(null);
     useEffect(() => {
         onLoadStatus(false);
         if (videoRef.current) {
@@ -203,7 +203,7 @@ export const M2tsVideoMediaHolder = ({ onLoadStatus, className, media: { url, ve
 export const WebRTCGrabberMediaHolder = ({ onLoadStatus, className, media: { url, peerName, streamType, credential, vertical } }: MediaHolderProps<MediaType.WebRTCGrabberConnection>) => {
     const audio = useIsTeamMediaAudio();
 
-    const videoRef = useRef<HTMLVideoElement>();
+    const videoRef = useRef<HTMLVideoElement>(null);
     useEffect(() => {
         const client = new GrabberPlayerClient("play", url);
         client.authorize(credential);
@@ -250,8 +250,8 @@ export const WebRTCGrabberMediaHolder = ({ onLoadStatus, className, media: { url
 export const WebRTCProxyMediaHolder = ({ onLoadStatus, className, media: { url, audioUrl, vertical } }: MediaHolderProps<MediaType.WebRTCProxyConnection>) => {
     const audio = useIsTeamMediaAudio();
 
-    const videoRef = useRef<HTMLVideoElement>();
-    const rtcRef = useRef<RTCPeerConnection>();
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const rtcRef = useRef<RTCPeerConnection>(null);
     useEffect(() => {
         onLoadStatus(false);
         rtcRef.current = new RTCPeerConnection();

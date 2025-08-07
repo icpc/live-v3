@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
-import { Transition, TransitionGroup } from "react-transition-group";
+import { useTransition } from "react-transition-state";
 import styled, { keyframes } from "styled-components";
 import c from "../../../config";
 import { pushLog } from "@/redux/debug";
@@ -99,23 +99,30 @@ export const SingleTickerRows = ({ part }) => {
     const dispatch = useAppDispatch();
     const curMessage = useAppSelector((state) => state.ticker.tickers[part].curDisplaying);
     const isFirst = useAppSelector((state) => state.ticker.tickers[part].isFirst);
-    return (
-        <TransitionGroup component={null}>
-            {curMessage &&
-                <Transition key={curMessage?.id} timeout={c.TICKER_SCROLL_TRANSITION_TIME}>
-                    {(state) => {
-                        const TickerComponent = widgetTypes[curMessage.type] ?? DefaultTicker;
-                        if (TickerComponent === undefined) {
-                            dispatch(pushLog(`ERROR: Unknown ticker type: ${curMessage.type}`));
-                        }
-                        const sanitizedState = isFirst && state === "entering" ? "entered" : state; // ignore first entering render
-                        return state !== "exited" && <TickerRow state={sanitizedState}>
-                            <TickerComponent tickerSettings={curMessage.settings} state={sanitizedState} part={part}/>
-                        </TickerRow>;
-                    }}
-                </Transition>
-            }
-        </TransitionGroup>
+    const [transition, toggle] = useTransition({
+        timeout: c.TICKER_SCROLL_TRANSITION_TIME,
+        mountOnEnter: true,
+        unmountOnExit: true
+    });
+
+    useEffect(() => {
+        toggle(!!curMessage);
+    }, [curMessage, toggle]);
+
+    if (!curMessage) {
+        return null;
+    }
+
+    const TickerComponent = widgetTypes[curMessage.type] ?? DefaultTicker;
+    if (TickerComponent === undefined) {
+        dispatch(pushLog(`ERROR: Unknown ticker type: ${curMessage.type}`));
+    }
+    const sanitizedState = isFirst && transition.status === "entering" ? "entered" : transition.status;
+
+    return transition.isMounted && (
+        <TickerRow state={sanitizedState}>
+            <TickerComponent tickerSettings={curMessage.settings} state={sanitizedState} part={part}/>
+        </TickerRow>
     );
 };
 
