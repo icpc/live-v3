@@ -1,0 +1,33 @@
+[
+    {
+     "type": "overrideTeamTemplate",
+     "medias": {
+         "screen": {
+           "type": "WebRTCGrabberConnection",
+           "url": "https://10.10.102.4",
+           "peerName": "{peer}",
+           "streamType": "desktop",
+           "credential": "password"
+         },
+         "camera": {
+           "type": "WebRTCGrabberConnection",
+           "url": "https://10.10.102.4",
+           "peerName": "{peer}",
+           "streamType": "webcam",
+           "credential": "password"
+         }
+      },
+      "displayName": "{name}",
+      "fullName": "{name}"
+    },
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 10800
+    },
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 1,
+        "bronze": 1
+    }
+]
