@@ -6,6 +6,7 @@ import { getIOIColor } from "@/utils/statusInfo";
 import { RunResult } from "@shared/api";
 import { calculateContestTime } from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
+import { KeylogGraph } from "./KeylogGraph";
 
 interface TimeLineContainerProps {
     isPvp: boolean;
@@ -240,11 +241,29 @@ export const TimeLineBackground = ({ teamId, classname = null }) => {
     return <TimelineBackground className={classname} color={teamData?.color ? teamData?.color : c.CONTEST_COLOR} />;
 };
 
-export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
+export const TimeLine = ({ teamId, className = null, isPvp = false, keylog = [] }) => {
     const contestInfo = useAppSelector(state => state.contestInfo.info);
     const [runsResults, setRunsResults] = useState([]);
     const [syncStartTime, setSyncStartTime] = useState(null);
     const [lineWidth, setLineWidth] = useState(0);
+
+    // TODO: Remove mock data after testing
+    const [mockData, setMockData] = useState<number[]>([]);
+
+    // Mock data for testing
+    useEffect(() => {
+        let i = 0;
+        const interval = setInterval(() => {
+            setMockData(prev => {
+                const nextVal = Math.round(50 + Math.random() * 150);
+                return [...prev, nextVal];
+            });
+            i++;
+            if (i > 60) clearInterval(interval);
+        }, 2000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         const socket = new WebSocket(c.BASE_URL_WS + "/teamRuns/" + teamId);
@@ -290,6 +309,7 @@ export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
     }, [contestInfo, isPvp]);
 
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
+    const teamColor = teamData?.color ? teamData.color : c.CONTEST_COLOR;
 
     return (
         <TimeLineContainer
@@ -297,6 +317,14 @@ export const TimeLine = ({ teamId, className = null, isPvp = false }) => {
             color={teamData?.color ? teamData?.color : c.CONTEST_COLOR}
             isPvp={isPvp}
         >
+            {contestInfo && keylog?.length > 0 && (
+                <KeylogGraph
+                    keylog={mockData}
+                    contestLengthMs={contestInfo.contestLengthMs}
+                    isPvp={isPvp}
+                    teamColor={teamColor}
+                />
+            )}
             <Line lineWidth={lineWidth} left={c.TIMELINE_LEFT_TIME_PADDING}/>
             <CircleAtEnd lineWidth={lineWidth} leftPadding={c.TIMELINE_LEFT_TIME_PADDING}/>
             {Array.from(Array((Math.floor((contestInfo?.contestLengthMs ?? 0) / 3600000) + 1)).keys()).map(elem => {
