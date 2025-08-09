@@ -1,5 +1,5 @@
 [versions]
-ktor = "3.2.1"                     # https://ktor.io/
+ktor = "3.2.3"                     # https://ktor.io/
 datetime = "0.7.1"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.9.0"            # https://github.com/Kotlin/kotlinx.serialization
 kotlin = "2.2.0"
@@ -8,7 +8,7 @@ slf4j = "2.0.17"                   # https://www.slf4j.org/download.html
 logback = "1.5.18"                 # https://logback.qos.ch/download.html
 node-plugin = "7.1.0"              # https://github.com/node-gradle/gradle-node-plugin
 coroutines = "1.10.2"              # https://github.com/Kotlin/kotlinx.coroutines/
-shadow-plugin = "8.3.6"            # https://github.com/GradleUp/shadow
+shadow-plugin = "9.0.0"            # https://github.com/GradleUp/shadow
 clikt = "5.0.3"                    # https://ajalt.github.io/clikt/
 immutable = "0.4.0"                # https://github.com/Kotlin/kotlinx.collections.immutable
 protobuf-plugin = "0.9.5"          # https://github.com/google/protobuf-gradle-plugin
