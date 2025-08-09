@@ -297,7 +297,7 @@ export const TimeLine = ({ teamId, className = null, isPvp = false, keylog = [] 
         const updateLineWidth = () => {
             if (!contestInfo) return;
             const elapsedTime = calculateContestTime(contestInfo);
-            const progress = Math.min(100, elapsedTime / contestInfo.contestLengthMs * 100 * (contestInfo.emulationSpeed ?? 1));
+            const progress = Math.min(100, elapsedTime / contestInfo.contestLengthMs * 100);
             setLineWidth(progress * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP : c.TIMELINE_REAL_WIDTH));
         };
 
@@ -317,7 +317,7 @@ export const TimeLine = ({ teamId, className = null, isPvp = false, keylog = [] 
             color={teamData?.color ? teamData?.color : c.CONTEST_COLOR}
             isPvp={isPvp}
         >
-            {contestInfo && keylog?.length > 0 && (
+            {contestInfo && mockData?.length > 0 && (
                 <KeylogGraph
                     keylog={mockData}
                     contestLengthMs={contestInfo.contestLengthMs}
