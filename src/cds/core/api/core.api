@@ -2820,6 +2820,32 @@ public final class org/icpclive/cds/tunning/TemplateRegexParser$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/cds/tunning/TemplateSubstitutionBuilder {
+	public fun <init> ()V
+	public final fun addJson (Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;)V
+	public final fun addOrganization (Lorg/icpclive/cds/api/OrganizationInfo;Ljava/lang/String;)V
+	public static synthetic fun addOrganization$default (Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;Lorg/icpclive/cds/api/OrganizationInfo;Ljava/lang/String;ILjava/lang/Object;)V
+	public final fun addRegex (Ljava/lang/String;Lorg/icpclive/cds/tunning/TemplateRegexParser;Ljava/lang/String;)Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;
+	public static synthetic fun addRegex$default (Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;Ljava/lang/String;Lorg/icpclive/cds/tunning/TemplateRegexParser;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;
+	public final fun addTeam (Lorg/icpclive/cds/api/TeamInfo;Ljava/lang/String;Z)V
+	public static synthetic fun addTeam$default (Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;Lorg/icpclive/cds/api/TeamInfo;Ljava/lang/String;ZILjava/lang/Object;)V
+	public final fun build ()Lorg/icpclive/cds/tunning/TemplateSubstitutor;
+}
+
+public abstract interface class org/icpclive/cds/tunning/TemplateSubstitutor {
+	public abstract fun substitute (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
+}
+
+public final class org/icpclive/cds/tunning/TemplatesKt {
+	public static final fun buildTemplateSubstitutor (Lkotlin/jvm/functions/Function1;)Lorg/icpclive/cds/tunning/TemplateSubstitutor;
+	public static final fun substitute (Lorg/icpclive/cds/tunning/TemplateSubstitutor;Lorg/icpclive/cds/api/MediaType;)Lorg/icpclive/cds/api/MediaType;
+	public static final fun substituteNullable (Lorg/icpclive/cds/tunning/TemplateSubstitutor;Lorg/icpclive/cds/api/MediaType;)Lorg/icpclive/cds/api/MediaType;
+	public static final fun substituteRaw (Lorg/icpclive/cds/tunning/TemplateSubstitutor;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun substituteRawNullable (Lorg/icpclive/cds/tunning/TemplateSubstitutor;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun substituteUrlNullable (Lorg/icpclive/cds/tunning/TemplateSubstitutor;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun substituteUrlSafe (Lorg/icpclive/cds/tunning/TemplateSubstitutor;Ljava/lang/String;)Ljava/lang/String;
+}
+
 public abstract interface class org/icpclive/cds/tunning/TuningRule {
 	public static final field Companion Lorg/icpclive/cds/tunning/TuningRule$Companion;
 	public abstract fun process (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/api/ContestInfo;

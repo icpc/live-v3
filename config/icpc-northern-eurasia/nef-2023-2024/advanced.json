@@ -105,8 +105,8 @@
             },
             "camera": {
                 "type": "WebRTCGrabberConnection",
-                "url": "{grabberUrl}",
-                "peerName": "http://{grabberIp}:8080",
+                "url": "http://{grabberIp}:8080",
+                "peerName": "{grabberPeerName}",
                 "streamType": "webcam",
                 "credential": "live"
             }

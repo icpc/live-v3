@@ -38,9 +38,9 @@ public data class OverrideOrganisationTemplate(
             info.organizationList.associate { orgInfo ->
                 with(getSubstitutor(regexes, null, orgInfo)) {
                     orgInfo.id to OverrideOrganizations.Override(
-                        fullName = fullName?.substituteRegular(),
-                        displayName = displayName?.substituteRegular(),
-                        logo = logo?.substitute()
+                        fullName = substituteRaw(fullName),
+                        displayName = substituteRaw(displayName),
+                        logo = substitute(logo)
                     )
                 }
             }

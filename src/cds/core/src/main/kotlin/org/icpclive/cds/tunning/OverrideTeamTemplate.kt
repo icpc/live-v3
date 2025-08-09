@@ -96,15 +96,15 @@ public data class OverrideTeamTemplate(
                 val org = info.organizations[teamInfo.organizationId]
                 with(getSubstitutor(regexes, teamInfo, org)) {
                     teamInfo.id to OverrideTeams.Override(
-                        hashTag = hashTag?.substituteRegular(),
-                        fullName = fullName?.substituteRegular(),
-                        displayName = displayName?.substituteRegular(),
-                        groups = groups?.mapNotNull { it.substituteRegular().hasNoUnsubstitutedRegex()?.toGroupId() },
-                        extraGroups = extraGroups?.mapNotNull { it.substituteRegular().hasNoUnsubstitutedRegex()?.toGroupId() },
-                        organizationId = organizationId?.substituteRegular()?.hasNoUnsubstitutedRegex()?.toOrganizationId(),
-                        medias = medias?.mapValues { (_, v) -> v?.substitute() },
-                        customFields = customFields?.mapValues { (_, v) -> v.substituteRegular() },
-                        color = color?.substituteRegular()?.let { Color.normalize(it) }
+                        hashTag = substituteRaw(hashTag),
+                        fullName = substituteRaw(fullName),
+                        displayName = substituteRaw(displayName),
+                        groups = groups?.mapNotNull { substituteRaw(it).hasNoUnsubstitutedRegex()?.toGroupId() },
+                        extraGroups = extraGroups?.mapNotNull { substituteRaw(it).hasNoUnsubstitutedRegex()?.toGroupId() },
+                        organizationId = substituteRaw(organizationId)?.hasNoUnsubstitutedRegex()?.toOrganizationId(),
+                        medias = medias?.mapValues { (_, v) -> substitute(v) },
+                        customFields = customFields?.mapValues { (_, v) -> substituteRaw(v) },
+                        color = substituteRaw(color)?.let { Color.normalize(it) }
                     )
                 }
             }
