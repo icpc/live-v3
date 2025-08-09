@@ -97,7 +97,7 @@ export function KeylogGraph({
         const rightEdge = leftPad + usableW;
 
         const bucketMs = c.KEYLOG_BUCKET_SIZE_MS;
-        const maxVal = Math.max(...keylog, 1);
+        const maxVal = c.KEYLOG_MAXIMUM_FOR_NORMALIZATION;
         const topPad = c.KEYLOG_TOP_PADDING;
         const bottomPad = c.KEYLOG_BOTTOM_PADDING;
 

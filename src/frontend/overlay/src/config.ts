@@ -317,6 +317,7 @@ config.TIMELINE_REAL_WIDTH_PVP = 0.93;
 
 
 config.KEYLOG_STEP_MODE = "mid"; // "mid" | "pre" | "post"
+config.KEYLOG_MAXIMUM_FOR_NORMALIZATION = 300; // max value for normalization
 config.KEYLOG_BUCKET_SIZE_MS = 5 * 60 * 1000; // 5 minutes in milliseconds
 config.KEYLOG_TOP_PADDING = 6; // px
 config.KEYLOG_BOTTOM_PADDING = 8; // px
