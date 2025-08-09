@@ -188,7 +188,7 @@ internal fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buil
 }
 
 /**
- * Converts values in [ContestInfo] to overrides in [AdvancedProperties
+ * Converts values in [ContestInfo] to overrides in [TuningRule]s.
  */
 @OptIn(InefficientContestInfoApi::class)
 public fun ContestInfo.toRulesList(): List<TuningRule> {
@@ -199,19 +199,22 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
             contestLength = contestLength,
             freezeTime = freezeTime,
             holdTime = (status as? ContestStatus.BEFORE)?.holdTime,
+            customFields = customFields,
         ),
         OverrideTeams(
             rules = teamList.associate {
                 it.id to OverrideTeams.Override(
                     fullName = it.fullName,
                     displayName = it.displayName,
-                    groups = it.groups,
                     organizationId = it.organizationId,
                     hashTag = it.hashTag,
+                    groups = it.groups,
                     medias = it.medias,
                     customFields = it.customFields,
                     isHidden = it.isHidden,
-                    isOutOfContest = it.isOutOfContest
+                    isOutOfContest = it.isOutOfContest,
+                    color = it.color,
+                    extraGroups = null,
                 )
             }
         ),
@@ -251,7 +254,9 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
         ),
         OverrideScoreboardSettings(
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
-            penaltyRoundingMode = penaltyRoundingMode
+            penaltyRoundingMode = penaltyRoundingMode,
+            problemColorPolicy = problemColorPolicy,
+            showTeamsWithoutSubmissions = showTeamsWithoutSubmissions,
         ),
         OverrideAwards(
             championTitle = awardsSettings.championTitle,
