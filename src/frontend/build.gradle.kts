@@ -30,6 +30,10 @@ tasks {
         inputs.file("admin/package.json")
         inputs.file("overlay/package.json")
         inputs.file("locator/package.json")
+        nodeModulesOutputFilter {
+            // Checking node modules to be unchanged is very slow and not really important.
+            exclude("**")
+        }
     }
     val buildOverlay = pnpmBuild("pnpm_run_buildOverlay", layout.projectDirectory.dir("overlay")) {
         inputs.file(it.file("index.html"))
