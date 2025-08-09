@@ -4,10 +4,9 @@ import io.ktor.http.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.*
-import org.icpclive.cds.api.toTeamId
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfo
-import org.icpclive.util.Svg
+import org.icpclive.util.loadSVG
 import java.io.File
 import java.nio.file.Path
 
@@ -17,14 +16,9 @@ fun Route.configureSvgAchievementRouting(mediaDirectory: Path) {
         val paths = mediaDirectory.resolve(relativePath)
 
         val substitute = call.request.queryParameters.toMap().mapValues { it.value.first() }.toMutableMap()
-        substitute["teamId"]?.let { teamId ->
-            DataBus.currentContestInfo().teams[teamId.toTeamId()]?.let {
-                substitute["team.name"] = it.fullName
-                substitute["team.shortName"] = it.displayName
-                substitute["team.hashTag"] = it.hashTag ?: ""
-                substitute["team.info"] = it.customFields["svgInfo"] ?: ""
-            }
+        val contestInfo = DataBus.currentContestInfo()
+        call.respondBytes(ContentType.Image.SVG) {
+            loadSVG(paths, substitute, contestInfo).toByteArray()
         }
-        call.respondBytes(ContentType.Image.SVG) { Svg.loadAndSubstitute(paths, substitute).toByteArray() }
     }
 }
