@@ -101,6 +101,7 @@ tasks {
                 "org.icpclive.api.ExternalTeamViewSettings",
                 "org.icpclive.api.ObjectSettings",
                 "org.icpclive.api.WidgetUsageStatistics",
+                "org.icpclive.api.TimeLineRunInfo",
             ),
             "api",
         ),
