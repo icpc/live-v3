@@ -342,23 +342,23 @@ function Problem({
             createAnimation(
                 scoreVerdictRef.current,
                 [
-                    { opacity: 1 },
                     { opacity: 0 },
-                    { opacity: 1 }
+                    { opacity: 1 },
+                    { opacity: 0 }
                 ],
                 syncStartTime
             );
         }
     }, [shouldAnimate, syncStartTime]);
 
-    const ProblemLabel = () => {
+    function renderProblemLabel() {
         if (shouldAnimate) {
             return <AnimatedText ref={problemLetterRef}>{problemLetter}</AnimatedText>;
         }
         return <StaticText>{problemLetter}</StaticText>;
     };
 
-    const ScoreOrVerdict = () => {
+    function renderScoreOrVerdict() {
         if (config.isPvp) return null;
         
         if (problemResult.type === TimeLineRunInfo.Type.ICPC && !problemResult.isAccepted) {
@@ -385,8 +385,8 @@ function Problem({
         <ProblemWrap left={leftPosition} top={`${position.top}px`}>
             <Circle color={color} isPvp={config.isPvp} />
             <Label>
-                <ProblemLabel />
-                <ScoreOrVerdict />
+                {renderProblemLabel()}
+                {renderScoreOrVerdict()}
             </Label>
         </ProblemWrap>
     );
