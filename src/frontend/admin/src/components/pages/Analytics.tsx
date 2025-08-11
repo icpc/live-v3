@@ -151,7 +151,7 @@ function MessagesTable({
     selectedCommentId,
     onSelectComment
 }: MessagesTableProps) {
-    const ref = useRef<HTMLTableElement>();
+    const ref = useRef<HTMLTableElement>(null);
     const rowSelectionModel: GridRowSelectionModel = selectedRowId 
         ? { type: 'include', ids: new Set([selectedRowId]) }
         : { type: 'include', ids: new Set() };

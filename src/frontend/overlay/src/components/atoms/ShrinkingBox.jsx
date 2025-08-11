@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import c from "../../config";
-import React, { memo, useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const TextShrinkingWrap = styled.div`
   overflow: hidden;
@@ -35,16 +35,16 @@ export const getTextWidth = (text, font) => {
         return result;
     }
 };
-export const ShrinkingBox = memo(({
+export const ShrinkingBox = ({
     text,
-    fontFamily = c.GLOBAL_DEFAULT_FONT_FAMILY,
-    fontSize = c.GLOBAL_DEFAULT_FONT_SIZE,
+    fontFamily = c.GLOBAL_DEFAULT_FONT_FAMILY, // eslint-disable-line @typescript-eslint/no-unused-vars
+    fontSize = c.GLOBAL_DEFAULT_FONT_SIZE, // eslint-disable-line @typescript-eslint/no-unused-vars
     align = "left",
     className
 }) => {
     const boxRef = useRef(null);
     const observerRef = useRef(null);
-    const updateScale = useCallback(() => {
+    const updateScale = () => {
         const cellRef = boxRef.current;
         if (cellRef !== null) {
             cellRef.children[0].style.transform = "";
@@ -56,11 +56,11 @@ export const ShrinkingBox = memo(({
             // console.log(`Shrinking, ${text}, font=${font}, width=${textWidth}, have=${haveWidth}, scale=${scaleFactor} debug=${haveWidth / textWidth}`);
             cellRef.children[0].style.transform = `scaleX(${scaleFactor})`;
         }
-    }, [align, fontFamily, fontSize, text]);
+    };
     useEffect(() => {
         updateScale();
     }, [text]);
-    const bindObserver = useCallback((cellRef) => {
+    const bindObserver = (cellRef) => {
         boxRef.current = cellRef;
         if (cellRef !== null) {
             observerRef.current = new ResizeObserver((entries) => {
@@ -72,7 +72,7 @@ export const ShrinkingBox = memo(({
             });
             observerRef.current.observe(cellRef);
         }
-    }, []);
+    };
     useEffect(() => {
         return () => {
             if(observerRef.current !== null) {
@@ -85,7 +85,7 @@ export const ShrinkingBox = memo(({
             {text}
         </TextShrinkingContainer>
     </TextShrinkingWrap>;
-});
+};
 
 const TextShrinkingContainer = styled.div`
   position: relative;

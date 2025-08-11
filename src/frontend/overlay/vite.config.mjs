@@ -5,11 +5,18 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 
-
 export default defineConfig({
     plugins: [
         tsconfigPaths(),
-        react(),
+        react({
+            babel: {
+                plugins: [
+                    ["babel-plugin-react-compiler", {
+                        target: "19"
+                    }]
+                ]
+            }
+        }),
         topLevelAwait({
             // The export name of top-level await promise for each chunk module
             promiseExportName: "__tla",
