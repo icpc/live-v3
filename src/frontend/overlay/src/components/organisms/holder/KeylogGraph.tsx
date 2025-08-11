@@ -23,28 +23,16 @@ type KeylogGraphProps = {
     teamColor?: string;
 };
 
-const stepStrategies = {
-    pre: (x0: number, x1: number, y1: number) => ` V ${y1} H ${x1}`,
-    mid: (x0: number, x1: number, y1: number) => {
-        const xm = (x0 + x1) / 2;
-        return ` H ${xm} V ${y1} H ${x1}`;
-    },
-    post: (x0: number, x1: number, y1: number) => ` H ${x1} V ${y1}`,
-};
-
-type StepMode = "post" | "pre" | "mid";
 type Point = [number, number];
 
-function stepPath(points: Array<Point>, mode: StepMode) {
+function stepPath(points: Array<Point>) {
     if (points.length === 0) return "";
     
-    const strategy = stepStrategies[mode];
     const [x0, y0] = points[0];
 
     return points.slice(1).reduce(
-        (path, [currX, currY], index) => {
-            const [prevX] = points[index];
-            return path + strategy(prevX, currX, currY);
+        (path, [currX, currY], _) => {
+            return path + ` H ${currX} V ${currY}`;
         },
         `M ${x0} ${y0}`
     );
@@ -114,7 +102,7 @@ export function KeylogGraph({
 
         pts[pts.length - 1][0] = Math.min(pts[pts.length - 1][0], rightEdge);
 
-        const d = stepPath(pts, c.KEYLOG_STEP_MODE);
+        const d = stepPath(pts);
         const fill = d + ` V ${h - bottomPad} H ${pts[0][0]} Z`;
 
 
