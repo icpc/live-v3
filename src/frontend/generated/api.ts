@@ -358,6 +358,7 @@ export interface RunInfo {
   featuredRunMedia: MediaType | null;
   reactionVideos: MediaType[];
   isHidden: boolean;
+  sourceFiles?: MediaType[];
 }
 
 export type RunResult =

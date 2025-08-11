@@ -152,7 +152,8 @@ internal class ClicsModel {
             testedTime = judgment?.endContestTime,
             reactionVideos = reaction?.mapNotNull { mediaType(it) } ?: emptyList(),
             languageId = languageId?.toLanguageId(),
-            isHidden = id in removedSubmissionIds
+            isHidden = id in removedSubmissionIds,
+            sourceFiles = files.mapNotNull { mediaType(it) }
         )
     }
 

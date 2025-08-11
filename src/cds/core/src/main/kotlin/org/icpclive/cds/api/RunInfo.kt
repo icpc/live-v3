@@ -32,6 +32,7 @@ public data class RunInfo(
     @Required val featuredRunMedia: MediaType? = null,
     @Required val reactionVideos: List<MediaType> = emptyList(),
     @Required val isHidden: Boolean = false,
+    val sourceFiles: List<MediaType> = emptyList(),
 )
 
 @Serializable(with = VerdictSerializer::class)
