@@ -992,3 +992,37 @@ export namespace WidgetUsageStatisticsEntry {
     totalShownTimeSeconds: number;
   }
 }
+
+export type TimeLineRunInfo =
+  | TimeLineRunInfo.ICPC
+  | TimeLineRunInfo.IN_PROGRESS
+  | TimeLineRunInfo.IOI;
+
+export namespace TimeLineRunInfo {
+  export enum Type {
+    ICPC = "ICPC",
+    IOI = "IOI",
+    IN_PROGRESS = "IN_PROGRESS",
+  }
+  
+  export interface ICPC {
+    type: TimeLineRunInfo.Type.ICPC;
+    time: number;
+    problemId: ProblemId;
+    isAccepted: boolean;
+    shortName: string;
+  }
+  
+  export interface IOI {
+    type: TimeLineRunInfo.Type.IOI;
+    time: number;
+    problemId: ProblemId;
+    score: number;
+  }
+  
+  export interface IN_PROGRESS {
+    type: TimeLineRunInfo.Type.IN_PROGRESS;
+    time: number;
+    problemId: ProblemId;
+  }
+}
