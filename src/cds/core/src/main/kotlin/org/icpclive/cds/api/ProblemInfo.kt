@@ -113,7 +113,7 @@ public value class Color internal constructor(public val value: String) {
                             alpha = 255
                         }
 
-                        else -> throw NumberFormatException()
+                        else -> throw NumberFormatException("Invalid color string length")
                     }
                 }
             } catch (e: NumberFormatException) {
