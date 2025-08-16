@@ -11,7 +11,7 @@ export function DefaultAddPresetButton({ onCreate }) {
 }
 DefaultAddPresetButton.propTypes = { onCreate: PropTypes.func.isRequired };
 
-export function PresetsManager({ service, RowComponent, defaultRowData, tableKeys, tableKeysHeaders, rowsFilter, AddButtons, isImmutable }) {
+export function PresetsManager({ service, RowComponent = PresetsTableRow, defaultRowData, tableKeys, tableKeysHeaders, rowsFilter = () => true, AddButtons = DefaultAddPresetButton, isImmutable }) {
     defaultRowData = defaultRowData ?? tableKeys.reduce((ac, key) => ({ ...ac, [key]: "" }), {});
     const [elements, setElements] = useState([]);
     const loadData = () => service.loadPresets().then(setElements);

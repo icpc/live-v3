@@ -1,6 +1,15 @@
 import { useContestInfo } from "@/services/contestInfo";
 import React, { useState } from "react";
-import { Tab, Container, Box, Grid } from "@mui/material";
+import {
+    Tab,
+    Container,
+    Box,
+    Grid,
+    Button,
+    List,
+    ListItem,
+    Dialog
+} from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -19,10 +28,6 @@ import {
     ProblemColorPolicy
 } from "@shared/api.ts";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Dialog from "@material-ui/core/Dialog";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 
 const ContestInfoStatusTable = ({ rows }: { rows: [React.ReactNode, React.ReactNode][] }) => {
@@ -121,7 +126,7 @@ const ContestInfoContainer = ({ contestInfo } : BasicContainerProps) => {
         <InfoRowContainer name="Show team without submissions" value = {contestInfo?.showTeamsWithoutSubmissions ? "Yes" : "No"} />
         <InfoRowContainer name="Problem color policy" value = {problemPolicyStr(contestInfo?.problemColorPolicy)} />
         {contestInfo?.customFields && Object.entries(contestInfo.customFields).map(([key, value]) => (
-            <InfoRowContainer name={"Custom:" + key} value={value} />
+            <InfoRowContainer key={key} name={"Custom:" + key} value={value} />
         ))}
     </div>;
 };
