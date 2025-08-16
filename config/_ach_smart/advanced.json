@@ -1,0 +1,41 @@
+[
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "achievement": {
+                "type": "Object",
+                "url": "https://test-wf.live.icpc.global/api/overlay/svgAchievement/easy-ach-icpc.svg?teamId={team.id}"
+            },
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "486860": {
+                "displayName": "SPb HSE 1: Lemon Tree",
+                "id": "239",
+                "groups": [
+                    "SPb HSE",
+                    "SPb"
+                ],
+                "customFields": {
+                    "contestants": "Makhnev, Surkov, Alferov"
+                }
+            },
+            "486908": {
+                "displayName": "Ufa SATU: Electric Funeral",
+                "groups": [
+                    "Ufa SATU",
+                    "Other"
+                ]
+            },
+            "486910": {
+                "displayName": "Budenny Mil Telecom A: 1",
+                "groups": [
+                    "Budenny Mil Telecom A",
+                    "SPb"
+                ]
+            }
+        }
+    }
+]
