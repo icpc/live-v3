@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useAppSelector } from "@/redux/hooks";
 import { ClockType, ContestInfo, ContestStatus } from "@shared/api";
+import { ShrinkingBox } from "../atoms/ShrinkingBox";
+import c from "@/config";
 
 Settings.defaultZone = "utc";
 
@@ -36,7 +38,7 @@ export const calculateContestTime = (contestInfo: ContestInfo): number => {
             ? Math.min((DateTime.now().toMillis() - contestInfo.status.scheduledStartAtUnixMs) * emulationSpeed, 0)
             : undefined;
     case ContestStatus.Type.running:
-        return Math.min((DateTime.now().toMillis() - contestInfo.status.startedAtUnixMs) * emulationSpeed, 
+        return Math.min((DateTime.now().toMillis() - contestInfo.status.startedAtUnixMs) * emulationSpeed,
             contestInfo.contestLengthMs);
     case ContestStatus.Type.finalized:
     case ContestStatus.Type.over:
@@ -84,7 +86,12 @@ export const ContestClock = ({
         const interval = setInterval(() => setStatus(getStatus()), 200);
         return () => clearInterval(interval);
     }, [getStatus]);
-    return <>{status}</>;
+    return <ShrinkingBox
+        text={status}
+        fontSize={c.TICKER_TEXT_FONT_SIZE}
+        fontFamily={c.TICKER_FONT_FAMILY}
+        align="center"
+    />;
 };
 
 ContestClock.propTypes = {

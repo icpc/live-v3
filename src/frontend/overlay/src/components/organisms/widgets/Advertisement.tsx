@@ -22,6 +22,7 @@ const AdvertisementWrap = styled.div`
 
   background-color: ${c.ADVERTISEMENT_BACKGROUND};
   border-radius: 12px;
+  text-align: center;
 `;
 
 

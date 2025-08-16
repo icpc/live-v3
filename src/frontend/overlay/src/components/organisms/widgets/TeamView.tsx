@@ -223,6 +223,11 @@ const PVPAchievementInnerWrapper = styled.div`
     width: 676px;
     bottom: -4px;
     z-index: 4;
+
+    object {
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 const PVPContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, showTimeLine, location, position }: CommonContentProps) => {
