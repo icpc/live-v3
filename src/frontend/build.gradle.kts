@@ -30,6 +30,7 @@ tasks {
         inputs.file("admin/package.json")
         inputs.file("overlay/package.json")
         inputs.file("locator/package.json")
+        pnpmCommand.set(listOf("install", "--frozen-lockfile", "--prefer-offline"))
         nodeModulesOutputFilter {
             // Checking node modules to be unchanged is very slow and not really important.
             exclude("**")

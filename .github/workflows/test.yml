@@ -25,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./src/frontend
-        run: pnpm install
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Store Playwright's Version
         working-directory: ./src/frontend/tests
