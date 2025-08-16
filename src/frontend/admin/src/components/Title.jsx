@@ -13,14 +13,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PreviewIcon from "@mui/icons-material/Preview";
-import { PresetsTableCell, ValueEditorPropTypes } from "./PresetsTableCell";
+import { PresetsTableCell } from "./PresetsTableCell.tsx";
 import PropTypes from "prop-types";
-import { activeRowColor } from "../styles";
-import { usePresetTableRowDataState } from "./PresetsTableRow";
-import { PresetsManager } from "./PresetsManager";
-import { usePresetWidgetService } from "../services/presetWidget";
-import { useTitleWidgetService } from "../services/titleWidget";
-import { useDebounce } from "../utils";
+import { activeRowColor } from "../styles.js";
+import { usePresetTableRowDataState } from "./PresetsTableRow.tsx";
+import { PresetsManager } from "./PresetsManager.jsx";
+import { usePresetWidgetService } from "../services/presetWidget.js";
+import { useTitleWidgetService } from "../services/titleWidget.js";
+import { useDebounce } from "../utils.ts";
 
 const PreviewSVGDialog = ({ id, ...props }) => {
     const { enqueueSnackbar } = useSnackbar();
