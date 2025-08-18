@@ -124,7 +124,7 @@ function getRowBackgroundColor(isShown: boolean): string | undefined {
     return isShown ? activeRowColor : undefined;
 }
 
-function getEditButtonIcon(isEditMode: boolean): React.JSX.Element {
+function getEditButtonIcon(isEditMode: boolean): React.ReactElement {
     return isEditMode ? <SaveIcon /> : <EditIcon />;
 }
 
@@ -139,7 +139,7 @@ export function PresetsTableRow({
     onEdit,
     onDelete,
     isImmutable = false,
-} : PresetsTableRowProps): React.JSX.Element {
+} : PresetsTableRowProps): React.ReactElement {
     const {
         editData,
         onClickEdit,
@@ -157,7 +157,7 @@ export function PresetsTableRow({
     }: {
         onShow: () => void;
         checked: boolean;
-    }): React.JSX.Element {
+    }): React.ReactElement {
         return (
             <TableCell component="th" scope="row" align="left">
                 <ShowPresetButton
@@ -180,7 +180,7 @@ export function PresetsTableRow({
         editData: PresetData | undefined;
         onChangeField: (rowKey: string) => (value: any) => void;
         onSubmitEdit: (event: FormEvent<HTMLFormElement>) => void;
-    }): React.JSX.Element {
+    }): React.ReactElement {
         return (
             <PresetsTableCell
                 key={rowKey}
@@ -201,7 +201,7 @@ export function PresetsTableRow({
         isEditMode: boolean;
         onClickEdit: () => void;
         onDelete: () => void;
-    }): React.JSX.Element {
+    }): React.ReactElement {
         return (
             <TableCell component="th" scope="row" align="right">
                 <Box>

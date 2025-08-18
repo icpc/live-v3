@@ -69,8 +69,8 @@ interface TickerTableRowProps {
     onDelete: () => void;
 }
 
-function getTickerIcon(type: TickerType): React.JSX.Element {
-    const iconMap: Record<string, React.JSX.Element> = {
+function getTickerIcon(type: TickerType): React.ReactElement {
+    const iconMap: Record<string, React.ReactElement> = {
         clock: <ClockIcon />,
         scoreboard: <ScoreboardIcon />,
         text: <TextIcon />,
@@ -195,7 +195,7 @@ function ClockEditor({
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
     onFieldChange: (field: string, value: any) => void;
     onTimeZoneChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}): React.JSX.Element {
+}): React.ReactElement {
     const settings = editData.settings as ClockSettings;
 
     function handleClockTypeChange(event: SelectChangeEvent): void {
@@ -249,7 +249,7 @@ function TextEditor({
     data: TickerData;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}): React.JSX.Element {
+}): React.ReactElement {
     return (
         <Box onSubmit={onSubmit} component="form">
             <TextField
@@ -274,7 +274,7 @@ function ImageEditor({
     data: TickerData;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}): React.JSX.Element {
+}): React.ReactElement {
     return (
         <Box onSubmit={onSubmit} component="form">
             <TextField
@@ -301,7 +301,7 @@ function ScoreboardEditor({
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
     onFromChange: (event: ChangeEvent<HTMLInputElement>) => void;
     onToChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}): React.JSX.Element {
+}): React.ReactElement {
     const settings = data.settings as ScoreboardSettings;
 
     return (
@@ -337,7 +337,7 @@ function PeriodEditor({
     periodMs: number;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}): React.JSX.Element {
+}): React.ReactElement {
     return (
         <Box onSubmit={onSubmit} component="form">
             <TextField
@@ -357,7 +357,7 @@ export function TickerTableRow({
     onShow,
     onEdit,
     onDelete
-}: TickerTableRowProps): React.JSX.Element {
+}: TickerTableRowProps): React.ReactElement {
     const {
         editData,
         timeZoneError,
@@ -369,7 +369,7 @@ export function TickerTableRow({
         handleTimeZoneChange
     } = useTickerEditState(data, onEdit);
 
-    function renderSettingsContent(): React.JSX.Element {
+    function renderSettingsContent(): React.ReactElement {
         const { type } = data.settings;
 
         if (!isEditMode) {

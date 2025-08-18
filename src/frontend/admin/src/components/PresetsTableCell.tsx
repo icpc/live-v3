@@ -25,7 +25,7 @@ function defaultValueEditor<T>({
     onSubmit,
     value,
     onChange
-}: ValueEditorProps<T>): React.JSX.Element {
+}: ValueEditorProps<T>): React.ReactElement {
     function handleChange(event: ChangeEvent<HTMLInputElement>): void {
         onChange(event.target.value as T);
     }
@@ -57,7 +57,7 @@ export function PresetsTableCell<T = any>({
     onSubmit,
     valuePrinter = defaultValuePrinter,
     ValueEditor = defaultValueEditor
-}: PresetsTableCellProps<T>): React.JSX.Element {
+}: PresetsTableCellProps<T>): React.ReactElement {
     function isEditMode(): boolean {
         return editValue !== undefined;
     }
@@ -80,4 +80,8 @@ export function PresetsTableCell<T = any>({
             {renderCellComponent()}
         </TableCell>
     );
+}
+
+export type {
+    ValueEditorProps
 }
