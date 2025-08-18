@@ -17,7 +17,7 @@ import Analytics from "@/components/pages/Analytics";
 import TeamSpotlight from "./components/TeamSpotlight";
 import { createApiGet } from "@shared/utils";
 import { setFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";
-import AdvancedJson from "./components/AdvancedJson";
+import AdvancedJson from "./components/AdvancedJson.tsx";
 import MediaFiles from "./components/MediaFiles";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BACKEND_ROOT } from "./config";
