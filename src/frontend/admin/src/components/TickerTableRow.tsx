@@ -65,7 +65,7 @@ interface TickerData {
 interface TickerTableRowProps {
     data: TickerData;
     onShow: () => void;
-    onEdit: (data: TickerData) => Promise<void>;
+    onEdit: (data: TickerData) => unknown;
     onDelete: () => void;
 }
 
@@ -103,7 +103,7 @@ function validateTimeZone(timeZone: string): { isValid: boolean, errorMessage: s
     };
 }
 
-function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => Promise<void>) {
+function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => unknown) {
     const [editData, setEditData] = useState<TickerData | undefined>(undefined);
     const [timeZoneError, setTimeZoneError] = useState<string>("");
 
@@ -119,7 +119,7 @@ function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => Prom
         setTimeZoneError("");
     }
 
-    async function saveEdit(): Promise<void> {
+    async function saveEdit() {
         if (editData && !timeZoneError) {
             await onEdit(editData);
             setEditData(undefined);

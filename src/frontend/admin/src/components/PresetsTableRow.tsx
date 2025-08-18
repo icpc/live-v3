@@ -9,9 +9,7 @@ import ShowPresetButton from "./controls/ShowPresetButton.tsx";
 import { PresetsTableCell } from "./PresetsTableCell.tsx";
 import { activeRowColor } from "../styles.js";
 
-interface PresetSettings {
-    [key: string]: any;
-}
+type PresetSettings = Record<string, unknown>;
 
 interface PresetData {
     id: string | number;
@@ -23,7 +21,7 @@ interface PresetsTableRowProps {
     data: PresetData;
     tableKeys: string[];
     onShow: () => void;
-    onEdit: (data: PresetData) => Promise<void>;
+    onEdit: (data: PresetData) => unknown;
     onDelete: () => void;
     isImmutable?: boolean;
 }
@@ -72,7 +70,7 @@ function createFieldChangeEventHandler(
 
 function usePresetTableRowDataState(
     data: PresetData,
-    onEdit: (data: PresetData) => Promise<void>,
+    onEdit: (data: PresetData) => unknown,
 ): UsePresetTableRowDataStateReturn {
     const [editData, setEditData] = useState<PresetData | undefined>(undefined);
 

@@ -15,17 +15,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PreviewIcon from "@mui/icons-material/Preview";
 import { PresetsTableCell, ValueEditorProps } from "./PresetsTableCell.tsx";
 import { activeRowColor } from "../styles.js";
-import { usePresetTableRowDataState } from "./PresetsTableRow.tsx";
+import { PresetSettings, usePresetTableRowDataState } from "./PresetsTableRow.tsx";
 import { PresetsManager } from "./PresetsManager.jsx";
 import { usePresetWidgetService } from "../services/presetWidget.js";
 import { useTitleWidgetService } from "../services/titleWidget.js";
 import { useDebounce } from "../utils.ts";
 
-interface TitleSettings {
+interface TitleSettings extends PresetSettings {
     preset: string;
     leftPreset: string;
     rightPreset: string;
-    data: Record<string, any>;
+    data: Record<string, unknown>;
 }
 
 interface TitleData {
@@ -37,7 +37,7 @@ interface TitleData {
 interface TitleTableRowProps {
     data: TitleData;
     onShow: () => void;
-    onEdit: (data: TitleData) => Promise<void>;
+    onEdit: (data: TitleData) => unknown;
     onDelete: () => void;
 }
 
@@ -85,7 +85,7 @@ function parseParamsData(input: string): Record<string, string> {
 function createPresetUpdater(
     data: TitleData,
     presetValue: string,
-    onEdit: (data: TitleData) => Promise<void>
+    onEdit: (data: TitleData) => unknown
 ): () => void {
     return function updatePreset() {
         const updatedData: TitleData = {
@@ -115,7 +115,7 @@ function PreviewSVGDialog({
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        async function fetchPreview(): Promise<void> {
+        async function fetchPreview() {
             if (open && !content) {
                 setLoading(true);
                 try {
@@ -177,7 +177,7 @@ function TemplateEditor({
     const service = useTitleWidgetService("/title", undefined, false);
 
     useEffect(() => {
-        async function fetchTemplate(): Promise<void> {
+        async function fetchTemplate() {
             try {
                 const fetchedTemplates = await service.getTemplates();
                 setTeamplates(fetchedTemplates);
