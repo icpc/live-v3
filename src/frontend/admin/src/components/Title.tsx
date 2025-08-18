@@ -49,10 +49,10 @@ interface PreviewSVGDialogProps {
 
 interface ParamsLineProps {
     pKey: string;
-    pValue: any;
+    pValue: unknown;
 }
 
-function paramsDataToString(value: Record<string, any>): string {
+function paramsDataToString(value: Record<string, unknown>): string {
     return Object.entries(value)
         .map(([key, value]) => `${key}: ${value}`)
         .join("\n");
@@ -191,7 +191,7 @@ function TemplateEditor({
         fetchTemplate();
     }, []);
 
-    function handleChange(_event: any, newValue: string | null) {
+    function handleChange(_event: unknown, newValue: string | null) {
         onChange(newValue || "");
     }
 
@@ -238,7 +238,7 @@ function ParamsDataEditor({
     onSubmit,
     value,
     onChange
-}: ValueEditorProps<Record<string, any>>): React.ReactElement {
+}: ValueEditorProps<Record<string, unknown>>): React.ReactElement {
     const initialValue = paramsDataToString(value);
     const [inputValue, setInputValue] = useState<string>(initialValue);
     const debouncedInputValue = useDebounce(inputValue, 250);
@@ -271,7 +271,7 @@ function ParamsDataEditor({
     );
 }
 
-function renderParamsData(data: Record<string, any>): React.ReactElement {
+function renderParamsData(data: Record<string, unknown>): React.ReactElement {
     const entries = Object.entries(data);
 
     if (entries.length === 0) {

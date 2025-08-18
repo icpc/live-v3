@@ -32,13 +32,13 @@ interface UsePresetTableRowDataStateReturn {
     editData: PresetData | undefined;
     onClickEdit: () => void;
     onSubmitEdit: (event: FormEvent<HTMLFormElement>) => void;
-    onChangeField: (rowKey: string) => (value: any) => void;
+    onChangeField: (rowKey: string) => (value: unknown) => void;
 }
 
 function createUpdatedPresetData(
     currentData: PresetData,
     rowKey: string,
-    newValue: any,
+    newValue: unknown,
 ): PresetData {
     return {
         ...currentData,
@@ -52,8 +52,8 @@ function createUpdatedPresetData(
 function createFieldChangeHandler(
     setEditData: SetEditDataAction,
     rowKey: string,
-): (value: any) => void {
-    return function handleFieldChange(value: any): void {
+): (value: unknown) => void {
+    return function handleFieldChange(value: unknown): void {
         setEditData((prevData) => createUpdatedPresetData(prevData, rowKey, value));
     };
 }
@@ -106,7 +106,7 @@ function usePresetTableRowDataState(
         handleClickEdit();
     }
 
-    function createChangeFieldHandler(rowKey: string): (value: any) => void {
+    function createChangeFieldHandler(rowKey: string): (value: unknown) => void {
         return createFieldChangeHandler(setEditData as SetEditDataAction, rowKey);
     }
 
@@ -176,7 +176,7 @@ export function PresetsTableRow({
         rowKey: string;
         data: PresetData;
         editData: PresetData | undefined;
-        onChangeField: (rowKey: string) => (value: any) => void;
+        onChangeField: (rowKey: string) => (value: unknown) => void;
         onSubmitEdit: (event: FormEvent<HTMLFormElement>) => void;
     }): React.ReactElement {
         return (

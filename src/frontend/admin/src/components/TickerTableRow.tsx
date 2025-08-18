@@ -140,7 +140,7 @@ function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => unkn
         handleEditToggle();
     }
 
-    function updateField(field: string, value: any): void {
+    function updateField(field: string, value: unknown): void {
         if (!editData) return;
 
         setEditData({
@@ -193,7 +193,7 @@ function ClockEditor({
     editData: TickerData;
     timeZoneError: string;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-    onFieldChange: (field: string, value: any) => void;
+    onFieldChange: (field: string, value: unknown) => void;
     onTimeZoneChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }): React.ReactElement {
     const settings = editData.settings as ClockSettings;

@@ -2,13 +2,13 @@ import { TableCell, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import React, { FormEvent, ChangeEvent } from "react";
 
-interface ValueEditorProps<T = any> {
+interface ValueEditorProps<T = unknown> {
     value: T;
     onChange: (value: T) => void;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-interface PresetsTableCellProps<T = any> {
+interface PresetsTableCellProps<T = unknown> {
     value: T;
     onChange: (value: T) => void;
     editValue?: T;
@@ -50,7 +50,7 @@ function defaultValueEditor<T>({
     );
 }
 
-export function PresetsTableCell<T = any>({
+export function PresetsTableCell<T = unknown>({
     value,
     onChange,
     editValue,
