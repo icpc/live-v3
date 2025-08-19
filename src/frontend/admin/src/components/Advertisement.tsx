@@ -5,9 +5,13 @@ import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { PresetsManager } from "./PresetsManager";
 import { usePresetWidgetService } from "../services/presetWidget";
 
-function Advertisement() {
-    const { enqueueSnackbar,  } = useSnackbar();
-    const service = usePresetWidgetService("/advertisement", errorHandlerWithSnackbar(enqueueSnackbar));
+function Advertisement(): React.ReactElement {
+    const { enqueueSnackbar } = useSnackbar();
+    const service = usePresetWidgetService(
+        "/advertisement",
+        errorHandlerWithSnackbar(enqueueSnackbar)
+    );
+
     return (
         <Container maxWidth="lg" sx={{ pt: 2 }}>
             <PresetsManager service={service} tableKeys={["text"]}/>

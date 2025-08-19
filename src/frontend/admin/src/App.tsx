@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./App.css";
-import AppNav from "./AppNav";
+import AppNav from "./AppNav.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Overlay } from "./components/Overlay";
-import TickerMessage from "./components/TickerMessage";
+import { Overlay } from "./components/Overlay.tsx";
+import TickerMessage from "./components/TickerMessage.tsx";
 import ControlsPage from "./components/pages/ControlsPage.tsx";
-import Advertisement from "./components/Advertisement";
+import Advertisement from "./components/Advertisement.tsx";
 import Title from "./components/Title";
-import Picture from "./components/Picture";
+import Picture from "./components/Picture.tsx";
 import TeamView from "./components/pages/TeamView";
 import ContestLog from "./components/pages/ContestInfo";
 import { SnackbarProvider } from "notistack";
-import BackendLog from "./components/BackendLog";
-import Dashboard from "./components/Dashboard";
+import BackendLog from "./components/BackendLog.tsx";
+import Dashboard from "./components/Dashboard.tsx";
 import Analytics from "@/components/pages/Analytics";
-import TeamSpotlight from "./components/TeamSpotlight";
+import TeamSpotlight from "./components/TeamSpotlight.tsx";
 import { createApiGet } from "@shared/utils";
 import { setFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";
-import AdvancedJson from "./components/AdvancedJson";
-import MediaFiles from "./components/MediaFiles";
+import AdvancedJson from "./components/AdvancedJson.tsx";
+import MediaFiles from "./components/MediaFiles.tsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BACKEND_ROOT } from "./config";
-import { faviconTemplate } from "./styles";
+import { faviconTemplate } from "./styles.ts";
 import { ReloadHandleContext, useReloadHandleService } from "@/services/reloadHandler.ts";
 import ScoreboardPage from "@/components/pages/ScoreboardPage.tsx";
 
@@ -79,13 +79,17 @@ function App() {
 
     const reloadHandleService = useReloadHandleService();
 
+    const handleToggleOverlayPreview = useCallback(() => {
+        setIsOverlayPreviewShown(!isOverlayPreviewShown);
+    }, [isOverlayPreviewShown, setIsOverlayPreviewShown]);
+
     return (
         <BrowserRouter basename={import.meta.env.BASE_URL ?? ""}>
             <ReloadHandleContext.Provider value={reloadHandleService}>
                 <SnackbarProvider maxSnack={5}>
                     <div className="App">
                         <ThemeProvider theme={getTheme(contestColor)}>
-                            <AppNav showOrHideOverlayPerview={() => setIsOverlayPreviewShown(!isOverlayPreviewShown)}/>
+                            <AppNav showOrHideOverlayPreview={handleToggleOverlayPreview}/>
                         </ThemeProvider>
                         <Routes>
                             <Route path="/" element={<ControlsPage/>}/>

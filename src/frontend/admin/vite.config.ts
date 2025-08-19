@@ -8,7 +8,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
     plugins: [
         tsconfigPaths(),
-        react()
+        react({
+            babel: {
+                plugins: [
+                    ["babel-plugin-react-compiler", {}]
+                ]
+            }
+        })
     ],
     base: process.env.PUBLIC_URL ?? "/",
     build: {
