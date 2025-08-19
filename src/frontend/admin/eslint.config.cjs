@@ -1,6 +1,7 @@
 const js = require("@eslint/js");
 const globals = require("globals");
 const reactRefresh = require("eslint-plugin-react-refresh");
+const reactCompiler = require("eslint-plugin-react-compiler");
 const tseslint = require("typescript-eslint");
 
 module.exports = tseslint.config(
@@ -17,11 +18,13 @@ module.exports = tseslint.config(
     },
     plugins: {
       "react-refresh": reactRefresh,
+      "react-compiler": reactCompiler,
     },
     rules: {
       "react-refresh/only-export-components": ["warn", {
         allowConstantExport: true,
       }],
+      "react-compiler/react-compiler": "warn",
     },
   }
 );
