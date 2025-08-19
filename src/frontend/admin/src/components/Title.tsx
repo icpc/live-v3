@@ -16,7 +16,7 @@ import PreviewIcon from "@mui/icons-material/Preview";
 import { PresetsTableCell, ValueEditorProps } from "./PresetsTableCell.tsx";
 import { activeRowColor } from "../styles.js";
 import { PresetSettings, usePresetTableRowDataState } from "./PresetsTableRow.tsx";
-import { PresetsManager } from "./PresetsManager.jsx";
+import { PresetsManager } from "./PresetsManager.js";
 import { usePresetWidgetService } from "../services/presetWidget.js";
 import { useTitleWidgetService } from "../services/titleWidget.js";
 import { useDebounce } from "../utils.ts";
@@ -44,7 +44,7 @@ interface TitleTableRowProps {
 interface PreviewSVGDialogProps {
     open: boolean;
     onClose: () => void;
-    id: number;
+    id: string | number;
 }
 
 interface ParamsLineProps {
@@ -104,7 +104,7 @@ function PreviewSVGDialog({
     id,
     open,
     onClose
-}: PresetsManager): React.ReactElement {
+}: PreviewSVGDialogProps): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
     const service = useTitleWidgetService(
         "/title",
@@ -464,16 +464,16 @@ export function Title(): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
     const service = usePresetWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar));
 
-    const defaultRowData: Partial<TitleSettings> = {
+    const defaultRowData: TitleSettings = {
         preset: "",
         leftPreset: "",
         rightPreset: "",
-        data: {}
+        data: {},
     };
 
     return (
         <Container maxWidth="lg" sx={{ pt: 2 }} className="Title">
-            <PresetsManager
+            <PresetsManager<TitleSettings>
                 service={service}
                 tableKeys={["leftPreset", "rightPreset", "preset", "data"]}
                 tableKeysHeaders={["Left template", "Right template", "Template", "Data"]}

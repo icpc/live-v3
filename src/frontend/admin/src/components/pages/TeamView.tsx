@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
     Container,
     Box,
@@ -31,21 +31,54 @@ import BottomRightIcon from "@mui/icons-material/SouthEast";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
-import { SelectTeamTable } from "../TeamTable.jsx";
-import TeamMediaSwitcher, { DEFAULT_MEDIA_TYPES } from "../controls/TeamMediaSwitcher.js";
-import ShowPresetButton from "../controls/ShowPresetButton.js";
-import { TeamInfo, TeamMediaType, TeamViewPosition } from "@shared/api.ts";
+import { TeamTable, TeamViewData } from "../TeamTable";
+import TeamMediaSwitcher, { DEFAULT_MEDIA_TYPES } from "../controls/TeamMediaSwitcher";
+import ShowPresetButton from "../controls/ShowPresetButton";
+import { TeamInfo, TeamMediaType, TeamViewPosition, TeamId } from "@shared/api";
 import {
     CommonTeamViewInstancesState,
     TeamViewContentType,
     TeamViewWidgetService,
     useTeamViewWidgetService,
     useTeamViewWidgetUsageStats
-} from "@/services/teamViewService.ts";
+} from "@/services/teamViewService";
 
-type TeamInfoWithStatus = TeamInfo & {
+interface TeamInfoWithStatus extends TeamInfo {
     shown?: boolean;
     selected?: boolean;
+}
+
+interface VariantSelectProps {
+    variant: TeamViewContentType;
+    setVariant: (v: TeamViewContentType) => void;
+}
+
+interface InstanceStatusProps {
+    instanceId: TeamViewPosition;
+    Icon: SvgIconComponent;
+    status: CommonTeamViewInstancesState;
+    teams: TeamInfoWithStatus[];
+    selectedInstance?: TeamViewPosition;
+    onShow: (instance: TeamViewPosition) => () => void;
+    onHide: (instance: TeamViewPosition) => () => void;
+}
+
+interface InstancesManagerProps extends Omit<InstanceStatusProps, "instanceId" | "Icon"> {
+    variant: TeamViewContentType;
+}
+
+interface MultipleModeSwitchProps {
+    currentService: TeamViewWidgetService;
+    setIsMultipleMode: (newMode: boolean) => void;
+}
+
+interface UseTeamsListReturn {
+    teams: TeamViewData[];
+    selectedTeamId: TeamId | undefined;
+    setSelectedTeamId: (id: TeamId | undefined) => void;
+    selectedTeam: TeamInfo | undefined;
+    searchValue: string;
+    setSearchValue: (value: string) => void;
 }
 
 const AUTOMODE_TEAM: TeamInfoWithStatus = {
@@ -55,7 +88,6 @@ const AUTOMODE_TEAM: TeamInfoWithStatus = {
     hashTag: "",
     groups: [],
     organizationId: "",
-    // TODO:
     medias: {
         [TeamMediaType.camera]: null,
         [TeamMediaType.screen]: null,
@@ -73,36 +105,63 @@ const AUTOMODE_TEAM: TeamInfoWithStatus = {
     isOutOfContest: false,
 };
 
-const isTeamSatisfiesSearch = (team: TeamInfo, searchValue: string) => {
+const isTeamSatisfiesSearch = (team: TeamInfo, searchValue: string): boolean => {
     if (searchValue === "" || team.id === null) {
         return true;
     }
-    return (team.id + " : " + team.shortName + " : " + team.name).toLowerCase().includes(searchValue);
+    return (team.id + " : " + team.shortName + " : " + team.name)
+        .toLowerCase()
+        .includes(searchValue);
 };
 
-// TODO: move to common :|
-const useTeamsList = (rawTeams: TeamInfo[], status: CommonTeamViewInstancesState) => {
-    const [selectedTeamId, setSelectedTeamId] = useState(undefined);
+const convertToTeamViewData = (teams: TeamInfoWithStatus[]): TeamViewData[] => {
+    return teams.map(team => ({
+        id: team.id,
+        shown: team.shown || false,
+        selected: team.selected || false,
+        shortName: team.shortName,
+        medias: team.medias,
+    }));
+};
+
+const useTeamsList = (
+    rawTeams: TeamInfo[],
+    status: CommonTeamViewInstancesState
+): UseTeamsListReturn => {
+    const [selectedTeamId, setSelectedTeamId] = useState<TeamId | undefined>(undefined);
+
     const teamsWithStatus = useMemo(
         () => rawTeams.map(t => ({
             ...t,
             shown: Object.values(status).some(s => s.shown && s.settings.teamId === t.id),
             selected: t.id === selectedTeamId,
         })),
-        [rawTeams, status, selectedTeamId]);
+        [rawTeams, status, selectedTeamId]
+    );
 
-    const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState<string>("");
 
     const filteredTeams = useMemo(() => {
         return teamsWithStatus.filter(t => isTeamSatisfiesSearch(t, searchValue));
     }, [teamsWithStatus, searchValue]);
+
     const selectedTeam = useMemo(() => {
         if (selectedTeamId === undefined) {
             return undefined;
         }
         return rawTeams.find(team => team.id === selectedTeamId);
     }, [rawTeams, selectedTeamId]);
-    return { teams: filteredTeams, selectedTeamId, setSelectedTeamId, selectedTeam, searchValue, setSearchValue };
+
+    const convertedTeams = useMemo(() => convertToTeamViewData(filteredTeams), [filteredTeams]);
+
+    return {
+        teams: convertedTeams,
+        selectedTeamId,
+        setSelectedTeamId,
+        selectedTeam,
+        searchValue,
+        setSearchValue
+    };
 };
 
 const teamViewTheme = createTheme({
@@ -118,11 +177,7 @@ const teamViewTheme = createTheme({
     },
 });
 
-type VariantSelectProps = {
-    variant: TeamViewContentType;
-    setVariant: (v: TeamViewContentType) => void;
-}
-const VariantSelect = ({ variant, setVariant }: VariantSelectProps) => {
+const VariantSelect: React.FC<VariantSelectProps> = ({ variant, setVariant }) => {
     return (
         <ToggleButtonGroup
             value={variant}
@@ -131,37 +186,65 @@ const VariantSelect = ({ variant, setVariant }: VariantSelectProps) => {
             exclusive
             onChange={(_, v) => v && setVariant(v)}
         >
-            <ToggleButton value={"single"}><SingleTeamViewIcon />Single</ToggleButton>
-            <ToggleButton value={"pvp"}><PVPTeamViewIcon />PVP</ToggleButton>
-            <ToggleButton value={"split"}><SplitTeamViewIcon />SplitScreen</ToggleButton>
+            <ToggleButton value="single">
+                <SingleTeamViewIcon />
+                Single
+            </ToggleButton>
+            <ToggleButton value="pvp">
+                <PVPTeamViewIcon />
+                PVP
+            </ToggleButton>
+            <ToggleButton value="split">
+                <SplitTeamViewIcon />
+                SplitScreen
+            </ToggleButton>
         </ToggleButtonGroup>
     );
 };
 
-type InstanceStatusProps = {
-    instanceId: TeamViewPosition;
-    Icon: SvgIconComponent;
-    status: CommonTeamViewInstancesState;
-    teams: TeamInfoWithStatus[];
-    selectedInstance?: TeamViewPosition;
-    onShow: (instance: TeamViewPosition) => () => void;
-    onHide: (instance: TeamViewPosition) => () => void;
-};
-const InstanceStatus = ({ instanceId, Icon, status, teams, selectedInstance, onShow, onHide }: InstanceStatusProps) => {
-    const iStatus = status[instanceId]; // Why we can't do it outside?
+const InstanceStatus: React.FC<InstanceStatusProps> = ({
+    instanceId,
+    Icon,
+    status,
+    teams,
+    selectedInstance,
+    onShow,
+    onHide
+}) => {
+    const iStatus = status[instanceId];
     const shownTeam = useMemo(
         () => teams.find(t => t.id === iStatus?.settings?.teamId),
-        [teams, iStatus]);
+        [teams, iStatus]
+    );
     const isShowButtonDisabled = !(selectedInstance === instanceId || selectedInstance === undefined);
+
     return (
         <Paper>
-            <Stack sx={{ mb: 1 }} spacing={1} direction="row" flexWrap="wrap" alignItems={"center"}>
-                {Icon && <Icon fontSize={"large"} color={iStatus?.shown ? "primary" : "disabled"} />}
+            <Stack sx={{ mb: 1 }} spacing={1} direction="row" flexWrap="wrap" alignItems="center">
+                {Icon && (
+                    <Icon
+                        fontSize="large"
+                        color={iStatus?.shown ? "primary" : "disabled"}
+                    />
+                )}
                 <ButtonGroup variant="contained" sx={{ m: 2 }}>
-                    <Button color="primary" disabled={isShowButtonDisabled} onClick={onShow(instanceId)}>
-                        {selectedInstance === instanceId ? "Selected" : (!iStatus?.shown ? "Show here" : "Replace here")}
+                    <Button
+                        color="primary"
+                        disabled={isShowButtonDisabled}
+                        onClick={onShow(instanceId)}
+                    >
+                        {selectedInstance === instanceId
+                            ? "Selected"
+                            : (!iStatus?.shown ? "Show here" : "Replace here")
+                        }
                     </Button>
-                    <Button color="error" disabled={!iStatus?.shown} onClick={onHide(instanceId)}>Hide</Button>
+                    <Button
+                        color="error"
+                        disabled={!iStatus?.shown}
+                        onClick={onHide(instanceId)}
+                    >
+                        Hide
+                    </Button>
                 </ButtonGroup>
             </Stack>
             <Box>Team: {shownTeam?.shortName ?? "Auto"}</Box>
@@ -170,35 +253,62 @@ const InstanceStatus = ({ instanceId, Icon, status, teams, selectedInstance, onS
     );
 };
 
-type InstancesManagerProps = Omit<Omit<InstanceStatusProps, "instanceId">, "Icon"> & { variant: TeamViewContentType };
-const InstancesManager = ({ variant, ...props }: InstancesManagerProps) => {
+const InstancesManager: React.FC<InstancesManagerProps> = ({ variant, ...props }) => {
     return (
         <>
             {variant === "single" && (
-                <InstanceStatus instanceId={TeamViewPosition.SINGLE} Icon={SingleTeamViewIcon} {...props} />
+                <InstanceStatus
+                    instanceId={TeamViewPosition.SINGLE}
+                    Icon={SingleTeamViewIcon}
+                    {...props}
+                />
             )}
             {variant === "pvp" && (
                 <>
-                    <InstanceStatus instanceId={TeamViewPosition.PVP_TOP} Icon={TopIcon} {...props} />
-                    <InstanceStatus instanceId={TeamViewPosition.PVP_BOTTOM} Icon={BottomIcon} {...props} />
+                    <InstanceStatus
+                        instanceId={TeamViewPosition.PVP_TOP}
+                        Icon={TopIcon}
+                        {...props}
+                    />
+                    <InstanceStatus
+                        instanceId={TeamViewPosition.PVP_BOTTOM}
+                        Icon={BottomIcon}
+                        {...props}
+                    />
                 </>
             )}
             {variant === "split" && (
                 <>
                     <Grid container columnSpacing={1}>
-                        <Grid size={{md: 6, sm: 12}}>
-                            <InstanceStatus instanceId={TeamViewPosition.TOP_LEFT} Icon={TopLeftIcon} {...props} />
+                        <Grid size={{ md: 6, sm: 12 }}>
+                            <InstanceStatus
+                                instanceId={TeamViewPosition.TOP_LEFT}
+                                Icon={TopLeftIcon}
+                                {...props}
+                            />
                         </Grid>
-                        <Grid size={{md: 6, sm: 12}}>
-                            <InstanceStatus instanceId={TeamViewPosition.TOP_RIGHT} Icon={TopRightIcon} {...props} />
+                        <Grid size={{ md: 6, sm: 12 }}>
+                            <InstanceStatus
+                                instanceId={TeamViewPosition.TOP_RIGHT}
+                                Icon={TopRightIcon}
+                                {...props}
+                            />
                         </Grid>
                     </Grid>
                     <Grid container columnSpacing={1}>
-                        <Grid size={{md: 6, sm: 12}}>
-                            <InstanceStatus instanceId={TeamViewPosition.BOTTOM_LEFT} Icon={BottomLeftIcon} {...props} />
+                        <Grid size={{ md: 6, sm: 12 }}>
+                            <InstanceStatus
+                                instanceId={TeamViewPosition.BOTTOM_LEFT}
+                                Icon={BottomLeftIcon}
+                                {...props}
+                            />
                         </Grid>
-                        <Grid size={{md: 6, sm: 12}}>
-                            <InstanceStatus instanceId={TeamViewPosition.BOTTOM_RIGHT} Icon={BottomRightIcon} {...props} />
+                        <Grid size={{ md: 6, sm: 12 }}>
+                            <InstanceStatus
+                                instanceId={TeamViewPosition.BOTTOM_RIGHT}
+                                Icon={BottomRightIcon}
+                                {...props}
+                            />
                         </Grid>
                     </Grid>
                 </>
@@ -207,20 +317,14 @@ const InstancesManager = ({ variant, ...props }: InstancesManagerProps) => {
     );
 };
 
-type MultipleModeSwitchProps = {
-    currentService: TeamViewWidgetService;
-    setIsMultipleMode: (newMove: boolean) => void;
-};
-const MultipleModeSwitch = ({ currentService, setIsMultipleMode }: MultipleModeSwitchProps) => {
+const MultipleModeSwitch: React.FC<MultipleModeSwitchProps> = ({ currentService, setIsMultipleMode }) => {
     return (
         <Tooltip
             sx={{ display: "flex", alignContent: "center" }}
             title="When enabled any modifications to the team instances will be applied after you press Show all"
         >
             <Box>
-                <Box sx={{ p: 1 }}>
-                    Mulitple mode
-                </Box>
+                <Box sx={{ p: 1 }}>Multiple mode</Box>
                 <Switch onChange={(_, newV) => setIsMultipleMode(newV)} />
                 <ButtonGroup>
                     <Button
@@ -244,14 +348,14 @@ const MultipleModeSwitch = ({ currentService, setIsMultipleMode }: MultipleModeS
     );
 };
 
-const TeamViewManager = () => {
+const TeamViewManager: React.FC = () => {
     const [status, setStatus] = useState<CommonTeamViewInstancesState>({});
     const singleService = useTeamViewWidgetService("single", setStatus);
     const pvpService = useTeamViewWidgetService("pvp", setStatus);
     const splitService = useTeamViewWidgetService("split", setStatus);
     const usageStats = useTeamViewWidgetUsageStats(singleService);
 
-    const [variant, setVariant] = useState<TeamViewContentType>(undefined);
+    const [variant, setVariant] = useState<TeamViewContentType | undefined>(undefined);
 
     const currentService: TeamViewWidgetService = useMemo(() => {
         if (variant === "split") {
@@ -263,31 +367,42 @@ const TeamViewManager = () => {
     }, [variant, singleService, pvpService, splitService]);
 
     const [rawTeams, setRawTeams] = useState<TeamInfoWithStatus[]>([]);
-    const { teams, selectedTeamId, setSelectedTeamId, selectedTeam, searchValue, setSearchValue } = useTeamsList(rawTeams, status);
+    const { teams, selectedTeamId, setSelectedTeamId, selectedTeam, searchValue, setSearchValue } =
+        useTeamsList(rawTeams, status);
+
     useEffect(() => {
         singleService.teams().then((ts) => setRawTeams([AUTOMODE_TEAM, ...ts]));
     }, [singleService]);
+
     const [teamsAvailableMedias, teamsHasAchievement] = useMemo(() => {
-        const medias = new Set();
+        const medias = new Set<string>();
         const hasAchievement = rawTeams.some(t => t.medias.achievement);
         rawTeams.forEach(t => Object.keys(t.medias).forEach(m => medias.add(m)));
         return [[...medias], hasAchievement];
     }, [rawTeams]);
 
-    const [isMultipleMode, setIsMultipleMode] = useState(false);
-
-    const [selectedInstance, setSelectedInstance] = useState(undefined);
-    const [mediaType1, setMediaType1] = useState<TeamMediaType>(undefined);
-    const [mediaType2, setMediaType2] = useState<TeamMediaType>(undefined);
-    const [statusShown, setStatusShown] = useState(true);
-    const [achievementShown, setAchievementShown] = useState(false);
-    const [timeLineShown, setTimeLineShown] = useState(true);
+    const [isMultipleMode, setIsMultipleMode] = useState<boolean>(false);
+    const [selectedInstance, setSelectedInstance] = useState<TeamViewPosition | undefined>(undefined);
+    const [mediaType1, setMediaType1] = useState<TeamMediaType | undefined>(undefined);
+    const [mediaType2, setMediaType2] = useState<TeamMediaType | undefined>(undefined);
+    const [statusShown, setStatusShown] = useState<boolean>(true);
+    const [achievementShown, setAchievementShown] = useState<boolean>(false);
+    const [timeLineShown, setTimeLineShown] = useState<boolean>(true);
 
     const [allowedMediaTypes, disableMediaTypes] = useMemo(() => [
-        DEFAULT_MEDIA_TYPES.filter(m => m && (selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m))),
-        DEFAULT_MEDIA_TYPES.filter(m => m && !(selectedTeam?.id ? selectedTeam.medias[m] : teamsAvailableMedias.includes(m)))
+        DEFAULT_MEDIA_TYPES.filter(m =>
+            m && (selectedTeam?.id
+                ? selectedTeam.medias[m]
+                : teamsAvailableMedias.includes(m)
+            )
+        ),
+        DEFAULT_MEDIA_TYPES.filter(m =>
+            m && !(selectedTeam?.id
+                ? selectedTeam.medias[m]
+                : teamsAvailableMedias.includes(m)
+            )
+        )
     ], [teamsAvailableMedias, selectedTeam]);
-
 
     useEffect(() => {
         if (Object.values(status).length === 7 && variant === undefined) {
@@ -319,11 +434,11 @@ const TeamViewManager = () => {
             }
             setTimeLineShown(true);
         }
-    }, [status, mediaType1, setMediaType1, mediaType2, setMediaType2, setAchievementShown, rawTeams, variant, allowedMediaTypes]);
+    }, [status, mediaType1, mediaType2, rawTeams, variant, allowedMediaTypes]);
 
     const onShow = useCallback(() => {
         const settings = {
-            mediaTypes: [mediaType1, mediaType2].filter(i => i),
+            mediaTypes: [mediaType1, mediaType2].filter((i): i is TeamMediaType => Boolean(i)),
             teamId: selectedTeamId,
             showTaskStatus: statusShown,
             showAchievement: achievementShown && variant !== "split",
@@ -336,8 +451,18 @@ const TeamViewManager = () => {
         }
         setSelectedInstance(undefined);
         setSelectedTeamId(undefined);
-    }, [selectedInstance, currentService, isMultipleMode, mediaType1, mediaType2,
-        selectedTeamId, setSelectedTeamId, statusShown, achievementShown, variant, timeLineShown]);
+    }, [
+        selectedInstance,
+        currentService,
+        isMultipleMode,
+        mediaType1,
+        mediaType2,
+        selectedTeamId,
+        statusShown,
+        achievementShown,
+        variant,
+        timeLineShown
+    ]);
 
     const onInstanceSelect = useCallback((instance: TeamViewPosition) => () => {
         if (instance === selectedInstance) {
@@ -347,9 +472,13 @@ const TeamViewManager = () => {
         }
     }, [selectedInstance]);
 
-    const onInstanceHide = useCallback((instance) => () => {
+    const onInstanceHide = useCallback((instance: TeamViewPosition) => () => {
         currentService.hide(instance);
     }, [currentService]);
+
+    const handleTeamClick = useCallback((teamId: TeamId | null) => {
+        setSelectedTeamId(teamId);
+    }, [setSelectedTeamId]);
 
     return (
         <Box>
@@ -360,13 +489,13 @@ const TeamViewManager = () => {
             <InstancesManager
                 variant={variant}
                 status={status}
-                teams={teams}
+                teams={rawTeams}
                 selectedInstance={selectedInstance}
                 onShow={onInstanceSelect}
                 onHide={onInstanceHide}
             />
 
-            {selectedInstance !== undefined &&
+            {selectedInstance !== undefined && (
                 <Paper>
                     {selectedTeamId === undefined && (
                         <Box>
@@ -379,9 +508,9 @@ const TeamViewManager = () => {
                                 variant="outlined"
                                 fullWidth
                             />
-                            <SelectTeamTable
+                            <TeamTable
                                 teams={teams}
-                                onClickHandler={setSelectedTeamId}
+                                onTeamClick={handleTeamClick}
                                 usageStats={usageStats}
                             />
                         </Box>
@@ -408,30 +537,30 @@ const TeamViewManager = () => {
                     {selectedTeamId !== undefined && (
                         <>
                             <Grid container>
-                                <Grid size={{xs: 12, sm: 4}}>
+                                <Grid size={{ xs: 12, sm: 4 }}>
                                     <FormLabel component="legend">Main content</FormLabel>
                                 </Grid>
-                                <Grid size={{xs: 12, sm: 8}}>
+                                <Grid size={{ xs: 12, sm: 8 }}>
                                     <TeamMediaSwitcher
                                         switchedMediaType={mediaType1}
-                                        onSwitch={ts => setMediaType1(ts)}
+                                        onSwitch={(ts) => setMediaType1(ts)}
                                         disabledMediaTypes={disableMediaTypes}
                                     />
                                 </Grid>
-                                <Grid size={{xs: 12, sm: 4}}>
+                                <Grid size={{ xs: 12, sm: 4 }}>
                                     <FormLabel component="legend">Additional content</FormLabel>
                                 </Grid>
-                                <Grid size={{xs: 12, sm: 8}}>
+                                <Grid size={{ xs: 12, sm: 8 }}>
                                     <TeamMediaSwitcher
                                         switchedMediaType={mediaType2}
-                                        onSwitch={ts => setMediaType2(ts)}
+                                        onSwitch={(ts) => setMediaType2(ts)}
                                         disabledMediaTypes={[...disableMediaTypes, mediaType1].filter(t => t !== null)}
                                     />
                                 </Grid>
-                                <Grid size={{xs: 10, sm: 4}}>
+                                <Grid size={{ xs: 10, sm: 4 }}>
                                     <FormLabel component="legend">Name, ranking, submissions</FormLabel>
                                 </Grid>
-                                <Grid size={{xs: 2, sm: 8}}>
+                                <Grid size={{ xs: 2, sm: 8 }}>
                                     <ShowPresetButton
                                         checked={statusShown}
                                         onClick={(v) => setStatusShown(v)}
@@ -440,14 +569,17 @@ const TeamViewManager = () => {
                                 </Grid>
                                 {variant !== "split" && (
                                     <>
-                                        <Grid size={{xs: 10, sm: 4}}>
+                                        <Grid size={{ xs: 10, sm: 4 }}>
                                             <FormLabel component="legend">Achievements</FormLabel>
                                         </Grid>
-                                        <Grid size={{xs: 2, sm: 8}}>
+                                        <Grid size={{ xs: 2, sm: 8 }}>
                                             <ShowPresetButton
                                                 checked={achievementShown}
                                                 onClick={(v) => setAchievementShown(v)}
-                                                disabled={!(selectedTeam?.id ? selectedTeam.medias.achievement : teamsHasAchievement)}
+                                                disabled={!(selectedTeam?.id
+                                                    ? selectedTeam.medias.achievement
+                                                    : teamsHasAchievement
+                                                )}
                                                 sx={{ justifyContent: "flex-start" }}
                                             />
                                         </Grid>
@@ -455,10 +587,10 @@ const TeamViewManager = () => {
                                 )}
                                 {(variant === "single" || variant === "pvp") && (
                                     <>
-                                        <Grid size={{xs: 10, sm: 4}}>
+                                        <Grid size={{ xs: 10, sm: 4 }}>
                                             <FormLabel component="legend">TimeLine</FormLabel>
                                         </Grid>
-                                        <Grid size={{xs: 2, sm: 8}}>
+                                        <Grid size={{ xs: 2, sm: 8 }}>
                                             <ShowPresetButton
                                                 checked={timeLineShown}
                                                 onClick={(v) => setTimeLineShown(v)}
@@ -468,29 +600,25 @@ const TeamViewManager = () => {
                                     </>
                                 )}
                             </Grid>
-                            <Button
-                                color="primary"
-                                variant="contained"
-                                onClick={onShow}
-                            >
+                            <Button color="primary" variant="contained" onClick={onShow}>
                                 Show
                             </Button>
                         </>
                     )}
                 </Paper>
-            }
+            )}
         </Box>
     );
 };
 
-function TeamView() {
+const TeamView: React.FC = () => {
     return (
         <Container sx={{ pt: 2 }}>
             <ThemeProvider theme={teamViewTheme}>
-                <TeamViewManager/>
+                <TeamViewManager />
             </ThemeProvider>
         </Container>
     );
-}
+};
 
 export default TeamView;
