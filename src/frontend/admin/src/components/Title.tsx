@@ -20,6 +20,7 @@ import { PresetsManager } from "./PresetsManager.js";
 import { usePresetWidgetService } from "../services/presetWidget.js";
 import { useTitleWidgetService } from "../services/titleWidget.js";
 import { useDebounce } from "../utils.ts";
+import { TitleTemplate } from "@/services/titleWidget.ts";
 
 interface TitleSettings extends PresetSettings {
     preset: string;
@@ -106,7 +107,7 @@ function PreviewSVGDialog({
     onClose
 }: PreviewSVGDialogProps): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
-    const service = useTitleWidgetService(
+    const service = useTitleWidgetService<TitleSettings>(
         "/title",
         errorHandlerWithSnackbar(enqueueSnackbar),
         false
@@ -120,11 +121,27 @@ function PreviewSVGDialog({
                 setLoading(true);
                 try {
                     const response = await service.getPreview(id);
-                    setContent(response);
+                    let previewContent: string = "";
+
+                    // TODO: Freak solution
+                    if (typeof response === 'string') {
+                        previewContent = response;
+                    } else if (response && typeof response === 'object') {
+                        if ('url' in response && typeof response.url === 'string') {
+                            previewContent = response.url;
+                        } else if ('data' in response && typeof response.data === 'string') {
+                            previewContent = response.data;
+                        } else if ('content' in response && typeof response.content === 'string') {
+                            previewContent = response.content;
+                        } else {
+                            previewContent = String(response);
+                        }
+                    }
+                    setContent(previewContent);
                 } catch (error) {
                     console.error(`Failed to load preview: ${error}`);
                 } finally {
-                    setLoading(true);
+                    setLoading(false);
                 }
             }
         }
@@ -172,9 +189,9 @@ function TemplateEditor({
     onSubmit,
     onChange,
 }: ValueEditorProps<string>): React.ReactElement {
-    const [templates, setTeamplates] = useState<string[]>([]);
+    const [templates, setTeamplates] = useState<TitleTemplate[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const service = useTitleWidgetService("/title", undefined, false);
+    const service = useTitleWidgetService<TitleSettings>("/title", undefined, false);
 
     useEffect(() => {
         async function fetchTemplate() {
@@ -195,6 +212,10 @@ function TemplateEditor({
         onChange(newValue || "");
     }
 
+    const templateOptions = templates.map(template =>
+        typeof template === 'string' ? template : template.name || template.content || String(template.id)
+    );
+
     return (
         <Box onSubmit={onSubmit} component="form">
             <Autocomplete
@@ -204,7 +225,7 @@ function TemplateEditor({
                 size="small"
                 value={value || ""}
                 onChange={handleChange}
-                options={templates}
+                options={templateOptions}
                 loading={loading}
                 renderInput={(params) => (
                 <TextField
@@ -462,7 +483,7 @@ export function TitleTableRow({
 
 export function Title(): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
-    const service = usePresetWidgetService("/title", errorHandlerWithSnackbar(enqueueSnackbar));
+    const service = usePresetWidgetService<TitleSettings>("/title", errorHandlerWithSnackbar(enqueueSnackbar));
 
     const defaultRowData: TitleSettings = {
         preset: "",

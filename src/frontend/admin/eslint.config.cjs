@@ -5,12 +5,12 @@ const tseslint = require("typescript-eslint");
 
 module.exports = tseslint.config(
   { ignores: ["**/dist", "**/.eslintrc.cjs"] },
-  
+
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  
+
   {
-    files: ["**/*.{js,jsx,ts,tsx}"],
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

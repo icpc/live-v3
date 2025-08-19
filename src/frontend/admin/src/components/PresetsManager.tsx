@@ -1,150 +1,253 @@
-// TODO: THINK about this component, i do not really like it
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Table, TableBody, TableCell, TableHead, TableRow, Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import { PresetsTableRow } from "./PresetsTableRow";
 
-type Preset<S extends Record<string, unknown>> = {
+export interface Preset<S = Record<string, unknown>> {
     id: number | string;
     shown: boolean;
     settings: S;
 }
 
-// TODO: think about types HERE
-interface PresetService<S extends Record<string, unknown>> {
+export interface PresetService<S = Record<string, unknown>> {
     loadPresets(): Promise<Preset<S>[]>;
-    createPreset(rowData: S): unknown;
-    editPreset(id: Preset<S>["id"], settings: S): unknown;
-    deletePreset(id: Preset<S>["id"]): unknown;
-    hidePreset(id: Preset<S>["id"]): unknown;
-    showPreset(id: Preset<S>["id"]): unknown;
+    createPreset(rowData: S): Promise<void> | void;
+    editPreset(id: Preset<S>["id"], settings: S): Promise<void> | void;
+    deletePreset(id: Preset<S>["id"]): Promise<void> | void;
+    hidePreset(id: Preset<S>["id"]): Promise<void> | void;
+    showPreset(id: Preset<S>["id"]): Promise<void> | void;
     addReloadDataHandler(cb: () => void): void;
     deleteReloadDataHandler(cb: () => void): void;
 }
 
-// TODO: THINK about types!
-type RowComponentProps<S extends Record<string, unknown>> = {
+export interface RowComponentProps<S = Record<string, unknown>> {
     data: Preset<S>;
-    tableKeys?: (keyof S & string)[];
-    onEdit: (data: Preset<S>) => unknown;
+    tableKeys?: string[];
+    onEdit: (data: Preset<S>) => void;
     onDelete: () => void;
     onShow: () => void;
     isImmutable?: boolean;
-};
-
-type AddButtonsProps<S extends Record<string, unknown>> = {
-    onCreate: (rowData?: S) => unknown;
-};
-
-export function DefaultAddPresetButton<S extends Record<string, unknown>>({
-    onCreate,
-}: AddButtonsProps<S>) {
-    return (
-        <IconButton color="primary" size="large" onClick={() => onCreate()}>
-            <AddIcon />
-        </IconButton>
-    );
 }
 
-type PresetsManagerProps<S extends Record<string, unknown>> = {
+export interface AddButtonsProps<S = Record<string, unknown>> {
+    onCreate: (rowData?: S) => void;
+}
+
+export interface PresetsManagerProps<S = Record<string, unknown>> {
     service: PresetService<S>;
     RowComponent?: React.ComponentType<RowComponentProps<S>>;
-    defaultRowData?: S;
-    tableKeys: (keyof S & string)[];
+    defaultRowData?: Partial<S>;
+    tableKeys: string[];
     tableKeysHeaders?: string[];
     rowsFilter?: (row: Preset<S>) => boolean;
     AddButtons?: React.ComponentType<AddButtonsProps<S>>;
     isImmutable?: boolean;
+}
+
+export const DefaultAddPresetButton = <S extends Record<string, unknown> = Record<string, unknown>>({
+    onCreate,
+}: AddButtonsProps<S>) => {
+    return (
+        <IconButton
+            color="primary"
+            size="large"
+            onClick={() => onCreate()}
+            aria-label="Add new preset"
+        >
+            <AddIcon />
+        </IconButton>
+    );
 };
 
+const createDefaultRowData = <S extends Record<string, unknown>>(
+    tableKeys: string[],
+    providedDefault?: Partial<S>
+): S => {
+    const baseData = tableKeys.reduce((acc, key) => {
+        acc[key] = "";
+        return acc;
+    }, {} as Record<string, unknown>);
 
-export function PresetsManager<S extends Record<string, unknown>>({
+    return { ...baseData, ...providedDefault } as S;
+};
+
+export const PresetsManager = <S extends Record<string, unknown> = Record<string, unknown>>({
     service,
-    RowComponent = PresetsTableRow as unknown as React.ComponentType<RowComponentProps<S>>,
+    RowComponent,
     defaultRowData,
     tableKeys,
     tableKeysHeaders,
     rowsFilter = () => true,
-    AddButtons = DefaultAddPresetButton as unknown as React.ComponentType<AddButtonsProps<S>>,
-    isImmutable,
-}: PresetsManagerProps<S>): React.ReactElement {
+    AddButtons,
+    isImmutable = false,
+}: PresetsManagerProps<S>): React.ReactElement => {
     const [elements, setElements] = useState<Preset<S>[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const defaultRowDataResolved = useMemo(() => {
-        if (defaultRowData) return defaultRowData;
-        return tableKeys.reduce((acc, key) => {
-            (acc as Record<string, unknown>)[key] = "";
-            return acc;
-        }, {} as S);
-    }, [defaultRowData, tableKeys]);
+    const ResolvedRowComponent = RowComponent || (PresetsTableRow as React.ComponentType<RowComponentProps<S>>);
+    const ResolvedAddButtons = AddButtons || (DefaultAddPresetButton as React.ComponentType<AddButtonsProps<S>>);
+
+    const defaultRowDataResolved = useMemo(
+        () => createDefaultRowData(tableKeys, defaultRowData),
+        [defaultRowData, tableKeys]
+    );
 
     const loadData = useCallback(async () => {
-        const list = await service.loadPresets();
-        setElements(list ?? []);
+        try {
+            setIsLoading(true);
+            setError(null);
+            const list = await service.loadPresets();
+            setElements(list ?? []);
+        } catch (err) {
+            console.error("Failed to load presets:", err);
+            setError("Failed to load presets");
+        } finally {
+            setIsLoading(false);
+        }
     }, [service]);
 
-    const onCreate = useCallback(
-        (rowData?: S) => service.createPreset(rowData ?? defaultRowDataResolved),
+    const handleCreate = useCallback(
+        async (rowData?: S) => {
+            try {
+                await service.createPreset(rowData ?? defaultRowDataResolved);
+            } catch (err) {
+                console.error("Failed to create preset:", err);
+                setError("Failed to create preset");
+            }
+        },
         [service, defaultRowDataResolved]
     );
 
-    const onEdit = useCallback(
-        (data: Preset<S>) => service.editPreset(data.id, data.settings),
+    const handleEdit = useCallback(
+        async (data: Preset<S>) => {
+            try {
+                await service.editPreset(data.id, data.settings);
+            } catch (err) {
+                console.error("Failed to edit preset:", err);
+                setError("Failed to edit preset");
+            }
+        },
         [service]
     );
 
-    const onDelete = useCallback(
-        (id: Preset<S>["id"]) => service.deletePreset(id),
+    const handleDelete = useCallback(
+        async (id: Preset<S>["id"]) => {
+            try {
+                await service.deletePreset(id);
+            } catch (err) {
+                console.error("Failed to delete preset:", err);
+                setError("Failed to delete preset");
+            }
+        },
         [service]
     );
 
-    const onShow = useCallback(
-        (row: Preset<S>) => (row.shown ? service.hidePreset(row.id) : service.showPreset(row.id)),
+    const handleToggleShow = useCallback(
+        async (row: Preset<S>) => {
+            try {
+                if (row.shown) {
+                    await service.hidePreset(row.id);
+                } else {
+                    await service.showPreset(row.id);
+                }
+            } catch (err) {
+                console.error("Failed to toggle preset visibility:", err);
+                setError("Failed to toggle preset visibility");
+            }
+        },
         [service]
     );
 
-    useEffect(() => {loadData();}, [loadData]);
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
+
     useEffect(() => {
         service.addReloadDataHandler(loadData);
         return () => service.deleteReloadDataHandler(loadData);
     }, [service, loadData]);
 
+    const filteredElements = useMemo(
+        () => elements.filter(rowsFilter),
+        [elements, rowsFilter]
+    );
+
     return (
-        <div>
+        <Box>
+            {error && (
+                <Box
+                    sx={{
+                        color: 'error.main',
+                        mb: 2,
+                        p: 1,
+                        bgcolor: 'error.light',
+                        borderRadius: 1
+                    }}
+                >
+                    {error}
+                </Box>
+            )}
+
             <Table>
                 {tableKeysHeaders && (
                     <TableHead>
                         <TableRow>
-                            <TableCell key="__show_btn_row__" />
-                            {tableKeysHeaders.map((hdr) => (
-                                <TableCell key={hdr} sx={{ fontWeight: "bold" }}>
-                                    {hdr}
+                            <TableCell width="48px" />
+                            {tableKeysHeaders.map((header, index) => (
+                                <TableCell
+                                    key={`${header}-${index}`}
+                                    sx={{ fontWeight: "bold" }}
+                                >
+                                    {header}
                                 </TableCell>
                             ))}
-                            <TableCell />
+                            <TableCell width="120px" />
                         </TableRow>
                     </TableHead>
                 )}
                 <TableBody>
-                    {elements
-                        ?.filter(rowsFilter)
-                        .map((row) => (
-                            <RowComponent
+                    {isLoading ? (
+                        <TableRow>
+                            <TableCell
+                                colSpan={(tableKeysHeaders?.length ?? tableKeys.length) + 2}
+                                align="center"
+                            >
+                                Loading...
+                            </TableCell>
+                        </TableRow>
+                    ) : filteredElements.length === 0 ? (
+                        <TableRow>
+                            <TableCell
+                                colSpan={(tableKeysHeaders?.length ?? tableKeys.length) + 2}
+                                align="center"
+                                sx={{ color: 'text.secondary' }}
+                            >
+                                No presets found
+                            </TableCell>
+                        </TableRow>
+                    ) : (
+                        filteredElements.map((row) => (
+                            <ResolvedRowComponent
                                 key={row.id}
                                 data={row}
                                 tableKeys={tableKeys}
-                                onEdit={onEdit}
-                                onDelete={() => onDelete(row.id)}
-                                onShow={() => onShow(row)}
+                                onEdit={handleEdit}
+                                onDelete={() => handleDelete(row.id)}
+                                onShow={() => handleToggleShow(row)}
                                 isImmutable={isImmutable}
-                            />)
-                        )
-                    }
+                            />
+                        ))
+                    )}
                 </TableBody>
             </Table>
-            {isImmutable !== true && <AddButtons onCreate={onCreate} />}
-        </div>
-    );
-}
 
+            {!isImmutable && (
+                <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+                    <ResolvedAddButtons onCreate={handleCreate} />
+                </Box>
+            )}
+        </Box>
+    );
+};
