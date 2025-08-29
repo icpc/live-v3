@@ -3,6 +3,7 @@ package org.icpclive.cds.tunning
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
+import org.icpclive.cds.util.ListOrSingleOrNullElementSerializer
 
 /**
  * This is a rule, allowing to update many teams in the same way.
@@ -81,7 +82,8 @@ public data class OverrideTeamTemplate(
     public val displayName: String? = null,
     public val hashTag: String? = null,
     public val customFields: Map<String, String>? = null,
-    public val medias: Map<TeamMediaType, MediaType?>? = null,
+    public val medias: Map<TeamMediaType, @Serializable(with = ListOrSingleOrNullElementSerializer::class) List<MediaType>>? = null,
+    public val extraMedias: Map<TeamMediaType, @Serializable(with = ListOrSingleOrNullElementSerializer::class) List<MediaType>>? = null,
     public val color: String? = null,
 ): Desugarable, TuningRule {
 
@@ -102,7 +104,8 @@ public data class OverrideTeamTemplate(
                         groups = groups?.mapNotNull { substituteRaw(it).hasNoUnsubstitutedRegex()?.toGroupId() },
                         extraGroups = extraGroups?.mapNotNull { substituteRaw(it).hasNoUnsubstitutedRegex()?.toGroupId() },
                         organizationId = substituteRaw(organizationId)?.hasNoUnsubstitutedRegex()?.toOrganizationId(),
-                        medias = medias?.mapValues { (_, v) -> substitute(v) },
+                        medias = medias?.mapValues { (_, v) -> v.map { substitute(it) } },
+                        extraMedias = extraMedias?.mapValues { (_, v) -> v.map { substitute(it) } },
                         customFields = customFields?.mapValues { (_, v) -> substituteRaw(v) },
                         color = substituteRaw(color)?.let { Color.normalize(it) }
                     )

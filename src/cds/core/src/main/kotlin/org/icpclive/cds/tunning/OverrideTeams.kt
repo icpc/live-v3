@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.adapters.impl.autoCreateGroupsAndOrgs
 import org.icpclive.cds.api.*
+import org.icpclive.cds.util.ListOrSingleOrNullElementSerializer
 import org.icpclive.cds.util.logger
 
 /**
@@ -29,7 +30,9 @@ public data class OverrideTeams(public val rules: Map<TeamId, Override>): Tuning
                 displayName = override.displayName ?: team.displayName,
                 groups = (override.groups ?: team.groups) + override.extraGroups.orEmpty(),
                 hashTag = override.hashTag ?: team.hashTag,
-                medias = mergeMaps(team.medias, override.medias),
+                medias = TeamMediaType.entries
+                    .associateWith { (override.medias?.get(it) ?: team.medias[it]).orEmpty() + override.extraMedias?.get(it).orEmpty() }
+                    .filterValues { it.isNotEmpty() },
                 customFields = mergeMaps(team.customFields, override.customFields),
                 isHidden = override.isHidden ?: team.isHidden,
                 isOutOfContest = override.isOutOfContest ?: team.isOutOfContest,
@@ -47,16 +50,16 @@ public data class OverrideTeams(public val rules: Map<TeamId, Override>): Tuning
      *
      * @param fullName Full name of the team. Will be mostly shown on admin pages.
      * @param displayName Name of the team shown in most places.
-     * @param organizationId The id of organization team comes from
-     * @param hashTag Team hashtag. Can be shown on some team related pages
+     * @param organizationId The id of an organization team comes from
+     * @param hashTag Team hashtag. Can be shown on some team-related pages
      * @param color A color associated with a team.
      * @param isHidden If set to true, the team would be totally hidden.
      * @param isOutOfContest If set to true, the team would not receive rank in scoreboard, but it's submission would still be shown.
      * @param groups The list of the groups team belongs too.
-     * @param extraGroups The list of the groups to add to team.
+     * @param extraGroups The list of the groups to add to the team.
      * @param customFields Map of custom values. They can be used in substitutions in templates.
-     * @param medias Map of urls to team related medias. E.g., team photo or some kind of video from workstation.
-     *               If media is explicitly set to null, it would be removed if received from a contest system.
+     * @param medias Map of team-related media. E.g., team photo or some kind of video from a workstation. This filed overrides the value from cds.
+     * @param extraMedias Map of additional team-related media. This field is added to values from cds.
      */
     @Serializable
     public class Override(
@@ -70,6 +73,7 @@ public data class OverrideTeams(public val rules: Map<TeamId, Override>): Tuning
         public val groups: List<GroupId>? = null,
         public val extraGroups: List<GroupId>? = null,
         public val customFields: Map<String, String>? = null,
-        public val medias: Map<TeamMediaType, MediaType?>? = null,
+        public val medias: Map<TeamMediaType, @Serializable(with = ListOrSingleOrNullElementSerializer::class) List<MediaType>>? = null,
+        public val extraMedias: Map<TeamMediaType, @Serializable(with = ListOrSingleOrNullElementSerializer::class) List<MediaType>>? = null,
     )
 }

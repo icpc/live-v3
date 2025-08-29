@@ -145,9 +145,9 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             hashTag = attr("hashtag"),
             groups = attr("region")?.split(",")?.map { it.toGroupId() } ?: emptyList(),
             medias = listOfNotNull(
-                attr("screen")?.let { TeamMediaType.SCREEN to MediaType.Video(it) },
-                attr("camera")?.let { TeamMediaType.CAMERA to MediaType.Video(it) },
-                attr("record")?.let { TeamMediaType.RECORD to MediaType.Video(it) },
+                attr("screen")?.let { TeamMediaType.SCREEN to listOf(MediaType.Video(it)) },
+                attr("camera")?.let { TeamMediaType.CAMERA to listOf(MediaType.Video(it)) },
+                attr("record")?.let { TeamMediaType.RECORD to listOf(MediaType.Video(it)) },
             ).associate { it },
             isOutOfContest = false,
             isHidden = false,

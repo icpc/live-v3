@@ -53,7 +53,7 @@ public data class TeamInfo(
     @SerialName("shortName") val displayName: String,
     val groups: List<GroupId>,
     val hashTag: String?,
-    val medias: Map<TeamMediaType, MediaType>,
+    val medias: Map<TeamMediaType, List<MediaType>>,
     val isHidden: Boolean,
     val isOutOfContest: Boolean,
     val organizationId: OrganizationId?,

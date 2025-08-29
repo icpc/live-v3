@@ -18,5 +18,5 @@ public data class OrganizationInfo(
     val id: OrganizationId,
     val displayName: String,
     val fullName: String,
-    val logo: MediaType?,
+    val logo: List<MediaType>,
 )

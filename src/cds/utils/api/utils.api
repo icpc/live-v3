@@ -14,6 +14,16 @@ public final class org/icpclive/cds/util/FlowUtilsKt {
 	public static final fun shareWith (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function1;)V
 }
 
+public final class org/icpclive/cds/util/ListOrSingleElementSerializer : kotlinx/serialization/json/JsonTransformingSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+}
+
+public final class org/icpclive/cds/util/ListOrSingleOrNullElementSerializer : kotlinx/serialization/json/JsonTransformingSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+}
+
 public final class org/icpclive/cds/util/Logger {
 	public final fun debug (Ljava/lang/String;)V
 	public final fun debug (Lkotlin/jvm/functions/Function0;)V

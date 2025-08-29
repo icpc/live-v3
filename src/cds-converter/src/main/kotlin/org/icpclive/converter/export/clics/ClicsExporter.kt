@@ -61,7 +61,7 @@ private fun OrganizationInfo.toClicsOrg() = Organization(
     id = id.sanitizedValue,
     name = displayName,
     formalName = fullName,
-    logo = listOfNotNull(logo?.toClicsMedia())
+    logo = logo.mapNotNull { it.toClicsMedia() }
 )
 
 private fun LanguageInfo.toClicsLang() = Language(
@@ -92,14 +92,14 @@ private fun TeamInfo.toClicsTeam() = Team(
     hidden = isHidden,
     groupIds = groups.map { it.sanitizedValue },
     organizationId = organizationId?.sanitizedValue,
-    photo = listOfNotNull(medias[TeamMediaType.PHOTO]?.toClicsMedia()),
-    video = listOfNotNull(medias[TeamMediaType.RECORD]?.toClicsMedia()),
-    desktop = listOfNotNull(medias[TeamMediaType.SCREEN]?.toClicsMedia()),
-    webcam = listOfNotNull(medias[TeamMediaType.CAMERA]?.toClicsMedia()),
-    audio = listOfNotNull(medias[TeamMediaType.AUDIO]?.toClicsMedia()),
-    backup = listOfNotNull(medias[TeamMediaType.BACKUP]?.toClicsMedia()),
-    keyLog = listOfNotNull(medias[TeamMediaType.KEYLOG]?.toClicsMedia()),
-    toolData = listOfNotNull(medias[TeamMediaType.TOOL_DATA]?.toClicsMedia()),
+    photo = medias[TeamMediaType.PHOTO]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
+    video = medias[TeamMediaType.RECORD]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
+    desktop = medias[TeamMediaType.SCREEN]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
+    webcam = medias[TeamMediaType.CAMERA]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
+    audio = medias[TeamMediaType.AUDIO]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
+    backup = medias[TeamMediaType.BACKUP]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
+    keyLog = medias[TeamMediaType.KEYLOG]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
+    toolData = medias[TeamMediaType.TOOL_DATA]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
 )
 
 
