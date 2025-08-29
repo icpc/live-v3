@@ -171,7 +171,7 @@ internal class CodeDrillsDataSource(val settings: CodeDrillsSettings) : FullRelo
                 ScoreboardType.UNRECOGNIZED, null -> TODO("Unsupported scoreboard type")
             },
             organizationList = scoreboard.scoreboard.rowList.map { it.team.institute }.distinct().map {
-                OrganizationInfo(it.toOrganizationId(), it, it, null)
+                OrganizationInfo(it.toOrganizationId(), it, it, emptyList())
             },
             languagesList = ProgrammingLanguage.entries.map { LanguageInfo(it.name.toLanguageId(), it.name, emptyList()) }
         )

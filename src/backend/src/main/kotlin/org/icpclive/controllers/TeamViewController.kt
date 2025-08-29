@@ -12,11 +12,12 @@ class TeamViewController(manager: Manager<in TeamViewWidget>, val position: Team
 
     override suspend fun constructWidget(settings: ExternalTeamViewSettings): TeamViewWidget {
         val teamInfo = DataBus.currentContestInfo().teams[settings.teamId]
-        val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it) }.toList()
+        // TODO: move choosing fist to frontend
+        val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it)?.firstOrNull() }.toList()
 
         val primary = content.getOrNull(0)
         val secondary = content.getOrNull(1)
-        val achievement = teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT).takeIf { settings.showAchievement }
+        val achievement = teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT)?.firstOrNull().takeIf { settings.showAchievement }
 
         return TeamViewWidget(
             OverlayTeamViewSettings(
