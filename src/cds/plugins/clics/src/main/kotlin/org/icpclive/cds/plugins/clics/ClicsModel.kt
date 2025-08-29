@@ -72,8 +72,8 @@ internal class ClicsModel {
         }
     }
 
-    private fun mediaType(file: File?): MediaType? {
-        val mime = file?.mime ?: return null
+    private fun mediaType(file: File): MediaType? {
+        val mime = file.mime ?: return null
         val href = file.href?.value ?: return null
         return when {
             mime.startsWith("image") -> MediaType.Image(href)
@@ -106,15 +106,15 @@ internal class ClicsModel {
             },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
-                mediaType(photo.firstOrNull())?.let { put(TeamMediaType.PHOTO, it) }
-                mediaType(video.firstOrNull())?.let { put(TeamMediaType.RECORD, it) }
-                mediaType(webcam.firstOrNull())?.let { put(TeamMediaType.CAMERA, it) }
-                mediaType(desktop.firstOrNull())?.let { put(TeamMediaType.SCREEN, it) }
-                mediaType(audio.firstOrNull())?.let { put(TeamMediaType.AUDIO, it) }
-                mediaType(backup.firstOrNull())?.let { put(TeamMediaType.BACKUP, it) }
-                mediaType(keyLog.firstOrNull())?.let { put(TeamMediaType.KEYLOG, it) }
-                mediaType(toolData.firstOrNull())?.let { put(TeamMediaType.TOOL_DATA, it) }
-            },
+                put(TeamMediaType.PHOTO, photo.mapNotNull { mediaType(it) })
+                put(TeamMediaType.RECORD, video.mapNotNull { mediaType(it) })
+                put(TeamMediaType.CAMERA, webcam.mapNotNull { mediaType(it) })
+                put(TeamMediaType.SCREEN, desktop.mapNotNull { mediaType(it) })
+                put(TeamMediaType.AUDIO, audio.mapNotNull { mediaType(it) })
+                put(TeamMediaType.BACKUP, backup.mapNotNull { mediaType(it) })
+                put(TeamMediaType.KEYLOG, keyLog.mapNotNull { mediaType(it) })
+                put(TeamMediaType.TOOL_DATA, toolData.mapNotNull { mediaType(it) })
+            }.filterValues { it.isNotEmpty() },
             organizationId = organizationId?.toOrganizationId(),
             isOutOfContest = false,
             customFields = buildMap {
@@ -241,7 +241,7 @@ internal class ClicsModel {
                 id = organization.id,
                 name = organization.name!!,
                 formalName = organization.formalName ?: organization.name!!,
-                logo = mediaType(organization.logo?.lastOrNull()),
+                logo = organization.logo?.mapNotNull { mediaType(it) }.orEmpty(),
                 hashtag = organization.twitterHashtag,
                 country = organization.country
             )
