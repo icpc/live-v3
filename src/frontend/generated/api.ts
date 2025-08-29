@@ -140,7 +140,7 @@ export interface TeamInfo {
   shortName: string;
   groups: GroupId[];
   hashTag: string | null;
-  medias: { [key in TeamMediaType]: MediaType };
+  medias: { [key in TeamMediaType]: MediaType[] };
   isHidden: boolean;
   isOutOfContest: boolean;
   organizationId: OrganizationId | null;
@@ -159,7 +159,7 @@ export interface OrganizationInfo {
   id: OrganizationId;
   displayName: string;
   fullName: string;
-  logo: MediaType | null;
+  logo: MediaType[];
 }
 
 export interface LanguageInfo {
@@ -209,6 +209,35 @@ export type TeamId = string;
 export type OrganizationId = string;
 
 export type GroupId = string;
+
+export type LanguageId = string;
+
+export interface MedalGroup {
+  medals: MedalSettings[];
+  groups?: GroupId[];
+  excludedGroups?: GroupId[];
+}
+
+export interface ManualAwardSetting {
+  id: string;
+  citation: string;
+  teamCdsIds: TeamId[];
+}
+
+export type RunId = string;
+
+export enum TeamMediaType {
+  camera = "camera",
+  screen = "screen",
+  record = "record",
+  photo = "photo",
+  reactionVideo = "reactionVideo",
+  achievement = "achievement",
+  audio = "audio",
+  backup = "backup",
+  keylog = "keylog",
+  toolData = "toolData",
+}
 
 export type MediaType =
   | MediaType.Audio
@@ -296,35 +325,6 @@ export namespace MediaType {
     type: MediaType.Type.ZipArchive;
     url: string;
   }
-}
-
-export type LanguageId = string;
-
-export interface MedalGroup {
-  medals: MedalSettings[];
-  groups?: GroupId[];
-  excludedGroups?: GroupId[];
-}
-
-export interface ManualAwardSetting {
-  id: string;
-  citation: string;
-  teamCdsIds: TeamId[];
-}
-
-export type RunId = string;
-
-export enum TeamMediaType {
-  camera = "camera",
-  screen = "screen",
-  record = "record",
-  photo = "photo",
-  reactionVideo = "reactionVideo",
-  achievement = "achievement",
-  audio = "audio",
-  backup = "backup",
-  keylog = "keylog",
-  toolData = "toolData",
 }
 
 export interface MedalSettings {
