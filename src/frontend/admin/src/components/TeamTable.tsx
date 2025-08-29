@@ -21,7 +21,7 @@ export interface TeamViewData {
     shown: boolean;
     selected: boolean;
     shortName: string;
-    medias: Partial<Record<TeamMediaType, ApiMediaType>>;
+    medias: Partial<Record<TeamMediaType, ApiMediaType[]>>;
 }
 
 export interface MediaTypeOption {
