@@ -85,8 +85,16 @@ class FullReactionsTeamInfo(
     val scoreboardRowAfter: ScoreboardRow,
     val rankAfter: Int,
     val color: Color?,
-    @Required val organization: OrganizationInfo?,
+    @Required val organization: FullReactionsOrganizationInfo?,
     @Required val customFields: Map<String, String> = emptyMap(),
+)
+
+@Serializable
+class FullReactionsOrganizationInfo(
+    val id: OrganizationId,
+    val displayName: String,
+    val fullName: String,
+    val logo: MediaType?,
 )
 
 private fun RunInfo.toFullReactionsRun(contestState: ContestStateWithScoreboard): FullReactionsRunInfo? {
@@ -118,9 +126,9 @@ private fun TeamInfo.toFullReactionsTeam(contestState: ContestStateWithScoreboar
         displayName = displayName,
         groups = groups.mapNotNull { contestInfo.groups[it] },
         hashTag = hashTag,
-        medias = medias,
+        medias = medias.filterValues { it.isNotEmpty() }.mapValues { (_, v) -> v.first() }, // TODO: move choosing first to reactions generator
         isOutOfContest = isOutOfContest,
-        organization = organizationId?.let { contestInfo.organizations[organizationId] },
+        organization = organizationId?.let { contestInfo.organizations[organizationId]?.toFullReactionsOrg() },
         customFields = customFields,
         color = color,
         scoreboardRowBefore = contestState.scoreboardRowBeforeOrNull(id) ?: return null,
@@ -129,6 +137,13 @@ private fun TeamInfo.toFullReactionsTeam(contestState: ContestStateWithScoreboar
         rankAfter = contestState.rankingAfter.getTeamRank(id) ?: return null
     )
 }
+
+private fun OrganizationInfo.toFullReactionsOrg() = FullReactionsOrganizationInfo(
+    id = id,
+    displayName = displayName,
+    fullName = fullName,
+    logo = logo.firstOrNull() // TODO: move choosing first to reactions generator
+)
 
 inline fun <T> Flow<ContestStateWithScoreboard>.toRunsMap(crossinline convert: (RunInfo, ContestStateWithScoreboard) -> T) = flow {
     var runs = persistentMapOf<RunId, T>()
