@@ -3,6 +3,7 @@ package org.icpclive.cds.tunning
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
+import org.icpclive.cds.util.ListOrSingleElementSerializer
 
 /**
  * This is a rule, allowing to update many teams in the same way.
@@ -26,7 +27,8 @@ public data class OverrideOrganisationTemplate(
     public val regexes: Map<String, TemplateRegexParser> = emptyMap(),
     public val fullName: String? = null,
     public val displayName: String? = null,
-    public val logo: MediaType? = null,
+    @Serializable(with = ListOrSingleElementSerializer::class) public val logo: List<MediaType>? = null,
+    @Serializable(with = ListOrSingleElementSerializer::class) public val extraLogo: List<MediaType>? = null,
 ): Desugarable, TuningRule {
     override fun process(info: ContestInfo): ContestInfo {
         return desugar(info).process(info)
@@ -40,7 +42,8 @@ public data class OverrideOrganisationTemplate(
                     orgInfo.id to OverrideOrganizations.Override(
                         fullName = substituteRaw(fullName),
                         displayName = substituteRaw(displayName),
-                        logo = substitute(logo)
+                        logo = logo?.map { substitute(it) },
+                        extraLogo = extraLogo?.map { substitute(it) }
                     )
                 }
             }

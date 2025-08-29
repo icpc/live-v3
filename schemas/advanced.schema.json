@@ -580,7 +580,7 @@
             ],
             "title": "ZipArchive"
         },
-        "org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>": {
+        "org.icpclive.cds.api.MediaType<kotlin.String,kotlinx.serialization.Sealed<MediaType>>": {
             "oneOf": [
                 {
                     "$ref": "#/$defs/Audio"
@@ -611,6 +611,58 @@
                 },
                 {
                     "$ref": "#/$defs/ZipArchive"
+                }
+            ]
+        },
+        "ArrayList": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.api.MediaType<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+            },
+            "title": "ArrayList"
+        },
+        "MediaType": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/Audio"
+                },
+                {
+                    "$ref": "#/$defs/HLSVideo"
+                },
+                {
+                    "$ref": "#/$defs/Image"
+                },
+                {
+                    "$ref": "#/$defs/M2tsVideo"
+                },
+                {
+                    "$ref": "#/$defs/Object"
+                },
+                {
+                    "$ref": "#/$defs/Text"
+                },
+                {
+                    "$ref": "#/$defs/Video"
+                },
+                {
+                    "$ref": "#/$defs/WebRTCGrabberConnection"
+                },
+                {
+                    "$ref": "#/$defs/WebRTCProxyConnection"
+                },
+                {
+                    "$ref": "#/$defs/ZipArchive"
+                }
+            ],
+            "title": "MediaType"
+        },
+        "ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/ArrayList"
+                },
+                {
+                    "$ref": "#/$defs/MediaType"
                 },
                 {
                     "type": "null"
@@ -634,7 +686,10 @@
                     "type": "string"
                 },
                 "logo": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "extraLogo": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                 }
             },
             "additionalProperties": false,
@@ -643,7 +698,20 @@
             ],
             "title": "overrideOrganisationTemplate"
         },
-        "org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.MediaType?>": {
+        "kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>": {
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/org.icpclive.cds.api.MediaType<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,ListOrSingleElement?,kotlin.collections.ArrayList?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -653,7 +721,10 @@
                     "type": "string"
                 },
                 "logo": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "extraLogo": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>"
                 }
             },
             "additionalProperties": false,
@@ -663,7 +734,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.MediaType?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,ListOrSingleElement?,kotlin.collections.ArrayList?>"
                 }
             }
         },
@@ -993,40 +1064,40 @@
                 }
             ]
         },
-        "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,org.icpclive.cds.api.MediaType?>": {
+        "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,ListOrSingleElement?>": {
             "oneOf": [
                 {
                     "type": "object",
                     "properties": {
                         "camera": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "screen": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "record": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "photo": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "reactionVideo": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "achievement": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "audio": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "backup": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "keylog": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         },
                         "toolData": {
-                            "$ref": "#/$defs/org.icpclive.cds.api.MediaType?<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
+                            "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         }
                     }
                 },
@@ -1067,7 +1138,10 @@
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>"
                 },
                 "medias": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,org.icpclive.cds.api.MediaType?>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,ListOrSingleElement?>"
+                },
+                "extraMedias": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,ListOrSingleElement?>"
                 },
                 "color": {
                     "type": "string"
@@ -1092,7 +1166,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>": {
+        "org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>": {
             "type": "object",
             "properties": {
                 "fullName": {
@@ -1126,7 +1200,10 @@
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>"
                 },
                 "medias": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,org.icpclive.cds.api.MediaType?>"
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,ListOrSingleElement?>"
+                },
+                "extraMedias": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,ListOrSingleElement?>"
                 }
             },
             "additionalProperties": false,
@@ -1136,7 +1213,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
                 }
             }
         },

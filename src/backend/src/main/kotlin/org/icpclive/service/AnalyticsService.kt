@@ -53,10 +53,12 @@ class AnalyticsService : Service {
         val team = contestInfo?.teams?.get(run.teamId) ?: return null
         if (mediaType == TeamMediaType.REACTION_VIDEO) {
             if (run.reactionVideos.isNotEmpty()) {
+                // TODO: move choosing first to frontend
                 return run.reactionVideos[0]
             }
         } else {
-            val media = team.medias[mediaType]
+            // TODO: move choosing first to frontend
+            val media = team.medias[mediaType]?.firstOrNull()
             if (media != null) return media
         }
         log.warning { "Can't make run ${run.id} with missing media $mediaType" }

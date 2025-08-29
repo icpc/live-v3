@@ -13,7 +13,7 @@ internal fun ContestInfo.autoCreateGroupsAndOrgs() : ContestInfo {
     if (newGroups.isEmpty() && newOrgs.isEmpty()) return this
     return copy(
         groupList = groupList + newGroups.map { GroupInfo(it, it.value, false, false) },
-        organizationList = organizationList + newOrgs.map { OrganizationInfo(it, it.value, it.value, null) },
+        organizationList = organizationList + newOrgs.map { OrganizationInfo(it, it.value, it.value, emptyList()) },
     )
 }
 

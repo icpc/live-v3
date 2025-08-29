@@ -6,7 +6,7 @@ internal data class ClicsOrganizationInfo(
     val id: String,
     val name: String,
     val formalName: String,
-    val logo: MediaType?,
+    val logo: List<MediaType>,
     val hashtag: String?,
     val country: String?,
 )

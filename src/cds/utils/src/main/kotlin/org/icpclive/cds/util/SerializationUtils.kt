@@ -1,11 +1,12 @@
 package org.icpclive.cds.util
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.*
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.SerializersModuleBuilder
-import kotlinx.serialization.serializer
 
 public inline fun <reified T: Any> SerializersModuleBuilder.postProcess(
     crossinline onDeserialize: (T) -> T = { it },
@@ -37,3 +38,38 @@ public inline fun <reified S, reified T : S> KSerializer<T>.asSuperClass(): KSer
     onDeserialize = { it },
     onSerialize = { it as T }
 )
+
+public class ListOrSingleElementSerializer<T>(elementSerializer: KSerializer<T>) : JsonTransformingSerializer<List<T>>(ListSerializer(elementSerializer)) {
+    @OptIn(InternalSerializationApi::class)
+    override val descriptor: SerialDescriptor = buildSerialDescriptor("ListOrSingleElement", SerialKind.CONTEXTUAL, elementSerializer.descriptor) {
+        element("list", listSerialDescriptor(elementSerializer.descriptor))
+        element("element", elementSerializer.descriptor)
+    }
+
+    override fun transformSerialize(element: JsonElement): JsonElement =
+        (element as? JsonArray)?.singleOrNull() ?: element
+
+    override fun transformDeserialize(element: JsonElement): JsonElement =
+        (element as? JsonArray) ?: JsonArray(listOf(element))
+}
+
+public class ListOrSingleOrNullElementSerializer<T>(elementSerializer: KSerializer<T>) : JsonTransformingSerializer<List<T>>(ListSerializer(elementSerializer)) {
+    @OptIn(InternalSerializationApi::class)
+    override val descriptor: SerialDescriptor = buildSerialDescriptor("ListOrSingleElement", SerialKind.CONTEXTUAL, elementSerializer.descriptor) {
+        element("list", listSerialDescriptor(elementSerializer.descriptor))
+        element("element", elementSerializer.descriptor)
+    }.nullable
+
+    override fun transformSerialize(element: JsonElement): JsonElement {
+        if (element !is JsonArray) throw SerializationException("Unexpect json node from list: ${element::class}")
+        return element.singleOrNull() ?: element
+    }
+
+    override fun transformDeserialize(element: JsonElement): JsonElement {
+        return when (element) {
+            is JsonNull -> JsonArray(emptyList())
+            is JsonArray -> element
+            else -> JsonArray(listOf(element))
+        }
+    }
+}
