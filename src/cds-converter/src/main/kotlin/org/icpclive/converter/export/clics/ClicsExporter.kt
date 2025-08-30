@@ -77,6 +77,7 @@ private fun MediaType.toClicsMedia() = when (this) {
 
 private fun TeamInfo.toClicsTeam() = Team(
     id = id.value,
+    label = customFields["label"] ?: id.sanitizedValue,
     name = fullName,
     displayName = displayName,
     hidden = isHidden,
