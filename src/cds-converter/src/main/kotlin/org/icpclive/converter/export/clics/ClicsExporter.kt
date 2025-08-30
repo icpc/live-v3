@@ -40,6 +40,7 @@ private fun ProblemInfo.toClicsProblem() = Problem(
     name = fullName,
     rgb = color?.value,
     testDataCount = 1,
+    maxScore = maxScore
 )
 
 private fun GroupInfo.toClicsGroup() = Group(
