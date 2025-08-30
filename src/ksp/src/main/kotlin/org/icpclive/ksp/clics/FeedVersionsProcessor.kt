@@ -272,12 +272,12 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                                                 defaultProperty(j)
                                             } else {
                                                 +"${j.simpleName.asString()} = ${j.simpleName.asString()}${
-                                                    if (!j.type.resolve().isMarkedNullable && !j.type.resolve().isList()) "!!" else ""
+                                                    if (!j.type.resolve().isMarkedNullable && !j.type.resolve().isList()) "?: throw SerializationException(\"Field ${j.simpleName.asString()} is missing\")" else ""
                                                 }"
                                             }
                                         })
                                 } else {
-                                    +"${i.simpleName.asString()} = ${i.simpleName.asString()}${if (!i.type.resolve().isMarkedNullable && !i.type.resolve().isList()) "!!" else ""}"
+                                    +"${i.simpleName.asString()} = ${i.simpleName.asString()}${if (!i.type.resolve().isMarkedNullable && !i.type.resolve().isList()) "?: throw SerializationException(\"Field ${i.simpleName.asString()} is missing\")" else ""}"
                                 }
                             }
                         )
