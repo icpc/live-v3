@@ -33,8 +33,17 @@ import kotlin.time.Duration.Companion.minutes
 
 typealias EventProducer = (EventToken) -> Event
 
+private fun sanitize(s: String) = s.replace(Regex("[^a-zA-Z0-9_\\-]"), "_")
+private val TeamId.sanitizedValue get() = sanitize(value)
+private val OrganizationId.sanitizedValue get() = sanitize(value)
+private val LanguageId.sanitizedValue get() = sanitize(value)
+private val ProblemId.sanitizedValue get() = sanitize(value)
+private val GroupId.sanitizedValue get() = sanitize(value)
+private val RunId.sanitizedValue get() = sanitize(value)
+private val CommentaryMessageId.sanitizedValue get() = sanitize(value)
+
 private fun ProblemInfo.toClicsProblem() = Problem(
-    id = id.value,
+    id = id.sanitizedValue,
     ordinal = ordinal,
     label = displayName,
     name = fullName,
@@ -44,19 +53,19 @@ private fun ProblemInfo.toClicsProblem() = Problem(
 )
 
 private fun GroupInfo.toClicsGroup() = Group(
-    id = id.value,
+    id = id.sanitizedValue,
     name = displayName,
 )
 
 private fun OrganizationInfo.toClicsOrg() = Organization(
-    id = id.value,
+    id = id.sanitizedValue,
     name = displayName,
     formalName = fullName,
     logo = listOfNotNull(logo?.toClicsMedia())
 )
 
 private fun LanguageInfo.toClicsLang() = Language(
-    id = id.value,
+    id = id.sanitizedValue,
     name = name,
     extensions = extensions
 )
@@ -76,13 +85,13 @@ private fun MediaType.toClicsMedia() = when (this) {
 }
 
 private fun TeamInfo.toClicsTeam() = Team(
-    id = id.value,
+    id = id.sanitizedValue,
     label = customFields["label"] ?: id.sanitizedValue,
     name = fullName,
     displayName = displayName,
     hidden = isHidden,
-    groupIds = groups.map { it.value },
-    organizationId = organizationId?.value,
+    groupIds = groups.map { it.sanitizedValue },
+    organizationId = organizationId?.sanitizedValue,
     photo = listOfNotNull(medias[TeamMediaType.PHOTO]?.toClicsMedia()),
     video = listOfNotNull(medias[TeamMediaType.RECORD]?.toClicsMedia()),
     desktop = listOfNotNull(medias[TeamMediaType.SCREEN]?.toClicsMedia()),
@@ -235,18 +244,18 @@ object ClicsExporter : Exporter {
 
     private suspend fun FlowCollector<EventProducer>.processRun(info: ContestInfo, run: RunInfo) {
         val submission = Submission(
-            id = run.id.toString(),
-            languageId = (run.languageId ?: unknownLanguage.id).value,
-            problemId = run.problemId.value,
-            teamId = run.teamId.value,
+            id = run.id.sanitizedValue,
+            languageId = (run.languageId ?: unknownLanguage.id).sanitizedValue,
+            problemId = run.problemId.sanitizedValue,
+            teamId = run.teamId.sanitizedValue,
             time = info.startTimeOrZero + run.time,
             contestTime = run.time,
             files = run.sourceFiles.mapNotNull { it.toClicsMedia() },
         ).takeUnless { run.isHidden }
         val judgement = when (val result = run.result) {
             is RunResult.ICPC -> Judgement(
-                id = run.id.toString(),
-                submissionId = run.id.toString(),
+                id = run.id.sanitizedValue,
+                submissionId = run.id.sanitizedValue,
                 judgementTypeId = judgmentTypes[result.verdict]?.id,
                 startTime = info.startTimeOrZero + run.time,
                 startContestTime = run.time,
@@ -256,8 +265,8 @@ object ClicsExporter : Exporter {
             )
 
             is RunResult.IOI -> Judgement(
-                id = run.id.toString(),
-                submissionId = run.id.toString(),
+                id = run.id.sanitizedValue,
+                submissionId = run.id.sanitizedValue,
                 judgementTypeId = judgmentTypes[result.wrongVerdict ?: Verdict.Accepted]?.id,
                 score = when (info.problems[run.problemId]?.scoreMergeMode) {
                     ScoreMergeMode.MAX_PER_GROUP, ScoreMergeMode.SUM, null -> result.scoreAfter
@@ -270,8 +279,8 @@ object ClicsExporter : Exporter {
                 current = true,
             )
             is RunResult.InProgress -> Judgement(
-                id = run.id.toString(),
-                submissionId = run.id.toString(),
+                id = run.id.sanitizedValue,
+                submissionId = run.id.sanitizedValue,
                 startTime = info.startTimeOrZero + run.time,
                 startContestTime = run.time,
                 current = true,
@@ -280,14 +289,14 @@ object ClicsExporter : Exporter {
         val (curSubmission, curJudgment) = submissions[run.id] ?: (null to null)
         if (submission != curSubmission) {
             updateEvent(
-                run.id.toString(),
+                run.id.sanitizedValue,
                 submission,
                 ::SubmissionEvent
             )
         }
         if (judgement != curJudgment) {
             updateEvent(
-                run.id.toString(),
+                run.id.sanitizedValue,
                 judgement,
                 ::JudgementEvent
             )
@@ -318,29 +327,29 @@ object ClicsExporter : Exporter {
                 updateEvent(type.id, type, ::JudgementTypeEvent)
             }
         }
-        diff(problemsMap, newInfo.problemList, { id }, { toClicsProblem() }) { id, token, data -> ProblemEvent(id.value, token, data) }
-        diffChange(groupsMap, newInfo.groupList, { id }, { toClicsGroup() }) { id, token, data -> GroupEvent(id.value, token, data) }
-        diffChange(orgsMap, newInfo.organizationList, { id }, { toClicsOrg() }) { id, token, data -> OrganizationEvent(id.value, token, data) }
-        diffChange(languagesMap, newInfo.languagesList + unknownLanguage, { id }, { toClicsLang() }) { id, token, data -> LanguageEvent(id.value, token, data) }
+        diff(problemsMap, newInfo.problemList, { id }, { toClicsProblem() }) { id, token, data -> ProblemEvent(id.sanitizedValue, token, data) }
+        diffChange(groupsMap, newInfo.groupList, { id }, { toClicsGroup() }) { id, token, data -> GroupEvent(id.sanitizedValue, token, data) }
+        diffChange(orgsMap, newInfo.organizationList, { id }, { toClicsOrg() }) { id, token, data -> OrganizationEvent(id.sanitizedValue, token, data) }
+        diffChange(languagesMap, newInfo.languagesList + unknownLanguage, { id }, { toClicsLang() }) { id, token, data -> LanguageEvent(id.sanitizedValue, token, data) }
 
-        diff(teamsMap, newInfo.teamList, { id }, TeamInfo::toClicsTeam) { id, token, data -> TeamEvent(id.value, token, data) }
+        diff(teamsMap, newInfo.teamList, { id }, TeamInfo::toClicsTeam) { id, token, data -> TeamEvent(id.sanitizedValue, token, data) }
 
-        diffRemove(groupsMap, newInfo.groupList, { id }) { id, token, data -> GroupEvent(id.value, token, data) }
-        diffRemove(orgsMap, newInfo.organizationList, { id }) { id, token, data -> OrganizationEvent(id.value, token, data) }
-        diffRemove(languagesMap, newInfo.languagesList + unknownLanguage, { id }) { id, token, data -> LanguageEvent(id.value, token, data) }
+        diffRemove(groupsMap, newInfo.groupList, { id }) { id, token, data -> GroupEvent(id.sanitizedValue, token, data) }
+        diffRemove(orgsMap, newInfo.organizationList, { id }) { id, token, data -> OrganizationEvent(id.sanitizedValue, token, data) }
+        diffRemove(languagesMap, newInfo.languagesList + unknownLanguage, { id }) { id, token, data -> LanguageEvent(id.sanitizedValue, token, data) }
     }
 
     private suspend fun FlowCollector<EventProducer>.processCommentaryMessage(event: CommentaryMessage) {
         updateEvent(
-            event.id.toString(),
+            event.id.sanitizedValue,
             Commentary(
-                id = event.id.toString(),
+                id = event.id.sanitizedValue,
                 time = event.time,
                 contestTime = event.relativeTime,
                 message = event.message,
                 tags = event.tags,
-                teamIds = event.teamIds.map { it.value },
-                problemIds = event.runIds.map { it.toString() },
+                teamIds = event.teamIds.map { it.sanitizedValue },
+                problemIds = event.runIds.map { it.sanitizedValue },
                 submissionIds = emptyList(),
             ),
             ::CommentaryEvent
@@ -580,12 +589,12 @@ object ClicsExporter : Exporter {
                 val row = scoreboardRowAfter(teamId)
                 ScoreboardRow(
                     rank,
-                    teamId.value,
+                    teamId.sanitizedValue,
                     ScoreboardRowScore(row.totalScore.toInt(), row.penalty),
                     row.problemResults.mapIndexed { index, v ->
                         val iv = v as ICPCProblemResult
                         ScoreboardRowProblem(
-                            info.scoreboardProblems[index].id.value,
+                            info.scoreboardProblems[index].id.sanitizedValue,
                             iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
                             iv.pendingAttempts,
                             iv.isSolved,
@@ -600,7 +609,7 @@ object ClicsExporter : Exporter {
     private fun ContestStateWithScoreboard.toClicsAwards() = buildList {
         val info = state.infoAfterEvent!!
         for (award in rankingAfter.awards) {
-            add(Award(award.id, award.citation, award.teams.map { it.value }))
+            add(Award(award.id, award.citation, award.teams.map { it.sanitizedValue }))
         }
         for ((index, problem) in info.scoreboardProblems.withIndex()) {
             add(Award(
@@ -613,7 +622,7 @@ object ClicsExporter : Exporter {
                             is IOIProblemResult -> result.isFirstBest
                         }
                     }
-                    .map { it.first.value }
+                    .map { it.first.sanitizedValue }
             ))
         }
     }
