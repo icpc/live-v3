@@ -74,7 +74,7 @@ internal fun parseClicsRelativeTime(csTime: CharSequence): Duration {
 internal fun formatClicsRelativeTime(duration: Duration) =
     (if (duration.isPositive()) duration else -duration).toComponents { hours, minutes, seconds, nanoseconds ->
         "%s%02d:%02d:%02d.%03d".format(
-            if (duration.isPositive()) "" else "-",
+            if (duration.isNegative()) "-" else "",
             hours,
             minutes,
             seconds,
