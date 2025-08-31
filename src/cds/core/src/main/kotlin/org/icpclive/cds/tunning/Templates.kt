@@ -36,7 +36,9 @@ public fun TemplateSubstitutor.substitute(type: MediaType): MediaType {
             peerName = substituteRaw(type.peerName),
             credential = type.credential?.let { substituteRaw(it) }
         )
-        else -> type
+        is MediaType.Audio -> type.copy(url = substituteUrlSafe(type.url))
+        is MediaType.Text -> type.copy(url = substituteUrlSafe(type.url))
+        is MediaType.ZipArchive -> type.copy(url = substituteUrlSafe(type.url))
     }
 }
 public fun TemplateSubstitutor.substituteRaw(data: String): String = substitute(data) { it }
