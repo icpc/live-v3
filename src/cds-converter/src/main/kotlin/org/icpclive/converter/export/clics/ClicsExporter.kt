@@ -251,6 +251,7 @@ object ClicsExporter : Exporter {
             time = info.startTimeOrZero + run.time,
             contestTime = run.time,
             files = run.sourceFiles.mapNotNull { it.toClicsMedia() },
+            reaction = run.reactionVideos.mapNotNull { it.toClicsMedia() },
         ).takeUnless { run.isHidden }
         val judgement = when (val result = run.result) {
             is RunResult.ICPC -> Judgement(
