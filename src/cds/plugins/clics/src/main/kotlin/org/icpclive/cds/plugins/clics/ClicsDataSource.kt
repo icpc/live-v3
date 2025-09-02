@@ -138,10 +138,6 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
         val idSet = mutableSetOf<EventToken>()
         loaders
             .merge()
-            .logAndRetryWithDelay(5.seconds) {
-                log.error(it) { "Exception caught in CLICS loader. Will restart in 5 seconds." }
-                preloadFinished = false
-            }
             .sortedPrefix()
             .filterNot { it.token in idSet }
             .onEach { processEvent(it) }
@@ -204,6 +200,9 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
 
             while (true) {
                 emitAll(DataLoader.lineFlow(networkSettings, settings.eventFeedUrl)
+                    .logAndRetryWithDelay(5.seconds) {
+                        log.error(it) { "There are connection problems with ${settings.eventFeedUrl}. Will retry in 5 seconds." }
+                    }
                     .filter { it.isNotEmpty() }
                     .mapNotNull { data ->
                         try {
