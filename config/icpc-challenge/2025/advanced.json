@@ -1,0 +1,41 @@
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.id}",
+                "rules": {
+                    "^.*team.*": {
+                        "id": "team"
+                    },
+                    "^.*coach.*": {
+                        "id": "coach"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.group.id}"
+        ]
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "color": "#cf0a2cff",
+                "ftsMode": {
+                    "type":"hidden"
+                }
+            }
+        }
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 20,
+        "maxUntestedRun": 5
+    }
+]
