@@ -57,16 +57,16 @@ const AUTOMODE_TEAM: TeamInfoWithStatus = {
     organizationId: "",
     // TODO:
     medias: {
-        [TeamMediaType.camera]: null,
-        [TeamMediaType.screen]: null,
-        [TeamMediaType.photo]: null,
-        [TeamMediaType.reactionVideo]: null,
-        [TeamMediaType.record]: null,
-        [TeamMediaType.achievement]: null,
-        [TeamMediaType.audio]: null,
-        [TeamMediaType.backup]: null,
-        [TeamMediaType.keylog]: null,
-        [TeamMediaType.toolData]: null,
+        [TeamMediaType.camera]: [],
+        [TeamMediaType.screen]: [],
+        [TeamMediaType.photo]: [],
+        [TeamMediaType.reactionVideo]: [],
+        [TeamMediaType.record]: [],
+        [TeamMediaType.achievement]: [],
+        [TeamMediaType.audio]: [],
+        [TeamMediaType.backup]: [],
+        [TeamMediaType.keylog]: [],
+        [TeamMediaType.toolData]: [],
     },
     customFields: {},
     isHidden: false,
@@ -268,9 +268,11 @@ const TeamViewManager = () => {
         singleService.teams().then((ts) => setRawTeams([AUTOMODE_TEAM, ...ts]));
     }, [singleService]);
     const [teamsAvailableMedias, teamsHasAchievement] = useMemo(() => {
-        const medias = new Set();
-        const hasAchievement = rawTeams.some(t => t.medias.achievement);
-        rawTeams.forEach(t => Object.keys(t.medias).forEach(m => medias.add(m)));
+        const medias = new Set<TeamMediaType>();
+        const hasAchievement = rawTeams.some(t => (t.medias.achievement?.length ?? 0) > 0);
+        rawTeams.forEach(t => Object.entries(t.medias).forEach(([m, teamMedias]) => {
+            if (Array.isArray(teamMedias) && teamMedias.length > 0) medias.add(m as TeamMediaType);
+        }));
         return [[...medias], hasAchievement];
     }, [rawTeams]);
 

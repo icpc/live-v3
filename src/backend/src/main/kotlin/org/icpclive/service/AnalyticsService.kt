@@ -49,18 +49,13 @@ class AnalyticsService : Service {
 
     private val subscriberFlow = MutableStateFlow(0)
 
-    private fun AnalyticsAction.MakeRunFeatured.getMediaForFeatured(run: RunInfo): MediaType? {
-        val team = contestInfo?.teams?.get(run.teamId) ?: return null
-        if (mediaType == TeamMediaType.REACTION_VIDEO) {
-            if (run.reactionVideos.isNotEmpty()) {
-                return run.reactionVideos[0]
-            }
+    private fun AnalyticsAction.MakeRunFeatured.getMediaForFeatured(run: RunInfo): List<MediaType> {
+        val team = contestInfo?.teams?.get(run.teamId) ?: return emptyList()
+        return if (mediaType == TeamMediaType.REACTION_VIDEO) {
+            run.reactionVideos
         } else {
-            val media = team.medias[mediaType]
-            if (media != null) return media
+            team.medias[mediaType].orEmpty()
         }
-        log.warning { "Can't make run ${run.id} with missing media $mediaType" }
-        return null
     }
 
     private suspend fun <S : ObjectSettings, T : TypeWithId> AnalyticsCompanionPreset.hide(controller: PresetsController<S, T>) {
@@ -133,7 +128,11 @@ class AnalyticsService : Service {
                     log.warning { "Can't make run featured caused by message ${message.id}" }
                     return
                 }
-                val media = action.getMediaForFeatured(run) ?: return
+                val media = action.getMediaForFeatured(run)
+                if (media.isEmpty()) {
+                    log.warning { "Can't make run ${run.id} featured with missing media ${action.mediaType}" }
+                    return
+                }
                 val request = FeaturedRunAction.MakeFeatured(run.id, media)
                 featuredRunsFlow.emit(request)
                 val companionRun = request.result.await() ?: return
