@@ -62,5 +62,5 @@ data class AnalyticsCompanionRun(
     @SerialName("expirationTimeUnixMs")
     @Serializable(with = UnixMillisecondsSerializer::class)
     val expirationTime: Instant?,
-    val mediaType: MediaType,
+    val mediaType: List<MediaType>,
 )

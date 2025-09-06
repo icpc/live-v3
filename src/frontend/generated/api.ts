@@ -355,7 +355,7 @@ export interface RunInfo {
   time: number;
   languageId: LanguageId | null;
   testedTime?: number | null;
-  featuredRunMedia: MediaType | null;
+  featuredRunMedia: MediaType[] | null;
   reactionVideos: MediaType[];
   isHidden: boolean;
   sourceFiles?: MediaType[];
@@ -658,10 +658,10 @@ export interface TeamLocatorSettings {
 
 export interface OverlayTeamViewSettings {
   teamId: TeamId;
-  primary: MediaType | null;
-  secondary: MediaType | null;
+  primary: MediaType[];
+  secondary: MediaType[];
   showTaskStatus: boolean;
-  achievement: MediaType | null;
+  achievement: MediaType[];
   showTimeLine: boolean;
   position: TeamViewPosition;
 }
@@ -778,7 +778,7 @@ export type AnalyticsMessageId = string;
 
 export interface AnalyticsCompanionRun {
   expirationTimeUnixMs: number | null;
-  mediaType: MediaType;
+  mediaType: MediaType[];
 }
 
 export interface AnalyticsMessageComment {

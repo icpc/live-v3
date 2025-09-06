@@ -169,7 +169,7 @@ const useVerticalQueueRowsData = ({
             totalFts++;
             row.bottom = height;
         }
-        if (run.featuredRunMedia !== undefined) {
+        if ((run.featuredRunMedia?.length ?? 0) > 0) {
             row.isFeatured = true;
             row.isFeaturedRunMediaLoaded = loadedMediaRun === run.id;
             row.setIsFeaturedRunMediaLoaded = (state) => {
@@ -244,7 +244,7 @@ const useHorizontalQueueRowsData = ({
             newStateValue.batches[dId] = { ...(bi as QueueBatchInfo) };
         }
         for (const run of queue) {
-            if (run.featuredRunMedia !== undefined || newStateValue.ftsPositions[run.id] !== undefined) {
+            if ((run.featuredRunMedia?.length ?? 0) > 0 || newStateValue.ftsPositions[run.id] !== undefined) {
                 continue;
             } else if (isFTS(run)) {
                 const usedPositions = Object.values(newStateValue.ftsPositions);
@@ -326,7 +326,7 @@ const useHorizontalQueueRowsData = ({
                 isFts: isFTS(run),
                 setIsFeaturedRunMediaLoaded: null,
             };
-            if (run.featuredRunMedia !== undefined) {
+            if ((run.featuredRunMedia?.length ?? 0) > 0) {
                 row.isFeatured = true;
                 row.isFeaturedRunMediaLoaded = loadedMediaRun === run.id;
                 row.setIsFeaturedRunMediaLoaded = (state) => {
@@ -520,7 +520,7 @@ export const Featured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     return (
         <StyledFeatured additional={appearStatesFeatured[realState]}>
             <TeamMediaHolder
-                media={runInfo.featuredRunMedia}
+                media={runInfo.featuredRunMedia[0]}
                 onLoadStatus={runInfo.setIsFeaturedRunMediaLoaded}
             />
             <QueueRow runInfo={runInfo}/>
@@ -566,7 +566,7 @@ export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     return (
         <StyledHorizontalFeatured additional={appearStatesFeatured[realState]}>
             <TeamMediaHolder
-                media={runInfo.featuredRunMedia}
+                media={runInfo.featuredRunMedia[0]}
                 onLoadStatus={runInfo.setIsFeaturedRunMediaLoaded}
             />
             <QueueRow runInfo={runInfo}/>

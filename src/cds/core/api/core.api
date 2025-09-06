@@ -1336,18 +1336,18 @@ public final class org/icpclive/cds/api/OrganizationId$Companion {
 
 public final class org/icpclive/cds/api/OrganizationInfo {
 	public static final field Companion Lorg/icpclive/cds/api/OrganizationInfo$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-3boEdwU ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Lorg/icpclive/cds/api/MediaType;
-	public final fun copy-cFNa2AE (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;)Lorg/icpclive/cds/api/OrganizationInfo;
-	public static synthetic fun copy-cFNa2AE$default (Lorg/icpclive/cds/api/OrganizationInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;ILjava/lang/Object;)Lorg/icpclive/cds/api/OrganizationInfo;
+	public final fun component4 ()Ljava/util/List;
+	public final fun copy-cFNa2AE (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lorg/icpclive/cds/api/OrganizationInfo;
+	public static synthetic fun copy-cFNa2AE$default (Lorg/icpclive/cds/api/OrganizationInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/OrganizationInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getFullName ()Ljava/lang/String;
 	public final fun getId-3boEdwU ()Ljava/lang/String;
-	public final fun getLogo ()Lorg/icpclive/cds/api/MediaType;
+	public final fun getLogo ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1620,8 +1620,8 @@ public final class org/icpclive/cds/api/RunId$Companion {
 
 public final class org/icpclive/cds/api/RunInfo {
 	public static final field Companion Lorg/icpclive/cds/api/RunInfo$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lkotlin/time/Duration;Lorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lkotlin/time/Duration;Lorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;ZLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;ZLjava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-1iip4kg ()Ljava/lang/String;
 	public final fun component10 ()Z
 	public final fun component11 ()Ljava/util/List;
@@ -1631,12 +1631,12 @@ public final class org/icpclive/cds/api/RunInfo {
 	public final fun component5-UwyO8pc ()J
 	public final fun component6-GPqwlpk ()Ljava/lang/String;
 	public final fun component7-FghU774 ()Lkotlin/time/Duration;
-	public final fun component8 ()Lorg/icpclive/cds/api/MediaType;
+	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy-xSed6_E (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lkotlin/time/Duration;Lorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLjava/util/List;)Lorg/icpclive/cds/api/RunInfo;
-	public static synthetic fun copy-xSed6_E$default (Lorg/icpclive/cds/api/RunInfo;Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lkotlin/time/Duration;Lorg/icpclive/cds/api/MediaType;Ljava/util/List;ZLjava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/RunInfo;
+	public final fun copy-xSed6_E (Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;ZLjava/util/List;)Lorg/icpclive/cds/api/RunInfo;
+	public static synthetic fun copy-xSed6_E$default (Lorg/icpclive/cds/api/RunInfo;Ljava/lang/String;Lorg/icpclive/cds/api/RunResult;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;ZLjava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/RunInfo;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getFeaturedRunMedia ()Lorg/icpclive/cds/api/MediaType;
+	public final fun getFeaturedRunMedia ()Ljava/util/List;
 	public final fun getId-1iip4kg ()Ljava/lang/String;
 	public final fun getLanguageId-GPqwlpk ()Ljava/lang/String;
 	public final fun getProblemId-Xzdl60o ()Ljava/lang/String;
@@ -2453,19 +2453,21 @@ public final class org/icpclive/cds/tunning/OverrideGroups$Override$Companion {
 public final class org/icpclive/cds/tunning/OverrideOrganisationTemplate : org/icpclive/cds/tunning/Desugarable, org/icpclive/cds/tunning/TuningRule {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate$Companion;
 	public fun <init> ()V
-	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;)V
-	public synthetic fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/Map;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Lorg/icpclive/cds/api/MediaType;
-	public final fun copy (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;)Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideOrganisationTemplate;
 	public fun desugar (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/tunning/TuningRule;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getExtraLogo ()Ljava/util/List;
 	public final fun getFullName ()Ljava/lang/String;
-	public final fun getLogo ()Lorg/icpclive/cds/api/MediaType;
+	public final fun getLogo ()Ljava/util/List;
 	public final fun getRegexes ()Ljava/util/Map;
 	public fun hashCode ()I
 	public fun process (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/api/ContestInfo;
@@ -2511,11 +2513,12 @@ public final synthetic class org/icpclive/cds/tunning/OverrideOrganizations$$ser
 public final class org/icpclive/cds/tunning/OverrideOrganizations$Override {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideOrganizations$Override$Companion;
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/api/MediaType;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getExtraLogo ()Ljava/util/List;
 	public final fun getFullName ()Ljava/lang/String;
-	public final fun getLogo ()Lorg/icpclive/cds/api/MediaType;
+	public final fun getLogo ()Ljava/util/List;
 }
 
 public final synthetic class org/icpclive/cds/tunning/OverrideOrganizations$Override$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
@@ -2664,10 +2667,11 @@ public final class org/icpclive/cds/tunning/OverrideScoreboardSettings$Companion
 public final class org/icpclive/cds/tunning/OverrideTeamTemplate : org/icpclive/cds/tunning/Desugarable, org/icpclive/cds/tunning/TuningRule {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideTeamTemplate$Companion;
 	public fun <init> ()V
-	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/Map;
-	public final fun component10 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/util/Map;
+	public final fun component11 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/util/List;
 	public final fun component4 ()Ljava/util/List;
@@ -2676,14 +2680,15 @@ public final class org/icpclive/cds/tunning/OverrideTeamTemplate : org/icpclive/
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/util/Map;
 	public final fun component9 ()Ljava/util/Map;
-	public final fun copy (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/OverrideTeamTemplate;Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate;
+	public final fun copy (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/OverrideTeamTemplate;Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate;
 	public fun desugar (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/tunning/TuningRule;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColor ()Ljava/lang/String;
 	public final fun getCustomFields ()Ljava/util/Map;
 	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getExtraGroups ()Ljava/util/List;
+	public final fun getExtraMedias ()Ljava/util/Map;
 	public final fun getFullName ()Ljava/lang/String;
 	public final fun getGroups ()Ljava/util/List;
 	public final fun getHashTag ()Ljava/lang/String;
@@ -2738,12 +2743,13 @@ public final class org/icpclive/cds/tunning/OverrideTeams$Companion {
 
 public final class org/icpclive/cds/tunning/OverrideTeams$Override {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideTeams$Override$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getColor-_jCth4M ()Ljava/lang/String;
 	public final fun getCustomFields ()Ljava/util/Map;
 	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getExtraGroups ()Ljava/util/List;
+	public final fun getExtraMedias ()Ljava/util/Map;
 	public final fun getFullName ()Ljava/lang/String;
 	public final fun getGroups ()Ljava/util/List;
 	public final fun getHashTag ()Ljava/lang/String;
