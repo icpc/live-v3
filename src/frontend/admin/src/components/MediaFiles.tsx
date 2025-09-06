@@ -8,9 +8,12 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Box from "@mui/material/Box";
 import { BASE_URL_BACKEND, MEDIAS_LOCATION } from "../config";
 import "../App.css";
-import PropTypes from "prop-types";
 
-const FileLink = styled(Link)(({ theme, highlight }) => ({
+const fileUrl = (fileName: string): string => `${MEDIAS_LOCATION}/${fileName}`;
+
+const FileLink = styled(Link, {
+    shouldForwardProp: prop => prop !== "highlight",
+})<{ highlight?: boolean }>(({ theme, highlight }) => ({
     ...theme.typography.body2,
     padding: "8px",
     display: "flex",
@@ -19,34 +22,38 @@ const FileLink = styled(Link)(({ theme, highlight }) => ({
     color: highlight ? theme.palette.primary.main : null,
 }));
 
-const FileItem = ({ fileName, highlight }) => {
+interface FileItemProps {
+    fileName: string;
+    highlight?: boolean;
+}
+
+function FileItem({
+    fileName,
+    highlight
+}: FileItemProps): React.ReactElement {
     return (
         <Paper>
-            <FileLink href={fileUrl(fileName)} highlight={highlight} target="_blank">
+            <FileLink href={fileUrl(fileName)} highlight={highlight} target="_blank" rel="noreferrer">
                 <AttachFileIcon fontSize="small"/>
                 <span>{highlight ? fileUrl(fileName) : fileName}</span>
             </FileLink>
         </Paper>
     );
 };
-FileItem.propTypes = {
-    fileName: PropTypes.string.isRequired,
-    highlight: PropTypes.bool,
-};
 
-const fileUrl = (fileName) => {
-    return MEDIAS_LOCATION + "/" + fileName;
-};
-
-function MediaFiles() {
+function MediaFiles(): React.ReactElement {
     const errorHandler = useErrorHandlerWithSnackbar();
 
     const apiGet = createApiGet(BASE_URL_BACKEND + "/media");
-    const [mediaFiles, setMediaFiles] = useState([]);
-    const [uploadedFileUrls, setUploadedFileUrls] = useState(null);
+    const [mediaFiles, setMediaFiles] = useState<string[]>([]);
+    const [uploadedFileUrls, setUploadedFileUrls] = useState<string[] | null>(null);
 
     const loadFiles = () => {
-        apiGet("").then(f => setMediaFiles(f));
+        apiGet("")
+            .then((f: unknown) => setMediaFiles((f as string[]) ?? []))
+            .catch(() => {
+                errorHandler("Failed to load media files");
+            });
     };
 
     useEffect(() => {
@@ -54,21 +61,27 @@ function MediaFiles() {
     }, [uploadedFileUrls]);
 
     const uploadNewFile = (files) => {
-        files = [...files];
+        const list: File[] = Array.isArray(files) ? files : [files];
         const formData = new FormData();
-        files.forEach(file => formData.append("file", file));
-        fetch(BASE_URL_BACKEND + "/media/upload", {
+        list.forEach(file => formData.append("file", file));
+
+        fetch(`${BASE_URL_BACKEND}/media/upload`, {
             method: "POST",
             body: formData,
-        }).then(r => r.json()).then(r => {
-            if (r.status === "error") {
-                errorHandler("Failed to upload files " + files.map(f => f.name).join(","));
-            } else if (r.status !== "ok" && !r.response) {
+        })
+            .then(r => r.json())
+            .then(r => {
+                if (r.status === "error") {
+                    errorHandler(`Failed to upload files ${list.map(f => f.name).join(",")}`);
+                } else if (r.status !== "ok" && !r.response) {
+                    errorHandler("Failed to upload files");
+                }
+                setUploadedFileUrls(r.status === "ok" && r.response ? r.response : null);
+                loadFiles();
+            })
+            .catch(() => {
                 errorHandler("Failed to upload files");
-            }
-            setUploadedFileUrls(r.status === "ok" && r.response ? r.response : null);
-            loadFiles();
-        });
+            });
     };
 
     return (
@@ -92,7 +105,9 @@ function MediaFiles() {
                 gridTemplateColumns: { md: "1fr 1fr 1fr 1fr", sm: "1fr 1fr" },
                 gap: 1,
             }}>
-                {mediaFiles.map(fileName => <FileItem key={fileName} fileName={fileName} />)}
+                {mediaFiles.map(fileName =>
+                    <FileItem key={fileName} fileName={fileName} />
+                )}
             </Box>
         </Container>
     );
