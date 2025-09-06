@@ -153,8 +153,8 @@ public data class QueueSettings(
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("inProgressRunWaitTimeSeconds")
     val inProgressRunWaitTime: Duration = 5.minutes,
-    val maxQueueSize: Int = 10,
-    val maxUntestedRun: Int = 5,
+    val maxQueueSize: Int = 20,
+    val maxUntestedRun: Int = 15,
 )
 
 @Serializable
