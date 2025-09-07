@@ -77,50 +77,31 @@ public data class ProblemInfo(
 public value class Color internal constructor(public val value: String) {
     public companion object {
         private val log by getLogger()
+        private fun String.twice() = flatMap { listOf(it, it) }.joinToString("")
         public fun normalize(data: String): Color? {
-            val red: Int
-            val green: Int
-            val blue: Int
-            val alpha: Int
-            try {
-                if (data.startsWith("0x")) {
-                    val colorValue = data.toUInt(radix = 16).toInt()
-                    red = ((colorValue ushr 16) and 0xFF)
-                    green = ((colorValue ushr 8) and 0xFF)
-                    blue = ((colorValue ushr 0) and 0xFF)
-                    alpha = if (data.length == 8) ((colorValue ushr 24) and 0xFF) else 0xff
+            return runCatching {
+                 val colorValue = if (data.startsWith("0x")) {
+                    val r = data.removePrefix("0x").toUInt(radix = 16)
+                    if (data.length == 10) {
+                        r.rotateLeft(8)
+                    } else {
+                        (r shl 8) or 0xFFu
+                    }
                 } else {
                     val str = data.removePrefix("#")
                     when (str.length) {
-                        8 -> {
-                            red = str.substring(0, 2).toInt(radix = 16)
-                            green = str.substring(2, 4).toInt(radix = 16)
-                            blue = str.substring(4, 6).toInt(radix = 16)
-                            alpha = str.substring(6, 8).toInt(radix = 16)
-                        }
-
-                        6 -> {
-                            red = str.substring(0, 2).toInt(radix = 16)
-                            green = str.substring(2, 4).toInt(radix = 16)
-                            blue = str.substring(4, 6).toInt(radix = 16)
-                            alpha = 255
-                        }
-
-                        3 -> {
-                            red = str[0].digitToInt(16) * 0x11
-                            green = str[1].digitToInt(16) * 0x11
-                            blue = str[2].digitToInt(16) * 0x11
-                            alpha = 255
-                        }
-
+                        8 -> str.toUInt(radix = 16)
+                        6 -> (str+"FF").toUInt(radix = 16)
+                        3 -> (str+"F").twice().toUInt(radix = 16)
+                        4 -> str.twice().toUInt(radix = 16)
                         else -> throw NumberFormatException("Invalid color string length")
                     }
                 }
-            } catch (e: NumberFormatException) {
+                Color("#%08x".format(colorValue.toInt()))
+            }.getOrElse {  e ->
                 log.error(e) { "Failed to parse color from $data" }
-                return null
+                null
             }
-            return Color("#%02x%02x%02x%02x".format(red, green, blue, alpha))
         }
     }
 }

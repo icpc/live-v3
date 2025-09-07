@@ -1,3 +1,5 @@
+package org.icpclive.cds
+
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.getScoreboardCalculator
 import kotlin.test.Test

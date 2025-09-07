@@ -1,6 +1,16 @@
-import org.icpclive.cds.api.*
+package org.icpclive.cds
+
+import org.icpclive.cds.api.ContestInfo
+import org.icpclive.cds.api.ContestResultType
+import org.icpclive.cds.api.MediaType
+import org.icpclive.cds.api.PenaltyRoundingMode
+import org.icpclive.cds.api.TeamInfo
+import org.icpclive.cds.api.TeamMediaType
+import org.icpclive.cds.api.toTeamId
 import org.icpclive.cds.tunning.OverrideTeamTemplate
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
@@ -35,7 +45,7 @@ object TeamInfoOverrideTemplateTest {
             ),
             name = "",
             resultType = ContestResultType.ICPC,
-            startTime = Instant.fromEpochMilliseconds(123456),
+            startTime = Instant.Companion.fromEpochMilliseconds(123456),
             contestLength = 18000.seconds,
             freezeTime = 14400.seconds,
             problemList = emptyList(),
