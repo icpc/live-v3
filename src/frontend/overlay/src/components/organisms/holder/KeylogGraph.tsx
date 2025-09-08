@@ -84,7 +84,7 @@ export function KeylogGraph({
         const usableW = w * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP : c.TIMELINE_REAL_WIDTH);
         const rightEdge = leftPad + usableW;
 
-        const bucketMs = c.KEYLOG_BUCKET_SIZE_MS;
+        const msPerMinute = 60 * 1000;
         const maxVal = c.KEYLOG_MAXIMUM_FOR_NORMALIZATION;
         const topPad = c.KEYLOG_TOP_PADDING;
         const bottomPad = c.KEYLOG_BOTTOM_PADDING;
@@ -92,7 +92,7 @@ export function KeylogGraph({
         const pts: Array<Point> = [];
 
         for (let i = 0; i < keylog.length; i++) {
-            const t = Math.min((i * bucketMs) / contestLengthMs, 1);
+            const t = Math.min((i * msPerMinute) / contestLengthMs, 1);
             const x = leftPad + t * usableW;
             const v = keylog[i];
             const yNorm = v / maxVal;
