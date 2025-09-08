@@ -653,7 +653,7 @@ public final class org/icpclive/cds/api/ContestStatus$BEFORE$Companion {
 }
 
 public final class org/icpclive/cds/api/ContestStatus$Companion {
-	public final fun byCurrentTime-qoljjlM (Lkotlin/time/Instant;Lkotlin/time/Duration;J)Lorg/icpclive/cds/api/ContestStatus;
+	public final fun byCurrentTime-lXsch8g (Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;)Lorg/icpclive/cds/api/ContestStatus;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 

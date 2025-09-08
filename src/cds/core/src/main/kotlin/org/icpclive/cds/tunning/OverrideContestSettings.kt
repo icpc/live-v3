@@ -43,16 +43,11 @@ public data class OverrideContestSettings(
 ): TuningRule {
     override fun process(info: ContestInfo): ContestInfo {
         val status = ContestStatus.byCurrentTime(
-            startTime ?: info.startTime ?: Instant.DISTANT_FUTURE,
+            startTime ?: info.startTime,
             freezeTime ?: info.freezeTime,
-            contestLength ?: info.contestLength
-        ).let {
-            if (it is ContestStatus.BEFORE && holdTime != null) {
-                it.copy(holdTime = holdTime)
-            } else {
-                it
-            }
-        }
+            contestLength ?: info.contestLength,
+            holdTime ?: (info.status as? ContestStatus.BEFORE)?.holdTime
+        )
         val realStatus = if (status is ContestStatus.OVER && (info.status is ContestStatus.FINALIZED || info.status is ContestStatus.RUNNING && info.status.isFake)) {
             info.status
         } else {

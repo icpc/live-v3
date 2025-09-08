@@ -69,10 +69,14 @@ public sealed class ContestStatus {
 
     public companion object {
         public fun byCurrentTime(
-            startTime: Instant,
+            startTime: Instant?,
             freezeTime: Duration?,
-            contestLength: Duration
+            contestLength: Duration,
+            holdTime: Duration?,
         ): ContestStatus {
+            if (holdTime != null || startTime == null) {
+                return BEFORE(holdTime = holdTime, scheduledStartAt = startTime)
+            }
             val offset = Clock.System.now() - startTime
             return when {
                 offset < Duration.ZERO -> BEFORE(
@@ -227,7 +231,7 @@ public data class ContestInfo(
         customFields: Map<String, String> = emptyMap()
     ) : this(
             name = name,
-            status = ContestStatus.byCurrentTime(startTime, freezeTime, contestLength),
+            status = ContestStatus.byCurrentTime(startTime, freezeTime, contestLength, holdTime = null),
             resultType = resultType, contestLength = contestLength, freezeTime = freezeTime,
             problemList = problemList, teamList = teamList, groupList = groupList, organizationList = organizationList,
             languagesList = languagesList,
