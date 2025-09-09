@@ -512,7 +512,6 @@ export function TimeLine({
             {keylog.length > 0 && (
                 <KeylogGraph
                     keylog={keylog}
-                    contestLengthMs={contestInfo.contestLengthMs}
                     isPvp={isPvp}
                     teamColor={teamColor}
                 />

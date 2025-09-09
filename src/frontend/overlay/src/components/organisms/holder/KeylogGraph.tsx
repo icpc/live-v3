@@ -18,7 +18,6 @@ const KeylogSvg = styled.svg<KeylogSvgProps>`
 
 type KeylogGraphProps = {
     keylog: number[];
-    contestLengthMs: number;
     isPvp: boolean;
     teamColor?: string;
 };
@@ -27,7 +26,7 @@ type Point = [number, number];
 
 function stepPath(points: Array<Point>) {
     if (points.length === 0) return "";
-    
+
     const [x0, y0] = points[0];
 
     return points.slice(1).reduce(
@@ -40,7 +39,6 @@ function stepPath(points: Array<Point>) {
 
 export function KeylogGraph({
     keylog,
-    contestLengthMs,
     isPvp,
     teamColor,
 }: KeylogGraphProps) {
@@ -78,13 +76,12 @@ export function KeylogGraph({
         const w = size.w;
         const h = size.h;
 
-        if (!w || !h || !contestLengthMs || !keylog?.length) return { pathD: "", fillD: "" };
+        if (!w || !h || !keylog?.length) return { pathD: "", fillD: "" };
 
         const leftPad = c.TIMELINE_LEFT_TIME_PADDING;
         const usableW = w * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP : c.TIMELINE_REAL_WIDTH);
         const rightEdge = leftPad + usableW;
 
-        const msPerMinute = 60 * 1000;
         const maxVal = c.KEYLOG_MAXIMUM_FOR_NORMALIZATION;
         const topPad = c.KEYLOG_TOP_PADDING;
         const bottomPad = c.KEYLOG_BOTTOM_PADDING;
@@ -92,7 +89,7 @@ export function KeylogGraph({
         const pts: Array<Point> = [];
 
         for (let i = 0; i < keylog.length; i++) {
-            const t = Math.min((i * msPerMinute) / contestLengthMs, 1);
+            const t = i / keylog.length;
             const x = leftPad + t * usableW;
             const v = keylog[i];
             const yNorm = v / maxVal;
@@ -100,14 +97,12 @@ export function KeylogGraph({
             pts.push([x, y]);
         }
 
-        pts[pts.length - 1][0] = Math.min(pts[pts.length - 1][0], rightEdge);
-
-        const d = stepPath(pts);
+        const d = stepPath(pts) + ` H ${rightEdge}`;
         const fill = d + ` V ${h - bottomPad} H ${pts[0][0]} Z`;
 
 
         return { pathD: d, fillD: fill };
-    }, [size, keylog, contestLengthMs, isPvp]);
+    }, [size, keylog, isPvp]);
 
     const useDark = isShouldUseDarkColor(teamColor ?? c.CONTEST_COLOR);
     const stroke = useDark ? c.KEYLOG_STROKE_DARK : c.KEYLOG_STROKE_LIGHT;
