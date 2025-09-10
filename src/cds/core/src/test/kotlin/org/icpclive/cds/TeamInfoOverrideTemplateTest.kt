@@ -60,20 +60,20 @@ object TeamInfoOverrideTemplateTest {
         val newInfo = OverrideTeamTemplate(
             displayName = "{teamName}",
             medias = mapOf(
-                TeamMediaType.CAMERA to MediaType.Image("http://photos-server/{teamName}"),
-                TeamMediaType.REACTION_VIDEO to MediaType.WebRTCGrabberConnection(
+                TeamMediaType.CAMERA to listOf(MediaType.Image("http://photos-server/{teamName}")),
+                TeamMediaType.REACTION_VIDEO to listOf(MediaType.WebRTCGrabberConnection(
                     url = "{!grabberUrl}",
                     peerName = "{teamName}",
                     streamType = "",
                     credential = null
-                )
+                ))
             )
         ).process(info)
         val team = newInfo.teams["a".toTeamId()]
         assertNotNull(team)
         assertEquals(teamName, team.displayName)
-        assertEquals("http://photos-server/${teamReplaced}", (team.medias[TeamMediaType.CAMERA] as MediaType.Image).url)
-        assertEquals(url, (team.medias[TeamMediaType.REACTION_VIDEO] as MediaType.WebRTCGrabberConnection).url)
-        assertEquals(teamName, (team.medias[TeamMediaType.REACTION_VIDEO] as MediaType.WebRTCGrabberConnection).peerName)
+        assertEquals("http://photos-server/${teamReplaced}", (team.medias[TeamMediaType.CAMERA]!![0] as MediaType.Image).url)
+        assertEquals(url, (team.medias[TeamMediaType.REACTION_VIDEO]!![0] as MediaType.WebRTCGrabberConnection).url)
+        assertEquals(teamName, (team.medias[TeamMediaType.REACTION_VIDEO]!![0] as MediaType.WebRTCGrabberConnection).peerName)
     }
 }

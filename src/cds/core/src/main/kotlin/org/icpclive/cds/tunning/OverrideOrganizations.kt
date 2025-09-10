@@ -3,6 +3,7 @@ package org.icpclive.cds.tunning
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
+import org.icpclive.cds.util.ListOrSingleElementSerializer
 import org.icpclive.cds.util.getLogger
 
 /**
@@ -29,7 +30,7 @@ public data class OverrideOrganizations(
                 org.copy(
                     displayName = override.displayName ?: org.displayName,
                     fullName = override.fullName ?: org.fullName,
-                    logo = override.logo ?: org.logo
+                    logo = (override.logo ?: org.logo) + override.extraLogo.orEmpty(),
                 )
             }
         )
@@ -42,13 +43,15 @@ public data class OverrideOrganizations(
      *
      * @param displayName Name of the organization shown in most places.
      * @param fullName Full name of the organization. Will be mostly shown on admin pages.
-     * @param logo Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved.
+     * @param logo Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved. Replace data from cds
+     * @param extraLogos Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved. Adds to data from cds
      */
     @Serializable
     public class Override(
         public val displayName: String? = null,
         public val fullName: String? = null,
-        public val logo: MediaType? = null,
+        @Serializable(with = ListOrSingleElementSerializer::class) public val logo: List<MediaType>? = null,
+        public val extraLogo: List<MediaType>? = null,
     )
 
     private companion object {

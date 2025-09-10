@@ -1,9 +1,21 @@
 package org.icpclive.cds.util
 
+import kotlinx.serialization.ContextualSerializer
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.descriptors.PolymorphicKind
 import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.SerialKind
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
+import kotlinx.serialization.descriptors.buildSerialDescriptor
+import kotlinx.serialization.descriptors.listSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonContentPolymorphicSerializer
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonTransformingSerializer
 import kotlinx.serialization.modules.SerializersModuleBuilder
 import kotlinx.serialization.serializer
 
@@ -37,3 +49,17 @@ public inline fun <reified S, reified T : S> KSerializer<T>.asSuperClass(): KSer
     onDeserialize = { it },
     onSerialize = { it as T }
 )
+
+public class ListOrSingleElementSerializer<T>(elementSerializer: KSerializer<T>) : JsonTransformingSerializer<List<T>>(ListSerializer(elementSerializer)) {
+    @OptIn(InternalSerializationApi::class)
+    override val descriptor: SerialDescriptor = buildSerialDescriptor("ListOrSingleElement", SerialKind.CONTEXTUAL, elementSerializer.descriptor) {
+        element("list", listSerialDescriptor(elementSerializer.descriptor))
+        element("element", elementSerializer.descriptor)
+    }
+
+    override fun transformSerialize(element: JsonElement): JsonElement =
+        (element as? JsonArray)?.singleOrNull() ?: element
+
+    override fun transformDeserialize(element: JsonElement): JsonElement =
+        (element as? JsonArray) ?: JsonArray(listOf(element))
+}

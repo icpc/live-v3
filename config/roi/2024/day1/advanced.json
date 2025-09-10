@@ -56,16 +56,16 @@
     {
         "type": "overrideTeams",
         "rules": {
-            "1033": {"medias": {"camera": null,"screen": null}},
-            "1043": {"medias": {"camera": null,"screen": null}},
-            "1062": {"medias": {"camera": null,"screen": null}},
-            "1167": {"medias": {"camera": null,"screen": null}},
-            "2017": {"medias": {"camera": null,"screen": null}},
-            "2087": {"medias": {"camera": null,"screen": null}},
-            "2091": {"medias": {"camera": null,"screen": null}},
-            "2141": {"medias": {"camera": null,"screen": null}},
-            "2167": {"medias": {"camera": null,"screen": null}},
-            "2183": {"medias": {"camera": null,"screen": null}}
+            "1033": {"medias": {"camera": [],"screen": []}},
+            "1043": {"medias": {"camera": [],"screen": []}},
+            "1062": {"medias": {"camera": [],"screen": []}},
+            "1167": {"medias": {"camera": [],"screen": []}},
+            "2017": {"medias": {"camera": [],"screen": []}},
+            "2087": {"medias": {"camera": [],"screen": []}},
+            "2091": {"medias": {"camera": [],"screen": []}},
+            "2141": {"medias": {"camera": [],"screen": []}},
+            "2167": {"medias": {"camera": [],"screen": []}},
+            "2183": {"medias": {"camera": [],"screen": []}}
         }
     },
     {

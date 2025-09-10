@@ -14,9 +14,9 @@ class TeamViewController(manager: Manager<in TeamViewWidget>, val position: Team
         val teamInfo = DataBus.currentContestInfo().teams[settings.teamId]
         val content = settings.mediaTypes.mapNotNull { teamInfo?.medias?.get(it) }.toList()
 
-        val primary = content.getOrNull(0)
-        val secondary = content.getOrNull(1)
-        val achievement = teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT).takeIf { settings.showAchievement }
+        val primary = content.getOrNull(0).orEmpty()
+        val secondary = content.getOrNull(1).orEmpty()
+        val achievement = teamInfo?.medias?.get(TeamMediaType.ACHIEVEMENT)?.takeIf { settings.showAchievement }.orEmpty()
 
         return TeamViewWidget(
             OverlayTeamViewSettings(
