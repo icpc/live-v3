@@ -21,6 +21,7 @@ tasks {
 
     shadowJar {
         mergeServiceFiles()
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
         archiveClassifier = null
     }

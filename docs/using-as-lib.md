@@ -18,10 +18,12 @@ maven("https://jitpack.io") {
 }
 ```
 
-Plugins for specific CDSs are loaded with ServiceLoader. If you are using shadow gradle plugin, 
-it would break it by default. To preverve required files don't forget to add 
+Plugins for specific CDSs are loaded with ServiceLoader. If you are using the shadow gradle plugin, 
+it would break it by default. To preserve required files, remember to add 
 ```kotlin
     shadowJar {
+        // before Gradle 9.1 this one wasn't needed. 
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
         mergeServiceFiles()
     }
 ```
