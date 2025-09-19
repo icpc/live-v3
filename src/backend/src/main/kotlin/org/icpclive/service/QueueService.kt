@@ -23,7 +23,7 @@ private data object Subscribe : QueueProcessTrigger()
 sealed class FeaturedRunAction(val runId: RunId) {
     class MakeFeatured(
         runId: RunId,
-        val mediaType: MediaType,
+        val mediaType: List<MediaType>,
     ) : FeaturedRunAction(runId) {
         val result: CompletableDeferred<AnalyticsCompanionRun?> = CompletableDeferred()
     }
@@ -61,8 +61,7 @@ class QueueService : Service {
 
     private suspend fun modifyRun(rawRun: RunInfo, sendToOverlay: Boolean = true) {
         val featuredMediaType = featuredRun?.takeIf { it.runId == rawRun.id }?.mediaType
-        val run = rawRun.takeIf { it.featuredRunMedia == featuredMediaType }
-            ?: rawRun.copy(featuredRunMedia = featuredMediaType)
+        val run = rawRun.copy(featuredRunMedia = featuredMediaType)
         if (sendToOverlay) {
             resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
         }
@@ -211,6 +210,6 @@ class QueueService : Service {
     companion object {
         val log by getLogger()
 
-        private data class FeaturedRunInfo(val runId: RunId, val mediaType: MediaType)
+        private data class FeaturedRunInfo(val runId: RunId, val mediaType: List<MediaType>)
     }
 }
