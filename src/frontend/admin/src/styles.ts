@@ -1,3 +1,4 @@
+// TODO: Think about this file
 import { grey, lightBlue } from "@mui/material/colors";
 
 export const selectedAndActiveRowColor = lightBlue.A400;
