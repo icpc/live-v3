@@ -2,6 +2,7 @@ import { setFavicon } from "@shared/setFavicon";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { faviconTemplate } from "@/consts";
 import { LocationRectangle } from "@/utils/location-rectangle";
+import {current} from "@reduxjs/toolkit";
 
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
@@ -16,79 +17,43 @@ const visualConfig = await fetch(VISUAL_CONFIG_URL)
 
 
 function Location(positionX: number, positionY: number, sizeX: number, sizeY: number): LocationRectangle {
-    return Object.freeze({
+    return {
         positionX: positionX,
         positionY: positionY,
         sizeX: sizeX,
         sizeY: sizeY
-    });
+    };
 }
+
 /**
- * Creates a Proxy-wrapped configuration object that can manage nested overrides.
+ * This creates a proxy, which forwards accesses to object, but additionally allows to access properties using dot notation.
  *
- * @param {Record<string, any>} override - An object containing override values for configuration keys.
- * @returns {Record<string, any>} A proxy object that supports reading and writing nested properties,
- *                                including dotted paths like "a.b.c".
- *
- * **How it works**:
- * - On `get`: if `target[key]` is not found, it checks if the key is dotted (e.g. "a.b").
- *   If yes, it extracts the prefix ("a"), looks for any sub-object proxy, and then delegates the remainder ("b") to that sub-proxy.
- * - On `set`: if the value being set is an object, it recursively wraps it in another proxy, merging any override values that match the dotted path prefix.
- *
- * **Usage example**:
- * ```js
- * const config = createProxy({
- *   "featureA.enabled": true,
- *   "featureB.options": { debug: false }
- * });
- *
- * // Accessing a nested path via dot-notation:
- * config["featureA.enabled"] // true
- *
- * // Setting a nested object:
- * config.featureB = { options: { debug: true, logLevel: 2 } };
- *
- * // Now config.featureB.options will return { debug: true, logLevel: 2 }
- * ```
- *
- * **Potential errors**:
- * - If you pass in non-object overrides or non-serializable data, it may behave unexpectedly.
- * - Dot notation relies on the first segment being used as the 'prefix' for the sub-object. Make sure your keys are well-formed.
+ * For example, if you have an object c:
+ * {
+ *     "a": {
+ *         "b": 42
+ *     }
+ * },
+ * you can access 42 as all of:
+ *    `c.a.b`,
+ *    `c["a"]["b"]`
+ *    `c["a.b"]`
  */
-function createProxy(
-    override,
-    // No known way to infer types from assignment yet.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): Record<string, any> {
-    const subObjects = {};
-    return new Proxy({}, {
+function createDotProxy<T extends object>(object: T): Readonly<T> {
+    return new Proxy(Object.freeze(object), {
         get(target, key) {
-            const r = target[key];
-            if (r !== null && r !== undefined) return r;
-            const prefix = (key as string).split(".", 1)[0];
-            if (prefix in subObjects) {
-                return target[prefix][(key as string).substring(prefix.length + 1)];
+            if (typeof key === "string") {
+                const dotPosition = key.indexOf(".");
+                if (dotPosition !== -1) {
+                    const prefix = key.substring(0, dotPosition);
+                    const suffix = key.substring(dotPosition + 1);
+                    return target[prefix][suffix];
+                }
             }
-            return undefined;
+            return target[key];
         },
-        set(target, key: string, value) {
-            if (typeof value === "object" && value !== null && value !== undefined) {
-                subObjects[key] = true;
-                const newOverride = override[key] ?? {};
-                Object.entries(override).forEach(([k, v]) => {
-                    if (k.startsWith(`${key}.`)) {
-                        newOverride[k.substring(key.length + 1)] = v;
-                    }
-                });
-                const subProxy = createProxy(newOverride);
-                target[key] = subProxy;
-                Object.entries(value).forEach(([k, v]) => {
-                    subProxy[k] = v;
-                });
-                return true;
-            }
-            target[key] = override[key] ?? value;
-            return true;
+        set() {
+            return false;
         }
     });
 }
@@ -274,11 +239,11 @@ function getDefaultConfig() {
         QUEUE_PROBLEM_LABEL_FONT_SIZE: (cfg) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
 
         // Medals
-        MEDAL_COLORS: Object.freeze({
+        MEDAL_COLORS: {
             gold: "#F9A80D",
             silver: "#ACACAC",
             bronze: "#E27B5A"
-        }),
+        },
 
         // Debug Behaviour
         LOG_LINES: 300,
@@ -375,25 +340,54 @@ function getDefaultConfig() {
                 BOTTOM_LEFT: Location(16, 16 + 837 / 2, 1488 / 2, 837 / 2),
                 BOTTOM_RIGHT: Location(16 + 1488 / 2, 16 + 837 / 2, 1488 / 2, 837 / 2),
             },
-            ...queryVisualConfig.WIDGET_POSITIONS
         },
     };
 }
 
 const defaultConfig = getDefaultConfig();
-const config = createProxy(
-    {
-        ...visualConfig,
-        ...queryVisualConfig,
-    },
-);
-Object.entries(defaultConfig).forEach(([key, val]) => {
-    if (typeof val === "function") {
-        config[key] = val(config);
-    } else {
-        config[key] = val;
+
+function merge<T>(defaultConfig: T, serverVisualConfig: Record<string, any>, queryVisualConfig: Record<string, any>): T {
+    const result = {};
+    const allKeys = new Set([
+        ...Object.keys(defaultConfig),
+        ...Object.keys(serverVisualConfig),
+        ...Object.keys(queryVisualConfig)
+    ]);
+    for (const key of allKeys) {
+        const defaultVal = defaultConfig[key];
+        const evalDefaultVal = typeof defaultVal === "function" ? defaultVal(result) : defaultVal;
+        const serverVal = serverVisualConfig[key];
+        const queryVal = queryVisualConfig[key];
+        if (evalDefaultVal && typeof evalDefaultVal === "object") {
+            result[key] = merge(evalDefaultVal, (typeof serverVal == "object") ? serverVal : {}, (typeof queryVal == "object") ? queryVal : {});
+        } else {
+            result[key] = queryVal ?? serverVal ?? evalDefaultVal;
+        }
     }
-});
+    return result as T;
+}
+
+function expandDots(config, result = {}) {
+    for (const key in config) {
+        const value = config[key];
+        const parts = key.split(".");
+        let current = result;
+        for (let i = 0; i < parts.length - 1; i++) {
+            if (!(parts[i] in current)) {
+                current[parts[i]] = {};
+            }
+            current = current[parts[i]];
+        }
+        if (typeof value === "object") {
+            current[parts[parts.length - 1]] = expandDots(value, current[parts[parts.length - 1]]);
+        } else {
+            current[parts[parts.length - 1]] = value;
+        }
+    }
+    return result;
+}
+
+const config: Record<string, any> = createDotProxy(merge(defaultConfig, expandDots(visualConfig), expandDots(queryVisualConfig)))
 
 setFavicon(faviconTemplate
     .replaceAll("{CONTEST_COLOR}", config["CONTEST_COLOR"])
