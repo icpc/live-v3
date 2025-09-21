@@ -61,6 +61,7 @@ interface ContestantViewLineProps {
     isTop?: boolean
 }
 
+// TODO: DELETE!
 function aboba<T>(x?: T[]) {
     return x ? x : x;
 }
