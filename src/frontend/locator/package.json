@@ -3,59 +3,27 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.8.1",
-    "@monaco-editor/react": "^4.6.0",
-    "@mui/icons-material": "^5.5.1",
-    "@mui/material": "^5.5.3",
-    "@mui/styled-engine-sc": "^5.5.2",
-    "ansi-to-react": "6.1.6",
-    "luxon": "^2.4.0",
-    "notistack": "^2.0.3",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/material": "^7.3.2",
+    "notistack": "^3.0.2",
     "prop-types": "^15.7.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-drag-drop-files": "^2.3.4",
-    "react-rnd": "^10.3.7",
-    "react-router-dom": "^6.2.2",
-    "react-scripts": "^5.0.1",
-    "shared-code": "file:../common",
-    "vite": "^5.3.1"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.7.0",
+    "shared-code": "file:../common"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "vite": "npm:rolldown-vite@latest",
     "@typescript-eslint/parser": "^7.13.1",
-    "@vitejs/plugin-react": "^4.3.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
-    "typescript": "^5.2.2",
-    "vite-tsconfig-paths": "^4.2.1"
+    "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "^9.31.0",
+    "typescript": "^5.8.3",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "scripts": {
     "start": "vite --port 3000",
     "build": "tsc -b && vite build",
     "lint:js": "eslint ./src/**/*.js* && eslint ./src/**/*.ts*",
     "lint": "npm run lint:js"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
