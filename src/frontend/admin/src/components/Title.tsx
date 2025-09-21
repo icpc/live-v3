@@ -49,6 +49,7 @@ interface PreviewSVGDialogProps {
 }
 
 interface ParamsLineProps {
+    key?: string;
     pKey: string;
     pValue: unknown;
 }

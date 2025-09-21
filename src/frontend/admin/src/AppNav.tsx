@@ -160,7 +160,7 @@ function ResponsiveAppBar({
                             sx={{ display: { xs: "block", md: "none" } }}
                         >
                             {Object.entries(pages).map(([pageName, route]) =>
-                                renderMenuItem(pageName, route)
+                                renderMenuItem(pageName, route as string)
                             )}
                         </Menu>
                     </Box>
@@ -198,7 +198,7 @@ function ResponsiveAppBar({
 
                     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                         {Object.entries(pages).map(([pageName, route]) =>
-                            renderPageButton(pageName, route)
+                            renderPageButton(pageName, route as string)
                         )}
                         <Button
                             onClick={showOrHideOverlayPreview}
