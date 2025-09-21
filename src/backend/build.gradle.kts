@@ -77,9 +77,6 @@ tasks {
 
     // Not the best way of doing this, but should work out.
     processResources {
-        from(project(":schema-generator").tasks.named("generateAllSchemas")) {
-            into("schemas")
-        }
         if (project.properties["live.dev.embedFrontend"] == "true") {
             from(project(":frontend").tasks.named("pnpm_run_buildAdmin")) {
                 into("admin")

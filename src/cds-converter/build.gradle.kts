@@ -27,4 +27,5 @@ dependencies {
     implementation(projects.cds.full)
     implementation(projects.clicsApi)
     implementation(projects.serverShared)
+    implementation(projects.cds.schemas)
 }
