@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
@@ -75,7 +74,19 @@ const PicturesImg = styled.img`
   object-fit: contain;
 `;
 
-export const Pictures = ({ widgetData, transitionState }) => {
+interface PictureData {
+    url: string;
+    name: string;
+}
+
+interface PicturesProps {
+    widgetData: {
+        picture: PictureData;
+    };
+    transitionState?: string;
+}
+
+export const Pictures: React.FC<PicturesProps> = ({ widgetData, transitionState }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const dispatch = useAppDispatch();
     return <PicturesContainerWrap
@@ -95,15 +106,6 @@ export const Pictures = ({ widgetData, transitionState }) => {
     </PicturesContainerWrap>;
 };
 
-Pictures.propTypes = {
-    widgetData: PropTypes.shape({
-        picture: PropTypes.shape({
-            url: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    }),
-    transitionState: PropTypes.string
-};
 
 Pictures.ignoreAnimation = true;
 Pictures.overrideTimeout = c.PICTURES_APPEAR_TIME;

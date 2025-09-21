@@ -106,7 +106,7 @@ function MediaFiles(): React.ReactElement {
                 gap: 1,
             }}>
                 {mediaFiles.map(fileName =>
-                    <FileItem key={fileName} fileName={fileName} />
+                    <FileItem fileName={fileName} />
                 )}
             </Box>
         </Container>

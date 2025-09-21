@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useTransition } from "react-transition-state";
 import styled, { keyframes } from "styled-components";
@@ -141,7 +140,12 @@ const LiveIcon = styled.img`
   padding: 8px 0;
 `;
 
-export const SingleTicker = ({ part, color }) => {
+interface SingleTickerProps {
+    part: string;
+    color?: string;
+}
+
+export const SingleTicker: React.FC<SingleTickerProps> = ({ part, color }) => {
     const curMessage = useAppSelector((state) => state.ticker.tickers[part].curDisplaying);
     if (part === "short") {
         return (
@@ -164,10 +168,6 @@ export const SingleTicker = ({ part, color }) => {
     );
 };
 
-SingleTicker.propTypes = {
-    part: PropTypes.string.isRequired,
-    color: PropTypes.string
-};
 
 const TickerWrap = styled.div`
   position: absolute;

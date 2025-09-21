@@ -173,6 +173,7 @@ export function PresetsTableRow({
         onChangeField,
         onSubmitEdit
     }: {
+        key?: string;
         rowKey: string;
         data: PresetData;
         editData: PresetData | undefined;
@@ -181,7 +182,6 @@ export function PresetsTableRow({
     }): React.ReactElement {
         return (
             <PresetsTableCell
-                key={rowKey}
                 value={data.settings[rowKey]}
                 editValue={editData?.settings[rowKey]}
                 onChange={onChangeField(rowKey)}

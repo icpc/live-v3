@@ -17,7 +17,7 @@ export const useAnalyticsService = () => {
     const [messages, setMessages] = useState<{ [id: string]: AnalyticsMessage }>({});
     const messagesList = useMemo(() =>
         Object.values(messages)
-            .sort((a, b) => b.updateTimeUnixMs - a.updateTimeUnixMs),
+            .sort((a: AnalyticsMessage, b: AnalyticsMessage) => b.updateTimeUnixMs - a.updateTimeUnixMs),
     [messages]);
 
     const processEvent = useCallback((event: AnalyticsEvent) => {
