@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent } from "react";
+import React, { FormEvent } from "react";
 import { TableCell, TableRow } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -8,14 +8,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ShowPresetButton from "./controls/ShowPresetButton.tsx";
 import { PresetsTableCell } from "./PresetsTableCell.tsx";
 import { activeRowColor } from "../styles.js";
-
-type PresetSettings = Record<string, unknown>;
-
-interface PresetData {
-    id: string | number;
-    shown: boolean;
-    settings: PresetSettings;
-}
+import {
+    usePresetTableRowDataState,
+    type PresetData
+} from "./PresetsTableRowUtils.tsx";
 
 interface PresetsTableRowProps {
     data: PresetData;
@@ -26,97 +22,6 @@ interface PresetsTableRowProps {
     isImmutable?: boolean;
 }
 
-type SetEditDataAction = (updateFn: (prevData: PresetData) => PresetData) => void;
-
-interface UsePresetTableRowDataStateReturn {
-    editData: PresetData | undefined;
-    onClickEdit: () => void;
-    onSubmitEdit: (event: FormEvent<HTMLFormElement>) => void;
-    onChangeField: (rowKey: string) => (value: unknown) => void;
-}
-
-function createUpdatedPresetData(
-    currentData: PresetData,
-    rowKey: string,
-    newValue: unknown,
-): PresetData {
-    return {
-        ...currentData,
-        settings: {
-            ...currentData.settings,
-            [rowKey]: newValue
-        }
-    };
-}
-
-function createFieldChangeHandler(
-    setEditData: SetEditDataAction,
-    rowKey: string,
-): (value: unknown) => void {
-    return function handleFieldChange(value: unknown): void {
-        setEditData((prevData) => createUpdatedPresetData(prevData, rowKey, value));
-    };
-}
-
-function createFieldChangeEventHandler(
-    setEditData: SetEditDataAction,
-    rowKey: string,
-): (event: ChangeEvent<HTMLInputElement>) => void {
-    return function handleFieldChangeEvent(event: ChangeEvent<HTMLInputElement>): void {
-        const value = event.target.value;
-        setEditData((prevData) => createUpdatedPresetData(prevData, rowKey, value));
-    };
-}
-
-function usePresetTableRowDataState(
-    data: PresetData,
-    onEdit: (data: PresetData) => unknown,
-): UsePresetTableRowDataStateReturn {
-    const [editData, setEditData] = useState<PresetData | undefined>(undefined);
-
-    function isEditMode(): boolean {
-        return editData !== undefined;
-    }
-
-    function startEdit(): void {
-        setEditData(data);
-    }
-
-    function cancelEdit(): void {
-        setEditData(undefined);
-    }
-
-    async function saveEdit(): Promise<void> {
-        if (editData) {
-            await onEdit(editData);
-            cancelEdit();
-        }
-    }
-
-    function handleClickEdit(): void {
-        if (isEditMode()) {
-          saveEdit();
-        } else {
-          startEdit();
-        }
-    }
-
-    function handleSubmitEdit(event: FormEvent<HTMLFormElement>): void {
-        event.preventDefault();
-        handleClickEdit();
-    }
-
-    function createChangeFieldHandler(rowKey: string): (value: unknown) => void {
-        return createFieldChangeHandler(setEditData as SetEditDataAction, rowKey);
-    }
-
-    return {
-        editData,
-        onClickEdit: handleClickEdit,
-        onSubmitEdit: handleSubmitEdit,
-        onChangeField: createChangeFieldHandler,
-    };
-}
 
 function getRowBackgroundColor(isShown: boolean): string | undefined {
     return isShown ? activeRowColor : undefined;
@@ -128,6 +33,54 @@ function getEditButtonIcon(isEditMode: boolean): React.ReactElement {
 
 function getEditButtonColor(isEditMode: boolean): "inherit" | "primary" {
     return isEditMode ? "primary" : "inherit";
+}
+
+function ShowButtonCell({
+    onShow,
+    checked
+}: {
+    onShow: () => void;
+    checked: boolean;
+}): React.ReactElement {
+    return (
+        <TableCell component="th" scope="row" align="left">
+            <ShowPresetButton
+                onClick={onShow}
+                checked={checked}
+            />
+        </TableCell>
+    );
+}
+
+function ManagementButtonsCell({
+    isEditMode,
+    onClickEdit,
+    onDelete
+}: {
+    isEditMode: boolean;
+    onClickEdit: () => void;
+    onDelete: () => void;
+}): React.ReactElement {
+    return (
+        <TableCell component="th" scope="row" align="right">
+            <Box>
+                <IconButton
+                    color={getEditButtonColor(isEditMode)}
+                    onClick={onClickEdit}
+                    aria-label={isEditMode ? "Save changes" : "Edit row"}
+                >
+                    {getEditButtonIcon(isEditMode)}
+                </IconButton>
+                <IconButton
+                    color="error"
+                    onClick={onDelete}
+                    aria-label="Delete row"
+                >
+                    <DeleteIcon />
+                </IconButton>
+            </Box>
+        </TableCell>
+    );
 }
 
 export function PresetsTableRow({
@@ -147,23 +100,6 @@ export function PresetsTableRow({
 
     function isEditMode(): boolean {
         return editData !== undefined;
-    }
-
-    function ShowButtonCell({
-        onShow,
-        checked
-    }: {
-        onShow: () => void;
-        checked: boolean;
-    }): React.ReactElement {
-        return (
-            <TableCell component="th" scope="row" align="left">
-                <ShowPresetButton
-                    onClick={onShow}
-                    checked={checked}
-                />
-            </TableCell>
-        );
     }
 
     function DataCell({
@@ -187,38 +123,6 @@ export function PresetsTableRow({
                 onChange={onChangeField(rowKey)}
                 onSubmit={onSubmitEdit}
             />
-        );
-    }
-
-
-    function ManagementButtonsCell({
-        isEditMode,
-        onClickEdit,
-        onDelete
-    }: {
-        isEditMode: boolean;
-        onClickEdit: () => void;
-        onDelete: () => void;
-    }): React.ReactElement {
-        return (
-            <TableCell component="th" scope="row" align="right">
-                <Box>
-                    <IconButton
-                        color={getEditButtonColor(isEditMode)}
-                        onClick={onClickEdit}
-                        aria-label={isEditMode ? "Save changes" : "Edit row"}
-                    >
-                        {getEditButtonIcon(isEditMode)}
-                    </IconButton>
-                    <IconButton
-                        color="error"
-                        onClick={onDelete}
-                        aria-label="Delete row"
-                    >
-                        <DeleteIcon />
-                    </IconButton>
-                </Box>
-            </TableCell>
         );
     }
 
@@ -250,16 +154,6 @@ export function PresetsTableRow({
       );
 }
 
-export {
-    createFieldChangeHandler,
-    createFieldChangeEventHandler,
-    usePresetTableRowDataState,
-    createUpdatedPresetData,
-};
-
 export type {
-    PresetData,
-    PresetSettings,
     PresetsTableRowProps,
-    UsePresetTableRowDataStateReturn,
 };

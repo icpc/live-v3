@@ -195,11 +195,10 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
                     <TableHead>
                         <TableRow>
                             <TableCell width="48px" />
-                            {tableKeysHeaders.map((header, index) => {
-                                const TableCellComponent = TableCell as React.ComponentType<any>;
+                            {tableKeysHeaders.map((header) => {
+                                const TableCellComponent = TableCell;
                                 return (
                                     <TableCellComponent
-                                        key={`${header}-${index}`}
                                         sx={{ fontWeight: "bold" }}
                                     >
                                         {header}

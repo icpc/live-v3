@@ -30,7 +30,6 @@ function ExamplesContainer(): React.ReactElement {
 
     useEffect(() => {
         if (!selection) {
-            setExample(undefined);
             return;
         }
         fetch(EXAMPLES_URL + `/${selection}`)
@@ -38,6 +37,8 @@ function ExamplesContainer(): React.ReactElement {
             .then(data => {setExample(data);})
             .catch(error => console.error(error));
     }, [selection]);
+
+    const currentExample = selection ? example : undefined;
 
     const handleChange = (event: SelectChangeEvent<string>) => {
         setSelection(event.target.value as string);
@@ -65,12 +66,12 @@ function ExamplesContainer(): React.ReactElement {
                 </Select>
             </FormControl>
 
-            {example && (
+            {currentExample && (
                 <Editor
                 options={{ readOnly: true }}
                 height="75vh"
                 language="json"
-                value={example}
+                value={currentExample}
                 />
             )}
         </Container>
