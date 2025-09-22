@@ -1,0 +1,63 @@
+[
+    {
+        "type": "overrideTeamTemplate",
+        // "displayName": "{org.displayName}",
+                "displayName": "{regexes.simplifiedName.name}",
+"color": "{team.customFields.ColorHEX}",
+        "regexes": {
+            "simplifiedName": {
+                "from": "{org.fullName} LONGSECRETTOKEN {org.displayName}",
+                "rules": {
+                    "(.{1,23}) LONGSECRETTOKEN.*": {
+                        "name": "$1"
+                    },
+                    ".* LONGSECRETTOKEN (.*)": {
+                        "name": "$1"
+                    }
+                }
+            }
+        },
+        "medias": {
+            "keylog": {
+                "type": "Object",
+                "url": "http://keylog/keylog/{team.id}"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "/api/overlay/svgAchievement/ach/{team.id}.svg?teamId={team.id}"
+            }
+        },
+        "customFields": {
+            "db-name": "{regexes.simplifiedName.name}"
+        //     "oracleIp": "172.24.0.11",
+        //     "oraclePreset": "1"
+        }
+        
+    },
+      {
+    "type": "overrideOrganisationTemplate",
+    "logo": {
+      "type": "Image",
+      "url": "http://cds/api/contests/wf49_finals/organizations/{org.id}/logo.160x160"
+
+    }
+  },
+    {
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4
+    },
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 18000,
+        "customFields": {
+            "reactionsUrlTemplate": "https://aws/wf/2025/$.mp4"
+        }
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 20,
+        "maxUntestedRun": 5
+    },
+]

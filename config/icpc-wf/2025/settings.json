@@ -1,0 +1,14 @@
+{
+  "type": "clics",
+  "network": {
+    "allowUnsecureConnections": true
+  },
+  "feeds": [
+    {
+      "source": "https://cds/api",
+      "contestId": "wf49_finals",
+      "feedVersion": "2023_06"
+    }
+  ]
+}
+
