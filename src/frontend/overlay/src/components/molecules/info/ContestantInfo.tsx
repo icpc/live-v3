@@ -5,7 +5,7 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel } from "../../atoms/ContestLabels";
 import { formatScore, useFormatPenalty } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import {Award, OptimismLevel} from "@shared/api";
+import {Award, OptimismLevel, TeamId} from "@shared/api";
 import { isShouldUseDarkColor } from "@/utils/colors";
 
 
@@ -46,7 +46,7 @@ const ContestantInfoScoreLabel = styled(ShrinkingBox)`
 `;
 
 
-export const ContestantInfo = ({ teamId, roundBR= true, className = null, useBG = true }) => {
+export const ContestantInfo: React.FC<{ teamId: TeamId; roundBR?: boolean; className?: string; useBG?: boolean }> = ({ teamId, roundBR= true, className = null, useBG = true }) => {
     const contestInfo = useAppSelector((state) => state.contestInfo.info);
     const scoreboardData = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].ids[teamId]);
     const awards = useAppSelector((state) => state.scoreboard[OptimismLevel.normal].idAwards[teamId]);

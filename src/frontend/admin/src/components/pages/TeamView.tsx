@@ -34,7 +34,7 @@ import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import { TeamTable, TeamViewData } from "../TeamTable";
 import TeamMediaSwitcher, { DEFAULT_MEDIA_TYPES } from "../controls/TeamMediaSwitcher";
 import ShowPresetButton from "../controls/ShowPresetButton";
-import { TeamInfo, TeamMediaType, TeamViewPosition, TeamId } from "@shared/api";
+import { TeamInfo, TeamMediaType, TeamViewPosition, TeamId, ExternalTeamViewSettings } from "@shared/api";
 import {
     CommonTeamViewInstancesState,
     TeamViewContentType,
@@ -42,6 +42,7 @@ import {
     useTeamViewWidgetService,
     useTeamViewWidgetUsageStats
 } from "@/services/teamViewService";
+import { ObjectStatus } from "@/services/abstractSingleWidget";
 
 interface TeamInfoWithStatus extends TeamInfo {
     shown?: boolean;
@@ -406,7 +407,7 @@ const TeamViewManager: React.FC = () => {
 
     useEffect(() => {
         if (Object.values(status).length === 7 && variant === undefined) {
-            const shownInstance = Object.entries(status).find(([, i]) => i.shown);
+            const shownInstance = Object.entries(status).find(([, i]) => (i as ObjectStatus<ExternalTeamViewSettings>).shown);
             if (!shownInstance || shownInstance[0] === null) {
                 setVariant("single");
             } else if (shownInstance[0].startsWith("PVP")) {
@@ -416,15 +417,15 @@ const TeamViewManager: React.FC = () => {
             }
 
             if (mediaType1 === undefined && rawTeams.length > 0) {
-                if (shownInstance && shownInstance[1].settings.mediaTypes.length > 0) {
-                    setMediaType1(shownInstance[1].settings.mediaTypes[0]);
+                if (shownInstance && (shownInstance[1] as ObjectStatus<ExternalTeamViewSettings>).settings.mediaTypes.length > 0) {
+                    setMediaType1((shownInstance[1] as ObjectStatus<ExternalTeamViewSettings>).settings.mediaTypes[0]);
                 } else {
                     setMediaType1(allowedMediaTypes.length > 0 ? allowedMediaTypes[0] : null);
                 }
             }
             if (mediaType2 === undefined && rawTeams.length > 0) {
-                if (shownInstance && shownInstance[1].settings.mediaTypes.length > 1) {
-                    setMediaType2(shownInstance[1].settings.mediaTypes[1]);
+                if (shownInstance && (shownInstance[1] as ObjectStatus<ExternalTeamViewSettings>).settings.mediaTypes.length > 1) {
+                    setMediaType2((shownInstance[1] as ObjectStatus<ExternalTeamViewSettings>).settings.mediaTypes[1]);
                 } else {
                     setMediaType2(allowedMediaTypes.length > 1 ? allowedMediaTypes[1] : null);
                 }

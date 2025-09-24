@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useMemo } from "react";
+import React, { useCallback, useState, useMemo } from "react";
 import { TableCell, TableRow, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -45,18 +45,12 @@ export function PictureTableRow({
     isImmutable,
 }: PictureTableRowProps): React.ReactElement {
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const [form, setForm] = useState<PictureSettings>({
+    const initialFormState = useMemo(() => ({
         name: data.settings.name ?? "",
         url: data.settings.url ?? "",
-    });
+    }), [data.settings.name, data.settings.url]);
 
-    useEffect(() => {
-        if (!isEditing) return;
-        setForm({
-            name: data.settings.name,
-            url: data.settings.url,
-        });
-    }, [isEditing, data.settings.name, data.settings.url]);
+    const [form, setForm] = useState<PictureSettings>(initialFormState);
 
     const handleChange = useCallback(
         (key: keyof typeof form) =>
@@ -71,6 +65,7 @@ export function PictureTableRow({
         }
 
         if (!isEditing) {
+            setForm(initialFormState);
             setIsEditing(true);
             return;
         }

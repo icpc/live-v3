@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
-import PropTypes from "prop-types";
 import { pushLog } from "@/redux/debug";
 import c from "../../../config";
 import { useAppDispatch } from "@/redux/hooks";
@@ -49,7 +48,19 @@ const VideosContainer = styled.video`
   text-align: center;
 `;
 
-export const Videos = ({ widgetData, transitionState }) => {
+interface VideoData {
+    url: string;
+    name: string;
+}
+
+interface VideosProps {
+    widgetData: {
+        video: VideoData;
+    };
+    transitionState?: string;
+}
+
+export const Videos: React.FC<VideosProps> = ({ widgetData, transitionState }) => {
     const [isLoaded, setIsLoaded] = useState(false);
     const dispatch = useAppDispatch();
 
@@ -67,14 +78,6 @@ export const Videos = ({ widgetData, transitionState }) => {
     </VideosContainerWrap>;
 };
 
-Videos.propTypes = {
-    widgetData: PropTypes.shape({
-        video: PropTypes.shape({
-            url: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired
-        })
-    }),
-};
 
 Videos.ignoreAnimation = true;
 Videos.overrideTimeout = c.VIDEO_APPEAR_TIME;

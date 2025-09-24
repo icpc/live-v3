@@ -44,7 +44,7 @@ module.exports = tseslint.config(
             ...reactHooks.configs.recommended.rules,
             "react-compiler/react-compiler": "warn",
             
-            "indent": ["error", 4],
+            // "indent": ["error", 4], // Disabled due to stack overflow with complex nested structures
             "linebreak-style": ["warn", "unix"],
             "quotes": ["warn", "double"],
             "semi": ["warn", "always"],

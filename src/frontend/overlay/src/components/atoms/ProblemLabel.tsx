@@ -1,10 +1,13 @@
-import PropTypes from "prop-types";
+import React from "react";
 import styled from "styled-components";
 import { isShouldUseDarkColor } from "../../utils/colors";
 
-const StyledProblemLabel = styled.div`
+const StyledProblemLabel = styled.div<{
+    backgroundColor: string;
+    darkText: boolean;
+}>`
   position: relative;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,19 +20,18 @@ const StyledProblemLabel = styled.div`
   background: ${props => props.backgroundColor};
 `;
 
-export const ProblemLabel = ({ letter, problemColor, className }) => {
+interface ProblemLabelProps {
+    letter?: string;
+    problemColor?: string;
+    className?: string;
+}
+
+export const ProblemLabel: React.FC<ProblemLabelProps> = ({ letter, problemColor, className }) => {
     const dark = isShouldUseDarkColor(problemColor);
-    // console.log(dark);
     return <StyledProblemLabel
         backgroundColor={problemColor}
         darkText={dark}
         className={className}>
         {letter}
     </StyledProblemLabel>;
-};
-
-ProblemLabel.propTypes = {
-    letter: PropTypes.string,
-    problemColor: PropTypes.string,
-    className: PropTypes.string
 };

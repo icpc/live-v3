@@ -241,7 +241,7 @@ const useHorizontalQueueRowsData = ({
             ftsPositions: { ...currentState.ftsPositions },
         };
         for (const [dId, bi] of Object.entries(currentState.batches)) {
-            newStateValue.batches[dId] = { ...bi };
+            newStateValue.batches[dId] = { ...(bi as QueueBatchInfo) };
         }
         for (const run of queue) {
             if (run.featuredRunMedia !== undefined || newStateValue.ftsPositions[run.id] !== undefined) {
@@ -291,8 +291,8 @@ const useHorizontalQueueRowsData = ({
                 r.id === runId && r.featuredRunMedia === undefined && newStateValue.ftsPositions[runId] === undefined
             ) == undefined) { // where remove run or make featured or make fts
                 delete newStateValue.currentRuns[runId];
-                delete newStateValue.batches[dId][runId];
-                if (Object.keys(newStateValue.batches[dId]).length === 0) { // remove batch, if it empty
+                delete newStateValue.batches[dId as DelegateId][runId];
+                if (Object.keys(newStateValue.batches[dId as DelegateId]).length === 0) { // remove batch, if it empty
                     newStateValue.batchOrder = newStateValue.batchOrder.filter(bId => bId !== dId);
                 }
             }
@@ -574,7 +574,7 @@ export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     );
 };
 
-const QueueRowWithTransition = ({ row, horizontal }: { row: QueueRowInfo, horizontal: boolean }) => {
+const QueueRowWithTransition: React.FC<{ row: QueueRowInfo, horizontal: boolean }> = ({ row, horizontal }) => {
     const [transition, toggle] = useTransition({
         timeout: c.QUEUE_ROW_APPEAR_TIME,
         mountOnEnter: true,

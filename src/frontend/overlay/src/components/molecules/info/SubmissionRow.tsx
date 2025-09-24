@@ -60,6 +60,7 @@ const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`
   text-align: center;
 `;
 
+// TODO: MOVE WIDTHS TO CONFIG
 export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, bg_color, color }) => {
     return <SubmissionRowWrap bg_color={bg_color} color={color}>
         <TimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</TimeCell>
@@ -75,7 +76,7 @@ const PVPProblemLabel = styled(QueueProblemLabel)`
 
 const PVPResultLabel = styled(ScoreboardTaskResultLabel)`
   order: ${props => props.isTop ? 1 : 3};
-  
+
 `;
 
 const PVPTimeCell = styled(TimeCell)`
