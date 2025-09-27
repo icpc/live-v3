@@ -52,7 +52,7 @@ internal class TestSysDataSource(val settings: TestSysSettings) : FullReloadCont
                 displayName = letter,
                 fullName = name,
                 ordinal = index,
-                scoreMergeMode = ScoreMergeMode.LAST_OK,
+                scoreMergeMode = ScoreMergeMode.LAST_OK.takeIf { settings.resultType == ContestResultType.IOI },
             ) to penalty.toInt()
         }
         val penalty = problemsWithPenalty.map { it.second }.distinct().takeIf { it.size <= 1 }
