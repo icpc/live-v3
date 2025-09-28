@@ -2,7 +2,7 @@ import { setFavicon } from "@shared/setFavicon";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { faviconTemplate } from "@/consts";
 import { LocationRectangle } from "@/utils/location-rectangle";
-import {current} from "@reduxjs/toolkit";
+import type { OverlayConfig } from "./config.interface";
 
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
@@ -58,7 +58,7 @@ function createDotProxy<T extends object>(object: T): Readonly<T> {
     });
 }
 
-function getDefaultConfig() {
+function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
     return {
         CONTEST_COLOR: "#4C83C3",
         CONTEST_CAPTION: "",
@@ -69,10 +69,10 @@ function getDefaultConfig() {
 
         // Strings
         QUEUE_TITLE: "Queue",
-        QUEUE_CAPTION: (cfg) => cfg.CONTEST_CAPTION,
-        SCOREBOARD_CAPTION: (cfg) => cfg.CONTEST_CAPTION,
+        QUEUE_CAPTION: (cfg: OverlayConfig) => cfg.CONTEST_CAPTION,
+        SCOREBOARD_CAPTION: (cfg: OverlayConfig) => cfg.CONTEST_CAPTION,
         STATISTICS_TITLE: "Statistics",
-        STATISTICS_CAPTION: (cfg) => cfg.CONTEST_CAPTION,
+        STATISTICS_CAPTION: (cfg: OverlayConfig) => cfg.CONTEST_CAPTION,
 
         // Behaviour
         TICKER_SCOREBOARD_REPEATS: 1,
@@ -82,7 +82,7 @@ function getDefaultConfig() {
         // Timings
         WIDGET_TRANSITION_TIME: 300, // ms
         QUEUE_ROW_TRANSITION_TIME: 700, // ms
-        QUEUE_ROW_APPEAR_TIME: (cfg) => cfg.QUEUE_ROW_TRANSITION_TIME, // ms
+        QUEUE_ROW_APPEAR_TIME: (cfg: OverlayConfig) => cfg.QUEUE_ROW_TRANSITION_TIME, // ms
         QUEUE_ROW_FEATURED_RUN_APPEAR_TIME: 500, // ms
         QUEUE_ROW_FEATURED_RUN_ADDITIONAL_DELAY: 5000, // ms
         QUEUE_ROW_FTS_TRANSITION_TIME: 3000, // ms
@@ -103,7 +103,7 @@ function getDefaultConfig() {
         GLOBAL_DEFAULT_FONT_SIZE: "22px", // css-property
         GLOBAL_DEFAULT_FONT_WEIGHT: 400, // css-property
         GLOBAL_DEFAULT_FONT_WEIGHT_BOLD: 700, // css-property
-        GLOBAL_DEFAULT_FONT: (cfg) => cfg.GLOBAL_DEFAULT_FONT_SIZE + " " + cfg.GLOBAL_DEFAULT_FONT_FAMILY, // MUST HAVE FONT SIZE
+        GLOBAL_DEFAULT_FONT: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE + " " + cfg.GLOBAL_DEFAULT_FONT_FAMILY, // MUST HAVE FONT SIZE
         GLOBAL_BACKGROUND_COLOR: "#242425",
         GLOBAL_TEXT_COLOR: "#FFF",
         GLOBAL_BORDER_RADIUS: "16px",
@@ -116,21 +116,21 @@ function getDefaultConfig() {
         VERDICT_UNKNOWN: "#F3BE4B",
 
         // Styles > Scoreboard
-        SCOREBOARD_BACKGROUND_COLOR: (cfg) => cfg.GLOBAL_BACKGROUND_COLOR,
-        SCOREBOARD_BORDER_RADIUS: (cfg) => cfg.GLOBAL_BORDER_RADIUS,
-        SCOREBOARD_TEXT_COLOR: (cfg) => cfg.GLOBAL_TEXT_COLOR,
+        SCOREBOARD_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.GLOBAL_BACKGROUND_COLOR,
+        SCOREBOARD_BORDER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
+        SCOREBOARD_TEXT_COLOR: (cfg: OverlayConfig) => cfg.GLOBAL_TEXT_COLOR,
         SCOREBOARD_CAPTION_FONT_SIZE: "32px", // css value
-        SCOREBOARD_HEADER_BACKGROUND_COLOR: (cfg) => cfg.CONTEST_COLOR,
-        SCOREBOARD_HEADER_DIVIDER_COLOR: (cfg) => cfg.SCOREBOARD_BACKGROUND_COLOR,
-        SCOREBOARD_HEADER_FONT_SIZE: (cfg) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
-        SCOREBOARD_HEADER_FONT_WEIGHT: (cfg) => cfg.GLOBAL_DEFAULT_FONT_WEIGHT,
+        SCOREBOARD_HEADER_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
+        SCOREBOARD_HEADER_DIVIDER_COLOR: (cfg: OverlayConfig) => cfg.SCOREBOARD_BACKGROUND_COLOR,
+        SCOREBOARD_HEADER_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        SCOREBOARD_HEADER_FONT_WEIGHT: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_WEIGHT,
         SCOREBOARD_HEADER_HEIGHT: 38,
-        SCOREBOARD_ROWS_DIVIDER_COLOR: (cfg) => cfg.CONTEST_COLOR,
+        SCOREBOARD_ROWS_DIVIDER_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
         SCOREBOARD_ROW_HEIGHT: 32, // px // todo: tweak this
         SCOREBOARD_ROW_PADDING: 1, // px
         SCOREBOARD_BETWEEN_HEADER_PADDING: 3, //px
-        SCOREBOARD_ROW_FONT_SIZE: (cfg) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
-        SCOREBOARD_TABLE_ROW_FONT_WEIGHT: (cfg) => cfg.GLOBAL_DEFAULT_FONT_WEIGHT,
+        SCOREBOARD_ROW_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        SCOREBOARD_TABLE_ROW_FONT_WEIGHT: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_WEIGHT,
 
         SCOREBOARD_CELL_PLACE_SIZE: "73px",
         SCOREBOARD_CELL_TEAMNAME_SIZE: "304px",
@@ -147,7 +147,7 @@ function getDefaultConfig() {
         SCOREBOARD_STANDINGS_NAME: "standings",
 
 
-        QUEUE_ROW_FONT_SIZE: (cfg) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        QUEUE_ROW_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
         QUEUE_ROW_BACKGROUND: "rgba(0, 0, 0, 0.08)",
         QUEUE_ROW_HEIGHT: 32, // px
         QUEUE_ROW_WIDTH: 368, // px
@@ -155,11 +155,11 @@ function getDefaultConfig() {
         QUEUE_HORIZONTAL_ROW_Y_PADDING: 3, // px
         QUEUE_ROW_FEATURED_RUN_PADDING: 3, // px
         QUEUE_WRAP_PADDING: 8, // px
-        QUEUE_HORIZONTAL_ROW_X_PADDING: (cfg) => cfg.QUEUE_WRAP_PADDING, // px
+        QUEUE_HORIZONTAL_ROW_X_PADDING: (cfg: OverlayConfig) => cfg.QUEUE_WRAP_PADDING, // px
         QUEUE_OPACITY: 0.95,
         QUEUE_FEATURED_RUN_ASPECT: 16 / 9,
-        QUEUE_BACKGROUND_COLOR: (cfg) => cfg.CONTEST_COLOR,
-        QUEUE_HORIZONTAL_BACKGROUND_COLOR: (cfg) => cfg.QUEUE_BACKGROUND_COLOR,
+        QUEUE_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
+        QUEUE_HORIZONTAL_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.QUEUE_BACKGROUND_COLOR,
         QUEUE_ROW_PROBLEM_LABEL_WIDTH: 28, // px
         QUEUE_HEADER_FONT_SIZE: "32px",
         QUEUE_HEADER_LINE_HEIGHT: "44px",
@@ -170,17 +170,17 @@ function getDefaultConfig() {
         STATISTICS_OPACITY: 0.95,
         STATISTICS_BG_COLOR: "#000000",
         STATISTICS_TITLE_COLOR: "#FFFFFF",
-        STATISTICS_STATS_VALUE_FONT_SIZE: (cfg) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
-        STATISTICS_STATS_VALUE_FONT_FAMILY: (cfg) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        STATISTICS_STATS_VALUE_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        STATISTICS_STATS_VALUE_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
         STATISTICS_STATS_VALUE_COLOR: "#FFFFFF",
         STATISTICS_BAR_HEIGHT_PX: 24,
-        STATISTICS_BAR_HEIGHT: (cfg) => `${cfg.STATISTICS_BAR_HEIGHT_PX}px`,
+        STATISTICS_BAR_HEIGHT: (cfg: OverlayConfig) => `${cfg.STATISTICS_BAR_HEIGHT_PX}px`,
         STATISTICS_BAR_GAP_PX: 9,
-        STATISTICS_BAR_GAP: (cfg) => `${cfg.STATISTICS_BAR_GAP_PX}px`,
+        STATISTICS_BAR_GAP: (cfg: OverlayConfig) => `${cfg.STATISTICS_BAR_GAP_PX}px`,
 
 
         // TODO: remove
-        CELL_FONT_FAMILY: (cfg) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        CELL_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
         CELL_FONT_SIZE: "18px",
         CELL_TEXT_COLOR: "#FFFFFF",
         CELL_TEXT_COLOR_INVERSE: "#000000",
@@ -198,15 +198,15 @@ function getDefaultConfig() {
         CELL_QUEUE_TASK_WIDTH: "50px", // css property
 
         CELL_NAME_LEFT_PADDING: "5px", // css property
-        CELL_NAME_RIGHT_PADDING: (cfg) => cfg.CELL_NAME_LEFT_PADDING, // css property
+        CELL_NAME_RIGHT_PADDING: (cfg: OverlayConfig) => cfg.CELL_NAME_LEFT_PADDING, // css property
 
         TICKER_SMALL_SIZE: "12%", // css property
-        TICKER_SMALL_BACKGROUND: (cfg) => cfg.VERDICT_NOK,
-        TICKER_BACKGROUND: (cfg) => cfg.SCOREBOARD_BACKGROUND_COLOR,
+        TICKER_SMALL_BACKGROUND: (cfg: OverlayConfig) => cfg.VERDICT_NOK,
+        TICKER_BACKGROUND: (cfg: OverlayConfig) => cfg.SCOREBOARD_BACKGROUND_COLOR,
         TICKER_DEFAULT_SCOREBOARD_BACKGROUND: "#FFFFFF00",
         TICKER_OPACITY: 0.95,
         TICKER_FONT_COLOR: "#FFFFFF",
-        TICKER_FONT_FAMILY: (cfg) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        TICKER_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
         TICKER_TEXT_FONT_SIZE: "32px", // css property
         TICKER_TEXT_MARGIN_LEFT: "16px", // css property
         TICKER_CLOCK_FONT_SIZE: "32px", // css property
@@ -214,11 +214,11 @@ function getDefaultConfig() {
         TICKER_SCOREBOARD_RANK_WIDTH: "50px", // css property
         TICKER_LIVE_ICON_SIZE: "32px",
 
-        PICTURE_NAME_BACKGROUND_COLOR: (cfg) => cfg.CONTEST_COLOR,
+        PICTURE_NAME_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
         PICTURE_NAME_FONT_COLOR: "#FFFFFF",
         PICTURE_NAME_FONT_SIZE: "22pt",
         PICTURE_BORDER_SIZE: "5px",
-        PICTURE_NAME_FONT_FAMILY: (cfg) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        PICTURE_NAME_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
 
 
         // not used
@@ -231,12 +231,12 @@ function getDefaultConfig() {
         FULL_SCREEN_CLOCK_FONT_FAMILY: "Helvetica; monospace",
 
         ADVERTISEMENT_BACKGROUND: "#FFFFFF", // hex value.
-        ADVERTISEMENT_COLOR: (cfg) => isShouldUseDarkColor(cfg.ADVERTISEMENT_BACKGROUND) ? "black" : "white",
-        ADVERTISEMENT_FONT_FAMILY: (cfg) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        ADVERTISEMENT_COLOR: (cfg: OverlayConfig) => isShouldUseDarkColor(cfg.ADVERTISEMENT_BACKGROUND) ? "black" : "white",
+        ADVERTISEMENT_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
 
         STAR_SIZE: 33, // px
 
-        QUEUE_PROBLEM_LABEL_FONT_SIZE: (cfg) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        QUEUE_PROBLEM_LABEL_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
 
         // Medals
         MEDAL_COLORS: {
@@ -250,17 +250,17 @@ function getDefaultConfig() {
 
         CONTESTER_ROW_OPACITY: 0.95,
 
-        CONTESTER_FONT_SIZE: (cfg) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
-        CONTESTER_BACKGROUND_COLOR: (cfg) => cfg.CONTEST_COLOR,
+        CONTESTER_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        CONTESTER_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
 
-        CONTESTER_ROW_BORDER_RADIUS: (cfg) => cfg.GLOBAL_BORDER_RADIUS,
+        CONTESTER_ROW_BORDER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
         CONTESTER_ROW_HEIGHT: "32px",
         CONTESTER_NAME_WIDTH: "150px",
         CONTESTER_INFO_SCORE_WIDTH: "51px",
         CONTESTER_INFO_RANK_WIDTH: "32px",
 
         TIMELINE_ELEMENT_DIAMETER: 25,
-        TIMELINE_BORDER_RADIUS: (cfg) => cfg.GLOBAL_BORDER_RADIUS,
+        TIMELINE_BORDER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
         TIMELINE_LINE_HEIGHT: 4,
         TIMELINE_WRAP_HEIGHT: 148,
         TIMELINE_TIMEBORDER_COLOR: "#FFF",
@@ -293,11 +293,11 @@ function getDefaultConfig() {
 
 
         TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR: 0.39,
-        SPLITSCREEN_SECONDARY_FACTOR: (cfg) => cfg.TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR,
+        SPLITSCREEN_SECONDARY_FACTOR: (cfg: OverlayConfig) => cfg.TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR,
 
         // PVP_OPACITY: 0.95,
         // TEAM_VIEW_OPACITY: 0.95,
-        PVP_BACKGROUND: (cfg) => cfg.CONTESTER_BACKGROUND_COLOR,
+        PVP_BACKGROUND: (cfg: OverlayConfig) => cfg.CONTESTER_BACKGROUND_COLOR,
         PVP_TABLE_ROW_HEIGHT: 32,
         PVP_TEAM_STATUS_TASK_WIDTH: 50,
 
@@ -311,7 +311,7 @@ function getDefaultConfig() {
 
         LOCATOR_MAGIC_CONSTANT: 343,
 
-        WEBSOCKETS: (cfg) => ({
+        WEBSOCKETS: (cfg: OverlayConfig) => ({
             mainScreen: `${cfg.BASE_URL_WS}/mainScreen`,
             contestInfo: `${cfg.BASE_URL_WS}/contestInfo`,
             queue: `${cfg.BASE_URL_WS}/queue`,
@@ -346,7 +346,11 @@ function getDefaultConfig() {
 
 const defaultConfig = getDefaultConfig();
 
-function merge<T>(defaultConfig: T, serverVisualConfig: Record<string, any>, queryVisualConfig: Record<string, any>): T {
+type EvaluatableTo<T> = {
+    [K in keyof T]: T[K] | ((T) => T[K])
+}
+
+function merge<T>(defaultConfig: EvaluatableTo<T>, serverVisualConfig: object, queryVisualConfig: object): T {
     const result = {};
     const allKeys = new Set([
         ...Object.keys(defaultConfig),
@@ -387,7 +391,7 @@ function expandDots(config, result = {}) {
     return result;
 }
 
-const config: Record<string, any> = createDotProxy(merge(defaultConfig, expandDots(visualConfig), expandDots(queryVisualConfig)))
+const config: Readonly<OverlayConfig> = createDotProxy(merge<OverlayConfig>(defaultConfig, expandDots(visualConfig), expandDots(queryVisualConfig)) as OverlayConfig);
 
 setFavicon(faviconTemplate
     .replaceAll("{CONTEST_COLOR}", config["CONTEST_COLOR"])
