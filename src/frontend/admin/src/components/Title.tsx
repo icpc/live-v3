@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PreviewIcon from "@mui/icons-material/Preview";
 import { PresetsTableCell, ValueEditorProps } from "./PresetsTableCell.tsx";
 import { activeRowColor } from "../styles.js";
-import { PresetSettings, usePresetTableRowDataState } from "./PresetsTableRow.tsx";
+import { PresetSettings, usePresetTableRowDataState } from "./PresetsTableRowUtils.tsx";
 import { PresetsManager } from "./PresetsManager.js";
 import { usePresetWidgetService } from "../services/presetWidget.js";
 import { useTitleWidgetService } from "../services/titleWidget.js";
@@ -49,6 +49,7 @@ interface PreviewSVGDialogProps {
 }
 
 interface ParamsLineProps {
+    key?: string;
     pKey: string;
     pValue: unknown;
 }

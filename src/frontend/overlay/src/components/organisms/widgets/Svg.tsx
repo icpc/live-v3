@@ -1,19 +1,19 @@
 import React from "react";
 import c from "../../../config";
-import PropTypes from "prop-types";
 
-export const Svg = ({ widgetData }) => {
+interface SvgProps {
+    widgetData: {
+        content: string;
+    };
+}
+
+export const Svg: React.FC<SvgProps> = ({ widgetData }) => {
     return <object
         type="image/svg+xml"
         data={widgetData.content}
     />;
 };
 
-Svg.propTypes = {
-    widgetData: PropTypes.shape({
-        content: PropTypes.string.isRequired
-    })
-};
 
 Svg.overrideTimeout = c.SVG_APPEAR_TIME;
 
