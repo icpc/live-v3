@@ -69,6 +69,9 @@ importers:
       babel-plugin-react-compiler:
         specifier: 19.1.0-rc.2
         version: 19.1.0-rc.2
+      concurrently:
+        specifier: ^9.2.0
+        version: 9.2.1
       eslint:
         specifier: ^9.31.0
         version: 9.36.0
