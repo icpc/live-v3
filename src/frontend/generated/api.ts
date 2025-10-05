@@ -355,7 +355,6 @@ export interface RunInfo {
   time: number;
   languageId: LanguageId | null;
   testedTime?: number | null;
-  featuredRunMedia: MediaType[] | null;
   reactionVideos: MediaType[];
   isHidden: boolean;
   sourceFiles?: MediaType[];
@@ -722,23 +721,32 @@ export namespace QueueEvent {
   
   export interface AddRunToQueue {
     type: QueueEvent.Type.AddRunToQueue;
-    info: RunInfo;
+    info: QueueRunInfo;
   }
   
   export interface ModifyRunInQueue {
     type: QueueEvent.Type.ModifyRunInQueue;
-    info: RunInfo;
+    info: QueueRunInfo;
   }
   
   export interface QueueSnapshot {
     type: QueueEvent.Type.QueueSnapshot;
-    infos: RunInfo[];
+    infos: QueueRunInfo[];
   }
   
   export interface RemoveRunFromQueue {
     type: QueueEvent.Type.RemoveRunFromQueue;
-    info: RunInfo;
+    info: QueueRunInfo;
   }
+}
+
+export interface QueueRunInfo {
+  id: RunId;
+  result: RunResult;
+  problemId: ProblemId;
+  teamId: TeamId;
+  featuredRunMedia: MediaType[] | null;
+  reactionVideos: MediaType[];
 }
 
 export type AnalyticsEvent =

@@ -35,19 +35,19 @@ class MainScreenSnapshotEvent(val widgets: List<Widget>) : MainScreenEvent()
 
 @Serializable
 @SerialName("AddRunToQueue")
-class AddRunToQueueEvent(val info: RunInfo) : QueueEvent()
+class AddRunToQueueEvent(val info: QueueRunInfo) : QueueEvent()
 
 @Serializable
 @SerialName("RemoveRunFromQueue")
-class RemoveRunFromQueueEvent(val info: RunInfo) : QueueEvent()
+class RemoveRunFromQueueEvent(val info: QueueRunInfo) : QueueEvent()
 
 @Serializable
 @SerialName("ModifyRunInQueue")
-class ModifyRunInQueueEvent(val info: RunInfo) : QueueEvent()
+class ModifyRunInQueueEvent(val info: QueueRunInfo) : QueueEvent()
 
 @Serializable
 @SerialName("QueueSnapshot")
-class QueueSnapshotEvent(val infos: List<RunInfo>) : QueueEvent()
+class QueueSnapshotEvent(val infos: List<QueueRunInfo>) : QueueEvent()
 
 @Serializable
 @SerialName("AddMessage")
