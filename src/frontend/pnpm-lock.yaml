@@ -62,7 +62,7 @@ importers:
         specifier: file:../common
         version: link:../common
       vite:
-        specifier: npm:rolldown-vite@latest
+        specifier: npm:rolldown-vite@7.1.4
         version: rolldown-vite@7.1.4(esbuild@0.25.8)(jiti@1.21.6)(sass@1.89.2)(terser@5.31.3)(yaml@2.4.5)
     devDependencies:
       '@types/react':
@@ -243,7 +243,7 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.1.1)
       vite:
-        specifier: npm:rolldown-vite@latest
+        specifier: npm:rolldown-vite@7.1.4
         version: rolldown-vite@7.1.4(esbuild@0.25.8)(jiti@1.21.6)(sass@1.89.2)(terser@5.31.3)(yaml@2.4.5)
       vite-plugin-top-level-await:
         specifier: ^1.6.0
