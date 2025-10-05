@@ -10,7 +10,7 @@ import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, OptimismLevel, RunInfo, Widget } from "@shared/api";
+import { Award, OptimismLevel, QueueRunInfo, Widget } from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 
@@ -113,7 +113,7 @@ const queueRowContractionStates = (fullHeight) => ({
     exited: {},
 });
 
-interface QueueRowInfo extends RunInfo {
+interface QueueRowInfo extends QueueRunInfo {
     // isEven: boolean,
     zIndex: number,
     bottom: number,

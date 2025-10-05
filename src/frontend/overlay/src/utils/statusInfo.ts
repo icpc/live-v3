@@ -1,5 +1,5 @@
 import c from "../config";
-import { RunInfo } from "@shared/api";
+import { QueueRunInfo } from "@shared/api";
 
 export enum TeamTaskStatus {
     solved = 1,
@@ -82,7 +82,7 @@ const scaleNumber = (value: number, oldMin: number, oldMax: number, newMin: numb
 };
 
 
-export const isFTS = (run: RunInfo): boolean => {
+export const isFTS = (run: QueueRunInfo): boolean => {
     return (
         (run.result.type === "ICPC" && run.result.isFirstToSolveRun) ||
         (run.result.type === "IOI" && run.result.isFirstBestRun)
