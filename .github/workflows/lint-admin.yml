@@ -26,6 +26,6 @@ jobs:
       - name: "Install dependencies"
         run: pnpm install
         working-directory: "src/frontend"
-      - name: "Lint admin js"
+      - name: "Lint admin"
         working-directory: "src/frontend/admin"
-        run: npm run lint:js
+        run: npm run lint

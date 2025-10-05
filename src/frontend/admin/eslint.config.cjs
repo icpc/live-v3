@@ -5,7 +5,7 @@ const reactCompiler = require("eslint-plugin-react-compiler");
 const tseslint = require("typescript-eslint");
 
 module.exports = tseslint.config(
-  { ignores: ["**/dist", "**/.eslintrc.cjs"] },
+    { ignores: ["dist/**/*", "build/**/*", "node_modules/**/*"] }, // Add eslint.config.js here
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
