@@ -8,6 +8,12 @@
     },
     {
       "fileMatch": [
+        "**/visual-config.json"
+      ],
+      "url": ".vscode/schemas/visual-config.schema.json"
+    },
+    {
+      "fileMatch": [
         "**/settings.json",
         "!.vscode/settings.json"
       ],

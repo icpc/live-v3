@@ -22,7 +22,8 @@
     "lint:css": "stylelint -f verbose './src/**/*.{js,jsx,ts,tsx,css,scss}'",
     "lint:js": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "lint:typecheck": "tsc --noEmit",
-    "lint": "concurrently --group \"npm run lint:*\""
+    "lint": "concurrently --group \"npm run lint:*\"",
+    "schema:config": "typescript-json-schema tsconfig.json OverlayConfig --out schemas/visual-config.schema.json  --ignoreErrors"
   },
   "devDependencies": {
     "vite": "npm:rolldown-vite@7.1.11",
@@ -46,6 +47,7 @@
     "stylelint-config-recommended": "^16.0.0",
     "stylelint-no-unsupported-browser-features": "^8.0.4",
     "typescript-eslint": "^8.37.0",
+    "typescript-json-schema": "^0.65.1",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }

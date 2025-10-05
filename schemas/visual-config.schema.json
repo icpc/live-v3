@@ -1,0 +1,698 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "LocationRectangle": {
+            "properties": {
+                "positionX": {
+                    "type": "number"
+                },
+                "positionY": {
+                    "type": "number"
+                },
+                "sizeX": {
+                    "type": "number"
+                },
+                "sizeY": {
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "ADVERTISEMENT_BACKGROUND": {
+            "type": "string"
+        },
+        "ADVERTISEMENT_COLOR": {
+            "type": "string"
+        },
+        "ADVERTISEMENT_FONT_FAMILY": {
+            "type": "string"
+        },
+        "BASE_URL_WS": {
+            "type": "string"
+        },
+        "CELL_BG_COLOR": {
+            "type": "string"
+        },
+        "CELL_BG_COLOR2": {
+            "type": "string"
+        },
+        "CELL_BG_COLOR_ODD": {
+            "type": "string"
+        },
+        "CELL_BG_COLOR_ODD2": {
+            "type": "string"
+        },
+        "CELL_FLASH_PERIOD": {
+            "type": "number"
+        },
+        "CELL_FONT_FAMILY": {
+            "type": "string"
+        },
+        "CELL_FONT_SIZE": {
+            "type": "string"
+        },
+        "CELL_INFO_VERDICT_WIDTH": {
+            "type": "string"
+        },
+        "CELL_NAME_LEFT_PADDING": {
+            "type": "string"
+        },
+        "CELL_NAME_RIGHT_PADDING": {
+            "type": "string"
+        },
+        "CELL_PROBLEM_LINE_WIDTH": {
+            "type": "string"
+        },
+        "CELL_QUEUE_RANK_WIDTH": {
+            "type": "string"
+        },
+        "CELL_QUEUE_RANK_WIDTH2": {
+            "type": "string"
+        },
+        "CELL_QUEUE_TASK_WIDTH": {
+            "type": "string"
+        },
+        "CELL_QUEUE_TOTAL_SCORE_WIDTH": {
+            "type": "string"
+        },
+        "CELL_QUEUE_VERDICT_WIDTH": {
+            "type": "string"
+        },
+        "CELL_QUEUE_VERDICT_WIDTH2": {
+            "type": "string"
+        },
+        "CELL_TEXT_COLOR": {
+            "type": "string"
+        },
+        "CELL_TEXT_COLOR_INVERSE": {
+            "type": "string"
+        },
+        "CIRCLE_PROBLEM_LINE_WIDTH": {
+            "type": "string"
+        },
+        "CIRCLE_PROBLEM_SIZE": {
+            "type": "string"
+        },
+        "CONTESTER_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "CONTESTER_FONT_SIZE": {
+            "type": "string"
+        },
+        "CONTESTER_INFO_RANK_WIDTH": {
+            "type": "string"
+        },
+        "CONTESTER_INFO_SCORE_WIDTH": {
+            "type": "string"
+        },
+        "CONTESTER_NAME_WIDTH": {
+            "type": "string"
+        },
+        "CONTESTER_ROW_BORDER_RADIUS": {
+            "type": "string"
+        },
+        "CONTESTER_ROW_HEIGHT": {
+            "type": "string"
+        },
+        "CONTESTER_ROW_OPACITY": {
+            "type": "number"
+        },
+        "CONTEST_CAPTION": {
+            "type": "string"
+        },
+        "CONTEST_COLOR": {
+            "type": "string"
+        },
+        "EXTRA_CSS": {
+            "type": "string"
+        },
+        "FULL_SCREEN_CLOCK_CENTERED": {
+            "type": "boolean"
+        },
+        "FULL_SCREEN_CLOCK_COLOR": {
+            "type": "string"
+        },
+        "FULL_SCREEN_CLOCK_FONT_FAMILY": {
+            "type": "string"
+        },
+        "FULL_SCREEN_CLOCK_FONT_SIZE": {
+            "type": "string"
+        },
+        "FULL_SCREEN_CLOCK_PADDING_TOP": {
+            "type": "string"
+        },
+        "GLOBAL_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "GLOBAL_BORDER_RADIUS": {
+            "type": "string"
+        },
+        "GLOBAL_DEFAULT_FONT": {
+            "type": "string"
+        },
+        "GLOBAL_DEFAULT_FONT_FAMILY": {
+            "type": "string"
+        },
+        "GLOBAL_DEFAULT_FONT_SIZE": {
+            "type": "string"
+        },
+        "GLOBAL_DEFAULT_FONT_WEIGHT": {
+            "type": "number"
+        },
+        "GLOBAL_DEFAULT_FONT_WEIGHT_BOLD": {
+            "type": "number"
+        },
+        "GLOBAL_TEXT_COLOR": {
+            "type": "string"
+        },
+        "KEYLOG_ANIMATION_DURATION": {
+            "type": "number"
+        },
+        "KEYLOG_ANIMATION_EASING": {
+            "type": "string"
+        },
+        "KEYLOG_BOTTOM_PADDING": {
+            "type": "number"
+        },
+        "KEYLOG_FILL_DARK": {
+            "type": "string"
+        },
+        "KEYLOG_FILL_LIGHT": {
+            "type": "string"
+        },
+        "KEYLOG_GLOW_BLUR": {
+            "type": "number"
+        },
+        "KEYLOG_MAXIMUM_FOR_NORMALIZATION": {
+            "type": "number"
+        },
+        "KEYLOG_STROKE_DARK": {
+            "type": "string"
+        },
+        "KEYLOG_STROKE_LIGHT": {
+            "type": "string"
+        },
+        "KEYLOG_STROKE_WIDTH": {
+            "type": "number"
+        },
+        "KEYLOG_TOP_PADDING": {
+            "type": "number"
+        },
+        "KEYLOG_Z_INDEX": {
+            "type": "number"
+        },
+        "LOCATOR_MAGIC_CONSTANT": {
+            "type": "number"
+        },
+        "LOG_LINES": {
+            "type": "number"
+        },
+        "MEDAL_COLORS": {
+            "properties": {
+                "bronze": {
+                    "type": "string"
+                },
+                "gold": {
+                    "type": "string"
+                },
+                "silver": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "PICTURES_APPEAR_TIME": {
+            "type": "number"
+        },
+        "PICTURE_BORDER_SIZE": {
+            "type": "string"
+        },
+        "PICTURE_NAME_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "PICTURE_NAME_FONT_COLOR": {
+            "type": "string"
+        },
+        "PICTURE_NAME_FONT_FAMILY": {
+            "type": "string"
+        },
+        "PICTURE_NAME_FONT_SIZE": {
+            "type": "string"
+        },
+        "PVP_APPEAR_TIME": {
+            "type": "number"
+        },
+        "PVP_BACKGROUND": {
+            "type": "string"
+        },
+        "PVP_TABLE_ROW_HEIGHT": {
+            "type": "number"
+        },
+        "PVP_TEAM_STATUS_TASK_WIDTH": {
+            "type": "number"
+        },
+        "QUEUE_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "QUEUE_BASIC_ZINDEX": {
+            "type": "number"
+        },
+        "QUEUE_CAPTION": {
+            "type": "string"
+        },
+        "QUEUE_FEATURED_RUN_ASPECT": {
+            "type": "number"
+        },
+        "QUEUE_HEADER_FONT_SIZE": {
+            "type": "string"
+        },
+        "QUEUE_HEADER_LINE_HEIGHT": {
+            "type": "string"
+        },
+        "QUEUE_HORIZONTAL_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "QUEUE_HORIZONTAL_HEIGHT_NUM": {
+            "type": "number"
+        },
+        "QUEUE_HORIZONTAL_ROW_X_PADDING": {
+            "type": "number"
+        },
+        "QUEUE_HORIZONTAL_ROW_Y_PADDING": {
+            "type": "number"
+        },
+        "QUEUE_MAX_ROWS": {
+            "type": "number"
+        },
+        "QUEUE_OPACITY": {
+            "type": "number"
+        },
+        "QUEUE_PROBLEM_LABEL_FONT_SIZE": {
+            "type": "string"
+        },
+        "QUEUE_ROW_APPEAR_TIME": {
+            "type": "number"
+        },
+        "QUEUE_ROW_BACKGROUND": {
+            "type": "string"
+        },
+        "QUEUE_ROW_FEATURED_RUN_ADDITIONAL_DELAY": {
+            "type": "number"
+        },
+        "QUEUE_ROW_FEATURED_RUN_APPEAR_TIME": {
+            "type": "number"
+        },
+        "QUEUE_ROW_FEATURED_RUN_PADDING": {
+            "type": "number"
+        },
+        "QUEUE_ROW_FONT_SIZE": {
+            "type": "string"
+        },
+        "QUEUE_ROW_FTS_TRANSITION_TIME": {
+            "type": "number"
+        },
+        "QUEUE_ROW_HEIGHT": {
+            "type": "number"
+        },
+        "QUEUE_ROW_PROBLEM_LABEL_WIDTH": {
+            "type": "number"
+        },
+        "QUEUE_ROW_TRANSITION_TIME": {
+            "type": "number"
+        },
+        "QUEUE_ROW_WIDTH": {
+            "type": "number"
+        },
+        "QUEUE_ROW_Y_PADDING": {
+            "type": "number"
+        },
+        "QUEUE_TITLE": {
+            "type": "string"
+        },
+        "QUEUE_WRAP_PADDING": {
+            "type": "number"
+        },
+        "SCOREBOARD_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "SCOREBOARD_BETWEEN_HEADER_PADDING": {
+            "type": "number"
+        },
+        "SCOREBOARD_BORDER_RADIUS": {
+            "type": "string"
+        },
+        "SCOREBOARD_CAPTION": {
+            "type": "string"
+        },
+        "SCOREBOARD_CAPTION_FONT_SIZE": {
+            "type": "string"
+        },
+        "SCOREBOARD_CELL_PENALTY_ALIGN": {
+            "type": "string"
+        },
+        "SCOREBOARD_CELL_PENALTY_SIZE": {
+            "type": "string"
+        },
+        "SCOREBOARD_CELL_PLACE_SIZE": {
+            "type": "string"
+        },
+        "SCOREBOARD_CELL_POINTS_ALIGN": {
+            "type": "string"
+        },
+        "SCOREBOARD_CELL_POINTS_SIZE": {
+            "type": "string"
+        },
+        "SCOREBOARD_CELL_TEAMNAME_SIZE": {
+            "type": "string"
+        },
+        "SCOREBOARD_CELL_TEAMNANE_ALIGN": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_DIVIDER_COLOR": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_FONT_SIZE": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_FONT_WEIGHT": {
+            "type": "number"
+        },
+        "SCOREBOARD_HEADER_HEIGHT": {
+            "type": "number"
+        },
+        "SCOREBOARD_NORMAL_NAME": {
+            "type": "string"
+        },
+        "SCOREBOARD_OPTIMISTIC_NAME": {
+            "type": "string"
+        },
+        "SCOREBOARD_PESSIMISTIC_NAME": {
+            "type": "string"
+        },
+        "SCOREBOARD_ROWS_DIVIDER_COLOR": {
+            "type": "string"
+        },
+        "SCOREBOARD_ROW_FONT_SIZE": {
+            "type": "string"
+        },
+        "SCOREBOARD_ROW_HEIGHT": {
+            "type": "number"
+        },
+        "SCOREBOARD_ROW_PADDING": {
+            "type": "number"
+        },
+        "SCOREBOARD_ROW_TRANSITION_TIME": {
+            "type": "number"
+        },
+        "SCOREBOARD_SCROLL_INTERVAL": {
+            "type": "number"
+        },
+        "SCOREBOARD_STANDINGS_NAME": {
+            "type": "string"
+        },
+        "SCOREBOARD_TABLE_ROW_FONT_WEIGHT": {
+            "type": "number"
+        },
+        "SCOREBOARD_TEXT_COLOR": {
+            "type": "string"
+        },
+        "SCOREBOARD_UNDEFINED_NAME": {
+            "type": "string"
+        },
+        "SCORE_NONE_TEXT": {
+            "type": "string"
+        },
+        "SPLITSCREEN_SECONDARY_FACTOR": {
+            "type": "number"
+        },
+        "STAR_SIZE": {
+            "type": "number"
+        },
+        "STATISTICS_BAR_GAP": {
+            "type": "string"
+        },
+        "STATISTICS_BAR_GAP_PX": {
+            "type": "number"
+        },
+        "STATISTICS_BAR_HEIGHT": {
+            "type": "string"
+        },
+        "STATISTICS_BAR_HEIGHT_PX": {
+            "type": "number"
+        },
+        "STATISTICS_BG_COLOR": {
+            "type": "string"
+        },
+        "STATISTICS_CAPTION": {
+            "type": "string"
+        },
+        "STATISTICS_CELL_MORPH_TIME": {
+            "type": "number"
+        },
+        "STATISTICS_OPACITY": {
+            "type": "number"
+        },
+        "STATISTICS_STATS_VALUE_COLOR": {
+            "type": "string"
+        },
+        "STATISTICS_STATS_VALUE_FONT_FAMILY": {
+            "type": "string"
+        },
+        "STATISTICS_STATS_VALUE_FONT_SIZE": {
+            "type": "string"
+        },
+        "STATISTICS_TITLE": {
+            "type": "string"
+        },
+        "STATISTICS_TITLE_COLOR": {
+            "type": "string"
+        },
+        "STATISTICS_TITLE_FONT_SIZE": {
+            "type": "string"
+        },
+        "SVG_APPEAR_TIME": {
+            "type": "number"
+        },
+        "TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR": {
+            "type": "number"
+        },
+        "TEAMVIEW_SMALL_FACTOR": {
+            "type": "string"
+        },
+        "TEAM_VIEW_APPEAR_TIME": {
+            "type": "number"
+        },
+        "TICKER_BACKGROUND": {
+            "type": "string"
+        },
+        "TICKER_CLOCK_FONT_SIZE": {
+            "type": "string"
+        },
+        "TICKER_CLOCK_MARGIN_LEFT": {
+            "type": "string"
+        },
+        "TICKER_DEFAULT_SCOREBOARD_BACKGROUND": {
+            "type": "string"
+        },
+        "TICKER_FONT_COLOR": {
+            "type": "string"
+        },
+        "TICKER_FONT_FAMILY": {
+            "type": "string"
+        },
+        "TICKER_LIVE_ICON_SIZE": {
+            "type": "string"
+        },
+        "TICKER_OPACITY": {
+            "type": "number"
+        },
+        "TICKER_SCOREBOARD_RANK_WIDTH": {
+            "type": "string"
+        },
+        "TICKER_SCOREBOARD_REPEATS": {
+            "type": "number"
+        },
+        "TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME": {
+            "type": "number"
+        },
+        "TICKER_SCROLL_TRANSITION_TIME": {
+            "type": "number"
+        },
+        "TICKER_SMALL_BACKGROUND": {
+            "type": "string"
+        },
+        "TICKER_SMALL_SIZE": {
+            "type": "string"
+        },
+        "TICKER_TEXT_FONT_SIZE": {
+            "type": "string"
+        },
+        "TICKER_TEXT_MARGIN_LEFT": {
+            "type": "string"
+        },
+        "TIMELINE_ANIMATION_TIME": {
+            "type": "number"
+        },
+        "TIMELINE_BORDER_RADIUS": {
+            "type": "string"
+        },
+        "TIMELINE_ELEMENT_DIAMETER": {
+            "type": "number"
+        },
+        "TIMELINE_ELEMENT_DIAMETER_PVP": {
+            "type": "number"
+        },
+        "TIMELINE_LEFT_TIME_PADDING": {
+            "type": "number"
+        },
+        "TIMELINE_LINE_HEIGHT": {
+            "type": "number"
+        },
+        "TIMELINE_PADDING": {
+            "type": "number"
+        },
+        "TIMELINE_PADDING_PVP": {
+            "type": "number"
+        },
+        "TIMELINE_REAL_WIDTH": {
+            "type": "number"
+        },
+        "TIMELINE_REAL_WIDTH_PVP": {
+            "type": "number"
+        },
+        "TIMELINE_TIMEBORDER_COLOR": {
+            "type": "string"
+        },
+        "TIMELINE_WRAP_HEIGHT": {
+            "type": "number"
+        },
+        "TIMELINE_WRAP_HEIGHT_PVP": {
+            "type": "number"
+        },
+        "VERDICT_NOK": {
+            "type": "string"
+        },
+        "VERDICT_OK": {
+            "type": "string"
+        },
+        "VERDICT_UNKNOWN": {
+            "type": "string"
+        },
+        "VIDEO_APPEAR_TIME": {
+            "type": "number"
+        },
+        "WEBSOCKETS": {
+            "properties": {
+                "contestInfo": {
+                    "type": "string"
+                },
+                "mainScreen": {
+                    "type": "string"
+                },
+                "queue": {
+                    "type": "string"
+                },
+                "scoreboardNormal": {
+                    "type": "string"
+                },
+                "scoreboardOptimistic": {
+                    "type": "string"
+                },
+                "scoreboardPessimistic": {
+                    "type": "string"
+                },
+                "statistics": {
+                    "type": "string"
+                },
+                "ticker": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "WEBSOCKET_RECONNECT_TIME": {
+            "type": "number"
+        },
+        "WIDGET_POSITIONS": {
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/LocationRectangle"
+                    },
+                    {
+                        "additionalProperties": {
+                            "$ref": "#/definitions/LocationRectangle"
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "properties": {
+                "advertisement": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "fullScreenClock": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "picture": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "queue": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "scoreboard": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "statistics": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "svg": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "teamLocator": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "teamview": {
+                    "properties": {
+                        "BOTTOM_LEFT": {
+                            "$ref": "#/definitions/LocationRectangle"
+                        },
+                        "BOTTOM_RIGHT": {
+                            "$ref": "#/definitions/LocationRectangle"
+                        },
+                        "PVP_BOTTOM": {
+                            "$ref": "#/definitions/LocationRectangle"
+                        },
+                        "PVP_TOP": {
+                            "$ref": "#/definitions/LocationRectangle"
+                        },
+                        "SINGLE": {
+                            "$ref": "#/definitions/LocationRectangle"
+                        },
+                        "TOP_LEFT": {
+                            "$ref": "#/definitions/LocationRectangle"
+                        },
+                        "TOP_RIGHT": {
+                            "$ref": "#/definitions/LocationRectangle"
+                        }
+                    },
+                    "type": "object"
+                },
+                "ticker": {
+                    "$ref": "#/definitions/LocationRectangle"
+                }
+            },
+            "type": "object"
+        },
+        "WIDGET_TRANSITION_TIME": {
+            "type": "number"
+        }
+    },
+    "type": "object"
+}
+

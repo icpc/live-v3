@@ -287,5 +287,6 @@ export interface OverlayConfig {
       BOTTOM_LEFT: LocationRectangle;
       BOTTOM_RIGHT: LocationRectangle;
     };
+    [key: string]: LocationRectangle | {[key: string]: LocationRectangle}
   };
 }

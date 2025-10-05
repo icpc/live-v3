@@ -3,75 +3,89 @@ plugins {
 }
 
 val tmpLocation = layout.buildDirectory.dir("tmp")
-val schemasExportLocation = rootProject.layout.projectDirectory.dir("schemas")
+val schemasExportLocation = providers.provider { rootProject.layout.projectDirectory.dir("schemas") }
 val schemasGenerationLocation = tmpLocation.map { it.dir("schemas") }
 val schemasGatherLocation = layout.buildDirectory.dir("schemas")
 
-val tsExportLocation = rootProject.layout.projectDirectory.dir("src").dir("frontend").dir("generated")
+val tsExportLocation = providers.provider { rootProject.layout.projectDirectory.dir("src").dir("frontend").dir("generated") }
 val tsGenerationLocation = tmpLocation.map { it.dir("ts") }
 val tsGatherLocation = layout.buildDirectory.dir("ts")
 
 
 fun String.capitalize(): String = replaceFirstChar { it.uppercaseChar() }
 
+fun TaskContainerScope.checkTask(
+    taskSuffix: String,
+    exportLocation: Provider<Directory>,
+    genTask: TaskProvider<out Task>,
+) = register<Task>("testSchema${taskSuffix}") {
+    group = "verification"
+    mustRunAfter(named("exportSchemas"))
+    mustRunAfter(named("exportTs"))
+
+    val generatedFiles = genTask.map { it.outputs.files }
+    val exportFile = generatedFiles.flatMap { generated -> exportLocation.map { it.file(generated.singleFile.name)} }
+
+    inputs.files(generatedFiles, exportFile)
+
+    doLast {
+        val newContent = generatedFiles.get().singleFile.readText()
+        val oldContent = exportFile.get().asFile.readText()
+        if (newContent != oldContent) {
+            throw IllegalStateException("File ${exportFile.get().asFile.name} is outdated. Run `./gradlew :schema-generator:gen` to fix it.")
+        }
+    }
+}
+
 fun TaskContainerScope.genTask(
     command: String,
     classFqNames: List<String>,
     taskSuffix: String,
-    fullFileName: String,
     title: String?,
-    exportLocation: Directory,
-    generationLocation: Provider<Directory>,
+    generationLocation: Provider<RegularFile>,
+    exportLocation: Provider<Directory>,
 ): Pair<TaskProvider<out Task>, TaskProvider<out Task>>  {
-    val generatedSchemaFile = generationLocation.map { it.file(fullFileName) }
-    val repositorySchemaFile = exportLocation.file(fullFileName)
-
     val genTask = register<JavaExec>("generateSchema${taskSuffix}") {
         dependsOn(assemble)
         classpath = sourceSets.main.get().runtimeClasspath
         mainClass = "org.icpclive.generator.schema.GenKt"
         workingDir = tmpLocation.get().asFile
-        outputs.file(generatedSchemaFile)
+        outputs.file(generationLocation)
         args = buildList {
             add(command)
             classFqNames.forEach {
                 add("--class-name"); add(it)
             }
-            add("--output"); add(generatedSchemaFile.get().asFile.relativeTo(workingDir).path)
+            add("--output"); add(generationLocation.get().asFile.relativeTo(workingDir).path)
             if (title != null) {
                 add("--title"); add(title)
             }
         }
 
     }
-    val checkTask = register<Task>("testSchema${taskSuffix}") {
-        group = "verification"
-        dependsOn(genTask)
-        mustRunAfter(named("exportSchemas"))
-        mustRunAfter(named("exportTs"))
-        inputs.files(generatedSchemaFile, repositorySchemaFile)
-        doLast {
-            val newContent = generatedSchemaFile.get().asFile.readText()
-            val oldContent = repositorySchemaFile.asFile.readText()
-            if (newContent != oldContent) {
-                throw IllegalStateException("File $fullFileName is outdated. Run `./gradlew :${project.name}:gen` to fix it.")
-            }
-        }
-    }
+    val checkTask = checkTask(taskSuffix, exportLocation, genTask)
     return genTask to checkTask
 }
 
 fun TaskContainerScope.genJsonTask(classFqName: String, fileName: String, title: String) =
     genTask(
-        "json", listOf(classFqName), fileName.capitalize(),
-        "${fileName}.schema.json", title,
-        schemasExportLocation, schemasGenerationLocation)
+        command = "json",
+        classFqNames = listOf(classFqName),
+        taskSuffix = fileName.capitalize(),
+        title = title,
+        generationLocation = schemasGenerationLocation.map { it.file("${fileName}.schema.json") },
+        exportLocation = schemasExportLocation
+    )
 
 fun TaskContainerScope.genTsTask(classFqNames: List<String>, fileName: String) =
-    genTask("type-script", classFqNames, fileName.capitalize(),
-        "${fileName}.ts", null,
-        tsExportLocation, tsGenerationLocation,
-        )
+    genTask(
+        command = "type-script",
+        classFqNames = classFqNames,
+        taskSuffix = fileName.capitalize(),
+        title = null,
+        generationLocation = tsGenerationLocation.map { it.file("${fileName}.ts") },
+        exportLocation = tsExportLocation,
+    )
 
 
 tasks {
@@ -106,9 +120,16 @@ tasks {
             "api",
         ),
     )
-    val schemasGenTasks = schemaAllTasks.map { it.first }
+    val widgetPositionsGenTask = project(":frontend").tasks.named("pnpm_run_overlayConfigSchema")
+    val schemasGenTasks = schemaAllTasks.map { it.first } + widgetPositionsGenTask
     val tsGenTasks = tsAllTasks.map { it.first }
-    val checkTasks = schemaAllTasks.map { it.second } + tsAllTasks.map { it.second }
+    val checkTasks = schemaAllTasks.map { it.second } +
+            tsAllTasks.map { it.second } +
+            checkTask(
+                "WidgetPositions",
+                schemasExportLocation,
+                widgetPositionsGenTask
+            )
 
     // Gradle for inter-project dependencies uses outgoing variants. Those are a bit hard to properly set up, so this
     // project just uses cross-project tasks dependencies (that from the looks of configuration cache aren't welcome,
