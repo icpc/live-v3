@@ -85,7 +85,7 @@ importers:
         specifier: ^8.37.0
         version: 8.44.0(eslint@9.36.0)(typescript@5.9.2)
       vite:
-        specifier: npm:rolldown-vite@latest
+        specifier: npm:rolldown-vite@7.1.11
         version: rolldown-vite@7.1.11(@types/node@22.18.6)(sass@1.93.0)
       vite-tsconfig-paths:
         specifier: ^5.1.4
@@ -133,7 +133,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.2
       vite:
-        specifier: npm:rolldown-vite@latest
+        specifier: npm:rolldown-vite@7.1.11
         version: rolldown-vite@7.1.11(@types/node@22.18.6)(sass@1.93.0)
       vite-tsconfig-paths:
         specifier: ^5.1.4
@@ -239,7 +239,7 @@ importers:
         specifier: ^8.37.0
         version: 8.44.0(eslint@9.36.0)(typescript@5.9.2)
       vite:
-        specifier: npm:rolldown-vite@latest
+        specifier: npm:rolldown-vite@7.1.11
         version: rolldown-vite@7.1.11(@types/node@22.18.6)(sass@1.93.0)
       vite-tsconfig-paths:
         specifier: ^5.1.4
