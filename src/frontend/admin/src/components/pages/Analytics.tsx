@@ -249,7 +249,7 @@ const TeamViewControl = ({ selectedEvent }: TeamViewControlProps) => {
                     startIcon={<ArrowForwardIcon/>}
                     disabled={selectedEvent?.teamId === undefined}
                     onClick={() => teamViewService.showWithSettings(TeamViewPosition.SINGLE, {
-                        teamId: selectedEvent.teamId,
+                        teamId: selectedEvent?.teamId,
                         mediaTypes: [TeamMediaType.camera, TeamMediaType.screen],
                         showTaskStatus: true,
                         showAchievement: true,
