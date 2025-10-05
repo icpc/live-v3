@@ -11,8 +11,7 @@ node {
     download.set(rootProject.findProperty("npm.download") == "true")
 }
 
-fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, configure: PnpmTask.(Directory) -> Unit = {}) = named<PnpmTask>(name) {
-    outputs.cacheIf { true }
+fun PnpmTask.setInputs(directory: Directory) {
     environment.set(mapOf("PUBLIC_URL" to "/${directory.asFile.name}", "BUILD_PATH" to "build"))
     inputs.dir(layout.projectDirectory.dir("common"))
     inputs.dir(layout.projectDirectory.dir("generated"))
@@ -20,6 +19,11 @@ fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, configure: 
     inputs.file(layout.projectDirectory.file("pnpm-lock.yaml"))
     inputs.dir(directory.dir("src"))
     inputs.file(directory.file("package.json"))
+}
+
+fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, configure: PnpmTask.(Directory) -> Unit = {}) = named<PnpmTask>(name) {
+    outputs.cacheIf { true }
+    setInputs(directory)
     outputs.dir(directory.dir("build"))
     configure(directory)
 }
@@ -46,6 +50,11 @@ tasks {
     }
     val buildLocatorAdmin = pnpmBuild("pnpm_run_buildLocatorAdmin", layout.projectDirectory.dir("locator")) {
         mustRunAfter(":schema-generator:exportTs")
+    }
+    val overlayConfigSchema = named<PnpmTask>("pnpm_run_overlayConfigSchema") {
+        setInputs(layout.projectDirectory.dir("overlay"))
+        outputs.cacheIf { true }
+        outputs.files(layout.projectDirectory.file("overlay/schemas/visual-config.schema.json"))
     }
     //val installBrowsers = named<NpmTask>("pnpm_run_install-browsers") // probably want to cache it somehow
     val runTests = named<PnpmTask>("pnpm_run_test") {

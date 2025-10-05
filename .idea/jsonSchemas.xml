@@ -16,11 +16,6 @@
                     <option name="path" value="advanced.json" />
                     <option name="mappingKind" value="Pattern" />
                   </Item>
-                  <Item>
-                    <option name="directory" value="true" />
-                    <option name="path" value="config/_examples/_advanced" />
-                    <option name="mappingKind" value="Directory" />
-                  </Item>
                 </list>
               </option>
             </SchemaInfo>
@@ -37,6 +32,25 @@
                   <Item>
                     <option name="pattern" value="true" />
                     <option name="path" value="settings.json" />
+                    <option name="mappingKind" value="Pattern" />
+                  </Item>
+                </list>
+              </option>
+            </SchemaInfo>
+          </value>
+        </entry>
+        <entry key="visual-config.schema">
+          <value>
+            <SchemaInfo>
+              <option name="generatedName" value="New Schema" />
+              <option name="name" value="visual-config.schema" />
+              <option name="relativePathToSchema" value="schemas/visual-config.schema.json" />
+              <option name="schemaVersion" value="JSON Schema 7" />
+              <option name="patterns">
+                <list>
+                  <Item>
+                    <option name="pattern" value="true" />
+                    <option name="path" value="visual-config.json" />
                     <option name="mappingKind" value="Pattern" />
                   </Item>
                 </list>
