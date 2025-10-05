@@ -210,6 +210,9 @@
             "type": "number"
         },
         "MEDAL_COLORS": {
+            "additionalProperties": {
+                "type": "string"
+            },
             "properties": {
                 "bronze": {
                     "type": "string"

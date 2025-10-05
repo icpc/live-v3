@@ -344,7 +344,7 @@ type TeamViewSingleContentProps = OverlayWidgetProps<Widget.TeamViewWidget> & {
 
 export const TeamViewSingleContent = ({ widgetData: { settings, widgetLocationId }, transitionState, onLoaded }: TeamViewSingleContentProps) => {
     const { primary, secondary, achievement, position } = settings;
-    const location = c.WIDGET_POSITIONS[widgetLocationId];
+    const location = c.WIDGET_POSITIONS[widgetLocationId] as LocationRectangle;
     const variant = teamViewVariant(position);
 
     const [primaryLoaded, setPrimaryLoaded] = useState(false);
