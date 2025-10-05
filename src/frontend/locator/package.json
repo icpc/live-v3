@@ -13,7 +13,7 @@
     "shared-code": "file:../common"
   },
   "devDependencies": {
-    "vite": "npm:rolldown-vite@latest",
+    "vite": "npm:rolldown-vite@7.1.11",
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^9.31.0",
