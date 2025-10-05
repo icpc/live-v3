@@ -109,4 +109,5 @@ dependencies {
     implementation(projects.backendApi)
     implementation(projects.cds.full)
     implementation(projects.serverShared)
+    implementation(projects.cds.schemas)
 }
