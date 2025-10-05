@@ -7,6 +7,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.api.QueueSettings
+import org.icpclive.cds.api.RunId
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.*
 import org.icpclive.data.DataBus
@@ -59,26 +60,34 @@ class QueueService : Service {
         })
     }
 
+    private fun RunInfo.toQueueInfo() = QueueRunInfo(
+        id = id,
+        result = result,
+        problemId = problemId,
+        teamId = teamId,
+        featuredRunMedia = if (id == featuredRun?.runId) featuredRun?.mediaType else null,
+        reactionVideos = reactionVideos,
+    )
+
     private suspend fun modifyRun(rawRun: RunInfo, sendToOverlay: Boolean = true) {
-        val featuredMediaType = featuredRun?.takeIf { it.runId == rawRun.id }?.mediaType
-        val run = rawRun.copy(featuredRunMedia = featuredMediaType)
         if (sendToOverlay) {
+            val run = rawRun.toQueueInfo()
             resultFlow.emit(if (run.id in runs) ModifyRunInQueueEvent(run) else AddRunToQueueEvent(run))
         }
-        runs[run.id] = run
+        runs[rawRun.id] = rawRun
     }
 
     private suspend fun FeaturedRunInfo.makeNotFeatured() {
         val run = runs[runId] ?: removedRuns[runId] ?: return
         featuredRun = null
-        modifyRun(run.copy(featuredRunMedia = null), runId in runs)
+        modifyRun(run, runId in runs)
     }
 
     private suspend fun removeRun(run: RunInfo) {
         runs.remove(run.id)
         featuredRun?.takeIf { it.runId == run.id }?.makeNotFeatured()
         removedRuns[run.id] = run
-        resultFlow.emit(RemoveRunFromQueueEvent(run))
+        resultFlow.emit(RemoveRunFromQueueEvent(run.toQueueInfo()))
     }
 
     private fun RunResult.isFTS() = when (this) {
@@ -88,7 +97,7 @@ class QueueService : Service {
     }
 
     private fun RunInfo.getTimeInQueue(settings: QueueSettings) = when {
-        featuredRunMedia != null -> settings.featuredRunWaitTime
+        this.id == featuredRun?.runId -> settings.featuredRunWaitTime
         result.isFTS() -> settings.firstToSolveWaitTime
         result is RunResult.InProgress -> settings.inProgressRunWaitTime
         else -> settings.waitTime
@@ -120,7 +129,7 @@ class QueueService : Service {
                         val currentTime = info.currentContestTime
                         runs.values
                             .filter { currentTime >= lastUpdateTime[it.id]!! + it.getTimeInQueue(info.queueSettings) }
-                            .filterNot { it.featuredRunMedia != null }
+                            .filterNot { it.id == featuredRun?.runId }
                             .forEach { removeRun(it) }
                     }
 
@@ -191,13 +200,13 @@ class QueueService : Service {
                     }
 
                     is Subscribe -> {
-                        resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.time }))
+                        resultFlow.emit(QueueSnapshotEvent(runs.values.sortedBy { it.time }.map { it.toQueueInfo() }))
                     }
                 }
                 val contestInfo = currentContestInfo ?: return@collect
                 while (runs.size >= contestInfo.queueSettings.maxQueueSize) {
                     runs.values.asSequence()
-                        .filterNot { it.result.isFTS() || it.featuredRunMedia != null }
+                        .filterNot { it.result.isFTS() || it.id == featuredRun?.runId }
                         .filterNot { it.isInProgress(contestInfo) }
                         .minByOrNull { lastUpdateTime[it.id]!! }
                         ?.run { removeRun(this) }

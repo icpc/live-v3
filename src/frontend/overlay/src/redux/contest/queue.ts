@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { RunInfo } from "@shared/api";
+import { QueueRunInfo } from "@shared/api";
 
 const ActionTypes = {
     QUEUE_ADD_RUN: "QUEUE_ADD_RUN",
@@ -10,7 +10,7 @@ const ActionTypes = {
 
 
 interface QueueState {
-    queue: RunInfo[],
+    queue: QueueRunInfo[],
     totalQueueItems: number
 }
 
