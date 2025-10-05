@@ -20,6 +20,7 @@ import Videos from "../organisms/widgets/Videos";
 import FullScreenClock from "../organisms/widgets/FullScreenClock";
 import Locator from "../organisms/widgets/Locator";
 import { Widget } from "@shared/api";
+import {LocationRectangle} from "@/utils/location-rectangle";
 
 const fadeIn = keyframes`
   from {
@@ -112,7 +113,7 @@ const useWidgets = () => {
 
 const WidgetWithTransition: React.FC<{ obj: Widget, params: URLSearchParams }> = ({ obj, params }) => {
     const WidgetComponent = WIDGETS[obj.type];
-    const location = c.WIDGET_POSITIONS[obj.widgetLocationId];
+    const location = c.WIDGET_POSITIONS[obj.widgetLocationId] as LocationRectangle;
     
     const [transition, toggle] = useTransition({
         timeout: WidgetComponent.overrideTimeout ?? c.WIDGET_TRANSITION_TIME,

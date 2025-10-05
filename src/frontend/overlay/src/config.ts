@@ -394,7 +394,7 @@ function expandDots(config, result = {}) {
 const config: Readonly<OverlayConfig> = createDotProxy(merge<OverlayConfig>(defaultConfig, expandDots(visualConfig), expandDots(queryVisualConfig)) as OverlayConfig);
 
 setFavicon(faviconTemplate
-    .replaceAll("{CONTEST_COLOR}", config["CONTEST_COLOR"])
-    .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(config["CONTEST_COLOR"]) ? "#000000" : "#FFFFFF"));
+    .replaceAll("{CONTEST_COLOR}", config.CONTEST_COLOR)
+    .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(config.CONTEST_COLOR) ? "#000000" : "#FFFFFF"));
 
 export default config;

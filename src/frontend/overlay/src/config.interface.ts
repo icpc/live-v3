@@ -187,6 +187,7 @@ export interface OverlayConfig {
     gold: string;
     silver: string;
     bronze: string;
+    [key: string]: string;
   };
 
   // Debug Behaviour
