@@ -265,14 +265,10 @@ function createAnimation(
 }
 
 function extractKeylogUrl(teamData: TeamInfo | undefined): string | null {
-    if (!teamData?.medias?.keylog) return null;
-
-    const keylogMedia = teamData.medias.keylog;
-    if ("url" in keylogMedia) {
-        return keylogMedia.url;
-    }
-
-    return null;
+    const keylogs = teamData?.medias?.keylog;
+    if (!keylogs || keylogs.length === 0) return null;
+    const url = keylogs[0]?.url;
+    return url ?? null;
 }
 
 function generateHourMarkers(contestLengthMs: number): number[] {

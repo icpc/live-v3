@@ -10,7 +10,7 @@ import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, OptimismLevel, RunInfo, Widget } from "@shared/api";
+import { Award, OptimismLevel, QueueRunInfo, Widget } from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 
@@ -113,7 +113,7 @@ const queueRowContractionStates = (fullHeight) => ({
     exited: {},
 });
 
-interface QueueRowInfo extends RunInfo {
+interface QueueRowInfo extends QueueRunInfo {
     // isEven: boolean,
     zIndex: number,
     bottom: number,
@@ -169,7 +169,7 @@ const useVerticalQueueRowsData = ({
             totalFts++;
             row.bottom = height;
         }
-        if (run.featuredRunMedia !== undefined) {
+        if ((run.featuredRunMedia?.length ?? 0) > 0) {
             row.isFeatured = true;
             row.isFeaturedRunMediaLoaded = loadedMediaRun === run.id;
             row.setIsFeaturedRunMediaLoaded = (state) => {
@@ -244,7 +244,7 @@ const useHorizontalQueueRowsData = ({
             newStateValue.batches[dId] = { ...bi };
         }
         for (const run of queue) {
-            if (run.featuredRunMedia !== undefined || newStateValue.ftsPositions[run.id] !== undefined) {
+            if ((run.featuredRunMedia?.length ?? 0) > 0 || newStateValue.ftsPositions[run.id] !== undefined) {
                 continue;
             } else if (isFTS(run)) {
                 const usedPositions = Object.values(newStateValue.ftsPositions);
@@ -326,7 +326,7 @@ const useHorizontalQueueRowsData = ({
                 isFts: isFTS(run),
                 setIsFeaturedRunMediaLoaded: null,
             };
-            if (run.featuredRunMedia !== undefined) {
+            if ((run.featuredRunMedia?.length ?? 0) > 0) {
                 row.isFeatured = true;
                 row.isFeaturedRunMediaLoaded = loadedMediaRun === run.id;
                 row.setIsFeaturedRunMediaLoaded = (state) => {
@@ -520,7 +520,7 @@ export const Featured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     return (
         <StyledFeatured additional={appearStatesFeatured[realState]}>
             <TeamMediaHolder
-                media={runInfo.featuredRunMedia}
+                media={runInfo.featuredRunMedia[0]}
                 onLoadStatus={runInfo.setIsFeaturedRunMediaLoaded}
             />
             <QueueRow runInfo={runInfo}/>
@@ -566,7 +566,7 @@ export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     return (
         <StyledHorizontalFeatured additional={appearStatesFeatured[realState]}>
             <TeamMediaHolder
-                media={runInfo.featuredRunMedia}
+                media={runInfo.featuredRunMedia[0]}
                 onLoadStatus={runInfo.setIsFeaturedRunMediaLoaded}
             />
             <QueueRow runInfo={runInfo}/>

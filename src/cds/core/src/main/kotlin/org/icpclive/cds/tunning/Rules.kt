@@ -130,7 +130,7 @@ internal fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buil
             displayName = teamOverrideTemplate.displayName,
             fullName = teamOverrideTemplate.fullName,
             hashTag = teamOverrideTemplate.hashTag,
-            medias = teamOverrideTemplate.medias,
+            medias = teamOverrideTemplate.medias?.mapValues { listOfNotNull(it.value) },
             color = teamOverrideTemplate.color
         )
         val serialized = Json.encodeToString(template)

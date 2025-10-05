@@ -18,7 +18,6 @@ import {
     ContestStatus,
     ContestInfo,
     GroupId,
-    TeamMediaType,
     MediaType,
     TeamInfo,
     ProblemInfo,
@@ -173,7 +172,7 @@ const SimpleGrid = ( { rows, columns }) => {
 export interface SimpleDialogProps {
     open: boolean;
     onClose: () => void;
-    medias: { [key in TeamMediaType]: MediaType };
+    medias: { [key in string]: MediaType[] };
 }
 
 function SimpleDialog({ onClose, open, medias }: SimpleDialogProps) {
@@ -188,15 +187,17 @@ function SimpleDialog({ onClose, open, medias }: SimpleDialogProps) {
             open={open}
         >
             <List>
-                {medias && Object.entries(medias).map(([key, media]) => (
-                    <ListItem key={key}>
-                        <Grid container direction="row">
-                            <Grid size={{xs: 4, md: 2}}>{key}</Grid>
-                            <Grid size={{xs: 4, md: 3}}>{media.type}</Grid>
-                            <Grid size={{xs: 4, md: 7}}>{media.url}</Grid>
-                        </Grid>
-                    </ListItem>
-                ))}
+                {medias && Object.entries(medias).flatMap(([key, medias]) => {
+                    return medias.map((media, idx) => (
+                        <ListItem key={`${key}-${idx}`}>
+                            <Grid container direction="row">
+                                <Grid size={{xs: 4, md: 2}}>{key}{medias.length > 1 ? ` [${idx+1}]` : ""}</Grid>
+                                <Grid size={{xs: 4, md: 3}}>{media?.type ?? "-"}</Grid>
+                                <Grid size={{xs: 4, md: 7}}>{media?.url ?? "-"}</Grid>
+                            </Grid>
+                        </ListItem>
+                    ));
+                })}
             </List>
         </Dialog>
     );
@@ -259,7 +260,7 @@ const ProblemTableColumns: GridColDef<ProblemInfo>[] = [
     }
 ];
 
-const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (m: { [key in TeamMediaType]: MediaType }) => void): GridColDef<TeamInfo>[] => [
+const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (m: { string: MediaType[] }) => void): GridColDef<TeamInfo>[] => [
     {
         field: "id",
         headerName: "ID"
@@ -325,7 +326,7 @@ const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (
     },
 ];
 
-const OrganizationTableColumns: GridColDef<OrganizationInfo>[] = [
+const OrganizationTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (m: { [key in string]: MediaType[] }) => void): GridColDef<OrganizationInfo>[] => [
     {
         field: "id",
         headerName: "ID"
@@ -337,7 +338,27 @@ const OrganizationTableColumns: GridColDef<OrganizationInfo>[] = [
     {
         field: "fullName",
         headerName: "Full name",
-    }
+    },
+    {
+        field: "logo",
+        headerName: "Logo",
+        renderCell: ({ value }) => {
+            const handleClickOpen = () => {
+                setOpen(true);
+                setCurrentTeamMedias({logos : value});
+            };
+
+            if (!value) {
+                return <div/>;
+            }
+            return <div>
+                <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                    Logos
+                </Button>
+            </div>;
+        },
+    },
+
 ];
 
 const GroupTableColumns: GridColDef<GroupInfo>[] = [
@@ -373,7 +394,7 @@ const ContestInfoPage = () => {
     };
 
     const [open, setOpen] = useState(false);
-    const [currentTeamMedias, setCurrentTeamMedias] = useState<{ [key in TeamMediaType]: MediaType }>();
+    const [currentTeamMedias, setCurrentTeamMedias] = useState<{ [key in string] : MediaType[] }>();
 
     const handleClose = () => {
         setOpen(false);
@@ -407,7 +428,7 @@ const ContestInfoPage = () => {
                         <SimpleGrid rows={contestInfo?.groups} columns={GroupTableColumns}/>
                     </TabPanel>
                     <TabPanel value="Organizations">
-                        <SimpleGrid rows={contestInfo?.organizations} columns={OrganizationTableColumns}/>
+                        <SimpleGrid rows={contestInfo?.organizations} columns={OrganizationTableColumns(setOpen, setCurrentTeamMedias)}/>
                     </TabPanel>
                     <TabPanel value="Queue">
                         <QueueSettingsContainer contestInfo={contestInfo}/>

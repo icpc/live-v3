@@ -140,7 +140,7 @@ export interface TeamInfo {
   shortName: string;
   groups: GroupId[];
   hashTag: string | null;
-  medias: { [key in TeamMediaType]: MediaType };
+  medias: { [key in TeamMediaType]: MediaType[] };
   isHidden: boolean;
   isOutOfContest: boolean;
   organizationId: OrganizationId | null;
@@ -159,7 +159,7 @@ export interface OrganizationInfo {
   id: OrganizationId;
   displayName: string;
   fullName: string;
-  logo: MediaType | null;
+  logo: MediaType[];
 }
 
 export interface LanguageInfo {
@@ -209,6 +209,35 @@ export type TeamId = string;
 export type OrganizationId = string;
 
 export type GroupId = string;
+
+export type LanguageId = string;
+
+export interface MedalGroup {
+  medals: MedalSettings[];
+  groups?: GroupId[];
+  excludedGroups?: GroupId[];
+}
+
+export interface ManualAwardSetting {
+  id: string;
+  citation: string;
+  teamCdsIds: TeamId[];
+}
+
+export type RunId = string;
+
+export enum TeamMediaType {
+  camera = "camera",
+  screen = "screen",
+  record = "record",
+  photo = "photo",
+  reactionVideo = "reactionVideo",
+  achievement = "achievement",
+  audio = "audio",
+  backup = "backup",
+  keylog = "keylog",
+  toolData = "toolData",
+}
 
 export type MediaType =
   | MediaType.Audio
@@ -298,35 +327,6 @@ export namespace MediaType {
   }
 }
 
-export type LanguageId = string;
-
-export interface MedalGroup {
-  medals: MedalSettings[];
-  groups?: GroupId[];
-  excludedGroups?: GroupId[];
-}
-
-export interface ManualAwardSetting {
-  id: string;
-  citation: string;
-  teamCdsIds: TeamId[];
-}
-
-export type RunId = string;
-
-export enum TeamMediaType {
-  camera = "camera",
-  screen = "screen",
-  record = "record",
-  photo = "photo",
-  reactionVideo = "reactionVideo",
-  achievement = "achievement",
-  audio = "audio",
-  backup = "backup",
-  keylog = "keylog",
-  toolData = "toolData",
-}
-
 export interface MedalSettings {
   id: string;
   citation: string;
@@ -355,7 +355,6 @@ export interface RunInfo {
   time: number;
   languageId: LanguageId | null;
   testedTime?: number | null;
-  featuredRunMedia: MediaType | null;
   reactionVideos: MediaType[];
   isHidden: boolean;
   sourceFiles?: MediaType[];
@@ -658,10 +657,10 @@ export interface TeamLocatorSettings {
 
 export interface OverlayTeamViewSettings {
   teamId: TeamId;
-  primary: MediaType | null;
-  secondary: MediaType | null;
+  primary: MediaType[];
+  secondary: MediaType[];
   showTaskStatus: boolean;
-  achievement: MediaType | null;
+  achievement: MediaType[];
   showTimeLine: boolean;
   position: TeamViewPosition;
 }
@@ -722,23 +721,32 @@ export namespace QueueEvent {
   
   export interface AddRunToQueue {
     type: QueueEvent.Type.AddRunToQueue;
-    info: RunInfo;
+    info: QueueRunInfo;
   }
   
   export interface ModifyRunInQueue {
     type: QueueEvent.Type.ModifyRunInQueue;
-    info: RunInfo;
+    info: QueueRunInfo;
   }
   
   export interface QueueSnapshot {
     type: QueueEvent.Type.QueueSnapshot;
-    infos: RunInfo[];
+    infos: QueueRunInfo[];
   }
   
   export interface RemoveRunFromQueue {
     type: QueueEvent.Type.RemoveRunFromQueue;
-    info: RunInfo;
+    info: QueueRunInfo;
   }
+}
+
+export interface QueueRunInfo {
+  id: RunId;
+  result: RunResult;
+  problemId: ProblemId;
+  teamId: TeamId;
+  featuredRunMedia: MediaType[] | null;
+  reactionVideos: MediaType[];
 }
 
 export type AnalyticsEvent =
@@ -778,7 +786,7 @@ export type AnalyticsMessageId = string;
 
 export interface AnalyticsCompanionRun {
   expirationTimeUnixMs: number | null;
-  mediaType: MediaType;
+  mediaType: MediaType[];
 }
 
 export interface AnalyticsMessageComment {
