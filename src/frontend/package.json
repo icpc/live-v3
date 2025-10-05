@@ -9,7 +9,8 @@
     "buildLocatorAdmin": "npm run build -w locator",
     "lint": "npm run lint -w overlay && npm run lint -w admin && npm run lint -w locator",
     "test": "npm run test -w tests",
-    "install-browsers": "npm run install-browsers -w tests"
+    "install-browsers": "npm run install-browsers -w tests",
+    "overlayConfigSchema": "npm run schema:config -w overlay"
   },
   "workspaces": [
     "overlay",
