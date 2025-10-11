@@ -9,7 +9,7 @@ internal data class Participant(
     val id: Long,
     val name: String,
     val login: String,
-    val uid: String?,
+    val uid: String? = null,
 ) {
     fun toTeamInfo(loginRegex: Regex) = TeamInfo(
         id = login.toTeamId(),
