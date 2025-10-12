@@ -2,7 +2,7 @@ FROM lscr.io/linuxserver/code-server:latest
 
 ENV DEFAULT_WORKSPACE /workspace
 
-RUN apt-get update && apt-get install -y supervisor openjdk-17-jdk rsync unzip
+RUN apt-get update && apt-get install -y supervisor openjdk-21-jdk rsync unzip
 
 COPY run.sh /app/workspace/run.sh
 COPY stop.sh /app/workspace/stop.sh
