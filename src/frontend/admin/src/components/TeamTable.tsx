@@ -104,7 +104,7 @@ const DEFAULT_MEDIA_TYPES: MediaTypeOption[] = [
 const DEFAULT_TABLE_STYLE: TableStyle = {
     selectedColor: grey.A200,
     activeColor: lightBlue[100],
-    inactiveColor: "white",
+    inactiveColor: "#fff",
 };
 
 function formatUsageTime(seconds: number): string {
