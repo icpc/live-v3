@@ -152,7 +152,7 @@ function MessagesTable({
     onSelectComment
 }: MessagesTableProps) {
     const ref = useRef<HTMLTableElement>(null);
-    const rowSelectionModel: GridRowSelectionModel = selectedRowId 
+    const rowSelectionModel: GridRowSelectionModel = selectedRowId
         ? { type: 'include', ids: new Set([selectedRowId]) }
         : { type: 'include', ids: new Set() };
 
@@ -169,8 +169,8 @@ function MessagesTable({
             getRowHeight={() => "auto"}
             columnHeaderHeight={30}
             onRowSelectionModelChange={(newRowSelectionModel) => {
-                const selectedId = newRowSelectionModel.ids.size > 0 
-                    ? Array.from(newRowSelectionModel.ids)[0] as string 
+                const selectedId = newRowSelectionModel.ids.size > 0
+                    ? Array.from(newRowSelectionModel.ids)[0] as string
                     : null;
                 onSelectRow(selectedId);
             }}
@@ -249,7 +249,7 @@ const TeamViewControl = ({ selectedEvent }: TeamViewControlProps) => {
                     startIcon={<ArrowForwardIcon/>}
                     disabled={selectedEvent?.teamId === undefined}
                     onClick={() => teamViewService.showWithSettings(TeamViewPosition.SINGLE, {
-                        teamId: selectedEvent.teamId,
+                        teamId: selectedEvent?.teamId,
                         mediaTypes: [TeamMediaType.camera, TeamMediaType.screen],
                         showTaskStatus: true,
                         showAchievement: true,
