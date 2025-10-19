@@ -31,12 +31,11 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 9.5.0
+          version: 10.18.3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '22.20.0'
           cache: 'pnpm'
           cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
 
