@@ -1,7 +1,6 @@
 import { DateTime, Settings, SystemZone } from "luxon";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import PropTypes from "prop-types";
 import { useAppSelector } from "@/redux/hooks";
 import { ClockType, ContestInfo, ContestStatus } from "@shared/api";
 import { ShrinkingBox } from "../atoms/ShrinkingBox";
@@ -46,7 +45,14 @@ export const calculateContestTime = (contestInfo: ContestInfo): number => {
     }
 };
 
-export const ContestClock = ({
+interface ContestClockProps {
+    noStatusText?: string;
+    clockType?: ClockType;
+    showSeconds?: boolean;
+    timeZone?: string | null;
+}
+
+export const ContestClock: React.FC<ContestClockProps> = ({
     noStatusText = "??",
     clockType = ClockType.standard,
     showSeconds = true,
@@ -94,12 +100,5 @@ export const ContestClock = ({
     />;
 };
 
-ContestClock.propTypes = {
-    noStatusText: PropTypes.string,
-    showStatus: PropTypes.bool,
-    clockType: PropTypes.oneOf([ClockType.standard, ClockType.countdown, ClockType.global]),
-    showSeconds: PropTypes.bool,
-    timeZone: PropTypes.string,
-};
 
 export default ContestClock;

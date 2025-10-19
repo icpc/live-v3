@@ -93,7 +93,7 @@ type BasicContainerProps = {
     contestInfo: ContestInfo;
 };
 
-const InfoRowContainer = ({ name, value }) => {
+const InfoRowContainer = ({ name, value }: { key?: string; name: string; value: React.ReactNode }) => {
     return <Grid container direction="row">
         <Grid size={{xs: 6, md: 4}}>
             {name}
@@ -126,7 +126,7 @@ const ContestInfoContainer = ({ contestInfo } : BasicContainerProps) => {
         <InfoRowContainer name="Show team without submissions" value = {contestInfo?.showTeamsWithoutSubmissions ? "Yes" : "No"} />
         <InfoRowContainer name="Problem color policy" value = {problemPolicyStr(contestInfo?.problemColorPolicy)} />
         {contestInfo?.customFields && Object.entries(contestInfo.customFields).map(([key, value]) => (
-            <InfoRowContainer key={key} name={"Custom:" + key} value={value} />
+            <InfoRowContainer key={key} name={"Custom:" + key} value={String(value)} />
         ))}
     </div>;
 };

@@ -110,7 +110,7 @@ const useWidgets = () => {
     }
 };
 
-const WidgetWithTransition = ({ obj, params }: { obj: Widget, params: URLSearchParams }) => {
+const WidgetWithTransition: React.FC<{ obj: Widget, params: URLSearchParams }> = ({ obj, params }) => {
     const WidgetComponent = WIDGETS[obj.type];
     const location = c.WIDGET_POSITIONS[obj.widgetLocationId];
     

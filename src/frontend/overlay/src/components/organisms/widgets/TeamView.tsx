@@ -308,20 +308,20 @@ const SplitContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSeconda
     );
 };
 
-export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { settings, ...restProps }, transitionState }) => {
-    const [curSettings, setCurSettings] = useState<OverlayTeamViewSettings>(settings);
+export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData, transitionState }) => {
+    const [curSettings, setCurSettings] = useState<OverlayTeamViewSettings>(widgetData.settings);
     const [nextSettings, setNextSettings] = useState<OverlayTeamViewSettings>(null);
 
     // Derive the next settings when team ID changes
     const shouldUpdateSettings = useMemo(() => {
-        return settings.teamId != curSettings.teamId;
-    }, [settings.teamId, curSettings.teamId]);
+        return widgetData.settings.teamId != curSettings.teamId;
+    }, [widgetData.settings.teamId, curSettings.teamId]);
 
     useEffect(() => {
         if (shouldUpdateSettings) {
-            setNextSettings(settings);
+            setNextSettings(widgetData.settings);
         }
-    }, [shouldUpdateSettings, settings]);
+    }, [shouldUpdateSettings, widgetData.settings]);
 
     const onNextLoaded = () => {
         setTimeout(() => {
@@ -332,9 +332,9 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData: { 
 
     return <>
         {/** Current */}
-        <TeamViewSingleContent key={curSettings?.teamId} widgetData={{ settings: curSettings, ...restProps }} transitionState={transitionState}/>
+        <TeamViewSingleContent key={curSettings?.teamId} widgetData={{ ...widgetData, settings: curSettings }} transitionState={transitionState}/>
         {/** Next */}
-        {nextSettings && <TeamViewSingleContent key={nextSettings?.teamId} widgetData={{ settings: nextSettings, ...restProps }} transitionState={transitionState} onLoaded={onNextLoaded}/> }
+        {nextSettings && <TeamViewSingleContent key={nextSettings?.teamId} widgetData={{ ...widgetData, settings: nextSettings }} transitionState={transitionState} onLoaded={onNextLoaded}/> }
     </>;
 };
 
@@ -342,7 +342,7 @@ type TeamViewSingleContentProps = OverlayWidgetProps<Widget.TeamViewWidget> & {
     onLoaded?: () => void
 }
 
-export const TeamViewSingleContent = ({ widgetData: { settings, widgetLocationId }, transitionState, onLoaded }: TeamViewSingleContentProps) => {
+export const TeamViewSingleContent: React.FC<TeamViewSingleContentProps> = ({ widgetData: { settings, widgetLocationId }, transitionState, onLoaded }) => {
     const { primary, secondary, achievement, position } = settings;
     const location = c.WIDGET_POSITIONS[widgetLocationId];
     const variant = teamViewVariant(position);
