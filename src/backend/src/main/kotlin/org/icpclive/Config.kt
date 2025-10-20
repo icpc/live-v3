@@ -32,11 +32,6 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
         .path(canBeDir = false, canBeFile = true)
         .defaultLazy("configDirectory/users.json") { cdsSettings.configDirectory.resolve("users.json") }
 
-    val widgetPositionsFile by option(
-        "--widget-positions",
-        help = "File with custom widget positions"
-    ).path(canBeFile = true, canBeDir = false, mustExist = true)
-
     val analyticsTemplatesFile by option(
         "--analytics-template",
         help = "File with localization of analytics messages"

@@ -1,14 +1,16 @@
 {
+  "WIDGET_POSITIONS": {
     "queue": {
       "positionX": 1520,
-      "positionY": 16,
+      "positionY": 664,
       "sizeX": 384,
-      "sizeY": 984
+      "sizeY": 400
     },
     "ticker": {
-      "positionX": 1520,
+      "positionX": 16,
       "positionY": 1016,
-      "sizeX": 384,
+      "sizeX": 1489,
       "sizeY": 48
     }
-}  
+  }
+}
