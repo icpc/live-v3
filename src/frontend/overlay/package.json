@@ -23,7 +23,7 @@
     "lint:js": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "lint:typecheck": "tsc --noEmit",
     "lint": "concurrently --group \"npm run lint:*\"",
-    "schema:config": "typescript-json-schema tsconfig.json OverlayConfig --out schemas/visual-config.schema.json  --ignoreErrors"
+    "schema:config": "typescript-json-schema tsconfig.json OverlayConfig --out schemas/visual-config.schema.json  --ignoreErrors --noExtraProps"
   },
   "devDependencies": {
     "vite": "npm:rolldown-vite@7.1.11",

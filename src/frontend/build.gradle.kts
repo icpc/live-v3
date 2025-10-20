@@ -19,6 +19,7 @@ fun PnpmTask.setInputs(directory: Directory) {
     inputs.file(layout.projectDirectory.file("pnpm-lock.yaml"))
     inputs.dir(directory.dir("src"))
     inputs.file(directory.file("package.json"))
+    mustRunAfter(":schema-generator:exportTs")
 }
 
 fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, configure: PnpmTask.(Directory) -> Unit = {}) = named<PnpmTask>(name) {
@@ -42,14 +43,11 @@ tasks {
     }
     val buildOverlay = pnpmBuild("pnpm_run_buildOverlay", layout.projectDirectory.dir("overlay")) {
         inputs.file(it.file("index.html"))
-        mustRunAfter(":schema-generator:exportTs")
     }
     val buildAdmin = pnpmBuild("pnpm_run_buildAdmin", layout.projectDirectory.dir("admin")) {
         inputs.file(it.file("index.html"))
-        mustRunAfter(":schema-generator:exportTs")
     }
     val buildLocatorAdmin = pnpmBuild("pnpm_run_buildLocatorAdmin", layout.projectDirectory.dir("locator")) {
-        mustRunAfter(":schema-generator:exportTs")
     }
     val overlayConfigSchema = named<PnpmTask>("pnpm_run_overlayConfigSchema") {
         setInputs(layout.projectDirectory.dir("overlay"))
