@@ -23,10 +23,22 @@
         "ADVERTISEMENT_BACKGROUND": {
             "type": "string"
         },
+        "ADVERTISEMENT_BORDER_RADIUS": {
+            "type": "string"
+        },
         "ADVERTISEMENT_COLOR": {
             "type": "string"
         },
         "ADVERTISEMENT_FONT_FAMILY": {
+            "type": "string"
+        },
+        "ADVERTISEMENT_FONT_SIZE": {
+            "type": "string"
+        },
+        "ADVERTISEMENT_HORIZONTAL_PADDING": {
+            "type": "string"
+        },
+        "ADVERTISEMENT_VERTICAL_PADDING": {
             "type": "string"
         },
         "BASE_URL_WS": {
@@ -101,10 +113,22 @@
         "CONTESTER_FONT_SIZE": {
             "type": "string"
         },
+        "CONTESTER_INFO_GAP": {
+            "type": "string"
+        },
+        "CONTESTER_INFO_LEFT_PADDING": {
+            "type": "string"
+        },
         "CONTESTER_INFO_RANK_WIDTH": {
             "type": "string"
         },
+        "CONTESTER_INFO_SCORE_RIGHT_PADDING": {
+            "type": "string"
+        },
         "CONTESTER_INFO_SCORE_WIDTH": {
+            "type": "string"
+        },
+        "CONTESTER_INFO_WIDTH": {
             "type": "string"
         },
         "CONTESTER_NAME_WIDTH": {
@@ -167,6 +191,9 @@
         "GLOBAL_TEXT_COLOR": {
             "type": "string"
         },
+        "IMAGE_TICKER_HORIZONTAL_PADDING": {
+            "type": "string"
+        },
         "KEYLOG_ANIMATION_DURATION": {
             "type": "number"
         },
@@ -203,7 +230,37 @@
         "KEYLOG_Z_INDEX": {
             "type": "number"
         },
+        "LEGEND_HORIZONTAL_MARGIN": {
+            "type": "string"
+        },
+        "LEGEND_VERTICAL_MARGIN": {
+            "type": "string"
+        },
+        "LOCATOR_ANIMATION_DELAY": {
+            "type": "number"
+        },
+        "LOCATOR_ANIMATION_DURATION": {
+            "type": "number"
+        },
+        "LOCATOR_BOTTOM_OFFSET": {
+            "type": "number"
+        },
+        "LOCATOR_LINE_STROKE_COLOR": {
+            "type": "string"
+        },
+        "LOCATOR_LINE_STROKE_WIDTH": {
+            "type": "number"
+        },
         "LOCATOR_MAGIC_CONSTANT": {
+            "type": "number"
+        },
+        "LOCATOR_MAX_WIDTH": {
+            "type": "number"
+        },
+        "LOCATOR_TOP_OFFSET": {
+            "type": "number"
+        },
+        "LOCATOR_TOP_THRESHOLD": {
             "type": "number"
         },
         "LOG_LINES": {
@@ -244,13 +301,37 @@
         "PICTURE_NAME_FONT_SIZE": {
             "type": "string"
         },
+        "PROBLEM_LABEL_WIDTH": {
+            "type": "string"
+        },
+        "PVP_ACHIEVEMENT_BOTTOM_OFFSET": {
+            "type": "string"
+        },
+        "PVP_ACHIEVEMENT_WIDTH": {
+            "type": "string"
+        },
         "PVP_APPEAR_TIME": {
+            "type": "number"
+        },
+        "PVP_ASPECT_RATIO_HEIGHT": {
+            "type": "number"
+        },
+        "PVP_ASPECT_RATIO_WIDTH": {
             "type": "number"
         },
         "PVP_BACKGROUND": {
             "type": "string"
         },
+        "PVP_SECONDARY_DIVISOR": {
+            "type": "number"
+        },
         "PVP_TABLE_ROW_HEIGHT": {
+            "type": "number"
+        },
+        "PVP_TABLE_ROW_HEIGHT_MULTIPLIER": {
+            "type": "number"
+        },
+        "PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER": {
             "type": "number"
         },
         "PVP_TEAM_STATUS_TASK_WIDTH": {
@@ -268,6 +349,36 @@
         "QUEUE_FEATURED_RUN_ASPECT": {
             "type": "number"
         },
+        "QUEUE_FEATURED_RUN_BORDER_RADIUS_BOTTOM_LEFT": {
+            "type": "string"
+        },
+        "QUEUE_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT": {
+            "type": "string"
+        },
+        "QUEUE_FEATURED_RUN_PADDING_BOTTOM": {
+            "type": "string"
+        },
+        "QUEUE_FEATURED_RUN_PADDING_LEFT": {
+            "type": "string"
+        },
+        "QUEUE_FEATURED_RUN_PADDING_RIGHT": {
+            "type": "string"
+        },
+        "QUEUE_FEATURED_RUN_PADDING_TOP": {
+            "type": "string"
+        },
+        "QUEUE_FEATURED_RUN_RIGHT_OFFSET": {
+            "type": "string"
+        },
+        "QUEUE_FEATURED_RUN_WIDTH": {
+            "type": "string"
+        },
+        "QUEUE_FTS_BOTTOM_OFFSET": {
+            "type": "number"
+        },
+        "QUEUE_GAP": {
+            "type": "string"
+        },
         "QUEUE_HEADER_FONT_SIZE": {
             "type": "string"
         },
@@ -275,6 +386,15 @@
             "type": "string"
         },
         "QUEUE_HORIZONTAL_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT": {
+            "type": "string"
+        },
+        "QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_RIGHT": {
+            "type": "string"
+        },
+        "QUEUE_HORIZONTAL_FEATURED_RUN_WIDTH": {
             "type": "string"
         },
         "QUEUE_HORIZONTAL_HEIGHT_NUM": {
@@ -293,6 +413,12 @@
             "type": "number"
         },
         "QUEUE_PROBLEM_LABEL_FONT_SIZE": {
+            "type": "string"
+        },
+        "QUEUE_RANK_LABEL_PADDING_LEFT": {
+            "type": "string"
+        },
+        "QUEUE_RANK_LABEL_WIDTH": {
             "type": "string"
         },
         "QUEUE_ROW_APPEAR_TIME": {
@@ -316,11 +442,17 @@
         "QUEUE_ROW_FTS_TRANSITION_TIME": {
             "type": "number"
         },
+        "QUEUE_ROW_GAP": {
+            "type": "string"
+        },
         "QUEUE_ROW_HEIGHT": {
             "type": "number"
         },
         "QUEUE_ROW_PROBLEM_LABEL_WIDTH": {
             "type": "number"
+        },
+        "QUEUE_ROW_STATUS_LABEL_WIDTH": {
+            "type": "string"
         },
         "QUEUE_ROW_TRANSITION_TIME": {
             "type": "number"
@@ -330,6 +462,9 @@
         },
         "QUEUE_ROW_Y_PADDING": {
             "type": "number"
+        },
+        "QUEUE_SCORE_LABEL_WIDTH": {
+            "type": "string"
         },
         "QUEUE_TITLE": {
             "type": "string"
@@ -350,6 +485,9 @@
             "type": "string"
         },
         "SCOREBOARD_CAPTION_FONT_SIZE": {
+            "type": "string"
+        },
+        "SCOREBOARD_CELL_PADDING": {
             "type": "string"
         },
         "SCOREBOARD_CELL_PENALTY_ALIGN": {
@@ -373,7 +511,16 @@
         "SCOREBOARD_CELL_TEAMNANE_ALIGN": {
             "type": "string"
         },
+        "SCOREBOARD_GAP": {
+            "type": "string"
+        },
         "SCOREBOARD_HEADER_BACKGROUND_COLOR": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_BORDER_RADIUS_TOP_LEFT": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_BORDER_RADIUS_TOP_RIGHT": {
             "type": "string"
         },
         "SCOREBOARD_HEADER_DIVIDER_COLOR": {
@@ -388,10 +535,22 @@
         "SCOREBOARD_HEADER_HEIGHT": {
             "type": "number"
         },
+        "SCOREBOARD_HEADER_PADDING_TOP": {
+            "type": "string"
+        },
         "SCOREBOARD_NORMAL_NAME": {
             "type": "string"
         },
         "SCOREBOARD_OPTIMISTIC_NAME": {
+            "type": "string"
+        },
+        "SCOREBOARD_PADDING_LEFT": {
+            "type": "string"
+        },
+        "SCOREBOARD_PADDING_RIGHT": {
+            "type": "string"
+        },
+        "SCOREBOARD_PADDING_TOP": {
             "type": "string"
         },
         "SCOREBOARD_PESSIMISTIC_NAME": {
@@ -433,6 +592,9 @@
         "SPLITSCREEN_SECONDARY_FACTOR": {
             "type": "number"
         },
+        "STAR_DEFAULT_COLOR": {
+            "type": "string"
+        },
         "STAR_SIZE": {
             "type": "number"
         },
@@ -457,8 +619,26 @@
         "STATISTICS_CELL_MORPH_TIME": {
             "type": "number"
         },
+        "STATISTICS_CONTENT_GAP": {
+            "type": "string"
+        },
+        "STATISTICS_HEADER_FONT_SIZE": {
+            "type": "string"
+        },
+        "STATISTICS_HEADER_GAP": {
+            "type": "string"
+        },
+        "STATISTICS_HEADER_LINE_HEIGHT": {
+            "type": "string"
+        },
         "STATISTICS_OPACITY": {
             "type": "number"
+        },
+        "STATISTICS_PADDING_HORIZONTAL": {
+            "type": "string"
+        },
+        "STATISTICS_PADDING_VERTICAL": {
+            "type": "string"
         },
         "STATISTICS_STATS_VALUE_COLOR": {
             "type": "string"
@@ -476,6 +656,9 @@
             "type": "string"
         },
         "STATISTICS_TITLE_FONT_SIZE": {
+            "type": "string"
+        },
+        "SUBMISSION_ROW_TASK_RESULT_LABEL_WIDTH": {
             "type": "string"
         },
         "SVG_APPEAR_TIME": {
@@ -508,11 +691,26 @@
         "TICKER_FONT_FAMILY": {
             "type": "string"
         },
+        "TICKER_LIVE_ICON_MARGIN": {
+            "type": "string"
+        },
+        "TICKER_LIVE_ICON_PADDING": {
+            "type": "string"
+        },
         "TICKER_LIVE_ICON_SIZE": {
+            "type": "string"
+        },
+        "TICKER_LONG_COLUMN_GAP": {
             "type": "string"
         },
         "TICKER_OPACITY": {
             "type": "number"
+        },
+        "TICKER_SCOREBOARD_CONTESTANT_INFO_HEIGHT": {
+            "type": "string"
+        },
+        "TICKER_SCOREBOARD_GAP": {
+            "type": "string"
         },
         "TICKER_SCOREBOARD_RANK_WIDTH": {
             "type": "string"
@@ -526,6 +724,9 @@
         "TICKER_SCROLL_TRANSITION_TIME": {
             "type": "number"
         },
+        "TICKER_SHORT_COLUMN_GAP": {
+            "type": "string"
+        },
         "TICKER_SMALL_BACKGROUND": {
             "type": "string"
         },
@@ -535,8 +736,14 @@
         "TICKER_TEXT_FONT_SIZE": {
             "type": "string"
         },
+        "TICKER_TEXT_HORIZONTAL_PADDING": {
+            "type": "string"
+        },
         "TICKER_TEXT_MARGIN_LEFT": {
             "type": "string"
+        },
+        "TICKER_ZINDEX": {
+            "type": "number"
         },
         "TIMELINE_ANIMATION_TIME": {
             "type": "number"
@@ -548,6 +755,9 @@
             "type": "number"
         },
         "TIMELINE_ELEMENT_DIAMETER_PVP": {
+            "type": "number"
+        },
+        "TIMELINE_END_CIRCLE_RADIUS": {
             "type": "number"
         },
         "TIMELINE_LEFT_TIME_PADDING": {
@@ -571,11 +781,29 @@
         "TIMELINE_TIMEBORDER_COLOR": {
             "type": "string"
         },
+        "TIMELINE_TIME_BORDER_WIDTH": {
+            "type": "number"
+        },
         "TIMELINE_WRAP_HEIGHT": {
             "type": "number"
         },
         "TIMELINE_WRAP_HEIGHT_PVP": {
             "type": "number"
+        },
+        "TIME_CELL_FLEX_BASIS": {
+            "type": "string"
+        },
+        "TIME_CELL_WIDTH": {
+            "type": "string"
+        },
+        "VERDICT_CELL_BRODER_RADIUS": {
+            "type": "string"
+        },
+        "VERDICT_CELL_TRANSITION_TIME": {
+            "type": "number"
+        },
+        "VERDICT_LABEL_FONT_SIZE": {
+            "type": "string"
         },
         "VERDICT_NOK": {
             "type": "string"
