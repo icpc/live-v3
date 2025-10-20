@@ -1,7 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
     "definitions": {
         "LocationRectangle": {
+            "additionalProperties": false,
             "properties": {
                 "positionX": {
                     "type": "number"
@@ -590,6 +592,7 @@
             "type": "number"
         },
         "WEBSOCKETS": {
+            "additionalProperties": false,
             "properties": {
                 "contestInfo": {
                     "type": "string"
@@ -661,6 +664,7 @@
                     "$ref": "#/definitions/LocationRectangle"
                 },
                 "teamview": {
+                    "additionalProperties": false,
                     "properties": {
                         "BOTTOM_LEFT": {
                             "$ref": "#/definitions/LocationRectangle"
