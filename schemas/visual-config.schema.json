@@ -22,6 +22,18 @@
         }
     },
     "properties": {
+        "ADMIN_HIDE_CONTROL": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "ADMIN_HIDE_MENU": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
         "ADVERTISEMENT_BACKGROUND": {
             "type": "string"
         },

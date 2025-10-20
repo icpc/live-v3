@@ -12,5 +12,6 @@ dependencies {
     implementation(projects.cds.core)
     implementation(libs.kotlinx.serialization.json)
     testImplementation(projects.cds.full)
+    testImplementation(libs.json.schema.validator)
     implementation(libs.kotlin.junit)
 }

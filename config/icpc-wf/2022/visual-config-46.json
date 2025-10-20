@@ -4,7 +4,7 @@
   "TICKER_BACKGROUND": "#3EA8C9",
   "ADVERTISEMENT_BACKGROUND": "#3EA8C9",
   "FULL_SCREEN_CLOCK_FONT_SIZE": "300px",
-  "WEBSOCKET_URL_OVERRIDE": {
+  "WEBSOCKETS": {
     "ticker": "ws://live-1:8040/api/46/ticker"
   },
   "QUEUE_MAX_ROWS": 10,
