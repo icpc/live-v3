@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { isShouldUseDarkColor } from "../../utils/colors";
+import c from "../../config";
 
 const StyledProblemLabel = styled.div<{
     backgroundColor: string;
@@ -12,7 +13,7 @@ const StyledProblemLabel = styled.div<{
   align-items: center;
   justify-content: center;
 
-  width: 28px;
+  width: ${c.PROBLEM_LABEL_WIDTH};
   height: 100%;
 
   color: ${({ darkText }) => darkText ? "#000" : "#FFF"};

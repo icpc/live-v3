@@ -175,10 +175,10 @@ const PVPGrid = styled.div<{ $primaryY: number; $secondaryY: number} & PVPWrappe
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: ${props => props.$primaryY / 9 * 16}px ${props => props.$secondaryY / 9 * 16}px;
+    grid-template-columns: ${props => props.$primaryY / c.PVP_ASPECT_RATIO_HEIGHT * c.PVP_ASPECT_RATIO_WIDTH}px ${props => props.$secondaryY / c.PVP_ASPECT_RATIO_HEIGHT * c.PVP_ASPECT_RATIO_WIDTH}px;
     grid-template-rows: ${props => props.$isTop
-        ? `${props.$secondaryY}px 1fr ${c.PVP_TABLE_ROW_HEIGHT * 2.5}px ${c.PVP_TABLE_ROW_HEIGHT * 0.5}px`
-        : `${c.PVP_TABLE_ROW_HEIGHT * 0.5}px ${c.PVP_TABLE_ROW_HEIGHT * 2.5}px 1fr ${props.$secondaryY}px`};
+        ? `${props.$secondaryY}px 1fr ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_MULTIPLIER}px ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER}px`
+        : `${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER}px ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_MULTIPLIER}px 1fr ${props.$secondaryY}px`};
     z-index: 1;
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
     overflow: hidden;
@@ -223,8 +223,8 @@ const PVPTackStatusBackWrapper = styled.div<PVPWrapperProps>`
 
 const PVPAchievementInnerWrapper = styled.div`
     position: absolute;
-    width: 676px;
-    bottom: -4px;
+    width: ${c.PVP_ACHIEVEMENT_WIDTH};
+    bottom: ${c.PVP_ACHIEVEMENT_BOTTOM_OFFSET};
     z-index: 4;
 
     object {
@@ -284,8 +284,8 @@ const SplitScreenGrid = styled.div<{ $secondaryY: number }>`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr ${props => props.$secondaryY / 9 * 16}px;
-    grid-template-rows: 1fr ${props => props.$secondaryY / 2}px  ${props => props.$secondaryY / 2}px;
+    grid-template-columns: 1fr ${props => props.$secondaryY / c.PVP_ASPECT_RATIO_HEIGHT * c.PVP_ASPECT_RATIO_WIDTH}px;
+    grid-template-rows: 1fr ${props => props.$secondaryY / c.PVP_SECONDARY_DIVISOR}px  ${props => props.$secondaryY / c.PVP_SECONDARY_DIVISOR}px;
     z-index: 3;
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;

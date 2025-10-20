@@ -11,7 +11,7 @@ import { isShouldUseDarkColor } from "@/utils/colors";
 const ContestantViewCornerWrap = styled.div<{isSmall: boolean}>`
   display: grid;
   grid-template-rows: 1fr ${c.QUEUE_ROW_HEIGHT}px;
-  grid-template-columns: auto 150px;
+  grid-template-columns: auto ${c.CONTESTER_INFO_WIDTH};
   
   width: auto;
   /*transform: ${props => props.isSmall ? `scale(${c.TEAMVIEW_SMALL_FACTOR})` : ""};*/
@@ -44,7 +44,7 @@ const TasksContainer = styled.div`
 
 const TaskRow = styled.div`
   display: flex;
-  width: 150px;
+  width: ${c.CONTESTER_INFO_WIDTH};
   flex: 0 0 ${c.QUEUE_ROW_HEIGHT}px; 
   /* css trick for perfect TaskRow overflowing: arrange the columns from bottom to top from right to left */
   transform: scale(-1);

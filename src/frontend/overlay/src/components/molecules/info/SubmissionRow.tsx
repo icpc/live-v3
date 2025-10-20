@@ -9,15 +9,14 @@ import { isShouldUseDarkColor } from "@/utils/colors";
 
 
 const TimeCell = styled.div`
-  flex-basis: 70%;
-  width: 50px;
+  flex-basis: ${c.TIME_CELL_FLEX_BASIS};
+  width: ${c.TIME_CELL_WIDTH};
   text-align: center;
-
 `;
 
 const QueueProblemLabel = styled(ProblemLabel)`
   flex-shrink: 0;
-  width: 28px;
+  width: ${c.QUEUE_ROW_PROBLEM_LABEL_WIDTH}px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
 `;
 
@@ -55,7 +54,7 @@ const SubmissionColumnWrap = styled.div<{bg_color: string, darkText: boolean}>`
 
 const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`
   flex-shrink: 0;
-  width: 40px;
+  width: ${c.SUBMISSION_ROW_TASK_RESULT_LABEL_WIDTH};
   height: 100%;
   text-align: center;
 `;

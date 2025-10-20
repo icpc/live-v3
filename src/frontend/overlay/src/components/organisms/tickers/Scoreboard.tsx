@@ -18,7 +18,7 @@ const ScoreboardWrap = styled.div.attrs<ScoreboardWrapProps>(({ top }) => (
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(${props => props.nrows}, 1fr);
-  gap: 2px;
+  gap: ${c.TICKER_SCOREBOARD_GAP};
 
   width: 100%;
   height: 100%;
@@ -29,8 +29,7 @@ const ScoreboardWrap = styled.div.attrs<ScoreboardWrapProps>(({ top }) => (
 `;
 
 const TickerScoreboardContestantInfo = styled(ContestantInfo)`
-    height: 48px;
-
+    height: ${c.TICKER_SCOREBOARD_CONTESTANT_INFO_HEIGHT};
 `;
 
 export const Scoreboard = ({ tickerSettings, state }) => {

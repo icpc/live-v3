@@ -79,6 +79,7 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         QUEUE_MAX_ROWS: 20,
         QUEUE_HORIZONTAL_HEIGHT_NUM: 5,
 
+
         // Timings
         WIDGET_TRANSITION_TIME: 300, // ms
         QUEUE_ROW_TRANSITION_TIME: 700, // ms
@@ -115,6 +116,10 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         VERDICT_NOK: "#CB2E28",
         VERDICT_UNKNOWN: "#F3BE4B",
 
+        VERDICT_LABEL_FONT_SIZE: "14px",
+        VERDICT_CELL_TRANSITION_TIME: 250, // ms
+        VERDICT_CELL_BRODER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
+
         // Styles > Scoreboard
         SCOREBOARD_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.GLOBAL_BACKGROUND_COLOR,
         SCOREBOARD_BORDER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
@@ -146,6 +151,15 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         SCOREBOARD_UNDEFINED_NAME: "??",
         SCOREBOARD_STANDINGS_NAME: "standings",
 
+        SCOREBOARD_GAP: "14px",
+        SCOREBOARD_PADDING_TOP: "7px",
+        SCOREBOARD_PADDING_RIGHT: "16px",
+        SCOREBOARD_PADDING_LEFT: "16px",
+        SCOREBOARD_HEADER_PADDING_TOP: "0.3em",
+        SCOREBOARD_CELL_PADDING: "8px",
+        SCOREBOARD_HEADER_BORDER_RADIUS_TOP_LEFT: "16px",
+        SCOREBOARD_HEADER_BORDER_RADIUS_TOP_RIGHT: "16px",
+
 
         QUEUE_ROW_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
         QUEUE_ROW_BACKGROUND: "rgba(0, 0, 0, 0.08)",
@@ -163,6 +177,31 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         QUEUE_ROW_PROBLEM_LABEL_WIDTH: 28, // px
         QUEUE_HEADER_FONT_SIZE: "32px",
         QUEUE_HEADER_LINE_HEIGHT: "44px",
+        QUEUE_RANK_LABEL_WIDTH: "32px",
+        QUEUE_RANK_LABEL_PADDING_LEFT: "12px",
+        QUEUE_ROW_GAP: "5px",
+        QUEUE_SCORE_LABEL_WIDTH: "51px",
+        QUEUE_GAP: "7px",
+        QUEUE_FEATURED_RUN_WIDTH: "334px",
+        QUEUE_FEATURED_RUN_PADDING_TOP: "3px",
+        QUEUE_FEATURED_RUN_PADDING_RIGHT: "16px",
+        QUEUE_FEATURED_RUN_PADDING_BOTTOM: "3px",
+        QUEUE_FEATURED_RUN_PADDING_LEFT: "3px",
+        QUEUE_FEATURED_RUN_BORDER_RADIUS_BOTTOM_LEFT: "16px",
+        QUEUE_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT: "16px",
+        QUEUE_HORIZONTAL_FEATURED_RUN_WIDTH: (cfg: OverlayConfig) => cfg.QUEUE_FEATURED_RUN_WIDTH,
+        QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT: "16px",
+        QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_RIGHT: "16px",
+        QUEUE_FTS_BOTTOM_OFFSET: 3, // px
+        QUEUE_ROW_STATUS_LABEL_WIDTH: "46px",
+        QUEUE_FEATURED_RUN_RIGHT_OFFSET: "16px",
+
+        PROBLEM_LABEL_WIDTH: "28px",
+
+        TIME_CELL_FLEX_BASIS: "70%",
+        TIME_CELL_WIDTH: "50px",
+
+        SUBMISSION_ROW_TASK_RESULT_LABEL_WIDTH: "40px",
 
         SCORE_NONE_TEXT: ".",
 
@@ -177,7 +216,15 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         STATISTICS_BAR_HEIGHT: (cfg: OverlayConfig) => `${cfg.STATISTICS_BAR_HEIGHT_PX}px`,
         STATISTICS_BAR_GAP_PX: 9,
         STATISTICS_BAR_GAP: (cfg: OverlayConfig) => `${cfg.STATISTICS_BAR_GAP_PX}px`,
+        STATISTICS_PADDING_VERTICAL: "8px",
+        STATISTICS_PADDING_HORIZONTAL: "16px",
+        STATISTICS_HEADER_GAP: "16px",
+        STATISTICS_HEADER_FONT_SIZE: "32px",
+        STATISTICS_HEADER_LINE_HEIGHT: "44px",
+        STATISTICS_CONTENT_GAP: "8px",
 
+        LEGEND_VERTICAL_MARGIN: "8px",
+        LEGEND_HORIZONTAL_MARGIN: "16px",
 
         // TODO: remove
         CELL_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
@@ -208,11 +255,18 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         TICKER_FONT_COLOR: "#FFFFFF",
         TICKER_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
         TICKER_TEXT_FONT_SIZE: "32px", // css property
+        TICKER_TEXT_HORIZONTAL_PADDING: "16px",
         TICKER_TEXT_MARGIN_LEFT: "16px", // css property
         TICKER_CLOCK_FONT_SIZE: "32px", // css property
         TICKER_CLOCK_MARGIN_LEFT: "10px", // css property
         TICKER_SCOREBOARD_RANK_WIDTH: "50px", // css property
         TICKER_LIVE_ICON_SIZE: "32px",
+        TICKER_SCOREBOARD_GAP: "2px",
+        TICKER_SCOREBOARD_CONTESTANT_INFO_HEIGHT: "48px",
+        TICKER_SHORT_COLUMN_GAP: "8px",
+        TICKER_LONG_COLUMN_GAP: "9px",
+        TICKER_LIVE_ICON_PADDING: "8px 0",
+        TICKER_LIVE_ICON_MARGIN: "0 8px",
 
         PICTURE_NAME_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
         PICTURE_NAME_FONT_COLOR: "#FFFFFF",
@@ -233,8 +287,13 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         ADVERTISEMENT_BACKGROUND: "#FFFFFF", // hex value.
         ADVERTISEMENT_COLOR: (cfg: OverlayConfig) => isShouldUseDarkColor(cfg.ADVERTISEMENT_BACKGROUND) ? "black" : "white",
         ADVERTISEMENT_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        ADVERTISEMENT_FONT_SIZE: "24pt",
+        ADVERTISEMENT_VERTICAL_PADDING: "13px",
+        ADVERTISEMENT_HORIZONTAL_PADDING: "20px",
+        ADVERTISEMENT_BORDER_RADIUS: "12px",
 
         STAR_SIZE: 33, // px
+        STAR_DEFAULT_COLOR: "#F9A80D", // hex
 
         QUEUE_PROBLEM_LABEL_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
 
@@ -259,6 +318,11 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         CONTESTER_INFO_SCORE_WIDTH: "51px",
         CONTESTER_INFO_RANK_WIDTH: "32px",
 
+        CONTESTER_INFO_LEFT_PADDING: "4px",
+        CONTESTER_INFO_GAP: "5px",
+        CONTESTER_INFO_SCORE_RIGHT_PADDING: "20px",
+        CONTESTER_INFO_WIDTH: "150px",
+
         TIMELINE_ELEMENT_DIAMETER: 25,
         TIMELINE_BORDER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
         TIMELINE_LINE_HEIGHT: 4,
@@ -273,6 +337,9 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         TIMELINE_ELEMENT_DIAMETER_PVP: 20,
         TIMELINE_PADDING_PVP: 5,
         TIMELINE_REAL_WIDTH_PVP: 0.93,
+
+        TIMELINE_END_CIRCLE_RADIUS: 10,
+        TIMELINE_TIME_BORDER_WIDTH: 2,
 
 
         KEYLOG_MAXIMUM_FOR_NORMALIZATION: 500, // max value for normalization
@@ -291,6 +358,9 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         KEYLOG_FILL_LIGHT: "#FFFFFF29",
         KEYLOG_GLOW_BLUR: 0,
 
+        // Image ticker
+        IMAGE_TICKER_HORIZONTAL_PADDING: "16px",
+
 
         TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR: 0.39,
         SPLITSCREEN_SECONDARY_FACTOR: (cfg: OverlayConfig) => cfg.TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR,
@@ -299,7 +369,14 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         // TEAM_VIEW_OPACITY: 0.95,
         PVP_BACKGROUND: (cfg: OverlayConfig) => cfg.CONTESTER_BACKGROUND_COLOR,
         PVP_TABLE_ROW_HEIGHT: 32,
+        PVP_TABLE_ROW_HEIGHT_MULTIPLIER: 2.5,
+        PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER: 0.5,
         PVP_TEAM_STATUS_TASK_WIDTH: 50,
+        PVP_ACHIEVEMENT_WIDTH: "676px",
+        PVP_ACHIEVEMENT_BOTTOM_OFFSET: "-4px",
+        PVP_SECONDARY_DIVISOR: 2,
+        PVP_ASPECT_RATIO_WIDTH: 16,
+        PVP_ASPECT_RATIO_HEIGHT: 9,
 
         CIRCLE_PROBLEM_SIZE: "28px",
         CIRCLE_PROBLEM_LINE_WIDTH: "3.5px",
@@ -308,8 +385,17 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
 
         // layers (z-indexes)
         QUEUE_BASIC_ZINDEX: 20,
+        TICKER_ZINDEX: 2147000000,
 
         LOCATOR_MAGIC_CONSTANT: 343,
+        LOCATOR_TOP_OFFSET: 50,
+        LOCATOR_TOP_THRESHOLD: 10,
+        LOCATOR_BOTTOM_OFFSET: 16,
+        LOCATOR_MAX_WIDTH: 1920,
+        LOCATOR_ANIMATION_DURATION: 1500, // ms
+        LOCATOR_ANIMATION_DELAY: 500, // ms
+        LOCATOR_LINE_STROKE_COLOR: "white",
+        LOCATOR_LINE_STROKE_WIDTH: 5,
 
         WEBSOCKETS: (cfg: OverlayConfig) => ({
             mainScreen: `${cfg.BASE_URL_WS}/mainScreen`,

@@ -13,15 +13,15 @@ const AdvertisementContainer = styled.div`
 
 // TODO: move this to constants.js
 const AdvertisementWrap = styled.div`
-  padding: 13px 20px;
+  padding: ${c.ADVERTISEMENT_VERTICAL_PADDING} ${c.ADVERTISEMENT_HORIZONTAL_PADDING};
 
   font-family: ${c.ADVERTISEMENT_FONT_FAMILY}, serif;
-  font-size: 24pt;
+  font-size: ${c.ADVERTISEMENT_FONT_SIZE};
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
   color: ${c.ADVERTISEMENT_COLOR};
 
   background-color: ${c.ADVERTISEMENT_BACKGROUND};
-  border-radius: 12px;
+  border-radius: ${c.ADVERTISEMENT_BORDER_RADIUS};
   text-align: center;
 `;
 

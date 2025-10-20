@@ -184,9 +184,9 @@ const useVerticalQueueRowsData = ({
     let regularRowCount = 0;
     rows.forEach((row) => {
         if (row.isFts) {
-            row.bottom = height - bottomPosition(totalFts - ftsRowCount) + 3;
+            row.bottom = height - bottomPosition(totalFts - ftsRowCount) + c.QUEUE_FTS_BOTTOM_OFFSET;
             ftsRowCount++;
-        } else  {
+        } else {
             row.bottom = bottomPosition(regularRowCount);
             regularRowCount++;
         }
@@ -357,9 +357,9 @@ const useHorizontalQueueRowsData = ({
 };
 
 const QueueRankLabel = styled(RankLabel)`
-  width: 32px;
+  width: ${c.QUEUE_RANK_LABEL_WIDTH};
   align-self: stretch;
-  padding-left: 12px;
+  padding-left: ${c.QUEUE_RANK_LABEL_PADDING_LEFT};
   flex-shrink: 0;
 `;
 
@@ -367,7 +367,7 @@ const QueueTeamNameLabel = styled(ShrinkingBox)`
   flex-grow: 1;
 `;
 const QueueRunStatusLabel = styled(RunStatusLabel)`
-  width: 46px;
+  width: ${c.QUEUE_ROW_STATUS_LABEL_WIDTH};
   flex-shrink: 0;
 `;
 
@@ -378,14 +378,14 @@ const StyledQueueRow = styled.div`
   align-items: center;
   border-radius: ${c.GLOBAL_BORDER_RADIUS};
   overflow: hidden;
-  gap: 5px;
+  gap: ${c.QUEUE_ROW_GAP};
   color: white;
   font-size: ${c.QUEUE_ROW_FONT_SIZE};
   background: ${c.QUEUE_ROW_BACKGROUND};
 `;
 
 const QueueScoreLabel = styled(ShrinkingBox)`
-  width: 51px;
+  width: ${c.QUEUE_SCORE_LABEL_WIDTH};
   flex-shrink: 0;
   flex-direction: row-reverse;
 `;
@@ -450,7 +450,7 @@ const QueueWrap = styled.div<{ hasFeatured: boolean; variant: "vertical" | "hori
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: ${c.QUEUE_GAP};
 `;
 
 const RowsContainer = styled.div`
@@ -485,14 +485,14 @@ const Caption = styled.div`
 `;
 
 const StyledFeatured = styled.div<{additional: CSSObject}>`
-  width: 334px;
+  width: ${c.QUEUE_FEATURED_RUN_WIDTH};
   position: absolute;
 
-  right: calc(100% - 16px); /* this with padding is a hack to hide the rounded corner of the widget */
-  padding: 3px 16px 3px 3px;
+  right: calc(100% - ${c.QUEUE_FEATURED_RUN_RIGHT_OFFSET}); /* this with padding is a hack to hide the rounded corner of the widget */
+  padding: ${c.QUEUE_FEATURED_RUN_PADDING_TOP} ${c.QUEUE_FEATURED_RUN_PADDING_RIGHT} ${c.QUEUE_FEATURED_RUN_PADDING_BOTTOM} ${c.QUEUE_FEATURED_RUN_PADDING_LEFT};
 
   background-color: ${c.QUEUE_BACKGROUND_COLOR};
-  border-radius: 16px 0 0 16px;
+  border-radius: ${c.QUEUE_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT} 0 0 ${c.QUEUE_FEATURED_RUN_BORDER_RADIUS_BOTTOM_LEFT};
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -530,7 +530,7 @@ export const Featured = ({ runInfo }: { runInfo: QueueRowInfo }) => {
 
 
 const StyledHorizontalFeatured = styled.div<{additional: CSSObject}>`
-  width: 334px;
+  width: ${c.QUEUE_HORIZONTAL_FEATURED_RUN_WIDTH};
   position: absolute;
 
   right: 0;
@@ -538,7 +538,7 @@ const StyledHorizontalFeatured = styled.div<{additional: CSSObject}>`
   padding: ${c.QUEUE_WRAP_PADDING}px;
 
   background-color: ${c.QUEUE_BACKGROUND_COLOR};
-  border-radius: 16px 16px 0 0;
+  border-radius: ${c.QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT} ${c.QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_RIGHT} 0 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;

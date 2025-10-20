@@ -12,12 +12,12 @@ const StatisticsWrap = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: ${c.STATISTICS_CONTENT_GAP};
 
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 8px 16px;
+  padding: ${c.STATISTICS_PADDING_VERTICAL} ${c.STATISTICS_PADDING_HORIZONTAL};
 
   background-color: ${c.CONTEST_COLOR};
   background-repeat: no-repeat;
@@ -27,12 +27,12 @@ const StatisticsWrap = styled.div`
 const Header = styled.div`
   display: flex;
   flex-flow: row;
-  gap: 16px;
+  gap: ${c.STATISTICS_HEADER_GAP};
 
   width: 100%;
 
-  font-size: 32px;
-  line-height: 44px;
+  font-size: ${c.STATISTICS_HEADER_FONT_SIZE};
+  line-height: ${c.STATISTICS_HEADER_LINE_HEIGHT};
   color: white;
 `;
 const Title = styled.div`
@@ -63,7 +63,7 @@ export const Statistics = () => {
                 <StatisticsLegend legend={data.legend}></StatisticsLegend>
             </Header>
 
-            {data.data && data.data.length > 0 && <StackedBars data={data.data} height={height - headerHeight - 8} />}
+            {data.data && data.data.length > 0 && <StackedBars data={data.data} height={height - headerHeight - parseInt(c.STATISTICS_CONTENT_GAP)} />}
         </StatisticsWrap>
     );
 };

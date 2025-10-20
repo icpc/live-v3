@@ -129,15 +129,15 @@ export const SingleTickerRows = ({ part }) => {
 const ShortTickerGrid = styled.div`
   display: grid;
   grid-template-columns: ${c.TICKER_LIVE_ICON_SIZE} auto;
-  column-gap: 8px;
+  column-gap: ${c.TICKER_SHORT_COLUMN_GAP};
 
   width: 100%;
-  margin: 0 8px;
+  margin: ${c.TICKER_LIVE_ICON_MARGIN};
 `;
 
 const LiveIcon = styled.img`
   height: ${c.TICKER_LIVE_ICON_SIZE};
-  padding: 8px 0;
+  padding: ${c.TICKER_LIVE_ICON_PADDING};
 `;
 
 interface SingleTickerProps {
@@ -171,11 +171,11 @@ export const SingleTicker: React.FC<SingleTickerProps> = ({ part, color }) => {
 
 const TickerWrap = styled.div`
   position: absolute;
-  z-index: 2147000000;
+  z-index: ${c.TICKER_ZINDEX};
 
   display: grid;
   grid-template-columns: ${c.TICKER_SMALL_SIZE} auto;
-  column-gap: 9px;
+  column-gap: ${c.TICKER_LONG_COLUMN_GAP};
 
   width: 100%;
   height: 100%;

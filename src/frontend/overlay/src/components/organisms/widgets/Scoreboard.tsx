@@ -16,12 +16,12 @@ const ScoreboardWrap = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: ${c.SCOREBOARD_GAP};
 
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 7px 16px 0 16px;
+  padding: ${c.SCOREBOARD_PADDING_TOP} ${c.SCOREBOARD_PADDING_RIGHT} 0 ${c.SCOREBOARD_PADDING_LEFT};
 
   color: ${c.SCOREBOARD_TEXT_COLOR};
 
@@ -34,7 +34,7 @@ const ScoreboardHeader = styled.div`
   flex-direction: row;
 
   width: 100%;
-  padding-top: 0.3em;
+  padding-top: ${c.SCOREBOARD_HEADER_PADDING_TOP};
 
   font-size: ${c.SCOREBOARD_CAPTION_FONT_SIZE};
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
@@ -95,7 +95,7 @@ const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
 `;
 
 const ScoreboardRowName = styled(ShrinkingBox)`
-  padding: 0 8px;
+  padding: 0 ${c.SCOREBOARD_CELL_PADDING};
 
   /* font-weight: 700; */
 `;
@@ -285,13 +285,13 @@ const ScoreboardTableHeaderWrap = styled(ScoreboardTableRowWrap)`
   font-style: normal;
   line-height: ${c.SCOREBOARD_HEADER_HEIGHT}px;
 
-  border-radius: 16px 16px 0 0;
+  border-radius: ${c.SCOREBOARD_HEADER_BORDER_RADIUS_TOP_LEFT} ${c.SCOREBOARD_HEADER_BORDER_RADIUS_TOP_RIGHT} 0 0;
 `;
 
 const ScoreboardTableHeaderCell = styled.div`
-  padding: 0 8px;
+  padding: 0 ${c.SCOREBOARD_CELL_PADDING};
   text-align: center;
-  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};  
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
   background-color: ${c.SCOREBOARD_HEADER_BACKGROUND_COLOR};
 `;
 
