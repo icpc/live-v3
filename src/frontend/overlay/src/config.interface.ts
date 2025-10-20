@@ -290,4 +290,7 @@ export interface OverlayConfig {
     };
     [key: string]: LocationRectangle | {[key: string]: LocationRectangle}
   };
+
+  ADMIN_HIDE_MENU: string[],
+  ADMIN_HIDE_CONTROL: string[],
 }

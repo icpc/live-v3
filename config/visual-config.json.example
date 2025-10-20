@@ -9,7 +9,7 @@
       "sizeY": 970
     },
     "teamview": {
-      "SINGLE_TOP_RIGHT": {
+      "TOP_RIGHT": {
         "positionX": 550,
         "positionY": 40,
         "sizeX": 1350,

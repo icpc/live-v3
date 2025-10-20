@@ -341,6 +341,8 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
                 BOTTOM_RIGHT: Location(16 + 1488 / 2, 16 + 837 / 2, 1488 / 2, 837 / 2),
             },
         },
+        ADMIN_HIDE_CONTROL: [],
+        ADMIN_HIDE_MENU: []
     };
 }
 
