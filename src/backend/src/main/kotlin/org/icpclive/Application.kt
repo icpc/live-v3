@@ -104,15 +104,8 @@ fun Application.module() {
         val visualConfigFlow = config.visualConfigFile?.let {
             fileJsonContentFlow<JsonObject>(it)
         } ?: flowOf(emptyJson)
-        val widgetPositionsFlow = config.widgetPositionsFile?.let {
-            fileJsonContentFlow<JsonObject>(it)
-        } ?: flowOf(emptyJson)
 
-        DataBus.visualConfigFlow.completeOrThrow(
-            combine(visualConfigFlow, widgetPositionsFlow) { a, b ->
-                JsonObject(a + ("WIDGET_POSITIONS" to b))
-            }.stateIn(this)
-        )
+        DataBus.visualConfigFlow.completeOrThrow(visualConfigFlow.stateIn(this))
 
         launchServices(loader)
     }

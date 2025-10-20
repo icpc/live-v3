@@ -6,10 +6,74 @@
     "TIMELINE_PADDING": 3,
     "QUEUE_ROW_BACKGROUND" :"#4C83C3",
     "SCOREBOARD_CAPTION_FONT_SIZE": "0px",
-    "SCOREBOARD_CELL_PLACE_SIZE" : 0,
+    "SCOREBOARD_CELL_PLACE_SIZE" : "0px",
     "SCOREBOARD_CELL_TEAMNAME_SIZE": "120px",
-    "TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR" :"50%",
+    "TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR" :0.5,
     "CONTESTER_INFO_RANK_WIDTH": "0px",
     "TICKER_SMALL_SIZE": "50%",
-    "TICKER_TEXT_FONT_SIZE": "22px"  
+    "TICKER_TEXT_FONT_SIZE": "22px",
+  "WIDGET_POSITIONS": {
+    "ticker": {
+      "positionX": 640,
+      "positionY": 372,
+      "sizeX": 640,
+      "sizeY": 50
+    },
+    "queue": {
+      "positionX": 640,
+      "positionY": 422,
+      "sizeX": 640,
+      "sizeY": 50
+    },
+    "scoreboard": {
+      "positionX": 640,
+      "positionY": 230,
+      "sizeX": 640,
+      "sizeY": 142
+    },
+    "teamview": {
+      "SINGLE": {
+        "positionX": 0,
+        "positionY": 160,
+        "sizeX": 1920,
+        "sizeY": 920
+      },
+      "PVP_TOP": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 640,
+        "sizeY": 1080
+      },
+      "PVP_BOTTOM": {
+        "positionX": 1280,
+        "positionY": 0,
+        "sizeX": 640,
+        "sizeY": 1080
+      },
+      "TOP_LEFT": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 640,
+        "sizeY": 1080
+      },
+      "TOP_RIGHT": {
+        "positionX": 1280,
+        "positionY": 0,
+        "sizeX": 640,
+        "sizeY": 1080
+      },
+      "BOTTOM_LEFT": {
+        "positionX": 640,
+        "positionY": -144,
+        "sizeX": 320,
+        "sizeY": 360
+      },
+      "BOTTOM_RIGHT": {
+        "positionX": 960,
+        "positionY": -144,
+        "sizeX": 320,
+        "sizeY": 360
+      }
+    }
+  }
 }

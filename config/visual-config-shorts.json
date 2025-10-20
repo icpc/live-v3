@@ -6,5 +6,31 @@
   "SCOREBOARD_CELL_POINTS_SIZE": "50px",
   "SCOREBOARD_CELL_PENALTY_SIZE": "92px",
   "FULL_SCREEN_CLOCK_FONT_SIZE": "300px",
-  "FULL_SCREEN_CLOCK_COLOR": "#eeeeee33"
+  "FULL_SCREEN_CLOCK_COLOR": "#eeeeee33",
+  "WIDGET_POSITIONS": {
+    "ticker": {
+      "positionX": 540,
+      "positionY": 46,
+      "sizeX": 524,
+      "sizeY": 86
+    },
+    "scoreboard": {
+      "positionX": 16,
+      "positionY": 148,
+      "sizeX": 1048,
+      "sizeY": 1756
+    },
+    "fullScreenClock": {
+      "positionX": 16,
+      "positionY": 148,
+      "sizeX": 1048,
+      "sizeY": 1756
+    },
+    "statistics": {
+      "positionX": 16,
+      "positionY": 1026,
+      "sizeX": 1048,
+      "sizeY": 878
+    }
+  }
 }

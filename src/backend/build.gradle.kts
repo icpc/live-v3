@@ -67,7 +67,6 @@ tasks {
         this.args = listOfNotNull(
             "--no-auth",
             project.properties["live.dev.credsFile"]?.let { "--creds=$it" },
-            project.properties["live.dev.widgetPositionsFile"]?.let { "--widget-positions=$it" },
             project.properties["live.dev.contest"]?.let { "--config-directory=$it" },
             project.properties["live.dev.analyticsTemplatesFile"]?.let { "--analytics-template=$it" },
             project.properties["live.dev.visualConfigFile"]?.let { "--visual-config=$it" },

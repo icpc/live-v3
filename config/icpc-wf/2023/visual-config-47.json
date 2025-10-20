@@ -7,5 +7,19 @@
   "WEBSOCKET_URL_OVERRIDE": {
     "ticker": "ws://live-1:8040/api/47/ticker"
   },
-  "QUEUE_MAX_ROWS": 10
+  "QUEUE_MAX_ROWS": 10,
+  "WIDGET_POSITIONS": {
+    "queue": {
+      "positionX": 1520,
+      "positionY": 664,
+      "sizeX": 384,
+      "sizeY": 400
+    },
+    "ticker": {
+      "positionX": 16,
+      "positionY": 1016,
+      "sizeX": 1488,
+      "sizeY": 48
+    }
+  }
 }

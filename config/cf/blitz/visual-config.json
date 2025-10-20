@@ -1,10 +1,44 @@
 {
-    "QUEUE_BACKGROUND_COLOR" : "#FF000000",
-    "QUEUE_TITLE" :"",
-    "SCOREBOARD_HEADER_HEIGHT": 0,
-    "SCOREBOARD_CAPTION_FONT_SIZE": "0px",
-    "TIMELINE_WRAP_HEIGHT": 32,
-    "TIMELINE_ELEMENT_DIAMETER": 26,
-    "TIMELINE_PADDING": 3,
-    "QUEUE_ROW_BACKGROUND" :"#4C83C3"
+  "QUEUE_BACKGROUND_COLOR": "#FF000000",
+  "QUEUE_TITLE": "",
+  "SCOREBOARD_HEADER_HEIGHT": 0,
+  "SCOREBOARD_CAPTION_FONT_SIZE": "0px",
+  "TIMELINE_WRAP_HEIGHT": 32,
+  "TIMELINE_ELEMENT_DIAMETER": 26,
+  "TIMELINE_PADDING": 3,
+  "QUEUE_ROW_BACKGROUND": "#4C83C3",
+  "WIDGET_POSITIONS": {
+    "ticker": {
+      "positionX": 0,
+      "positionY": 0,
+      "sizeX": 1920,
+      "sizeY": 50
+    },
+    "scoreboard": {
+      "positionX": 0,
+      "positionY": 50,
+      "sizeX": 1920,
+      "sizeY": 110
+    },
+    "teamview": {
+      "SINGLE": {
+        "positionX": 0,
+        "positionY": 160,
+        "sizeX": 1920,
+        "sizeY": 920
+      },
+      "PVP_TOP": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 1920,
+        "sizeY": 556
+      },
+      "PVP_BOTTOM": {
+        "positionX": 0,
+        "positionY": 524,
+        "sizeX": 1920,
+        "sizeY": 556
+      }
+    }
+  }
 }

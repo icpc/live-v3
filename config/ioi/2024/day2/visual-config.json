@@ -1,0 +1,23 @@
+{
+    "SCOREBOARD_SCROLL_INTERVAL": 20000,
+    "QUEUE_BACKGROUND_COLOR": "#4C83C30F",
+    "QUEUE_ROW_BACKGROUND": "#4C83C3",
+    "QUEUE_TITLE": "",
+    "TICKER_SMALL_SIZE" : "100%",
+    "TIMELINE_WRAP_HEIGHT": 60,
+    "QUEUE_MAX_ROWS" : 100,
+  "WIDGET_POSITIONS": {
+    "queue": {
+      "positionX": 1520,
+      "positionY": 16,
+      "sizeX": 384,
+      "sizeY": 984
+    },
+    "ticker": {
+      "positionX": 1520,
+      "positionY": 1016,
+      "sizeX": 384,
+      "sizeY": 48
+    }
+  }
+}

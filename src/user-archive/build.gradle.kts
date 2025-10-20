@@ -35,7 +35,6 @@ tasks {
             include("creds.json.example")
             include("visual-config*.json")
             include("analytics*.json")
-            include("widget-positions*.json")
             rename { it.removeSuffix(".example") }
         }
         from(project(":backend").tasks.named("shadowJar")) {
@@ -51,7 +50,6 @@ tasks {
         emptyJson("config", "settings")
         emptyJson("config", "advanced", emptyJsonArray)
         emptyJson("", "creds")
-        emptyJson("", "widget-positions")
         emptyJson("", "visual-config")
         from(projectDir.dir("scripts"))
         from(configDir) {

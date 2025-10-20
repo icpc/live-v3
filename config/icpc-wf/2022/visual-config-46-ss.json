@@ -1,0 +1,72 @@
+{
+  "WIDGET_POSITIONS": {
+    "scoreboard": {
+      "positionX": 0,
+      "positionY": 0,
+      "sizeX": 3840,
+      "sizeY": 2160
+    },
+    "fullScreenClock": {
+      "positionX": 0,
+      "positionY": 0,
+      "sizeX": 3840,
+      "sizeY": 2160
+    },
+    "statistics": {
+      "positionX": 0,
+      "positionY": 0,
+      "sizeX": 3840,
+      "sizeY": 2160
+    },
+    "ticker": {
+      "positionX": 1728,
+      "positionY": 1030,
+      "sizeX": 1920,
+      "sizeY": 50
+    },
+    "teamview": {
+      "SINGLE_TOP_RIGHT": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 1920,
+        "sizeY": 1080
+      },
+      "PVP_TOP": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 1920,
+        "sizeY": 540
+      },
+      "PVP_BOTTOM": {
+        "positionX": 0,
+        "positionY": 540,
+        "sizeX": 1920,
+        "sizeY": 540
+      },
+      "TOP_LEFT": {
+        "positionX": 0,
+        "positionY": 0,
+        "sizeX": 1920,
+        "sizeY": 1080
+      },
+      "TOP_RIGHT": {
+        "positionX": 1920,
+        "positionY": 0,
+        "sizeX": 1920,
+        "sizeY": 1080
+      },
+      "BOTTOM_LEFT": {
+        "positionX": 0,
+        "positionY": 1080,
+        "sizeX": 1920,
+        "sizeY": 1080
+      },
+      "BOTTOM_RIGHT": {
+        "positionX": 1920,
+        "positionY": 1080,
+        "sizeX": 1920,
+        "sizeY": 1080
+      }
+    }
+  }
+}

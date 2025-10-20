@@ -4,7 +4,6 @@ PORT=8080
 CONFIG_DIR=config
 CREDS_FILE=creds.json
 ANALYTICS_FILE=analytics-en.json
-WIDGET_POSITIONS_FILE=widget-positions.json
 VISUAL_CONFIG=visual-config.json
 
 java -jar live-v3.jar \
@@ -12,5 +11,4 @@ java -jar live-v3.jar \
     --config-directory=${CONFIG_DIR} \
     --creds=${CREDS_FILE} \
     --analytics-template=${ANALYTICS_FILE} \
-    --widget-positions=${WIDGET_POSITIONS_FILE} \
     --visual-config=${VISUAL_CONFIG}

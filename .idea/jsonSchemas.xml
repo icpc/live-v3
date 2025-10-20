@@ -50,7 +50,7 @@
                 <list>
                   <Item>
                     <option name="pattern" value="true" />
-                    <option name="path" value="visual-config.json" />
+                    <option name="path" value="visual-config*.json" />
                     <option name="mappingKind" value="Pattern" />
                   </Item>
                 </list>
