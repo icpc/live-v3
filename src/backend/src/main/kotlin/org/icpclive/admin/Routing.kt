@@ -40,7 +40,7 @@ fun Route.configureAdminApiRouting() {
                 }
                 get("/teams") { call.respond(getTeams()) }
                 get("/usage_stats") {
-                    val entry = Controllers.getWidgetStats().entries["teamview"] as? WidgetUsageStatisticsEntry.PerTeam
+                    val entry = Controllers.getWidgetStats().entries["teamView"] as? WidgetUsageStatisticsEntry.PerTeam
                     call.respond(entry ?: WidgetUsageStatisticsEntry.PerTeam(emptyMap()))
                 }
             }

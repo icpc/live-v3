@@ -26,5 +26,5 @@ You can pass onlyWidgets query params to show only the widgets that are passed i
 Examples:
 - `http://host/overlay?onlyWidgets=queue`  
    show only queue
-- `http://host/overlay?onlyWidgets=teamview.BOTTOM_RIGHT,teamview.BOTTOM_LEFT`  
-   show only bottom teamviews
+- `http://host/overlay?onlyWidgets=teamViewBottomRight,teamViewBottomLeft`  
+   show only bottom team views

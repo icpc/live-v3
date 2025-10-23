@@ -24,40 +24,6 @@ function Location(positionX: number, positionY: number, sizeX: number, sizeY: nu
         sizeY: sizeY
     };
 }
-
-/**
- * This creates a proxy, which forwards accesses to object, but additionally allows to access properties using dot notation.
- *
- * For example, if you have an object c:
- * {
- *     "a": {
- *         "b": 42
- *     }
- * },
- * you can access 42 as all of:
- *    `c.a.b`,
- *    `c["a"]["b"]`
- *    `c["a.b"]`
- */
-function createDotProxy<T extends object>(object: T): Readonly<T> {
-    return new Proxy(Object.freeze(object), {
-        get(target, key) {
-            if (typeof key === "string") {
-                const dotPosition = key.indexOf(".");
-                if (dotPosition !== -1) {
-                    const prefix = key.substring(0, dotPosition);
-                    const suffix = key.substring(dotPosition + 1);
-                    return target[prefix][suffix];
-                }
-            }
-            return target[key];
-        },
-        set() {
-            return false;
-        }
-    });
-}
-
 function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
     return {
         CONTEST_COLOR: "#4C83C3",
@@ -331,15 +297,13 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
             ticker: Location(16, 1016, 1888, 48),
             fullScreenClock: Location(16, 16, 1488, 984),
             teamLocator: Location(0, 0, 1920, 1080),
-            teamview: {
-                SINGLE: Location(16, 16, 1488, 984),
-                PVP_TOP: Location(16, 16, 1488, 984 / 2 + 16),
-                PVP_BOTTOM: Location(16, 16 + 984 / 2 - 16, 1488, 984 / 2 + 16),
-                TOP_LEFT: Location(16, 16, 1488 / 2, 837 / 2),
-                TOP_RIGHT: Location(16 + 1488 / 2, 16, 1488 / 2, 837 / 2),
-                BOTTOM_LEFT: Location(16, 16 + 837 / 2, 1488 / 2, 837 / 2),
-                BOTTOM_RIGHT: Location(16 + 1488 / 2, 16 + 837 / 2, 1488 / 2, 837 / 2),
-            },
+            teamViewSingle: Location(16, 16, 1488, 984),
+            teamViewPvpTop: Location(16, 16, 1488, 984 / 2 + 16),
+            teamViewPvpBottom: Location(16, 16 + 984 / 2 - 16, 1488, 984 / 2 + 16),
+            teamViewTopLeft: Location(16, 16, 1488 / 2, 837 / 2),
+            teamViewTopRight: Location(16 + 1488 / 2, 16, 1488 / 2, 837 / 2),
+            teamViewBottomLeft: Location(16, 16 + 837 / 2, 1488 / 2, 837 / 2),
+            teamViewBottomRight: Location(16 + 1488 / 2, 16 + 837 / 2, 1488 / 2, 837 / 2),
         },
         ADMIN_HIDE_CONTROL: [],
         ADMIN_HIDE_MENU: []
@@ -393,7 +357,7 @@ function expandDots(config, result = {}) {
     return result;
 }
 
-const config: Readonly<OverlayConfig> = createDotProxy(merge<OverlayConfig>(defaultConfig, expandDots(visualConfig), expandDots(queryVisualConfig)) as OverlayConfig);
+const config: Readonly<OverlayConfig> = merge<OverlayConfig>(defaultConfig, expandDots(visualConfig), expandDots(queryVisualConfig));
 
 setFavicon(faviconTemplate
     .replaceAll("{CONTEST_COLOR}", config.CONTEST_COLOR)

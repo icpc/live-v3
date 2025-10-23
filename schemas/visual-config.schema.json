@@ -638,17 +638,7 @@
         },
         "WIDGET_POSITIONS": {
             "additionalProperties": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/LocationRectangle"
-                    },
-                    {
-                        "additionalProperties": {
-                            "$ref": "#/definitions/LocationRectangle"
-                        },
-                        "type": "object"
-                    }
-                ]
+                "$ref": "#/definitions/LocationRectangle"
             },
             "properties": {
                 "advertisement": {
@@ -675,32 +665,26 @@
                 "teamLocator": {
                     "$ref": "#/definitions/LocationRectangle"
                 },
-                "teamview": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "BOTTOM_LEFT": {
-                            "$ref": "#/definitions/LocationRectangle"
-                        },
-                        "BOTTOM_RIGHT": {
-                            "$ref": "#/definitions/LocationRectangle"
-                        },
-                        "PVP_BOTTOM": {
-                            "$ref": "#/definitions/LocationRectangle"
-                        },
-                        "PVP_TOP": {
-                            "$ref": "#/definitions/LocationRectangle"
-                        },
-                        "SINGLE": {
-                            "$ref": "#/definitions/LocationRectangle"
-                        },
-                        "TOP_LEFT": {
-                            "$ref": "#/definitions/LocationRectangle"
-                        },
-                        "TOP_RIGHT": {
-                            "$ref": "#/definitions/LocationRectangle"
-                        }
-                    },
-                    "type": "object"
+                "teamViewBottomLeft": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "teamViewBottomRight": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "teamViewPvpBottom": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "teamViewPvpTop": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "teamViewSingle": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "teamViewTopLeft": {
+                    "$ref": "#/definitions/LocationRectangle"
+                },
+                "teamViewTopRight": {
+                    "$ref": "#/definitions/LocationRectangle"
                 },
                 "ticker": {
                     "$ref": "#/definitions/LocationRectangle"

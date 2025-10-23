@@ -10,9 +10,11 @@ import star from "../../../assets/icons/star.svg";
 import star_mask from "../../../assets/icons/star_mask.svg";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, OptimismLevel, QueueRunInfo, Widget } from "@shared/api";
+import {Award, OptimismLevel, QueueRunInfo, Widget} from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
+import QueueWidget = Widget.QueueWidget;
+import {LocationRectangle} from "@/utils/location-rectangle";
 
 // const MAX_QUEUE_ROWS_COUNT = 20;
 
@@ -608,11 +610,12 @@ const QueueRowWithTransition: React.FC<{ row: QueueRowInfo, horizontal: boolean 
 
 type QueueComponentProps = {
     shouldShow: boolean;
-    horizontal: boolean;
+    widget: QueueWidget;
 };
 
-const QueueComponent = ({ shouldShow, horizontal }: QueueComponentProps) => {
-    const location = c.WIDGET_POSITIONS.queue;
+const QueueComponent = ({ shouldShow, widget }: QueueComponentProps) => {
+    const horizontal = widget.settings.horizontal;
+    const location = c.WIDGET_POSITIONS[widget.widgetLocationId] as LocationRectangle;
     const [height, setHeight] = useState<number>(horizontal ? undefined : location.sizeY - 200);
     const width = location.sizeX - c.QUEUE_WRAP_PADDING * 2;
     const [headerWidth, setHeaderWidth] = useState<number>(0);
@@ -670,9 +673,9 @@ type QueueProps = {
     widgetData: Widget.QueueWidget,
 };
 
-export const Queue = ({ widgetData: { settings: { horizontal } } }: QueueProps) => {
+export const Queue = ({ widgetData }: QueueProps) => {
     const shouldShow = useDelayedBoolean(300);
-    return <QueueComponent shouldShow={shouldShow} horizontal={horizontal} />;
+    return <QueueComponent shouldShow={shouldShow} widget={widgetData} />;
 };
 
 Queue.shouldCrop = false;

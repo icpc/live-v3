@@ -8,13 +8,11 @@
       "sizeX": 1350,
       "sizeY": 970
     },
-    "teamview": {
-      "TOP_RIGHT": {
-        "positionX": 550,
-        "positionY": 40,
-        "sizeX": 1350,
-        "sizeY": 970
-      }
+    "teamViewTopRight": {
+      "positionX": 550,
+      "positionY": 40,
+      "sizeX": 1350,
+      "sizeY": 970
     }
   }
 }

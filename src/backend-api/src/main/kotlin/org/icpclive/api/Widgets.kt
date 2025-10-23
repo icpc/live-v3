@@ -116,8 +116,9 @@ class TeamViewWidget(
     WIDGET_ID_PREFIX
 ) {
     companion object {
-        private const val WIDGET_ID_PREFIX = "teamview"
-        fun getWidgetId(position: TeamViewPosition) = "$WIDGET_ID_PREFIX.${position.name}"
+        private const val WIDGET_ID_PREFIX = "teamView"
+        private fun String.toCamelCase() = split("_").joinToString("") { it.lowercase().replaceFirstChar { it.uppercase() } }
+        fun getWidgetId(position: TeamViewPosition) = "$WIDGET_ID_PREFIX${position.name.toCamelCase()}"
     }
 }
 

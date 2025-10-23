@@ -1,4 +1,5 @@
 {
+  "WIDGET_POSITIONS": {
     "scoreboard": {
       "positionX": 0,
       "positionY": 0,
@@ -10,7 +11,7 @@
       "positionY": 0,
       "sizeX": 1920,
       "sizeY": 1080
-    }, 
+    },
     "statistics": {
       "positionX": 0,
       "positionY": 0,
@@ -23,46 +24,47 @@
       "sizeX": 1920,
       "sizeY": 50
     },
-    "teamview.SINGLE": {
+    "teamViewSingle": {
       "positionX": 0,
       "positionY": 0,
       "sizeX": 1920,
       "sizeY": 1080
     },
-    "teamview.PVP_TOP": {
+    "teamViewPvpTop": {
       "positionX": 0,
       "positionY": 0,
       "sizeX": 1920,
       "sizeY": 540
     },
-    "teamview.PVP_BOTTOM": {
+    "teamViewPvpBottom": {
       "positionX": 0,
       "positionY": 540,
       "sizeX": 1920,
       "sizeY": 540
     },
-    "teamview.TOP_LEFT": {
+    "teamViewTopLeft": {
       "positionX": 0,
       "positionY": 0,
       "sizeX": 960,
       "sizeY": 540
     },
-    "teamview.TOP_RIGHT": {
+    "teamViewTopRight": {
       "positionX": 960,
       "positionY": 0,
       "sizeX": 960,
       "sizeY": 540
     },
-    "teamview.BOTTOM_LEFT": {
+    "teamViewBottomLeft": {
       "positionX": 0,
       "positionY": 540,
       "sizeX": 960,
       "sizeY": 540
     },
-    "teamview.BOTTOM_RIGHT": {
+    "teamViewBottomRight": {
       "positionX": 960,
       "positionY": 540,
       "sizeX": 960,
       "sizeY": 540
     }
+  }
 }

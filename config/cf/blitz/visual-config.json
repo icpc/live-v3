@@ -20,25 +20,23 @@
       "sizeX": 1920,
       "sizeY": 110
     },
-    "teamview": {
-      "SINGLE": {
-        "positionX": 0,
-        "positionY": 160,
-        "sizeX": 1920,
-        "sizeY": 920
-      },
-      "PVP_TOP": {
-        "positionX": 0,
-        "positionY": 0,
-        "sizeX": 1920,
-        "sizeY": 556
-      },
-      "PVP_BOTTOM": {
-        "positionX": 0,
-        "positionY": 524,
-        "sizeX": 1920,
-        "sizeY": 556
-      }
+    "teamViewSingle": {
+      "positionX": 0,
+      "positionY": 160,
+      "sizeX": 1920,
+      "sizeY": 920
+    },
+    "teamViewPvpTop": {
+      "positionX": 0,
+      "positionY": 0,
+      "sizeX": 1920,
+      "sizeY": 556
+    },
+    "teamViewPvpBottom": {
+      "positionX": 0,
+      "positionY": 524,
+      "sizeX": 1920,
+      "sizeY": 556
     }
   }
 }

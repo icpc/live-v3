@@ -279,16 +279,14 @@ export interface OverlayConfig {
     ticker: LocationRectangle;
     fullScreenClock: LocationRectangle;
     teamLocator: LocationRectangle;
-    teamview: {
-      SINGLE: LocationRectangle;
-      PVP_TOP: LocationRectangle;
-      PVP_BOTTOM: LocationRectangle;
-      TOP_LEFT: LocationRectangle;
-      TOP_RIGHT: LocationRectangle;
-      BOTTOM_LEFT: LocationRectangle;
-      BOTTOM_RIGHT: LocationRectangle;
-    };
-    [key: string]: LocationRectangle | {[key: string]: LocationRectangle}
+    teamViewSingle: LocationRectangle;
+    teamViewPvpTop: LocationRectangle;
+    teamViewPvpBottom: LocationRectangle;
+    teamViewTopLeft: LocationRectangle;
+    teamViewTopRight: LocationRectangle;
+    teamViewBottomLeft: LocationRectangle;
+    teamViewBottomRight: LocationRectangle;
+    [key: string]: LocationRectangle;
   };
 
   ADMIN_HIDE_MENU: string[],
