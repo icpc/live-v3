@@ -102,7 +102,7 @@ internal class ClicsModel {
                         add(it.id.toGroupId())
                     }
                 }
-                teamOrganization?.country?.let { add(it.toGroupId()) }
+                teamOrganization?.country?.takeIf { it.isNotEmpty() }?.let { add(it.toGroupId()) }
             },
             hashTag = teamOrganization?.hashtag,
             medias = buildMap {
