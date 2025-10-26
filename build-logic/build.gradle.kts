@@ -13,4 +13,6 @@ dependencies {
     implementation(libs.gradleplugin.dokka)
     implementation(libs.gradleplugin.ksp)
     implementation(libs.gradleplugin.shadow)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kxs.ts.gen.core)
 }

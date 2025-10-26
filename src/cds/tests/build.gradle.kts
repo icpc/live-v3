@@ -4,7 +4,7 @@ plugins {
 
 tasks {
     test {
-        inputs.dir(rootProject.layout.projectDirectory.dir("config"))
+        inputs.dir(project.isolated.rootProject.projectDirectory.dir("config"))
     }
 }
 

@@ -1,7 +1,12 @@
 import com.github.gradle.node.pnpm.task.PnpmTask
+import org.gradle.kotlin.dsl.assign
+import org.gradle.kotlin.dsl.provideDelegate
+import org.icpclive.gradle.tasks.CheckExportedFiles
 
 plugins {
     id("live.common-conventions")
+    id("live.file-sharing")
+    base
     alias(libs.plugins.node)
 }
 
@@ -11,6 +16,20 @@ node {
     download.set(rootProject.findProperty("npm.download") == "true")
 }
 
+val generatedTsLocation = project.projectDir.resolve("generated")
+
+val copyGeneratedTs by tasks.registering(Sync::class) {
+    from(configurations.tsInterfacesResolver)
+    into(generatedTsLocation)
+}
+
+val checkTsExport by tasks.registering(CheckExportedFiles::class) {
+    from(configurations.tsInterfacesResolver)
+    exportLocation = generatedTsLocation
+    fixTask = "gen"
+}
+
+
 fun PnpmTask.setInputs(directory: Directory) {
     environment.set(mapOf("PUBLIC_URL" to "/${directory.asFile.name}", "BUILD_PATH" to "build"))
     inputs.dir(layout.projectDirectory.dir("common"))
@@ -19,7 +38,7 @@ fun PnpmTask.setInputs(directory: Directory) {
     inputs.file(layout.projectDirectory.file("pnpm-lock.yaml"))
     inputs.dir(directory.dir("src"))
     inputs.file(directory.file("package.json"))
-    mustRunAfter(":schema-generator:exportTs")
+    mustRunAfter(copyGeneratedTs)
 }
 
 fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, configure: PnpmTask.(Directory) -> Unit = {}) = named<PnpmTask>(name) {
@@ -27,6 +46,10 @@ fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, configure: 
     setInputs(directory)
     outputs.dir(directory.dir("build"))
     configure(directory)
+}
+
+dependencies {
+    tsInterfaces(projects.backendApi)
 }
 
 tasks {
@@ -54,19 +77,22 @@ tasks {
         outputs.cacheIf { true }
         outputs.files(layout.projectDirectory.file("overlay/schemas/visual-config.schema.json"))
     }
+    artifacts {
+        jsonSchemasProvider(overlayConfigSchema)
+        adminJsAppProvider(buildAdmin)
+        overlayJsAppProvider(buildOverlay)
+        locatorAdminJsAppProvider(buildLocatorAdmin)
+    }
     //val installBrowsers = named<NpmTask>("pnpm_run_install-browsers") // probably want to cache it somehow
     val runTests = named<PnpmTask>("pnpm_run_test") {
         //dependsOn(installBrowsers)
         dependsOn(":backend:release")
     }
-    val test = register<Task>("test") {
-        dependsOn(runTests)
+    check {
+        dependsOn(runTests, checkTsExport)
     }
-    val assemble = register<Task>("assemble") {
+    assemble {
         dependsOn(buildOverlay, buildAdmin, buildLocatorAdmin)
-    }
-    register<Task>("build") {
-        dependsOn(assemble, test)
     }
 }
 

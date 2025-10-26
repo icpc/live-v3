@@ -1,12 +1,37 @@
+import org.icpclive.gradle.tasks.CheckExportedFiles
+
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
+    id("live.file-sharing")
+    base
 }
 
+dependencies {
+    jsonSchemas(projects.frontend)
+    jsonSchemas(projects.cds.full)
+}
+
+val schemasExportLocation = project.layout.projectDirectory.dir("schemas")
+
+
 tasks {
-    register<Task>("doc") {
-        dependsOn(project(":cds:full").tasks.named("dokkaGenerate"))
+    val doc by registering {
+        dependsOn(":cds:full:dokkaGenerate")
     }
-    register<Task>("gen") {
-        dependsOn(project("schema-generator").tasks.named("gen"))
+    val copySchemas by registering(Sync::class) {
+        from(configurations.jsonSchemasProvider)
+        into(schemasExportLocation)
+    }
+    val gen by registering {
+        dependsOn(copySchemas)
+        dependsOn(":frontend:copyGeneratedTs")
+    }
+    val checkSchemasExport by registering(CheckExportedFiles::class) {
+        from(configurations.jsonSchemasResolver)
+        exportLocation = schemasExportLocation
+        fixTask = gen.name
+    }
+    check {
+        dependsOn(checkSchemasExport)
     }
 }

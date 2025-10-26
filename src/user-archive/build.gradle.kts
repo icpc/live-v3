@@ -1,5 +1,13 @@
 plugins {
     id("live.common-conventions")
+    id("live.file-sharing")
+}
+
+dependencies {
+    jsonSchemas(projects.backendApi)
+    jsonSchemas(projects.cds.full)
+    jsonSchemas(projects.frontend)
+    applicationJar(projects.backend)
 }
 
 tasks {
@@ -17,6 +25,7 @@ tasks {
             file.get().asFile.writeText("[\n]\n")
         }
     }
+    val version = project.version
     val userArchive = register<Sync>("userArchive") {
         destinationDir = project.layout.buildDirectory.dir("archive").get().asFile
         val configDir = rootProject.layout.projectDirectory.dir("config")
@@ -37,10 +46,10 @@ tasks {
             include("analytics*.json")
             rename { it.removeSuffix(".example") }
         }
-        from(project(":backend").tasks.named("shadowJar")) {
-            rename { "live-v3.jar" }
+        from(configurations.applicationJarResolver) {
+            rename { it.replace("-${version}", "") }
         }
-        from(project(":schema-generator").tasks.named("generateAllSchemas")) {
+        from(configurations.jsonSchemasResolver) {
             into(".vscode/schemas")
         }
         fun emptyJson(dir:String, name: String, task: TaskProvider<Task> = emptyJson) = from(task) {

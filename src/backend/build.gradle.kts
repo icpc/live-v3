@@ -1,4 +1,4 @@
-import org.icpclive.gradle.PackExamplesTask
+import org.icpclive.gradle.tasks.*
 import org.gradle.kotlin.dsl.run as runTask
 
 plugins {
@@ -13,50 +13,10 @@ application {
     mainClass = "org.icpclive.ApplicationKt"
 }
 
-// no idea what does it mean
-// copy-pasted from https://docs.gradle.org/8.13/userguide/service_injection.html#execoperations and
-// https://docs.gradle.org/8.13/userguide/upgrading_version_8.html#deprecated_project_exec
-interface InjectedExecOps {
-    @get:Inject val execOps: ExecOperations
-}
-
 tasks {
-    val gitVersionFiles by registering {
-        val branch = layout.buildDirectory.file("git_branch")
-        val commit = layout.buildDirectory.file("git_commit")
-        val description = layout.buildDirectory.file("git_description")
-        outputs.files(branch, commit, description)
-        outputs.upToDateWhen { false }
-        val injected = project.objects.newInstance<InjectedExecOps>()
-
-        doLast {
-            branch.get().asFile.outputStream().use { stream ->
-                injected.execOps.exec {
-                    executable = "git"
-                    args = listOf("rev-parse", "--abbrev-ref", "HEAD")
-                    standardOutput = stream
-                    isIgnoreExitValue = true
-                }
-            }
-            commit.get().asFile.outputStream().use { stream ->
-                injected.execOps.exec {
-                    executable = "git"
-                    args = listOf("rev-parse", "HEAD")
-                    standardOutput = stream
-                    isIgnoreExitValue = true
-                }
-            }
-            description.get().asFile.outputStream().use { stream ->
-                injected.execOps.exec {
-                    executable = "git"
-                    args = listOf("describe", "--all", "--always", "--dirty", "--match=origin/*", "--match=v*")
-                    standardOutput = stream
-                    isIgnoreExitValue = true
-                }
-            }
-        }
+    val gitVersionFiles by registering(GitVersionFilesTask::class) {
+        outputDirectory.set(project.layout.buildDirectory.dir("git_version_files"))
     }
-
 
     val advancedExamples by registering(PackExamplesTask::class) {
         sourceDirectory.set(rootProject.layout.projectDirectory.dir( provider { "config/_examples/_advanced" }))
@@ -74,13 +34,12 @@ tasks {
         this.workingDir = rootDir.resolve("config")
     }
 
-    // Not the best way of doing this, but should work out.
     processResources {
         if (project.properties["live.dev.embedFrontend"] == "true") {
-            from(project(":frontend").tasks.named("pnpm_run_buildAdmin")) {
+            from(configurations.adminJsAppResolver) {
                 into("admin")
             }
-            from(project(":frontend").tasks.named("pnpm_run_buildOverlay")) {
+            from(configurations.overlayJsAppResolver) {
                 into("overlay")
             }
             from(project(":frontend").projectDir.resolve("main")) {
@@ -108,5 +67,7 @@ dependencies {
     implementation(projects.backendApi)
     implementation(projects.cds.full)
     implementation(projects.serverShared)
-    implementation(projects.cds.schemas)
+    jsonSchemas(projects.frontend)
+    overlayJsApp(projects.frontend)
+    adminJsApp(projects.frontend)
 }
