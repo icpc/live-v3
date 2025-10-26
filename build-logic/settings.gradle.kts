@@ -9,7 +9,3 @@ dependencyResolutionManagement {
         }
     }
 }
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-rootProject.name = "convention-plugins"
-

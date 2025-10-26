@@ -1,3 +1,7 @@
+plugins {
+    alias(libs.plugins.kotlin.jvm) apply false
+}
+
 tasks {
     register<Task>("doc") {
         dependsOn(project(":cds:full").tasks.named("dokkaGenerate"))

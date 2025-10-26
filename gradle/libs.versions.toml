@@ -89,6 +89,7 @@ json-schema-validator = { group = "io.github.optimumcode", name = "json-schema-v
 
 [plugins]
 
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 node = { id = "com.github.node-gradle.node", version.ref = "node-plugin" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 graphql = { id = "com.expediagroup.graphql", version.ref = "graphql"}
