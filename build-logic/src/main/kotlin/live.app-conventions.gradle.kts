@@ -16,7 +16,7 @@ tasks {
     register<Sync>("release") {
         destinationDir = rootDir.resolve("artifacts/")
         preserve { include("*") }
-        from(tasks.named("shadowJar"))
+        from(shadowJar)
     }
 
     shadowJar {

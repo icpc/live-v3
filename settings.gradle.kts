@@ -75,3 +75,6 @@ develocity {
         termsOfUseAgree = "yes"
     }
 }
+
+
+includeBuild("build-logic")
