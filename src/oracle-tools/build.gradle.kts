@@ -24,8 +24,8 @@ tasks {
 
     // Not the best way of doing this, but should work out.
     processResources {
-        into("locator") {
-            from(project(":frontend").tasks.named("pnpm_run_buildLocatorAdmin"))
+        from(configurations.locatorAdminJsAppResolver) {
+            into("locator")
         }
     }
 }
@@ -39,4 +39,5 @@ dependencies {
     implementation(projects.backendApi)
     implementation(projects.cds.full)
     implementation(projects.serverShared)
+    locatorAdminJsApp(projects.frontend)
 }

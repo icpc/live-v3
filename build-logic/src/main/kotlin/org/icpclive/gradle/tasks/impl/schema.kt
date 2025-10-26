@@ -1,16 +1,10 @@
-package org.icpclive.generator.schema
+package org.icpclive.gradle.tasks.impl
 
-import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.options.required
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.*
-import java.io.File
-import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
-import kotlin.reflect.jvm.kotlinFunction
 
 fun PrimitiveKind.toJsonTypeName(): String = when (this) {
     PrimitiveKind.BOOLEAN -> "boolean"
@@ -261,32 +255,4 @@ fun SerialDescriptor.toJsonSchema(title: String, serializersModule: SerializersM
                     "\$defs" to JsonObject(definitions),
                 )
     )
-}
-
-
-private val json = Json {
-    prettyPrint = true
-}
-
-class JsonCommand : CliktCommand(name = "json") {
-    private val className by option(help = "Class name for which schema should be generated")
-    private val output by option("--output", "-o", help = "File to print output").required()
-    private val title by option("--title", "-t", help = "Title inside schema file").required()
-
-    override fun run() {
-        val clazz = Class.forName(className)
-        val companion = clazz.kotlin.nestedClasses.singleOrNull { it.isCompanion }?.java
-        @Suppress("UNCHECKED_CAST") val moduleMethod = companion?.methods?.filter { it.parameters.isEmpty() }?.singleOrNull {
-            it.returnType.canonicalName == "kotlinx.serialization.modules.SerializersModule"
-        }?.kotlinFunction as KCallable<SerializersModule>?
-
-
-        val serializersModule = moduleMethod?.call(companion?.kotlin?.objectInstance)
-        val thing = serializer(clazz)
-        val serializer = thing.descriptor
-        val schema = json.encodeToString(serializer.toJsonSchema(title, serializersModule ?: EmptySerializersModule()))
-        File(output).printWriter().use {
-            it.println(schema)
-        }
-    }
 }

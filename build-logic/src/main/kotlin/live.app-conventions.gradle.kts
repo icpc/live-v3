@@ -5,11 +5,16 @@ import org.gradle.kotlin.dsl.register
 plugins {
     application
     id("live.kotlin-conventions")
+    id("live.schemas-in-resources")
     id("com.gradleup.shadow")
 }
 
 tasks.named<Jar>("jar") {
     archiveClassifier = "just"
+}
+
+artifacts {
+    add("applicationJarProvider", tasks.shadowJar)
 }
 
 tasks {

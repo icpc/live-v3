@@ -1,4 +1,4 @@
-package org.icpclive.gradle
+package org.icpclive.gradle.tasks
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty

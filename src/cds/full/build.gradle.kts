@@ -1,10 +1,15 @@
 @file:OptIn(ExperimentalAbiValidation::class)
 
 import org.gradle.api.internal.catalog.DelegatingProjectDependency
+import org.gradle.kotlin.dsl.assign
+import org.gradle.kotlin.dsl.provideDelegate
+import org.icpclive.gradle.tasks.SchemaGeneratorTask
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation
 
 plugins {
     id("live.library-conventions")
+    id("live.file-sharing")
+    id("live.schemas-in-resources")
 }
 
 kotlin {
@@ -18,6 +23,22 @@ dokka {
         outputDirectory.set(rootProject.layout.projectDirectory.dir("_site").dir("cds"))
     }
     moduleName.set("ICPC-live contest data parser")
+}
+
+
+tasks {
+    val generateAdvancedSchema by registering(SchemaGeneratorTask::class) {
+        rootClass = "org.icpclive.cds.tunning.TuningRuleList"
+        title = "ICPC live advanced settings"
+        fileName = "advanced"
+    }
+    val generateSettingsSchema by registering(SchemaGeneratorTask::class) {
+        rootClass = "org.icpclive.cds.settings.CDSSettings"
+        title = "ICPC live settings"
+        fileName = "settings"
+    }
+    artifacts.jsonSchemasProvider(generateAdvancedSchema)
+    artifacts.jsonSchemasProvider(generateSettingsSchema)
 }
 
 dependencies {

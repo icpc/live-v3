@@ -88,7 +88,7 @@ public interface CDSSettings {
 }
 
 private fun loadSettingsSerializers(): List<CDSSettingsProvider<*>> {
-    val providers = ServiceLoader.load(CDSSettingsProvider::class.java)
+    val providers = ServiceLoader.load(CDSSettingsProvider::class.java, CDSSettingsProvider::class.java.classLoader)
     return providers.toList()
 }
 
