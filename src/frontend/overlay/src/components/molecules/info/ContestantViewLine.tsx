@@ -61,25 +61,21 @@ interface ContestantViewLineProps {
     isTop?: boolean
 }
 
-// TODO: DELETE!
-function aboba<T>(x?: T[]) {
-    return x ? x : x;
-}
 export const ContestantViewLine = ({ teamId, tasksContainerY, className, isTop }: ContestantViewLineProps) => {
     const scoreboardData = useAppSelector((state) =>
         state.scoreboard[OptimismLevel.normal]?.ids && state.scoreboard[OptimismLevel.normal].ids[teamId]);
-    const tasks = aboba(useAppSelector(state => state.contestInfo?.info?.problems));
+    const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
     const contestData = useAppSelector((state) => state.contestInfo?.info);
     const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
 
     const [top, bottom] = isTop ? [null, "0"] : ["0", null];
 
-    const taskWidth = tasksContainerY ? Math.max(c.PVP_TEAM_STATUS_TASK_WIDTH, tasksContainerY / aboba(tasks)?.length) : c.PVP_TEAM_STATUS_TASK_WIDTH;
+    const taskWidth = tasksContainerY ? Math.max(c.PVP_TEAM_STATUS_TASK_WIDTH, tasksContainerY / tasks?.length) : c.PVP_TEAM_STATUS_TASK_WIDTH;
 
     return (
-        <ContestantViewVerticalWrap className={className} tasks={aboba(scoreboardData?.problemResults)?.length} taskWidth={taskWidth} top={top} bottom={bottom}>
+        <ContestantViewVerticalWrap className={className} tasks={scoreboardData?.problemResults?.length} taskWidth={taskWidth} top={top} bottom={bottom}>
             <CornerContestantInfo teamId={teamId} />
-            {aboba(scoreboardData?.problemResults)?.map((result, i) =>
+            {scoreboardData?.problemResults?.map((result, i) =>
                 <TaskRow
                     key={i}
                     start={i + 2} end={i + 3}

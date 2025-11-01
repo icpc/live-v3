@@ -19,7 +19,7 @@ const VerdictLabel = styled(ShrinkingBox)`
   align-items: center;
   justify-content: center;
 
-  font-size: 14px;
+  font-size: ${c.VERDICT_LABEL_FONT_SIZE};
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
 
   background-color: ${({ color }) => color};
@@ -80,7 +80,7 @@ const VerdictCellProgressBar2 = styled.div.attrs(({ width }) => ({
 }))`
   height: 100%;
   background-color: ${c.VERDICT_UNKNOWN};
-  transition: width 250ms linear;
+  transition: width ${c.VERDICT_CELL_TRANSITION_TIME} linear;
 `;
 
 
@@ -93,7 +93,7 @@ const VerdictCellInProgressWrap2 = styled.div`
   height: 100%;
 
   border: 3px solid ${c.VERDICT_UNKNOWN};
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 ${c.VERDICT_CELL_BRODER_RADIUS} ${c.VERDICT_CELL_BRODER_RADIUS} 0;
 `;
 
 const VerdictCellInProgress2 = ({ percentage, className }) => {
@@ -129,15 +129,13 @@ const AttemptsOrScoreLabelWrapper = styled.div`
     position: absolute;
 `;
 
-const defaultColorForStar = "#F9A80D";
-
 const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
     return <>
         <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
             { status === TeamTaskStatus.first &&
-                <StarIcon color={problemColor === undefined ? defaultColorForStar : problemColor}/> }
+                <StarIcon color={problemColor === undefined ? c.STAR_DEFAULT_COLOR : problemColor}/> }
             <AttemptsOrScoreLabelWrapper>
                 {TeamTaskSymbol[status]}
                 {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
@@ -148,7 +146,7 @@ const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
 
 const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScore,  ...props }) => {
     return <TaskResultLabelWrapper2 color={getIOIColor(r.score, minScore, maxScore)} { ...props}>
-        { r.isFirstBest && <StarIcon color={problemColor === undefined ? defaultColorForStar : problemColor}/>}
+        { r.isFirstBest && <StarIcon color={problemColor === undefined ? c.STAR_DEFAULT_COLOR : problemColor}/>}
         <AttemptsOrScoreLabelWrapper>
             {formatScore(r?.score)}
         </AttemptsOrScoreLabelWrapper>

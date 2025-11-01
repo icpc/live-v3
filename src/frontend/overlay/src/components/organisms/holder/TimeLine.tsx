@@ -100,8 +100,8 @@ const CircleAtEnd = styled.div.attrs<CircleAtEndProps>(({ lineWidth, leftPadding
         left: `calc(${lineWidth}% + ${leftPadding}px)`,
     },
 }))<CircleAtEndProps>`
-    width: 10px;
-    height: 10px;
+    width: ${c.TIMELINE_END_CIRCLE_RADIUS}px;
+    height: ${c.TIMELINE_END_CIRCLE_RADIUS}px;
     border-radius: 50%;
     position: absolute;
     top: 50%;
@@ -159,7 +159,7 @@ const StaticText = styled.div`
 const TimeBorder = styled.div<TimeBorderProps>`
     height: ${props => props.isPvp ? c.TIMELINE_WRAP_HEIGHT_PVP : c.TIMELINE_WRAP_HEIGHT}px;
     background-color: ${props => isShouldUseDarkColor(props.color) ? "#000" : "#fff"};
-    width: 2px;
+    width: ${c.TIMELINE_TIME_BORDER_WIDTH}px;
     position: absolute;
     left: ${props => props.left};
 `;

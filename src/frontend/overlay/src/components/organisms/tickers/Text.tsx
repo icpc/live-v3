@@ -8,10 +8,10 @@ export const TextWrap = styled.div<{part: TickerPart}>`
     display: flex;
     justify-content: ${props => props.part === "long" ? "flex-start" : "center"};
 
-  box-sizing: border-box;
+    box-sizing: border-box;
     width: 100%;
     block-size: fit-content;
-    padding: 0 16px;
+    padding: 0 ${c.TICKER_TEXT_HORIZONTAL_PADDING};
 
     font-size: ${c.TICKER_TEXT_FONT_SIZE};
 `;

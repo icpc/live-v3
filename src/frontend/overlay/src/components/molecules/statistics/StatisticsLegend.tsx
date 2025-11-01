@@ -23,7 +23,7 @@ const LegendCardWrapper = styled.div`
 `;
 
 const LegendWrapper = styled.div`
-  margin: 8px 16px;
+  margin: ${c.LEGEND_VERTICAL_MARGIN} ${c.LEGEND_HORIZONTAL_MARGIN};
 
   font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
   font-size: ${c.GLOBAL_DEFAULT_FONT_SIZE};

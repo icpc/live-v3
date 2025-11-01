@@ -13,7 +13,7 @@ const ContestantInfoLabel = styled(RankLabel)`
   flex-shrink: 0;
   align-self: stretch;
   width: ${c.CONTESTER_INFO_RANK_WIDTH};
-  padding-left: 4px;
+  padding-left: ${c.CONTESTER_INFO_LEFT_PADDING};
 `;
 
 const ContestantInfoTeamNameLabel = styled(ShrinkingBox)`
@@ -25,7 +25,7 @@ const ContestantInfoTeamNameLabel = styled(ShrinkingBox)`
 const ContestantInfoWrap = styled.div<{round: boolean, bg_color: string, color: string}>`
   overflow: hidden;
   display: flex;
-  gap: 5px;
+  gap: ${c.CONTESTER_INFO_GAP};
   align-items: center;
 
   width: 100%;
@@ -42,7 +42,7 @@ const ContestantInfoScoreLabel = styled(ShrinkingBox)`
   flex-shrink: 0;
   box-sizing: content-box;
   width: ${c.CONTESTER_INFO_SCORE_WIDTH};
-  padding-right: 20px;
+  padding-right: ${c.CONTESTER_INFO_SCORE_RIGHT_PADDING};
 `;
 
 

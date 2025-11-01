@@ -69,18 +69,18 @@ export const Locator = ({ widgetData, transitionState }) => {
         {circles.map((circle, index) => {
             let left = circle.x - c.LOCATOR_MAGIC_CONSTANT / 2;
             let top;
-            if (circle.y - circle.radius - 50 > 10) {
-                top = circle.y - circle.radius - 50;
+            if (circle.y - circle.radius - c.LOCATOR_TOP_OFFSET > c.LOCATOR_TOP_THRESHOLD) {
+                top = circle.y - circle.radius - c.LOCATOR_TOP_OFFSET;
             } else {
-                top = circle.y + circle.radius + 16;
+                top = circle.y + circle.radius + c.LOCATOR_BOTTOM_OFFSET;
             }
             if (left < 0) {
                 left = 0;
-            } else if (left + c.LOCATOR_MAGIC_CONSTANT > 1920) {
-                left = 1920 - c.LOCATOR_MAGIC_CONSTANT;
+            } else if (left + c.LOCATOR_MAGIC_CONSTANT > c.LOCATOR_MAX_WIDTH) {
+                left = c.LOCATOR_MAX_WIDTH - c.LOCATOR_MAGIC_CONSTANT;
             }
             const len = Math.sqrt((left + c.LOCATOR_MAGIC_CONSTANT / 2 - circle.x) * (left + c.LOCATOR_MAGIC_CONSTANT / 2 - circle.x) +
-                (top + 10 - circle.y) * (top + 10 - circle.y));
+                (top + c.LOCATOR_TOP_THRESHOLD - circle.y) * (top + c.LOCATOR_TOP_THRESHOLD - circle.y));
             return <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
                 key={circle.teamId}>
                 <TeamViewWrapper
@@ -88,7 +88,7 @@ export const Locator = ({ widgetData, transitionState }) => {
                     left={left}
                     animation={transitionState === "exiting" ? slideOut : slideIn}
                     animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
-                    duration={(index + 1) * 1500}>
+                    duration={(index + 1) * c.LOCATOR_ANIMATION_DURATION}>
                     {/* FIXME: This needs readdressing for overlay2 */}
                     {/*<TeamInfo key={index + "teamInfo"} teamId={circle.teamId}/>*/}
                     <CornerContestantInfo teamId={circle.teamId} />
@@ -97,10 +97,10 @@ export const Locator = ({ widgetData, transitionState }) => {
 
                 <LineWrapper animation={transitionState === "exiting" ? slideOut : slideIn}
                     animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
-                    duration={(index + 1) * 1500 - 500}>
-                    <svg key={index + "path"} height="100%" width="100%" stroke="white" strokeWidth="5" fill="none">
+                    duration={(index + 1) * c.LOCATOR_ANIMATION_DURATION - c.LOCATOR_ANIMATION_DELAY}>
+                    <svg key={index + "path"} height="100%" width="100%" stroke={c.LOCATOR_LINE_STROKE_COLOR} strokeWidth={c.LOCATOR_LINE_STROKE_WIDTH} fill="none">
                         <path
-                            d={`M ${circle.x + (left + c.LOCATOR_MAGIC_CONSTANT / 2 - circle.x) / len * circle.radius} ${circle.y + (top + 10 - circle.y) / len * circle.radius} L ${left + c.LOCATOR_MAGIC_CONSTANT / 2} ${top + 10}`}/>
+                            d={`M ${circle.x + (left + c.LOCATOR_MAGIC_CONSTANT / 2 - circle.x) / len * circle.radius} ${circle.y + (top + c.LOCATOR_TOP_THRESHOLD - circle.y) / len * circle.radius} L ${left + c.LOCATOR_MAGIC_CONSTANT / 2} ${top + c.LOCATOR_TOP_THRESHOLD}`}/>
                     </svg>
                 </LineWrapper>
             </div>;

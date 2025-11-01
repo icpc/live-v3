@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { image } from "@shared/api";
+import c from "@/config";
 
 
 export const ImageWrap = styled.div<{path: string}>`
@@ -9,7 +10,7 @@ export const ImageWrap = styled.div<{path: string}>`
     max-height: 100%;
     max-width: 100%;
     display: flex;
-    padding: 0 16px;
+    padding: 0 ${c.IMAGE_TICKER_HORIZONTAL_PADDING};
     box-sizing: border-box;
     background: center / contain no-repeat url(${(props) => props.path});
 `;
