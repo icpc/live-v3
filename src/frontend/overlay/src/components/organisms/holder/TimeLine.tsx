@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
-import { ContestInfo, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
+import { ContestInfo, ContestStatus, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
 import { calculateContestTime } from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { KeylogGraph } from "./KeylogGraph";
@@ -423,6 +423,21 @@ export function TimeLineBackground({
             color={teamData?.color ?? c.CONTEST_COLOR}
         />
     );
+};
+
+interface KeyboardEvent {
+  timestamp: string; // ISO8601 format
+  keys: {
+    [key: string]: KeyData;
+  };
+}
+
+interface KeyData {
+  shift?: number;
+  raw?: number;
+  bare?: number;
+  ctrl?: number;
+  "ctrl+shift"?: number;
 }
 
 export function TimeLine({
@@ -511,11 +526,36 @@ export function TimeLine({
     useEffect(() => {
         if (!keylogUrl) return;
 
+        async function fetchNDJSON(): Promise<KeyboardEvent[]> {
+            const response = await fetch(keylogUrl);
+            const text = await response.text();
+            return text
+                .trim()
+                .split('\n')
+                .filter(line => line.trim())
+                .map(line => JSON.parse(line) as KeyboardEvent);
+        }
+
         async function fetchKeylogData() {
             try {
-                const response = await fetch(keylogUrl);
-                const data: number[] = await response.json();
-                setKeylog(data);
+                const events = await fetchNDJSON();
+                const startTime = new Date(contestInfo?.status.type === ContestStatus.Type.running ? contestInfo.status.startedAtUnixMs : 0);
+                const newKeylog: number[] = [];
+                events.filter(event => {
+                    const eventTime = new Date(event.timestamp);
+                    return eventTime >= startTime;
+                }).forEach(event => {
+                    const keys = Object.values(event.keys);
+                    keys.forEach(key => {
+                        let counter = 0;
+                        if (key.bare) counter += key.bare;
+                        if (key.shift) counter += key.shift;
+                        newKeylog.push(counter);
+                        // TODO: move 300 to config.ts
+                        if (newKeylog.length >= 300) return;
+                    });
+                });
+                setKeylog(newKeylog.slice(0, 300));
             } catch (error) {
                 console.error("Error fetching keylog data:", error);
             }
