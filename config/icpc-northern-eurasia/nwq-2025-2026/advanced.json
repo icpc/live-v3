@@ -1,0 +1,79 @@
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "nwq1105457": {"isHidden": true},
+            "nwq1102981": {"isHidden": true},
+            "nwq1105177": {"isHidden": true},
+            "nwq1104563": {"isHidden": true},
+            "nwq1105981": {"isHidden": true},
+            "nwq1107049": {"isHidden": true},
+            "nwq1106342": {"isHidden": true},
+            "nwq1107071": {"isHidden": true},
+            "nwq1103105": {"isHidden": true},
+            "nwq1103102": {"isHidden": true},
+            "nwq1105415": {"isHidden": true},
+            "nwq1100094": {"isHidden": true},
+            "nwq1100140": {"isHidden": true},
+            "nwq1100929": {"isHidden": true},
+            "nwq1100930": {"isHidden": true},
+            "nwq1102206": {"isHidden": true},
+            "nwq1107716": {"isHidden": true},
+            "nwq1107717": {"isHidden": true},
+            "nwq1106905": {"isHidden": true},
+            "nwq1106347": {"isHidden": true},
+            "nwq1092267": {"isHidden": true},
+            "nwq1106145": {"isHidden": true},
+            "nwq1106296": {"isHidden": true},
+            "nwq1108303": {"isHidden": true},
+            "nwq1108304": {"isHidden": true},
+            "nwq1108304": {"isHidden": true},
+            "nwq1107902": {"isHidden": true},
+            "nwq1108508": {"isHidden": true},
+            "nwq1108499": {"isHidden": true},
+            "nwq1106675": {"isHidden": true},
+            "nwq1108494": {"isHidden": true},
+            "nwq1104862": {"isHidden": true},
+            "nwq1107130": {"isHidden": true},
+            "nwq1104888": {"isHidden": true},
+            "nwq1091117": {"isHidden": true},
+            "nwq1091133": {"isHidden": true},
+            "nwq1091114": {"isHidden": true},
+            "nwq1091090": {"isHidden": true},
+            "nwq1087629": {"isHidden": true},
+            "nwq1086723": {"isHidden": true},
+            "nwq1105364": {"isHidden": true},
+            "nwq1105747": {"isHidden": true},
+            "nwq1099503": {"isHidden": true},
+            "nwq1101462": {"isHidden": true},
+            "nwq1101462": {"isHidden": true},
+            "nwq1099500": {"isHidden": true},
+            "nwq1101823": {"isHidden": true},
+            "nwq1103486": {"isHidden": true},
+            "nwq1105353": {"isHidden": true},
+            "nwq1103812": {"isHidden": true},
+            "nwq1108387": {"isHidden": true},
+            "nwq1106246": {"isHidden": true}
+        }
+    },
+    {
+        "type": "overrideAwards",
+        "manualAwards": [
+            {
+                "id": "qualified",
+                "citation": "Qualified to Northwestern Russia Regional Contest",
+                "teamCdsIds": [
+                    "nwq1107115", "nwq1104880", "nwq1105722", "nwq1105715", "nwq1104911", "nwq1106673", "nwq1105942", "nwq1108476", "nwq1092444", "nwq1105728", "nwq1105716", "nwq1106310", "nwq1107378", "nwq1104890", "nwq1106311", "nwq1089221", "nwq1105479", "nwq1104874", "nwq1105720", "nwq1104875", "nwq1104889", "nwq1104858", "nwq1105943", "nwq1106712", "nwq1104900", "nwq1104861", "nwq1107567", "nwq1107945", "nwq1104891", "nwq1104867", "nwq1108309", "nwq1106300", "nwq1104898", "nwq1105422", "nwq1107728", "nwq1106677", "nwq1104899", "nwq1105717", "nwq1108500", "nwq1105470", "nwq1104896", "nwq1108208", "nwq1107752", "nwq1104864", "nwq1105471", "nwq1104860", "nwq1104884", "nwq1106890", "nwq1106832", "nwq1105423", "nwq1104868", "nwq1107118", "nwq1104904", "nwq1104859", "nwq1102347", "nwq1105703", "nwq1108539", "nwq1097934", "nwq1104865", "nwq1104870", "nwq1104866", "nwq1105244", "nwq1105724", "nwq1106299", "nwq1107737", "nwq1108287", "nwq1107989", "nwq1107129", "nwq1104887", "nwq1105754", "nwq1105725", "nwq1107791", "nwq1105424", "nwq1087627", "nwq1107930", "nwq1104723", "nwq1103895", "nwq1104872", "nwq1105416", "nwq1088244", "nwq1104893", "nwq1107853", "nwq1107209", "nwq1096894", "nwq1106674", "nwq1105723", "nwq1105460", "nwq1103257", "nwq1104882", "nwq1104869", "nwq1085551", "nwq1105755", "nwq1107893", "nwq1104325", "nwq1104892", "nwq1107984", "nwq1107616", "nwq1100928", "nwq1107881", "nwq1100071", "nwq1108302", "nwq1107854", "nwq1107525", "nwq1103932", "nwq1092535", "nwq1105753", "nwq1101043", "nwq1091112", "nwq1101009", "nwq1103103", "nwq1105953", "nwq1103101", "nwq1091116", "nwq1088916", "nwq1088631", "nwq1100927", "nwq1107785", "nwq1086724", "nwq1105967", "nwq1106777", "nwq1103404", "nwq1108502", "nwq1106271", "nwq1105458", "nwq1105659", "nwq1108219", "nwq1103764", "nwq1106957", "nwq1106343", "nwq1109770", "nwq1105976", "nwq1088102", "nwq1105977", "nwq1107564", "nwq1107719", "nwq1105748", "nwq1103931"
+                ]
+            },
+            {
+                "id": "qualified-medal",
+                "citation": "Qualified to Northwestern Russia Regional Contest",
+                "teamCdsIds": [
+                    "nwq1107115", "nwq1104880", "nwq1105722", "nwq1105715", "nwq1104911", "nwq1106673", "nwq1105942", "nwq1108476", "nwq1092444", "nwq1105728", "nwq1105716", "nwq1106310", "nwq1107378", "nwq1104890", "nwq1106311", "nwq1089221", "nwq1105479", "nwq1104874", "nwq1105720", "nwq1104875", "nwq1104889", "nwq1104858", "nwq1105943", "nwq1106712", "nwq1104900", "nwq1104861", "nwq1107567", "nwq1107945", "nwq1104891", "nwq1104867", "nwq1108309", "nwq1106300", "nwq1104898", "nwq1105422", "nwq1107728", "nwq1106677", "nwq1104899", "nwq1105717", "nwq1108500", "nwq1105470", "nwq1104896", "nwq1108208", "nwq1107752", "nwq1104864", "nwq1105471", "nwq1104860", "nwq1104884", "nwq1106890", "nwq1106832", "nwq1105423", "nwq1104868", "nwq1107118", "nwq1104904", "nwq1104859", "nwq1102347", "nwq1105703", "nwq1108539", "nwq1097934", "nwq1104865", "nwq1104870", "nwq1104866", "nwq1105244", "nwq1105724", "nwq1106299", "nwq1107737", "nwq1108287", "nwq1107989", "nwq1107129", "nwq1104887", "nwq1105754", "nwq1105725", "nwq1107791", "nwq1105424", "nwq1087627", "nwq1107930", "nwq1104723", "nwq1103895", "nwq1104872", "nwq1105416", "nwq1088244", "nwq1104893", "nwq1107853", "nwq1107209", "nwq1096894", "nwq1106674", "nwq1105723", "nwq1105460", "nwq1103257", "nwq1104882", "nwq1104869", "nwq1085551", "nwq1105755", "nwq1107893", "nwq1104325", "nwq1104892", "nwq1107984", "nwq1107616", "nwq1100928", "nwq1107881", "nwq1100071", "nwq1108302", "nwq1107854", "nwq1107525", "nwq1103932", "nwq1092535", "nwq1105753", "nwq1101043", "nwq1091112", "nwq1101009", "nwq1103103", "nwq1105953", "nwq1103101", "nwq1091116", "nwq1088916", "nwq1088631", "nwq1100927", "nwq1107785", "nwq1086724", "nwq1105967", "nwq1106777", "nwq1103404", "nwq1108502", "nwq1106271", "nwq1105458", "nwq1105659", "nwq1108219", "nwq1103764", "nwq1106957", "nwq1106343", "nwq1109770", "nwq1105976", "nwq1088102", "nwq1105977", "nwq1107564", "nwq1107719", "nwq1105748", "nwq1103931"
+                ]
+            }
+
+        ]
+    }
+]
