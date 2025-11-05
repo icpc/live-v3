@@ -4,7 +4,7 @@ import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
 import { ContestInfo, ContestStatus, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
-import { calculateContestTime } from "@/components/molecules/Clock";
+import { calculateContestTime, getStartTime } from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { KeylogGraph } from "./KeylogGraph";
 
@@ -539,8 +539,9 @@ export function TimeLine({
         async function fetchKeylogData() {
             try {
                 const events = await fetchNDJSON();
-                const startTime = new Date(contestInfo?.status.type === ContestStatus.Type.running ? contestInfo.status.startedAtUnixMs : 0);
+                const startTime = getStartTime(contestInfo);
                 const newKeylog: number[] = [];
+                const intervalCount = contestInfo?.contestLengthMs / 1000 / 60;
                 events.filter(event => {
                     const eventTime = new Date(event.timestamp);
                     return eventTime >= startTime;
@@ -551,11 +552,10 @@ export function TimeLine({
                         if (key.bare) counter += key.bare;
                         if (key.shift) counter += key.shift;
                         newKeylog.push(counter);
-                        // TODO: move 300 to config.ts
-                        if (newKeylog.length >= 300) return;
+                        if (newKeylog.length >= intervalCount) return;
                     });
                 });
-                setKeylog(newKeylog.slice(0, 300));
+                setKeylog(newKeylog.slice(0, intervalCount));
             } catch (error) {
                 console.error("Error fetching keylog data:", error);
             }
