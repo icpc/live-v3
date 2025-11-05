@@ -539,7 +539,7 @@ export function TimeLine({
         async function fetchKeylogData() {
             try {
                 const events = await fetchNDJSON();
-                const startTime = getStartTime(contestInfo);
+                const startTime = new Date(getStartTime(contestInfo));
                 const newKeylog: number[] = [];
                 const intervalCount = contestInfo?.contestLengthMs / 1000 / 60;
                 events.filter(event => {
