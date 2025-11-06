@@ -1,8 +1,6 @@
 package org.icpclive.cds.plugins.clics
 
 import org.icpclive.cds.api.*
-import org.icpclive.cds.plugins.clics.model.ClicsJudgementTypeInfo
-import org.icpclive.cds.plugins.clics.model.ClicsOrganizationInfo
 import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
 import kotlin.time.Duration
@@ -15,10 +13,10 @@ internal class ClicsModel {
     private val runInfoListeners = mutableListOf<suspend (RunInfo) -> Unit>()
     private val commentaryMessageListeners = mutableListOf<suspend (CommentaryMessage) -> Unit>()
 
-    private val judgementTypes = mutableMapOf<String, ClicsJudgementTypeInfo>()
+    private val judgementTypes = mutableMapOf<String, JudgementType>()
     private val problems = mutableMapOf<String, Problem>()
     private val languages = mutableMapOf<String, Language>()
-    private val organizations = mutableMapOf<String, ClicsOrganizationInfo>()
+    private val organizations = mutableMapOf<String, Organization>()
     private val teams = mutableMapOf<String, Team>()
     private val submissions = mutableMapOf<String, Submission>()
     private val removedSubmissionIds = mutableSetOf<String>()
@@ -66,15 +64,15 @@ internal class ClicsModel {
         }
     }
     private suspend fun commentaryUpdated(id: String) {
-        val info = commentaries[id]!!.toApi()
+        val info = commentaries[id]?.toApi() ?: return
         for (listener in commentaryMessageListeners) {
             listener(info)
         }
     }
 
-    private fun mediaType(file: File): MediaType? {
-        val mime = file.mime ?: return null
-        val href = file.href?.value ?: return null
+    private fun File.toApi(): MediaType? {
+        val mime = mime ?: return null
+        val href = href?.value ?: return null
         return when {
             mime.startsWith("image") -> MediaType.Image(href)
             mime.startsWith("audio") -> MediaType.Audio(href)
@@ -104,16 +102,16 @@ internal class ClicsModel {
                 }
                 teamOrganization?.country?.takeIf { it.isNotEmpty() }?.let { add(it.toGroupId()) }
             },
-            hashTag = teamOrganization?.hashtag,
+            hashTag = teamOrganization?.twitterHashtag,
             medias = buildMap {
-                put(TeamMediaType.PHOTO, photo.mapNotNull { mediaType(it) })
-                put(TeamMediaType.RECORD, video.mapNotNull { mediaType(it) })
-                put(TeamMediaType.CAMERA, webcam.mapNotNull { mediaType(it) })
-                put(TeamMediaType.SCREEN, desktop.mapNotNull { mediaType(it) })
-                put(TeamMediaType.AUDIO, audio.mapNotNull { mediaType(it) })
-                put(TeamMediaType.BACKUP, backup.mapNotNull { mediaType(it) })
-                put(TeamMediaType.KEYLOG, keyLog.mapNotNull { mediaType(it) })
-                put(TeamMediaType.TOOL_DATA, toolData.mapNotNull { mediaType(it) })
+                put(TeamMediaType.PHOTO, photo.mapNotNull { it.toApi() })
+                put(TeamMediaType.RECORD, video.mapNotNull { it.toApi() })
+                put(TeamMediaType.CAMERA, webcam.mapNotNull { it.toApi() })
+                put(TeamMediaType.SCREEN, desktop.mapNotNull { it.toApi() })
+                put(TeamMediaType.AUDIO, audio.mapNotNull { it.toApi() })
+                put(TeamMediaType.BACKUP, backup.mapNotNull { it.toApi() })
+                put(TeamMediaType.KEYLOG, keyLog.mapNotNull { it.toApi() })
+                put(TeamMediaType.TOOL_DATA, toolData.mapNotNull { it.toApi() })
             }.filterValues { it.isNotEmpty() },
             organizationId = organizationId?.toOrganizationId(),
             isOutOfContest = false,
@@ -142,18 +140,18 @@ internal class ClicsModel {
             } else {
                 Verdict.lookup(
                     shortName = judgementType.id,
-                    isAccepted = judgementType.isAccepted,
-                    isAddingPenalty = judgementType.isAddingPenalty,
+                    isAccepted = judgementType.solved,
+                    isAddingPenalty = judgementType.penalty,
                 ).toICPCRunResult()
             },
             problemId = problemId.toProblemId(),
             teamId = teamId.toTeamId(),
             time = contestTime,
             testedTime = judgment?.endContestTime,
-            reactionVideos = reaction?.mapNotNull { mediaType(it) } ?: emptyList(),
+            reactionVideos = reaction?.mapNotNull { it.toApi() } ?: emptyList(),
             languageId = languageId?.toLanguageId(),
             isHidden = id in removedSubmissionIds,
-            sourceFiles = files.mapNotNull { mediaType(it) }
+            sourceFiles = files.mapNotNull { it.toApi() }
         )
     }
 
@@ -165,11 +163,11 @@ internal class ClicsModel {
         color = rgb?.let { Color.normalize(it) }
     )
 
-    private fun ClicsOrganizationInfo.toApi() = OrganizationInfo(
+    private fun Organization.toApi() = OrganizationInfo(
         id = id.toOrganizationId(),
-        displayName = name,
-        fullName = formalName,
-        logo = logo
+        displayName = name ?: formalName ?: id,
+        fullName = formalName ?: name ?: id,
+        logo = logo.mapNotNull { it.toApi() }
     )
 
     private fun Language.toApi() = LanguageInfo(
@@ -195,6 +193,50 @@ internal class ClicsModel {
             cdsSupportsFinalization = true
         )
 
+    private inline fun <reified T> putInSet(set: MutableMap<String, T>, id: String, data: T?, getId: T.() -> String) {
+        if (data == null) {
+            set.remove(id)
+        } else {
+            require(id == data.getId()) {
+                "Mismatch of id in event and ${T::class.simpleName} object: in event = ${id}, in object = ${data.getId()}"
+            }
+            set[id] = data
+        }
+    }
+
+    private inline fun <reified T> putInSetWithRemoved(set: MutableMap<String, T>, removed: MutableSet<String>, id: String, data: T?, getId: T.() -> String) {
+        if (data == null) {
+            removed.add(id)
+        } else {
+            require(id == data.getId()) {
+                "Mismatch of id in event and ${T::class.simpleName} object: in event = ${id}, in object = ${data.getId()}"
+            }
+            set[id] = data
+            removed.remove(id)
+        }
+    }
+
+    private inline fun <reified T> putInSetLinked(
+        set: MutableMap<String, T>,
+        id: String,
+        data: T?,
+        getId: T.() -> String,
+        referenceSet: MutableMap<String, MutableSet<String>>,
+        getReferenceId: T.() -> String
+    ) : List<String> = buildList {
+        val old = set[id]
+        old?.getReferenceId()?.let {
+            referenceSet[it]?.remove(id)
+            add(it)
+        }
+        data?.getReferenceId()?.let {
+            referenceSet.getOrPut(it) { mutableSetOf() }.add(id)
+            add(it)
+        }
+        distinct()
+        putInSet(set, id, data, getId)
+    }
+
     private suspend fun processContest(contest: Contest?) {
         require(contest != null) { "Removing contest is not supported" }
         name = contest.formalName ?: contest.name ?: "Unknown"
@@ -213,73 +255,27 @@ internal class ClicsModel {
     }
 
     private suspend fun processLanguage(id: String, language: Language?) {
-        if (language == null) {
-            languages.remove(id)
-        } else {
-            require(id == language.id) {
-                "Mismatch of id in event and language object: in event = ${id}, in object = ${language.id}"
-            }
-            languages[language.id] = language
-        }
+        putInSet(languages, id, language, Language::id)
         contestInfoUpdated()
     }
 
     private suspend fun processProblem(id: String, problem: Problem?) {
-        if (problem == null) {
-            problems.remove(id)
-        } else {
-            require(id == problem.id) {
-                "Mismatch of id in event and problem object: in event = ${id}, in object = ${problem.id}"
-            }
-            problems[problem.id] = problem
-        }
+        putInSet(problems, id, problem, Problem::id)
         contestInfoUpdated()
     }
 
     private suspend fun processOrganization(id: String, organization: Organization?) {
-        if (organization == null) {
-            organizations.remove(id)
-        } else {
-            require(id == organization.id) {
-                "Mismatch of id in event and organization object: in event = ${id}, in object = ${organization.id}"
-            }
-            organizations[organization.id] = ClicsOrganizationInfo(
-                id = organization.id,
-                name = organization.name!!,
-                formalName = organization.formalName ?: organization.name!!,
-                logo = organization.logo?.mapNotNull { mediaType(it) }.orEmpty(),
-                hashtag = organization.twitterHashtag,
-                country = organization.country
-            )
-        }
+        putInSet(organizations, id, organization, Organization::id)
         contestInfoUpdated()
     }
 
     private suspend fun processTeam(id: String, team: Team?) {
-        if (team == null) {
-            teams.remove(id)
-        } else {
-            require(id == team.id) {
-                "Mismatch of id in event and team object: in event = ${id}, in object = ${team.id}"
-            }
-            teams[id] = team
-        }
+        putInSet(teams, id, team, Team::id)
         contestInfoUpdated()
     }
 
     private suspend fun processJudgementType(id: String, judgementType: JudgementType?) {
-        if (judgementType == null) {
-            judgementTypes.remove(id)
-        } else {
-            require(id == judgementType.id) {
-                "Mismatch of id in event and judgemnet type object: in event = ${id}, in object = ${judgementType.id}"
-            }
-            judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
-                id = judgementType.id,
-                isAccepted = judgementType.solved,
-                isAddingPenalty = judgementType.penalty,
-            )
-        }
+        putInSet(judgementTypes, id, judgementType, JudgementType::id)
         for ((_, submission) in submissions) {
             if (submissionJudgmentIds[submission.id]?.any { judgements[it]?.judgementTypeId == id } == true) {
                 submissionUpdated(submission.id)
@@ -288,77 +284,39 @@ internal class ClicsModel {
     }
 
     private suspend fun processGroup(id: String, group: Group?) {
-        if (group == null) {
-            groups.remove(id)
-        } else {
-            require(id == group.id) {
-                "Mismatch of id in event and group object: in event = ${id}, in object = ${group.id}"
-            }
-            groups[id] = group
-        }
+        putInSet(groups, id, group, Group::id)
         contestInfoUpdated()
     }
 
     private suspend fun processSubmission(id: String, submission: Submission?) {
-        if (submission == null) {
-            removedSubmissionIds.add(id)
-        } else {
-            require(id == submission.id) {
-                "Mismatch of id in event and submission object: in event = ${id}, in object = ${submission.id}"
-            }
-            submissions[id] = submission
-            removedSubmissionIds.remove(id)
-        }
+        putInSetWithRemoved(submissions, removedSubmissionIds, id, submission, Submission::id)
         submissionUpdated(id)
     }
 
     private suspend fun processJudgement(id: String, judgement: Judgement?) {
-        val oldJudgment = judgements[id]
-        if (judgement == oldJudgment) return
-        oldJudgment?.submissionId?.takeIf { it != judgement?.submissionId }?.let {
-            submissionJudgmentIds[it]?.remove(id)
-            submissionUpdated(it)
-        }
-        if (judgement == null) {
-            judgements.remove(id)
-        } else {
-            require(id == judgement.id) {
-                "Mismatch of id in event and judgement object: in event = ${id}, in object = ${judgement.id}"
-            }
-            val submissionId = judgement.submissionId
-            judgements[judgement.id] = judgement
-            submissionJudgmentIds.getOrPut(submissionId) { mutableSetOf() }.add(judgement.id)
-            submissionUpdated(judgement.submissionId)
-        }
+        putInSetLinked(
+            set = judgements,
+            id = id,
+            data = judgement,
+            getId = Judgement::id,
+            referenceSet = submissionJudgmentIds,
+            getReferenceId = Judgement::submissionId
+        ).forEach { submissionUpdated(it) }
     }
 
     private suspend fun processRun(id: String, run: Run?) {
-        val oldRun = runs[id]
-        if (oldRun == run) return
-        val judgementId = (run ?: oldRun)!!.judgementId
-        oldRun?.judgementId?.takeIf { it != run?.judgementId }?.let {
-            judgmentRunIds[it]?.remove(id)
-            submissionUpdated(judgements[it]?.submissionId)
-        }
-        if (run == null) {
-            runs.remove(id)
-        } else {
-            val judgement = judgements[judgementId]
-            require(id == run.id) {
-                "Mismatch of id in event and run object: in event = ${id}, in object = ${run.id}"
-            }
-            runs[id] = run
-            judgmentRunIds.getOrPut(judgementId) { mutableSetOf() }.add(id)
-            submissionUpdated(judgement?.submissionId)
-        }
+        putInSetLinked(
+            set = runs,
+            id = id,
+            data = run,
+            getId = Run::id,
+            referenceSet = judgmentRunIds,
+            getReferenceId = Run::judgementId
+        ).forEach { judgements[it]?.let { j -> submissionUpdated(j.submissionId)} }
     }
 
     private suspend fun processCommentary(id: String, commentary: Commentary?) {
-        if (commentary == null) {
-            commentaries.remove(id)
-        } else {
-            commentaries[id] = commentary
-        }
+        putInSet(commentaries, id, commentary, Commentary::id)
         commentaryUpdated(id)
     }
 

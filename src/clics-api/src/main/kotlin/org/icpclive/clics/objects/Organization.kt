@@ -10,12 +10,12 @@ public data class Organization(
     public val name: String? = null,
     public val formalName: String? = null,
     public val country: String? = null,
-    public val countryFlag: List<File>? = null,
+    public val countryFlag: List<File> = emptyList(),
     @SinceClics(FeedVersion.DRAFT) public val countrySubdivision: String? = null,
     @SinceClics(FeedVersion.DRAFT) public val countrySubdivisionFlag: List<File>? = null,
     public val url: String? = null,
     public val twitterHashtag: String? = null,
     @SinceClics(FeedVersion.`2023_06`) public val twitterAccount: String? = null,
     public val location: Location? = null,
-    public val logo: List<File>? = null
+    public val logo: List<File> = emptyList()
 )
