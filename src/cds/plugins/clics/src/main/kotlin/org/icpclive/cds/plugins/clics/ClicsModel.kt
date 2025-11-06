@@ -250,7 +250,7 @@ internal class ClicsModel {
         if (team == null) {
             teams.remove(id)
         } else {
-            teams[id] = team
+            teams[team.id] = team
         }
         contestInfoUpdated()
     }
@@ -276,7 +276,7 @@ internal class ClicsModel {
         if (group == null) {
             groups.remove(id)
         } else {
-            groups[id] = group
+            groups[group.id] = group
         }
         contestInfoUpdated()
     }
@@ -288,7 +288,7 @@ internal class ClicsModel {
             require(id == submission.id) {
                 "Mismatch of id in event and submission object: in event = ${id}, in object = ${submission.id}"
             }
-            submissions[id] = submission
+            submissions[submission.id] = submission
             removedSubmissionIds.remove(id)
         }
         submissionUpdated(id)
@@ -304,9 +304,6 @@ internal class ClicsModel {
         if (judgement == null) {
             judgements.remove(id)
         } else {
-            require(id == judgement.id) {
-                "Mismatch of id in event and judgement object: in event = ${id}, in object = ${judgement.id}"
-            }
             val submissionId = judgement.submissionId
             judgements[judgement.id] = judgement
             submissionJudgmentIds.getOrPut(submissionId) { mutableSetOf() }.add(judgement.id)
@@ -326,10 +323,7 @@ internal class ClicsModel {
             runs.remove(id)
         } else {
             val judgement = judgements[judgementId]
-            require(id == run.id) {
-                "Mismatch of id in event and run object: in event = ${id}, in object = ${run.id}"
-            }
-            runs[id] = run
+            runs[run.id] = run
             judgmentRunIds.getOrPut(judgementId) { mutableSetOf() }.add(id)
             submissionUpdated(judgement?.submissionId)
         }
@@ -339,7 +333,7 @@ internal class ClicsModel {
         if (commentary == null) {
             commentaries.remove(id)
         } else {
-            commentaries[id] = commentary
+            commentaries[commentary.id] = commentary
         }
         commentaryUpdated(id)
     }
