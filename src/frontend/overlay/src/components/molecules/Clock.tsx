@@ -21,17 +21,17 @@ const formatLongTime = (ms: number, showSeconds: boolean): string => {
     }
 };
 
-export const getStartTime = (contestInfo: ContestInfo): number => {
+export const getStartTime = (contestInfo: ContestInfo): number | undefined => {
     switch (contestInfo.status.type) {
     case ContestStatus.Type.before:
-        return contestInfo.status.scheduledStartAtUnixMs ?? 0;
+        return contestInfo.status.scheduledStartAtUnixMs;
     case ContestStatus.Type.running:
-        return contestInfo.status.startedAtUnixMs ?? 0;
+        return contestInfo.status.startedAtUnixMs;
     case ContestStatus.Type.finalized:
     case ContestStatus.Type.over:
-        return contestInfo.status.startedAtUnixMs ?? 0;
+        return contestInfo.status.startedAtUnixMs;
     }
-}
+};
 
 export const calculateContestTime = (contestInfo: ContestInfo): number => {
     if (contestInfo === undefined) {

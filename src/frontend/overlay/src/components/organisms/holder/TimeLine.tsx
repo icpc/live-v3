@@ -524,7 +524,8 @@ export function TimeLine({
     }, [contestInfo, isPvp]);
 
     useEffect(() => {
-        if (!keylogUrl) return;
+        const startTime = getStartTime(contestInfo);
+        if (!keylogUrl || !startTime) return;
 
         // TODO: Move all this code to KeylogGraph
         async function fetchNDJSON(): Promise<KeyboardEvent[]> {
@@ -532,7 +533,7 @@ export function TimeLine({
             const text = await response.text();
             return text
                 .trim()
-                .split('\n')
+                .split("\n")
                 .filter(line => line.trim())
                 .map(line => JSON.parse(line) as KeyboardEvent);
         }
@@ -540,14 +541,14 @@ export function TimeLine({
         async function fetchKeylogData() {
             try {
                 const events = await fetchNDJSON();
-                const startTime = new Date(getStartTime(contestInfo));
+                const startTimeDate = new Date(startTime);
                 const newKeylog: number[] = [];
                 const intervalCount = contestInfo?.contestLengthMs / c.KEYLOG_INTERVAL_LENGTH;
                 const countToAggregate = c.KEYLOG_INTERVAL_LENGTH / 1000 / 60;
                 let keylogValue: number = 0;
                 events.filter(event => {
                     const eventTime = new Date(event.timestamp);
-                    return eventTime >= startTime;
+                    return eventTime >= startTimeDate;
                 }).forEach((event, index) => {
                     if (newKeylog.length >= intervalCount) return;
 
