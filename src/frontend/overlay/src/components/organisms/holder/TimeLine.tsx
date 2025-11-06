@@ -526,6 +526,7 @@ export function TimeLine({
     useEffect(() => {
         if (!keylogUrl) return;
 
+        // TODO: Move all this code to KeylogGraph
         async function fetchNDJSON(): Promise<KeyboardEvent[]> {
             const response = await fetch(keylogUrl);
             const text = await response.text();
@@ -541,19 +542,27 @@ export function TimeLine({
                 const events = await fetchNDJSON();
                 const startTime = new Date(getStartTime(contestInfo));
                 const newKeylog: number[] = [];
-                const intervalCount = contestInfo?.contestLengthMs / 1000 / 60;
+                const intervalCount = contestInfo?.contestLengthMs / c.KEYLOG_INTERVAL_LENGTH;
+                const countToAggregate = c.KEYLOG_INTERVAL_LENGTH / 1000 / 60;
+                let keylogValue: number = 0;
                 events.filter(event => {
                     const eventTime = new Date(event.timestamp);
                     return eventTime >= startTime;
-                }).forEach(event => {
+                }).forEach((event, index) => {
+                    if (newKeylog.length >= intervalCount) return;
+
                     const keys = Object.values(event.keys);
+                    let counter = 0;
                     keys.forEach(key => {
-                        let counter = 0;
                         if (key.bare) counter += key.bare;
                         if (key.shift) counter += key.shift;
-                        newKeylog.push(counter);
-                        if (newKeylog.length >= intervalCount) return;
                     });
+
+                    if (index != 0 && index % countToAggregate == 0 || index == events.length - 1) {
+                        newKeylog.push(keylogValue);
+                        keylogValue = 0;
+                    }
+                    keylogValue += counter;
                 });
                 setKeylog(newKeylog.slice(0, intervalCount));
             } catch (error) {
