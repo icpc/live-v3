@@ -61,7 +61,12 @@ function MediaFiles(): React.ReactElement {
     }, [uploadedFileUrls]);
 
     const uploadNewFile = (files) => {
-        const list: File[] = Array.isArray(files) ? files : [files];
+        const list: File[] = files instanceof FileList
+            ? Array.from(files)
+            : Array.isArray(files)
+            ? files
+            : [files];
+        console.log(list);
         const formData = new FormData();
         list.forEach(file => formData.append("file", file));
 

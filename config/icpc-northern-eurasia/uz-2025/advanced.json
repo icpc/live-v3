@@ -1,0 +1,10 @@
+[
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 18000
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": true
+    }
+]

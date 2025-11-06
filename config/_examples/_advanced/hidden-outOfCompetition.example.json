@@ -1,0 +1,28 @@
+// Mark some teams or groups isHidden or isOutOfCompetition
+[
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "nwq01": {"isHidden": true},
+            "nwq02": {"isHidden": true},
+            "nwq03": {"isOutOfContest": true},
+            "nwq04": {"isOutOfContest": true}
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "nwq05": {"groups": ["hide-1"]},
+            "nwq06": {"groups": ["hide-1"]},
+            "nwq07": {"groups": ["ooc-1"]},
+            "nwq08": {"groups": ["ooc-1"]}
+        }
+    },
+    {
+        "type": "overrideGroups",
+        "rules": {
+            "hide-1": {"isHidden": true},
+            "ooc-1": {"isOutOfContest": true}
+        }
+    }
+]
