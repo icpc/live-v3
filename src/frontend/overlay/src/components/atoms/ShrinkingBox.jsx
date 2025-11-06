@@ -59,7 +59,7 @@ export const ShrinkingBox = ({
     };
     useEffect(() => {
         updateScale();
-    }, [text]);
+    }, [text, fontFamily, fontSize]);
     const bindObserver = (cellRef) => {
         boxRef.current = cellRef;
         if (cellRef !== null) {
@@ -79,7 +79,7 @@ export const ShrinkingBox = ({
                 observerRef.current.disconnect();
             }
         };
-    });
+    }, []);
     return <TextShrinkingWrap ref={bindObserver} align={align} className={className}>
         <TextShrinkingContainer align={align}>
             {text}
