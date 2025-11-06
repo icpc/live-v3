@@ -22,7 +22,11 @@ const formatLongTime = (ms: number, showSeconds: boolean): string => {
 };
 
 export const getStartTime = (contestInfo: ContestInfo): number | undefined => {
-    switch (contestInfo.status.type) {
+    const contestType = contestInfo?.status?.type;
+    if (contestType === undefined) {
+         return undefined;
+    }
+    switch (contestType) {
     case ContestStatus.Type.before:
         return contestInfo.status.scheduledStartAtUnixMs;
     case ContestStatus.Type.running:
@@ -31,6 +35,7 @@ export const getStartTime = (contestInfo: ContestInfo): number | undefined => {
     case ContestStatus.Type.over:
         return contestInfo.status.startedAtUnixMs;
     }
+    return undefined;
 };
 
 export const calculateContestTime = (contestInfo: ContestInfo): number => {
