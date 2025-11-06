@@ -19,7 +19,7 @@ tasks {
         dependsOn(":cds:full:dokkaGenerate")
     }
     val copySchemas by registering(Sync::class) {
-        from(configurations.jsonSchemasProvider)
+        from(configurations.jsonSchemasResolver)
         into(schemasExportLocation)
     }
     val gen by registering {
