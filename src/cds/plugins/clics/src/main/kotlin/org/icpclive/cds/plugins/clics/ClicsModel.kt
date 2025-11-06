@@ -216,9 +216,6 @@ internal class ClicsModel {
         if (language == null) {
             languages.remove(id)
         } else {
-            require(id == language.id) {
-                "Mismatch of id in event and language object: in event = ${id}, in object = ${language.id}"
-            }
             languages[language.id] = language
         }
         contestInfoUpdated()
@@ -228,9 +225,6 @@ internal class ClicsModel {
         if (problem == null) {
             problems.remove(id)
         } else {
-            require(id == problem.id) {
-                "Mismatch of id in event and problem object: in event = ${id}, in object = ${problem.id}"
-            }
             problems[problem.id] = problem
         }
         contestInfoUpdated()
@@ -240,9 +234,6 @@ internal class ClicsModel {
         if (organization == null) {
             organizations.remove(id)
         } else {
-            require(id == organization.id) {
-                "Mismatch of id in event and organization object: in event = ${id}, in object = ${organization.id}"
-            }
             organizations[organization.id] = ClicsOrganizationInfo(
                 id = organization.id,
                 name = organization.name!!,
@@ -259,9 +250,6 @@ internal class ClicsModel {
         if (team == null) {
             teams.remove(id)
         } else {
-            require(id == team.id) {
-                "Mismatch of id in event and team object: in event = ${id}, in object = ${team.id}"
-            }
             teams[id] = team
         }
         contestInfoUpdated()
@@ -271,9 +259,6 @@ internal class ClicsModel {
         if (judgementType == null) {
             judgementTypes.remove(id)
         } else {
-            require(id == judgementType.id) {
-                "Mismatch of id in event and judgemnet type object: in event = ${id}, in object = ${judgementType.id}"
-            }
             judgementTypes[judgementType.id] = ClicsJudgementTypeInfo(
                 id = judgementType.id,
                 isAccepted = judgementType.solved,
@@ -291,9 +276,6 @@ internal class ClicsModel {
         if (group == null) {
             groups.remove(id)
         } else {
-            require(id == group.id) {
-                "Mismatch of id in event and group object: in event = ${id}, in object = ${group.id}"
-            }
             groups[id] = group
         }
         contestInfoUpdated()
