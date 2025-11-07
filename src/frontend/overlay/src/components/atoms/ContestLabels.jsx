@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
 import { ShrinkingBox } from "./ShrinkingBox";
@@ -151,7 +151,7 @@ const AttemptsOrScoreLabelWrapper = styled.div`
     position: absolute;
 `;
 
-const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, problemLetter, ...props }) => {
+const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
     const isShimmering = status === TeamTaskStatus.first;
@@ -171,7 +171,7 @@ const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, problemLetter, .
     </>;
 };
 
-const IOITaskResultLabel2 = ({ problemColor, problemResult: r, problemLetter, minScore, maxScore, ...props }) => {
+const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScore, ...props }) => {
     const isShimmering = r.isFirstBest;
 
     return <TaskResultLabelWrapper2
