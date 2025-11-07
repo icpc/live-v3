@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { DateTime } from "luxon";
+import { isFTS } from "@/utils/statusInfo";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { ScoreboardTaskResultLabel } from "../../organisms/widgets/Scoreboard";
@@ -14,10 +15,45 @@ const TimeCell = styled.div`
   text-align: center;
 `;
 
+const shimmerAnimation = keyframes`
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+`;
+
+
 const QueueProblemLabel = styled(ProblemLabel)`
   flex-shrink: 0;
   width: ${c.QUEUE_ROW_PROBLEM_LABEL_WIDTH}px;
+  height: ${c.QUEUE_ROW_HEIGHT}px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
+  font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
+  line-height: ${c.QUEUE_ROW_HEIGHT}px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${({ isFts, problemColor }) => isFts ? css`
+    background: linear-gradient(
+      90deg,
+      ${problemColor || '#4a90e2'} 0%,
+      ${problemColor || '#4a90e2'} 10%,
+      #fff 50%,
+      ${problemColor || '#4a90e2'} 90%,
+      ${problemColor || '#4a90e2'} 100%
+    );
+    background-size: 200% 100%;
+    animation: ${shimmerAnimation} 4s linear infinite;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  ` : css`
+    background-color: ${problemColor || '#4a90e2'};
+    color: ${isShouldUseDarkColor(problemColor) ? '#000' : '#FFF'};
+  `}
 `;
 
 const SubmissionRowWrap = styled.div<{bg_color: string, color: string}>`
@@ -60,11 +96,13 @@ const SubmissionRowTaskResultLabel = styled(ScoreboardTaskResultLabel)`
 `;
 
 // TODO: MOVE WIDTHS TO CONFIG
+// TODO: REWRITE WITHOUT isFake
 export const SubmissionRow = ({ result, lastSubmitTimeMs, minScore, maxScore, problemLetter, problemColor, bg_color, color }) => {
+    const isFts = result?.type === "ICPC" && result.isFirstToSolve || result?.type === "IOI" && result.isFirstBest;
     return <SubmissionRowWrap bg_color={bg_color} color={color}>
         <TimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</TimeCell>
-        <QueueProblemLabel letter={problemLetter} problemColor={problemColor} />
-        <SubmissionRowTaskResultLabel problemResult={result} minScore={minScore} maxScore={maxScore}/>
+        <QueueProblemLabel letter={problemLetter} problemColor={problemColor} isFts={isFts}/>
+        <SubmissionRowTaskResultLabel problemResult={result} minScore={minScore} maxScore={maxScore} isFake={true}/>
     </SubmissionRowWrap>;
 };
 
@@ -104,7 +142,7 @@ export const VerticalSubmissionRow = ({ teamData, result, lastSubmitTimeMs, minS
         </SubmissionColumnWrap>;
     }
     return <SubmissionColumnWrap bg_color={teamData?.color} darkText={dark}>
-        <PVPResultLabel problemResult={result} minScore={minScore} maxScore={maxScore} isTop={isTop}/>
+        <PVPResultLabel problemResult={result} minScore={minScore} maxScore={maxScore} isTop={isTop} problemColor={problemColor}/>
         <PVPTimeCell>{DateTime.fromMillis(lastSubmitTimeMs).toFormat("H:mm")}</PVPTimeCell>
         <PVPProblemLabel letter={problemLetter} problemColor={problemColor} isTop={isTop}/>
     </SubmissionColumnWrap>;

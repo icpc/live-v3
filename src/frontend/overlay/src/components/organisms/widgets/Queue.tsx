@@ -12,6 +12,7 @@ import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
 import {Award, OptimismLevel, QueueRunInfo, Widget} from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
+import { isShouldUseDarkColor } from "@/utils/colors";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
 import QueueWidget = Widget.QueueWidget;
 import {LocationRectangle} from "@/utils/location-rectangle";
@@ -233,7 +234,7 @@ const useHorizontalQueueRowsData = ({
     const [loadedMediaRun, setLoadedMediaRun] = useState(null);
 
     const queueStateRef = useRef<QueueState>({ currentRuns: {}, batches: {}, batchOrder: [], ftsPositions: {} });
-    
+
     const newState = useMemo(() => {
         const currentState = queueStateRef.current;
         const newStateValue: QueueState = {
@@ -391,26 +392,45 @@ const QueueScoreLabel = styled(ShrinkingBox)`
   flex-shrink: 0;
   flex-direction: row-reverse;
 `;
+const shimmerAnimation = keyframes`
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+`;
 const QueueProblemLabel = styled(ProblemLabel)`
   width: ${c.QUEUE_ROW_PROBLEM_LABEL_WIDTH}px;
+  height: ${c.QUEUE_ROW_HEIGHT}px;
   font-size: ${c.QUEUE_PROBLEM_LABEL_FONT_SIZE};
   font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
-  line-height: ${c.QUEUE_ROW_HEIGHT}px;
   flex-shrink: 0;
-  background-image: ${({ isFts }) => isFts ? `url("${star}")` : null};
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  /*
-  These three lines trigger plugin/no-unsupported-browser-features.
-  I don't belive it, but we have to check.
-   */
-    /* stylelint-disable plugin/no-unsupported-browser-features */
-  mask: ${({ isFts }) => isFts ? `url("${star_mask}") 50% 50% no-repeat` : null};
-  mask-position: 50%;
-  mask-size: contain;
-    /* stylelint-enable plugin/no-unsupported-browser-features */
+  ${({ isFts, problemColor }) => isFts ? css`
+    background: linear-gradient(
+      90deg,
+      ${problemColor || '#4a90e2'} 0%,
+      ${problemColor || '#4a90e2'} 10%,
+      #fff 50%,
+      ${problemColor || '#4a90e2'} 90%,
+      ${problemColor || '#4a90e2'} 100%
+    );
+    background-size: 200% 100%;
+    animation: ${shimmerAnimation} 4s linear infinite;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    border: 2px solid rgba(255,255,255,0.3);
+  ` : css`
+    background-color: ${problemColor || '#4a90e2'};
+    border-radius: 4px;
+    color: ${isShouldUseDarkColor(problemColor) ? '#000' : '#FFF'};
+  `}
 `;
 const QueueRightPart = styled.div`
   height: 100%;
@@ -656,9 +676,9 @@ const QueueComponent = ({ shouldShow, widget }: QueueComponentProps) => {
                 </QueueHeader>
                 <RowsContainerComponent ref={handleRowsContainerRef}>
                     {shouldShow && queueRows.map(row => (
-                        <QueueRowWithTransition 
-                            key={row.id} 
-                            row={row} 
+                        <QueueRowWithTransition
+                            key={row.id}
+                            row={row}
                             horizontal={horizontal}
                         />
                     ))}

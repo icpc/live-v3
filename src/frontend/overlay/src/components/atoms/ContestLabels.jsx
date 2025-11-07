@@ -1,9 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
 import { ShrinkingBox } from "./ShrinkingBox";
-import star from "../../assets/icons/scoreboard_star.svg";
 
 import {
     TeamTaskColor,
@@ -14,20 +13,32 @@ import {
 } from "../../utils/statusInfo";
 import { formatScore } from "../../services/displayUtils";
 
+const shimmerAnimation = keyframes`
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+`;
+
 const VerdictLabel = styled(ShrinkingBox)`
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: ${c.VERDICT_LABEL_FONT_SIZE};
   font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
-
   background-color: ${({ color }) => color};
 `;
 
 const ICPCVerdictLabel = ({ runResult, className }) => {
     const color = runResult?.verdict.isAccepted ? c.VERDICT_OK : c.VERDICT_NOK;
-    return <VerdictLabel text={runResult?.verdict.shortName ?? "??"} color={color} align="center" className={className}/>;
+    return <VerdictLabel
+        text={runResult?.verdict.shortName ?? "??"}
+        color={color}
+        align="center"
+        className={className}
+    />;
 };
 
 const getIOIScoreText = (difference) => {
@@ -43,11 +54,24 @@ const getIOIScoreText = (difference) => {
 const IOIVerdictLabel = ({ runResult: { wrongVerdict, difference }, ...props }) => {
     const [diffText, diffColor] = getIOIScoreText(difference);
     return <>
-        {wrongVerdict !== undefined && <VerdictLabel text={wrongVerdict.shortName ?? "??"} color={c.VERDICT_NOK} align="center" {...props}/>}
-        {wrongVerdict === undefined && <VerdictLabel text={diffText ?? "??"} color={diffColor} align="center" {...props}/>}
+        {wrongVerdict !== undefined &&
+            <VerdictLabel
+                text={wrongVerdict.shortName ?? "??"}
+                color={c.VERDICT_NOK}
+                align="center"
+                {...props}
+            />
+        }
+        {wrongVerdict === undefined &&
+            <VerdictLabel
+                text={diffText ?? "??"}
+                color={diffColor}
+                align="center"
+                {...props}
+            />
+        }
     </>;
 };
-
 
 const formatRank = (rank) => {
     if (rank === undefined || rank == null)
@@ -83,7 +107,6 @@ const VerdictCellProgressBar2 = styled.div.attrs(({ width }) => ({
   transition: width ${c.VERDICT_CELL_TRANSITION_TIME} linear;
 `;
 
-
 const VerdictCellInProgressWrap2 = styled.div`
   flex-direction: row;
   align-content: center;
@@ -104,38 +127,64 @@ const VerdictCellInProgress2 = ({ percentage, className }) => {
 
 export const RunStatusLabel = ({ runInfo, className }) => {
     return <>
-        {runInfo.result.type === "ICPC" && <ICPCVerdictLabel runResult={runInfo.result} className={className}/>}
-        {runInfo.result.type === "IOI" && <IOIVerdictLabel runResult={runInfo.result} className={className}/>}
-        {runInfo.result.type === "IN_PROGRESS" && <VerdictCellInProgress2 percentage={runInfo.result.testedPart} className={className}/>}
+        {runInfo.result.type === "ICPC" &&
+            <ICPCVerdictLabel
+                runResult={runInfo.result}
+                className={className}
+            />
+        }
+        {runInfo.result.type === "IOI" &&
+            <IOIVerdictLabel
+                runResult={runInfo.result}
+                className={className}
+            />
+        }
+        {runInfo.result.type === "IN_PROGRESS" &&
+            <VerdictCellInProgress2
+                percentage={runInfo.result.testedPart}
+                className={className}
+            />
+        }
     </>;
 };
 
 const TaskResultLabelWrapper2 = styled.div`
   font-weight: bold;
   color: #fff;
-  background-color: ${({ color }) => color};
-`;
 
-const StarIcon = styled.div`
-    width: ${c.STAR_SIZE}px;
-    height: ${c.STAR_SIZE}px;
-    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-    mask: url("${star}");
-    background-position: center;
-    background-color: ${({ color }) => color};
+  ${({ color, isShimmering, problemColor, isFake }) => isShimmering && !isFake ? css`
+background: linear-gradient(
+  90deg,
+  ${problemColor || '#4a90e2'} 0%,
+  ${problemColor || '#4a90e2'} 10%,
+  #fff 50%,
+  ${problemColor || '#4a90e2'} 90%,
+  ${problemColor || '#4a90e2'} 100%
+);
+        background-size: 200% 100%;
+    animation: ${shimmerAnimation} 4s linear infinite;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  ` : css`
+    background-color: ${color};
+  `}
 `;
-
 const AttemptsOrScoreLabelWrapper = styled.div`
     position: absolute;
 `;
 
-const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
+const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, problemLetter, ...props }) => {
     const status = getStatus(r.isFirstToSolve, r.isSolved, r.pendingAttempts, r.wrongAttempts);
     const attempts = r.wrongAttempts + r.pendingAttempts;
+    const isShimmering = status === TeamTaskStatus.first;
+
     return <>
-        <TaskResultLabelWrapper2 color={TeamTaskColor[status]} {...props}>
-            { status === TeamTaskStatus.first &&
-                <StarIcon color={problemColor === undefined ? c.STAR_DEFAULT_COLOR : problemColor}/> }
+        <TaskResultLabelWrapper2
+            color={TeamTaskColor[status]}
+            isShimmering={isShimmering}
+            problemColor={problemColor}
+            {...props}
+        >
             <AttemptsOrScoreLabelWrapper>
                 {TeamTaskSymbol[status]}
                 {status !== TeamTaskStatus.untouched && attempts > 0 && attempts}
@@ -144,18 +193,24 @@ const ICPCTaskResultLabel2 = ({ problemColor, problemResult: r, ...props }) => {
     </>;
 };
 
-const IOITaskResultLabel2 = ({ problemColor, problemResult: r, minScore, maxScore,  ...props }) => {
-    return <TaskResultLabelWrapper2 color={getIOIColor(r.score, minScore, maxScore)} { ...props}>
-        { r.isFirstBest && <StarIcon color={problemColor === undefined ? c.STAR_DEFAULT_COLOR : problemColor}/>}
+const IOITaskResultLabel2 = ({ problemColor, problemResult: r, problemLetter, minScore, maxScore, ...props }) => {
+    const isShimmering = r.isFirstBest;
+
+    return <TaskResultLabelWrapper2
+        color={getIOIColor(r.score, minScore, maxScore)}
+        isShimmering={isShimmering}
+        problemColor={problemColor}
+        {...props}
+    >
         <AttemptsOrScoreLabelWrapper>
             {formatScore(r?.score)}
         </AttemptsOrScoreLabelWrapper>
     </TaskResultLabelWrapper2>;
 };
 
-export const TaskResultLabel = ({ problemResult, ...props }) => {
+export const TaskResultLabel = ({ problemResult, problemLetter, ...props }) => {
     return <>
-        {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} {...props}/>}
-        {problemResult.type === "IOI" && <IOITaskResultLabel2 problemResult={problemResult}  {...props}/>}
+        {problemResult.type === "ICPC" && <ICPCTaskResultLabel2 problemResult={problemResult} problemLetter={problemLetter} {...props}/>}
+        {problemResult.type === "IOI" && <IOITaskResultLabel2 problemResult={problemResult} problemLetter={problemLetter} {...props}/>}
     </>;
 };
