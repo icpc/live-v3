@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { DateTime } from "luxon";
 import { isFTS } from "@/utils/statusInfo";
 import c from "../../../config";
@@ -7,23 +7,13 @@ import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { ScoreboardTaskResultLabel } from "../../organisms/widgets/Scoreboard";
 import { ProblemResult, TeamInfo } from "@shared/api";
 import { isShouldUseDarkColor } from "@/utils/colors";
-
+import { createShimmerStyles } from "@/utils/shimmerStyles";
 
 const TimeCell = styled.div`
   flex-basis: ${c.TIME_CELL_FLEX_BASIS};
   width: ${c.TIME_CELL_WIDTH};
   text-align: center;
 `;
-
-const shimmerAnimation = keyframes`
-  0% {
-    background-position: -100% 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
-`;
-
 
 const QueueProblemLabel = styled(ProblemLabel)`
   flex-shrink: 0;
@@ -37,19 +27,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
   justify-content: center;
 
   ${({ isFts, problemColor }) => isFts ? css`
-    background: linear-gradient(
-      90deg,
-      ${problemColor || '#4a90e2'} 0%,
-      ${problemColor || '#4a90e2'} 10%,
-      #fff 50%,
-      ${problemColor || '#4a90e2'} 90%,
-      ${problemColor || '#4a90e2'} 100%
-    );
-    background-size: 200% 100%;
-    animation: ${shimmerAnimation} 4s linear infinite;
-    color: #fff;
-    font-weight: bold;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    ${createShimmerStyles(problemColor, true)}
   ` : css`
     background-color: ${problemColor || '#4a90e2'};
     color: ${isShouldUseDarkColor(problemColor) ? '#000' : '#FFF'};

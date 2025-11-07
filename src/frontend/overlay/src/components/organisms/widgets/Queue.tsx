@@ -6,14 +6,13 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel, RunStatusLabel } from "../../atoms/ContestLabels";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
 import { useDelayedBoolean } from "@/utils/hooks/withTimeoutAfterRender";
-import star from "../../../assets/icons/star.svg";
-import star_mask from "../../../assets/icons/star_mask.svg";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
 import {Award, OptimismLevel, QueueRunInfo, Widget} from "@shared/api";
 import { isFTS } from "@/utils/statusInfo";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
+import { createShimmerStyles } from "@/utils/shimmerStyles";
 import QueueWidget = Widget.QueueWidget;
 import {LocationRectangle} from "@/utils/location-rectangle";
 
@@ -392,14 +391,7 @@ const QueueScoreLabel = styled(ShrinkingBox)`
   flex-shrink: 0;
   flex-direction: row-reverse;
 `;
-const shimmerAnimation = keyframes`
-  0% {
-    background-position: -100% 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
-`;
+
 const QueueProblemLabel = styled(ProblemLabel)`
   width: ${c.QUEUE_ROW_PROBLEM_LABEL_WIDTH}px;
   height: ${c.QUEUE_ROW_HEIGHT}px;
@@ -411,24 +403,10 @@ const QueueProblemLabel = styled(ProblemLabel)`
   justify-content: center;
 
   ${({ isFts, problemColor }) => isFts ? css`
-    background: linear-gradient(
-      90deg,
-      ${problemColor || '#4a90e2'} 0%,
-      ${problemColor || '#4a90e2'} 10%,
-      #fff 50%,
-      ${problemColor || '#4a90e2'} 90%,
-      ${problemColor || '#4a90e2'} 100%
-    );
-    background-size: 200% 100%;
-    animation: ${shimmerAnimation} 4s linear infinite;
+    ${createShimmerStyles(problemColor, true)}
     border-radius: 4px;
-    color: #fff;
-    font-weight: bold;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    border: 2px solid rgba(255,255,255,0.3);
   ` : css`
     background-color: ${problemColor || '#4a90e2'};
-    border-radius: 4px;
     color: ${isShouldUseDarkColor(problemColor) ? '#000' : '#FFF'};
   `}
 `;

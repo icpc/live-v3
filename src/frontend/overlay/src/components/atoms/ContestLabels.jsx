@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import c from "../../config";
 import { isShouldUseDarkColor } from "../../utils/colors";
 import { ShrinkingBox } from "./ShrinkingBox";
@@ -12,15 +12,7 @@ import {
     getIOIColor,
 } from "../../utils/statusInfo";
 import { formatScore } from "../../services/displayUtils";
-
-const shimmerAnimation = keyframes`
-  0% {
-    background-position: -100% 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
-`;
+import { conditionalShimmerStyles } from "../../utils/shimmerStyles";
 
 const VerdictLabel = styled(ShrinkingBox)`
   display: flex;
@@ -152,22 +144,8 @@ const TaskResultLabelWrapper2 = styled.div`
   font-weight: bold;
   color: #fff;
 
-  ${({ color, isShimmering, problemColor, isFake }) => isShimmering && !isFake ? css`
-background: linear-gradient(
-  90deg,
-  ${problemColor || '#4a90e2'} 0%,
-  ${problemColor || '#4a90e2'} 10%,
-  #fff 50%,
-  ${problemColor || '#4a90e2'} 90%,
-  ${problemColor || '#4a90e2'} 100%
-);
-        background-size: 200% 100%;
-    animation: ${shimmerAnimation} 4s linear infinite;
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-  ` : css`
-    background-color: ${color};
-  `}
+  ${({ color, isShimmering, problemColor, isFake }) =>
+    conditionalShimmerStyles(isShimmering && !isFake, problemColor, color, true)}
 `;
 const AttemptsOrScoreLabelWrapper = styled.div`
     position: absolute;
