@@ -74,6 +74,7 @@ public final class org/icpclive/cds/adapters/AdaptersKt {
 	public static final fun hideHiddenProblemsRuns (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun hideHiddenTeamsRuns (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun processCommentaryTags (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun propagateRunMediaTemplates (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun removeAfterEndSubmissions (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun removeFrozenSubmissionsResults (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun selectProblemColors (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
@@ -97,6 +98,7 @@ public final class org/icpclive/cds/adapters/ComputedDataConfig {
 	public final fun getFirstToSolves ()Z
 	public final fun getIoiScoreDifferences ()Z
 	public final fun getPropagateHidden ()Z
+	public final fun getPropagateRunMediaTemplates ()Z
 	public final fun getReplaceCommentaryTags ()Z
 	public final fun getSubmissionResultsAfterFreeze ()Z
 	public final fun getSubmissionsAfterEnd ()Z
@@ -106,6 +108,7 @@ public final class org/icpclive/cds/adapters/ComputedDataConfig {
 	public final fun setFirstToSolves (Z)V
 	public final fun setIoiScoreDifferences (Z)V
 	public final fun setPropagateHidden (Z)V
+	public final fun setPropagateRunMediaTemplates (Z)V
 	public final fun setReplaceCommentaryTags (Z)V
 	public final fun setSubmissionResultsAfterFreeze (Z)V
 	public final fun setSubmissionsAfterEnd (Z)V
@@ -1875,11 +1878,13 @@ public final class org/icpclive/cds/api/TeamId$Companion {
 
 public final class org/icpclive/cds/api/TeamInfo {
 	public static final field Companion Lorg/icpclive/cds/api/TeamInfo$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/lang/String;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-ed2mA_4 ()Ljava/lang/String;
 	public final fun component10-_jCth4M ()Ljava/lang/String;
 	public final fun component11 ()Ljava/util/Map;
+	public final fun component12 ()Ljava/util/List;
+	public final fun component13 ()Ljava/util/List;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/util/List;
@@ -1888,8 +1893,8 @@ public final class org/icpclive/cds/api/TeamInfo {
 	public final fun component7 ()Z
 	public final fun component8 ()Z
 	public final fun component9-jSlij8E ()Ljava/lang/String;
-	public final fun copy-yRkU_MQ (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/lang/String;Ljava/util/Map;)Lorg/icpclive/cds/api/TeamInfo;
-	public static synthetic fun copy-yRkU_MQ$default (Lorg/icpclive/cds/api/TeamInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lorg/icpclive/cds/api/TeamInfo;
+	public final fun copy-I1WmmDM (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/cds/api/TeamInfo;
+	public static synthetic fun copy-I1WmmDM$default (Lorg/icpclive/cds/api/TeamInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/Map;ZZLjava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/TeamInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColor-_jCth4M ()Ljava/lang/String;
 	public final fun getCustomFields ()Ljava/util/Map;
@@ -1900,6 +1905,8 @@ public final class org/icpclive/cds/api/TeamInfo {
 	public final fun getId-ed2mA_4 ()Ljava/lang/String;
 	public final fun getMedias ()Ljava/util/Map;
 	public final fun getOrganizationId-jSlij8E ()Ljava/lang/String;
+	public final fun getReactionVideoTemplate ()Ljava/util/List;
+	public final fun getSourceTemplate ()Ljava/util/List;
 	public fun hashCode ()I
 	public final fun isHidden ()Z
 	public final fun isOutOfContest ()Z
@@ -2665,11 +2672,13 @@ public final class org/icpclive/cds/tunning/OverrideScoreboardSettings$Companion
 public final class org/icpclive/cds/tunning/OverrideTeamTemplate : org/icpclive/cds/tunning/Desugarable, org/icpclive/cds/tunning/TuningRule {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideTeamTemplate$Companion;
 	public fun <init> ()V
-	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/util/Map;
 	public final fun component10 ()Ljava/util/Map;
 	public final fun component11 ()Ljava/lang/String;
+	public final fun component12 ()Ljava/util/List;
+	public final fun component13 ()Ljava/util/List;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/util/List;
 	public final fun component4 ()Ljava/util/List;
@@ -2678,8 +2687,8 @@ public final class org/icpclive/cds/tunning/OverrideTeamTemplate : org/icpclive/
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/util/Map;
 	public final fun component9 ()Ljava/util/Map;
-	public final fun copy (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/OverrideTeamTemplate;Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate;
+	public final fun copy (Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/OverrideTeamTemplate;Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/lang/String;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideTeamTemplate;
 	public fun desugar (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/tunning/TuningRule;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getColor ()Ljava/lang/String;
@@ -2692,7 +2701,9 @@ public final class org/icpclive/cds/tunning/OverrideTeamTemplate : org/icpclive/
 	public final fun getHashTag ()Ljava/lang/String;
 	public final fun getMedias ()Ljava/util/Map;
 	public final fun getOrganizationId ()Ljava/lang/String;
+	public final fun getReactionVideoTemplate ()Ljava/util/List;
 	public final fun getRegexes ()Ljava/util/Map;
+	public final fun getSourceTemplate ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun process (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/api/ContestInfo;
 	public fun toString ()Ljava/lang/String;
@@ -2741,8 +2752,8 @@ public final class org/icpclive/cds/tunning/OverrideTeams$Companion {
 
 public final class org/icpclive/cds/tunning/OverrideTeams$Override {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideTeams$Override$Companion;
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getColor-_jCth4M ()Ljava/lang/String;
 	public final fun getCustomFields ()Ljava/util/Map;
 	public final fun getDisplayName ()Ljava/lang/String;
@@ -2753,6 +2764,8 @@ public final class org/icpclive/cds/tunning/OverrideTeams$Override {
 	public final fun getHashTag ()Ljava/lang/String;
 	public final fun getMedias ()Ljava/util/Map;
 	public final fun getOrganizationId-jSlij8E ()Ljava/lang/String;
+	public final fun getReactionVideoTemplate ()Ljava/util/List;
+	public final fun getSourceTemplate ()Ljava/util/List;
 	public final fun isHidden ()Ljava/lang/Boolean;
 	public final fun isOutOfContest ()Ljava/lang/Boolean;
 }

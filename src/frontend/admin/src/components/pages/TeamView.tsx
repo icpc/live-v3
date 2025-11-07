@@ -104,6 +104,8 @@ const AUTOMODE_TEAM: TeamInfoWithStatus = {
     customFields: {},
     isHidden: false,
     isOutOfContest: false,
+    reactionVideoTemplate: null,
+    sourceTemplate: null,
 };
 
 const isTeamSatisfiesSearch = (team: TeamInfo, searchValue: string): boolean => {

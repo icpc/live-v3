@@ -204,7 +204,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772710",
@@ -216,7 +218,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772711",
@@ -228,7 +232,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772712",
@@ -240,7 +246,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772713",
@@ -252,7 +260,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772714",
@@ -264,7 +274,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772715",
@@ -276,7 +288,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772716",
@@ -288,7 +302,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772717",
@@ -300,7 +316,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772718",
@@ -312,7 +330,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772719",
@@ -324,7 +344,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772720",
@@ -336,7 +358,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772721",
@@ -348,7 +372,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772722",
@@ -360,7 +386,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef772723",
@@ -372,7 +400,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780302",
@@ -384,7 +414,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780303",
@@ -396,7 +428,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780304",
@@ -408,7 +442,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780305",
@@ -420,7 +456,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780306",
@@ -432,7 +470,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780307",
@@ -444,7 +484,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780309",
@@ -456,7 +498,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780537",
@@ -468,7 +512,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780538",
@@ -480,7 +526,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780539",
@@ -492,7 +540,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780540",
@@ -504,7 +554,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780541",
@@ -516,7 +568,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780543",
@@ -528,7 +582,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780544",
@@ -540,7 +596,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780563",
@@ -552,7 +610,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780564",
@@ -564,7 +624,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780565",
@@ -576,7 +638,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780566",
@@ -588,7 +652,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780567",
@@ -600,7 +666,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780568",
@@ -612,7 +680,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780569",
@@ -624,7 +694,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780570",
@@ -636,7 +708,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780571",
@@ -648,7 +722,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780572",
@@ -660,7 +736,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780573",
@@ -672,7 +750,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780574",
@@ -684,7 +764,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780575",
@@ -696,7 +778,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780576",
@@ -708,7 +792,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780577",
@@ -720,7 +806,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780578",
@@ -732,7 +820,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780596",
@@ -744,7 +834,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780598",
@@ -756,7 +848,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780600",
@@ -768,7 +862,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780601",
@@ -780,7 +876,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780665",
@@ -792,7 +890,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780666",
@@ -804,7 +904,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780667",
@@ -816,7 +918,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780668",
@@ -828,7 +932,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780669",
@@ -840,7 +946,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780670",
@@ -852,7 +960,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780671",
@@ -864,7 +974,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780672",
@@ -876,7 +988,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780673",
@@ -888,7 +1002,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780674",
@@ -900,7 +1016,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780675",
@@ -912,7 +1030,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780676",
@@ -924,7 +1044,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780677",
@@ -936,7 +1058,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780678",
@@ -948,7 +1072,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780679",
@@ -960,7 +1086,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780680",
@@ -972,7 +1100,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780681",
@@ -984,7 +1114,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780682",
@@ -996,7 +1128,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780683",
@@ -1008,7 +1142,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef780684",
@@ -1020,7 +1156,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788026",
@@ -1032,7 +1170,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788027",
@@ -1044,7 +1184,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788028",
@@ -1056,7 +1198,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788029",
@@ -1068,7 +1212,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788030",
@@ -1080,7 +1226,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788031",
@@ -1092,7 +1240,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788032",
@@ -1104,7 +1254,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788054",
@@ -1116,7 +1268,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788055",
@@ -1128,7 +1282,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788056",
@@ -1140,7 +1296,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788057",
@@ -1152,7 +1310,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788058",
@@ -1164,7 +1324,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788059",
@@ -1176,7 +1338,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788060",
@@ -1188,7 +1352,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788061",
@@ -1200,7 +1366,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788062",
@@ -1212,7 +1380,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788063",
@@ -1224,7 +1394,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788064",
@@ -1236,7 +1408,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788065",
@@ -1248,7 +1422,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788066",
@@ -1260,7 +1436,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788067",
@@ -1272,7 +1450,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788068",
@@ -1284,7 +1464,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788318",
@@ -1296,7 +1478,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788319",
@@ -1308,7 +1492,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788320",
@@ -1320,7 +1506,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788321",
@@ -1332,7 +1520,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788323",
@@ -1344,7 +1534,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788324",
@@ -1356,7 +1548,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788325",
@@ -1368,7 +1562,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788326",
@@ -1380,7 +1576,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788327",
@@ -1392,7 +1590,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788328",
@@ -1404,7 +1604,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788329",
@@ -1416,7 +1618,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788330",
@@ -1428,7 +1632,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788331",
@@ -1440,7 +1646,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788332",
@@ -1452,7 +1660,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788334",
@@ -1464,7 +1674,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788335",
@@ -1476,7 +1688,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788336",
@@ -1488,7 +1702,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788337",
@@ -1500,7 +1716,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788338",
@@ -1512,7 +1730,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788340",
@@ -1524,7 +1744,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788341",
@@ -1536,7 +1758,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788342",
@@ -1548,7 +1772,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788344",
@@ -1560,7 +1786,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788345",
@@ -1572,7 +1800,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788346",
@@ -1584,7 +1814,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788347",
@@ -1596,7 +1828,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788349",
@@ -1608,7 +1842,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788350",
@@ -1620,7 +1856,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788351",
@@ -1632,7 +1870,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788352",
@@ -1644,7 +1884,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788353",
@@ -1656,7 +1898,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788390",
@@ -1668,7 +1912,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788392",
@@ -1680,7 +1926,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788395",
@@ -1692,7 +1940,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788418",
@@ -1704,7 +1954,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788419",
@@ -1716,7 +1968,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788420",
@@ -1728,7 +1982,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788421",
@@ -1740,7 +1996,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788422",
@@ -1752,7 +2010,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788423",
@@ -1764,7 +2024,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788424",
@@ -1776,7 +2038,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788425",
@@ -1788,7 +2052,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788426",
@@ -1800,7 +2066,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788427",
@@ -1812,7 +2080,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788428",
@@ -1824,7 +2094,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788429",
@@ -1836,7 +2108,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788430",
@@ -1848,7 +2122,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788431",
@@ -1860,7 +2136,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788432",
@@ -1872,7 +2150,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef788945",
@@ -1884,7 +2164,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789838",
@@ -1896,7 +2178,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789937",
@@ -1908,7 +2192,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789939",
@@ -1920,7 +2206,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789941",
@@ -1932,7 +2220,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789942",
@@ -1944,7 +2234,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789943",
@@ -1956,7 +2248,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789945",
@@ -1968,7 +2262,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789946",
@@ -1980,7 +2276,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef789968",
@@ -1992,7 +2290,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790038",
@@ -2004,7 +2304,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790039",
@@ -2016,7 +2318,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790040",
@@ -2028,7 +2332,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790041",
@@ -2040,7 +2346,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790042",
@@ -2052,7 +2360,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790043",
@@ -2064,7 +2374,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790044",
@@ -2076,7 +2388,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790046",
@@ -2088,7 +2402,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790047",
@@ -2100,7 +2416,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790048",
@@ -2112,7 +2430,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790050",
@@ -2124,7 +2444,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790061",
@@ -2136,7 +2458,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790067",
@@ -2148,7 +2472,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790068",
@@ -2160,7 +2486,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790069",
@@ -2172,7 +2500,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790070",
@@ -2184,7 +2514,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790071",
@@ -2196,7 +2528,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790072",
@@ -2208,7 +2542,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790073",
@@ -2220,7 +2556,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790074",
@@ -2232,7 +2570,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790100",
@@ -2244,7 +2584,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790101",
@@ -2256,7 +2598,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790102",
@@ -2268,7 +2612,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790103",
@@ -2280,7 +2626,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790104",
@@ -2292,7 +2640,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790105",
@@ -2304,7 +2654,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790133",
@@ -2316,7 +2668,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790134",
@@ -2328,7 +2682,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790135",
@@ -2340,7 +2696,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790136",
@@ -2352,7 +2710,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790137",
@@ -2364,7 +2724,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790138",
@@ -2376,7 +2738,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790139",
@@ -2388,7 +2752,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790140",
@@ -2400,7 +2766,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790141",
@@ -2412,7 +2780,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790142",
@@ -2424,7 +2794,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790432",
@@ -2436,7 +2808,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790433",
@@ -2448,7 +2822,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790434",
@@ -2460,7 +2836,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790435",
@@ -2472,7 +2850,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790436",
@@ -2484,7 +2864,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790437",
@@ -2496,7 +2878,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790438",
@@ -2508,7 +2892,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef790439",
@@ -2520,7 +2906,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef791228",
@@ -2532,7 +2920,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef791356",
@@ -2544,7 +2934,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef791357",
@@ -2556,7 +2948,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795852",
@@ -2568,7 +2962,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795853",
@@ -2580,7 +2976,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795854",
@@ -2592,7 +2990,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795855",
@@ -2604,7 +3004,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795856",
@@ -2616,7 +3018,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795857",
@@ -2628,7 +3032,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795858",
@@ -2640,7 +3046,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795860",
@@ -2652,7 +3060,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795862",
@@ -2664,7 +3074,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795863",
@@ -2676,7 +3088,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795864",
@@ -2688,7 +3102,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795865",
@@ -2700,7 +3116,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795866",
@@ -2712,7 +3130,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795867",
@@ -2724,7 +3144,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795869",
@@ -2736,7 +3158,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795870",
@@ -2748,7 +3172,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795871",
@@ -2760,7 +3186,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef795872",
@@ -2772,7 +3200,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796437",
@@ -2784,7 +3214,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796438",
@@ -2796,7 +3228,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796439",
@@ -2808,7 +3242,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796440",
@@ -2820,7 +3256,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796442",
@@ -2832,7 +3270,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796543",
@@ -2844,7 +3284,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796544",
@@ -2856,7 +3298,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796545",
@@ -2868,7 +3312,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796546",
@@ -2880,7 +3326,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796547",
@@ -2892,7 +3340,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796550",
@@ -2904,7 +3354,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796555",
@@ -2916,7 +3368,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796557",
@@ -2928,7 +3382,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796574",
@@ -2940,7 +3396,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796575",
@@ -2952,7 +3410,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796576",
@@ -2964,7 +3424,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796577",
@@ -2976,7 +3438,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef796578",
@@ -2988,7 +3452,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797070",
@@ -3000,7 +3466,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797071",
@@ -3012,7 +3480,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797072",
@@ -3024,7 +3494,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797075",
@@ -3036,7 +3508,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797076",
@@ -3048,7 +3522,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797077",
@@ -3060,7 +3536,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797079",
@@ -3072,7 +3550,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797080",
@@ -3084,7 +3564,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797081",
@@ -3096,7 +3578,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797082",
@@ -3108,7 +3592,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797083",
@@ -3120,7 +3606,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797084",
@@ -3132,7 +3620,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797086",
@@ -3144,7 +3634,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797087",
@@ -3156,7 +3648,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797089",
@@ -3168,7 +3662,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797090",
@@ -3180,7 +3676,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797093",
@@ -3192,7 +3690,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef797094",
@@ -3204,7 +3704,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799340",
@@ -3216,7 +3718,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799341",
@@ -3228,7 +3732,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799342",
@@ -3240,7 +3746,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799343",
@@ -3252,7 +3760,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799344",
@@ -3264,7 +3774,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799345",
@@ -3276,7 +3788,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799346",
@@ -3288,7 +3802,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799347",
@@ -3300,7 +3816,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799348",
@@ -3312,7 +3830,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799349",
@@ -3324,7 +3844,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799350",
@@ -3336,7 +3858,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799351",
@@ -3348,7 +3872,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799352",
@@ -3360,7 +3886,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799353",
@@ -3372,7 +3900,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799354",
@@ -3384,7 +3914,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799355",
@@ -3396,7 +3928,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799356",
@@ -3408,7 +3942,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799357",
@@ -3420,7 +3956,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799358",
@@ -3432,7 +3970,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799360",
@@ -3444,7 +3984,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799361",
@@ -3456,7 +3998,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799363",
@@ -3468,7 +4012,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799364",
@@ -3480,7 +4026,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799365",
@@ -3492,7 +4040,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799366",
@@ -3504,7 +4054,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799368",
@@ -3516,7 +4068,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799369",
@@ -3528,7 +4082,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799372",
@@ -3540,7 +4096,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799373",
@@ -3552,7 +4110,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "nef799571",
@@ -3564,7 +4124,9 @@
                 "isHidden": false,
                 "isOutOfContest": false,
                 "organizationId": null,
-                "customFields": {}
+                "customFields": {},
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             }
         ],
         "groups": [],

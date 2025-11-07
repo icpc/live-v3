@@ -38,6 +38,8 @@ public data class OverrideTeams(public val rules: Map<TeamId, Override>): Tuning
                 isOutOfContest = override.isOutOfContest ?: team.isOutOfContest,
                 organizationId = override.organizationId ?: team.organizationId,
                 color = override.color ?: team.color,
+                reactionVideoTemplate = override.reactionVideoTemplate ?: team.reactionVideoTemplate,
+                sourceTemplate = override.sourceTemplate ?: team.sourceTemplate,
             )
         }
         return info.copy(teamList = newTeams).autoCreateGroupsAndOrgs()
@@ -60,6 +62,8 @@ public data class OverrideTeams(public val rules: Map<TeamId, Override>): Tuning
      * @param customFields Map of custom values. They can be used in substitutions in templates.
      * @param medias Map of team-related media. E.g., team photo or some kind of video from a workstation. This filed overrides the value from cds.
      * @param extraMedias Map of additional team-related media. This field is added to values from cds.
+     * @param reactionVideoTemplate List of media to use as reaction video for team submissions. run.* substitutions are available
+     * @param sourceTemplate List of media to use as source for team submissions. run.* substitutions are available
      */
     @Serializable
     public class Override(
@@ -75,5 +79,7 @@ public data class OverrideTeams(public val rules: Map<TeamId, Override>): Tuning
         public val customFields: Map<String, String>? = null,
         public val medias: Map<TeamMediaType, @Serializable(with = ListOrSingleOrNullElementSerializer::class) List<MediaType>>? = null,
         public val extraMedias: Map<TeamMediaType, @Serializable(with = ListOrSingleOrNullElementSerializer::class) List<MediaType>>? = null,
+        public val reactionVideoTemplate: List<MediaType>? = null,
+        public val sourceTemplate: List<MediaType>? = null,
     )
 }

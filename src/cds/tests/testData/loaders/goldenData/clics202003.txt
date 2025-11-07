@@ -262,7 +262,9 @@
                     "clicsTeamFullName": "Ain Shams University - Faculty of Computer and Information Sciences",
                     "clicsTeamDisplayName": "Ain Shams University - Faculty of Computer and Information Sciences",
                     "icpc_id": "453854"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "10",
@@ -287,7 +289,9 @@
                     "clicsTeamFullName": "Belarusian State University",
                     "clicsTeamDisplayName": "Belarusian State University",
                     "icpc_id": "454118"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "100",
@@ -305,7 +309,9 @@
                     "clicsTeamFullName": "University of Aizu",
                     "clicsTeamDisplayName": "University of Aizu",
                     "icpc_id": "454150"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "101",
@@ -330,7 +336,9 @@
                     "clicsTeamFullName": "University of British Columbia",
                     "clicsTeamDisplayName": "University of British Columbia",
                     "icpc_id": "453883"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "102",
@@ -355,7 +363,9 @@
                     "clicsTeamFullName": "University of Bucharest",
                     "clicsTeamDisplayName": "University of Bucharest",
                     "icpc_id": "454147"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "103",
@@ -380,7 +390,9 @@
                     "clicsTeamFullName": "University of Cambridge",
                     "clicsTeamDisplayName": "University of Cambridge",
                     "icpc_id": "453914"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "104",
@@ -405,7 +417,9 @@
                     "clicsTeamFullName": "University of Central Florida",
                     "clicsTeamDisplayName": "University of Central Florida",
                     "icpc_id": "454419"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "105",
@@ -430,7 +444,9 @@
                     "clicsTeamFullName": "University of Dhaka",
                     "clicsTeamDisplayName": "University of Dhaka",
                     "icpc_id": "454167"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "106",
@@ -455,7 +471,9 @@
                     "clicsTeamFullName": "University of Illinois at Urbana-Champaign",
                     "clicsTeamDisplayName": "University of Illinois at Urbana-Champaign",
                     "icpc_id": "453879"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "107",
@@ -480,7 +498,9 @@
                     "clicsTeamFullName": "University of Latvia",
                     "clicsTeamDisplayName": "University of Latvia",
                     "icpc_id": "454119"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "108",
@@ -505,7 +525,9 @@
                     "clicsTeamFullName": "University of Rochester",
                     "clicsTeamDisplayName": "University of Rochester",
                     "icpc_id": "553361"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "109",
@@ -530,7 +552,9 @@
                     "clicsTeamFullName": "University of Southern California",
                     "clicsTeamDisplayName": "University of Southern California",
                     "icpc_id": "542747"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "11",
@@ -555,7 +579,9 @@
                     "clicsTeamFullName": "Belarusian State University of Informatics and Radioelectronics",
                     "clicsTeamDisplayName": "Belarusian State University of Informatics and Radioelectronics",
                     "icpc_id": "454126"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "110",
@@ -573,7 +599,9 @@
                     "clicsTeamFullName": "University of Tehran",
                     "clicsTeamDisplayName": "University of Tehran",
                     "icpc_id": "542763"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "111",
@@ -598,7 +626,9 @@
                     "clicsTeamFullName": "University of Utah",
                     "clicsTeamDisplayName": "University of Utah",
                     "icpc_id": "453885"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "112",
@@ -623,7 +653,9 @@
                     "clicsTeamFullName": "University of Warsaw",
                     "clicsTeamDisplayName": "University of Warsaw",
                     "icpc_id": "453866"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "113",
@@ -648,7 +680,9 @@
                     "clicsTeamFullName": "University of Wisconsin - Madison",
                     "clicsTeamDisplayName": "University of Wisconsin - Madison",
                     "icpc_id": "453880"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "114",
@@ -673,7 +707,9 @@
                     "clicsTeamFullName": "University of Wroclaw",
                     "clicsTeamDisplayName": "University of Wroclaw",
                     "icpc_id": "453865"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "115",
@@ -698,7 +734,9 @@
                     "clicsTeamFullName": "Utrecht - Leiden University",
                     "clicsTeamDisplayName": "Utrecht - Leiden University",
                     "icpc_id": "453863"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "116",
@@ -723,7 +761,9 @@
                     "clicsTeamFullName": "Virginia Tech",
                     "clicsTeamDisplayName": "Virginia Tech",
                     "icpc_id": "542760"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "117",
@@ -748,7 +788,9 @@
                     "clicsTeamFullName": "Volgograd State Technical University",
                     "clicsTeamDisplayName": "Volgograd State Technical University",
                     "icpc_id": "551745"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "118",
@@ -773,7 +815,9 @@
                     "clicsTeamFullName": "Yerevan State University",
                     "clicsTeamDisplayName": "Yerevan State University",
                     "icpc_id": "454131"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "119",
@@ -798,7 +842,9 @@
                     "clicsTeamFullName": "Yonsei University",
                     "clicsTeamDisplayName": "Yonsei University",
                     "icpc_id": "454148"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "12",
@@ -823,7 +869,9 @@
                     "clicsTeamFullName": "Bilkent University",
                     "clicsTeamDisplayName": "Bilkent University",
                     "icpc_id": "542757"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "13",
@@ -848,7 +896,9 @@
                     "clicsTeamFullName": "BITS-Pilani, Hyderabad Campus",
                     "clicsTeamDisplayName": "BITS-Pilani, Hyderabad Campus",
                     "icpc_id": "551748"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "14",
@@ -873,7 +923,9 @@
                     "clicsTeamFullName": "Cairo University - Faculty of Computers and Artificial Intelligence",
                     "clicsTeamDisplayName": "Cairo University - Faculty of Computers and Artificial Intelligence",
                     "icpc_id": "453858"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "16",
@@ -898,7 +950,9 @@
                     "clicsTeamFullName": "Damascus University",
                     "clicsTeamDisplayName": "Damascus University",
                     "icpc_id": "453856"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "17",
@@ -923,7 +977,9 @@
                     "clicsTeamFullName": "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar",
                     "clicsTeamDisplayName": "Dhirubhai Ambani Institute of Information and Communication Technology, Gandhinagar",
                     "icpc_id": "541821"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "18",
@@ -948,7 +1004,9 @@
                     "clicsTeamFullName": "Duke University",
                     "clicsTeamDisplayName": "Duke University",
                     "icpc_id": "542751"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "19",
@@ -973,7 +1031,9 @@
                     "clicsTeamFullName": "École Normale Supérieure de Paris",
                     "clicsTeamDisplayName": "École Normale Supérieure de Paris",
                     "icpc_id": "542744"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "2",
@@ -998,7 +1058,9 @@
                     "clicsTeamFullName": "Al-Baath University",
                     "clicsTeamDisplayName": "Al-Baath University",
                     "icpc_id": "453862"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "20",
@@ -1023,7 +1085,9 @@
                     "clicsTeamFullName": "Ecole Polytechnique",
                     "clicsTeamDisplayName": "Ecole Polytechnique",
                     "icpc_id": "454204"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "21",
@@ -1048,7 +1112,9 @@
                     "clicsTeamFullName": "ETH Zürich",
                     "clicsTeamDisplayName": "ETH Zürich",
                     "icpc_id": "454206"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "22",
@@ -1073,7 +1139,9 @@
                     "clicsTeamFullName": "Faculty of Computer Science, Belgrade ",
                     "clicsTeamDisplayName": "Faculty of Computer Science, Belgrade ",
                     "icpc_id": "454031"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "23",
@@ -1098,7 +1166,9 @@
                     "clicsTeamFullName": "Free University of Tbilisi",
                     "clicsTeamDisplayName": "Free University of Tbilisi",
                     "icpc_id": "550234"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "24",
@@ -1123,7 +1193,9 @@
                     "clicsTeamFullName": "German University in Cairo",
                     "clicsTeamDisplayName": "German University in Cairo",
                     "icpc_id": "453861"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "25",
@@ -1148,7 +1220,9 @@
                     "clicsTeamFullName": "Harvard University",
                     "clicsTeamDisplayName": "Harvard University",
                     "icpc_id": "454422"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "26",
@@ -1173,7 +1247,9 @@
                     "clicsTeamFullName": "Higher Institute for Applied Sciences and Technology",
                     "clicsTeamDisplayName": "Higher Institute for Applied Sciences and Technology",
                     "icpc_id": "542764"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "27",
@@ -1191,7 +1267,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Bombay",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Bombay",
                     "icpc_id": "454159"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "28",
@@ -1216,7 +1294,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Delhi",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Delhi",
                     "icpc_id": "454168"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "29",
@@ -1241,7 +1321,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Guwahati",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Guwahati",
                     "icpc_id": "541820"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "3",
@@ -1266,7 +1348,9 @@
                     "clicsTeamFullName": "Alexandria University - Faculty of Engineering",
                     "clicsTeamDisplayName": "Alexandria University - Faculty of Engineering",
                     "icpc_id": "453860"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "30",
@@ -1291,7 +1375,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Indore",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Indore",
                     "icpc_id": "454169"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "31",
@@ -1316,7 +1402,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Kanpur",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Kanpur",
                     "icpc_id": "454161"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "32",
@@ -1341,7 +1429,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Kharagpur",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Kharagpur",
                     "icpc_id": "454170"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "33",
@@ -1366,7 +1456,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Patna",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Patna",
                     "icpc_id": "551743"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "34",
@@ -1391,7 +1483,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Roorkee",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Roorkee",
                     "icpc_id": "454166"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "35",
@@ -1416,7 +1510,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology - Varanasi",
                     "clicsTeamDisplayName": "Indian Institute of Technology - Varanasi",
                     "icpc_id": "454165"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "36",
@@ -1441,7 +1537,9 @@
                     "clicsTeamFullName": "Indian Institute of Technology (ISM), Dhanbad",
                     "clicsTeamDisplayName": "Indian Institute of Technology (ISM), Dhanbad",
                     "icpc_id": "546273"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "37",
@@ -1466,7 +1564,9 @@
                     "clicsTeamFullName": "Indraprastha Institute of Information Technology",
                     "clicsTeamDisplayName": "Indraprastha Institute of Information Technology",
                     "icpc_id": "454162"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "38",
@@ -1491,7 +1591,9 @@
                     "clicsTeamFullName": "Innopolis University",
                     "clicsTeamDisplayName": "Innopolis University",
                     "icpc_id": "454052"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "39",
@@ -1516,7 +1618,9 @@
                     "clicsTeamFullName": "Institut National des Sciences Appliquées et de Technologie",
                     "clicsTeamDisplayName": "Institut National des Sciences Appliquées et de Technologie",
                     "icpc_id": "542762"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "4",
@@ -1541,7 +1645,9 @@
                     "clicsTeamFullName": "American University - Central Asia",
                     "clicsTeamDisplayName": "American University - Central Asia",
                     "icpc_id": "542765"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "40",
@@ -1566,7 +1672,9 @@
                     "clicsTeamFullName": "Institute of Computing - Federal University of Amazonas",
                     "clicsTeamDisplayName": "Institute of Computing - Federal University of Amazonas",
                     "icpc_id": "542745"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "41",
@@ -1591,7 +1699,9 @@
                     "clicsTeamFullName": "Instituto de Informática - UFG",
                     "clicsTeamDisplayName": "Instituto de Informática - UFG",
                     "icpc_id": "542761"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "42",
@@ -1616,7 +1726,9 @@
                     "clicsTeamFullName": "International Institute of Information Technology - Hyderabad",
                     "clicsTeamDisplayName": "International Institute of Information Technology - Hyderabad",
                     "icpc_id": "454171"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "43",
@@ -1641,7 +1753,9 @@
                     "clicsTeamFullName": "International IT University",
                     "clicsTeamDisplayName": "International IT University",
                     "icpc_id": "454125"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "44",
@@ -1666,7 +1780,9 @@
                     "clicsTeamFullName": "Izhevsk State Technical University",
                     "clicsTeamDisplayName": "Izhevsk State Technical University",
                     "icpc_id": "542758"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "45",
@@ -1691,7 +1807,9 @@
                     "clicsTeamFullName": "Jagiellonian University in Krakow",
                     "clicsTeamDisplayName": "Jagiellonian University in Krakow",
                     "icpc_id": "453867"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "46",
@@ -1716,7 +1834,9 @@
                     "clicsTeamFullName": "Kazan (Volga Region) Federal University",
                     "clicsTeamDisplayName": "Kazan (Volga Region) Federal University",
                     "icpc_id": "454124"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "47",
@@ -1741,7 +1861,9 @@
                     "clicsTeamFullName": "Kharkiv National University of Radio Electronics",
                     "clicsTeamDisplayName": "Kharkiv National University of Radio Electronics",
                     "icpc_id": "454030"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "48",
@@ -1766,7 +1888,9 @@
                     "clicsTeamFullName": "Korea University",
                     "clicsTeamDisplayName": "Korea University",
                     "icpc_id": "454156"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "49",
@@ -1791,7 +1915,9 @@
                     "clicsTeamFullName": "Kyungpook National University",
                     "clicsTeamDisplayName": "Kyungpook National University",
                     "icpc_id": "551747"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "5",
@@ -1816,7 +1942,9 @@
                     "clicsTeamFullName": "American University of Beirut",
                     "clicsTeamDisplayName": "American University of Beirut",
                     "icpc_id": "546274"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "50",
@@ -1841,7 +1969,9 @@
                     "clicsTeamFullName": "Massachusetts Institute of Technology",
                     "clicsTeamDisplayName": "Massachusetts Institute of Technology",
                     "icpc_id": "453881"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "51",
@@ -1866,7 +1996,9 @@
                     "clicsTeamFullName": "Moscow Aviation Institute",
                     "clicsTeamDisplayName": "Moscow Aviation Institute",
                     "icpc_id": "542755"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "52",
@@ -1891,7 +2023,9 @@
                     "clicsTeamFullName": "Moscow Institute of Physics and Technology",
                     "clicsTeamDisplayName": "Moscow Institute of Physics and Technology",
                     "icpc_id": "454050"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "53",
@@ -1916,7 +2050,9 @@
                     "clicsTeamFullName": "Moscow State University",
                     "clicsTeamDisplayName": "Moscow State University",
                     "icpc_id": "454120"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "54",
@@ -1941,7 +2077,9 @@
                     "clicsTeamFullName": "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)",
                     "clicsTeamDisplayName": "National Research Nuclear University MEPhI (Moscow Engineering Physics Institute)",
                     "icpc_id": "541842"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "55",
@@ -1966,7 +2104,9 @@
                     "clicsTeamFullName": "National Research University Higher School of Economics",
                     "clicsTeamDisplayName": "National Research University Higher School of Economics",
                     "icpc_id": "454117"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "56",
@@ -1991,7 +2131,9 @@
                     "clicsTeamFullName": "National Taiwan University",
                     "clicsTeamDisplayName": "National Taiwan University",
                     "icpc_id": "454152"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "58",
@@ -2016,7 +2158,9 @@
                     "clicsTeamFullName": "Netaji Subhash University Of Technology",
                     "clicsTeamDisplayName": "Netaji Subhash University Of Technology",
                     "icpc_id": "542754"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "59",
@@ -2041,7 +2185,9 @@
                     "clicsTeamFullName": "Nizhny Novgorod State University",
                     "clicsTeamDisplayName": "Nizhny Novgorod State University",
                     "icpc_id": "454049"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "6",
@@ -2066,7 +2212,9 @@
                     "clicsTeamFullName": "Amirkabir University of Technology",
                     "clicsTeamDisplayName": "Amirkabir University of Technology",
                     "icpc_id": "454164"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "60",
@@ -2084,7 +2232,9 @@
                     "clicsTeamFullName": "NU-FAST Karachi",
                     "clicsTeamDisplayName": "NU-FAST Karachi",
                     "icpc_id": "454158"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "61",
@@ -2109,7 +2259,9 @@
                     "clicsTeamFullName": "Perm State University",
                     "clicsTeamDisplayName": "Perm State University",
                     "icpc_id": "550104"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "62",
@@ -2134,7 +2286,9 @@
                     "clicsTeamFullName": "Princess Sumaya University for Technology",
                     "clicsTeamDisplayName": "Princess Sumaya University for Technology",
                     "icpc_id": "453591"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "63",
@@ -2159,7 +2313,9 @@
                     "clicsTeamFullName": "Purdue University",
                     "clicsTeamDisplayName": "Purdue University",
                     "icpc_id": "454421"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "64",
@@ -2184,7 +2340,9 @@
                     "clicsTeamFullName": "Saratov State University",
                     "clicsTeamDisplayName": "Saratov State University",
                     "icpc_id": "454122"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "65",
@@ -2209,7 +2367,9 @@
                     "clicsTeamFullName": "Seoul National University",
                     "clicsTeamDisplayName": "Seoul National University",
                     "icpc_id": "454145"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "66",
@@ -2234,7 +2394,9 @@
                     "clicsTeamFullName": "Sharif University of Technology",
                     "clicsTeamDisplayName": "Sharif University of Technology",
                     "icpc_id": "454163"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "67",
@@ -2259,7 +2421,9 @@
                     "clicsTeamFullName": "Sogang University",
                     "clicsTeamDisplayName": "Sogang University",
                     "icpc_id": "549868"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "68",
@@ -2284,7 +2448,9 @@
                     "clicsTeamFullName": "St. Petersburg Campus of Higher School of Economics",
                     "clicsTeamDisplayName": "St. Petersburg Campus of Higher School of Economics",
                     "icpc_id": "454121"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "69",
@@ -2309,7 +2475,9 @@
                     "clicsTeamFullName": "St. Petersburg ITMO University",
                     "clicsTeamDisplayName": "St. Petersburg ITMO University",
                     "icpc_id": "454051"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "7",
@@ -2334,7 +2502,9 @@
                     "clicsTeamFullName": "Arab Academy for Science and Technology - Alexandria",
                     "clicsTeamDisplayName": "Arab Academy for Science and Technology - Alexandria",
                     "icpc_id": "453857"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "70",
@@ -2359,7 +2529,9 @@
                     "clicsTeamFullName": "St. Petersburg State University",
                     "clicsTeamDisplayName": "St. Petersburg State University",
                     "icpc_id": "454048"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "71",
@@ -2384,7 +2556,9 @@
                     "clicsTeamFullName": "Stanford University",
                     "clicsTeamDisplayName": "Stanford University",
                     "icpc_id": "542749"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "72",
@@ -2409,7 +2583,9 @@
                     "clicsTeamFullName": "Syrian Virtual University",
                     "clicsTeamDisplayName": "Syrian Virtual University",
                     "icpc_id": "453855"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "73",
@@ -2434,7 +2610,9 @@
                     "clicsTeamFullName": "Technische Universität München",
                     "clicsTeamDisplayName": "Technische Universität München",
                     "icpc_id": "453913"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "74",
@@ -2459,7 +2637,9 @@
                     "clicsTeamFullName": "The University of Asia Pacific",
                     "clicsTeamDisplayName": "The University of Asia Pacific",
                     "icpc_id": "553458"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "75",
@@ -2484,7 +2664,9 @@
                     "clicsTeamFullName": "The University of Jordan",
                     "clicsTeamDisplayName": "The University of Jordan",
                     "icpc_id": "453859"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "76",
@@ -2509,7 +2691,9 @@
                     "clicsTeamFullName": "The University of Texas at Dallas",
                     "clicsTeamDisplayName": "The University of Texas at Dallas",
                     "icpc_id": "454344"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "77",
@@ -2534,7 +2718,9 @@
                     "clicsTeamFullName": "Tishreen University",
                     "clicsTeamDisplayName": "Tishreen University",
                     "icpc_id": "542750"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "78",
@@ -2559,7 +2745,9 @@
                     "clicsTeamFullName": "Ulsan National Institute of Science and Technology",
                     "clicsTeamDisplayName": "Ulsan National Institute of Science and Technology",
                     "icpc_id": "551746"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "79",
@@ -2584,7 +2772,9 @@
                     "clicsTeamFullName": "Universidad de Buenos Aires - FCEN",
                     "clicsTeamDisplayName": "Universidad de Buenos Aires - FCEN",
                     "icpc_id": "453574"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "8",
@@ -2609,7 +2799,9 @@
                     "clicsTeamFullName": "Avicenna University",
                     "clicsTeamDisplayName": "Avicenna University",
                     "icpc_id": "454172"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "80",
@@ -2627,7 +2819,9 @@
                     "clicsTeamFullName": "Universidad de Chile",
                     "clicsTeamDisplayName": "Universidad de Chile",
                     "icpc_id": "453582"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "81",
@@ -2645,7 +2839,9 @@
                     "clicsTeamFullName": "Universidad de Costa Rica",
                     "clicsTeamDisplayName": "Universidad de Costa Rica",
                     "icpc_id": "453571"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "82",
@@ -2670,7 +2866,9 @@
                     "clicsTeamFullName": "Universidad de Guanajuato - DCNE",
                     "clicsTeamDisplayName": "Universidad de Guanajuato - DCNE",
                     "icpc_id": "453568"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "83",
@@ -2695,7 +2893,9 @@
                     "clicsTeamFullName": "Universidad de La Habana",
                     "clicsTeamDisplayName": "Universidad de La Habana",
                     "icpc_id": "453564"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "84",
@@ -2720,7 +2920,9 @@
                     "clicsTeamFullName": "Universidad de Oriente - Sede Antonio Maceo",
                     "clicsTeamDisplayName": "Universidad de Oriente - Sede Antonio Maceo",
                     "icpc_id": "453566"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "85",
@@ -2745,7 +2947,9 @@
                     "clicsTeamFullName": "Universidad Icesi",
                     "clicsTeamDisplayName": "Universidad Icesi",
                     "icpc_id": "552467"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "86",
@@ -2770,7 +2974,9 @@
                     "clicsTeamFullName": "Universidad Nacional de Colombia - Bogotá",
                     "clicsTeamDisplayName": "Universidad Nacional de Colombia - Bogotá",
                     "icpc_id": "453572"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "87",
@@ -2795,7 +3001,9 @@
                     "clicsTeamFullName": "Universidad Nacional de Córdoba - FaMAF",
                     "clicsTeamDisplayName": "Universidad Nacional de Córdoba - FaMAF",
                     "icpc_id": "453575"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "88",
@@ -2820,7 +3028,9 @@
                     "clicsTeamFullName": "Universidad Nacional del Sur",
                     "clicsTeamDisplayName": "Universidad Nacional del Sur",
                     "icpc_id": "542748"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "89",
@@ -2845,7 +3055,9 @@
                     "clicsTeamFullName": "Universidad Panamericana Campus Bonaterra",
                     "clicsTeamDisplayName": "Universidad Panamericana Campus Bonaterra",
                     "icpc_id": "551741"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "9",
@@ -2863,7 +3075,9 @@
                     "clicsTeamFullName": "Bangladesh University of Engineering and Technology",
                     "clicsTeamDisplayName": "Bangladesh University of Engineering and Technology",
                     "icpc_id": "454160"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "90",
@@ -2881,7 +3095,9 @@
                     "clicsTeamFullName": "Universidad Simón Bolívar",
                     "clicsTeamDisplayName": "Universidad Simón Bolívar",
                     "icpc_id": "453573"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "91",
@@ -2906,7 +3122,9 @@
                     "clicsTeamFullName": "Universidade de Brasília",
                     "clicsTeamDisplayName": "Universidade de Brasília",
                     "icpc_id": "453587"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "92",
@@ -2931,7 +3149,9 @@
                     "clicsTeamFullName": "Universidade de São Paulo",
                     "clicsTeamDisplayName": "Universidade de São Paulo",
                     "icpc_id": "453584"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "93",
@@ -2956,7 +3176,9 @@
                     "clicsTeamFullName": "Universidade de São Paulo - Campus de São Carlos",
                     "clicsTeamDisplayName": "Universidade de São Paulo - Campus de São Carlos",
                     "icpc_id": "453589"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "94",
@@ -2981,7 +3203,9 @@
                     "clicsTeamFullName": "Universidade Estadual de Campinas",
                     "clicsTeamDisplayName": "Universidade Estadual de Campinas",
                     "icpc_id": "453585"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "95",
@@ -3006,7 +3230,9 @@
                     "clicsTeamFullName": "Universidade Federal de Minas Gerais",
                     "clicsTeamDisplayName": "Universidade Federal de Minas Gerais",
                     "icpc_id": "453588"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "96",
@@ -3031,7 +3257,9 @@
                     "clicsTeamFullName": "Universidade Federal de Pernambuco",
                     "clicsTeamDisplayName": "Universidade Federal de Pernambuco",
                     "icpc_id": "453586"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "97",
@@ -3056,7 +3284,9 @@
                     "clicsTeamFullName": "Universidade Federal do Ceará - Campus Quixadá",
                     "clicsTeamDisplayName": "Universidade Federal do Ceará - Campus Quixadá",
                     "icpc_id": "541819"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "98",
@@ -3081,7 +3311,9 @@
                     "clicsTeamFullName": "Università Degli Studi di Milano",
                     "clicsTeamDisplayName": "Università Degli Studi di Milano",
                     "icpc_id": "542756"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             },
             {
                 "id": "99",
@@ -3106,7 +3338,9 @@
                     "clicsTeamFullName": "Universitas Indonesia",
                     "clicsTeamDisplayName": "Universitas Indonesia",
                     "icpc_id": "454151"
-                }
+                },
+                "reactionVideoTemplate": null,
+                "sourceTemplate": null
             }
         ],
         "groups": [
