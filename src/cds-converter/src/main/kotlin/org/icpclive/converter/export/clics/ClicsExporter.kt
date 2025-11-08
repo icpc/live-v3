@@ -80,7 +80,11 @@ private fun MediaType.toClicsMedia() = when (this) {
     is MediaType.ZipArchive -> File("application/zip", Url(url))
     is MediaType.M2tsVideo -> File("video/m2ts", Url(url))
     is MediaType.HLSVideo -> File("application/vnd.apple.mpegurl", Url(url))
-    is MediaType.WebRTCGrabberConnection -> null
+    is MediaType.WebRTCGrabberConnection -> File(
+        "application/vnd.webrtc-grabber.stream",
+        Url(this.url).withQueryParams("peerName" to peerName, "streamType" to streamType, "credential" to (credential ?: ""))
+    )
+
     is MediaType.WebRTCProxyConnection -> null
 }
 

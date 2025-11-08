@@ -28,6 +28,10 @@ public final class org/icpclive/clics/Url {
 	public final synthetic fun unbox-impl ()Ljava/lang/String;
 }
 
+public final class org/icpclive/clics/UrlKt {
+	public static final fun withQueryParams-Gnx7HLc (Ljava/lang/String;[Lkotlin/Pair;)Ljava/lang/String;
+}
+
 public final class org/icpclive/clics/events/AccountEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Account;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Ljava/lang/Object;
