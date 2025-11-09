@@ -1,0 +1,19 @@
+{
+  "QUEUE_TITLE": "Queue_",
+  "CONTEST_COLOR": "#FDBA12",
+  "CONTEST_CAPTION": "Mid-Central",
+  "WIDGET_POSITIONS": {
+    "queue": {
+      "positionX": 1520,
+      "positionY": 524,
+      "sizeX": 384,
+      "sizeY": 260
+    },
+    "ticker": {
+      "positionX": 16,
+      "positionY": 1016,
+      "sizeX": 1489,
+      "sizeY": 48
+    }
+  }
+}

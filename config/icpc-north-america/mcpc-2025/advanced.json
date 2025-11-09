@@ -1,0 +1,168 @@
+[
+    {
+        "type": "overrideOrganizations",
+        "rules": {
+            "illinois.edu": {
+                "displayName": "UI Urbana–Champaign"
+            },
+            "rose-hulman.edu": {
+                "displayName": "Rose-Hulman IofT"
+            },
+            "uchicago.edu": {
+                "displayName": "U of Chicago"
+            },
+            "cod.edu": {
+                "displayName": "C of DuPage"
+            },
+            "vanderbilt.edu": {
+                "displayName": "Vanderbilt U"
+            },
+            "webster.edu": {
+                "displayName": "Webster U"
+            },
+            "tnstate.edu": {
+                "displayName": "Tennessee SU"
+            },
+            "harding.edu": {
+                "displayName": "Harding U"
+            },
+            "hendrix.edu": {
+                "displayName": "Hendrix C"
+            },
+            "iit.edu": {
+                "displayName": "Illinois I of Tech"
+            },
+            "kysu.edu": {
+                "displayName": "Kentucky SU"
+            },
+            "lindenwood.edu": {
+                "displayName": "Lindenwood U"
+            },
+            "uafs.edu": {
+                "displayName": "U of Arkansas – Fort Smith"
+            },
+            "lipscomb.edu": {
+                "displayName": "Lipscomb U"
+            },
+            "eku.edu": {
+                "displayName": "Eastern Kentucky U"
+            },
+            "missouri.edu": {
+                "displayName": "U of Missouri"
+            },
+            "northwestern.edu": {
+                "displayName": "Northwestern U"
+            },
+            "saumag.edu": {
+                "displayName": "Southern Arkansas U"
+            },
+            "murraystate.edu": {
+                "displayName": "Murray SU"
+            },
+            "nku.edu": {
+                "displayName": "Northern Kentucky U"
+            },
+            "nwmissouri.edu": {
+                "displayName": "Northwest Missouri SU"
+            },
+            "park.edu": {
+                "displayName": "Park U"
+            },
+            "uark.edu": {
+                "displayName": "U of Arkansas"
+            },
+            "semo.edu": {
+                "displayName": "Southeast Missouri SU"
+            },
+            "rhodes.edu": {
+                "displayName": "Rhodes C"
+            },
+            "depauw.edu": {
+                "displayName": "DePauw U"
+            },
+            "sbuniv.edu": {
+                "displayName": "Southwest Baptist U"
+            },
+            "slu.edu": {
+                "displayName": "Saint Louis U"
+            },
+            "berea.edu": {
+                "displayName": "Berea C"
+            },
+            "tntech.edu": {
+                "displayName": "Tennessee TU"
+            },
+            "uky.edu": {
+                "displayName": "U of Kentucky"
+            },
+            "louisville.edu": {
+                "displayName": "U of Louisville"
+            },
+            "utm.edu": {
+                "displayName": "U of Tennessee at Martin"
+            },
+            "wustl.edu": {
+                "displayName": "Washington U in St. Louis"
+            }
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 5
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "tenkindsofpeople": {
+                "color": "#e6194B"
+            },
+            "arrayshift": {
+                "color": "#3cb44b"
+            },
+            "artistwhoshallnotbenamed": {
+                "color": "#ffe119"
+            },
+            "breakmaze": {
+                "color": "#4363d8"
+            },
+            "cascade": {
+                "color": "#f58231"
+            },
+            "easyascab2": {
+                "color": "#42d4f4"
+            },
+            "intervals0": {
+                "color": "#f032e6"
+            },
+            "pascalmagic": {
+                "color": "#fabed4"
+            },
+            "permanent": {
+                "color": "#469990"
+            },
+            "skylinereconstruction": {
+                "color": "#dcbeff"
+            },
+            "roadtorome": {
+                "color": "#9A6324"
+            },
+            "babyshark": {
+                "color": "#fffac8"
+            },
+            "primepower": {
+                "color": "#800000"
+            }
+        }
+    }    
+]
