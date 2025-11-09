@@ -1,0 +1,14 @@
+{
+  "type":"clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://ncna25.kattis.com/api/clics/",
+        "login": "$creds.kattis_lperovskaya",
+        "password": "$creds.kattis_ncna25"
+      },
+      "contestId": "ncna25",
+      "feedVersion": "DRAFT"
+    }
+  ]
+}

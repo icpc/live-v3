@@ -1,0 +1,156 @@
+[
+    {
+        "type": "overrideOrganizations",
+        "rules": {
+            "wisc.edu": {
+                "displayName": "U of Wisconsin–Madison"
+            },
+            "dsu.edu": {
+                "displayName": "Dakota SU"
+            },
+            "lssu.edu": {
+                "displayName": "Lake Superior SU"
+            },
+            "iastate.edu": {
+                "displayName": "Iowa SU"
+            },
+            "cune.edu": {
+                "displayName": "Concordia U, Nebraska"
+            },
+            "uww.edu": {
+                "displayName": "U of Wisconsin–Whitewater"
+            },
+            "graceland.edu": {
+                "displayName": "Graceland U"
+            },
+            "mnstate.edu": {
+                "displayName": "Minnesota SU Moorhead"
+            },
+            "bvu.edu": {
+                "displayName": "Buena Vista U"
+            },
+            "drake.edu": {
+                "displayName": "Drake U"
+            },
+            "creighton.edu": {
+                "displayName": "Creighton U"
+            },
+            "dordt.edu": {
+                "displayName": "Dordt C"
+            },
+            "csbsju.edu": {
+                "displayName": "C of St Benedict and St John's U"
+            },
+            "doane.edu": {
+                "displayName": "Doane U"
+            },
+            "nmu.edu": {
+                "displayName": "Northern Michigan U"
+            },
+            "algomau.ca": {
+                "displayName": "Algoma U"
+            },
+            "macalester.edu": {
+                "displayName": "Macalester C"
+            },
+            "vcsu.edu": {
+                "displayName": "Valley City SU"
+            },
+            "msoe.edu": {
+                "displayName": "Milwaukee School of Eng"
+            },
+            "mtu.edu": {
+                "displayName": "Michigan TU"
+            },
+            "smsu.edu": {
+                "displayName": "Southwest Minnesota SU"
+            },
+            "ku.edu": {
+                "displayName": "U of Kansas"
+            },
+            "unl.edu": {
+                "displayName": "U of Nebraska–Lincoln"
+            },
+            "concordiacollege.edu": {
+                "displayName": "Concordia C (Minnesota)"
+            },
+            "simpson.edu": {
+                "displayName": "Simpson C"
+            },
+            "stcloudstate.edu": {
+                "displayName": "St. Cloud SU"
+            },
+            "nwciowa.edu": {
+                "displayName": "Northwestern C (Iowa)"
+            },
+            "umn.edu": {
+                "displayName": "U of Minnesota"
+            },
+            "ndsu.edu": {
+                "displayName": "North Dakota SU"
+            },
+            "usd.edu": {
+                "displayName": "U of South Dakota"
+            },
+            "uwinnipeg.ca": {
+                "displayName": "U of Winnipeg"
+            },
+            "uwlax.edu": {
+                "displayName": "U of Wisconsin–La Crosse"
+            }
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 5
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "babyshark": {
+                "color": "#e6194B"
+            },
+            "jackandjill": {
+                "color": "#3cb44b"
+            },
+            "jumpingspider": {
+                "color": "#ffe119"
+            },
+            "mergingitems": {
+                "color": "#4363d8"
+            },
+            "palindromicpath": {
+                "color": "#f58231"
+            },
+            "primepower": {
+                "color": "#42d4f4"
+            },
+            "shreddedbowling": {
+                "color": "#f032e6"
+            },
+            "ziplinecourse": {
+                "color": "#fabed4"
+            },
+            "artistwhoshallnotbenamed": {
+                "color": "#469990"
+            },
+            "breakmaze": {
+                "color": "#dcbeff"
+            },
+            "intervals0": {
+                "color": "#9A6324"
+            }            
+        }
+    }    
+]

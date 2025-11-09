@@ -1,0 +1,19 @@
+{
+  "CONTEST_COLOR": "#4C83C3",
+  "QUEUE_TITLE": "Queue_",
+  "CONTEST_CAPTION": " Div 1",
+  "WIDGET_POSITIONS": {
+    "queue": {
+      "positionX": 1520,
+      "positionY": 248,
+      "sizeX": 384,
+      "sizeY": 400
+    },
+    "ticker": {
+      "positionX": 16,
+      "positionY": 1016,
+      "sizeX": 1489,
+      "sizeY": 48
+    }
+  }
+}

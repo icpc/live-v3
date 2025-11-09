@@ -1,0 +1,19 @@
+{
+  "QUEUE_TITLE": "Queue_",
+  "CONTEST_COLOR": "#B22C1B",
+  "CONTEST_CAPTION": "Rocky Mountain",
+  "WIDGET_POSITIONS": {
+    "queue": {
+      "positionX": 1520,
+      "positionY": 800,
+      "sizeX": 384,
+      "sizeY": 264
+    },
+    "ticker": {
+      "positionX": 16,
+      "positionY": 1016,
+      "sizeX": 1489,
+      "sizeY": 48
+    }
+  }
+}

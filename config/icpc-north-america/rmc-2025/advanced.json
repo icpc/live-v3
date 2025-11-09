@@ -1,0 +1,86 @@
+[
+    {
+        "type": "overrideOrganizations",
+        "rules": {
+            "utahtech.edu": {
+                "displayName": "Utah Tech U"
+            },
+            "mines.edu": {
+                "displayName": "Colorado School of Mines"
+            },
+            "ualberta.ca": {
+                "displayName": "U of Alberta"
+            },
+            "asu.edu": {
+                "displayName": "Arizona State U"
+            },
+            "uvu.edu": {
+                "displayName": "Utah Valley U"
+            },
+            "utah.edu": {
+                "displayName": "U of Utah"
+            },
+            "byu.edu": {
+                "displayName": "BYU"
+            },
+            "coloradomesa.edu": {
+                "displayName": "Colorado Mesa U"
+            },
+            "ucdenver.edu": {
+                "displayName": "U of Colorado Denver"
+            },
+            "nau.edu": {
+                "displayName": "Northern Arizona U"
+            },
+            "ucalgary.ca": {
+                "displayName": "UCalgary"
+            },
+            "uleth.ca": {
+                "displayName": "U of Lethbridge"
+            },
+            "arizona.edu": {
+                "displayName": "U of Arizona"
+            },
+            "unco.edu": {
+                "displayName": "U of Northern Colorado"
+            },
+            "usask.ca": {
+                "displayName": "U of Saskatchewan"
+            }
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
+    },
+   {
+        "type": "overrideQueue",
+        "maxQueueSize": 5
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "adriftatsea": {"color": "#e6194B"},
+            "buyingjerseys": {"color": "#3cb44b"},
+            "conveyorbeltsushi": {"color": "#ffe119"},
+            "corporateretreat": {"color": "#4363d8"},
+            "draftlottery": {"color": "#f58231"},
+            "energyusage": {"color": "#42d4f4"},
+            "genies": {"color": "#f032e6"},
+            "hexadecimalconfusion": {"color": "#fabed4"},
+            "poetictournament": {"color": "#469990"},
+            "spiesvsspies": {"color": "#dcbeff"},
+            "teampractice": {"color": "#9A6324"},
+            "videogames": {"color": "#fffac8"},
+            "whattimeisitmrfox": {"color": "#800000"}
+        }
+    }
+
+]
