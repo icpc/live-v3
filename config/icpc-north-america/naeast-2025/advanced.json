@@ -1,0 +1,270 @@
+[
+    {
+        "type": "overrideGroups",
+        "rules": {
+            "38568": {
+                "displayName": "Columbia University"
+            },
+            "site": {
+                "displayName": "ecna+nena"
+            },
+            "ecna-all": {
+                "displayName": "ECNA"
+            },
+            "nena-all": {
+                "displayName": "NENA"
+            }
+        }
+    },    
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.id}",
+                "rules": {
+                    "^GNY.*": {
+                        "id": "GNY"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.group.id}"
+        ]
+    },
+    {
+        "type": "overrideAwards",
+        "medalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "GNY",
+                        "citation": "GNY top3",
+                        "color": "GOLD",
+                        "maxRank": 3
+                    }
+                ],
+                "groups": ["GNY"]
+            },
+            {
+                "medals": [
+                    {
+                        "id": "NENA",
+                        "citation": "NENA top3",
+                        "color": "GOLD",
+                        "maxRank": 3
+                    }
+                ],
+                "groups": ["nena-all"]
+            },
+            {
+                "medals": [
+                    {
+                        "id": "ECNA",
+                        "citation": "ECNA top3",
+                        "color": "GOLD",
+                        "maxRank": 3
+                    }
+                ],
+                "groups": ["ecna-all"]
+            }
+
+        ]
+    },
+
+    {
+        "type": "overrideOrganizations",
+        "rules": {
+            "harvard.edu": {
+                "displayName": "Harvard U"
+            },
+            "umoncton.ca": {
+                "displayName": "UMoncton"
+            },
+            "umontreal.ca": {
+                "displayName": "UMontreal"
+            },
+            "mcgill.ca": {
+                "displayName": "McGill U"
+            },
+            "psu.edu": {
+                "displayName": "Pennsylvania SU"
+            },
+            "owu.edu": {
+                "displayName": "Ohio Wesleyan U"
+            },
+            "kzoo.edu": {
+                "displayName": "Kalamazoo C"
+            },
+            "wellesley.edu": {
+                "displayName": "Wellesley C"
+            },
+            "brocku.ca": {
+                "displayName": "Brock U"
+            },
+            "bu.edu": {
+                "displayName": "Boston U"
+            },
+            "brown.edu": {
+                "displayName": "Brown U"
+            },
+            "stfx.ca": {
+                "displayName": "St. Francis Xavier U"
+            },
+            "concordia.ca": {
+                "displayName": "Concordia U"
+            },
+            "umich.edu": {
+                "displayName": "UMichigan"
+            },
+            "cmich.edu": {
+                "displayName": "Central Michigan U"
+            },
+            "cmu.edu": {
+                "displayName": "CMU"
+            },
+            "denison.edu": {
+                "displayName": "Denison U"
+            },
+            "upei.ca": {
+                "displayName": "UPrince Edward Island"
+            },
+            "umass.edu": {
+                "displayName": "UMass Amherst"
+            },
+            "csuohio.edu": {
+                "displayName": "Cleveland SU"
+            },
+            "case.edu": {
+                "displayName": "Case Western Reserve U"
+            },
+            "dal.ca": {
+                "displayName": "Dalhousie U"
+            },
+            "fanshawec.ca": {
+                "displayName": "Fanshawe C"
+            },
+            "gvsu.edu": {
+                "displayName": "Grand Valley SU"
+            },
+            "yorku.ca": {
+                "displayName": "York U"
+            },
+            "pennwest.edu": {
+                "displayName": "Pennsylvania Western U"
+            },
+            "mcmaster.ca": {
+                "displayName": "McMaster U"
+            },
+            "holycross.edu": {
+                "displayName": "C of the Holy Cross"
+            },
+            "mit.edu": {
+                "displayName": "MIT"
+            },
+            "indiana.edu": {
+                "displayName": "Indiana U Bloomington"
+            },
+            "rit.edu": {
+                "displayName": "Rochester IofT"
+            },
+            "rpi.edu": {
+                "displayName": "Rensselaer Poly I"
+            },
+            "amherst.edu": {
+                "displayName": "Amherst C"
+            },
+            "bc.edu": {
+                "displayName": "Boston C"
+            },
+            "iup.edu": {
+                "displayName": "Indiana UPenn"
+            },
+            "msu.edu": {
+                "displayName": "Michigan SU"
+            },
+            "mta.ca": {
+                "displayName": "Mount Allison U"
+            },
+            "mun.ca": {
+                "displayName": "Memorial UNewfoundland"
+            },
+            "mvnu.edu": {
+                "displayName": "Mount Vernon Nazarene U"
+            },
+            "northeastern.edu": {
+                "displayName": "Northeastern U"
+            },
+            "ohio.edu": {
+                "displayName": "Ohio U"
+            },
+            "olin.edu": {
+                "displayName": "Olin C of Eng"
+            },
+            "osu.edu": {
+                "displayName": "Ohio SU"
+            },
+            "oswego.edu": {
+                "displayName": "SUNY Oswego"
+            },
+            "ysu.edu": {
+                "displayName": "Youngstown SU"
+            },
+            "purdue.edu": {
+                "displayName": "Purdue U"
+            },
+            "rochester.edu": {
+                "displayName": "URochester"
+            },
+            "svsu.edu": {
+                "displayName": "Saginaw Valley SU"
+            },
+            "stlawu.edu": {
+                "displayName": "St. Lawrence U"
+            },
+            "siena.edu": {
+                "displayName": "Siena C"
+            },
+            "smu.ca": {
+                "displayName": "Saint Mary's U (Nova Scotia)"
+            },
+            "hamilton.edu": {
+                "displayName": "Hamilton C"
+            },
+            "unb.ca": {
+                "displayName": "UNew Brunswick"
+            },
+            "torontomu.ca": {
+                "displayName": "Toronto Metropolitan U"
+            },
+            "utm.utoronto.ca": {
+                "displayName": "UToronto Mississauga"
+            },
+            "utsc.utoronto.ca": {
+                "displayName": "UToronto Scarborough"
+            },
+            "tufts.edu": {
+                "displayName": "Tufts U"
+            },
+            "uc.edu": {
+                "displayName": "UCincinnati"
+            },
+            "utoronto.ca": {
+                "displayName": "UToronto"
+            },
+            "uwaterloo.ca": {
+                "displayName": "UWaterloo"
+            },
+            "uwindsor.ca": {
+                "displayName": "UWindsor"
+            },
+            "wright.edu": {
+                "displayName": "Wright SU"
+            }
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {team.customFields.funny}"
+    }
+]

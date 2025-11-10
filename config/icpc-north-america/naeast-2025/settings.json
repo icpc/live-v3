@@ -1,0 +1,43 @@
+{
+  "type": "merged",
+  "sources": [
+  {
+    "settings": {
+      "type": "clics",
+      "network": { "allowUnsecureConnections": true },
+      "feeds": [
+      {
+        "source": {
+//          "url": "https://gnypractice.icpc-vcss.org:50443",
+          "url": "https://gnyserver.icpc-vcss.org:50443",
+          "login": "login",
+          "password": "password"
+        },
+//        "contestId": "gny25_practice"
+        "contestId": "gny25_real"
+      }
+      ]
+    },
+    "teamIdRegex": {"^(.*)$": "GNY.$1"},
+    "runIdRegex": {"^(.*)$": "GNY.$1"}
+  },
+  {
+    "settings": {
+      "type": "clics",
+      "feeds": [
+      {
+        "source": {
+          "url": "https://naeast25.kattis.com/api/clics/",
+          "login": "$creds.kattis_lperovskaya",
+          "password": "$creds.kattis_naeast25"
+        },
+        "contestId": "naeast25",
+        "feedVersion": "DRAFT"
+      }
+      ]
+    },
+    "teamIdRegex": {"^(.*)$": "KATTIS.$1"},
+    "runIdRegex": {"^(.*)$": "KATTIS.$1"}
+  }
+  ]
+}
