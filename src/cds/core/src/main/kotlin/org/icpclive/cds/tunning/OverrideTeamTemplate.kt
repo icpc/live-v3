@@ -85,6 +85,8 @@ public data class OverrideTeamTemplate(
     public val medias: Map<TeamMediaType, @Serializable(with = ListOrSingleOrNullElementSerializer::class) List<MediaType>>? = null,
     public val extraMedias: Map<TeamMediaType, @Serializable(with = ListOrSingleOrNullElementSerializer::class) List<MediaType>>? = null,
     public val color: String? = null,
+    public val reactionVideoTemplate: List<MediaType>? = null,
+    public val sourceTemplate: List<MediaType>? = null,
 ): Desugarable, TuningRule {
 
     override fun process(info: ContestInfo): ContestInfo {
@@ -107,7 +109,9 @@ public data class OverrideTeamTemplate(
                         medias = medias?.mapValues { (_, v) -> v.map { substitute(it) } },
                         extraMedias = extraMedias?.mapValues { (_, v) -> v.map { substitute(it) } },
                         customFields = customFields?.mapValues { (_, v) -> substituteRaw(v) },
-                        color = substituteRaw(color)?.let { Color.normalize(it) }
+                        color = substituteRaw(color)?.let { Color.normalize(it) },
+                        reactionVideoTemplate = reactionVideoTemplate?.map { substitute(it) },
+                        sourceTemplate = sourceTemplate?.map { substitute(it) },
                     )
                 }
             }

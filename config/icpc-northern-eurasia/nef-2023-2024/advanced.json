@@ -110,7 +110,23 @@
                 "streamType": "webcam",
                 "credential": "live"
             }
+        },
+      "reactionVideoTemplate": [
+        {
+          "type": "Video",
+          "url": "http://{grabberIp}:8080/reactions/{team.id}/camera{run.id}.mp4"
+        },
+        {
+          "type": "Video",
+          "url": "http://{grabberIp}:8080/reactions/{team.id}/desktop{run.id}.mp4"
         }
+      ],
+      "sourceTemplate": [
+        {
+          "type": "ZipArchive",
+          "url": "http://{grabberIp}:8080/sources/{team.id}/source.{run.id}.zip"
+        }
+      ]
     },
     {
         "type": "overrideProblems",

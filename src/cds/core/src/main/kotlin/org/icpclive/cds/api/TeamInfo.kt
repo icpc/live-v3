@@ -59,4 +59,6 @@ public data class TeamInfo(
     val organizationId: OrganizationId?,
     val color: Color? = null,
     @Required val customFields: Map<String, String> = emptyMap(),
+    @Required val reactionVideoTemplate: List<MediaType>? = null,
+    @Required val sourceTemplate: List<MediaType>? = null,
 )

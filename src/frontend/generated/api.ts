@@ -146,6 +146,8 @@ export interface TeamInfo {
   organizationId: OrganizationId | null;
   color?: string | null;
   customFields: { [key: string]: string };
+  reactionVideoTemplate: MediaType[] | null;
+  sourceTemplate: MediaType[] | null;
 }
 
 export interface GroupInfo {

@@ -1145,6 +1145,12 @@
                 },
                 "color": {
                     "type": "string"
+                },
+                "reactionVideoTemplate": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>"
+                },
+                "sourceTemplate": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>"
                 }
             },
             "additionalProperties": false,
@@ -1166,7 +1172,7 @@
                 }
             ]
         },
-        "org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>": {
+        "org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?>": {
             "type": "object",
             "properties": {
                 "fullName": {
@@ -1204,6 +1210,12 @@
                 },
                 "extraMedias": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,ListOrSingleElement?>"
+                },
+                "reactionVideoTemplate": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>"
+                },
+                "sourceTemplate": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>"
                 }
             },
             "additionalProperties": false,
@@ -1213,7 +1225,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideTeams.Override<kotlin.String?,kotlin.String?,org.icpclive.cds.api.OrganizationId?,kotlin.String?,Color?,kotlin.Boolean?,kotlin.Boolean?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.collections.LinkedHashMap?,kotlin.collections.ArrayList?,kotlin.collections.ArrayList?>"
                 }
             }
         },
