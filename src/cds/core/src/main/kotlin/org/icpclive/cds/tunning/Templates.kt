@@ -53,12 +53,15 @@ public fun TemplateSubstitutor.substitute(data: MediaType?): MediaType? = data?.
 
 internal class TemplateSubstitutorImpl(private val data: JsonObject) : TemplateSubstitutor {
     private fun getByKey(key: String): String? {
-        var cur = data
+        var result: JsonElement = data
         val parts = key.split(".")
-        for (i in parts.dropLast(1)) {
-            cur = cur[i] as? JsonObject ?: return null
+        for (part in parts) {
+            result = when (result) {
+                is JsonArray -> part.toIntOrNull()?.let { result.getOrNull(it) }
+                is JsonObject -> result[part]
+                else -> null
+            } ?: return null
         }
-        val result = cur[parts.last()] ?: return null
         return when (result) {
             is JsonArray, is JsonObject -> Json.encodeToString(result)
             is JsonPrimitive -> result.content
