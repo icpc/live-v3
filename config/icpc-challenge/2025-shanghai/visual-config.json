@@ -1,0 +1,39 @@
+{
+    "GLOBAL_DEFAULT_FONT_SIZE": "40px",
+    "SCOREBOARD_ROW_HEIGHT": 60,
+    "GLOBAL_BORDER_RADIUS":"0px",
+    "CONTEST_COLOR": "#CF0A2C",
+    "SCOREBOARD_CELL_TEAMNAME_SIZE": "800px",
+    "SCOREBOARD_CELL_POINTS_SIZE":"400px",
+    "QUEUE_MAX_ROWS": 20,
+    "SCOREBOARD_SCROLL_INTERVAL": 20000,
+    "FULL_SCREEN_CLOCK_COLOR": "#eeeeeeAA",    
+  "WIDGET_POSITIONS": {
+    "scoreboard": {
+      "positionX": 0,
+      "positionY": 0,
+      "sizeX": 1920,
+      "sizeY": 1080
+    },
+    "fullScreenClock": {
+      "positionX": 0,
+      "positionY": 0,
+      "sizeX": 1920,
+      "sizeY": 1080
+    },
+    "statistics": {
+      "positionX": 0,
+      "positionY": 0,
+      "sizeX": 1920,
+      "sizeY": 1080
+    },
+    "ticker": {
+      "positionX": 1728,
+      "positionY": 1030,
+      "sizeX": 1920,
+      "sizeY": 50
+    }
+
+  }
+
+}
