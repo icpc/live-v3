@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import c from "@/config";
-import { isShouldUseDarkColor  } from "@/utils/colors";
+import { isShouldUseDarkColor } from "@/utils/colors";
 
 interface KeylogSvgProps {
     $z: number;
@@ -29,21 +29,14 @@ function stepPath(points: Array<Point>) {
 
     const [x0, y0] = points[0];
 
-    return points.slice(1).reduce(
-        (path, [currX, currY], _) => {
-            return path + ` H ${currX} V ${currY}`;
-        },
-        `M ${x0} ${y0}`
-    );
+    return points.slice(1).reduce((path, [currX, currY], _) => {
+        return path + ` H ${currX} V ${currY}`;
+    }, `M ${x0} ${y0}`);
 }
 
-export function KeylogGraph({
-    keylog,
-    isPvp,
-    teamColor,
-}: KeylogGraphProps) {
+export function KeylogGraph({ keylog, isPvp, teamColor }: KeylogGraphProps) {
     const svgRef = useRef<SVGSVGElement | null>(null);
-    const [size, setSize] = useState<{ w: number, h: number }>({ w: 0, h: 0 });
+    const [size, setSize] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
 
     useEffect(() => {
         if (!svgRef.current) return;
@@ -58,7 +51,9 @@ export function KeylogGraph({
 
     useEffect(() => {
         if (!svgRef.current) return;
-        const path = svgRef.current.querySelector("path[data-line]") as SVGPathElement | null;
+        const path = svgRef.current.querySelector(
+            "path[data-line]",
+        ) as SVGPathElement | null;
         if (!path) return;
 
         const L = path.getTotalLength();
@@ -79,7 +74,8 @@ export function KeylogGraph({
         if (!w || !h || !keylog?.length) return { pathD: "", fillD: "" };
 
         const leftPad = c.TIMELINE_LEFT_TIME_PADDING;
-        const usableW = w * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP : c.TIMELINE_REAL_WIDTH);
+        const usableW =
+            w * (isPvp ? c.TIMELINE_REAL_WIDTH_PVP : c.TIMELINE_REAL_WIDTH);
         const rightEdge = leftPad + usableW;
 
         const maxVal = c.KEYLOG_MAXIMUM_FOR_NORMALIZATION;
@@ -100,7 +96,6 @@ export function KeylogGraph({
         const d = stepPath(pts) + ` H ${rightEdge}`;
         const fill = d + ` V ${h - bottomPad} H ${pts[0][0]} Z`;
 
-
         return { pathD: d, fillD: fill };
     }, [size, keylog, isPvp]);
 
@@ -109,10 +104,17 @@ export function KeylogGraph({
     const fill = useDark ? c.KEYLOG_FILL_DARK : c.KEYLOG_FILL_LIGHT;
 
     return (
-        <KeylogSvg ref={svgRef} $z={c.KEYLOG_Z_INDEX} preserveAspectRatio="none">
+        <KeylogSvg
+            ref={svgRef}
+            $z={c.KEYLOG_Z_INDEX}
+            preserveAspectRatio="none"
+        >
             <defs>
                 <filter id="kglow" x="-10%" y="-10%" width="120%" height="120%">
-                    <feGaussianBlur stdDeviation={c.KEYLOG_GLOW_BLUR} result="blur" />
+                    <feGaussianBlur
+                        stdDeviation={c.KEYLOG_GLOW_BLUR}
+                        result="blur"
+                    />
                 </filter>
             </defs>
             {fillD && <path d={fillD} fill={fill} />}
@@ -131,4 +133,3 @@ export function KeylogGraph({
         </KeylogSvg>
     );
 }
-

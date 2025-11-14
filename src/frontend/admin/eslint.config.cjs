@@ -7,24 +7,27 @@ const tseslint = require("typescript-eslint");
 module.exports = tseslint.config(
     { ignores: ["dist/**/*", "build/**/*", "node_modules/**/*"] }, // Add eslint.config.js here
 
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
 
-  {
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+    {
+        files: ["**/*.{ts,tsx}"],
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: globals.browser,
+        },
+        plugins: {
+            "react-refresh": reactRefresh,
+            "react-compiler": reactCompiler,
+        },
+        rules: {
+            "react-refresh/only-export-components": [
+                "warn",
+                {
+                    allowConstantExport: true,
+                },
+            ],
+            "react-compiler/react-compiler": "warn",
+        },
     },
-    plugins: {
-      "react-refresh": reactRefresh,
-      "react-compiler": reactCompiler,
-    },
-    rules: {
-      "react-refresh/only-export-components": ["warn", {
-        allowConstantExport: true,
-      }],
-      "react-compiler/react-compiler": "warn",
-    },
-  }
 );

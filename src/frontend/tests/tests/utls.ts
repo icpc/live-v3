@@ -8,4 +8,3 @@ export const getPathParents = (p: string): string[] => {
     }
     return res;
 };
-

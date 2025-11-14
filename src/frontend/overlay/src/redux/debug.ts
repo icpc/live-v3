@@ -4,20 +4,19 @@ import c from "../config";
 import { DEBUG } from "@/consts";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 export interface LogEntry {
-    text: string,
-    timestamp: string
+    text: string;
+    timestamp: string;
 }
 
 export interface DebugState {
-    log: LogEntry[],
-    enabled: boolean
+    log: LogEntry[];
+    enabled: boolean;
 }
 
 const initialState: DebugState = {
     log: [],
-    enabled: DEBUG
+    enabled: DEBUG,
 };
 
 export const debugSlice = createSlice({
@@ -25,12 +24,14 @@ export const debugSlice = createSlice({
     initialState,
     reducers: {
         pushLog: (state, action: PayloadAction<string>) => {
-            if(state.enabled) {
+            if (state.enabled) {
                 state.log.push({
                     text: _.truncate(action.payload, { length: 100 }),
-                    timestamp: DateTime.now().toLocaleString(DateTime.TIME_24_WITH_SECONDS)
+                    timestamp: DateTime.now().toLocaleString(
+                        DateTime.TIME_24_WITH_SECONDS,
+                    ),
                 });
-                if (state.log.length  >= c.LOG_LINES) {
+                if (state.log.length >= c.LOG_LINES) {
                     state.log.shift();
                 }
             } else {
@@ -39,8 +40,8 @@ export const debugSlice = createSlice({
         },
         clearLog: (state) => {
             state.log = [];
-        }
-    }
+        },
+    },
 });
 
 export const { pushLog, clearLog } = debugSlice.actions;

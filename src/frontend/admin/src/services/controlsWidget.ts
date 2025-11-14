@@ -38,7 +38,7 @@ export class ControlsWidgetService extends AbstractWidgetImpl<ControlElementSett
 
     isMessageRequireReload(data: string): boolean {
         return CONTROL_ELEMENTS.some(({ id }) =>
-            data.startsWith(`/api/admin/${id}`)
+            data.startsWith(`/api/admin/${id}`),
         );
     }
 
@@ -52,17 +52,24 @@ export class ControlsWidgetService extends AbstractWidgetImpl<ControlElementSett
 
     private async loadVisualConfig(): Promise<string[]> {
         try {
-            const config = await createApiGet(BACKEND_ROOT)("/api/overlay/visualConfig.json");
+            const config = await createApiGet(BACKEND_ROOT)(
+                "/api/overlay/visualConfig.json",
+            );
             return config.ADMIN_HIDE_CONTROL ?? [];
         } catch (error) {
-            console.warn("Failed to load visual config, proceeding with all elements visible:", error);
+            console.warn(
+                "Failed to load visual config, proceeding with all elements visible:",
+                error,
+            );
             return [];
         }
     }
 
-    private filterVisibleElements(hiddenElementIds: string[]): ControlElement[] {
-        return CONTROL_ELEMENTS.filter(element =>
-            !hiddenElementIds.includes(element.id)
+    private filterVisibleElements(
+        hiddenElementIds: string[],
+    ): ControlElement[] {
+        return CONTROL_ELEMENTS.filter(
+            (element) => !hiddenElementIds.includes(element.id),
         );
     }
 
@@ -102,16 +109,16 @@ export class ControlsWidgetService extends AbstractWidgetImpl<ControlElementSett
     }
 
     isElementAvailable(elementId: string): boolean {
-        return CONTROL_ELEMENTS.some(element => element.id === elementId);
+        return CONTROL_ELEMENTS.some((element) => element.id === elementId);
     }
 }
 
 export const useControlsWidgetService = (
     errorHandler: ErrorHandler,
-    listenWS: boolean = true
+    listenWS: boolean = true,
 ): ControlsWidgetService => {
     return useMemo(
         () => new ControlsWidgetService(errorHandler, listenWS),
-        [errorHandler, listenWS]
+        [errorHandler, listenWS],
     );
 };

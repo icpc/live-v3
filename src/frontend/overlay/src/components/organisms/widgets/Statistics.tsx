@@ -8,50 +8,49 @@ import { useAppSelector } from "@/redux/hooks";
 import { useRef } from "react";
 
 const StatisticsWrap = styled.div`
-  position: relative;
+    position: relative;
 
-  display: flex;
-  flex-direction: column;
-  gap: ${c.STATISTICS_CONTENT_GAP};
+    display: flex;
+    flex-direction: column;
+    gap: ${c.STATISTICS_CONTENT_GAP};
 
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  padding: ${c.STATISTICS_PADDING_VERTICAL} ${c.STATISTICS_PADDING_HORIZONTAL};
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: ${c.STATISTICS_PADDING_VERTICAL} ${c.STATISTICS_PADDING_HORIZONTAL};
 
-  background-color: ${c.CONTEST_COLOR};
-  background-repeat: no-repeat;
-  border-radius: ${c.GLOBAL_BORDER_RADIUS};
+    background-color: ${c.CONTEST_COLOR};
+    background-repeat: no-repeat;
+    border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 const Header = styled.div`
-  display: flex;
-  flex-flow: row;
-  gap: ${c.STATISTICS_HEADER_GAP};
+    display: flex;
+    flex-flow: row;
+    gap: ${c.STATISTICS_HEADER_GAP};
 
-  width: 100%;
+    width: 100%;
 
-  font-size: ${c.STATISTICS_HEADER_FONT_SIZE};
-  line-height: ${c.STATISTICS_HEADER_LINE_HEIGHT};
-  color: white;
+    font-size: ${c.STATISTICS_HEADER_FONT_SIZE};
+    line-height: ${c.STATISTICS_HEADER_LINE_HEIGHT};
+    color: white;
 `;
 const Title = styled.div`
-  font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
+    font-weight: ${c.GLOBAL_DEFAULT_FONT_WEIGHT_BOLD};
 `;
 
 const Caption = styled.div`
     flex-grow: 1;
 `;
 
-
 export const Statistics = () => {
     const statistics = useAppSelector((state) => state.statistics.statistics);
-    const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
+    const tasks = useAppSelector((state) => state.contestInfo?.info?.problems);
     const data = stackedBarsData(tasks, statistics);
 
     const componentRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
-    
+
     const { height = 0 } = useResizeObserver({ ref: componentRef });
     const { height: headerHeight = 0 } = useResizeObserver({ ref: headerRef });
 
@@ -63,7 +62,16 @@ export const Statistics = () => {
                 <StatisticsLegend legend={data.legend}></StatisticsLegend>
             </Header>
 
-            {data.data && data.data.length > 0 && <StackedBars data={data.data} height={height - headerHeight - parseInt(c.STATISTICS_CONTENT_GAP)} />}
+            {data.data && data.data.length > 0 && (
+                <StackedBars
+                    data={data.data}
+                    height={
+                        height -
+                        headerHeight -
+                        parseInt(c.STATISTICS_CONTENT_GAP)
+                    }
+                />
+            )}
         </StatisticsWrap>
     );
 };

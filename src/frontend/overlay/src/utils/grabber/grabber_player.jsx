@@ -7,7 +7,9 @@ export class GrabberPlayerClient {
         this.peersStatus = null;
         this.participantsStatus = null;
         this.target = new EventTarget();
-        this.ws = new GrabberSocket((url ?? "") + "/ws/player/" + (mode === "play" ? "play" : "admin"));
+        this.ws = new GrabberSocket(
+            (url ?? "") + "/ws/player/" + (mode === "play" ? "play" : "admin"),
+        );
         this._setupWS();
     }
 
@@ -30,13 +32,20 @@ export class GrabberPlayerClient {
         this.ws.on("peers", ({ peersStatus, participantsStatus }) => {
             this.peersStatus = peersStatus ?? [];
             this.participantsStatus = participantsStatus ?? [];
-            this.target.dispatchEvent(new CustomEvent("peers", { detail: [peersStatus, participantsStatus] }));
+            this.target.dispatchEvent(
+                new CustomEvent("peers", {
+                    detail: [peersStatus, participantsStatus],
+                }),
+            );
         });
 
-        this.ws.on("offer_answer", async ({ offerAnswer: { peerId, answer } }) => {
-            console.debug(`WebRTCGrabber: got offer_answer from ${peerId}`);
-            await this.pc?.setRemoteDescription(answer);
-        });
+        this.ws.on(
+            "offer_answer",
+            async ({ offerAnswer: { peerId, answer } }) => {
+                console.debug(`WebRTCGrabber: got offer_answer from ${peerId}`);
+                await this.pc?.setRemoteDescription(answer);
+            },
+        );
 
         this.ws.on("offer:failed", () => {
             this.ws.close();
@@ -50,7 +59,7 @@ export class GrabberPlayerClient {
     }
 
     formatPeerInfo(peerInfo) {
-        return peerInfo.peerId ?? (`{${peerInfo.peerName}}`);
+        return peerInfo.peerId ?? `{${peerInfo.peerName}}`;
     }
 
     authorize(credential) {
@@ -70,22 +79,30 @@ export class GrabberPlayerClient {
         });
 
         pc.addEventListener("icecandidate", (event) => {
-            console.debug(`WebRTCGrabber: sending ice to ${this.formatPeerInfo(peerInfo)}`);
-            this.ws.emit("player_ice", { ice: { ...peerInfo, candidate: event.candidate } });
+            console.debug(
+                `WebRTCGrabber: sending ice to ${this.formatPeerInfo(peerInfo)}`,
+            );
+            this.ws.emit("player_ice", {
+                ice: { ...peerInfo, candidate: event.candidate },
+            });
         });
 
         this._closePeerConnection();
         this.pc = pc;
 
-        pc.createOffer().then(offer => {
+        pc.createOffer().then((offer) => {
             pc.setLocalDescription(offer);
-            this.ws.emit("offer", { offer: { ...peerInfo, offer, streamType } });
-            console.debug(`WebRTCGrabber: sending offer to ${this.formatPeerInfo(peerInfo)} ${streamType} ...`);
+            this.ws.emit("offer", {
+                offer: { ...peerInfo, offer, streamType },
+            });
+            console.debug(
+                `WebRTCGrabber: sending offer to ${this.formatPeerInfo(peerInfo)} ${streamType} ...`,
+            );
         });
     }
 
     on(eventName, callback) {
-        this.target.addEventListener(eventName, e => callback(e.detail));
+        this.target.addEventListener(eventName, (e) => callback(e.detail));
     }
 
     _closePeerConnection() {

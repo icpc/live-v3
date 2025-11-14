@@ -18,11 +18,13 @@ export interface CreateAndShowOptions {
     ttlMs: number;
 }
 
-export class PresetWidgetService<S = Record<string, unknown>> extends AbstractWidgetImpl<S> {
+export class PresetWidgetService<
+    S = Record<string, unknown>,
+> extends AbstractWidgetImpl<S> {
     constructor(
         apiPath: string,
         errorHandler: ErrorHandler,
-        listenWS: boolean = true
+        listenWS: boolean = true,
     ) {
         super(apiPath, errorHandler, listenWS);
     }
@@ -47,7 +49,10 @@ export class PresetWidgetService<S = Record<string, unknown>> extends AbstractWi
         }
     }
 
-    async editPreset(presetId: string | number, presetSettings: S): Promise<void> {
+    async editPreset(
+        presetId: string | number,
+        presetSettings: S,
+    ): Promise<void> {
         try {
             await this.apiPost(`/${presetId}`, presetSettings);
         } catch (error) {
@@ -81,13 +86,13 @@ export class PresetWidgetService<S = Record<string, unknown>> extends AbstractWi
 
     async createAndShowWithTtl(
         presetSettings: S,
-        options: CreateAndShowOptions
+        options: CreateAndShowOptions,
     ): Promise<void> {
         try {
             const { ttlMs } = options;
             await this.apiPost(
                 `/create_and_show_with_ttl?ttl=${ttlMs}`,
-                presetSettings
+                presetSettings,
             );
         } catch (error) {
             throw this.errorHandler("Failed to add preset")(error);
@@ -102,13 +107,15 @@ export class PresetWidgetService<S = Record<string, unknown>> extends AbstractWi
         }
     }
 
-    async batchUpdatePresets(updates: Array<{
-        id: string | number;
-        settings: S;
-    }>): Promise<void> {
+    async batchUpdatePresets(
+        updates: Array<{
+            id: string | number;
+            settings: S;
+        }>,
+    ): Promise<void> {
         try {
             const promises = updates.map(({ id, settings }) =>
-                this.editPreset(id, settings)
+                this.editPreset(id, settings),
             );
             await Promise.all(promises);
         } catch (error) {
@@ -118,7 +125,7 @@ export class PresetWidgetService<S = Record<string, unknown>> extends AbstractWi
 
     async batchDeletePresets(presetIds: (string | number)[]): Promise<void> {
         try {
-            const promises = presetIds.map(id => this.deletePreset(id));
+            const promises = presetIds.map((id) => this.deletePreset(id));
             await Promise.all(promises);
         } catch (error) {
             throw this.errorHandler("Failed to batch delete presets")(error);
@@ -135,13 +142,13 @@ export class PresetWidgetService<S = Record<string, unknown>> extends AbstractWi
 
     async duplicatePreset(
         presetId: string | number,
-        modifications?: Partial<S>
+        modifications?: Partial<S>,
     ): Promise<void> {
         try {
             const originalPreset = await this.getPreset(presetId);
             const newSettings = {
                 ...originalPreset.settings,
-                ...modifications
+                ...modifications,
             };
             await this.createPreset(newSettings);
         } catch (error) {
@@ -153,10 +160,10 @@ export class PresetWidgetService<S = Record<string, unknown>> extends AbstractWi
 export const usePresetWidgetService = <S = Record<string, unknown>>(
     apiPath: string,
     errorHandler: ErrorHandler,
-    listenWS: boolean = true
+    listenWS: boolean = true,
 ): PresetWidgetService<S> => {
     return useMemo(
         () => new PresetWidgetService<S>(apiPath, errorHandler, listenWS),
-        [apiPath, errorHandler, listenWS]
+        [apiPath, errorHandler, listenWS],
     );
 };

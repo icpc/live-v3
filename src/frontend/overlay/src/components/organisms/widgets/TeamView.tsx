@@ -1,10 +1,22 @@
-import React, { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState, useMemo } from "react";
+import React, {
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useLayoutEffect,
+    useState,
+    useMemo,
+} from "react";
 import styled, { Keyframes, keyframes } from "styled-components";
 import c from "../../../config";
 import { OverlayTeamViewSettings, TeamViewPosition, Widget } from "@shared/api";
-import { OverlayWidgetC, OverlayWidgetProps } from "@/components/organisms/widgets/types";
+import {
+    OverlayWidgetC,
+    OverlayWidgetProps,
+} from "@/components/organisms/widgets/types";
 import { TeamMediaHolder } from "@/components/organisms/holder/TeamMediaHolder";
-import TimeLine, { TimeLineBackground } from "@/components/organisms/holder/TimeLine";
+import TimeLine, {
+    TimeLineBackground,
+} from "@/components/organisms/holder/TimeLine";
 import { ContestantViewCorner } from "@/components/molecules/info/ContestantViewCorner";
 import { ContestantViewLine } from "@/components/molecules/info/ContestantViewLine";
 import { LocationRectangle } from "@/utils/location-rectangle";
@@ -37,12 +49,13 @@ const TeamViewContainer = styled.div.attrs({
 })<{ show: boolean; animation?: Keyframes; animationStyle: string }>`
     width: 100%;
     height: 100%;
-    display: ${props => props.show ? "flex" : "none"};
+    display: ${(props) => (props.show ? "flex" : "none")};
     flex-direction: column;
     justify-content: start;
     align-items: flex-end;
     position: absolute;
-    animation: ${props => props.animation} ${c.TEAM_VIEW_APPEAR_TIME}ms ${props => props.animationStyle};
+    animation: ${(props) => props.animation} ${c.TEAM_VIEW_APPEAR_TIME}ms
+        ${(props) => props.animationStyle};
     animation-fill-mode: forwards;
 `;
 
@@ -78,24 +91,30 @@ const TeamViewGrid = styled.div<{ $secondaryY: number; $achievementY: number }>`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr ${props => props.$secondaryY * 2 / 9 * 16}px;
-    grid-template-rows: 1fr ${props => props.$secondaryY}px ${props => props.$secondaryY}px ${props => props.$achievementY}px;
+    grid-template-columns: 1fr ${(props) =>
+            ((props.$secondaryY * 2) / 9) * 16}px;
+    grid-template-rows: 1fr ${(props) => props.$secondaryY}px ${(props) =>
+            props.$secondaryY}px ${(props) => props.$achievementY}px;
     z-index: 3;
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
 const SecondaryMediaWrapper = styled.div<{ withAchievement: boolean }>`
     grid-column: 2 / 3;
-    grid-row-start: ${props => props.withAchievement ? 3 : 2};
-    grid-row-end: ${props => props.withAchievement ? 5 : 4};
+    grid-row-start: ${(props) => (props.withAchievement ? 3 : 2)};
+    grid-row-end: ${(props) => (props.withAchievement ? 5 : 4)};
     overflow: hidden;
     z-index: 3;
 `;
 
-const TaskStatusWrapper = styled.div<{ withAchievement: boolean; withSecondary: boolean }>`
+const TaskStatusWrapper = styled.div<{
+    withAchievement: boolean;
+    withSecondary: boolean;
+}>`
     grid-column: 2 / 3;
     grid-row-start: 1;
-    grid-row-end: ${props => props.withSecondary ? (props.withAchievement ? 3 : 2) : 4};
+    grid-row-end: ${(props) =>
+        props.withSecondary ? (props.withAchievement ? 3 : 2) : 4};
     display: grid;
     align-items: end;
     overflow: hidden;
@@ -119,15 +138,32 @@ const AchievementGridWrapper = styled.div`
 const teamViewVariant = (position: TeamViewPosition | undefined) => {
     if (position === TeamViewPosition.SINGLE || position === undefined) {
         return "single";
-    } else if (position === TeamViewPosition.PVP_TOP || position === TeamViewPosition.PVP_BOTTOM) {
+    } else if (
+        position === TeamViewPosition.PVP_TOP ||
+        position === TeamViewPosition.PVP_BOTTOM
+    ) {
         return "pvp";
     }
     return "split";
 };
 
-const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, showTimeLine, location }: CommonContentProps) => {
-    const achievementY = location.sizeY - location.sizeX / 16 * 9;
-    const secondaryY = achievementY > 0 ? achievementY : (location.sizeY * c.TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR / 2);
+const SingleContent = ({
+    teamId,
+    primary,
+    setPrimaryLoaded,
+    secondary,
+    setSecondaryLoaded,
+    achievement,
+    setAchievementLoaded,
+    showTaskStatus,
+    showTimeLine,
+    location,
+}: CommonContentProps) => {
+    const achievementY = location.sizeY - (location.sizeX / 16) * 9;
+    const secondaryY =
+        achievementY > 0
+            ? achievementY
+            : (location.sizeY * c.TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR) / 2;
     const hasPrimary = (primary?.length ?? 0) > 0;
     const hasSecondary = (secondary?.length ?? 0) > 0;
     const hasAchievement = (achievement?.length ?? 0) > 0;
@@ -135,35 +171,52 @@ const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecond
         <>
             {hasPrimary && (
                 <PrimaryMediaWrapper>
-                    <RoundedTeamMediaHolder media={primary[0]} onLoadStatus={setPrimaryLoaded} />
+                    <RoundedTeamMediaHolder
+                        media={primary[0]}
+                        onLoadStatus={setPrimaryLoaded}
+                    />
                 </PrimaryMediaWrapper>
             )}
-            <TeamViewGrid $secondaryY={secondaryY} $achievementY={achievementY > 0 ? achievementY : 0}>
+            <TeamViewGrid
+                $secondaryY={secondaryY}
+                $achievementY={achievementY > 0 ? achievementY : 0}
+            >
                 {hasAchievement && (
                     <AchievementGridWrapper>
                         <AchievementWrapper showTimeline={showTimeLine}>
-                            <TeamMediaHolder media={achievement[0]} onLoadStatus={setAchievementLoaded} />
+                            <TeamMediaHolder
+                                media={achievement[0]}
+                                onLoadStatus={setAchievementLoaded}
+                            />
                         </AchievementWrapper>
                     </AchievementGridWrapper>
                 )}
                 {hasSecondary && (
-                    <SecondaryMediaWrapper withAchievement={hasAchievement || showTimeLine}>
-                        <RoundedTeamMediaHolder media={secondary[0]} onLoadStatus={setSecondaryLoaded} />
+                    <SecondaryMediaWrapper
+                        withAchievement={hasAchievement || showTimeLine}
+                    >
+                        <RoundedTeamMediaHolder
+                            media={secondary[0]}
+                            onLoadStatus={setSecondaryLoaded}
+                        />
                     </SecondaryMediaWrapper>
                 )}
                 {showTaskStatus && (
-                    <TaskStatusWrapper withAchievement={hasAchievement || showTimeLine} withSecondary={hasSecondary}>
+                    <TaskStatusWrapper
+                        withAchievement={hasAchievement || showTimeLine}
+                        withSecondary={hasSecondary}
+                    >
                         <ContestantViewCorner teamId={teamId} isSmall={false} />
                     </TaskStatusWrapper>
                 )}
                 {showTimeLine && (
                     <TimelineWrapper>
-                        <div><TimeLine teamId={teamId} /></div>
+                        <div>
+                            <TimeLine teamId={teamId} />
+                        </div>
                     </TimelineWrapper>
                 )}
-                {showTimeLine && (
-                    <TimeLineBackground teamId={teamId} />
-                )}
+                {showTimeLine && <TimeLineBackground teamId={teamId} />}
             </TeamViewGrid>
         </>
     );
@@ -171,14 +224,21 @@ const SingleContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecond
 
 type PVPWrapperProps = { $isTop: boolean };
 
-const PVPGrid = styled.div<{ $primaryY: number; $secondaryY: number} & PVPWrapperProps>`
+const PVPGrid = styled.div<
+    { $primaryY: number; $secondaryY: number } & PVPWrapperProps
+>`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: ${props => props.$primaryY / c.PVP_ASPECT_RATIO_HEIGHT * c.PVP_ASPECT_RATIO_WIDTH}px ${props => props.$secondaryY / c.PVP_ASPECT_RATIO_HEIGHT * c.PVP_ASPECT_RATIO_WIDTH}px;
-    grid-template-rows: ${props => props.$isTop
-        ? `${props.$secondaryY}px 1fr ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_MULTIPLIER}px ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER}px`
-        : `${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER}px ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_MULTIPLIER}px 1fr ${props.$secondaryY}px`};
+    grid-template-columns: ${(props) =>
+            (props.$primaryY / c.PVP_ASPECT_RATIO_HEIGHT) *
+            c.PVP_ASPECT_RATIO_WIDTH}px ${(props) =>
+            (props.$secondaryY / c.PVP_ASPECT_RATIO_HEIGHT) *
+            c.PVP_ASPECT_RATIO_WIDTH}px;
+    grid-template-rows: ${(props) =>
+        props.$isTop
+            ? `${props.$secondaryY}px 1fr ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_MULTIPLIER}px ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER}px`
+            : `${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER}px ${c.PVP_TABLE_ROW_HEIGHT * c.PVP_TABLE_ROW_HEIGHT_MULTIPLIER}px 1fr ${props.$secondaryY}px`};
     z-index: 1;
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
     overflow: hidden;
@@ -186,20 +246,20 @@ const PVPGrid = styled.div<{ $primaryY: number; $secondaryY: number} & PVPWrappe
 
 const PVPPrimaryMediaWrapper = styled.div<PVPWrapperProps>`
     grid-column: 1 / 2;
-    grid-row: ${props => props.$isTop ? "1 / 4" : "2 / 5"};
+    grid-row: ${(props) => (props.$isTop ? "1 / 4" : "2 / 5")};
 `;
 
 const PVPSecondaryMediaWrapper = styled.div<PVPWrapperProps>`
     grid-column: 2;
-    grid-row: ${props => props.$isTop ? "1 / 2" : "4 / 5"};
+    grid-row: ${(props) => (props.$isTop ? "1 / 2" : "4 / 5")};
 `;
 
 const PVPTaskStatusWrapper = styled.div<PVPWrapperProps>`
     position: absolute;
     width: 100%;
     height: ${c.PVP_TABLE_ROW_HEIGHT * 3 + "px"};
-    top: ${props => props.$isTop ? "auto" : 0};
-    bottom: ${props => !props.$isTop ? "auto" : 0};
+    top: ${(props) => (props.$isTop ? "auto" : 0)};
+    bottom: ${(props) => (!props.$isTop ? "auto" : 0)};
     z-index: 2;
     overflow: hidden;
     display: grid;
@@ -208,7 +268,7 @@ const PVPTaskStatusWrapper = styled.div<PVPWrapperProps>`
 
 const PVPAchievementWrapper = styled.div<PVPWrapperProps>`
     grid-column: 2;
-    grid-row: ${props => props.$isTop ? "2 / 3" : "3 / 4"};
+    grid-row: ${(props) => (props.$isTop ? "2 / 3" : "3 / 4")};
     display: grid;
     position: relative;
     background: ${c.PVP_BACKGROUND};
@@ -217,7 +277,7 @@ const PVPAchievementWrapper = styled.div<PVPWrapperProps>`
 
 const PVPTackStatusBackWrapper = styled.div<PVPWrapperProps>`
     grid-column: 2;
-    grid-row: ${props => props.$isTop ? "3 / 4" : "2 / 3"};
+    grid-row: ${(props) => (props.$isTop ? "3 / 4" : "2 / 3")};
     background: ${c.PVP_BACKGROUND};
 `;
 
@@ -233,10 +293,26 @@ const PVPAchievementInnerWrapper = styled.div`
     }
 `;
 
-const PVPContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, achievement, setAchievementLoaded, showTaskStatus, showTimeLine, location, position }: CommonContentProps) => {
+const PVPContent = ({
+    teamId,
+    primary,
+    setPrimaryLoaded,
+    secondary,
+    setSecondaryLoaded,
+    achievement,
+    setAchievementLoaded,
+    showTaskStatus,
+    showTimeLine,
+    location,
+    position,
+}: CommonContentProps) => {
     const isTop = position === TeamViewPosition.PVP_TOP;
     const primaryY = location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT;
-    const secondaryY = (location.sizeX - (location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT) / 9 * 16) / 16 * 9;
+    const secondaryY =
+        ((location.sizeX -
+            ((location.sizeY - 0.5 * c.PVP_TABLE_ROW_HEIGHT) / 9) * 16) /
+            16) *
+        9;
     const hasPrimary = (primary?.length ?? 0) > 0;
     const hasSecondary = (secondary?.length ?? 0) > 0;
     const hasAchievement = (achievement?.length ?? 0) > 0;
@@ -249,18 +325,27 @@ const PVPContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondary
             >
                 {hasPrimary && (
                     <PVPPrimaryMediaWrapper $isTop={isTop}>
-                        <TeamMediaHolder media={primary[0]} onLoadStatus={setPrimaryLoaded} />
+                        <TeamMediaHolder
+                            media={primary[0]}
+                            onLoadStatus={setPrimaryLoaded}
+                        />
                     </PVPPrimaryMediaWrapper>
                 )}
                 {hasSecondary && (
                     <PVPSecondaryMediaWrapper $isTop={isTop}>
-                        <TeamMediaHolder media={secondary[0]} onLoadStatus={setSecondaryLoaded} />
+                        <TeamMediaHolder
+                            media={secondary[0]}
+                            onLoadStatus={setSecondaryLoaded}
+                        />
                     </PVPSecondaryMediaWrapper>
                 )}
                 {hasAchievement && (
                     <PVPAchievementWrapper $isTop={isTop}>
                         <PVPAchievementInnerWrapper>
-                            <TeamMediaHolder media={achievement[0]} onLoadStatus={setAchievementLoaded} />
+                            <TeamMediaHolder
+                                media={achievement[0]}
+                                onLoadStatus={setAchievementLoaded}
+                            />
                         </PVPAchievementInnerWrapper>
                     </PVPAchievementWrapper>
                 )}
@@ -269,11 +354,15 @@ const PVPContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondary
                         <TimeLine teamId={teamId} isPvp={true} />
                     </PVPAchievementWrapper>
                 )}
-                <PVPTackStatusBackWrapper $isTop={isTop}/>
+                <PVPTackStatusBackWrapper $isTop={isTop} />
             </PVPGrid>
             {showTaskStatus && (
                 <PVPTaskStatusWrapper $isTop={isTop}>
-                    <ContestantViewLine teamId={teamId} isTop={isTop} tasksContainerY={secondaryY / 9 * 16}/>
+                    <ContestantViewLine
+                        teamId={teamId}
+                        isTop={isTop}
+                        tasksContainerY={(secondaryY / 9) * 16}
+                    />
                 </PVPTaskStatusWrapper>
             )}
         </>
@@ -284,30 +373,53 @@ const SplitScreenGrid = styled.div<{ $secondaryY: number }>`
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr ${props => props.$secondaryY / c.PVP_ASPECT_RATIO_HEIGHT * c.PVP_ASPECT_RATIO_WIDTH}px;
-    grid-template-rows: 1fr ${props => props.$secondaryY / c.PVP_SECONDARY_DIVISOR}px  ${props => props.$secondaryY / c.PVP_SECONDARY_DIVISOR}px;
+    grid-template-columns: 1fr ${(props) =>
+            (props.$secondaryY / c.PVP_ASPECT_RATIO_HEIGHT) *
+            c.PVP_ASPECT_RATIO_WIDTH}px;
+    grid-template-rows: 1fr ${(props) =>
+            props.$secondaryY / c.PVP_SECONDARY_DIVISOR}px ${(props) =>
+            props.$secondaryY / c.PVP_SECONDARY_DIVISOR}px;
     z-index: 3;
     border-radius: ${c.GLOBAL_BORDER_RADIUS};
 `;
 
-const SplitContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSecondaryLoaded, showTaskStatus, location }: CommonContentProps) => {
+const SplitContent = ({
+    teamId,
+    primary,
+    setPrimaryLoaded,
+    secondary,
+    setSecondaryLoaded,
+    showTaskStatus,
+    location,
+}: CommonContentProps) => {
     const hasPrimary = (primary?.length ?? 0) > 0;
     const hasSecondary = (secondary?.length ?? 0) > 0;
     return (
         <>
             {hasPrimary && (
                 <PrimaryMediaWrapper>
-                    <RoundedTeamMediaHolder media={primary[0]} onLoadStatus={setPrimaryLoaded} />
+                    <RoundedTeamMediaHolder
+                        media={primary[0]}
+                        onLoadStatus={setPrimaryLoaded}
+                    />
                 </PrimaryMediaWrapper>
             )}
-            <SplitScreenGrid $secondaryY={location.sizeY * c.SPLITSCREEN_SECONDARY_FACTOR}>
+            <SplitScreenGrid
+                $secondaryY={location.sizeY * c.SPLITSCREEN_SECONDARY_FACTOR}
+            >
                 {hasSecondary && (
                     <SecondaryMediaWrapper withAchievement={false}>
-                        <RoundedTeamMediaHolder media={secondary[0]} onLoadStatus={setSecondaryLoaded} />
+                        <RoundedTeamMediaHolder
+                            media={secondary[0]}
+                            onLoadStatus={setSecondaryLoaded}
+                        />
                     </SecondaryMediaWrapper>
                 )}
                 {showTaskStatus && (
-                    <TaskStatusWrapper withAchievement={false} withSecondary={hasSecondary}>
+                    <TaskStatusWrapper
+                        withAchievement={false}
+                        withSecondary={hasSecondary}
+                    >
                         <ContestantViewCorner teamId={teamId} isSmall={false} />
                     </TaskStatusWrapper>
                 )}
@@ -316,9 +428,15 @@ const SplitContent = ({ teamId, primary, setPrimaryLoaded, secondary, setSeconda
     );
 };
 
-export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData, transitionState }) => {
-    const [curSettings, setCurSettings] = useState<OverlayTeamViewSettings>(widgetData.settings);
-    const [nextSettings, setNextSettings] = useState<OverlayTeamViewSettings>(null);
+export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({
+    widgetData,
+    transitionState,
+}) => {
+    const [curSettings, setCurSettings] = useState<OverlayTeamViewSettings>(
+        widgetData.settings,
+    );
+    const [nextSettings, setNextSettings] =
+        useState<OverlayTeamViewSettings>(null);
 
     // Derive the next settings when team ID changes
     const shouldUpdateSettings = useMemo(() => {
@@ -338,19 +456,36 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({ widgetData, tr
         }, c.TEAM_VIEW_APPEAR_TIME);
     };
 
-    return <>
-        {/** Current */}
-        <TeamViewSingleContent key={curSettings?.teamId} widgetData={{ ...widgetData, settings: curSettings }} transitionState={transitionState}/>
-        {/** Next */}
-        {nextSettings && <TeamViewSingleContent key={nextSettings?.teamId} widgetData={{ ...widgetData, settings: nextSettings }} transitionState={transitionState} onLoaded={onNextLoaded}/> }
-    </>;
+    return (
+        <>
+            {/** Current */}
+            <TeamViewSingleContent
+                key={curSettings?.teamId}
+                widgetData={{ ...widgetData, settings: curSettings }}
+                transitionState={transitionState}
+            />
+            {/** Next */}
+            {nextSettings && (
+                <TeamViewSingleContent
+                    key={nextSettings?.teamId}
+                    widgetData={{ ...widgetData, settings: nextSettings }}
+                    transitionState={transitionState}
+                    onLoaded={onNextLoaded}
+                />
+            )}
+        </>
+    );
 };
 
 type TeamViewSingleContentProps = OverlayWidgetProps<Widget.TeamViewWidget> & {
-    onLoaded?: () => void
-}
+    onLoaded?: () => void;
+};
 
-export const TeamViewSingleContent: React.FC<TeamViewSingleContentProps> = ({ widgetData: { settings, widgetLocationId }, transitionState, onLoaded }) => {
+export const TeamViewSingleContent: React.FC<TeamViewSingleContentProps> = ({
+    widgetData: { settings, widgetLocationId },
+    transitionState,
+    onLoaded,
+}) => {
     const { primary, secondary, achievement, position } = settings;
     const location = c.WIDGET_POSITIONS[widgetLocationId] as LocationRectangle;
     const variant = teamViewVariant(position);
@@ -361,8 +496,10 @@ export const TeamViewSingleContent: React.FC<TeamViewSingleContentProps> = ({ wi
     const isPrimaryEmpty = (primary?.length ?? 0) === 0;
     const isSecondaryEmpty = (secondary?.length ?? 0) === 0;
     const isAchievementEmpty = (achievement?.length ?? 0) === 0;
-    const isLoaded = (isPrimaryEmpty || primaryLoaded) && (isSecondaryEmpty || secondaryLoaded || true)
-        && (variant === "single" || isAchievementEmpty || achievementLoaded);
+    const isLoaded =
+        (isPrimaryEmpty || primaryLoaded) &&
+        (isSecondaryEmpty || secondaryLoaded || true) &&
+        (variant === "single" || isAchievementEmpty || achievementLoaded);
 
     useLayoutEffect(() => {
         if (isLoaded && onLoaded) {
@@ -370,12 +507,22 @@ export const TeamViewSingleContent: React.FC<TeamViewSingleContentProps> = ({ wi
         }
     }, [isLoaded, onLoaded]);
 
-    const props = { ...settings, setPrimaryLoaded, setSecondaryLoaded, setAchievementLoaded, location };
+    const props = {
+        ...settings,
+        setPrimaryLoaded,
+        setSecondaryLoaded,
+        setAchievementLoaded,
+        location,
+    };
     return (
         <TeamViewContainer
             show={isLoaded}
-            animation={isLoaded && (transitionState === "exiting" ? slideOut : slideIn)}
-            animationStyle={transitionState === "exiting" ? "ease-in" : "ease-out"}
+            animation={
+                isLoaded && (transitionState === "exiting" ? slideOut : slideIn)
+            }
+            animationStyle={
+                transitionState === "exiting" ? "ease-in" : "ease-out"
+            }
             data-teamid={settings?.teamId}
         >
             {variant === "single" && <SingleContent {...props} />}

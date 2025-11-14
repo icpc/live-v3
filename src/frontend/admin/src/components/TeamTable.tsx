@@ -12,9 +12,8 @@ import {
     TeamId,
     TeamMediaType,
     MediaType as ApiMediaType,
-    WidgetUsageStatisticsEntry
+    WidgetUsageStatisticsEntry,
 } from "@shared/api";
-
 
 export interface TeamViewData {
     id: TeamId | null;
@@ -33,7 +32,6 @@ export interface UsageStats {
     byTeam: Record<TeamId, WidgetUsageStatisticsEntry>;
 }
 
-
 export interface TableStyle {
     activeColor: string;
     inactiveColor: string;
@@ -46,8 +44,6 @@ export interface TeamRowProps {
     usageStats?: UsageStats;
     onClick: (teamId: TeamId | null) => void;
 }
-
-
 
 export interface ToggleButtonProps {
     label: string;
@@ -92,7 +88,6 @@ export interface TeamTableProps {
     RowComponent?: React.ComponentType<TeamRowProps>;
 }
 
-
 const DEFAULT_MEDIA_TYPES: MediaTypeOption[] = [
     { text: "Camera", mediaType: TeamMediaType.camera },
     { text: "Screen", mediaType: TeamMediaType.screen },
@@ -113,7 +108,10 @@ function formatUsageTime(seconds: number): string {
     return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
 }
 
-function getUsageTimeFromStats(teamId: TeamId, usageStats?: UsageStats): number | undefined {
+function getUsageTimeFromStats(
+    teamId: TeamId,
+    usageStats?: UsageStats,
+): number | undefined {
     if (!teamId || !usageStats?.byTeam[teamId]) return undefined;
 
     const stats = usageStats.byTeam[teamId];
@@ -122,7 +120,7 @@ function getUsageTimeFromStats(teamId: TeamId, usageStats?: UsageStats): number 
     }
 
     return undefined;
-};
+}
 
 function getTeamBackgroundColor(team: TeamViewData, style: TableStyle): string {
     if (team.shown) return style.activeColor;
@@ -156,11 +154,13 @@ function ToggleButton({
     variant,
 }: ToggleButtonProps): React.ReactElement {
     const buttonVariant = variant || (isActive ? "contained" : "outlined");
-    const visibilityIcon = showVisibilityIcon
-        ? isActive
-            ? <VisibilityIcon />
-            : <VisibilityOffIcon />
-        : undefined;
+    const visibilityIcon = showVisibilityIcon ? (
+        isActive ? (
+            <VisibilityIcon />
+        ) : (
+            <VisibilityOffIcon />
+        )
+    ) : undefined;
 
     return (
         <Tooltip title={`${label} ${isActive ? "will" : "won't"} be shown`}>
@@ -188,10 +188,15 @@ function MediaButtons({
     return (
         <>
             {mediaTypes.map((mediaOption) => {
-                const isSelected = isMediaTypeSelected(mediaOption.mediaType, selectedMediaTypes);
-                const isSecondary = secondaryMediaType === mediaOption.mediaType;
+                const isSelected = isMediaTypeSelected(
+                    mediaOption.mediaType,
+                    selectedMediaTypes,
+                );
+                const isSecondary =
+                    secondaryMediaType === mediaOption.mediaType;
                 const color = isSecondary ? "warning" : "primary";
-                const variant = isSelected || isSecondary ? "contained" : "outlined";
+                const variant =
+                    isSelected || isSecondary ? "contained" : "outlined";
 
                 return (
                     <Button
@@ -214,13 +219,14 @@ function TeamRow({
     team,
     style,
     usageStats,
-    onClick
+    onClick,
 }: TeamRowProps): React.ReactElement {
     const backgroundColor = getTeamBackgroundColor(team, style);
     const textColor = getTeamTextColor(team);
 
-    const usageTime = team.id ? getUsageTimeFromStats(team.id, usageStats) : undefined;
-
+    const usageTime = team.id
+        ? getUsageTimeFromStats(team.id, usageStats)
+        : undefined;
 
     return (
         <Box
@@ -278,7 +284,9 @@ export function TeamSettingsPanel({
     onAchievementToggle,
 }: SettingsPanelProps): React.ReactElement {
     const [isMultipleMode, setIsMultipleMode] = useState(false);
-    const [secondaryMediaType, setSecondaryMediaType] = useState<TeamMediaType | null | undefined>(undefined);
+    const [secondaryMediaType, setSecondaryMediaType] = useState<
+        TeamMediaType | null | undefined
+    >(undefined);
 
     const handleMultipleModeToggle = useCallback(() => {
         setIsMultipleMode((prev) => !prev);
@@ -299,13 +307,13 @@ export function TeamSettingsPanel({
                 setSecondaryMediaType(undefined);
             } else {
                 const mediaTypes = [secondaryMediaType, mediaType].filter(
-                    (type): type is TeamMediaType => type !== null
+                    (type): type is TeamMediaType => type !== null,
                 );
                 onShowTeam(mediaTypes);
                 setSecondaryMediaType(undefined);
             }
         },
-        [isMultipleMode, secondaryMediaType, onShowTeam]
+        [isMultipleMode, secondaryMediaType, onShowTeam],
     );
 
     return (
@@ -377,7 +385,7 @@ export function TeamTable({
             sm: "repeat(2, 1fr)",
             md: "repeat(4, 1fr)",
         }),
-        []
+        [],
     );
 
     return (

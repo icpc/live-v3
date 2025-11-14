@@ -20,7 +20,7 @@ import Videos from "../organisms/widgets/Videos";
 import FullScreenClock from "../organisms/widgets/FullScreenClock";
 import Locator from "../organisms/widgets/Locator";
 import { Widget } from "@shared/api";
-import {LocationRectangle} from "@/utils/location-rectangle";
+import { LocationRectangle } from "@/utils/location-rectangle";
 
 const fadeIn = keyframes`
   from {
@@ -43,45 +43,48 @@ const fadeOut = keyframes`
 `;
 
 type WidgetWrapProps = {
-    left: number | string,
-    top: number | string,
-    width: number | string,
-    height: number | string,
-    shouldCrop?: boolean,
-    zIndex: number,
-    animation: Keyframes
-}
+    left: number | string;
+    top: number | string;
+    width: number | string;
+    height: number | string;
+    shouldCrop?: boolean;
+    zIndex: number;
+    animation: Keyframes;
+};
 
 const WidgetWrap = styled.div.attrs<WidgetWrapProps>(
     ({ left, top, width, height }) => {
-        return { style: {
-            left: left + "px",
-            top: top + "px",
-            width: width + "px",
-            height: height + "px",
-        } };
-    }
+        return {
+            style: {
+                left: left + "px",
+                top: top + "px",
+                width: width + "px",
+                height: height + "px",
+            },
+        };
+    },
 )<WidgetWrapProps>`
-  position: absolute;
-  z-index: ${({ zIndex }) => zIndex};
+    position: absolute;
+    z-index: ${({ zIndex }) => zIndex};
 
-  overflow: ${({ shouldCrop = true }) => shouldCrop ? "hidden" : ""};
+    overflow: ${({ shouldCrop = true }) => (shouldCrop ? "hidden" : "")};
 
-  animation: ${props => props.animation} ${c.WIDGET_TRANSITION_TIME}ms linear;
-  animation-fill-mode: forwards;
+    animation: ${(props) => props.animation} ${c.WIDGET_TRANSITION_TIME}ms
+        linear;
+    animation-fill-mode: forwards;
 `;
 
 const MainLayoutWrap = styled.div`
-  width: 1920px;
-  height: 1080px;
-  background: ${DEBUG ? `url(${bg})` : undefined};
+    width: 1920px;
+    height: 1080px;
+    background: ${DEBUG ? `url(${bg})` : undefined};
 `;
 
 const transitionProps = {
     entering: { animation: fadeIn },
-    entered:  {  },
-    exiting:  { animation: fadeOut },
-    exited:  { },
+    entered: {},
+    exiting: { animation: fadeOut },
+    exited: {},
 };
 
 const WIDGETS = {
@@ -96,44 +99,58 @@ const WIDGETS = {
     TeamViewWidget: TeamView,
     // TeamPVPWidget: PVP, // Not actually a widget in backend.
     FullScreenClockWidget: FullScreenClock,
-    TeamLocatorWidget: Locator
+    TeamLocatorWidget: Locator,
 };
 
 const useWidgets = () => {
     const queryParams = useQueryParams();
-    const widgetsFromState = useAppSelector(state => state.widgets.widgets);
+    const widgetsFromState = useAppSelector((state) => state.widgets.widgets);
 
-    if(queryParams.has("forceWidgets")) {
+    if (queryParams.has("forceWidgets")) {
         console.info("forceWidgets=", queryParams.get("forceWidgets"));
-        return JSON.parse(queryParams.get("forceWidgets")) as Record<Widget["widgetId"], Widget>;
+        return JSON.parse(queryParams.get("forceWidgets")) as Record<
+            Widget["widgetId"],
+            Widget
+        >;
     } else {
         return widgetsFromState;
     }
 };
 
-const WidgetWithTransition: React.FC<{ obj: Widget, params: URLSearchParams }> = ({ obj, params }) => {
+const WidgetWithTransition: React.FC<{
+    obj: Widget;
+    params: URLSearchParams;
+}> = ({ obj, params }) => {
     const WidgetComponent = WIDGETS[obj.type];
-    const location = c.WIDGET_POSITIONS[obj.widgetLocationId] as LocationRectangle;
-    
+    const location = c.WIDGET_POSITIONS[
+        obj.widgetLocationId
+    ] as LocationRectangle;
+
     const [transition, toggle] = useTransition({
         timeout: WidgetComponent.overrideTimeout ?? c.WIDGET_TRANSITION_TIME,
         mountOnEnter: true,
         unmountOnExit: true,
         enter: true,
-        exit: true
+        exit: true,
     });
 
     const shouldShow = React.useMemo(() => {
         if (WidgetComponent === undefined) {
             return false;
         }
-        if (obj.type === "TeamLocatorWidget" && obj.settings?.scene !== (params.get("scene") || undefined)) {
+        if (
+            obj.type === "TeamLocatorWidget" &&
+            obj.settings?.scene !== (params.get("scene") || undefined)
+        ) {
             return false;
         }
         if (params.get("scene") && obj.type !== "TeamLocatorWidget") {
             return false;
         }
-        if (params.get("onlyWidgets") && !params.get("onlyWidgets").split(",").includes(obj.widgetId)) {
+        if (
+            params.get("onlyWidgets") &&
+            !params.get("onlyWidgets").split(",").includes(obj.widgetId)
+        ) {
             return false;
         }
         return true;
@@ -155,9 +172,13 @@ const WidgetWithTransition: React.FC<{ obj: Widget, params: URLSearchParams }> =
             height={location.sizeY}
             shouldCrop={WidgetComponent.shouldCrop}
             zIndex={WidgetComponent.zIndex ?? 0}
-            {...(!WidgetComponent.ignoreAnimation && transitionProps[transition.status])}
+            {...(!WidgetComponent.ignoreAnimation &&
+                transitionProps[transition.status])}
         >
-            <WidgetComponent widgetData={obj} transitionState={transition.status}/>
+            <WidgetComponent
+                widgetData={obj}
+                transitionState={transition.status}
+            />
         </WidgetWrap>
     );
 };
@@ -165,12 +186,18 @@ const WidgetWithTransition: React.FC<{ obj: Widget, params: URLSearchParams }> =
 export const MainLayout = () => {
     const widgets = useWidgets();
     const params = useQueryParams();
-    return <MainLayoutWrap>
-        <StatusLightBulbs compact={true}/>
-        {Object.values(widgets).map((obj) => (
-            <WidgetWithTransition key={obj.widgetId} obj={obj} params={params} />
-        ))}
-    </MainLayoutWrap>;
+    return (
+        <MainLayoutWrap>
+            <StatusLightBulbs compact={true} />
+            {Object.values(widgets).map((obj) => (
+                <WidgetWithTransition
+                    key={obj.widgetId}
+                    obj={obj}
+                    params={params}
+                />
+            ))}
+        </MainLayoutWrap>
+    );
 };
 
 export default MainLayout;

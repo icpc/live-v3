@@ -17,7 +17,10 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "shared-code/errors";
-import { TeamViewService, useLocatorService } from "../services/oracleLocatorWidget";
+import {
+    TeamViewService,
+    useLocatorService,
+} from "../services/oracleLocatorWidget";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import { SelectTeamTable } from "./TeamTable";
 import PropTypes from "prop-types";
@@ -26,25 +29,39 @@ const isTeamSatisfiesSearch = (team, searchValue) => {
     if (searchValue === "" || team.id === null) {
         return true;
     }
-    return (team.id + " : " + team.shortName + " : " + team.name).toLowerCase().includes(searchValue);
+    return (team.id + " : " + team.shortName + " : " + team.name)
+        .toLowerCase()
+        .includes(searchValue);
 };
 
 const useTeamsList = (rawTeams, status) => {
     const [selectedTeamId, setSelectedTeamId] = useState(undefined);
     const teamsWithStatus = useMemo(
-        () => rawTeams.map(t => ({
-            ...t,
-            shown: Object.values(status).some(s => s.shown && s.settings.id === t.id),
-            selected: t.id === selectedTeamId,
-        })),
-        [rawTeams, status, selectedTeamId]);
+        () =>
+            rawTeams.map((t) => ({
+                ...t,
+                shown: Object.values(status).some(
+                    (s) => s.shown && s.settings.id === t.id,
+                ),
+                selected: t.id === selectedTeamId,
+            })),
+        [rawTeams, status, selectedTeamId],
+    );
 
     const [searchValue, setSearchValue] = useState("");
 
     const filteredTeams = useMemo(() => {
-        return teamsWithStatus.filter(t => isTeamSatisfiesSearch(t, searchValue));
+        return teamsWithStatus.filter((t) =>
+            isTeamSatisfiesSearch(t, searchValue),
+        );
     }, [teamsWithStatus, searchValue]);
-    return { teams: filteredTeams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue };
+    return {
+        teams: filteredTeams,
+        selectedTeamId,
+        setSelectedTeamId,
+        searchValue,
+        setSearchValue,
+    };
 };
 
 const teamViewTheme = createTheme({
@@ -86,26 +103,44 @@ const VariantSelect = ({ variants, variant, setVariant }) => {
             exclusive
             onChange={(_, v) => v && setVariant(v)}
         >
-            {variants.ids.map(v => <ToggleButton key={v} value={v}>Oracle {v}</ToggleButton>)}
+            {variants.ids.map((v) => (
+                <ToggleButton key={v} value={v}>
+                    Oracle {v}
+                </ToggleButton>
+            ))}
         </ToggleButtonGroup>
     );
 };
 
 VariantSelect.propTypes = {
     variants: PropTypes.any,
-    variant: PropTypes.oneOf(["1", ]).isRequired,
+    variant: PropTypes.oneOf(["1"]).isRequired,
     setVariant: PropTypes.func.isRequired,
 };
 
 const InstanceStatus = ({ selectedInstance, onShow, onHide }) => {
-    const isShowButtonDisabled = !(selectedInstance || selectedInstance === undefined);
+    const isShowButtonDisabled = !(
+        selectedInstance || selectedInstance === undefined
+    );
     return (
-        <Stack sx={{ mb: 1 }} spacing={1} direction="row" flexWrap="wrap" alignItems={"center"}>
+        <Stack
+            sx={{ mb: 1 }}
+            spacing={1}
+            direction="row"
+            flexWrap="wrap"
+            alignItems={"center"}
+        >
             <ButtonGroup variant="contained" sx={{ m: 0 }}>
-                <Button color="primary" disabled={isShowButtonDisabled} onClick={onShow(true)}>
+                <Button
+                    color="primary"
+                    disabled={isShowButtonDisabled}
+                    onClick={onShow(true)}
+                >
                     {selectedInstance ? "Selected" : "Show here"}
                 </Button>
-                <Button color="error" onClick={onHide}>Hide</Button>
+                <Button color="error" onClick={onHide}>
+                    Hide
+                </Button>
             </ButtonGroup>
         </Stack>
     );
@@ -120,7 +155,7 @@ InstanceStatus.propTypes = {
 const useOracleList = (oracleLocatorService) => {
     const [oracles, setOracles] = useState({ ids: [] });
     useEffect(() => {
-        oracleLocatorService.oracles().then(s => setOracles(s));
+        oracleLocatorService.oracles().then((s) => setOracles(s));
     }, []);
     return oracles;
 };
@@ -131,34 +166,43 @@ const OracleViewManager = ({ service }) => {
     const [minRadius, setMinRadius] = useState(200);
 
     const [rawTeams, setRawTeams] = useState([]);
-    const { teams, selectedTeamId, setSelectedTeamId, searchValue, setSearchValue } = useTeamsList(rawTeams, {});
+    const {
+        teams,
+        selectedTeamId,
+        setSelectedTeamId,
+        searchValue,
+        setSearchValue,
+    } = useTeamsList(rawTeams, {});
     useEffect(() => {
         service.teams().then((ts) => setRawTeams([...ts]));
     }, [service]);
 
     const [selectedInstance, setSelectedInstance] = useState(undefined);
 
-    const onInstanceSelect = useCallback((instance) => () => {
-        if (instance === selectedInstance) {
-            setSelectedInstance(undefined);
-        } else {
-            setSelectedInstance(instance);
-        }
-    }, [selectedInstance]);
+    const onInstanceSelect = useCallback(
+        (instance) => () => {
+            if (instance === selectedInstance) {
+                setSelectedInstance(undefined);
+            } else {
+                setSelectedInstance(instance);
+            }
+        },
+        [selectedInstance],
+    );
 
     const [selectedTeamName, selectedTeamCdsId] = useMemo(() => {
         if (selectedTeamId === undefined) {
             return ["", null];
         }
-        const team = teams.find(team => team.id === selectedTeamId);
+        const team = teams.find((team) => team.id === selectedTeamId);
         return [team?.name ?? "", team?.id];
     }, [teams, selectedTeamId]);
 
     const onMove = useCallback(() => {
-        console.log("OnMove", selectedTeamCdsId)
+        console.log("OnMove", selectedTeamCdsId);
         const settings = {
             oracleId: oracle,
-            teamId: selectedTeamCdsId
+            teamId: selectedTeamCdsId,
         };
         service.moveWithSettings(settings);
     }, [selectedInstance, selectedTeamId, service]);
@@ -180,17 +224,33 @@ const OracleViewManager = ({ service }) => {
 
     return (
         <Box>
-            <Box sx={{ mb: 1 }} display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center">
-                <VariantSelect variants={oracles} variant={oracle} setVariant={setOracle} />
+            <Box
+                sx={{ mb: 1 }}
+                display="flex"
+                flexWrap="wrap"
+                justifyContent="space-between"
+                alignItems="center"
+            >
+                <VariantSelect
+                    variants={oracles}
+                    variant={oracle}
+                    setVariant={setOracle}
+                />
             </Box>
-            <InstanceStatus onShow={onInstanceSelect} onHide={onHide} selectedInstance={selectedInstance} />
+            <InstanceStatus
+                onShow={onInstanceSelect}
+                onHide={onHide}
+                selectedInstance={selectedInstance}
+            />
 
-            {selectedInstance !== undefined &&
+            {selectedInstance !== undefined && (
                 <Paper>
                     {selectedTeamId === undefined && (
                         <Box>
                             <TextField
-                                onChange={(e) => setSearchValue(e.target.value.toLowerCase())}
+                                onChange={(e) =>
+                                    setSearchValue(e.target.value.toLowerCase())
+                                }
                                 defaultValue={searchValue}
                                 size="small"
                                 margin="none"
@@ -198,13 +258,18 @@ const OracleViewManager = ({ service }) => {
                                 variant="outlined"
                                 fullWidth
                             />
-                            <SelectTeamTable teams={teams} onClickHandler={setSelectedTeamId} />
+                            <SelectTeamTable
+                                teams={teams}
+                                onClickHandler={setSelectedTeamId}
+                            />
                         </Box>
                     )}
                     {selectedTeamId !== undefined && (
                         <>
                             <FormControl fullWidth sx={{ mb: 1 }}>
-                                <FormLabel component="legend">Team name</FormLabel>
+                                <FormLabel component="legend">
+                                    Team name
+                                </FormLabel>
                                 <TextField
                                     defaultValue={selectedTeamName}
                                     variant="standard"
@@ -215,7 +280,8 @@ const OracleViewManager = ({ service }) => {
                                                 <ArrowDropDown />
                                             </InputAdornment>
                                         ),
-                                        onClick: () => setSelectedTeamId(undefined),
+                                        onClick: () =>
+                                            setSelectedTeamId(undefined),
                                     }}
                                 />
                             </FormControl>
@@ -223,28 +289,36 @@ const OracleViewManager = ({ service }) => {
                                 <Button
                                     color="secondary"
                                     variant="contained"
-                                    onClick={onMove}>Move sniper
+                                    onClick={onMove}
+                                >
+                                    Move sniper
                                 </Button>
                                 <Button
                                     color="primary"
                                     variant="contained"
-                                    onClick={onShow}>Show locator
+                                    onClick={onShow}
+                                >
+                                    Show locator
                                 </Button>
                                 <Button
-                                    color="error"   
+                                    color="error"
                                     variant="contained"
-                                    onClick={onHide}>Hide
+                                    onClick={onHide}
+                                >
+                                    Hide
                                 </Button>
                             </ButtonGroup>
                             <TextField
                                 size="small"
                                 value={minRadius}
-                                onChange={(e) => setMinRadius(parseInt(e.target.value))}
+                                onChange={(e) =>
+                                    setMinRadius(parseInt(e.target.value))
+                                }
                             />
                         </>
                     )}
                 </Paper>
-            }
+            )}
         </Box>
     );
 };
@@ -253,15 +327,16 @@ OracleViewManager.propTypes = {
     service: PropTypes.instanceOf(TeamViewService).isRequired,
 };
 
-
 function OracleLocator() {
-    const { enqueueSnackbar, } = useSnackbar();
-    const service = useLocatorService(errorHandlerWithSnackbar(enqueueSnackbar));
+    const { enqueueSnackbar } = useSnackbar();
+    const service = useLocatorService(
+        errorHandlerWithSnackbar(enqueueSnackbar),
+    );
 
     return (
         <Container sx={{ pt: 2 }}>
             <ThemeProvider theme={teamViewTheme}>
-                <OracleViewManager service={service}/>
+                <OracleViewManager service={service} />
             </ThemeProvider>
         </Container>
     );

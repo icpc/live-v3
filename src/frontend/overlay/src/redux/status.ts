@@ -4,17 +4,19 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export enum WebsocketStatus {
     CONNECTING = 0,
     CONNECTED = 1,
-    DISCONNECTED = -1
+    DISCONNECTED = -1,
 }
 
 export interface StatusState {
-    websockets: Record<string, WebsocketStatus>
+    websockets: Record<string, WebsocketStatus>;
 }
 
 const initialState: StatusState = {
-    websockets: Object.fromEntries(Object.keys(c.WEBSOCKETS).map((key) => {
-        return [key, undefined];
-    })),
+    websockets: Object.fromEntries(
+        Object.keys(c.WEBSOCKETS).map((key) => {
+            return [key, undefined];
+        }),
+    ),
 };
 
 export const statusSlice = createSlice({
@@ -22,19 +24,26 @@ export const statusSlice = createSlice({
     initialState,
     reducers: {
         setWebsocketStatus: {
-            reducer(state, action: PayloadAction<{socket: string, newStatus: WebsocketStatus}>) {
-                state.websockets[action.payload.socket] = action.payload.newStatus;
+            reducer(
+                state,
+                action: PayloadAction<{
+                    socket: string;
+                    newStatus: WebsocketStatus;
+                }>,
+            ) {
+                state.websockets[action.payload.socket] =
+                    action.payload.newStatus;
             },
-            prepare(wsName, newStatus){
+            prepare(wsName, newStatus) {
                 return {
                     payload: {
                         socket: wsName,
-                        newStatus
-                    }
+                        newStatus,
+                    },
                 };
-            }
-        }
-    }
+            },
+        },
+    },
 });
 
 // export const setWebsocketStatus = (wsName: string, newStatus: WebsocketStatus) => {

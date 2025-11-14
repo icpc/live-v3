@@ -17,7 +17,6 @@ import { useTeamSpotlightService } from "../services/teamSpotlight";
 import { TeamId } from "@shared/api";
 import { Team, ScoreEntry } from "@/services/teamSpotlight";
 
-
 interface ButtonGroupTextFieldProps {
     value: number;
     label: string;
@@ -25,13 +24,11 @@ interface ButtonGroupTextFieldProps {
 }
 
 interface TeamScoreTableProps {
-    teams: Team[],
-    selectedTeams: TeamId[],
+    teams: Team[];
+    selectedTeams: TeamId[];
     onRowClick: (team: Team) => void;
     scoreCalculator: (teamId: TeamId) => number | undefined;
 }
-
-
 
 const tableTheme = createTheme({
     components: {
@@ -45,7 +42,6 @@ const tableTheme = createTheme({
         },
     },
 });
-
 
 function formatScore(score: number): string {
     return score.toLocaleString(undefined, { maximumFractionDigits: 2 });
@@ -74,7 +70,7 @@ function calculateDistributedScore(
 function ButtonGroupTextField({
     value,
     label,
-    onChange
+    onChange,
 }: ButtonGroupTextFieldProps): React.ReactElement {
     return (
         <TextField
@@ -87,24 +83,25 @@ function ButtonGroupTextField({
             type="number"
             InputProps={{
                 style: { height: "36.5px" },
-                inputProps: { step: "any" }
+                inputProps: { step: "any" },
             }}
         />
     );
 }
 
-
 function TeamScoreTable({
     teams,
     selectedTeams,
     onRowClick,
-    scoreCalculator
+    scoreCalculator,
 }: TeamScoreTableProps) {
     const getRowBackground = useCallback(
         (team: Team): string | undefined => {
-            return selectedTeams.includes(team.id) ? selectedRowColor : undefined;
+            return selectedTeams.includes(team.id)
+                ? selectedRowColor
+                : undefined;
         },
-        [selectedTeams]
+        [selectedTeams],
     );
 
     return (
@@ -127,7 +124,8 @@ function TeamScoreTable({
                             >
                                 <TableCell>{team.name}</TableCell>
                                 <TableCell>
-                                    {calculatedScore && `+${formatScore(calculatedScore)}`}
+                                    {calculatedScore &&
+                                        `+${formatScore(calculatedScore)}`}
                                 </TableCell>
                                 <TableCell>{formatScore(team.score)}</TableCell>
                             </TableRow>
@@ -147,14 +145,14 @@ function TeamSpotlight(): React.ReactElement {
 
     const selectTeam = useCallback(
         (team: Team) => {
-            setSelectedTeamIds(prev => {
+            setSelectedTeamIds((prev) => {
                 if (prev.includes(team.id)) {
-                    return prev.filter(id => id !== team.id);
+                    return prev.filter((id) => id !== team.id);
                 }
                 return [...prev, team.id];
             });
         },
-        [setSelectedTeamIds]
+        [setSelectedTeamIds],
     );
 
     const getCurrentScore = useCallback(
@@ -166,13 +164,16 @@ function TeamSpotlight(): React.ReactElement {
                 scoreTo,
             );
         },
-        [selectedTeamIds, scoreFrom, scoreTo]
+        [selectedTeamIds, scoreFrom, scoreTo],
     );
 
-    const handleResetClick = useCallback(() => setSelectedTeamIds([]), [setSelectedTeamIds]);
+    const handleResetClick = useCallback(
+        () => setSelectedTeamIds([]),
+        [setSelectedTeamIds],
+    );
 
     const handleAddScoreClick = useCallback(async () => {
-        const scoreEntires: ScoreEntry[] = selectedTeamIds.map(teamId => ({
+        const scoreEntires: ScoreEntry[] = selectedTeamIds.map((teamId) => ({
             teamId,
             score: getCurrentScore(teamId) || 0,
         }));
@@ -189,14 +190,14 @@ function TeamSpotlight(): React.ReactElement {
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setScoreFrom(Number(event.target.value));
         },
-        []
+        [],
     );
 
     const handleScoreToChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             setScoreTo(Number(event.target.value));
         },
-        []
+        [],
     );
 
     const isActionDisabled = selectedTeamIds.length === 0;

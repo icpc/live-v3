@@ -10,19 +10,22 @@ export default defineConfig({
         react({
             babel: {
                 plugins: [
-                    ["babel-plugin-react-compiler", {
-                        target: "19"
-                    }]
-                ]
-            }
+                    [
+                        "babel-plugin-react-compiler",
+                        {
+                            target: "19",
+                        },
+                    ],
+                ],
+            },
         }),
-   ],
+    ],
     base: process.env.PUBLIC_URL ?? "/",
     build: {
         target: "esnext",
-        outDir: process.env.BUILD_PATH ?? "dist"
+        outDir: process.env.BUILD_PATH ?? "dist",
     },
     experimental: {
         enableNativePlugin: true,
-    }
+    },
 });

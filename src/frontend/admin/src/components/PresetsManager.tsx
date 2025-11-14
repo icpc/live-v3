@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { Table, TableBody, TableCell, TableHead, TableRow, Box } from "@mui/material";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Box,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import { PresetsTableRow } from "./PresetsTableRow";
@@ -45,7 +52,9 @@ export interface PresetsManagerProps<S = Record<string, unknown>> {
     isImmutable?: boolean;
 }
 
-export const DefaultAddPresetButton = <S extends Record<string, unknown> = Record<string, unknown>>({
+export const DefaultAddPresetButton = <
+    S extends Record<string, unknown> = Record<string, unknown>,
+>({
     onCreate,
 }: AddButtonsProps<S>) => {
     return (
@@ -62,17 +71,22 @@ export const DefaultAddPresetButton = <S extends Record<string, unknown> = Recor
 
 const createDefaultRowData = <S extends Record<string, unknown>>(
     tableKeys: string[],
-    providedDefault?: Partial<S>
+    providedDefault?: Partial<S>,
 ): S => {
-    const baseData = tableKeys.reduce((acc, key) => {
-        acc[key] = "";
-        return acc;
-    }, {} as Record<string, unknown>);
+    const baseData = tableKeys.reduce(
+        (acc, key) => {
+            acc[key] = "";
+            return acc;
+        },
+        {} as Record<string, unknown>,
+    );
 
     return { ...baseData, ...providedDefault } as S;
 };
 
-export const PresetsManager = <S extends Record<string, unknown> = Record<string, unknown>>({
+export const PresetsManager = <
+    S extends Record<string, unknown> = Record<string, unknown>,
+>({
     service,
     RowComponent,
     defaultRowData,
@@ -86,12 +100,16 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const ResolvedRowComponent = RowComponent || (PresetsTableRow as React.ComponentType<RowComponentProps<S>>);
-    const ResolvedAddButtons = AddButtons || (DefaultAddPresetButton as React.ComponentType<AddButtonsProps<S>>);
+    const ResolvedRowComponent =
+        RowComponent ||
+        (PresetsTableRow as React.ComponentType<RowComponentProps<S>>);
+    const ResolvedAddButtons =
+        AddButtons ||
+        (DefaultAddPresetButton as React.ComponentType<AddButtonsProps<S>>);
 
     const defaultRowDataResolved = useMemo(
         () => createDefaultRowData(tableKeys, defaultRowData),
-        [defaultRowData, tableKeys]
+        [defaultRowData, tableKeys],
     );
 
     const loadData = useCallback(async () => {
@@ -117,7 +135,7 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
                 setError("Failed to create preset");
             }
         },
-        [service, defaultRowDataResolved]
+        [service, defaultRowDataResolved],
     );
 
     const handleEdit = useCallback(
@@ -129,7 +147,7 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
                 setError("Failed to edit preset");
             }
         },
-        [service]
+        [service],
     );
 
     const handleDelete = useCallback(
@@ -141,7 +159,7 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
                 setError("Failed to delete preset");
             }
         },
-        [service]
+        [service],
     );
 
     const handleToggleShow = useCallback(
@@ -157,7 +175,7 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
                 setError("Failed to toggle preset visibility");
             }
         },
-        [service]
+        [service],
     );
 
     useEffect(() => {
@@ -171,7 +189,7 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
 
     const filteredElements = useMemo(
         () => elements.filter(rowsFilter),
-        [elements, rowsFilter]
+        [elements, rowsFilter],
     );
 
     return (
@@ -179,11 +197,11 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
             {error && (
                 <Box
                     sx={{
-                        color: 'error.main',
+                        color: "error.main",
                         mb: 2,
                         p: 1,
-                        bgcolor: 'error.light',
-                        borderRadius: 1
+                        bgcolor: "error.light",
+                        borderRadius: 1,
                     }}
                 >
                     {error}
@@ -213,7 +231,10 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
                     {isLoading ? (
                         <TableRow>
                             <TableCell
-                                colSpan={(tableKeysHeaders?.length ?? tableKeys.length) + 2}
+                                colSpan={
+                                    (tableKeysHeaders?.length ??
+                                        tableKeys.length) + 2
+                                }
                                 align="center"
                             >
                                 Loading...
@@ -222,9 +243,12 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
                     ) : filteredElements.length === 0 ? (
                         <TableRow>
                             <TableCell
-                                colSpan={(tableKeysHeaders?.length ?? tableKeys.length) + 2}
+                                colSpan={
+                                    (tableKeysHeaders?.length ??
+                                        tableKeys.length) + 2
+                                }
                                 align="center"
-                                sx={{ color: 'text.secondary' }}
+                                sx={{ color: "text.secondary" }}
                             >
                                 No presets found
                             </TableCell>
@@ -246,7 +270,7 @@ export const PresetsManager = <S extends Record<string, unknown> = Record<string
             </Table>
 
             {!isImmutable && (
-                <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
                     <ResolvedAddButtons onCreate={handleCreate} />
                 </Box>
             )}

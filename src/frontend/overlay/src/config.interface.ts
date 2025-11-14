@@ -2,379 +2,379 @@ import { LocationRectangle } from "@/utils/location-rectangle";
 
 // Explicit interface for the evaluated overlay config (after applying defaults and lambdas)
 export interface OverlayConfig {
-  // Base / connectivity
-  CONTEST_COLOR: string;
-  CONTEST_CAPTION: string;
-  BASE_URL_WS: string;
+    // Base / connectivity
+    CONTEST_COLOR: string;
+    CONTEST_CAPTION: string;
+    BASE_URL_WS: string;
 
-  // Non-styling configs
-  WEBSOCKET_RECONNECT_TIME: number; // ms
+    // Non-styling configs
+    WEBSOCKET_RECONNECT_TIME: number; // ms
 
-  // Strings
-  QUEUE_TITLE: string;
-  QUEUE_CAPTION: string;
-  SCOREBOARD_CAPTION: string;
-  STATISTICS_TITLE: string;
-  STATISTICS_CAPTION: string;
+    // Strings
+    QUEUE_TITLE: string;
+    QUEUE_CAPTION: string;
+    SCOREBOARD_CAPTION: string;
+    STATISTICS_TITLE: string;
+    STATISTICS_CAPTION: string;
 
-  // Behaviour
-  TICKER_SCOREBOARD_REPEATS: number;
-  QUEUE_MAX_ROWS: number;
-  QUEUE_HORIZONTAL_HEIGHT_NUM: number;
+    // Behaviour
+    TICKER_SCOREBOARD_REPEATS: number;
+    QUEUE_MAX_ROWS: number;
+    QUEUE_HORIZONTAL_HEIGHT_NUM: number;
 
-  // Timings
-  WIDGET_TRANSITION_TIME: number; // ms
-  QUEUE_ROW_TRANSITION_TIME: number; // ms
-  QUEUE_ROW_APPEAR_TIME: number; // ms
-  QUEUE_ROW_FEATURED_RUN_APPEAR_TIME: number; // ms
-  QUEUE_ROW_FEATURED_RUN_ADDITIONAL_DELAY: number; // ms
-  QUEUE_ROW_FTS_TRANSITION_TIME: number; // ms
-  SCOREBOARD_ROW_TRANSITION_TIME: number; // ms
-  SCOREBOARD_SCROLL_INTERVAL: number; // ms
-  PICTURES_APPEAR_TIME: number; // ms
-  SVG_APPEAR_TIME: number; // ms
-  VIDEO_APPEAR_TIME: number; // ms
-  TEAM_VIEW_APPEAR_TIME: number; // ms
-  PVP_APPEAR_TIME: number; // ms
-  TICKER_SCROLL_TRANSITION_TIME: number; // ms
-  TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME: number; // ms
-  STATISTICS_CELL_MORPH_TIME: number; // ms
-  CELL_FLASH_PERIOD: number; // ms
+    // Timings
+    WIDGET_TRANSITION_TIME: number; // ms
+    QUEUE_ROW_TRANSITION_TIME: number; // ms
+    QUEUE_ROW_APPEAR_TIME: number; // ms
+    QUEUE_ROW_FEATURED_RUN_APPEAR_TIME: number; // ms
+    QUEUE_ROW_FEATURED_RUN_ADDITIONAL_DELAY: number; // ms
+    QUEUE_ROW_FTS_TRANSITION_TIME: number; // ms
+    SCOREBOARD_ROW_TRANSITION_TIME: number; // ms
+    SCOREBOARD_SCROLL_INTERVAL: number; // ms
+    PICTURES_APPEAR_TIME: number; // ms
+    SVG_APPEAR_TIME: number; // ms
+    VIDEO_APPEAR_TIME: number; // ms
+    TEAM_VIEW_APPEAR_TIME: number; // ms
+    PVP_APPEAR_TIME: number; // ms
+    TICKER_SCROLL_TRANSITION_TIME: number; // ms
+    TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME: number; // ms
+    STATISTICS_CELL_MORPH_TIME: number; // ms
+    CELL_FLASH_PERIOD: number; // ms
 
-  // Styles > Global
-  GLOBAL_DEFAULT_FONT_FAMILY: string; // css-property
-  GLOBAL_DEFAULT_FONT_SIZE: string; // css-property
-  GLOBAL_DEFAULT_FONT_WEIGHT: number; // css-property
-  GLOBAL_DEFAULT_FONT_WEIGHT_BOLD: number; // css-property
-  GLOBAL_DEFAULT_FONT: string; // MUST HAVE FONT SIZE
-  GLOBAL_BACKGROUND_COLOR: string;
-  GLOBAL_TEXT_COLOR: string;
-  GLOBAL_BORDER_RADIUS: string;
+    // Styles > Global
+    GLOBAL_DEFAULT_FONT_FAMILY: string; // css-property
+    GLOBAL_DEFAULT_FONT_SIZE: string; // css-property
+    GLOBAL_DEFAULT_FONT_WEIGHT: number; // css-property
+    GLOBAL_DEFAULT_FONT_WEIGHT_BOLD: number; // css-property
+    GLOBAL_DEFAULT_FONT: string; // MUST HAVE FONT SIZE
+    GLOBAL_BACKGROUND_COLOR: string;
+    GLOBAL_TEXT_COLOR: string;
+    GLOBAL_BORDER_RADIUS: string;
 
-  // Extra CSS configurations
-  EXTRA_CSS: string | null; // Additional CSS that can be injected
+    // Extra CSS configurations
+    EXTRA_CSS: string | null; // Additional CSS that can be injected
 
-  VERDICT_OK: string;
-  VERDICT_NOK: string;
-  VERDICT_UNKNOWN: string;
+    VERDICT_OK: string;
+    VERDICT_NOK: string;
+    VERDICT_UNKNOWN: string;
 
-  VERDICT_LABEL_FONT_SIZE: string;
-  VERDICT_CELL_TRANSITION_TIME: number;
-  VERDICT_CELL_BRODER_RADIUS: string;
+    VERDICT_LABEL_FONT_SIZE: string;
+    VERDICT_CELL_TRANSITION_TIME: number;
+    VERDICT_CELL_BRODER_RADIUS: string;
 
-  // Styles > Scoreboard
-  SCOREBOARD_BACKGROUND_COLOR: string;
-  SCOREBOARD_BORDER_RADIUS: string;
-  SCOREBOARD_TEXT_COLOR: string;
-  SCOREBOARD_CAPTION_FONT_SIZE: string; // css value
-  SCOREBOARD_HEADER_BACKGROUND_COLOR: string;
-  SCOREBOARD_HEADER_DIVIDER_COLOR: string;
-  SCOREBOARD_HEADER_FONT_SIZE: string;
-  SCOREBOARD_HEADER_FONT_WEIGHT: number;
-  SCOREBOARD_HEADER_HEIGHT: number;
-  SCOREBOARD_ROWS_DIVIDER_COLOR: string;
-  SCOREBOARD_ROW_HEIGHT: number; // px
-  SCOREBOARD_ROW_PADDING: number; // px
-  SCOREBOARD_BETWEEN_HEADER_PADDING: number; // px
-  SCOREBOARD_ROW_FONT_SIZE: string;
-  SCOREBOARD_TABLE_ROW_FONT_WEIGHT: number
+    // Styles > Scoreboard
+    SCOREBOARD_BACKGROUND_COLOR: string;
+    SCOREBOARD_BORDER_RADIUS: string;
+    SCOREBOARD_TEXT_COLOR: string;
+    SCOREBOARD_CAPTION_FONT_SIZE: string; // css value
+    SCOREBOARD_HEADER_BACKGROUND_COLOR: string;
+    SCOREBOARD_HEADER_DIVIDER_COLOR: string;
+    SCOREBOARD_HEADER_FONT_SIZE: string;
+    SCOREBOARD_HEADER_FONT_WEIGHT: number;
+    SCOREBOARD_HEADER_HEIGHT: number;
+    SCOREBOARD_ROWS_DIVIDER_COLOR: string;
+    SCOREBOARD_ROW_HEIGHT: number; // px
+    SCOREBOARD_ROW_PADDING: number; // px
+    SCOREBOARD_BETWEEN_HEADER_PADDING: number; // px
+    SCOREBOARD_ROW_FONT_SIZE: string;
+    SCOREBOARD_TABLE_ROW_FONT_WEIGHT: number;
 
-  SCOREBOARD_CELL_PLACE_SIZE: string;
-  SCOREBOARD_CELL_TEAMNAME_SIZE: string;
-  SCOREBOARD_CELL_TEAMNANE_ALIGN: string;
-  SCOREBOARD_CELL_POINTS_SIZE: string;
-  SCOREBOARD_CELL_POINTS_ALIGN: string;
-  SCOREBOARD_CELL_PENALTY_SIZE: string;
-  SCOREBOARD_CELL_PENALTY_ALIGN: string;
+    SCOREBOARD_CELL_PLACE_SIZE: string;
+    SCOREBOARD_CELL_TEAMNAME_SIZE: string;
+    SCOREBOARD_CELL_TEAMNANE_ALIGN: string;
+    SCOREBOARD_CELL_POINTS_SIZE: string;
+    SCOREBOARD_CELL_POINTS_ALIGN: string;
+    SCOREBOARD_CELL_PENALTY_SIZE: string;
+    SCOREBOARD_CELL_PENALTY_ALIGN: string;
 
-  SCOREBOARD_NORMAL_NAME: string;
-  SCOREBOARD_OPTIMISTIC_NAME: string;
-  SCOREBOARD_PESSIMISTIC_NAME: string;
-  SCOREBOARD_UNDEFINED_NAME: string;
-  SCOREBOARD_STANDINGS_NAME: string;
+    SCOREBOARD_NORMAL_NAME: string;
+    SCOREBOARD_OPTIMISTIC_NAME: string;
+    SCOREBOARD_PESSIMISTIC_NAME: string;
+    SCOREBOARD_UNDEFINED_NAME: string;
+    SCOREBOARD_STANDINGS_NAME: string;
 
-  SCOREBOARD_GAP: string;
-  SCOREBOARD_PADDING_TOP: string;
-  SCOREBOARD_PADDING_RIGHT: string;
-  SCOREBOARD_PADDING_LEFT: string;
-  SCOREBOARD_HEADER_PADDING_TOP: string;
-  SCOREBOARD_CELL_PADDING: string;
-  SCOREBOARD_HEADER_BORDER_RADIUS_TOP_LEFT: string;
-  SCOREBOARD_HEADER_BORDER_RADIUS_TOP_RIGHT: string;
+    SCOREBOARD_GAP: string;
+    SCOREBOARD_PADDING_TOP: string;
+    SCOREBOARD_PADDING_RIGHT: string;
+    SCOREBOARD_PADDING_LEFT: string;
+    SCOREBOARD_HEADER_PADDING_TOP: string;
+    SCOREBOARD_CELL_PADDING: string;
+    SCOREBOARD_HEADER_BORDER_RADIUS_TOP_LEFT: string;
+    SCOREBOARD_HEADER_BORDER_RADIUS_TOP_RIGHT: string;
 
-  // Queue
-  QUEUE_ROW_FONT_SIZE: string;
-  QUEUE_ROW_BACKGROUND: string;
-  QUEUE_ROW_HEIGHT: number; // px
-  QUEUE_ROW_WIDTH: number; // px
-  QUEUE_ROW_Y_PADDING: number; // px
-  QUEUE_HORIZONTAL_ROW_Y_PADDING: number; // px
-  QUEUE_ROW_FEATURED_RUN_PADDING: number; // px
-  QUEUE_WRAP_PADDING: number; // px
-  QUEUE_HORIZONTAL_ROW_X_PADDING: number; // px
-  QUEUE_OPACITY: number;
-  QUEUE_FEATURED_RUN_ASPECT: number;
-  QUEUE_BACKGROUND_COLOR: string;
-  QUEUE_HORIZONTAL_BACKGROUND_COLOR: string;
-  QUEUE_ROW_PROBLEM_LABEL_WIDTH: number; // px
-  QUEUE_HEADER_FONT_SIZE: string;
-  QUEUE_HEADER_LINE_HEIGHT: string;
-  QUEUE_RANK_LABEL_WIDTH: string;
-  QUEUE_RANK_LABEL_PADDING_LEFT: string;
-  QUEUE_ROW_GAP: string;
-  QUEUE_SCORE_LABEL_WIDTH: string;
-  QUEUE_GAP: string;
-  QUEUE_FEATURED_RUN_WIDTH: string;
-  QUEUE_FEATURED_RUN_PADDING_TOP: string;
-  QUEUE_FEATURED_RUN_PADDING_RIGHT: string;
-  QUEUE_FEATURED_RUN_PADDING_BOTTOM: string;
-  QUEUE_FEATURED_RUN_PADDING_LEFT: string;
-  QUEUE_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT: string;
-  QUEUE_FEATURED_RUN_BORDER_RADIUS_BOTTOM_LEFT: string;
-  QUEUE_HORIZONTAL_FEATURED_RUN_WIDTH: string;
-  QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT: string;
-  QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_RIGHT: string;
-  QUEUE_FTS_BOTTOM_OFFSET: number; // px
-  QUEUE_ROW_STATUS_LABEL_WIDTH: string;
-  QUEUE_FEATURED_RUN_RIGHT_OFFSET: string;
+    // Queue
+    QUEUE_ROW_FONT_SIZE: string;
+    QUEUE_ROW_BACKGROUND: string;
+    QUEUE_ROW_HEIGHT: number; // px
+    QUEUE_ROW_WIDTH: number; // px
+    QUEUE_ROW_Y_PADDING: number; // px
+    QUEUE_HORIZONTAL_ROW_Y_PADDING: number; // px
+    QUEUE_ROW_FEATURED_RUN_PADDING: number; // px
+    QUEUE_WRAP_PADDING: number; // px
+    QUEUE_HORIZONTAL_ROW_X_PADDING: number; // px
+    QUEUE_OPACITY: number;
+    QUEUE_FEATURED_RUN_ASPECT: number;
+    QUEUE_BACKGROUND_COLOR: string;
+    QUEUE_HORIZONTAL_BACKGROUND_COLOR: string;
+    QUEUE_ROW_PROBLEM_LABEL_WIDTH: number; // px
+    QUEUE_HEADER_FONT_SIZE: string;
+    QUEUE_HEADER_LINE_HEIGHT: string;
+    QUEUE_RANK_LABEL_WIDTH: string;
+    QUEUE_RANK_LABEL_PADDING_LEFT: string;
+    QUEUE_ROW_GAP: string;
+    QUEUE_SCORE_LABEL_WIDTH: string;
+    QUEUE_GAP: string;
+    QUEUE_FEATURED_RUN_WIDTH: string;
+    QUEUE_FEATURED_RUN_PADDING_TOP: string;
+    QUEUE_FEATURED_RUN_PADDING_RIGHT: string;
+    QUEUE_FEATURED_RUN_PADDING_BOTTOM: string;
+    QUEUE_FEATURED_RUN_PADDING_LEFT: string;
+    QUEUE_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT: string;
+    QUEUE_FEATURED_RUN_BORDER_RADIUS_BOTTOM_LEFT: string;
+    QUEUE_HORIZONTAL_FEATURED_RUN_WIDTH: string;
+    QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT: string;
+    QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_RIGHT: string;
+    QUEUE_FTS_BOTTOM_OFFSET: number; // px
+    QUEUE_ROW_STATUS_LABEL_WIDTH: string;
+    QUEUE_FEATURED_RUN_RIGHT_OFFSET: string;
 
-  PROBLEM_LABEL_WIDTH: string;
-  
-  TIME_CELL_FLEX_BASIS: string;
-  TIME_CELL_WIDTH: string;
+    PROBLEM_LABEL_WIDTH: string;
 
-  SUBMISSION_ROW_TASK_RESULT_LABEL_WIDTH: string;
+    TIME_CELL_FLEX_BASIS: string;
+    TIME_CELL_WIDTH: string;
 
-  SCORE_NONE_TEXT: string;
+    SUBMISSION_ROW_TASK_RESULT_LABEL_WIDTH: string;
 
-  // Statistics
-  STATISTICS_TITLE_FONT_SIZE: string;
-  STATISTICS_OPACITY: number;
-  STATISTICS_BG_COLOR: string;
-  STATISTICS_TITLE_COLOR: string;
-  STATISTICS_STATS_VALUE_FONT_SIZE: string;
-  STATISTICS_STATS_VALUE_FONT_FAMILY: string;
-  STATISTICS_STATS_VALUE_COLOR: string;
-  STATISTICS_BAR_HEIGHT_PX: number;
-  STATISTICS_BAR_HEIGHT: string;
-  STATISTICS_BAR_GAP_PX: number;
-  STATISTICS_BAR_GAP: string;
-  STATISTICS_PADDING_VERTICAL: string;
-  STATISTICS_PADDING_HORIZONTAL: string;
-  STATISTICS_HEADER_GAP: string;
-  STATISTICS_HEADER_FONT_SIZE: string;
-  STATISTICS_HEADER_LINE_HEIGHT: string;
-  STATISTICS_CONTENT_GAP: string;
+    SCORE_NONE_TEXT: string;
 
-  LEGEND_VERTICAL_MARGIN: string;
-  LEGEND_HORIZONTAL_MARGIN: string;
+    // Statistics
+    STATISTICS_TITLE_FONT_SIZE: string;
+    STATISTICS_OPACITY: number;
+    STATISTICS_BG_COLOR: string;
+    STATISTICS_TITLE_COLOR: string;
+    STATISTICS_STATS_VALUE_FONT_SIZE: string;
+    STATISTICS_STATS_VALUE_FONT_FAMILY: string;
+    STATISTICS_STATS_VALUE_COLOR: string;
+    STATISTICS_BAR_HEIGHT_PX: number;
+    STATISTICS_BAR_HEIGHT: string;
+    STATISTICS_BAR_GAP_PX: number;
+    STATISTICS_BAR_GAP: string;
+    STATISTICS_PADDING_VERTICAL: string;
+    STATISTICS_PADDING_HORIZONTAL: string;
+    STATISTICS_HEADER_GAP: string;
+    STATISTICS_HEADER_FONT_SIZE: string;
+    STATISTICS_HEADER_LINE_HEIGHT: string;
+    STATISTICS_CONTENT_GAP: string;
 
-  // Cells (legacy TODO: remove)
-  CELL_FONT_FAMILY: string;
-  CELL_FONT_SIZE: string;
-  CELL_TEXT_COLOR: string;
-  CELL_TEXT_COLOR_INVERSE: string;
-  CELL_BG_COLOR: string;
-  CELL_BG_COLOR_ODD: string;
-  CELL_BG_COLOR2: string;
-  CELL_BG_COLOR_ODD2: string;
+    LEGEND_VERTICAL_MARGIN: string;
+    LEGEND_HORIZONTAL_MARGIN: string;
 
-  CELL_PROBLEM_LINE_WIDTH: string; // css property
-  CELL_QUEUE_VERDICT_WIDTH: string; // css property
-  CELL_QUEUE_VERDICT_WIDTH2: string; // css property
-  CELL_QUEUE_RANK_WIDTH: string; // css property
-  CELL_QUEUE_RANK_WIDTH2: string; // css property
-  CELL_QUEUE_TOTAL_SCORE_WIDTH: string; // css property
-  CELL_QUEUE_TASK_WIDTH: string; // css property
+    // Cells (legacy TODO: remove)
+    CELL_FONT_FAMILY: string;
+    CELL_FONT_SIZE: string;
+    CELL_TEXT_COLOR: string;
+    CELL_TEXT_COLOR_INVERSE: string;
+    CELL_BG_COLOR: string;
+    CELL_BG_COLOR_ODD: string;
+    CELL_BG_COLOR2: string;
+    CELL_BG_COLOR_ODD2: string;
 
-  CELL_NAME_LEFT_PADDING: string; // css property
-  CELL_NAME_RIGHT_PADDING: string; // css property
+    CELL_PROBLEM_LINE_WIDTH: string; // css property
+    CELL_QUEUE_VERDICT_WIDTH: string; // css property
+    CELL_QUEUE_VERDICT_WIDTH2: string; // css property
+    CELL_QUEUE_RANK_WIDTH: string; // css property
+    CELL_QUEUE_RANK_WIDTH2: string; // css property
+    CELL_QUEUE_TOTAL_SCORE_WIDTH: string; // css property
+    CELL_QUEUE_TASK_WIDTH: string; // css property
 
-  // Ticker
-  TICKER_SMALL_SIZE: string; // css property
-  TICKER_SMALL_BACKGROUND: string;
-  TICKER_BACKGROUND: string;
-  TICKER_DEFAULT_SCOREBOARD_BACKGROUND: string;
-  TICKER_OPACITY: number;
-  TICKER_FONT_COLOR: string;
-  TICKER_FONT_FAMILY: string;
-  TICKER_TEXT_FONT_SIZE: string; // css property
-  TICKER_TEXT_HORIZONTAL_PADDING: string;
-  TICKER_TEXT_MARGIN_LEFT: string; // css property
-  TICKER_CLOCK_FONT_SIZE: string; // css property
-  TICKER_CLOCK_MARGIN_LEFT: string; // css property
-  TICKER_SCOREBOARD_RANK_WIDTH: string; // css property
-  TICKER_LIVE_ICON_SIZE: string;
-  TICKER_SCOREBOARD_GAP: string;
-  TICKER_SCOREBOARD_CONTESTANT_INFO_HEIGHT: string;
-  TICKER_SHORT_COLUMN_GAP: string;
-  TICKER_LONG_COLUMN_GAP: string;
-  TICKER_LIVE_ICON_PADDING: string;
-  TICKER_LIVE_ICON_MARGIN: string;
+    CELL_NAME_LEFT_PADDING: string; // css property
+    CELL_NAME_RIGHT_PADDING: string; // css property
 
-  // Picture name
-  PICTURE_NAME_BACKGROUND_COLOR: string;
-  PICTURE_NAME_FONT_COLOR: string;
-  PICTURE_NAME_FONT_SIZE: string;
-  PICTURE_BORDER_SIZE: string;
-  PICTURE_NAME_FONT_FAMILY: string;
+    // Ticker
+    TICKER_SMALL_SIZE: string; // css property
+    TICKER_SMALL_BACKGROUND: string;
+    TICKER_BACKGROUND: string;
+    TICKER_DEFAULT_SCOREBOARD_BACKGROUND: string;
+    TICKER_OPACITY: number;
+    TICKER_FONT_COLOR: string;
+    TICKER_FONT_FAMILY: string;
+    TICKER_TEXT_FONT_SIZE: string; // css property
+    TICKER_TEXT_HORIZONTAL_PADDING: string;
+    TICKER_TEXT_MARGIN_LEFT: string; // css property
+    TICKER_CLOCK_FONT_SIZE: string; // css property
+    TICKER_CLOCK_MARGIN_LEFT: string; // css property
+    TICKER_SCOREBOARD_RANK_WIDTH: string; // css property
+    TICKER_LIVE_ICON_SIZE: string;
+    TICKER_SCOREBOARD_GAP: string;
+    TICKER_SCOREBOARD_CONTESTANT_INFO_HEIGHT: string;
+    TICKER_SHORT_COLUMN_GAP: string;
+    TICKER_LONG_COLUMN_GAP: string;
+    TICKER_LIVE_ICON_PADDING: string;
+    TICKER_LIVE_ICON_MARGIN: string;
 
-  // Misc
-  TEAMVIEW_SMALL_FACTOR: string; // css property
+    // Picture name
+    PICTURE_NAME_BACKGROUND_COLOR: string;
+    PICTURE_NAME_FONT_COLOR: string;
+    PICTURE_NAME_FONT_SIZE: string;
+    PICTURE_BORDER_SIZE: string;
+    PICTURE_NAME_FONT_FAMILY: string;
 
-  FULL_SCREEN_CLOCK_CENTERED: boolean;
-  FULL_SCREEN_CLOCK_PADDING_TOP: string;
-  FULL_SCREEN_CLOCK_FONT_SIZE: string;
-  FULL_SCREEN_CLOCK_COLOR: string;
-  FULL_SCREEN_CLOCK_FONT_FAMILY: string;
+    // Misc
+    TEAMVIEW_SMALL_FACTOR: string; // css property
 
-  ADVERTISEMENT_BACKGROUND: string; // hex value.
-  ADVERTISEMENT_COLOR: string;
-  ADVERTISEMENT_FONT_FAMILY: string;
-  ADVERTISEMENT_FONT_SIZE: string;
-  ADVERTISEMENT_VERTICAL_PADDING: string;
-  ADVERTISEMENT_HORIZONTAL_PADDING: string;
-  ADVERTISEMENT_BORDER_RADIUS: string;
+    FULL_SCREEN_CLOCK_CENTERED: boolean;
+    FULL_SCREEN_CLOCK_PADDING_TOP: string;
+    FULL_SCREEN_CLOCK_FONT_SIZE: string;
+    FULL_SCREEN_CLOCK_COLOR: string;
+    FULL_SCREEN_CLOCK_FONT_FAMILY: string;
 
-  STAR_SIZE: number; // px
-  STAR_DEFAULT_COLOR: string; // hex
+    ADVERTISEMENT_BACKGROUND: string; // hex value.
+    ADVERTISEMENT_COLOR: string;
+    ADVERTISEMENT_FONT_FAMILY: string;
+    ADVERTISEMENT_FONT_SIZE: string;
+    ADVERTISEMENT_VERTICAL_PADDING: string;
+    ADVERTISEMENT_HORIZONTAL_PADDING: string;
+    ADVERTISEMENT_BORDER_RADIUS: string;
 
-  QUEUE_PROBLEM_LABEL_FONT_SIZE: string;
+    STAR_SIZE: number; // px
+    STAR_DEFAULT_COLOR: string; // hex
 
-  // Medals
-  MEDAL_COLORS: {
-    gold: string;
-    silver: string;
-    bronze: string;
-    [key: string]: string;
-  };
+    QUEUE_PROBLEM_LABEL_FONT_SIZE: string;
 
-  // Debug Behaviour
-  LOG_LINES: number;
+    // Medals
+    MEDAL_COLORS: {
+        gold: string;
+        silver: string;
+        bronze: string;
+        [key: string]: string;
+    };
 
-  CONTESTER_ROW_OPACITY: number;
+    // Debug Behaviour
+    LOG_LINES: number;
 
-  CONTESTER_FONT_SIZE: string;
-  CONTESTER_BACKGROUND_COLOR: string;
+    CONTESTER_ROW_OPACITY: number;
 
-  CONTESTER_ROW_BORDER_RADIUS: string;
-  CONTESTER_ROW_HEIGHT: string;
-  CONTESTER_NAME_WIDTH: string;
-  CONTESTER_INFO_SCORE_WIDTH: string;
-  CONTESTER_INFO_RANK_WIDTH: string;
+    CONTESTER_FONT_SIZE: string;
+    CONTESTER_BACKGROUND_COLOR: string;
 
-  CONTESTER_INFO_LEFT_PADDING: string;
-  CONTESTER_INFO_GAP: string;
-  CONTESTER_INFO_SCORE_RIGHT_PADDING: string;
-  CONTESTER_INFO_WIDTH: string;
+    CONTESTER_ROW_BORDER_RADIUS: string;
+    CONTESTER_ROW_HEIGHT: string;
+    CONTESTER_NAME_WIDTH: string;
+    CONTESTER_INFO_SCORE_WIDTH: string;
+    CONTESTER_INFO_RANK_WIDTH: string;
 
-  // Timeline
-  TIMELINE_ELEMENT_DIAMETER: number;
-  TIMELINE_BORDER_RADIUS: string;
-  TIMELINE_LINE_HEIGHT: number;
-  TIMELINE_WRAP_HEIGHT: number;
-  TIMELINE_TIMEBORDER_COLOR: string;
-  TIMELINE_REAL_WIDTH: number;
-  TIMELINE_PADDING: number;
-  TIMELINE_LEFT_TIME_PADDING: number;
-  TIMELINE_ANIMATION_TIME: number; // ms
+    CONTESTER_INFO_LEFT_PADDING: string;
+    CONTESTER_INFO_GAP: string;
+    CONTESTER_INFO_SCORE_RIGHT_PADDING: string;
+    CONTESTER_INFO_WIDTH: string;
 
-  TIMELINE_WRAP_HEIGHT_PVP: number;
-  TIMELINE_ELEMENT_DIAMETER_PVP: number;
-  TIMELINE_PADDING_PVP: number;
-  TIMELINE_REAL_WIDTH_PVP: number;
+    // Timeline
+    TIMELINE_ELEMENT_DIAMETER: number;
+    TIMELINE_BORDER_RADIUS: string;
+    TIMELINE_LINE_HEIGHT: number;
+    TIMELINE_WRAP_HEIGHT: number;
+    TIMELINE_TIMEBORDER_COLOR: string;
+    TIMELINE_REAL_WIDTH: number;
+    TIMELINE_PADDING: number;
+    TIMELINE_LEFT_TIME_PADDING: number;
+    TIMELINE_ANIMATION_TIME: number; // ms
 
-  TIMELINE_END_CIRCLE_RADIUS: number;
-  TIMELINE_TIME_BORDER_WIDTH: number;
+    TIMELINE_WRAP_HEIGHT_PVP: number;
+    TIMELINE_ELEMENT_DIAMETER_PVP: number;
+    TIMELINE_PADDING_PVP: number;
+    TIMELINE_REAL_WIDTH_PVP: number;
 
-  // Keylog
-  KEYLOG_MAXIMUM_FOR_NORMALIZATION: number; // max value for normalization
-  KEYLOG_TOP_PADDING: number; // px
-  KEYLOG_BOTTOM_PADDING: number; // px
-  KEYLOG_Z_INDEX: number;
+    TIMELINE_END_CIRCLE_RADIUS: number;
+    TIMELINE_TIME_BORDER_WIDTH: number;
 
-  KEYLOG_ANIMATION_DURATION: number; // ms
-  KEYLOG_ANIMATION_EASING: string;
+    // Keylog
+    KEYLOG_MAXIMUM_FOR_NORMALIZATION: number; // max value for normalization
+    KEYLOG_TOP_PADDING: number; // px
+    KEYLOG_BOTTOM_PADDING: number; // px
+    KEYLOG_Z_INDEX: number;
 
-  KEYLOG_STROKE_WIDTH: number; // px
+    KEYLOG_ANIMATION_DURATION: number; // ms
+    KEYLOG_ANIMATION_EASING: string;
 
-  KEYLOG_STROKE_DARK: string;
-  KEYLOG_STROKE_LIGHT: string;
-  KEYLOG_FILL_DARK: string;
-  KEYLOG_FILL_LIGHT: string;
-  KEYLOG_GLOW_BLUR: number;
+    KEYLOG_STROKE_WIDTH: number; // px
 
-  // Image ticker
-  IMAGE_TICKER_HORIZONTAL_PADDING: string;
+    KEYLOG_STROKE_DARK: string;
+    KEYLOG_STROKE_LIGHT: string;
+    KEYLOG_FILL_DARK: string;
+    KEYLOG_FILL_LIGHT: string;
+    KEYLOG_GLOW_BLUR: number;
 
-  // Layout factors
-  TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR: number;
-  SPLITSCREEN_SECONDARY_FACTOR: number;
+    // Image ticker
+    IMAGE_TICKER_HORIZONTAL_PADDING: string;
 
-  // PVP / Teamview
-  PVP_BACKGROUND: string;
-  PVP_TABLE_ROW_HEIGHT: number;
-  PVP_TABLE_ROW_HEIGHT_MULTIPLIER: number;
-  PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER: number;
-  PVP_TEAM_STATUS_TASK_WIDTH: number;
-  PVP_ACHIEVEMENT_WIDTH: string;
-  PVP_ACHIEVEMENT_BOTTOM_OFFSET: string;
-  PVP_SECONDARY_DIVISOR: number;
-  PVP_ASPECT_RATIO_WIDTH: number;
-  PVP_ASPECT_RATIO_HEIGHT: number;
+    // Layout factors
+    TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR: number;
+    SPLITSCREEN_SECONDARY_FACTOR: number;
 
-  CIRCLE_PROBLEM_SIZE: string;
-  CIRCLE_PROBLEM_LINE_WIDTH: string;
+    // PVP / Teamview
+    PVP_BACKGROUND: string;
+    PVP_TABLE_ROW_HEIGHT: number;
+    PVP_TABLE_ROW_HEIGHT_MULTIPLIER: number;
+    PVP_TABLE_ROW_HEIGHT_OFFSET_MULTIPLIER: number;
+    PVP_TEAM_STATUS_TASK_WIDTH: number;
+    PVP_ACHIEVEMENT_WIDTH: string;
+    PVP_ACHIEVEMENT_BOTTOM_OFFSET: string;
+    PVP_SECONDARY_DIVISOR: number;
+    PVP_ASPECT_RATIO_WIDTH: number;
+    PVP_ASPECT_RATIO_HEIGHT: number;
 
-  CELL_INFO_VERDICT_WIDTH: string; // css property
+    CIRCLE_PROBLEM_SIZE: string;
+    CIRCLE_PROBLEM_LINE_WIDTH: string;
 
-  // layers (z-indexes)
-  QUEUE_BASIC_ZINDEX: number;
-  TICKER_ZINDEX: number;
+    CELL_INFO_VERDICT_WIDTH: string; // css property
 
-  LOCATOR_MAGIC_CONSTANT: number;
-  LOCATOR_TOP_OFFSET: number;
-  LOCATOR_TOP_THRESHOLD: number;
-  LOCATOR_BOTTOM_OFFSET: number;
-  LOCATOR_MAX_WIDTH: number;
-  LOCATOR_ANIMATION_DURATION: number; // ms
-  LOCATOR_ANIMATION_DELAY: number; // ms
-  LOCATOR_LINE_STROKE_COLOR: string;
-  LOCATOR_LINE_STROKE_WIDTH: number;
+    // layers (z-indexes)
+    QUEUE_BASIC_ZINDEX: number;
+    TICKER_ZINDEX: number;
 
-  // Computed websocket urls
-  WEBSOCKETS: {
-    mainScreen: string;
-    contestInfo: string;
-    queue: string;
-    statistics: string;
-    ticker: string;
-    scoreboardNormal: string;
-    scoreboardOptimistic: string;
-    scoreboardPessimistic: string;
-  };
+    LOCATOR_MAGIC_CONSTANT: number;
+    LOCATOR_TOP_OFFSET: number;
+    LOCATOR_TOP_THRESHOLD: number;
+    LOCATOR_BOTTOM_OFFSET: number;
+    LOCATOR_MAX_WIDTH: number;
+    LOCATOR_ANIMATION_DURATION: number; // ms
+    LOCATOR_ANIMATION_DELAY: number; // ms
+    LOCATOR_LINE_STROKE_COLOR: string;
+    LOCATOR_LINE_STROKE_WIDTH: number;
 
-  // Widget positions
-  WIDGET_POSITIONS: {
-    advertisement: LocationRectangle;
-    picture: LocationRectangle;
-    svg: LocationRectangle;
-    queue: LocationRectangle;
-    scoreboard: LocationRectangle;
-    statistics: LocationRectangle;
-    ticker: LocationRectangle;
-    fullScreenClock: LocationRectangle;
-    teamLocator: LocationRectangle;
-    teamViewSingle: LocationRectangle;
-    teamViewPvpTop: LocationRectangle;
-    teamViewPvpBottom: LocationRectangle;
-    teamViewTopLeft: LocationRectangle;
-    teamViewTopRight: LocationRectangle;
-    teamViewBottomLeft: LocationRectangle;
-    teamViewBottomRight: LocationRectangle;
-    [key: string]: LocationRectangle;
-  };
+    // Computed websocket urls
+    WEBSOCKETS: {
+        mainScreen: string;
+        contestInfo: string;
+        queue: string;
+        statistics: string;
+        ticker: string;
+        scoreboardNormal: string;
+        scoreboardOptimistic: string;
+        scoreboardPessimistic: string;
+    };
 
-  ADMIN_HIDE_MENU: string[],
-  ADMIN_HIDE_CONTROL: string[],
+    // Widget positions
+    WIDGET_POSITIONS: {
+        advertisement: LocationRectangle;
+        picture: LocationRectangle;
+        svg: LocationRectangle;
+        queue: LocationRectangle;
+        scoreboard: LocationRectangle;
+        statistics: LocationRectangle;
+        ticker: LocationRectangle;
+        fullScreenClock: LocationRectangle;
+        teamLocator: LocationRectangle;
+        teamViewSingle: LocationRectangle;
+        teamViewPvpTop: LocationRectangle;
+        teamViewPvpBottom: LocationRectangle;
+        teamViewTopLeft: LocationRectangle;
+        teamViewTopRight: LocationRectangle;
+        teamViewBottomLeft: LocationRectangle;
+        teamViewBottomRight: LocationRectangle;
+        [key: string]: LocationRectangle;
+    };
+
+    ADMIN_HIDE_MENU: string[];
+    ADMIN_HIDE_CONTROL: string[];
 }

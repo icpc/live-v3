@@ -43,9 +43,9 @@ export const useTeamSpotlightService = (): TeamSpotlightService => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const teamsList = useMemo(() =>
-        [...teams].sort((a, b) => b.score - a.score),
-        [teams]
+    const teamsList = useMemo(
+        () => [...teams].sort((a, b) => b.score - a.score),
+        [teams],
     );
 
     const handleWSMessage = useCallback((event: MessageEvent) => {
@@ -72,9 +72,10 @@ export const useTeamSpotlightService = (): TeamSpotlightService => {
         try {
             await addScoreApi(entires);
         } catch (error) {
-            const errorMessage = error instanceof Error
-                ? error.message
-                : "An unexpected error occurred";
+            const errorMessage =
+                error instanceof Error
+                    ? error.message
+                    : "An unexpected error occurred";
             setError(errorMessage);
             throw error;
         } finally {
@@ -89,4 +90,3 @@ export const useTeamSpotlightService = (): TeamSpotlightService => {
         error,
     };
 };
-

@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from "react";
-import {Button, Container, FormControl, Select, MenuItem, SelectChangeEvent} from "@mui/material";
+import {
+    Button,
+    Container,
+    FormControl,
+    Select,
+    MenuItem,
+    SelectChangeEvent,
+} from "@mui/material";
 import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { useSnackbar } from "notistack";
-import {BASE_URL_BACKEND, EXAMPLES_LOCATION, SCHEMAS_LOCATION} from "../config";
+import {
+    BASE_URL_BACKEND,
+    EXAMPLES_LOCATION,
+    SCHEMAS_LOCATION,
+} from "../config";
 import Typography from "@mui/material/Typography";
 import { createApiGet, createApiPost } from "shared-code/utils";
 import JsonEditor, { JSONSchema } from "./atoms/JsonEditor";
@@ -24,8 +35,10 @@ function ExamplesContainer(): React.ReactElement {
 
     useEffect(() => {
         examplesApiGet("/descriptions.json")
-            .then((data: unknown) => {setOptions((data as ExampleOptions) ?? {});})
-            .catch(error => console.error(error));
+            .then((data: unknown) => {
+                setOptions((data as ExampleOptions) ?? {});
+            })
+            .catch((error) => console.error(error));
     }, []);
 
     useEffect(() => {
@@ -33,9 +46,11 @@ function ExamplesContainer(): React.ReactElement {
             return;
         }
         fetch(EXAMPLES_URL + `/${selection}`)
-            .then(response => response.text())
-            .then(data => {setExample(data);})
-            .catch(error => console.error(error));
+            .then((response) => response.text())
+            .then((data) => {
+                setExample(data);
+            })
+            .catch((error) => console.error(error));
     }, [selection]);
 
     const currentExample = selection ? example : undefined;
@@ -44,11 +59,13 @@ function ExamplesContainer(): React.ReactElement {
         setSelection(event.target.value as string);
     };
 
-
     return (
         <Container>
             <Typography variant="h3">Examples</Typography>
-            <FormControl variant="standard" sx={{ minWidth: 240, mt: 2, mb: 2 }}>
+            <FormControl
+                variant="standard"
+                sx={{ minWidth: 240, mt: 2, mb: 2 }}
+            >
                 <Select
                     labelId="examples-select-label"
                     value={selection}
@@ -60,7 +77,7 @@ function ExamplesContainer(): React.ReactElement {
                     </MenuItem>
                     {Object.keys(options).map((key) => (
                         <MenuItem key={key} value={key}>
-                        {options[key]}
+                            {options[key]}
                         </MenuItem>
                     ))}
                 </Select>
@@ -68,10 +85,10 @@ function ExamplesContainer(): React.ReactElement {
 
             {currentExample && (
                 <Editor
-                options={{ readOnly: true }}
-                height="75vh"
-                language="json"
-                value={currentExample}
+                    options={{ readOnly: true }}
+                    height="75vh"
+                    language="json"
+                    value={currentExample}
                 />
             )}
         </Container>
@@ -103,8 +120,9 @@ function AdvancedJson(): React.ReactElement {
 
     const onSubmit = () => {
         if (content === undefined) return;
-        apiPost("", content, "POST", true)
-            .catch(errorHandler("Failed to save advanced json data"));
+        apiPost("", content, "POST", true).catch(
+            errorHandler("Failed to save advanced json data"),
+        );
     };
 
     if (schema === undefined || content === undefined) {

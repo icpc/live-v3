@@ -19,7 +19,5 @@ export const FPSCounter = () => {
         tick(null);
         return () => window.cancelAnimationFrame(handle);
     }, []);
-    return (
-        <div>Frames made last second: {fps}</div>
-    );
+    return <div>Frames made last second: {fps}</div>;
 };

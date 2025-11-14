@@ -1,10 +1,7 @@
 import React from "react";
 
 export const Empty = () => {
-    return (
-        <></>
-    );
+    return <></>;
 };
 
 export default Empty;
-

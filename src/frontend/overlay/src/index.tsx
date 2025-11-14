@@ -40,10 +40,9 @@ root.render(
     <StrictMode>
         <Provider store={store}>
             {/*<PersistGate loading={null} persistor={persistor}>*/}
-            <GlobalStyle/>
-            <App/>
+            <GlobalStyle />
+            <App />
             {/*</PersistGate>*/}
         </Provider>
-    </StrictMode>
+    </StrictMode>,
 );
-

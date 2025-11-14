@@ -8,7 +8,9 @@ interface PresetData {
     settings: PresetSettings;
 }
 
-type SetEditDataAction = (updateFn: (prevData: PresetData) => PresetData) => void;
+type SetEditDataAction = (
+    updateFn: (prevData: PresetData) => PresetData,
+) => void;
 
 interface UsePresetTableRowDataStateReturn {
     editData: PresetData | undefined;
@@ -26,25 +28,25 @@ function createUpdatedPresetData(
         ...currentData,
         settings: {
             ...currentData.settings,
-            [rowKey]: newValue
-        }
+            [rowKey]: newValue,
+        },
     };
 }
 
 function createFieldChangeHandler(
     rowKey: string,
-    setEditData: SetEditDataAction
+    setEditData: SetEditDataAction,
 ) {
     return (value: unknown) => {
         setEditData((prevData: PresetData) =>
-            createUpdatedPresetData(prevData, rowKey, value)
+            createUpdatedPresetData(prevData, rowKey, value),
         );
     };
 }
 
 function createFieldChangeEventHandler(
     rowKey: string,
-    setEditData: SetEditDataAction
+    setEditData: SetEditDataAction,
 ) {
     return (e: { target: { value: unknown } }) => {
         createFieldChangeHandler(rowKey, setEditData)(e.target.value);
@@ -53,7 +55,7 @@ function createFieldChangeEventHandler(
 
 function usePresetTableRowDataState(
     data: PresetData,
-    onEdit: (data: PresetData) => unknown
+    onEdit: (data: PresetData) => unknown,
 ): UsePresetTableRowDataStateReturn {
     const [editData, setEditData] = useState<PresetData | undefined>(undefined);
 
@@ -81,7 +83,7 @@ function usePresetTableRowDataState(
         editData,
         onClickEdit,
         onSubmitEdit,
-        onChangeField
+        onChangeField,
     };
 }
 
@@ -92,8 +94,4 @@ export {
     createUpdatedPresetData,
 };
 
-export type {
-    PresetData,
-    PresetSettings,
-    UsePresetTableRowDataStateReturn,
-};
+export type { PresetData, PresetSettings, UsePresetTableRowDataStateReturn };

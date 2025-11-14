@@ -10,7 +10,7 @@ import { PresetsTableCell } from "./PresetsTableCell.tsx";
 import { activeRowColor } from "../styles.js";
 import {
     usePresetTableRowDataState,
-    type PresetData
+    type PresetData,
 } from "./PresetsTableRowUtils.tsx";
 
 interface PresetsTableRowProps {
@@ -21,7 +21,6 @@ interface PresetsTableRowProps {
     onDelete: () => void;
     isImmutable?: boolean;
 }
-
 
 function getRowBackgroundColor(isShown: boolean): string | undefined {
     return isShown ? activeRowColor : undefined;
@@ -37,17 +36,14 @@ function getEditButtonColor(isEditMode: boolean): "inherit" | "primary" {
 
 function ShowButtonCell({
     onShow,
-    checked
+    checked,
 }: {
     onShow: () => void;
     checked: boolean;
 }): React.ReactElement {
     return (
         <TableCell component="th" scope="row" align="left">
-            <ShowPresetButton
-                onClick={onShow}
-                checked={checked}
-            />
+            <ShowPresetButton onClick={onShow} checked={checked} />
         </TableCell>
     );
 }
@@ -55,7 +51,7 @@ function ShowButtonCell({
 function ManagementButtonsCell({
     isEditMode,
     onClickEdit,
-    onDelete
+    onDelete,
 }: {
     isEditMode: boolean;
     onClickEdit: () => void;
@@ -90,13 +86,9 @@ export function PresetsTableRow({
     onEdit,
     onDelete,
     isImmutable = false,
-} : PresetsTableRowProps): React.ReactElement {
-    const {
-        editData,
-        onClickEdit,
-        onSubmitEdit,
-        onChangeField
-    } = usePresetTableRowDataState(data, onEdit);
+}: PresetsTableRowProps): React.ReactElement {
+    const { editData, onClickEdit, onSubmitEdit, onChangeField } =
+        usePresetTableRowDataState(data, onEdit);
 
     function isEditMode(): boolean {
         return editData !== undefined;
@@ -107,7 +99,7 @@ export function PresetsTableRow({
         data,
         editData,
         onChangeField,
-        onSubmitEdit
+        onSubmitEdit,
     }: {
         key?: string;
         rowKey: string;
@@ -126,11 +118,10 @@ export function PresetsTableRow({
         );
     }
 
-
     return (
         <TableRow
-          key={data.id}
-          sx={{ backgroundColor: getRowBackgroundColor(data.shown) }}
+            key={data.id}
+            sx={{ backgroundColor: getRowBackgroundColor(data.shown) }}
         >
             <ShowButtonCell onShow={onShow} checked={data.shown} />
             {tableKeys.map((rowKey) => (
@@ -151,9 +142,7 @@ export function PresetsTableRow({
                 />
             )}
         </TableRow>
-      );
+    );
 }
 
-export type {
-    PresetsTableRowProps,
-};
+export type { PresetsTableRowProps };

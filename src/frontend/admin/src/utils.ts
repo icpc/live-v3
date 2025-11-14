@@ -2,10 +2,17 @@ import { DateTime } from "luxon";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WEBSOCKET_RECONNECT_TIME } from "./config";
 
-export const localStorageGet = <T>(key: string) => JSON.parse(localStorage.getItem(key) ?? "null") as T;
-export const localStorageSet = <T>(key: string, value: T) => localStorage.setItem(key, JSON.stringify(value));
-export const useLocalStorageState = <T> (key: string, defaultValue: T): [T, (newValue: T) => void] => {
-    const [state, setState] = useState<T>(localStorageGet<T>(key) ?? defaultValue);
+export const localStorageGet = <T>(key: string) =>
+    JSON.parse(localStorage.getItem(key) ?? "null") as T;
+export const localStorageSet = <T>(key: string, value: T) =>
+    localStorage.setItem(key, JSON.stringify(value));
+export const useLocalStorageState = <T>(
+    key: string,
+    defaultValue: T,
+): [T, (newValue: T) => void] => {
+    const [state, setState] = useState<T>(
+        localStorageGet<T>(key) ?? defaultValue,
+    );
     const saveState = (v: T) => {
         localStorageSet(key, v);
         setState(v);
@@ -13,11 +20,25 @@ export const useLocalStorageState = <T> (key: string, defaultValue: T): [T, (new
     return [state, saveState];
 };
 
-export const timeSecondsToDuration = (timeMs?: number) => (timeMs === null || timeMs === undefined) ? "??" : DateTime.fromSeconds(timeMs, { zone: "utc" }).toFormat("H:mm:ss") ;
-export const timeMsToDuration = (timeMs?: number) => (timeMs === null || timeMs === undefined) ? "??" : DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
-export const unixTimeMsToLocalTime = (timeMs?: number) => (timeMs === null || timeMs === undefined) ? "??" : DateTime.fromMillis(timeMs, { zone: "local" }).toFormat("HH:mm:ss dd LLL yyyy ZZZZ");
+export const timeSecondsToDuration = (timeMs?: number) =>
+    timeMs === null || timeMs === undefined
+        ? "??"
+        : DateTime.fromSeconds(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
+export const timeMsToDuration = (timeMs?: number) =>
+    timeMs === null || timeMs === undefined
+        ? "??"
+        : DateTime.fromMillis(timeMs, { zone: "utc" }).toFormat("H:mm:ss");
+export const unixTimeMsToLocalTime = (timeMs?: number) =>
+    timeMs === null || timeMs === undefined
+        ? "??"
+        : DateTime.fromMillis(timeMs, { zone: "local" }).toFormat(
+              "HH:mm:ss dd LLL yyyy ZZZZ",
+          );
 
-export const useWebsocket = <T, R>(wsUrl: string, handleMessage: (message: MessageEvent<T>) => R) => {
+export const useWebsocket = <T, R>(
+    wsUrl: string,
+    handleMessage: (message: MessageEvent<T>) => R,
+) => {
     const [isConnected, setIsConnected] = useState(false);
     const ws = useRef<WebSocket>(null);
     const openSocket = useCallback(() => {
@@ -49,14 +70,16 @@ export const useDebounce = (value, delay) => {
     return debouncedValue;
 };
 
-export const useDebounceList = <T> (delay: number): [T[], (newList: T[]) => void, (addElement: T) => void] => {
+export const useDebounceList = <T>(
+    delay: number,
+): [T[], (newList: T[]) => void, (addElement: T) => void] => {
     const [addCache, setAddCache] = useState<T[]>([]);
     const [debouncedValue, setDebouncedValue] = useState<T[]>([]);
-    const add = (value: T) => setAddCache(cache => [value, ...cache]);
+    const add = (value: T) => setAddCache((cache) => [value, ...cache]);
     const pushCache = () => {
         const currentCache = addCache;
         setAddCache([]);
-        setDebouncedValue(value => [...currentCache, ...value]);
+        setDebouncedValue((value) => [...currentCache, ...value]);
     };
     useEffect(() => {
         const handler = setTimeout(pushCache, delay);
@@ -86,17 +109,22 @@ export const useFillHeight = (ref?: HTMLElement) => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    return useMemo(() => windowHeight - (ref?.offsetTop ?? 0),
-        [windowHeight, ref?.offsetTop]);
+    return useMemo(
+        () => windowHeight - (ref?.offsetTop ?? 0),
+        [windowHeight, ref?.offsetTop],
+    );
 };
 
 export const hexToRgb = (hex: string) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2}?)$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
+    const result =
+        /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2}?)$/i.exec(hex);
+    return result
+        ? {
+              r: parseInt(result[1], 16),
+              g: parseInt(result[2], 16),
+              b: parseInt(result[3], 16),
+          }
+        : null;
 };
 
 /*
@@ -109,9 +137,7 @@ export const isShouldUseDarkColor = (backgroundColor: string) => {
     }
     const { r, g, b } = rgb;
     // http://www.w3.org/TR/AERT#color-contrast
-    const brightness = Math.round(((r * 299) +
-        (g * 587) +
-        (b * 114)) / 1000);
+    const brightness = Math.round((r * 299 + g * 587 + b * 114) / 1000);
 
     return brightness > 125;
 };

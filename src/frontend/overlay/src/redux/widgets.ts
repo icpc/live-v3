@@ -4,69 +4,69 @@ import _ from "lodash";
 const ActionTypes = {
     SHOW_WIDGET: "SHOW_WIDGET",
     HIDE_WIDGET: "HIDE_WIDGET",
-    SET_WIDGETS: "SET_WIDGETS"
+    SET_WIDGETS: "SET_WIDGETS",
 };
 
 type WidgetsState = {
-    widgets: Record<Widget["widgetId"], Widget>
+    widgets: Record<Widget["widgetId"], Widget>;
 };
 
-
 const initialState: WidgetsState = {
-    widgets: {}
+    widgets: {},
 };
 
 export const showWidget = (widgetData: Widget) => {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch({
             type: ActionTypes.SHOW_WIDGET,
             payload: {
-                newWidget: widgetData
-            }
+                newWidget: widgetData,
+            },
         });
     };
 };
 
 export const hideWidget = (widgetId: string) => {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch({
             type: ActionTypes.HIDE_WIDGET,
             payload: {
-                widgetId
-            }
+                widgetId,
+            },
         });
     };
 };
 
 export const setWidgets = (widgets: Widget[]) => {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch({
             type: ActionTypes.SET_WIDGETS,
             payload: {
-                widgets
-            }
+                widgets,
+            },
         });
     };
 };
 
 export function widgetsReducer(state = initialState, action): WidgetsState {
     switch (action.type) {
-    case ActionTypes.SHOW_WIDGET:
-        return {
-            widgets: {
-                ...state.widgets,
-                [action.payload.newWidget.widgetId]: action.payload.newWidget
-            }
-        };
-    case ActionTypes.HIDE_WIDGET:
-        return {
-            widgets: _.omit(state.widgets, action.payload.widgetId)
-        };
-    case ActionTypes.SET_WIDGETS:
-        return {
-            widgets: _.keyBy(action.payload.widgets, "widgetId")
-        };
-    default:
-        return state;
+        case ActionTypes.SHOW_WIDGET:
+            return {
+                widgets: {
+                    ...state.widgets,
+                    [action.payload.newWidget.widgetId]:
+                        action.payload.newWidget,
+                },
+            };
+        case ActionTypes.HIDE_WIDGET:
+            return {
+                widgets: _.omit(state.widgets, action.payload.widgetId),
+            };
+        case ActionTypes.SET_WIDGETS:
+            return {
+                widgets: _.keyBy(action.payload.widgets, "widgetId"),
+            };
+        default:
+            return state;
     }
 }

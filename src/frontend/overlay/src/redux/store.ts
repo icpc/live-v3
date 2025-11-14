@@ -32,22 +32,20 @@ export const store = configureStore({
         scoreboard: scoreboardReducer,
         contestInfo: contestInfoReducer,
         ticker: tickerReducer,
-        statistics: statisticsReducer
+        statistics: statisticsReducer,
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware({
             immutableCheck: false,
-            serializableCheck: false
+            serializableCheck: false,
         });
     },
     devTools: import.meta.env.DEV,
 });
 // export const persistor = persistStore(store);
 
-
 // Infer the `RootState` and `AppDispatch` types from the store itself
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch
-
+export type AppDispatch = typeof store.dispatch;

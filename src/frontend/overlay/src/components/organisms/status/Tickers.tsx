@@ -5,50 +5,56 @@ const TOTAL_WIDTH = 300;
 const INCREMENT = 10;
 const TICKER_WIDTH = 30;
 const TPS = 10;
-const INTERVAL = 1 / TPS * 1000;
+const INTERVAL = (1 / TPS) * 1000;
 
 const TickerContainer = styled.div`
     display: inline;
 `;
 
 const JSTickerContainer = styled.div`
-  position: relative;
+    position: relative;
 
-  display: inline-block;
+    display: inline-block;
 
-  width: ${TOTAL_WIDTH}px;
-  height: 30px;
+    width: ${TOTAL_WIDTH}px;
+    height: 30px;
 
-  background-color: red;
+    background-color: red;
 `;
 
-type JSTickerBodyProps = {pos: number};
+type JSTickerBodyProps = { pos: number };
 
 const JSTickerBody = styled.div.attrs<JSTickerBodyProps>(({ pos }) => ({
     style: {
-        left: pos
-    }
+        left: pos,
+    },
 }))<JSTickerBodyProps>`
-  position: absolute;
-  width: ${TICKER_WIDTH}px;
-  height: 100%;
-  background-color: blue;
+    position: absolute;
+    width: ${TICKER_WIDTH}px;
+    height: 100%;
+    background-color: blue;
 `;
 
 export const JSTicker = () => {
     const [pos, setPos] = useState(0);
     useEffect(() => {
         const id = setInterval(() => {
-            setPos((pos) => (pos + INCREMENT) % (TOTAL_WIDTH - TICKER_WIDTH + INCREMENT));
+            setPos(
+                (pos) =>
+                    (pos + INCREMENT) %
+                    (TOTAL_WIDTH - TICKER_WIDTH + INCREMENT),
+            );
         }, INTERVAL);
         return () => clearInterval(id);
     }, []);
-    return <TickerContainer>
-        JS:
-        <JSTickerContainer>
-            <JSTickerBody pos={pos}/>
-        </JSTickerContainer>
-    </TickerContainer>;
+    return (
+        <TickerContainer>
+            JS:
+            <JSTickerContainer>
+                <JSTickerBody pos={pos} />
+            </JSTickerContainer>
+        </TickerContainer>
+    );
 };
 
 const CSSTickerContainer = JSTickerContainer;
@@ -64,21 +70,24 @@ const animation = keyframes`
 `;
 
 const CSSTickerBody = styled.div`
-  position: absolute;
+    position: absolute;
 
-  width: ${TICKER_WIDTH}px;
-  height: 100%;
+    width: ${TICKER_WIDTH}px;
+    height: 100%;
 
-  background-color: blue;
+    background-color: blue;
 
-  animation: ${animation} linear infinite ${(TOTAL_WIDTH - TICKER_WIDTH + INCREMENT) / INCREMENT * INTERVAL}ms;
+    animation: ${animation} linear infinite
+        ${((TOTAL_WIDTH - TICKER_WIDTH + INCREMENT) / INCREMENT) * INTERVAL}ms;
 `;
 
 export const CSSTicker = () => {
-    return <TickerContainer>
-        CSS:
-        <CSSTickerContainer>
-            <CSSTickerBody/>
-        </CSSTickerContainer>
-    </TickerContainer>;
+    return (
+        <TickerContainer>
+            CSS:
+            <CSSTickerContainer>
+                <CSSTickerBody />
+            </CSSTickerContainer>
+        </TickerContainer>
+    );
 };

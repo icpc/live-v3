@@ -9,9 +9,12 @@ const ansiUp = new AnsiUp();
 function BackendLog(): React.ReactElement {
     const [messages, , addMessages] = useDebounceList<string>(100);
 
-    const handleWSMessage = useCallback((event: MessageEvent<string>) => {
-        addMessages(event.data);
-    }, [addMessages]);
+    const handleWSMessage = useCallback(
+        (event: MessageEvent<string>) => {
+            addMessages(event.data);
+        },
+        [addMessages],
+    );
 
     useWebsocket(BASE_URL_WS + "/backendLog", handleWSMessage);
 
@@ -22,19 +25,23 @@ function BackendLog(): React.ReactElement {
                 alignContent: "center",
                 justifyContent: "center",
                 alignItems: "center",
-                flexDirection: "column"
+                flexDirection: "column",
             }}
         >
-            <Box sx={{ width: { "md": "75%", "sm": "100%", "xs": "100%" } }}>
+            <Box sx={{ width: { md: "75%", sm: "100%", xs: "100%" } }}>
                 {messages.map((message, index) => {
                     const html = ansiUp.ansi_to_html(message);
-                    return <p
-                        key={index}
-                        style={{ whiteSpace: "pre-wrap", fontFamily: "monospace" }}
-                        dangerouslySetInnerHTML={{ __html: html }}
-                    />
-                }
-                )}
+                    return (
+                        <p
+                            key={index}
+                            style={{
+                                whiteSpace: "pre-wrap",
+                                fontFamily: "monospace",
+                            }}
+                            dangerouslySetInnerHTML={{ __html: html }}
+                        />
+                    );
+                })}
             </Box>
         </Grid>
     );
