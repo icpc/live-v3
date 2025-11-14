@@ -3,12 +3,14 @@ package org.icpclive.admin
 import io.ktor.http.*
 import io.ktor.http.content.*
 import io.ktor.server.auth.*
+import io.ktor.server.http.content.staticResources
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import io.ktor.util.cio.*
 import io.ktor.utils.io.*
+import java.nio.file.Path
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.*
@@ -20,6 +22,43 @@ import org.icpclive.cds.tunning.toRulesList
 import org.icpclive.data.*
 import org.icpclive.util.sendFlow
 import kotlin.io.path.notExists
+
+fun Route.configureConfigFileRouting(
+    path: Path,
+    emptyResponse: String,
+    validate: (String) -> Unit,
+    schemaLocation: String?,
+    examplesPackage: String?
+) {
+    get {
+        if (path.notExists()) {
+            call.respondText(emptyResponse)
+        } else {
+            call.respondFile(path.toFile())
+        }
+    }
+    post {
+        call.adminApiAction {
+            val text = call.receiveText()
+            validate(text)
+            path.toFile().writeText(text)
+        }
+    }
+    get("/schema") {
+        if (schemaLocation != null) {
+            call.respondRedirect(schemaLocation)
+        } else {
+            call.respond(HttpStatusCode.NotFound)
+        }
+    }
+    if (examplesPackage != null) {
+        staticResources("/examples", examplesPackage)
+    } else {
+        get("/examples/descriptions.json") {
+            call.respondText("{}", ContentType.Application.Json)
+        }
+    }
+}
 
 fun Route.configureAdminApiRouting() {
     authenticate("admin-api-auth") {
@@ -131,25 +170,40 @@ fun Route.configureAdminApiRouting() {
         }
 
         route("/advancedJson") {
-            get {
-                if (Config.cdsSettings.advancedJsonPath.notExists()) {
-                    call.respondText("{}")
-                } else {
-                    call.respondFile(Config.cdsSettings.advancedJsonPath.toFile())
-                }
-            }
-            post {
-                call.adminApiAction {
-                    val text = call.receiveText()
+            configureConfigFileRouting(
+                Config.cdsSettings.advancedJsonPath,
+                emptyResponse = "[]",
+                validate = {
                     try {
                         // check if parsable
-                        TuningRule.listFromString(text)
+                        TuningRule.listFromString(it)
                     } catch (e: SerializationException) {
                         throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
                     }
-                    Config.cdsSettings.advancedJsonPath.toFile().writeText(text)
-                }
-            }
+                },
+                schemaLocation = "/schemas/advanced.schema.json",
+                examplesPackage = "examples.advanced"
+            )
+        }
+
+        route("/visualConfig") {
+            configureConfigFileRouting(
+                Config.visualConfigFile,
+                emptyResponse = "{}",
+                validate = { },
+                schemaLocation = "/schemas/visual-config.schema.json",
+                examplesPackage = "examples.visual"
+            )
+        }
+
+        route("/customFields") {
+            configureConfigFileRouting(
+                Config.cdsSettings.customFieldsCsvPath,
+                emptyResponse = "",
+                validate = { },
+                schemaLocation = null,
+                examplesPackage = null
+            )
         }
 
 

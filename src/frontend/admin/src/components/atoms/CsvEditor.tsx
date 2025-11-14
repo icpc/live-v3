@@ -1,19 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import Editor, { OnMount, OnChange, Monaco } from "@monaco-editor/react";
 
-type JSONSchema = Record<string, unknown>;
-
-interface JsonEditorProps {
-    schema: JSONSchema;
+interface CsvEditorProps {
     defaultValue: string;
     onChange: OnChange;
 }
 
-function JsonCodeEditor({
-    schema,
+function CsvCodeEditor({
     defaultValue,
     onChange,
-}: JsonEditorProps): React.ReactElement {
+}: CsvEditorProps): React.ReactElement {
     const editorRef = useRef<unknown | null>(null);
     const monacoRef = useRef<Monaco | null>(null);
 
@@ -21,10 +17,10 @@ function JsonCodeEditor({
         editorRef.current = editor;
         monacoRef.current = monaco;
 
-        const modelUri = "foo://admin/advanced.json";
+        const modelUri = "foo://admin/custom-fields.csv";
         const model = monaco.editor.createModel(
             defaultValue,
-            "json",
+            "csv",
             monaco.Uri.parse(modelUri),
         );
         editor.setModel(model);
@@ -42,27 +38,7 @@ function JsonCodeEditor({
         }
     }, [defaultValue]);
 
-    // Update JSON schema diagnostics when schema changes
-    useEffect(() => {
-        const monaco = monacoRef.current;
-        if (!monaco) return;
-        monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
-            ...monaco.languages.json.jsonDefaults.diagnosticsOptions,
-            comments: "ignore",
-            trailingCommas: "ignore",
-            schemas: [
-                {
-                    uri: "foo://app/advanced",
-                    fileMatch: ["*.json"],
-                    schema,
-                },
-            ],
-            validate: true,
-        });
-    }, [schema]);
-
-    return <Editor language="json" onMount={handleMount} onChange={onChange} />;
+    return <Editor language="csv" onMount={handleMount} onChange={onChange} />;
 }
 
-export default JsonCodeEditor;
-export type { JSONSchema };
+export default CsvCodeEditor;

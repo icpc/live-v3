@@ -22,6 +22,10 @@ tasks {
         sourceDirectory.set(rootProject.layout.projectDirectory.dir( provider { "config/_examples/_advanced" }))
         packedDirectory.set(project.layout.buildDirectory.dir("advanced_examples"))
     }
+    val visualConfigExamples by registering(PackExamplesTask::class) {
+        sourceDirectory.set(rootProject.layout.projectDirectory.dir( provider { "config/_examples/_visual-config" }))
+        packedDirectory.set(project.layout.buildDirectory.dir("visual_examples"))
+    }
 
     runTask {
         this.args = listOfNotNull(
@@ -29,7 +33,6 @@ tasks {
             project.properties["live.dev.credsFile"]?.let { "--creds=$it" },
             project.properties["live.dev.contest"]?.let { "--config-directory=$it" },
             project.properties["live.dev.analyticsTemplatesFile"]?.let { "--analytics-template=$it" },
-            project.properties["live.dev.visualConfigFile"]?.let { "--visual-config=$it" },
         )
         this.workingDir = rootDir.resolve("config")
     }
@@ -50,6 +53,9 @@ tasks {
             }
             from(advancedExamples) {
                 into("examples/advanced")
+            }
+            from(visualConfigExamples) {
+                into("examples/visual")
             }
         }
     }

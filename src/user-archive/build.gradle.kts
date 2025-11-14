@@ -39,6 +39,12 @@ tasks {
             include("yandex/**")
             into("examples/config")
         }
+        from(configDir.dir("_examples/_advnaced")) {
+            into("examples/advanced")
+        }
+        from(configDir.dir("_examples/_visual-config")) {
+            into("examples/visual-config")
+        }
         from(configDir) {
             into("examples")
             include("creds.json.example")

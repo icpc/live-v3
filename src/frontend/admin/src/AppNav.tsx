@@ -33,7 +33,7 @@ const DEFAULT_PAGES: PageConfig = {
     Ticker: "ticker",
     Analytics: "analytics",
     Spotlight: "teamSpotlight",
-    Advanced: "advancedJson",
+    Configs: "configurationsEditor",
     Media: "media",
     Info: "contestInfo",
     "Backend Log": "log",
