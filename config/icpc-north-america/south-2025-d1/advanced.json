@@ -1,5 +1,14 @@
 [
     {
+        "type": "overrideGroups",
+        "rules": {
+            "scusa-all": {"isHidden": false},
+            "mausa-all": {"isHidden": false},
+            "seusa-all": {"isHidden": false}
+        }
+    },
+ 
+    {
         "type": "overrideOrganizations",
         "rules": {
             "cnu.edu": {
