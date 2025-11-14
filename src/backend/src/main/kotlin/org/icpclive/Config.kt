@@ -41,6 +41,7 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
         "--visual-config",
         help = "File with localization of analytics messages"
     ).path(canBeFile = true, canBeDir = false, mustExist = true)
+        .defaultLazy("configDirectory/visual-config.json") { cdsSettings.configDirectory.resolve("visual-config.json") }
 
 
     override fun run() {
