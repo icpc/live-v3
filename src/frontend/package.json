@@ -1,32 +1,37 @@
 {
-  "name": "icpc-live-v3",
-  "version": "3.1.0",
-  "private": true,
-  "scripts": {
-    "": "TODO: change to use pnpm",
-    "buildOverlay": "npm run build -w overlay",
-    "buildAdmin": "npm run build -w admin",
-    "buildLocatorAdmin": "npm run build -w locator",
-    "lint": "npm run lint -w overlay && npm run lint -w admin && npm run lint -w locator",
-    "test": "npm run test -w tests",
-    "install-browsers": "npm run install-browsers -w tests",
-    "overlayConfigSchema": "npm run schema:config -w overlay"
-  },
-  "workspaces": [
-    "overlay",
-    "admin",
-    "locator",
-    "common",
-    "tests"
-  ],
-  "engines": {
-    "node": ">=20",
-    "npm": ">=10.2.4"
-  },
-  "pnpm": {
-		"overrides": {
-			"caniuse-lite": "1.0.30001653",
+    "name": "icpc-live-v3",
+    "version": "3.1.0",
+    "private": true,
+    "scripts": {
+        "": "TODO: change to use pnpm",
+        "buildOverlay": "npm run build -w overlay",
+        "buildAdmin": "npm run build -w admin",
+        "buildLocatorAdmin": "npm run build -w locator",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "lint": "npm run lint -w overlay && npm run lint -w admin && npm run lint -w locator",
+        "test": "npm run test -w tests",
+        "install-browsers": "npm run install-browsers -w tests",
+        "overlayConfigSchema": "npm run schema:config -w overlay"
+    },
+    "workspaces": [
+        "overlay",
+        "admin",
+        "locator",
+        "common",
+        "tests"
+    ],
+    "engines": {
+        "node": ">=20",
+        "npm": ">=10.2.4"
+    },
+    "pnpm": {
+        "overrides": {
+            "caniuse-lite": "1.0.30001653",
             "webworkify-webpack": "https://codeload.github.com/xqq/webworkify-webpack/tar.gz/24d1e719b4a6cac37a518b2bb10fe124527ef4ef"
-		}
-	}
+        }
+    },
+    "devDependencies": {
+        "prettier": "^3.6.2"
+    }
 }

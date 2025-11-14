@@ -1,0 +1,31 @@
+name: Frontend formatting
+
+on:
+  push:
+    paths:
+      - src/frontend/**
+      - .github/**
+  pull_request:
+    paths:
+      - src/frontend/**
+      - .github/**
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.20.0'
+          cache: 'pnpm'
+          cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
+      - name: Install frontend dependencies
+        working-directory: src/frontend
+        run: pnpm install --frozen-lockfile
+      - name: Check formatting
+        working-directory: src/frontend
+        run: pnpm run format:check

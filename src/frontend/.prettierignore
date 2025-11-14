@@ -1,0 +1,18 @@
+# Dependencies
+node_modules
+
+# Gradle 
+.gradle
+
+# Build artifacts
+build
+dist
+coverage
+pnpm-lock.yaml
+
+# Generated sources
+generated
+
+# Unsupportded file formats
+*.yaml
+*.json
