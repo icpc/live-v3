@@ -24,7 +24,7 @@ function defaultValuePrinter<T>(value: T): React.ReactNode {
 function defaultValueEditor<T>({
     onSubmit,
     value,
-    onChange
+    onChange,
 }: ValueEditorProps<T>): React.ReactElement {
     function handleChange(event: ChangeEvent<HTMLInputElement>): void {
         onChange(event.target.value as T);
@@ -34,7 +34,7 @@ function defaultValueEditor<T>({
         <Box
             component="form"
             onSubmit={onSubmit}
-            sx={{ display: 'inline-flex', width: '100%' }}
+            sx={{ display: "inline-flex", width: "100%" }}
         >
             <TextField
                 autoFocus
@@ -56,7 +56,7 @@ export function PresetsTableCell<T = unknown>({
     editValue,
     onSubmit,
     valuePrinter = defaultValuePrinter,
-    ValueEditor = defaultValueEditor
+    ValueEditor = defaultValueEditor,
 }: PresetsTableCellProps<T>): React.ReactElement {
     function isEditMode(): boolean {
         return editValue !== undefined;
@@ -82,6 +82,4 @@ export function PresetsTableCell<T = unknown>({
     );
 }
 
-export type {
-    ValueEditorProps
-}
+export type { ValueEditorProps };

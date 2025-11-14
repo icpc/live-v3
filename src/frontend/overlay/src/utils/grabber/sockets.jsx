@@ -3,7 +3,10 @@ export class GrabberSocket {
         if (url.startsWith("http")) {
             url = "ws" + url.substring(4);
         } else if (!url.startsWith("ws")) {
-            url = (window.location.protocol === "http:" ? "ws:" : "wss:") + window.location.host + url;
+            url =
+                (window.location.protocol === "http:" ? "ws:" : "wss:") +
+                window.location.host +
+                url;
         }
         this.url = url;
         this.target = new EventTarget();
@@ -17,31 +20,33 @@ export class GrabberSocket {
             return;
         }
         const ws = new WebSocket(this.url);
-        
+
         ws.onopen = () => {
             while (this.messageQueue.length > 0) {
                 ws.send(JSON.stringify(this.messageQueue[0]));
                 this.messageQueue.splice(0, 1);
             }
         };
-        
+
         ws.onmessage = ({ data }) => {
             const payload = JSON.parse(data);
-            this.target.dispatchEvent(new CustomEvent(payload.event, { detail: payload }));
+            this.target.dispatchEvent(
+                new CustomEvent(payload.event, { detail: payload }),
+            );
         };
-        
+
         ws.onclose = () => {
             if (this.isClosed) {
                 return;
             }
             // setTimeout(() => this.connect(), 1000);
         };
-        
+
         this.ws = ws;
     }
 
     emit(event, payload) {
-        const data = { ...payload, "event": event };
+        const data = { ...payload, event: event };
         if (this.ws.readyState === this.ws.OPEN) {
             this.ws.send(JSON.stringify(data));
         } else {
@@ -50,7 +55,7 @@ export class GrabberSocket {
     }
 
     on(event, callback) {
-        this.target.addEventListener(event, e => callback(e.detail));
+        this.target.addEventListener(event, (e) => callback(e.detail));
     }
 
     close() {

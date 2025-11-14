@@ -11,15 +11,21 @@ export type ScrollDirectionSwitcherProps = {
     setDirection: (duration: ScoreboardScrollDirection) => void;
 };
 
-const availableDirections: [ScoreboardScrollDirection, OverridableComponent<SvgIconTypeMap>][] = [
+const availableDirections: [
+    ScoreboardScrollDirection,
+    OverridableComponent<SvgIconTypeMap>,
+][] = [
     [ScoreboardScrollDirection.FirstPage, SkipPreviousIcon],
     [ScoreboardScrollDirection.Back, PlayArrowIcon],
     [ScoreboardScrollDirection.Pause, PauseIcon],
     [ScoreboardScrollDirection.Forward, PlayArrowIcon],
-    [ScoreboardScrollDirection.LastPage, SkipNextIcon]
+    [ScoreboardScrollDirection.LastPage, SkipNextIcon],
 ];
 
-const ScrollDirectionSwitcher = ({ direction, setDirection }: ScrollDirectionSwitcherProps) => {
+const ScrollDirectionSwitcher = ({
+    direction,
+    setDirection,
+}: ScrollDirectionSwitcherProps) => {
     return (
         <ButtonGroup variant="outlined">
             {availableDirections.map(([v, C]) => (
@@ -29,7 +35,14 @@ const ScrollDirectionSwitcher = ({ direction, setDirection }: ScrollDirectionSwi
                     onClick={() => setDirection(v)}
                     key={v}
                 >
-                    <C sx={{ transform: v == ScoreboardScrollDirection.Back ? "rotate(180deg)" : undefined }}/>
+                    <C
+                        sx={{
+                            transform:
+                                v == ScoreboardScrollDirection.Back
+                                    ? "rotate(180deg)"
+                                    : undefined,
+                        }}
+                    />
                 </Button>
             ))}
         </ButtonGroup>

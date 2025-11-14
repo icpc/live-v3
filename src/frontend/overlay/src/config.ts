@@ -6,29 +6,45 @@ import type { OverlayConfig } from "./config.interface";
 
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
-const VISUAL_CONFIG_URL = import.meta.env.VITE_VISUAL_CONFIG_URL ?? `${window.location.protocol}//${window.location.hostname}:${WS_PORT}/api/overlay/visualConfig.json`;
+const VISUAL_CONFIG_URL =
+    import.meta.env.VITE_VISUAL_CONFIG_URL ??
+    `${window.location.protocol}//${window.location.hostname}:${WS_PORT}/api/overlay/visualConfig.json`;
 
 const urlParams = new URLSearchParams(window.location.search);
-const queryVisualConfig = JSON.parse(urlParams.get("forceVisualConfig") ?? "{}");
+const queryVisualConfig = JSON.parse(
+    urlParams.get("forceVisualConfig") ?? "{}",
+);
 
-const visualConfig = await fetch(VISUAL_CONFIG_URL)
-    .then(r => r.json())
-    .catch((e) => console.error("failed to load visual config: " + e)) ?? {};
+const visualConfig =
+    (await fetch(VISUAL_CONFIG_URL)
+        .then((r) => r.json())
+        .catch((e) => console.error("failed to load visual config: " + e))) ??
+    {};
 
-
-function Location(positionX: number, positionY: number, sizeX: number, sizeY: number): LocationRectangle {
+function Location(
+    positionX: number,
+    positionY: number,
+    sizeX: number,
+    sizeY: number,
+): LocationRectangle {
     return {
         positionX: positionX,
         positionY: positionY,
         sizeX: sizeX,
-        sizeY: sizeY
+        sizeY: sizeY,
     };
 }
 function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
     return {
         CONTEST_COLOR: "#4C83C3",
         CONTEST_CAPTION: "",
-        BASE_URL_WS: (import.meta.env.VITE_WEBSOCKET_URL ?? WS_PROTO + window.location.hostname + ":" + WS_PORT + "/api/overlay"),
+        BASE_URL_WS:
+            import.meta.env.VITE_WEBSOCKET_URL ??
+            WS_PROTO +
+                window.location.hostname +
+                ":" +
+                WS_PORT +
+                "/api/overlay",
 
         // Non Styling configs
         WEBSOCKET_RECONNECT_TIME: 5000, // ms
@@ -45,11 +61,11 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         QUEUE_MAX_ROWS: 20,
         QUEUE_HORIZONTAL_HEIGHT_NUM: 5,
 
-
         // Timings
         WIDGET_TRANSITION_TIME: 300, // ms
         QUEUE_ROW_TRANSITION_TIME: 700, // ms
-        QUEUE_ROW_APPEAR_TIME: (cfg: OverlayConfig) => cfg.QUEUE_ROW_TRANSITION_TIME, // ms
+        QUEUE_ROW_APPEAR_TIME: (cfg: OverlayConfig) =>
+            cfg.QUEUE_ROW_TRANSITION_TIME, // ms
         QUEUE_ROW_FEATURED_RUN_APPEAR_TIME: 500, // ms
         QUEUE_ROW_FEATURED_RUN_ADDITIONAL_DELAY: 5000, // ms
         QUEUE_ROW_FTS_TRANSITION_TIME: 3000, // ms
@@ -70,7 +86,8 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         GLOBAL_DEFAULT_FONT_SIZE: "22px", // css-property
         GLOBAL_DEFAULT_FONT_WEIGHT: 400, // css-property
         GLOBAL_DEFAULT_FONT_WEIGHT_BOLD: 700, // css-property
-        GLOBAL_DEFAULT_FONT: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE + " " + cfg.GLOBAL_DEFAULT_FONT_FAMILY, // MUST HAVE FONT SIZE
+        GLOBAL_DEFAULT_FONT: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_SIZE + " " + cfg.GLOBAL_DEFAULT_FONT_FAMILY, // MUST HAVE FONT SIZE
         GLOBAL_BACKGROUND_COLOR: "#242425",
         GLOBAL_TEXT_COLOR: "#FFF",
         GLOBAL_BORDER_RADIUS: "16px",
@@ -84,24 +101,34 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
 
         VERDICT_LABEL_FONT_SIZE: "14px",
         VERDICT_CELL_TRANSITION_TIME: 250, // ms
-        VERDICT_CELL_BRODER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
+        VERDICT_CELL_BRODER_RADIUS: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_BORDER_RADIUS,
 
         // Styles > Scoreboard
-        SCOREBOARD_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.GLOBAL_BACKGROUND_COLOR,
-        SCOREBOARD_BORDER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
+        SCOREBOARD_BACKGROUND_COLOR: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_BACKGROUND_COLOR,
+        SCOREBOARD_BORDER_RADIUS: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_BORDER_RADIUS,
         SCOREBOARD_TEXT_COLOR: (cfg: OverlayConfig) => cfg.GLOBAL_TEXT_COLOR,
         SCOREBOARD_CAPTION_FONT_SIZE: "32px", // css value
-        SCOREBOARD_HEADER_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
-        SCOREBOARD_HEADER_DIVIDER_COLOR: (cfg: OverlayConfig) => cfg.SCOREBOARD_BACKGROUND_COLOR,
-        SCOREBOARD_HEADER_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
-        SCOREBOARD_HEADER_FONT_WEIGHT: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_WEIGHT,
+        SCOREBOARD_HEADER_BACKGROUND_COLOR: (cfg: OverlayConfig) =>
+            cfg.CONTEST_COLOR,
+        SCOREBOARD_HEADER_DIVIDER_COLOR: (cfg: OverlayConfig) =>
+            cfg.SCOREBOARD_BACKGROUND_COLOR,
+        SCOREBOARD_HEADER_FONT_SIZE: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        SCOREBOARD_HEADER_FONT_WEIGHT: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_WEIGHT,
         SCOREBOARD_HEADER_HEIGHT: 38,
-        SCOREBOARD_ROWS_DIVIDER_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
+        SCOREBOARD_ROWS_DIVIDER_COLOR: (cfg: OverlayConfig) =>
+            cfg.CONTEST_COLOR,
         SCOREBOARD_ROW_HEIGHT: 32, // px // todo: tweak this
         SCOREBOARD_ROW_PADDING: 1, // px
         SCOREBOARD_BETWEEN_HEADER_PADDING: 3, //px
-        SCOREBOARD_ROW_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
-        SCOREBOARD_TABLE_ROW_FONT_WEIGHT: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_WEIGHT,
+        SCOREBOARD_ROW_FONT_SIZE: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        SCOREBOARD_TABLE_ROW_FONT_WEIGHT: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_WEIGHT,
 
         SCOREBOARD_CELL_PLACE_SIZE: "73px",
         SCOREBOARD_CELL_TEAMNAME_SIZE: "304px",
@@ -126,8 +153,8 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         SCOREBOARD_HEADER_BORDER_RADIUS_TOP_LEFT: "16px",
         SCOREBOARD_HEADER_BORDER_RADIUS_TOP_RIGHT: "16px",
 
-
-        QUEUE_ROW_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        QUEUE_ROW_FONT_SIZE: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_SIZE,
         QUEUE_ROW_BACKGROUND: "rgba(0, 0, 0, 0.08)",
         QUEUE_ROW_HEIGHT: 32, // px
         QUEUE_ROW_WIDTH: 368, // px
@@ -135,11 +162,13 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         QUEUE_HORIZONTAL_ROW_Y_PADDING: 3, // px
         QUEUE_ROW_FEATURED_RUN_PADDING: 3, // px
         QUEUE_WRAP_PADDING: 8, // px
-        QUEUE_HORIZONTAL_ROW_X_PADDING: (cfg: OverlayConfig) => cfg.QUEUE_WRAP_PADDING, // px
+        QUEUE_HORIZONTAL_ROW_X_PADDING: (cfg: OverlayConfig) =>
+            cfg.QUEUE_WRAP_PADDING, // px
         QUEUE_OPACITY: 0.95,
         QUEUE_FEATURED_RUN_ASPECT: 16 / 9,
         QUEUE_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
-        QUEUE_HORIZONTAL_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.QUEUE_BACKGROUND_COLOR,
+        QUEUE_HORIZONTAL_BACKGROUND_COLOR: (cfg: OverlayConfig) =>
+            cfg.QUEUE_BACKGROUND_COLOR,
         QUEUE_ROW_PROBLEM_LABEL_WIDTH: 28, // px
         QUEUE_HEADER_FONT_SIZE: "32px",
         QUEUE_HEADER_LINE_HEIGHT: "44px",
@@ -155,7 +184,8 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         QUEUE_FEATURED_RUN_PADDING_LEFT: "3px",
         QUEUE_FEATURED_RUN_BORDER_RADIUS_BOTTOM_LEFT: "16px",
         QUEUE_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT: "16px",
-        QUEUE_HORIZONTAL_FEATURED_RUN_WIDTH: (cfg: OverlayConfig) => cfg.QUEUE_FEATURED_RUN_WIDTH,
+        QUEUE_HORIZONTAL_FEATURED_RUN_WIDTH: (cfg: OverlayConfig) =>
+            cfg.QUEUE_FEATURED_RUN_WIDTH,
         QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_LEFT: "16px",
         QUEUE_HORIZONTAL_FEATURED_RUN_BORDER_RADIUS_TOP_RIGHT: "16px",
         QUEUE_FTS_BOTTOM_OFFSET: 3, // px
@@ -175,13 +205,17 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         STATISTICS_OPACITY: 0.95,
         STATISTICS_BG_COLOR: "#000000",
         STATISTICS_TITLE_COLOR: "#FFFFFF",
-        STATISTICS_STATS_VALUE_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
-        STATISTICS_STATS_VALUE_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        STATISTICS_STATS_VALUE_FONT_SIZE: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        STATISTICS_STATS_VALUE_FONT_FAMILY: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_FAMILY,
         STATISTICS_STATS_VALUE_COLOR: "#FFFFFF",
         STATISTICS_BAR_HEIGHT_PX: 24,
-        STATISTICS_BAR_HEIGHT: (cfg: OverlayConfig) => `${cfg.STATISTICS_BAR_HEIGHT_PX}px`,
+        STATISTICS_BAR_HEIGHT: (cfg: OverlayConfig) =>
+            `${cfg.STATISTICS_BAR_HEIGHT_PX}px`,
         STATISTICS_BAR_GAP_PX: 9,
-        STATISTICS_BAR_GAP: (cfg: OverlayConfig) => `${cfg.STATISTICS_BAR_GAP_PX}px`,
+        STATISTICS_BAR_GAP: (cfg: OverlayConfig) =>
+            `${cfg.STATISTICS_BAR_GAP_PX}px`,
         STATISTICS_PADDING_VERTICAL: "8px",
         STATISTICS_PADDING_HORIZONTAL: "16px",
         STATISTICS_HEADER_GAP: "16px",
@@ -193,7 +227,8 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         LEGEND_HORIZONTAL_MARGIN: "16px",
 
         // TODO: remove
-        CELL_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        CELL_FONT_FAMILY: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_FAMILY,
         CELL_FONT_SIZE: "18px",
         CELL_TEXT_COLOR: "#FFFFFF",
         CELL_TEXT_COLOR_INVERSE: "#000000",
@@ -211,15 +246,18 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         CELL_QUEUE_TASK_WIDTH: "50px", // css property
 
         CELL_NAME_LEFT_PADDING: "5px", // css property
-        CELL_NAME_RIGHT_PADDING: (cfg: OverlayConfig) => cfg.CELL_NAME_LEFT_PADDING, // css property
+        CELL_NAME_RIGHT_PADDING: (cfg: OverlayConfig) =>
+            cfg.CELL_NAME_LEFT_PADDING, // css property
 
         TICKER_SMALL_SIZE: "12%", // css property
         TICKER_SMALL_BACKGROUND: (cfg: OverlayConfig) => cfg.VERDICT_NOK,
-        TICKER_BACKGROUND: (cfg: OverlayConfig) => cfg.SCOREBOARD_BACKGROUND_COLOR,
+        TICKER_BACKGROUND: (cfg: OverlayConfig) =>
+            cfg.SCOREBOARD_BACKGROUND_COLOR,
         TICKER_DEFAULT_SCOREBOARD_BACKGROUND: "#FFFFFF00",
         TICKER_OPACITY: 0.95,
         TICKER_FONT_COLOR: "#FFFFFF",
-        TICKER_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        TICKER_FONT_FAMILY: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_FAMILY,
         TICKER_TEXT_FONT_SIZE: "32px", // css property
         TICKER_TEXT_HORIZONTAL_PADDING: "16px",
         TICKER_TEXT_MARGIN_LEFT: "16px", // css property
@@ -234,12 +272,13 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         TICKER_LIVE_ICON_PADDING: "8px 0",
         TICKER_LIVE_ICON_MARGIN: "0 8px",
 
-        PICTURE_NAME_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
+        PICTURE_NAME_BACKGROUND_COLOR: (cfg: OverlayConfig) =>
+            cfg.CONTEST_COLOR,
         PICTURE_NAME_FONT_COLOR: "#FFFFFF",
         PICTURE_NAME_FONT_SIZE: "22pt",
         PICTURE_BORDER_SIZE: "5px",
-        PICTURE_NAME_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
-
+        PICTURE_NAME_FONT_FAMILY: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_FAMILY,
 
         // not used
         TEAMVIEW_SMALL_FACTOR: "50%", // css property
@@ -251,8 +290,12 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         FULL_SCREEN_CLOCK_FONT_FAMILY: "Helvetica; monospace",
 
         ADVERTISEMENT_BACKGROUND: "#FFFFFF", // hex value.
-        ADVERTISEMENT_COLOR: (cfg: OverlayConfig) => isShouldUseDarkColor(cfg.ADVERTISEMENT_BACKGROUND) ? "black" : "white",
-        ADVERTISEMENT_FONT_FAMILY: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_FAMILY,
+        ADVERTISEMENT_COLOR: (cfg: OverlayConfig) =>
+            isShouldUseDarkColor(cfg.ADVERTISEMENT_BACKGROUND)
+                ? "black"
+                : "white",
+        ADVERTISEMENT_FONT_FAMILY: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_FAMILY,
         ADVERTISEMENT_FONT_SIZE: "24pt",
         ADVERTISEMENT_VERTICAL_PADDING: "13px",
         ADVERTISEMENT_HORIZONTAL_PADDING: "20px",
@@ -261,13 +304,14 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         STAR_SIZE: 33, // px
         STAR_DEFAULT_COLOR: "#F9A80D", // hex
 
-        QUEUE_PROBLEM_LABEL_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        QUEUE_PROBLEM_LABEL_FONT_SIZE: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_SIZE,
 
         // Medals
         MEDAL_COLORS: {
             gold: "#F9A80D",
             silver: "#ACACAC",
-            bronze: "#E27B5A"
+            bronze: "#E27B5A",
         },
 
         // Debug Behaviour
@@ -275,10 +319,12 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
 
         CONTESTER_ROW_OPACITY: 0.95,
 
-        CONTESTER_FONT_SIZE: (cfg: OverlayConfig) => cfg.GLOBAL_DEFAULT_FONT_SIZE,
+        CONTESTER_FONT_SIZE: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_DEFAULT_FONT_SIZE,
         CONTESTER_BACKGROUND_COLOR: (cfg: OverlayConfig) => cfg.CONTEST_COLOR,
 
-        CONTESTER_ROW_BORDER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
+        CONTESTER_ROW_BORDER_RADIUS: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_BORDER_RADIUS,
         CONTESTER_ROW_HEIGHT: "32px",
         CONTESTER_NAME_WIDTH: "150px",
         CONTESTER_INFO_SCORE_WIDTH: "51px",
@@ -290,7 +336,8 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         CONTESTER_INFO_WIDTH: "150px",
 
         TIMELINE_ELEMENT_DIAMETER: 25,
-        TIMELINE_BORDER_RADIUS: (cfg: OverlayConfig) => cfg.GLOBAL_BORDER_RADIUS,
+        TIMELINE_BORDER_RADIUS: (cfg: OverlayConfig) =>
+            cfg.GLOBAL_BORDER_RADIUS,
         TIMELINE_LINE_HEIGHT: 4,
         TIMELINE_WRAP_HEIGHT: 148,
         TIMELINE_TIMEBORDER_COLOR: "#FFF",
@@ -306,7 +353,6 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
 
         TIMELINE_END_CIRCLE_RADIUS: 10,
         TIMELINE_TIME_BORDER_WIDTH: 2,
-
 
         KEYLOG_MAXIMUM_FOR_NORMALIZATION: 500, // max value for normalization
         KEYLOG_TOP_PADDING: 6, // px
@@ -327,9 +373,9 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         // Image ticker
         IMAGE_TICKER_HORIZONTAL_PADDING: "16px",
 
-
         TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR: 0.39,
-        SPLITSCREEN_SECONDARY_FACTOR: (cfg: OverlayConfig) => cfg.TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR,
+        SPLITSCREEN_SECONDARY_FACTOR: (cfg: OverlayConfig) =>
+            cfg.TEAMVIEW_FULLSCREEN_SECONDARY_FACTOR,
 
         // PVP_OPACITY: 0.95,
         // TEAM_VIEW_OPACITY: 0.95,
@@ -385,37 +431,56 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
             teamLocator: Location(0, 0, 1920, 1080),
             teamViewSingle: Location(16, 16, 1488, 984),
             teamViewPvpTop: Location(16, 16, 1488, 984 / 2 + 16),
-            teamViewPvpBottom: Location(16, 16 + 984 / 2 - 16, 1488, 984 / 2 + 16),
+            teamViewPvpBottom: Location(
+                16,
+                16 + 984 / 2 - 16,
+                1488,
+                984 / 2 + 16,
+            ),
             teamViewTopLeft: Location(16, 16, 1488 / 2, 837 / 2),
             teamViewTopRight: Location(16 + 1488 / 2, 16, 1488 / 2, 837 / 2),
             teamViewBottomLeft: Location(16, 16 + 837 / 2, 1488 / 2, 837 / 2),
-            teamViewBottomRight: Location(16 + 1488 / 2, 16 + 837 / 2, 1488 / 2, 837 / 2),
+            teamViewBottomRight: Location(
+                16 + 1488 / 2,
+                16 + 837 / 2,
+                1488 / 2,
+                837 / 2,
+            ),
         },
         ADMIN_HIDE_CONTROL: [],
-        ADMIN_HIDE_MENU: []
+        ADMIN_HIDE_MENU: [],
     };
 }
 
 const defaultConfig = getDefaultConfig();
 
 type EvaluatableTo<T> = {
-    [K in keyof T]: T[K] | ((T) => T[K])
-}
+    [K in keyof T]: T[K] | ((T) => T[K]);
+};
 
-function merge<T>(defaultConfig: EvaluatableTo<T>, serverVisualConfig: object, queryVisualConfig: object): T {
+function merge<T>(
+    defaultConfig: EvaluatableTo<T>,
+    serverVisualConfig: object,
+    queryVisualConfig: object,
+): T {
     const result = {};
     const allKeys = new Set([
         ...Object.keys(defaultConfig),
         ...Object.keys(serverVisualConfig),
-        ...Object.keys(queryVisualConfig)
+        ...Object.keys(queryVisualConfig),
     ]);
     for (const key of allKeys) {
         const defaultVal = defaultConfig[key];
-        const evalDefaultVal = typeof defaultVal === "function" ? defaultVal(result) : defaultVal;
+        const evalDefaultVal =
+            typeof defaultVal === "function" ? defaultVal(result) : defaultVal;
         const serverVal = serverVisualConfig[key];
         const queryVal = queryVisualConfig[key];
         if (evalDefaultVal && typeof evalDefaultVal === "object") {
-            result[key] = merge(evalDefaultVal, (typeof serverVal == "object") ? serverVal : {}, (typeof queryVal == "object") ? queryVal : {});
+            result[key] = merge(
+                evalDefaultVal,
+                typeof serverVal == "object" ? serverVal : {},
+                typeof queryVal == "object" ? queryVal : {},
+            );
         } else {
             result[key] = queryVal ?? serverVal ?? evalDefaultVal;
         }
@@ -435,7 +500,10 @@ function expandDots(config, result = {}) {
             current = current[parts[i]];
         }
         if (typeof value === "object") {
-            current[parts[parts.length - 1]] = expandDots(value, current[parts[parts.length - 1]]);
+            current[parts[parts.length - 1]] = expandDots(
+                value,
+                current[parts[parts.length - 1]],
+            );
         } else {
             current[parts[parts.length - 1]] = value;
         }
@@ -443,10 +511,19 @@ function expandDots(config, result = {}) {
     return result;
 }
 
-const config: Readonly<OverlayConfig> = merge<OverlayConfig>(defaultConfig, expandDots(visualConfig), expandDots(queryVisualConfig));
+const config: Readonly<OverlayConfig> = merge<OverlayConfig>(
+    defaultConfig,
+    expandDots(visualConfig),
+    expandDots(queryVisualConfig),
+);
 
-setFavicon(faviconTemplate
-    .replaceAll("{CONTEST_COLOR}", config.CONTEST_COLOR)
-    .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(config.CONTEST_COLOR) ? "#000000" : "#FFFFFF"));
+setFavicon(
+    faviconTemplate
+        .replaceAll("{CONTEST_COLOR}", config.CONTEST_COLOR)
+        .replaceAll(
+            "{TEXT_COLOR}",
+            isShouldUseDarkColor(config.CONTEST_COLOR) ? "#000000" : "#FFFFFF",
+        ),
+);
 
 export default config;

@@ -1,4 +1,11 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef } from "react";
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+} from "react";
 import { ADMIN_ACTIONS_WS_URL, WEBSOCKET_RECONNECT_TIME } from "@/config.ts";
 
 export type ReloadHandler = (url: string) => void;
@@ -9,7 +16,7 @@ export interface ReloadHandleService {
 }
 
 export class ReloadHandleServiceImpl {
-    handlers = new Set<ReloadHandler>;
+    handlers = new Set<ReloadHandler>();
 
     subscribe(handler: ReloadHandler) {
         this.handlers.add(handler);
@@ -20,7 +27,7 @@ export class ReloadHandleServiceImpl {
     }
 
     handle(url: string) {
-        this.handlers.forEach(h => h(url));
+        this.handlers.forEach((h) => h(url));
     }
 }
 

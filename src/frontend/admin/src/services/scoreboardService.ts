@@ -10,15 +10,17 @@ export class ScoreboardWidgetService extends AbstractSingleWidgetService<Scorebo
 
     groups() {
         return this.apiGet("/regions")
-            .catch(this.errorHandler("Failed to load list of groups of " + this.apiPath))
-            .then(r => r as GroupInfo[]);
+            .catch(
+                this.errorHandler(
+                    "Failed to load list of groups of " + this.apiPath,
+                ),
+            )
+            .then((r) => r as GroupInfo[]);
     }
 }
 
 export function useScoreboardWidgetService() {
-    const service = useMemo(
-        () => new ScoreboardWidgetService(),
-        []);
+    const service = useMemo(() => new ScoreboardWidgetService(), []);
     useServiceSnackbarErrorHandler(service);
 
     return service;

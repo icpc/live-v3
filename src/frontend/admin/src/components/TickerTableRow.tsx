@@ -1,15 +1,15 @@
 import React, { useState, FormEvent, ChangeEvent } from "react";
 import { DateTime } from "luxon";
 import {
-  TableCell,
-  TableRow,
-  TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  Switch,
-  FormControlLabel,
-  SelectChangeEvent
+    TableCell,
+    TableRow,
+    TextField,
+    Select,
+    MenuItem,
+    FormControl,
+    Switch,
+    FormControlLabel,
+    SelectChangeEvent,
 } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -54,7 +54,11 @@ interface ImageSettings extends BaseTickerSettings {
     path: string;
 }
 
-type TickerSettings = ClockSettings | ScoreboardSettings | TextSettings | ImageSettings;
+type TickerSettings =
+    | ClockSettings
+    | ScoreboardSettings
+    | TextSettings
+    | ImageSettings;
 
 interface TickerData {
     id: string | number;
@@ -82,7 +86,8 @@ function getTickerIcon(type: TickerType): React.ReactElement {
 
 function formatClockDisplay(settings: ClockSettings): string {
     const clockType = settings.clockType || ClockType.standard;
-    const secondsText = settings.showSeconds !== false ? "w/ seconds" : "no seconds";
+    const secondsText =
+        settings.showSeconds !== false ? "w/ seconds" : "no seconds";
     const timeZoneText = settings.timeZone ? ` (${settings.timeZone})` : "";
     return `${clockType} ${secondsText}${timeZoneText}`;
 }
@@ -91,7 +96,10 @@ function formatScoreboardDisplay(settings: ScoreboardSettings): string {
     return `From ${settings.from} to ${settings.to}`;
 }
 
-function validateTimeZone(timeZone: string): { isValid: boolean, errorMessage: string } {
+function validateTimeZone(timeZone: string): {
+    isValid: boolean;
+    errorMessage: string;
+} {
     if (timeZone === "") {
         return { isValid: true, errorMessage: "" };
     }
@@ -99,11 +107,16 @@ function validateTimeZone(timeZone: string): { isValid: boolean, errorMessage: s
     const dateTime = DateTime.now().setZone(timeZone);
     return {
         isValid: dateTime.isValid,
-        errorMessage: dateTime.isValid ? "" : (dateTime.invalidReason || "Invalid timezone"),
+        errorMessage: dateTime.isValid
+            ? ""
+            : dateTime.invalidReason || "Invalid timezone",
     };
 }
 
-function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => unknown) {
+function useTickerEditState(
+    data: TickerData,
+    onEdit: (data: TickerData) => unknown,
+) {
     const [editData, setEditData] = useState<TickerData | undefined>(undefined);
     const [timeZoneError, setTimeZoneError] = useState<string>("");
 
@@ -114,7 +127,7 @@ function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => unkn
     function startEdit(): void {
         setEditData({
             ...data,
-            settings: { ...data.settings }
+            settings: { ...data.settings },
         });
         setTimeZoneError("");
     }
@@ -147,14 +160,19 @@ function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => unkn
             ...editData,
             settings: {
                 ...editData.settings,
-                [field]: value
-            }
+                [field]: value,
+            },
         });
     }
 
-    function handleFieldChange(field: string): (event: ChangeEvent<HTMLInputElement>) => void {
+    function handleFieldChange(
+        field: string,
+    ): (event: ChangeEvent<HTMLInputElement>) => void {
         return function (event: ChangeEvent<HTMLInputElement>): void {
-            const value = event.target.type === 'number' ? Number(event.target.value) : event.target.value;
+            const value =
+                event.target.type === "number"
+                    ? Number(event.target.value)
+                    : event.target.value;
             updateField(field, value);
         };
     }
@@ -165,7 +183,7 @@ function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => unkn
 
         setTimeZoneError(validation.errorMessage);
         if (validation.isValid) {
-            updateField('timeZone', value || null);
+            updateField("timeZone", value || null);
         }
     }
 
@@ -177,7 +195,7 @@ function useTickerEditState(data: TickerData, onEdit: (data: TickerData) => unkn
         handleSubmit,
         updateField,
         handleFieldChange,
-        handleTimeZoneChange
+        handleTimeZoneChange,
     };
 }
 
@@ -187,7 +205,7 @@ function ClockEditor({
     timeZoneError,
     onSubmit,
     onFieldChange,
-    onTimeZoneChange
+    onTimeZoneChange,
 }: {
     data: TickerData;
     editData: TickerData;
@@ -199,14 +217,20 @@ function ClockEditor({
     const settings = editData.settings as ClockSettings;
 
     function handleClockTypeChange(event: SelectChangeEvent): void {
-        onFieldChange('clockType', event.target.value);
+        onFieldChange("clockType", event.target.value);
     }
 
-    function handleShowSecondsChange(event: ChangeEvent<HTMLInputElement>): void {
-        onFieldChange('showSeconds', event.target.checked);
+    function handleShowSecondsChange(
+        event: ChangeEvent<HTMLInputElement>,
+    ): void {
+        onFieldChange("showSeconds", event.target.checked);
     }
     return (
-        <Box onSubmit={onSubmit} component="form" sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+        <Box
+            onSubmit={onSubmit}
+            component="form"
+            sx={{ display: "flex", flexDirection: "column", gap: 1 }}
+        >
             <FormControl size="small" fullWidth>
                 <Select
                     value={settings.clockType || ClockType.standard}
@@ -231,7 +255,9 @@ function ClockEditor({
                 <TextField
                     size="small"
                     placeholder="Timezone"
-                    defaultValue={(data.settings as ClockSettings).timeZone || ""}
+                    defaultValue={
+                        (data.settings as ClockSettings).timeZone || ""
+                    }
                     error={timeZoneError !== ""}
                     helperText={timeZoneError}
                     onChange={onTimeZoneChange}
@@ -244,7 +270,7 @@ function ClockEditor({
 function TextEditor({
     data,
     onSubmit,
-    onChange
+    onChange,
 }: {
     data: TickerData;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -269,7 +295,7 @@ function TextEditor({
 function ImageEditor({
     data,
     onSubmit,
-    onChange
+    onChange,
 }: {
     data: TickerData;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -295,7 +321,7 @@ function ScoreboardEditor({
     data,
     onSubmit,
     onFromChange,
-    onToChange
+    onToChange,
 }: {
     data: TickerData;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -305,7 +331,11 @@ function ScoreboardEditor({
     const settings = data.settings as ScoreboardSettings;
 
     return (
-        <Box onSubmit={onSubmit} component="form" sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+        <Box
+            onSubmit={onSubmit}
+            component="form"
+            sx={{ display: "flex", flexDirection: "row", gap: 1 }}
+        >
             <TextField
                 autoFocus
                 hiddenLabel
@@ -332,7 +362,7 @@ function ScoreboardEditor({
 function PeriodEditor({
     periodMs,
     onSubmit,
-    onChange
+    onChange,
 }: {
     periodMs: number;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -356,7 +386,7 @@ export function TickerTableRow({
     data,
     onShow,
     onEdit,
-    onDelete
+    onDelete,
 }: TickerTableRowProps): React.ReactElement {
     const {
         editData,
@@ -366,7 +396,7 @@ export function TickerTableRow({
         handleSubmit,
         updateField,
         handleFieldChange,
-        handleTimeZoneChange
+        handleTimeZoneChange,
     } = useTickerEditState(data, onEdit);
 
     function renderSettingsContent(): React.ReactElement {
@@ -375,13 +405,23 @@ export function TickerTableRow({
         if (!isEditMode) {
             switch (type) {
                 case "clock":
-                    return <>{formatClockDisplay(data.settings as ClockSettings)}</>;
+                    return (
+                        <>
+                            {formatClockDisplay(data.settings as ClockSettings)}
+                        </>
+                    );
                 case "text":
                     return <>{(data.settings as TextSettings).text}</>;
                 case "image":
                     return <>{(data.settings as ImageSettings).path}</>;
                 case "scoreboard":
-                    return <>{formatScoreboardDisplay(data.settings as ScoreboardSettings)}</>;
+                    return (
+                        <>
+                            {formatScoreboardDisplay(
+                                data.settings as ScoreboardSettings,
+                            )}
+                        </>
+                    );
             }
         }
 
@@ -449,7 +489,7 @@ export function TickerTableRow({
                     <PeriodEditor
                         periodMs={data.settings.periodMs}
                         onSubmit={handleSubmit}
-                        onChange={handleFieldChange('periodMs')}
+                        onChange={handleFieldChange("periodMs")}
                     />
                 )}
             </TableCell>
@@ -484,5 +524,5 @@ export type {
     ClockSettings,
     ScoreboardSettings,
     TextSettings,
-    ImageSettings
+    ImageSettings,
 };

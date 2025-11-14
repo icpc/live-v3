@@ -9,12 +9,12 @@ function Advertisement(): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
     const service = usePresetWidgetService(
         "/advertisement",
-        errorHandlerWithSnackbar(enqueueSnackbar)
+        errorHandlerWithSnackbar(enqueueSnackbar),
     );
 
     return (
         <Container maxWidth="lg" sx={{ pt: 2 }}>
-            <PresetsManager service={service} tableKeys={["text"]}/>
+            <PresetsManager service={service} tableKeys={["text"]} />
         </Container>
     );
 }

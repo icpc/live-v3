@@ -16,19 +16,26 @@ import Dashboard from "./components/Dashboard.tsx";
 import Analytics from "@/components/pages/Analytics";
 import TeamSpotlight from "./components/TeamSpotlight.tsx";
 import { createApiGet } from "@shared/utils";
-import { setFavicon, isShouldUseDarkColor, useLocalStorageState } from "./utils";
+import {
+    setFavicon,
+    isShouldUseDarkColor,
+    useLocalStorageState,
+} from "./utils";
 import AdvancedJson from "./components/AdvancedJson.tsx";
 import MediaFiles from "./components/MediaFiles.tsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BACKEND_ROOT } from "./config";
 import { faviconTemplate } from "./styles.ts";
-import { ReloadHandleContext, useReloadHandleService } from "@/services/reloadHandler.ts";
+import {
+    ReloadHandleContext,
+    useReloadHandleService,
+} from "@/services/reloadHandler.ts";
 import ScoreboardPage from "@/components/pages/ScoreboardPage.tsx";
 
 const title_elements = {
-    "Advertisement": <Advertisement/>,
-    "Title": <Title/>,
-    "Picture": <Picture/>,
+    Advertisement: <Advertisement />,
+    Title: <Title />,
+    Picture: <Picture />,
 };
 
 const getTheme = (contestColor) => {
@@ -36,12 +43,14 @@ const getTheme = (contestColor) => {
         return createTheme({
             palette: {
                 text: {
-                    primary: "#FFFFFF"
-                }
+                    primary: "#FFFFFF",
+                },
             },
         });
     }
-    const textColor = isShouldUseDarkColor(contestColor) ? "#000000" : "#FFFFFF";
+    const textColor = isShouldUseDarkColor(contestColor)
+        ? "#000000"
+        : "#FFFFFF";
     return createTheme({
         palette: {
             mode: "light",
@@ -51,30 +60,39 @@ const getTheme = (contestColor) => {
             },
             text: {
                 primary: textColor,
-            }
+            },
         },
     });
 };
 
-
 function App() {
-    const [isOverlayPreviewShown, setIsOverlayPreviewShown] = useLocalStorageState("OverlayPreviewShown", false);
+    const [isOverlayPreviewShown, setIsOverlayPreviewShown] =
+        useLocalStorageState("OverlayPreviewShown", false);
 
     const [contestColor, setContestColor] = useState(null);
 
     useEffect(() => {
-        createApiGet(BACKEND_ROOT)("/api/overlay/visualConfig.json")
-            .then(c => {
+        createApiGet(BACKEND_ROOT)("/api/overlay/visualConfig.json").then(
+            (c) => {
                 if (c["CONTEST_COLOR"]) {
                     setContestColor(c["CONTEST_COLOR"]);
-                    setFavicon(faviconTemplate
-                        .replaceAll("{CONTEST_COLOR}", c["CONTEST_COLOR"])
-                        .replaceAll("{TEXT_COLOR}", isShouldUseDarkColor(contestColor) ? "#000000" : "#FFFFFF"));
+                    setFavicon(
+                        faviconTemplate
+                            .replaceAll("{CONTEST_COLOR}", c["CONTEST_COLOR"])
+                            .replaceAll(
+                                "{TEXT_COLOR}",
+                                isShouldUseDarkColor(contestColor)
+                                    ? "#000000"
+                                    : "#FFFFFF",
+                            ),
+                    );
                 }
                 if (c["CONTEST_CAPTION"]) {
-                    document.title = c["CONTEST_CAPTION"] + " — ICPC Live 3 Admin";
+                    document.title =
+                        c["CONTEST_CAPTION"] + " — ICPC Live 3 Admin";
                 }
-            });
+            },
+        );
     }, []);
 
     const reloadHandleService = useReloadHandleService();
@@ -89,29 +107,58 @@ function App() {
                 <SnackbarProvider maxSnack={5}>
                     <div className="App">
                         <ThemeProvider theme={getTheme(contestColor)}>
-                            <AppNav showOrHideOverlayPreview={handleToggleOverlayPreview}/>
+                            <AppNav
+                                showOrHideOverlayPreview={
+                                    handleToggleOverlayPreview
+                                }
+                            />
                         </ThemeProvider>
                         <Routes>
-                            <Route path="/" element={<ControlsPage/>}/>
-                            <Route path="/controls" element={<ControlsPage/>}/>
+                            <Route path="/" element={<ControlsPage />} />
+                            <Route
+                                path="/controls"
+                                element={<ControlsPage />}
+                            />
                             {/* <Route path="/advertisement" element={<Advertisement/>}/> */}
                             {/* <Route path="/title" element={<Title/>}/> */}
-                            <Route path="/titles"
-                                element={<Dashboard elements={title_elements} layout="oneColumn" maxWidth="lg"/>}/>
+                            <Route
+                                path="/titles"
+                                element={
+                                    <Dashboard
+                                        elements={title_elements}
+                                        layout="oneColumn"
+                                        maxWidth="lg"
+                                    />
+                                }
+                            />
                             {/* <Route path="/picture" element={<Picture/>}/> */}
-                            <Route path="/teamview" element={<TeamView/>}/>
+                            <Route path="/teamview" element={<TeamView />} />
                             {/*<Route path="/teampvp" element={<TeamPVP/>}/>*/}
                             {/*<Route path="/splitscreen" element={<SplitScreen/>}/>*/}
-                            <Route path="/scoreboard" element={<ScoreboardPage/>}/>
-                            <Route path="/ticker" element={<TickerMessage/>}/>
-                            <Route path="/log" element={<BackendLog/>}/>
-                            <Route path="/contestInfo" element={<ContestLog/>}/>
-                            <Route path="/analytics" element={<Analytics/>}/>
-                            <Route path="/teamSpotlight" element={<TeamSpotlight/>}/>
-                            <Route path="/advancedJson" element={<AdvancedJson/>}/>
-                            <Route path="/media" element={<MediaFiles/>}/>
+                            <Route
+                                path="/scoreboard"
+                                element={<ScoreboardPage />}
+                            />
+                            <Route path="/ticker" element={<TickerMessage />} />
+                            <Route path="/log" element={<BackendLog />} />
+                            <Route
+                                path="/contestInfo"
+                                element={<ContestLog />}
+                            />
+                            <Route path="/analytics" element={<Analytics />} />
+                            <Route
+                                path="/teamSpotlight"
+                                element={<TeamSpotlight />}
+                            />
+                            <Route
+                                path="/advancedJson"
+                                element={<AdvancedJson />}
+                            />
+                            <Route path="/media" element={<MediaFiles />} />
                         </Routes>
-                        <Overlay isOverlayPreviewShown={isOverlayPreviewShown}/>
+                        <Overlay
+                            isOverlayPreviewShown={isOverlayPreviewShown}
+                        />
                     </div>
                 </SnackbarProvider>
             </ReloadHandleContext.Provider>

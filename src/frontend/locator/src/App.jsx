@@ -6,17 +6,19 @@ import { SnackbarProvider } from "notistack";
 import OracleLocator from "./components/OracleLocator";
 import Calibrator from "./components/Calibrator.jsx";
 
-
 function App() {
     return (
         <BrowserRouter basename={import.meta.env.PUBLIC_URL ?? ""}>
             <SnackbarProvider maxSnack={5}>
                 <div className="App">
-                    <AppNav/>
+                    <AppNav />
                     <Routes>
-                        <Route path="/" element={<OracleLocator/>}/>
-                        <Route path="/locator" element={<OracleLocator/>}/>
-                        <Route path="/oracleCalibrator" element={<Calibrator/>}/>
+                        <Route path="/" element={<OracleLocator />} />
+                        <Route path="/locator" element={<OracleLocator />} />
+                        <Route
+                            path="/oracleCalibrator"
+                            element={<Calibrator />}
+                        />
                     </Routes>
                 </div>
             </SnackbarProvider>

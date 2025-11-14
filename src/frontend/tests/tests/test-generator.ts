@@ -12,14 +12,15 @@ import {
 import { BackendClient } from "./backend-client.js";
 import { TestConfig } from "./types.js";
 
-
 const spawnBackend = (contestConfig: string, port: number) => {
     const process = spawn("java", [
         "-jar",
         path.join(repoDir, "artifacts/live-v3-dev.jar"),
-        "-p",`${port}`,
+        "-p",
+        `${port}`,
         "--no-auth",
-        "-c", `${path.join(repoDir, contestConfig)}`
+        "-c",
+        `${path.join(repoDir, contestConfig)}`,
     ]);
 
     process.stdout.on("data", (data) => {
@@ -35,7 +36,10 @@ const spawnBackend = (contestConfig: string, port: number) => {
     return process;
 };
 
-export const generateTest = (index: number, { path: contestConfig, layouts }: TestConfig) => {
+export const generateTest = (
+    index: number,
+    { path: contestConfig, layouts }: TestConfig,
+) => {
     return async ({ page }, testInfo) => {
         console.log(`Starting contest ${contestConfig}`);
         const port = backendStartingPort + index;
@@ -62,13 +66,22 @@ export const generateTest = (index: number, { path: contestConfig, layouts }: Te
                 expect.soft(await overlay.showWidget(widget)).toBeTruthy();
             }
             if (l.analytics?.makeFeaturedType) {
-                expect.soft(await overlay.makeFeatured(l.analytics.messageId, l.analytics.makeFeaturedType)).toBeTruthy();
+                expect
+                    .soft(
+                        await overlay.makeFeatured(
+                            l.analytics.messageId,
+                            l.analytics.makeFeaturedType,
+                        ),
+                    )
+                    .toBeTruthy();
             }
 
             await page.waitForTimeout(l.displayDelay ?? overlayDisplayDelay);
 
             const contestName = contestConfig.replace(/\//g, "_");
-            const screenshot = await page.screenshot({ path: `tests/screenshots/${contestName}_${i}.png` });
+            const screenshot = await page.screenshot({
+                path: `tests/screenshots/${contestName}_${i}.png`,
+            });
 
             await testInfo.attach("page", {
                 body: screenshot,
@@ -79,9 +92,11 @@ export const generateTest = (index: number, { path: contestConfig, layouts }: Te
                 expect.soft(await overlay.hideWidget(widget)).toBeTruthy();
             }
             if (l.analytics?.makeFeaturedType) {
-                expect.soft(await overlay.hideFeatured(l.analytics.messageId)).toBeTruthy();
+                expect
+                    .soft(await overlay.hideFeatured(l.analytics.messageId))
+                    .toBeTruthy();
             }
         }
         await page.waitForTimeout(backendFinishCooldown);
-    }
-}
+    };
+};

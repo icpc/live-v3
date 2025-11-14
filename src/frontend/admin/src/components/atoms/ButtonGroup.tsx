@@ -1,4 +1,9 @@
-import { ButtonGroup as BaseButtonGroup, ButtonGroupProps, ThemeProvider, createTheme } from "@mui/material";
+import {
+    ButtonGroup as BaseButtonGroup,
+    ButtonGroupProps,
+    ThemeProvider,
+    createTheme,
+} from "@mui/material";
 
 const buttonGroupTheme = createTheme({
     components: {
@@ -23,7 +28,7 @@ const buttonGroupTheme = createTheme({
 const StyledButtonGroup = (props: ButtonGroupProps) => {
     return (
         <ThemeProvider theme={buttonGroupTheme}>
-            <BaseButtonGroup {...props}/>
+            <BaseButtonGroup {...props} />
         </ThemeProvider>
     );
 };

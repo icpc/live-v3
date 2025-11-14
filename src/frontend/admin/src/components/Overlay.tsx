@@ -11,43 +11,49 @@ type OverlayState = {
     scaleFactor: number;
     offsetX: number;
     offsetY: number;
-}
+};
 
 type OverlayProps = {
     isOverlayPreviewShown: boolean;
-}
+};
 
-export function Overlay({ isOverlayPreviewShown }: OverlayProps): React.ReactElement {
-    const [state, setState] = useLocalStorageState<OverlayState>("OverlayPreviewPosition", {
-        scaleFactor: 0.3,
-        offsetX: 0,
-        offsetY: 0
-    });
+export function Overlay({
+    isOverlayPreviewShown,
+}: OverlayProps): React.ReactElement {
+    const [state, setState] = useLocalStorageState<OverlayState>(
+        "OverlayPreviewPosition",
+        {
+            scaleFactor: 0.3,
+            offsetX: 0,
+            offsetY: 0,
+        },
+    );
 
     type RndProps = React.ComponentProps<typeof Rnd>;
 
     const onResize = useCallback<NonNullable<RndProps["onResize"]>>(
-        (_e, _direction, ref) => setState({
-            ...state,
-            scaleFactor: ref.offsetWidth / FULL_WIDTH
-        }),
-        [setState]
+        (_e, _direction, ref) =>
+            setState({
+                ...state,
+                scaleFactor: ref.offsetWidth / FULL_WIDTH,
+            }),
+        [setState],
     );
 
     const onDrag = useCallback<NonNullable<RndProps["onDrag"]>>(
-        (_e, ref) => setState({
-            ...state,
-            offsetX: ref.lastX,
-            offsetY: ref.lastY
-         }),
-         [setState]
+        (_e, ref) =>
+            setState({
+                ...state,
+                offsetX: ref.lastX,
+                offsetY: ref.lastY,
+            }),
+        [setState],
     );
 
     if (!isOverlayPreviewShown) return null;
 
     const scaledWidth = FULL_WIDTH * state.scaleFactor;
     const scaledHeight = FULL_HEIGHT * state.scaleFactor;
-
 
     return (
         <Rnd
@@ -58,11 +64,13 @@ export function Overlay({ isOverlayPreviewShown }: OverlayProps): React.ReactEle
             lockAspectRatio
             bounds="body"
         >
-            <Paper sx={{
-                overflow: "hidden",
-                width: scaledWidth,
-                height: scaledHeight
-            }}>
+            <Paper
+                sx={{
+                    overflow: "hidden",
+                    width: scaledWidth,
+                    height: scaledHeight,
+                }}
+            >
                 <iframe
                     src={OVERLAY_LOCATION}
                     width={FULL_WIDTH}
@@ -71,12 +79,10 @@ export function Overlay({ isOverlayPreviewShown }: OverlayProps): React.ReactEle
                         transform: `scale(${state.scaleFactor})`,
                         transformOrigin: "top left",
                         pointerEvents: "none",
-                        border: "none"
+                        border: "none",
                     }}
                 />
             </Paper>
         </Rnd>
     );
 }
-
-

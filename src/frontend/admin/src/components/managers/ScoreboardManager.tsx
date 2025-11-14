@@ -12,14 +12,24 @@ import {
     TableCell,
     TableHead,
     TableRow,
-    Typography
+    Typography,
 } from "@mui/material";
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import {
+    Dispatch,
+    SetStateAction,
+    useCallback,
+    useEffect,
+    useState,
+} from "react";
 import { SlimTableCell } from "../atoms/Table.tsx";
-import { GroupInfo, OptimismLevel, ScoreboardSettings, ScoreboardScrollDirection } from "@shared/api.ts";
+import {
+    GroupInfo,
+    OptimismLevel,
+    ScoreboardSettings,
+    ScoreboardScrollDirection,
+} from "@shared/api.ts";
 import { ScoreboardWidgetService } from "@/services/scoreboardService.ts";
 import ScrollDirectionSwitcher from "@/components/controls/ScrollDirectionSwitcher.tsx";
-
 
 type ScoreboardSettingsTabProps = {
     isShown: boolean;
@@ -27,29 +37,47 @@ type ScoreboardSettingsTabProps = {
     hide: () => void;
     settings: ScoreboardSettings;
     setSettings: Dispatch<SetStateAction<ScoreboardSettings>>;
-}
+};
 
-const ScoreboardSettingsTab = ({ isShown, showWithSettings, hide, settings, setSettings }: ScoreboardSettingsTabProps) => {
-    const setScrollDirection = useCallback((d: ScoreboardScrollDirection) => {
-        setSettings(s => {
-            const newSettings: ScoreboardSettings = { ...s, scrollDirection: d };
-            if (isShown) {
-                showWithSettings(newSettings);
-            }
-            return newSettings;
-        });
-    }, [setSettings, isShown, showWithSettings]);
+const ScoreboardSettingsTab = ({
+    isShown,
+    showWithSettings,
+    hide,
+    settings,
+    setSettings,
+}: ScoreboardSettingsTabProps) => {
+    const setScrollDirection = useCallback(
+        (d: ScoreboardScrollDirection) => {
+            setSettings((s) => {
+                const newSettings: ScoreboardSettings = {
+                    ...s,
+                    scrollDirection: d,
+                };
+                if (isShown) {
+                    showWithSettings(newSettings);
+                }
+                return newSettings;
+            });
+        },
+        [setSettings, isShown, showWithSettings],
+    );
 
     return (
         <Stack spacing={4} direction="row" flexWrap="wrap" sx={{ mx: 2 }}>
             <ButtonGroup>
                 <Button
                     color={isShown ? "success" : "primary"}
-                    onClick={() => showWithSettings(settings)} variant="contained"
+                    onClick={() => showWithSettings(settings)}
+                    variant="contained"
                 >
                     {isShown ? "Update" : "Show"}
                 </Button>
-                <Button color="error" disabled={!isShown} onClick={hide} variant="contained">
+                <Button
+                    color="error"
+                    disabled={!isShown}
+                    onClick={hide}
+                    variant="contained"
+                >
                     Hide
                 </Button>
             </ButtonGroup>
@@ -65,70 +93,111 @@ type ScoreboardOptLevelCellsProps = {
     settings: ScoreboardSettings;
     setSettings: Dispatch<SetStateAction<ScoreboardSettings>>;
     group: string;
-}
+};
 
-const ScoreboardOptLevelCells = ({ settings, setSettings, group }: ScoreboardOptLevelCellsProps) => {
-    return [OptimismLevel.normal, OptimismLevel.optimistic, OptimismLevel.pessimistic].map(type =>
+const ScoreboardOptLevelCells = ({
+    settings,
+    setSettings,
+    group,
+}: ScoreboardOptLevelCellsProps) => {
+    return [
+        OptimismLevel.normal,
+        OptimismLevel.optimistic,
+        OptimismLevel.pessimistic,
+    ].map((type) => (
         <SlimTableCell key={type} align="center">
             <Checkbox
-                icon={<CircleUncheckedIcon/>}
-                checkedIcon={<CircleCheckedIcon/>}
-                checked={settings.group === group && settings.optimismLevel === type}
+                icon={<CircleUncheckedIcon />}
+                checkedIcon={<CircleCheckedIcon />}
+                checked={
+                    settings.group === group && settings.optimismLevel === type
+                }
                 sx={{ "& .MuiSvgIcon-root": { fontSize: 24 } }}
-                onChange={() => setSettings(state => ({
-                    ...state,
-                    optimismLevel: type,
-                    group: group
-                }))}
+                onChange={() =>
+                    setSettings((state) => ({
+                        ...state,
+                        optimismLevel: type,
+                        group: group,
+                    }))
+                }
             />
         </SlimTableCell>
-    );
+    ));
 };
 
 type ScoreboardGroupSettingProps = {
     settings: ScoreboardSettings;
     setSettings: Dispatch<SetStateAction<ScoreboardSettings>>;
     groupsList: GroupInfo[];
-}
+};
 
-const ScoreboardGroupSetting = ({ settings, setSettings, groupsList }: ScoreboardGroupSettingProps) => {
+const ScoreboardGroupSetting = ({
+    settings,
+    setSettings,
+    groupsList,
+}: ScoreboardGroupSettingProps) => {
     const [isGroupsExpand, setIsGroupsExpand] = useState(false);
-    useEffect(() => setIsGroupsExpand(s => s || settings.group !== "all"), [settings.group]);
+    useEffect(
+        () => setIsGroupsExpand((s) => s || settings.group !== "all"),
+        [settings.group],
+    );
 
-    return (<Table sx={{ m: 2 }} size="small">
-        <TableHead>
-            <TableRow>
-                <TableCell>
-                    <Typography variant="h6">Groups</Typography>
-                </TableCell>
-                {["Normal", "Optimistic", "Pessimistic"].map(val =>
-                    <TableCell key={val} align="center">
-                        <Typography variant="h6">{val}</Typography>
-                    </TableCell>
-                )}
-            </TableRow>
-        </TableHead>
-        <TableBody>
-            <TableRow key={"__all__"}>
-                <TableCell>
-                    <Box display="flex" justifyContent="space-between" alignItems="center">
-                        <Box>All groups</Box>
-                        <Button onClick={() => setIsGroupsExpand(!isGroupsExpand)}>
-                            {isGroupsExpand ? <ExpandLess/> : <ExpandMore/>}</Button>
-                    </Box>
-                </TableCell>
-                <ScoreboardOptLevelCells settings={settings} setSettings={setSettings} group={"all"}/>
-            </TableRow>
-            {isGroupsExpand && groupsList.map(group =>
-                <TableRow key={group.id}>
+    return (
+        <Table sx={{ m: 2 }} size="small">
+            <TableHead>
+                <TableRow>
                     <TableCell>
-                        {group.displayName}
+                        <Typography variant="h6">Groups</Typography>
                     </TableCell>
-                    <ScoreboardOptLevelCells settings={settings} setSettings={setSettings} group={group.id}/>
+                    {["Normal", "Optimistic", "Pessimistic"].map((val) => (
+                        <TableCell key={val} align="center">
+                            <Typography variant="h6">{val}</Typography>
+                        </TableCell>
+                    ))}
                 </TableRow>
-            )}
-        </TableBody>
-    </Table>);
+            </TableHead>
+            <TableBody>
+                <TableRow key={"__all__"}>
+                    <TableCell>
+                        <Box
+                            display="flex"
+                            justifyContent="space-between"
+                            alignItems="center"
+                        >
+                            <Box>All groups</Box>
+                            <Button
+                                onClick={() =>
+                                    setIsGroupsExpand(!isGroupsExpand)
+                                }
+                            >
+                                {isGroupsExpand ? (
+                                    <ExpandLess />
+                                ) : (
+                                    <ExpandMore />
+                                )}
+                            </Button>
+                        </Box>
+                    </TableCell>
+                    <ScoreboardOptLevelCells
+                        settings={settings}
+                        setSettings={setSettings}
+                        group={"all"}
+                    />
+                </TableRow>
+                {isGroupsExpand &&
+                    groupsList.map((group) => (
+                        <TableRow key={group.id}>
+                            <TableCell>{group.displayName}</TableCell>
+                            <ScoreboardOptLevelCells
+                                settings={settings}
+                                setSettings={setSettings}
+                                group={group.id}
+                            />
+                        </TableRow>
+                    ))}
+            </TableBody>
+        </Table>
+    );
 };
 
 export const DEFAULT_SCOREBOARD_SETTINGS: ScoreboardSettings = {
@@ -143,9 +212,14 @@ export type ScoreboardManagerProps = {
     isShown: boolean;
     settings: ScoreboardSettings;
     setSettings: Dispatch<SetStateAction<ScoreboardSettings>>;
-}
+};
 
-const ScoreboardManager = ({ service, isShown, settings, setSettings }: ScoreboardManagerProps) => {
+const ScoreboardManager = ({
+    service,
+    isShown,
+    settings,
+    setSettings,
+}: ScoreboardManagerProps) => {
     const [groupsList, setGroupsList] = useState([]);
 
     useEffect(() => {
@@ -156,12 +230,18 @@ const ScoreboardManager = ({ service, isShown, settings, setSettings }: Scoreboa
         <>
             <ScoreboardSettingsTab
                 isShown={isShown}
-                showWithSettings={(s: ScoreboardSettings) => service.showWithSettings(s)}
+                showWithSettings={(s: ScoreboardSettings) =>
+                    service.showWithSettings(s)
+                }
                 hide={() => service.hide()}
                 settings={settings}
                 setSettings={setSettings}
             />
-            <ScoreboardGroupSetting groupsList={groupsList} settings={settings} setSettings={setSettings}/>
+            <ScoreboardGroupSetting
+                groupsList={groupsList}
+                settings={settings}
+                setSettings={setSettings}
+            />
         </>
     );
 };

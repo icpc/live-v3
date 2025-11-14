@@ -26,16 +26,16 @@ interface ResponsiveAppBarProps {
 }
 
 const DEFAULT_PAGES: PageConfig = {
-    "Controls": "controls",
-    "Titles": "titles",
-    "TeamView": "teamview",
-    "Scoreboard": "scoreboard",
-    "Ticker": "ticker",
-    "Analytics": "analytics",
-    "Spotlight": "teamSpotlight",
-    "Advanced": "advancedJson",
-    "Media": "media",
-    "Info": "contestInfo",
+    Controls: "controls",
+    Titles: "titles",
+    TeamView: "teamview",
+    Scoreboard: "scoreboard",
+    Ticker: "ticker",
+    Analytics: "analytics",
+    Spotlight: "teamSpotlight",
+    Advanced: "advancedJson",
+    Media: "media",
+    Info: "contestInfo",
     "Backend Log": "log",
 } as const;
 
@@ -57,33 +57,42 @@ function filterVisiblePages(
 // TODO: types for createApiGet and other staff
 async function loadVisualConfig() {
     try {
-        return await createApiGet(BACKEND_ROOT)("/api/overlay/visualConfig.json");
+        return await createApiGet(BACKEND_ROOT)(
+            "/api/overlay/visualConfig.json",
+        );
     } catch (error) {
-        console.error(`Failed to load visual config, using default pages: ${error}`);
+        console.error(
+            `Failed to load visual config, using default pages: ${error}`,
+        );
         return {};
     }
 }
 
-
 function ResponsiveAppBar({
-    showOrHideOverlayPreview
+    showOrHideOverlayPreview,
 }: ResponsiveAppBarProps): React.ReactElement {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
     const [pages, setPages] = useState<PageConfig>(DEFAULT_PAGES);
 
-    const handleOpenNavMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    }, []);
+    const handleOpenNavMenu = useCallback(
+        (event: React.MouseEvent<HTMLElement>) => {
+            setAnchorElNav(event.currentTarget);
+        },
+        [],
+    );
 
     const handleCloseNavMenu = useCallback(() => {
         setAnchorElNav(null);
     }, []);
 
-    const handleNavigate = useCallback((route: string) => {
-        navigate(route);
-        handleCloseNavMenu();
-    }, [navigate, handleCloseNavMenu]);
+    const handleNavigate = useCallback(
+        (route: string) => {
+            navigate(route);
+            handleCloseNavMenu();
+        },
+        [navigate, handleCloseNavMenu],
+    );
 
     const handleHomeNavigate = useCallback(() => {
         navigate("/");
@@ -94,9 +103,18 @@ function ResponsiveAppBar({
             try {
                 const config = await loadVisualConfig();
 
-                if (config.ADMIN_HIDE_MENU && config.ADMIN_HIDE_MENU.length > 0) {
-                    const filteredPages = filterVisiblePages(DEFAULT_PAGES, config.ADMIN_HIDE_MENU);
-                    console.log("Applied hidden pages via visual config:", filteredPages);
+                if (
+                    config.ADMIN_HIDE_MENU &&
+                    config.ADMIN_HIDE_MENU.length > 0
+                ) {
+                    const filteredPages = filterVisiblePages(
+                        DEFAULT_PAGES,
+                        config.ADMIN_HIDE_MENU,
+                    );
+                    console.log(
+                        "Applied hidden pages via visual config:",
+                        filteredPages,
+                    );
                     setPages(filteredPages);
                 }
             } catch (error) {
@@ -118,10 +136,7 @@ function ResponsiveAppBar({
     );
 
     const renderMenuItem = (pageName: string, route: string) => (
-        <MenuItem
-            key={route}
-            onClick={() => handleNavigate(route)}
-        >
+        <MenuItem key={route} onClick={() => handleNavigate(route)}>
             <Typography textAlign="center" color="black">
                 {pageName}
             </Typography>
@@ -132,7 +147,12 @@ function ResponsiveAppBar({
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: "flex", md: "none" },
+                        }}
+                    >
                         <IconButton
                             size="large"
                             aria-label="navigation menu"
@@ -160,7 +180,7 @@ function ResponsiveAppBar({
                             sx={{ display: { xs: "block", md: "none" } }}
                         >
                             {Object.entries(pages).map(([pageName, route]) =>
-                                renderMenuItem(pageName, route as string)
+                                renderMenuItem(pageName, route as string),
                             )}
                         </Menu>
                     </Box>
@@ -196,13 +216,22 @@ function ResponsiveAppBar({
                         </Typography>
                     </Box>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            display: { xs: "none", md: "flex" },
+                        }}
+                    >
                         {Object.entries(pages).map(([pageName, route]) =>
-                            renderPageButton(pageName, route as string)
+                            renderPageButton(pageName, route as string),
                         )}
                         <Button
                             onClick={showOrHideOverlayPreview}
-                            sx={{ my: 2, color: "text.primary", display: "block" }}
+                            sx={{
+                                my: 2,
+                                color: "text.primary",
+                                display: "block",
+                            }}
                             aria-label="Toggle overlay preview"
                         >
                             <PreviewIcon />
@@ -212,6 +241,6 @@ function ResponsiveAppBar({
             </Container>
         </AppBar>
     );
-};
+}
 
 export default ResponsiveAppBar;

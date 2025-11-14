@@ -14,8 +14,11 @@ type MediaHolderProps<M extends MediaType> = {
 
 const useIsTeamMediaAudio = () => {
     const queryParams = useQueryParams();
-    return (!queryParams.has("teamMediaAudio") && window["obsstudio"]) ||
-        (queryParams.has("teamMediaAudio") && queryParams.get("teamMediaAudio") !== "false");
+    return (
+        (!queryParams.has("teamMediaAudio") && window["obsstudio"]) ||
+        (queryParams.has("teamMediaAudio") &&
+            queryParams.get("teamMediaAudio") !== "false")
+    );
 };
 
 const MediaWrapper = styled.div<{ $vertical?: boolean }>`
@@ -23,24 +26,28 @@ const MediaWrapper = styled.div<{ $vertical?: boolean }>`
     text-align: right;
 
     width: 100%;
-    height: ${props => props.$vertical ? "100%" : "auto"};
+    height: ${(props) => (props.$vertical ? "100%" : "auto")};
     max-width: 100%;
     max-height: 100%;
 `;
 
-const ImgContainer = styled.img<{ $vertical?: boolean; }>`
-    width: ${props => props.$vertical ? "auto" : "100%"};
-    height: ${props => props.$vertical ? "100%" : "auto"};
+const ImgContainer = styled.img<{ $vertical?: boolean }>`
+    width: ${(props) => (props.$vertical ? "auto" : "100%")};
+    height: ${(props) => (props.$vertical ? "100%" : "auto")};
     overflow: hidden;
 `;
 
-const VideoContainer = styled.video<{ $vertical?: boolean; }>`
-    width: ${props => props.$vertical ? "auto" : "100%"};
-    height: ${props => props.$vertical ? "100%" : "auto"};
+const VideoContainer = styled.video<{ $vertical?: boolean }>`
+    width: ${(props) => (props.$vertical ? "auto" : "100%")};
+    height: ${(props) => (props.$vertical ? "100%" : "auto")};
     overflow: hidden;
 `;
 
-export const ImageMediaHolder = ({ onLoadStatus, className, media: { url, vertical } }: MediaHolderProps<MediaType.Image>) => {
+export const ImageMediaHolder = ({
+    onLoadStatus,
+    className,
+    media: { url, vertical },
+}: MediaHolderProps<MediaType.Image>) => {
     return (
         <MediaWrapper $vertical={vertical} className={className}>
             <ImgContainer
@@ -52,7 +59,11 @@ export const ImageMediaHolder = ({ onLoadStatus, className, media: { url, vertic
     );
 };
 
-export const VideoMediaHolder = ({ onLoadStatus, className, media: { url, vertical } }: MediaHolderProps<MediaType.Video>) => {
+export const VideoMediaHolder = ({
+    onLoadStatus,
+    className,
+    media: { url, vertical },
+}: MediaHolderProps<MediaType.Video>) => {
     const audio = useIsTeamMediaAudio();
     return (
         <MediaWrapper $vertical={vertical} className={className}>
@@ -70,7 +81,11 @@ export const VideoMediaHolder = ({ onLoadStatus, className, media: { url, vertic
     );
 };
 
-export const HLSVideoMediaHolder = ({ onLoadStatus, className, media: { url, jwtToken, vertical } }: MediaHolderProps<MediaType.HLSVideo>) => {
+export const HLSVideoMediaHolder = ({
+    onLoadStatus,
+    className,
+    media: { url, jwtToken, vertical },
+}: MediaHolderProps<MediaType.HLSVideo>) => {
     const audio = useIsTeamMediaAudio();
 
     const playerRef = useRef<HTMLVideoElement>(null);
@@ -86,7 +101,10 @@ export const HLSVideoMediaHolder = ({ onLoadStatus, className, media: { url, jwt
                 enableWorker: false,
                 xhrSetup: (xhr) => {
                     if (jwtToken) {
-                        xhr.setRequestHeader("Authorization", "Bearer " + jwtToken);
+                        xhr.setRequestHeader(
+                            "Authorization",
+                            "Bearer " + jwtToken,
+                        );
                     }
                 },
             });
@@ -103,22 +121,25 @@ export const HLSVideoMediaHolder = ({ onLoadStatus, className, media: { url, jwt
                     playerRef?.current
                         ?.play()
                         .catch(() =>
-                            console.warn("Unable to autoplay hls video prior to user interaction with the dom"));
+                            console.warn(
+                                "Unable to autoplay hls video prior to user interaction with the dom",
+                            ),
+                        );
                 });
             });
 
             newHls.on(Hls.Events.ERROR, function (event, data) {
                 if (data.fatal) {
                     switch (data.type) {
-                    case Hls.ErrorTypes.NETWORK_ERROR:
-                        newHls.startLoad();
-                        break;
-                    case Hls.ErrorTypes.MEDIA_ERROR:
-                        newHls.recoverMediaError();
-                        break;
-                    default:
-                        _initPlayer();
-                        break;
+                        case Hls.ErrorTypes.NETWORK_ERROR:
+                            newHls.startLoad();
+                            break;
+                        case Hls.ErrorTypes.MEDIA_ERROR:
+                            newHls.recoverMediaError();
+                            break;
+                        default:
+                            _initPlayer();
+                            break;
                     }
                 }
             });
@@ -159,7 +180,11 @@ export const HLSVideoMediaHolder = ({ onLoadStatus, className, media: { url, jwt
     );
 };
 
-export const M2tsVideoMediaHolder = ({ onLoadStatus, className, media: { url, vertical } }: MediaHolderProps<MediaType.M2tsVideo>) => {
+export const M2tsVideoMediaHolder = ({
+    onLoadStatus,
+    className,
+    media: { url, vertical },
+}: MediaHolderProps<MediaType.M2tsVideo>) => {
     const audio = useIsTeamMediaAudio();
 
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -177,7 +202,7 @@ export const M2tsVideoMediaHolder = ({ onLoadStatus, className, media: { url, ve
                 player.destroy();
             };
         }
-        return ()  => {
+        return () => {
             if (videoRef.current) {
                 videoRef.current.srcObject = null;
             }
@@ -200,7 +225,11 @@ export const M2tsVideoMediaHolder = ({ onLoadStatus, className, media: { url, ve
     );
 };
 
-export const WebRTCGrabberMediaHolder = ({ onLoadStatus, className, media: { url, peerName, streamType, credential, vertical } }: MediaHolderProps<MediaType.WebRTCGrabberConnection>) => {
+export const WebRTCGrabberMediaHolder = ({
+    onLoadStatus,
+    className,
+    media: { url, peerName, streamType, credential, vertical },
+}: MediaHolderProps<MediaType.WebRTCGrabberConnection>) => {
     const audio = useIsTeamMediaAudio();
 
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -208,19 +237,27 @@ export const WebRTCGrabberMediaHolder = ({ onLoadStatus, className, media: { url
         const client = new GrabberPlayerClient("play", url);
         client.authorize(credential);
         client.on("initialized", () => {
-            console.info(`WebRTCGrabber: Connecting to peer ${peerName} for stream ${streamType}`);
+            console.info(
+                `WebRTCGrabber: Connecting to peer ${peerName} for stream ${streamType}`,
+            );
             client.connect({ peerName: peerName }, streamType, (track) => {
                 videoRef.current.srcObject = null;
                 videoRef.current.srcObject = track;
                 videoRef.current.play();
-                console.info(`WebRTCGrabber: pc2 received remote stream (${peerName}, ${streamType})`);
+                console.info(
+                    `WebRTCGrabber: pc2 received remote stream (${peerName}, ${streamType})`,
+                );
             });
         });
         client.on("auth:failed", () => {
-            console.warn(`WebRTCGrabber: Connection failed from ${url} peerName ${peerName}. Incorrect credential`);
+            console.warn(
+                `WebRTCGrabber: Connection failed from ${url} peerName ${peerName}. Incorrect credential`,
+            );
         });
         client.on("connection:failed", () => {
-            console.warn(`WebRTCGrabber: Connection failed from ${url} peerName ${peerName}. No such peer with ${streamType}`);
+            console.warn(
+                `WebRTCGrabber: Connection failed from ${url} peerName ${peerName}. No such peer with ${streamType}`,
+            );
             onLoadStatus(true);
         });
 
@@ -246,8 +283,11 @@ export const WebRTCGrabberMediaHolder = ({ onLoadStatus, className, media: { url
     );
 };
 
-
-export const WebRTCProxyMediaHolder = ({ onLoadStatus, className, media: { url, audioUrl, vertical } }: MediaHolderProps<MediaType.WebRTCProxyConnection>) => {
+export const WebRTCProxyMediaHolder = ({
+    onLoadStatus,
+    className,
+    media: { url, audioUrl, vertical },
+}: MediaHolderProps<MediaType.WebRTCProxyConnection>) => {
     const audio = useIsTeamMediaAudio();
 
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -264,8 +304,9 @@ export const WebRTCProxyMediaHolder = ({ onLoadStatus, className, media: { url, 
         };
         rtcRef.current.addTransceiver("video");
         rtcRef.current.addTransceiver("audio");
-        rtcRef.current.createOffer()
-            .then(offer => {
+        rtcRef.current
+            .createOffer()
+            .then((offer) => {
                 rtcRef.current.setLocalDescription(offer);
                 return fetch(url, {
                     method: "POST",
@@ -273,9 +314,13 @@ export const WebRTCProxyMediaHolder = ({ onLoadStatus, className, media: { url, 
                     body: JSON.stringify(offer),
                 });
             })
-            .then(res => res.json())
-            .then(res => rtcRef.current.setRemoteDescription(res))
-            .catch(e => console.trace("ERROR featching  webrtc peer connection info: " + e));
+            .then((res) => res.json())
+            .then((res) => rtcRef.current.setRemoteDescription(res))
+            .catch((e) =>
+                console.trace(
+                    "ERROR featching  webrtc peer connection info: " + e,
+                ),
+            );
 
         return () => rtcRef.current?.close();
     }, [url]);
@@ -290,38 +335,73 @@ export const WebRTCProxyMediaHolder = ({ onLoadStatus, className, media: { url, 
                 controls={false}
                 $vertical={vertical}
             />
-            {audioUrl && <audio src={audioUrl} onLoadedData={() => onLoadStatus(true)} autoPlay/>}
+            {audioUrl && (
+                <audio
+                    src={audioUrl}
+                    onLoadedData={() => onLoadStatus(true)}
+                    autoPlay
+                />
+            )}
         </MediaWrapper>
     );
 };
 
-export const ObjectMediaHolder = ({ onLoadStatus, media: { url } }: MediaHolderProps<MediaType.Object>) => {
+export const ObjectMediaHolder = ({
+    onLoadStatus,
+    media: { url },
+}: MediaHolderProps<MediaType.Object>) => {
     useEffect(() => {
         onLoadStatus(true);
     }, [onLoadStatus]);
-    return (
-        <object data={url} type="image/svg+xml">
-        </object>
-    );
+    return <object data={url} type="image/svg+xml"></object>;
 };
 
-export const TeamMediaHolder = ({ media, ...props }: MediaHolderProps<MediaType>) => {
+export const TeamMediaHolder = ({
+    media,
+    ...props
+}: MediaHolderProps<MediaType>) => {
     switch (media.type) {
-    case MediaType.Type.Image:
-        return <ImageMediaHolder media={media} {...props}></ImageMediaHolder>;
-    case MediaType.Type.Object:
-        return <ObjectMediaHolder media={media} {...props}></ObjectMediaHolder>;
-    case MediaType.Type.Video:
-        return <VideoMediaHolder media={media} {...props}></VideoMediaHolder>;
-    case MediaType.Type.HLSVideo:
-        return <HLSVideoMediaHolder media={media} {...props}></HLSVideoMediaHolder>;
-    case MediaType.Type.M2tsVideo:
-        return <M2tsVideoMediaHolder media={media} {...props}></M2tsVideoMediaHolder>;
-    case MediaType.Type.WebRTCGrabberConnection:
-        return <WebRTCGrabberMediaHolder media={media} {...props}></WebRTCGrabberMediaHolder>;
-    case MediaType.Type.WebRTCProxyConnection:
-        return <WebRTCProxyMediaHolder media={media} {...props}></WebRTCProxyMediaHolder>;
-    default:
-        return null;
+        case MediaType.Type.Image:
+            return (
+                <ImageMediaHolder media={media} {...props}></ImageMediaHolder>
+            );
+        case MediaType.Type.Object:
+            return (
+                <ObjectMediaHolder media={media} {...props}></ObjectMediaHolder>
+            );
+        case MediaType.Type.Video:
+            return (
+                <VideoMediaHolder media={media} {...props}></VideoMediaHolder>
+            );
+        case MediaType.Type.HLSVideo:
+            return (
+                <HLSVideoMediaHolder
+                    media={media}
+                    {...props}
+                ></HLSVideoMediaHolder>
+            );
+        case MediaType.Type.M2tsVideo:
+            return (
+                <M2tsVideoMediaHolder
+                    media={media}
+                    {...props}
+                ></M2tsVideoMediaHolder>
+            );
+        case MediaType.Type.WebRTCGrabberConnection:
+            return (
+                <WebRTCGrabberMediaHolder
+                    media={media}
+                    {...props}
+                ></WebRTCGrabberMediaHolder>
+            );
+        case MediaType.Type.WebRTCProxyConnection:
+            return (
+                <WebRTCProxyMediaHolder
+                    media={media}
+                    {...props}
+                ></WebRTCProxyMediaHolder>
+            );
+        default:
+            return null;
     }
 };

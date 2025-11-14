@@ -8,22 +8,23 @@ import c from "../../../config";
 import { useAppSelector } from "@/redux/hooks";
 import { isShouldUseDarkColor } from "@/utils/colors";
 
-const ContestantViewCornerWrap = styled.div<{isSmall: boolean}>`
-  display: grid;
-  grid-template-rows: 1fr ${c.QUEUE_ROW_HEIGHT}px;
-  grid-template-columns: auto ${c.CONTESTER_INFO_WIDTH};
-  
-  width: auto;
-  /*transform: ${props => props.isSmall ? `scale(${c.TEAMVIEW_SMALL_FACTOR})` : ""};*/
-  white-space: nowrap;
-  /* transform-origin: bottom left; */
-  overflow: hidden;
-  height: 100%;
+const ContestantViewCornerWrap = styled.div<{ isSmall: boolean }>`
+    display: grid;
+    grid-template-rows: 1fr ${c.QUEUE_ROW_HEIGHT}px;
+    grid-template-columns: auto ${c.CONTESTER_INFO_WIDTH};
+
+    width: auto;
+    /*transform: ${(props) =>
+        props.isSmall ? `scale(${c.TEAMVIEW_SMALL_FACTOR})` : ""};*/
+    white-space: nowrap;
+    /* transform-origin: bottom left; */
+    overflow: hidden;
+    height: 100%;
 `;
 
 export const CornerContestantInfo = styled(ContestantInfo)`
-  grid-column-start: 1;
-  grid-column-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
 `;
 
 const TasksContainer = styled.div`
@@ -43,52 +44,72 @@ const TasksContainer = styled.div`
 `;
 
 const TaskRow = styled.div`
-  display: flex;
-  width: ${c.CONTESTER_INFO_WIDTH};
-  flex: 0 0 ${c.QUEUE_ROW_HEIGHT}px; 
-  /* css trick for perfect TaskRow overflowing: arrange the columns from bottom to top from right to left */
-  transform: scale(-1);
-  overflow: hidden;
-  &:last-child {
-    border-radius: ${c.GLOBAL_BORDER_RADIUS} ${c.GLOBAL_BORDER_RADIUS} 0 0;
-  }
+    display: flex;
+    width: ${c.CONTESTER_INFO_WIDTH};
+    flex: 0 0 ${c.QUEUE_ROW_HEIGHT}px;
+    /* css trick for perfect TaskRow overflowing: arrange the columns from bottom to top from right to left */
+    transform: scale(-1);
+    overflow: hidden;
+    &:last-child {
+        border-radius: ${c.GLOBAL_BORDER_RADIUS} ${c.GLOBAL_BORDER_RADIUS} 0 0;
+    }
 `;
 
-export const ContestantViewCorner = ({ teamId, isSmall = false, className = null }: {
+export const ContestantViewCorner = ({
+    teamId,
+    isSmall = false,
+    className = null,
+}: {
     teamId: string;
     isSmall: boolean;
     className?: string;
 }) => {
     const problemResults = useAppSelector((state) =>
-        state.scoreboard[OptimismLevel.normal]?.ids[teamId]?.problemResults.map((r, i) => ({ ...r, index: i })));
+        state.scoreboard[OptimismLevel.normal]?.ids[teamId]?.problemResults.map(
+            (r, i) => ({ ...r, index: i }),
+        ),
+    );
 
-    const tasks = useAppSelector(state => state.contestInfo?.info?.problems);
+    const tasks = useAppSelector((state) => state.contestInfo?.info?.problems);
     const contestData = useAppSelector((state) => state.contestInfo.info);
 
-    const results = _.sortBy(problemResults, "lastSubmitTimeMs")
-        .filter(result => result.lastSubmitTimeMs !== undefined);
+    const results = _.sortBy(problemResults, "lastSubmitTimeMs").filter(
+        (result) => result.lastSubmitTimeMs !== undefined,
+    );
     // const results = [...results2, ...results2];
-    const teamData = useAppSelector((state) => state.contestInfo.info?.teamsId[teamId]);
-    const darkText = isShouldUseDarkColor(teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR);
+    const teamData = useAppSelector(
+        (state) => state.contestInfo.info?.teamsId[teamId],
+    );
+    const darkText = isShouldUseDarkColor(
+        teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR,
+    );
 
-    return <ContestantViewCornerWrap isSmall={isSmall} className={className}>
-        <TasksContainer>
-            {results.map((result, i) =>
-                <TaskRow key={i}>
-                    <SubmissionRow
-                        result={result}
-                        problemLetter={tasks[result?.index]?.letter}
-                        problemColor={tasks[result?.index]?.color}
-                        lastSubmitTimeMs={result?.lastSubmitTimeMs}
-                        minScore={contestData?.problems[i]?.minScore}
-                        maxScore={contestData?.problems[i]?.maxScore}
-                        color={darkText ? "#000" : "#FFF"}
-                        bg_color={teamData?.color ? teamData?.color : c.CONTESTER_BACKGROUND_COLOR}
-                    />
-                </TaskRow>
-            )}
-        </TasksContainer>
-        <CornerContestantInfo teamId={teamId} roundBR={results.length === 0} />
-    </ContestantViewCornerWrap>;
-
+    return (
+        <ContestantViewCornerWrap isSmall={isSmall} className={className}>
+            <TasksContainer>
+                {results.map((result, i) => (
+                    <TaskRow key={i}>
+                        <SubmissionRow
+                            result={result}
+                            problemLetter={tasks[result?.index]?.letter}
+                            problemColor={tasks[result?.index]?.color}
+                            lastSubmitTimeMs={result?.lastSubmitTimeMs}
+                            minScore={contestData?.problems[i]?.minScore}
+                            maxScore={contestData?.problems[i]?.maxScore}
+                            color={darkText ? "#000" : "#FFF"}
+                            bg_color={
+                                teamData?.color
+                                    ? teamData?.color
+                                    : c.CONTESTER_BACKGROUND_COLOR
+                            }
+                        />
+                    </TaskRow>
+                ))}
+            </TasksContainer>
+            <CornerContestantInfo
+                teamId={teamId}
+                roundBR={results.length === 0}
+            />
+        </ContestantViewCornerWrap>
+    );
 };

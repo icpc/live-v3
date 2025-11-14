@@ -9,20 +9,26 @@ import { WEBSOCKET_HANDLERS } from "./services/ws/ws";
 import { useMountEffect } from "./utils/hooks/useMountEffect";
 import { useAppDispatch } from "@/redux/hooks";
 
-const safeHandleMessage = <H extends (...args: unknown[]) => unknown,>(ws: WebSocket, wsName: string, handler: H): H => {
+const safeHandleMessage = <H extends (...args: unknown[]) => unknown>(
+    ws: WebSocket,
+    wsName: string,
+    handler: H,
+): H => {
     let messagesMadeLastSecond = 0;
-    const getEpochSecond = () => Math.floor((new Date()).getTime() / 1000);
+    const getEpochSecond = () => Math.floor(new Date().getTime() / 1000);
     messagesMadeLastSecond++;
     let lastSecond = getEpochSecond();
     return ((...args) => {
         const nowSecond = getEpochSecond();
-        if(nowSecond != lastSecond) {
+        if (nowSecond != lastSecond) {
             messagesMadeLastSecond = 0;
             lastSecond = nowSecond;
         }
         messagesMadeLastSecond++;
-        if(messagesMadeLastSecond > 50) {
-            console.error(`Backend is overloading us with data on ${wsName}. Closing socket.`);
+        if (messagesMadeLastSecond > 50) {
+            console.error(
+                `Backend is overloading us with data on ${wsName}. Closing socket.`,
+            );
             ws.close();
             return;
         }
@@ -45,18 +51,23 @@ const useMakeWebsocket = (dispatch) => (ws, wsName, handleMessage) => {
             ws.current = null;
             setTimeout(openSocket, c.WEBSOCKET_RECONNECT_TIME);
         };
-        ws.current.onmessage = safeHandleMessage(ws.current, wsName, handleMessage);
+        ws.current.onmessage = safeHandleMessage(
+            ws.current,
+            wsName,
+            handleMessage,
+        );
     };
     openSocket();
     return () => ws.current.close();
 };
 
-
 function App() {
     const dispatch = useAppDispatch();
     const makeWebsocket = useMakeWebsocket(dispatch);
     const wss = useMemo(() => {
-        return Object.fromEntries(Object.keys(c.WEBSOCKETS).map((key) => [key, React.createRef()]));
+        return Object.fromEntries(
+            Object.keys(c.WEBSOCKETS).map((key) => [key, React.createRef()]),
+        );
     }, []);
 
     useMountEffect(() => {
@@ -76,11 +87,10 @@ function App() {
     return (
         <>
             {c.EXTRA_CSS && <style type="text/css">{c.EXTRA_CSS}</style>}
-            <MainLayout/>
-            {noStatus ? null : <StatusLayout/>}
+            <MainLayout />
+            {noStatus ? null : <StatusLayout />}
         </>
     );
 }
 
 export default App;
-

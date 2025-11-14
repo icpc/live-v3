@@ -20,14 +20,13 @@ const FULL_INFO_WIDTH = "75%";
 type PictureSettings = {
     name: string;
     url: string;
-
 } & Record<string, unknown>;
 
 type PictureRowData = {
     id: number | string;
     shown: boolean;
     settings: PictureSettings;
-}
+};
 
 type PictureTableRowProps = {
     data: PictureRowData;
@@ -35,7 +34,7 @@ type PictureTableRowProps = {
     onEdit: (updated: PictureRowData) => unknown;
     onDelete: () => void;
     isImmutable?: boolean;
-}
+};
 
 export function PictureTableRow({
     data,
@@ -45,18 +44,20 @@ export function PictureTableRow({
     isImmutable,
 }: PictureTableRowProps): React.ReactElement {
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const initialFormState = useMemo(() => ({
-        name: data.settings.name ?? "",
-        url: data.settings.url ?? "",
-    }), [data.settings.name, data.settings.url]);
+    const initialFormState = useMemo(
+        () => ({
+            name: data.settings.name ?? "",
+            url: data.settings.url ?? "",
+        }),
+        [data.settings.name, data.settings.url],
+    );
 
     const [form, setForm] = useState<PictureSettings>(initialFormState);
 
     const handleChange = useCallback(
-        (key: keyof typeof form) =>
-            (e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm((prev) => ({ ...prev, [key]: e.target.value })),
-        []
+        (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
+            setForm((prev) => ({ ...prev, [key]: e.target.value })),
+        [],
     );
 
     const handleEditToggle = useCallback(async () => {
@@ -90,12 +91,12 @@ export function PictureTableRow({
                 await handleEditToggle();
             }
         },
-        [handleEditToggle, isEditing]
+        [handleEditToggle, isEditing],
     );
 
     const imgAlt = useMemo(
-        () => (data.settings.name?.toString() || "picture"),
-        [data.settings.name]
+        () => data.settings.name?.toString() || "picture",
+        [data.settings.name],
     );
 
     return (
@@ -105,7 +106,9 @@ export function PictureTableRow({
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        backgroundColor: data.shown ? activeRowColor : undefined,
+                        backgroundColor: data.shown
+                            ? activeRowColor
+                            : undefined,
                     }}
                 >
                     <CardMedia
@@ -114,47 +117,71 @@ export function PictureTableRow({
                         image={data.settings.url}
                         alt={imgAlt}
                     />
-                    <Box sx={{ display: "flex", width: FULL_INFO_WIDTH, flexDirection: "column" }}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            width: FULL_INFO_WIDTH,
+                            flexDirection: "column",
+                        }}
+                    >
                         <Box component="form" onSubmit={handleSubmit}>
                             <CardContent sx={{ pl: 2, pr: 2, pt: 2, pb: 1 }}>
                                 {!isEditing ? (
-                                <>
-                                    <Typography gutterBottom variant="h6" sx={{ mb: 0 }}>
-                                        {data.settings.name}
-                                    </Typography>
-                                    <Typography gutterBottom variant="caption">
-                                        {data.settings.url}
-                                    </Typography>
-                                </>
+                                    <>
+                                        <Typography
+                                            gutterBottom
+                                            variant="h6"
+                                            sx={{ mb: 0 }}
+                                        >
+                                            {data.settings.name}
+                                        </Typography>
+                                        <Typography
+                                            gutterBottom
+                                            variant="caption"
+                                        >
+                                            {data.settings.url}
+                                        </Typography>
+                                    </>
                                 ) : (
-                                <>
-                                    <Box sx={{ my: 1 }}>
-                                        <TextField
-                                            autoFocus
-                                            fullWidth
-                                            value={form.name}
-                                            type="text"
-                                            size="small"
-                                            label="name"
-                                            onChange={handleChange("name")}
-                                        />
-                                    </Box>
-                                    <Box sx={{ my: 1 }}>
-                                        <TextField
-                                            fullWidth
-                                            value={form.url}
-                                            type="text"
-                                            size="small"
-                                            label="url"
-                                            onChange={handleChange("url")}
-                                        />
-                                    </Box>
-                                </>
+                                    <>
+                                        <Box sx={{ my: 1 }}>
+                                            <TextField
+                                                autoFocus
+                                                fullWidth
+                                                value={form.name}
+                                                type="text"
+                                                size="small"
+                                                label="name"
+                                                onChange={handleChange("name")}
+                                            />
+                                        </Box>
+                                        <Box sx={{ my: 1 }}>
+                                            <TextField
+                                                fullWidth
+                                                value={form.url}
+                                                type="text"
+                                                size="small"
+                                                label="url"
+                                                onChange={handleChange("url")}
+                                            />
+                                        </Box>
+                                    </>
                                 )}
                             </CardContent>
 
-                            <Box sx={{ display: "flex", pl: 1, pr: 1, pb: 1, justifyContent: "center" }}>
-                                <ShowPresetButton onClick={onShow} checked={data.shown} />
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    pl: 1,
+                                    pr: 1,
+                                    pb: 1,
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <ShowPresetButton
+                                    onClick={onShow}
+                                    checked={data.shown}
+                                />
                                 <IconButton
                                     color={!isEditing ? "inherit" : "primary"}
                                     onClick={handleEditToggle}

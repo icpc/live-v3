@@ -16,7 +16,11 @@ function CodeEditor({
 }: CodeEditorProps): React.ReactElement {
     const handleMount: OnMount = (editor, monaco) => {
         const modelUri = "foo://admin/advanced.json";
-        const model = monaco.editor.createModel(defaultValue, "json", monaco.Uri.parse(modelUri));
+        const model = monaco.editor.createModel(
+            defaultValue,
+            "json",
+            monaco.Uri.parse(modelUri),
+        );
         editor.setModel(model);
 
         monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
@@ -25,7 +29,7 @@ function CodeEditor({
             trailingCommas: "ignore",
             schemas: [
                 {
-                    "uri": "foo://app/advanced",
+                    uri: "foo://app/advanced",
                     fileMatch: ["*.json"],
                     schema,
                 },
@@ -35,9 +39,7 @@ function CodeEditor({
     };
 
     return <Editor language="json" onMount={handleMount} onChange={onChange} />;
-};
+}
 
 export default CodeEditor;
-export type {
-    JSONSchema
-};
+export type { JSONSchema };

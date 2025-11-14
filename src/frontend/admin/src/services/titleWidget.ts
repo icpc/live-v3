@@ -9,8 +9,14 @@ export interface TitleTemplate {
     [key: string]: unknown;
 }
 
-export class TitleWidgetService<S = Record<string, unknown>> extends PresetWidgetService<S> {
-    constructor(apiPath: string, errorHandler: ErrorHandler, listenWS: boolean = true) {
+export class TitleWidgetService<
+    S = Record<string, unknown>,
+> extends PresetWidgetService<S> {
+    constructor(
+        apiPath: string,
+        errorHandler: ErrorHandler,
+        listenWS: boolean = true,
+    ) {
         super(apiPath, errorHandler, listenWS);
     }
 
@@ -26,10 +32,10 @@ export class TitleWidgetService<S = Record<string, unknown>> extends PresetWidge
 export const useTitleWidgetService = <S = Record<string, unknown>>(
     apiPath: string,
     errorHandler: ErrorHandler,
-    listenWS: boolean = true
+    listenWS: boolean = true,
 ): TitleWidgetService<S> => {
     return useMemo(
         () => new TitleWidgetService<S>(apiPath, errorHandler, listenWS),
-        [apiPath, errorHandler, listenWS]
+        [apiPath, errorHandler, listenWS],
     );
 };

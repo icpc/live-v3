@@ -4,24 +4,21 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 
-
 export default defineConfig({
     plugins: [
         tsconfigPaths(),
         react({
             babel: {
-                plugins: [
-                    ["babel-plugin-react-compiler", {}]
-                ]
-            }
-        })
+                plugins: [["babel-plugin-react-compiler", {}]],
+            },
+        }),
     ],
     base: process.env.PUBLIC_URL ?? "/",
     build: {
         target: "esnext",
-        outDir: process.env.BUILD_PATH ?? "dist"
+        outDir: process.env.BUILD_PATH ?? "dist",
     },
     experimental: {
         enableNativePlugin: true,
-    }
+    },
 });

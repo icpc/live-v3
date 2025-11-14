@@ -7,15 +7,15 @@ import { grey } from "@mui/material/colors";
 type Layout = "oneColumn" | "twoColumns";
 
 interface DashboardProps {
-    elements: Record<string, React.ReactNode>,
-    layout?: Layout,
+    elements: Record<string, React.ReactNode>;
+    layout?: Layout;
     maxWidth?: ContainerProps["maxWidth"];
 }
 
 function Dashboard({
     elements,
     layout,
-    maxWidth
+    maxWidth,
 }: DashboardProps): React.ReactElement {
     const gridLayouts: Record<Layout, { md: string; sm: string }> = {
         oneColumn: { md: "repeat(1, 4fr)", sm: "repeat(1, 4fr)" },
@@ -31,7 +31,7 @@ function Dashboard({
                 pt: 6,
                 display: "grid",
                 gridTemplateColumns: selected,
-                gap: 0.25
+                gap: 0.25,
             }}
         >
             {Object.entries(elements).map(([name, element]) => (

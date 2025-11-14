@@ -8,12 +8,16 @@ import {
     Button,
     List,
     ListItem,
-    Dialog
+    Dialog,
 } from "@mui/material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { timeMsToDuration, timeSecondsToDuration, unixTimeMsToLocalTime } from "@/utils";
+import {
+    timeMsToDuration,
+    timeSecondsToDuration,
+    unixTimeMsToLocalTime,
+} from "@/utils";
 import {
     ContestStatus,
     ContestInfo,
@@ -24,22 +28,22 @@ import {
     OrganizationInfo,
     GroupInfo,
     FtsMode,
-    ProblemColorPolicy
+    ProblemColorPolicy,
 } from "@shared/api.ts";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
 
-const ContestInfoStatusTable = ({ rows }: { rows: [React.ReactNode, React.ReactNode][] }) => {
+const ContestInfoStatusTable = ({
+    rows,
+}: {
+    rows: [React.ReactNode, React.ReactNode][];
+}) => {
     return (
         <Grid container direction="column">
             {rows.map(([h, v], i) => (
                 <Grid container direction="row" size={{ md: 12 }} key={i}>
-                    <Grid size={{ xs: 6, md: 4 }}>
-                        {h}
-                    </Grid>
-                    <Grid size={{xs: 6, md: 8}}>
-                        {v}
-                    </Grid>
+                    <Grid size={{ xs: 6, md: 4 }}>{h}</Grid>
+                    <Grid size={{ xs: 6, md: 8 }}>{v}</Grid>
                 </Grid>
             ))}
         </Grid>
@@ -48,43 +52,59 @@ const ContestInfoStatusTable = ({ rows }: { rows: [React.ReactNode, React.ReactN
 
 type ContestInfoStatusProps = { status: ContestStatus };
 
-const ContestInfoStatus = ({ status } : ContestInfoStatusProps) => {
+const ContestInfoStatus = ({ status }: ContestInfoStatusProps) => {
     if (!status) {
         return <div>??</div>;
     }
     switch (status.type) {
-    case ContestStatus.Type.before:
-        return (
-            <ContestInfoStatusTable rows={[
-                ["Status", "before"],
-                [
-                    "Scheduled start time",
-                    status.scheduledStartAtUnixMs && unixTimeMsToLocalTime(status.scheduledStartAtUnixMs) || "??"
-                ],
-                [
-                    "Hold time",
-                    status.holdTimeMs && timeMsToDuration(status.holdTimeMs) || "??"
-                ]
-            ]}/>
-        );
-    case ContestStatus.Type.running:
-        return (
-            <ContestInfoStatusTable rows={[
-                ["Status", "running"],
-                [
-                    "Start at",
-                    status.startedAtUnixMs && unixTimeMsToLocalTime(status.startedAtUnixMs) || "??"
-                ],
-                [
-                    "Frozen at",
-                    status.frozenAtUnixMs && unixTimeMsToLocalTime(status.frozenAtUnixMs) || "-"
-                ]
-            ]}/>
-        );
-    case ContestStatus.Type.over:
-        return <div>over</div>;
-    case ContestStatus.Type.finalized:
-        return <div>finalized</div>;
+        case ContestStatus.Type.before:
+            return (
+                <ContestInfoStatusTable
+                    rows={[
+                        ["Status", "before"],
+                        [
+                            "Scheduled start time",
+                            (status.scheduledStartAtUnixMs &&
+                                unixTimeMsToLocalTime(
+                                    status.scheduledStartAtUnixMs,
+                                )) ||
+                                "??",
+                        ],
+                        [
+                            "Hold time",
+                            (status.holdTimeMs &&
+                                timeMsToDuration(status.holdTimeMs)) ||
+                                "??",
+                        ],
+                    ]}
+                />
+            );
+        case ContestStatus.Type.running:
+            return (
+                <ContestInfoStatusTable
+                    rows={[
+                        ["Status", "running"],
+                        [
+                            "Start at",
+                            (status.startedAtUnixMs &&
+                                unixTimeMsToLocalTime(
+                                    status.startedAtUnixMs,
+                                )) ||
+                                "??",
+                        ],
+                        [
+                            "Frozen at",
+                            (status.frozenAtUnixMs &&
+                                unixTimeMsToLocalTime(status.frozenAtUnixMs)) ||
+                                "-",
+                        ],
+                    ]}
+                />
+            );
+        case ContestStatus.Type.over:
+            return <div>over</div>;
+        case ContestStatus.Type.finalized:
+            return <div>finalized</div>;
     }
 };
 
@@ -92,82 +112,155 @@ type BasicContainerProps = {
     contestInfo: ContestInfo;
 };
 
-const InfoRowContainer = ({ name, value }: { key?: string; name: string; value: React.ReactNode }) => {
-    return <Grid container direction="row">
-        <Grid size={{xs: 6, md: 4}}>
-            {name}
+const InfoRowContainer = ({
+    name,
+    value,
+}: {
+    key?: string;
+    name: string;
+    value: React.ReactNode;
+}) => {
+    return (
+        <Grid container direction="row">
+            <Grid size={{ xs: 6, md: 4 }}>{name}</Grid>
+            <Grid size={{ xs: 6, md: 8 }}>{value}</Grid>
         </Grid>
-        <Grid size={{xs: 6, md: 8}}>
-            {value}
-        </Grid>
-    </Grid>
-}
+    );
+};
 
 const problemPolicyStr = (policy?: ProblemColorPolicy) => {
     switch (policy?.type) {
-        case null: return "??";
-        case ProblemColorPolicy.Type.afterStart: return `Replace with ${policy.colorBeforeStart || "null"} before start`;
-        case ProblemColorPolicy.Type.whenSolved: return `Replace with ${policy.colorBeforeSolved || "null"} before problem is solved`;
-        case ProblemColorPolicy.Type.always: return `Always show problem color`;
+        case null:
+            return "??";
+        case ProblemColorPolicy.Type.afterStart:
+            return `Replace with ${policy.colorBeforeStart || "null"} before start`;
+        case ProblemColorPolicy.Type.whenSolved:
+            return `Replace with ${policy.colorBeforeSolved || "null"} before problem is solved`;
+        case ProblemColorPolicy.Type.always:
+            return `Always show problem color`;
     }
-}
-
-const ContestInfoContainer = ({ contestInfo } : BasicContainerProps) => {
-    return <div>
-        <InfoRowContainer name="Name" value = {contestInfo?.name} />
-        <InfoRowContainer name="Result type" value = {contestInfo?.resultType} />
-        <InfoRowContainer name="Status" value = {<ContestInfoStatus status={contestInfo?.status}/>} />
-        <InfoRowContainer name="Contest length" value = {timeMsToDuration(contestInfo?.contestLengthMs)} />
-        <InfoRowContainer name="Freeze time" value = {timeMsToDuration(contestInfo?.freezeTimeMs)} />
-        <InfoRowContainer name="Penalty per wrong attempt" value = {timeSecondsToDuration(contestInfo?.penaltyPerWrongAttemptSeconds)} />
-        <InfoRowContainer name="Penalty rounding mode" value = {contestInfo?.penaltyRoundingMode} />
-        <InfoRowContainer name="Emulation speed" value = {contestInfo?.emulationSpeed} />
-        <InfoRowContainer name="Show team without submissions" value = {contestInfo?.showTeamsWithoutSubmissions ? "Yes" : "No"} />
-        <InfoRowContainer name="Problem color policy" value = {problemPolicyStr(contestInfo?.problemColorPolicy)} />
-        {contestInfo?.customFields && Object.entries(contestInfo.customFields).map(([key, value]) => (
-            <InfoRowContainer key={key} name={"Custom:" + key} value={String(value)} />
-        ))}
-    </div>;
 };
 
-const QueueSettingsContainer = ( { contestInfo } : BasicContainerProps) => {
-    return <div>
-        <InfoRowContainer name="Time in queue normal" value = {timeSecondsToDuration(contestInfo?.queueSettings?.waitTimeSeconds)} />
-        <InfoRowContainer name="Time in queue FTS" value = {timeSecondsToDuration(contestInfo?.queueSettings?.firstToSolveWaitTimeSeconds)} />
-        <InfoRowContainer name="Time in queue featured" value = {timeSecondsToDuration(contestInfo?.queueSettings?.featuredRunWaitTimeSeconds)} />
-        <InfoRowContainer name="Time in queue in progress" value = {timeSecondsToDuration(contestInfo?.queueSettings?.inProgressRunWaitTimeSeconds)} />
-        <InfoRowContainer name="Max queue size" value = {contestInfo?.queueSettings?.maxQueueSize} />
-        <InfoRowContainer name="Max untested runs" value = {contestInfo?.queueSettings?.maxUntestedRun} />
-    </div>;
-}
+const ContestInfoContainer = ({ contestInfo }: BasicContainerProps) => {
+    return (
+        <div>
+            <InfoRowContainer name="Name" value={contestInfo?.name} />
+            <InfoRowContainer
+                name="Result type"
+                value={contestInfo?.resultType}
+            />
+            <InfoRowContainer
+                name="Status"
+                value={<ContestInfoStatus status={contestInfo?.status} />}
+            />
+            <InfoRowContainer
+                name="Contest length"
+                value={timeMsToDuration(contestInfo?.contestLengthMs)}
+            />
+            <InfoRowContainer
+                name="Freeze time"
+                value={timeMsToDuration(contestInfo?.freezeTimeMs)}
+            />
+            <InfoRowContainer
+                name="Penalty per wrong attempt"
+                value={timeSecondsToDuration(
+                    contestInfo?.penaltyPerWrongAttemptSeconds,
+                )}
+            />
+            <InfoRowContainer
+                name="Penalty rounding mode"
+                value={contestInfo?.penaltyRoundingMode}
+            />
+            <InfoRowContainer
+                name="Emulation speed"
+                value={contestInfo?.emulationSpeed}
+            />
+            <InfoRowContainer
+                name="Show team without submissions"
+                value={contestInfo?.showTeamsWithoutSubmissions ? "Yes" : "No"}
+            />
+            <InfoRowContainer
+                name="Problem color policy"
+                value={problemPolicyStr(contestInfo?.problemColorPolicy)}
+            />
+            {contestInfo?.customFields &&
+                Object.entries(contestInfo.customFields).map(([key, value]) => (
+                    <InfoRowContainer
+                        key={key}
+                        name={"Custom:" + key}
+                        value={String(value)}
+                    />
+                ))}
+        </div>
+    );
+};
 
-const SimpleGrid = ( { rows, columns }) => {
-    if (rows == undefined)
-        return undefined
-    return <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-            pagination: { paginationModel: { pageSize: 100 } },
-        }}
-        pageSizeOptions={[100]}
-        autoHeight
-        autosizeOnMount
-        autosizeOptions={{expand: true}}
-        getRowHeight={() => "auto"}
-        columnHeaderHeight={30}
-        sx={{
-            "& .MuiDataGrid-footerContainer": {
-                minHeight: 30,
-                maxHeight: 30,
-            },
-            "& .MuiDataGrid-cell:focus": {
-                outline: "0",
-            }
-        }}
-    />;
+const QueueSettingsContainer = ({ contestInfo }: BasicContainerProps) => {
+    return (
+        <div>
+            <InfoRowContainer
+                name="Time in queue normal"
+                value={timeSecondsToDuration(
+                    contestInfo?.queueSettings?.waitTimeSeconds,
+                )}
+            />
+            <InfoRowContainer
+                name="Time in queue FTS"
+                value={timeSecondsToDuration(
+                    contestInfo?.queueSettings?.firstToSolveWaitTimeSeconds,
+                )}
+            />
+            <InfoRowContainer
+                name="Time in queue featured"
+                value={timeSecondsToDuration(
+                    contestInfo?.queueSettings?.featuredRunWaitTimeSeconds,
+                )}
+            />
+            <InfoRowContainer
+                name="Time in queue in progress"
+                value={timeSecondsToDuration(
+                    contestInfo?.queueSettings?.inProgressRunWaitTimeSeconds,
+                )}
+            />
+            <InfoRowContainer
+                name="Max queue size"
+                value={contestInfo?.queueSettings?.maxQueueSize}
+            />
+            <InfoRowContainer
+                name="Max untested runs"
+                value={contestInfo?.queueSettings?.maxUntestedRun}
+            />
+        </div>
+    );
+};
 
-}
+const SimpleGrid = ({ rows, columns }) => {
+    if (rows == undefined) return undefined;
+    return (
+        <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+                pagination: { paginationModel: { pageSize: 100 } },
+            }}
+            pageSizeOptions={[100]}
+            autoHeight
+            autosizeOnMount
+            autosizeOptions={{ expand: true }}
+            getRowHeight={() => "auto"}
+            columnHeaderHeight={30}
+            sx={{
+                "& .MuiDataGrid-footerContainer": {
+                    minHeight: 30,
+                    maxHeight: 30,
+                },
+                "& .MuiDataGrid-cell:focus": {
+                    outline: "0",
+                },
+            }}
+        />
+    );
+};
 
 export interface SimpleDialogProps {
     open: boolean;
@@ -187,17 +280,27 @@ function SimpleDialog({ onClose, open, medias }: SimpleDialogProps) {
             open={open}
         >
             <List>
-                {medias && Object.entries(medias).flatMap(([key, medias]) => {
-                    return medias.map((media, idx) => (
-                        <ListItem key={`${key}-${idx}`}>
-                            <Grid container direction="row">
-                                <Grid size={{xs: 4, md: 2}}>{key}{medias.length > 1 ? ` [${idx+1}]` : ""}</Grid>
-                                <Grid size={{xs: 4, md: 3}}>{media?.type ?? "-"}</Grid>
-                                <Grid size={{xs: 4, md: 7}}>{media?.url ?? "-"}</Grid>
-                            </Grid>
-                        </ListItem>
-                    ));
-                })}
+                {medias &&
+                    Object.entries(medias).flatMap(([key, medias]) => {
+                        return medias.map((media, idx) => (
+                            <ListItem key={`${key}-${idx}`}>
+                                <Grid container direction="row">
+                                    <Grid size={{ xs: 4, md: 2 }}>
+                                        {key}
+                                        {medias.length > 1
+                                            ? ` [${idx + 1}]`
+                                            : ""}
+                                    </Grid>
+                                    <Grid size={{ xs: 4, md: 3 }}>
+                                        {media?.type ?? "-"}
+                                    </Grid>
+                                    <Grid size={{ xs: 4, md: 7 }}>
+                                        {media?.url ?? "-"}
+                                    </Grid>
+                                </Grid>
+                            </ListItem>
+                        ));
+                    })}
             </List>
         </Dialog>
     );
@@ -207,7 +310,7 @@ const ProblemTableColumns: GridColDef<ProblemInfo>[] = [
     {
         field: "ordinal",
         headerName: "Order",
-        type: "number"
+        type: "number",
     },
     {
         field: "id",
@@ -224,11 +327,13 @@ const ProblemTableColumns: GridColDef<ProblemInfo>[] = [
     {
         field: "color",
         headerName: "Color",
-        renderCell: ({ value }) => (
-            value && <>
-                <Brightness1Icon sx={{ color: value }} fontSize="small"/> {value}
-            </>
-        ),
+        renderCell: ({ value }) =>
+            value && (
+                <>
+                    <Brightness1Icon sx={{ color: value }} fontSize="small" />{" "}
+                    {value}
+                </>
+            ),
     },
     {
         field: "isHidden",
@@ -238,7 +343,7 @@ const ProblemTableColumns: GridColDef<ProblemInfo>[] = [
     {
         field: "maxScore",
         headerName: "Max Score",
-        type: "number"
+        type: "number",
     },
     {
         field: "scoreMergeMode",
@@ -256,14 +361,17 @@ const ProblemTableColumns: GridColDef<ProblemInfo>[] = [
                 case FtsMode.Type.hidden:
                     return "hidden";
             }
-        }
-    }
+        },
+    },
 ];
 
-const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (m: { string: MediaType[] }) => void): GridColDef<TeamInfo>[] => [
+const TeamTableColumns = (
+    setOpen: (v: boolean) => void,
+    setCurrentTeamMedias: (m: { string: MediaType[] }) => void,
+): GridColDef<TeamInfo>[] => [
     {
         field: "id",
-        headerName: "ID"
+        headerName: "ID",
     },
     {
         field: "name",
@@ -276,15 +384,15 @@ const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (
     {
         field: "groups",
         headerName: "Groups",
-        valueGetter: (v: GroupId[]) => v.map(c => c).join(", "),
+        valueGetter: (v: GroupId[]) => v.map((c) => c).join(", "),
     },
     {
         field: "hashTag",
-        headerName: "HashTag"
+        headerName: "HashTag",
     },
     {
         field: "organizationId",
-        headerName: "Organization"
+        headerName: "Organization",
     },
     {
         field: "medias",
@@ -296,23 +404,31 @@ const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (
             };
 
             if (!value) {
-                return <div/>;
+                return <div />;
             }
-            return <div>
-                <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Medias
-                </Button>
-            </div>;
+            return (
+                <div>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleClickOpen}
+                    >
+                        Medias
+                    </Button>
+                </div>
+            );
         },
     },
     {
         field: "color",
         headerName: "Color",
-        renderCell: ({ value }) => (
-            value && <>
-                <Brightness1Icon sx={{ color: value }} fontSize="small"/> {value}
-            </>
-        ),
+        renderCell: ({ value }) =>
+            value && (
+                <>
+                    <Brightness1Icon sx={{ color: value }} fontSize="small" />{" "}
+                    {value}
+                </>
+            ),
     },
     {
         field: "isOutOfContest",
@@ -322,14 +438,17 @@ const TeamTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (
     {
         field: "isHidden",
         headerName: "Hidden",
-        type: "boolean"
+        type: "boolean",
     },
 ];
 
-const OrganizationTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamMedias: (m: { [key in string]: MediaType[] }) => void): GridColDef<OrganizationInfo>[] => [
+const OrganizationTableColumns = (
+    setOpen: (v: boolean) => void,
+    setCurrentTeamMedias: (m: { [key in string]: MediaType[] }) => void,
+): GridColDef<OrganizationInfo>[] => [
     {
         field: "id",
-        headerName: "ID"
+        headerName: "ID",
     },
     {
         field: "displayName",
@@ -345,26 +464,31 @@ const OrganizationTableColumns = (setOpen: (v: boolean) => void, setCurrentTeamM
         renderCell: ({ value }) => {
             const handleClickOpen = () => {
                 setOpen(true);
-                setCurrentTeamMedias({logos : value});
+                setCurrentTeamMedias({ logos: value });
             };
 
             if (!value) {
-                return <div/>;
+                return <div />;
             }
-            return <div>
-                <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                    Logos
-                </Button>
-            </div>;
+            return (
+                <div>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleClickOpen}
+                    >
+                        Logos
+                    </Button>
+                </div>
+            );
         },
     },
-
 ];
 
 const GroupTableColumns: GridColDef<GroupInfo>[] = [
     {
         field: "id",
-        headerName: "ID"
+        headerName: "ID",
     },
     {
         field: "displayName",
@@ -378,15 +502,18 @@ const GroupTableColumns: GridColDef<GroupInfo>[] = [
     {
         field: "isHidden",
         headerName: "Hidden",
-        type: "boolean"
+        type: "boolean",
     },
 ];
-
 
 const ContestInfoPage = () => {
     const contestInfo = useContestInfo();
 
-    const [value, setValue] = useState(location.hash.substring(1) !== "" ? location.hash.substring(1) : "Contest");
+    const [value, setValue] = useState(
+        location.hash.substring(1) !== ""
+            ? location.hash.substring(1)
+            : "Contest",
+    );
 
     const handleChange = (_, newValue: string) => {
         setValue(newValue);
@@ -394,7 +521,8 @@ const ContestInfoPage = () => {
     };
 
     const [open, setOpen] = useState(false);
-    const [currentTeamMedias, setCurrentTeamMedias] = useState<{ [key in string] : MediaType[] }>();
+    const [currentTeamMedias, setCurrentTeamMedias] =
+        useState<{ [key in string]: MediaType[] }>();
 
     const handleClose = () => {
         setOpen(false);
@@ -402,11 +530,18 @@ const ContestInfoPage = () => {
 
     return (
         <Container maxWidth={"xl"} sx={{ pt: 2 }}>
-            <SimpleDialog open={open} onClose={handleClose} medias={currentTeamMedias}/>
+            <SimpleDialog
+                open={open}
+                onClose={handleClose}
+                medias={currentTeamMedias}
+            />
             <Box sx={{ width: "100%", typography: "body1" }}>
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                        <TabList onChange={handleChange} aria-label="lab API tabs example">
+                        <TabList
+                            onChange={handleChange}
+                            aria-label="lab API tabs example"
+                        >
                             <Tab label="Contest" value="Contest" />
                             <Tab label="Problems" value="Problems" />
                             <Tab label="Teams" value="Teams" />
@@ -416,22 +551,40 @@ const ContestInfoPage = () => {
                         </TabList>
                     </Box>
                     <TabPanel value="Contest">
-                        <ContestInfoContainer contestInfo={contestInfo}/>
+                        <ContestInfoContainer contestInfo={contestInfo} />
                     </TabPanel>
                     <TabPanel value="Problems">
-                        <SimpleGrid rows={contestInfo?.problems} columns={ProblemTableColumns}/>
+                        <SimpleGrid
+                            rows={contestInfo?.problems}
+                            columns={ProblemTableColumns}
+                        />
                     </TabPanel>
                     <TabPanel value="Teams">
-                        <SimpleGrid rows={contestInfo?.teams} columns={TeamTableColumns(setOpen, setCurrentTeamMedias)}/>
+                        <SimpleGrid
+                            rows={contestInfo?.teams}
+                            columns={TeamTableColumns(
+                                setOpen,
+                                setCurrentTeamMedias,
+                            )}
+                        />
                     </TabPanel>
                     <TabPanel value="Groups">
-                        <SimpleGrid rows={contestInfo?.groups} columns={GroupTableColumns}/>
+                        <SimpleGrid
+                            rows={contestInfo?.groups}
+                            columns={GroupTableColumns}
+                        />
                     </TabPanel>
                     <TabPanel value="Organizations">
-                        <SimpleGrid rows={contestInfo?.organizations} columns={OrganizationTableColumns(setOpen, setCurrentTeamMedias)}/>
+                        <SimpleGrid
+                            rows={contestInfo?.organizations}
+                            columns={OrganizationTableColumns(
+                                setOpen,
+                                setCurrentTeamMedias,
+                            )}
+                        />
                     </TabPanel>
                     <TabPanel value="Queue">
-                        <QueueSettingsContainer contestInfo={contestInfo}/>
+                        <QueueSettingsContainer contestInfo={contestInfo} />
                     </TabPanel>
                 </TabContext>
             </Box>

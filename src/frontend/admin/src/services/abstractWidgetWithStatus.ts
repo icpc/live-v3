@@ -2,7 +2,12 @@ import { useEffect } from "react";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "@shared/errors.ts";
 import { ObjectSettings } from "@shared/api.ts";
-import { ApiGetClient, ApiPostClient, createApiGet, createApiPost } from "@shared/utils.ts";
+import {
+    ApiGetClient,
+    ApiPostClient,
+    createApiGet,
+    createApiPost,
+} from "@shared/utils.ts";
 import { ErrorHandler, ReloadHandler } from "@shared/abstractWidget.ts";
 import { BASE_URL_BACKEND } from "@/config.ts";
 
@@ -10,7 +15,7 @@ export class AbstractWidgetWithStatus<StatusType> {
     apiPath: string;
     apiGet: ApiGetClient;
     apiPost: ApiPostClient;
-    errorHandler: ErrorHandler = cause => e => this.handleError(cause, e); // why it's not function?
+    errorHandler: ErrorHandler = (cause) => (e) => this.handleError(cause, e); // why it's not function?
     errorHandlers: Set<ErrorHandler> = new Set();
     reloadDataHandlers: Set<ReloadHandler> = new Set();
     ws?: WebSocket;
@@ -41,7 +46,7 @@ export class AbstractWidgetWithStatus<StatusType> {
         if (this.errorHandlers.size === 0) {
             console.error(cause + ": " + e);
         }
-        this.errorHandlers.forEach(h => h(cause)(e));
+        this.errorHandlers.forEach((h) => h(cause)(e));
     }
 
     isMessageRequireReload(url: string): boolean {
@@ -50,17 +55,19 @@ export class AbstractWidgetWithStatus<StatusType> {
 
     loadStatus() {
         return this.apiGet("/")
-            .catch(this.errorHandler("Failed to load status of " + this.apiPath))
-            .then(j => j as StatusType);
+            .catch(
+                this.errorHandler("Failed to load status of " + this.apiPath),
+            )
+            .then((j) => j as StatusType);
     }
 }
 
 // TODO: move to another file?
 export function useServiceSnackbarErrorHandler<
     Service extends AbstractWidgetWithStatus<Settings>,
-    Settings extends ObjectSettings
+    Settings extends ObjectSettings,
 >(service: Service) {
-    const { enqueueSnackbar, } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {
         const handler = errorHandlerWithSnackbar(enqueueSnackbar);
         service.addErrorHandler(handler);
@@ -70,4 +77,3 @@ export function useServiceSnackbarErrorHandler<
         };
     }, [enqueueSnackbar, service]);
 }
-

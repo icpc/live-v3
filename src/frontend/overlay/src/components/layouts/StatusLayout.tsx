@@ -5,11 +5,13 @@ import { StatusLightBulbs } from "../organisms/status/StatusLightBulbs";
 import { CSSTicker, JSTicker } from "../organisms/status/Tickers";
 
 export const StatusLayout = () => {
-    return <>
-        <StatusLightBulbs/>
-        <JSTicker/>
-        <CSSTicker/>
-        <FPSCounter/>
-        <DebugLog/>
-    </>;
+    return (
+        <>
+            <StatusLightBulbs />
+            <JSTicker />
+            <CSSTicker />
+            <FPSCounter />
+            <DebugLog />
+        </>
+    );
 };

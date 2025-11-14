@@ -10,7 +10,11 @@ import ImageIcon from "@mui/icons-material/Image";
 import { TickerTableRow } from "./TickerTableRow";
 import Dashboard from "./Dashboard";
 import { usePresetWidgetService } from "../services/presetWidget";
-import { PresetsManager, AddButtonsProps, PresetService } from "./PresetsManager";
+import {
+    PresetsManager,
+    AddButtonsProps,
+    PresetService,
+} from "./PresetsManager";
 import { ClockType, TickerPart } from "../../../generated/api";
 
 interface BaseTickerSettings extends Record<string, unknown> {
@@ -42,7 +46,11 @@ interface ImageSettings extends BaseTickerSettings {
     path: string;
 }
 
-type TickerMessageSettings = ClockSettings | ScoreboardSettings | TextSettings | ImageSettings;
+type TickerMessageSettings =
+    | ClockSettings
+    | ScoreboardSettings
+    | TextSettings
+    | ImageSettings;
 
 interface PresetButtonConfig {
     type: "clock" | "scoreboard" | "text" | "image";
@@ -69,7 +77,7 @@ const PRESET_BUTTON_CONFIGS: PresetButtonConfig[] = [
             periodMs: 30000,
             clockType: ClockType.standard,
             showSeconds: true,
-            timeZone: null
+            timeZone: null,
         } as Omit<ClockSettings, "part">,
     },
     {
@@ -80,7 +88,7 @@ const PRESET_BUTTON_CONFIGS: PresetButtonConfig[] = [
             type: "scoreboard",
             periodMs: 30000,
             from: 1,
-            to: 12
+            to: 12,
         } as Omit<ScoreboardSettings, "part">,
     },
     {
@@ -89,7 +97,7 @@ const PRESET_BUTTON_CONFIGS: PresetButtonConfig[] = [
         settings: {
             type: "text",
             periodMs: 30000,
-            text: ""
+            text: "",
         } as Omit<TextSettings, "part">,
     },
     {
@@ -98,21 +106,30 @@ const PRESET_BUTTON_CONFIGS: PresetButtonConfig[] = [
         settings: {
             type: "image",
             periodMs: 30000,
-            path: ""
+            path: "",
         } as Omit<ImageSettings, "part">,
     },
 ];
 
 function filterPresetsByPart(
     presets: PresetButtonConfig[],
-    part: TickerPart
+    part: TickerPart,
 ): PresetButtonConfig[] {
-    return presets.filter(preset => preset.part === undefined || preset.part === part);
-};
+    return presets.filter(
+        (preset) => preset.part === undefined || preset.part === part,
+    );
+}
 
-const createAddButtons = (part: TickerPart): React.FC<AddButtonsProps<TickerMessageSettings>> => {
-    const AddButtons: React.FC<AddButtonsProps<TickerMessageSettings>> = ({ onCreate }) => {
-        const filteredPresets = filterPresetsByPart(PRESET_BUTTON_CONFIGS, part);
+const createAddButtons = (
+    part: TickerPart,
+): React.FC<AddButtonsProps<TickerMessageSettings>> => {
+    const AddButtons: React.FC<AddButtonsProps<TickerMessageSettings>> = ({
+        onCreate,
+    }) => {
+        const filteredPresets = filterPresetsByPart(
+            PRESET_BUTTON_CONFIGS,
+            part,
+        );
 
         const handlePresetCreate = (preset: PresetButtonConfig) => {
             const settingsWithPart = {
@@ -150,7 +167,7 @@ const createAddButtons = (part: TickerPart): React.FC<AddButtonsProps<TickerMess
 
 function TickerPartComponent({
     service,
-    part
+    part,
 }: TickerPartComponentProps): React.ReactElement {
     const AddButtonsComponent = createAddButtons(part);
 
@@ -167,22 +184,18 @@ function TickerPartComponent({
             AddButtons={AddButtonsComponent}
         />
     );
-};
+}
 
 function TickerMessage(): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
     const service = usePresetWidgetService<TickerMessageSettings>(
         "/tickerMessage",
-        errorHandlerWithSnackbar(enqueueSnackbar)
+        errorHandlerWithSnackbar(enqueueSnackbar),
     );
 
     const dashboardElements: DashboardElements = {
         Short: (
-            <Container
-                maxWidth="md"
-                sx={{ pt: 2 }}
-                className="TickerPanel"
-            >
+            <Container maxWidth="md" sx={{ pt: 2 }} className="TickerPanel">
                 <TickerPartComponent
                     service={service}
                     part={TickerPart.short}
@@ -190,15 +203,8 @@ function TickerMessage(): React.ReactElement {
             </Container>
         ),
         Long: (
-            <Container
-                maxWidth="md"
-                sx={{ pt: 2 }}
-                className="TickerPanel"
-            >
-                <TickerPartComponent
-                    service={service}
-                    part={TickerPart.long}
-                />
+            <Container maxWidth="md" sx={{ pt: 2 }} className="TickerPanel">
+                <TickerPartComponent service={service} part={TickerPart.long} />
             </Container>
         ),
     };
@@ -210,6 +216,6 @@ function TickerMessage(): React.ReactElement {
             maxWidth="md"
         />
     );
-};
+}
 
 export default TickerMessage;

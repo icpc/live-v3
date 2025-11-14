@@ -2,7 +2,13 @@ import { TeamMediaType } from "@shared/api";
 import { Button } from "@mui/material";
 import ButtonGroup from "@/components/atoms/ButtonGroup";
 
-export const DEFAULT_MEDIA_TYPES = [TeamMediaType.screen, TeamMediaType.camera, TeamMediaType.record, TeamMediaType.photo, null];
+export const DEFAULT_MEDIA_TYPES = [
+    TeamMediaType.screen,
+    TeamMediaType.camera,
+    TeamMediaType.record,
+    TeamMediaType.photo,
+    null,
+];
 
 const mediaTypeName = (type: TeamMediaType | null) => {
     return type === null ? "empty" : type;
@@ -16,7 +22,7 @@ type TeamMediaSwitcherProps = {
     onSwitch: (type: TeamMediaType | null) => void;
     onSwitchHide?: () => void;
     disabledHide?: boolean;
-}
+};
 
 const TeamMediaSwitcher = ({
     mediaTypes = DEFAULT_MEDIA_TYPES,
@@ -25,11 +31,11 @@ const TeamMediaSwitcher = ({
     switchedMediaType,
     onSwitch,
     onSwitchHide,
-    disabledHide
+    disabledHide,
 }: TeamMediaSwitcherProps) => {
     return (
         <ButtonGroup>
-            {mediaTypes.map(t => (
+            {mediaTypes.map((t) => (
                 <Button
                     disabled={disabled || disabledMediaTypes?.includes(t)}
                     // color={secondaryMediaType === elem.mediaType ? "warning" : "primary"}

@@ -2,10 +2,20 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "shared-code/errors";
-import { Autocomplete, TextField, Button,
-    TableCell, TableRow,
-    Dialog, DialogTitle, DialogContent, DialogActions,
-    CircularProgress, Card, Stack } from "@mui/material";
+import {
+    Autocomplete,
+    TextField,
+    Button,
+    TableCell,
+    TableRow,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    CircularProgress,
+    Card,
+    Stack,
+} from "@mui/material";
 import ShowPresetButton from "./controls/ShowPresetButton.tsx";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -15,7 +25,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PreviewIcon from "@mui/icons-material/Preview";
 import { PresetsTableCell, ValueEditorProps } from "./PresetsTableCell.tsx";
 import { activeRowColor } from "../styles.js";
-import { PresetSettings, usePresetTableRowDataState } from "./PresetsTableRowUtils.tsx";
+import {
+    PresetSettings,
+    usePresetTableRowDataState,
+} from "./PresetsTableRowUtils.tsx";
 import { PresetsManager } from "./PresetsManager.js";
 import { usePresetWidgetService } from "../services/presetWidget.js";
 import { useTitleWidgetService } from "../services/titleWidget.js";
@@ -77,8 +90,8 @@ function parseParamsData(input: string): Record<string, string> {
 
     return input
         .split("\n")
-        .map(line => line.trim())
-        .filter(line => line.length > 0)
+        .map((line) => line.trim())
+        .filter((line) => line.length > 0)
         .map(splitKeyValue)
         .filter((result): result is [string, string] => result.length === 2)
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
@@ -87,7 +100,7 @@ function parseParamsData(input: string): Record<string, string> {
 function createPresetUpdater(
     data: TitleData,
     presetValue: string,
-    onEdit: (data: TitleData) => unknown
+    onEdit: (data: TitleData) => unknown,
 ): () => void {
     return function updatePreset() {
         const updatedData: TitleData = {
@@ -95,23 +108,22 @@ function createPresetUpdater(
             settings: {
                 ...data.settings,
                 preset: presetValue,
-            }
+            },
         };
         onEdit(updatedData);
     };
 }
 
-
 function PreviewSVGDialog({
     id,
     open,
-    onClose
+    onClose,
 }: PreviewSVGDialogProps): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
     const service = useTitleWidgetService<TitleSettings>(
         "/title",
         errorHandlerWithSnackbar(enqueueSnackbar),
-        false
+        false,
     );
     const [content, setContent] = useState<string | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
@@ -125,14 +137,23 @@ function PreviewSVGDialog({
                     let previewContent: string = "";
 
                     // TODO: Freak solution
-                    if (typeof response === 'string') {
+                    if (typeof response === "string") {
                         previewContent = response;
-                    } else if (response && typeof response === 'object') {
-                        if ('url' in response && typeof response.url === 'string') {
+                    } else if (response && typeof response === "object") {
+                        if (
+                            "url" in response &&
+                            typeof response.url === "string"
+                        ) {
                             previewContent = response.url;
-                        } else if ('data' in response && typeof response.data === 'string') {
+                        } else if (
+                            "data" in response &&
+                            typeof response.data === "string"
+                        ) {
                             previewContent = response.data;
-                        } else if ('content' in response && typeof response.content === 'string') {
+                        } else if (
+                            "content" in response &&
+                            typeof response.content === "string"
+                        ) {
                             previewContent = response.content;
                         } else {
                             previewContent = String(response);
@@ -161,24 +182,24 @@ function PreviewSVGDialog({
             <DialogTitle>Title preview</DialogTitle>
             <DialogContent>
                 <Card sx={{ borderRadius: 0, minHeight: 200 }}>
-                {loading && (
-                    <Stack alignItems="center" sx={{ py: 3 }}>
-                    <CircularProgress />
-                    </Stack>
-                )}
-                {content && !loading && (
-                    <object
-                    type="image/svg+xml"
-                    data={content}
-                    style={{ width: "100%", display: "block" }}
-                    aria-label="SVG Preview"
-                    />
-                )}
+                    {loading && (
+                        <Stack alignItems="center" sx={{ py: 3 }}>
+                            <CircularProgress />
+                        </Stack>
+                    )}
+                    {content && !loading && (
+                        <object
+                            type="image/svg+xml"
+                            data={content}
+                            style={{ width: "100%", display: "block" }}
+                            aria-label="SVG Preview"
+                        />
+                    )}
                 </Card>
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} autoFocus>
-                OK
+                    OK
                 </Button>
             </DialogActions>
         </Dialog>
@@ -192,7 +213,11 @@ function TemplateEditor({
 }: ValueEditorProps<string>): React.ReactElement {
     const [templates, setTeamplates] = useState<TitleTemplate[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const service = useTitleWidgetService<TitleSettings>("/title", undefined, false);
+    const service = useTitleWidgetService<TitleSettings>(
+        "/title",
+        undefined,
+        false,
+    );
 
     useEffect(() => {
         async function fetchTemplate() {
@@ -213,8 +238,10 @@ function TemplateEditor({
         onChange(newValue || "");
     }
 
-    const templateOptions = templates.map(template =>
-        typeof template === 'string' ? template : template.name || template.content || String(template.id)
+    const templateOptions = templates.map((template) =>
+        typeof template === "string"
+            ? template
+            : template.name || template.content || String(template.id),
     );
 
     return (
@@ -229,19 +256,24 @@ function TemplateEditor({
                 options={templateOptions}
                 loading={loading}
                 renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="SVG preset"
-                    InputProps={{
-                    ...params.InputProps,
-                    endAdornment: (
-                        <>
-                        {loading && <CircularProgress color="inherit" size={20} />}
-                        {params.InputProps.endAdornment}
-                        </>
-                    ),
-                    }}
-                />
+                    <TextField
+                        {...params}
+                        label="SVG preset"
+                        InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                                <>
+                                    {loading && (
+                                        <CircularProgress
+                                            color="inherit"
+                                            size={20}
+                                        />
+                                    )}
+                                    {params.InputProps.endAdornment}
+                                </>
+                            ),
+                        }}
+                    />
                 )}
             />
         </Box>
@@ -259,7 +291,7 @@ function ParamsLine({ pKey, pValue }: ParamsLineProps): React.ReactElement {
 function ParamsDataEditor({
     onSubmit,
     value,
-    onChange
+    onChange,
 }: ValueEditorProps<Record<string, unknown>>): React.ReactElement {
     const initialValue = paramsDataToString(value);
     const [inputValue, setInputValue] = useState<string>(initialValue);
@@ -297,7 +329,7 @@ function renderParamsData(data: Record<string, unknown>): React.ReactElement {
     const entries = Object.entries(data);
 
     if (entries.length === 0) {
-        return <Box sx={{ color: 'text.secondary' }}>No parameters</Box>;
+        return <Box sx={{ color: "text.secondary" }}>No parameters</Box>;
     }
 
     return (
@@ -313,7 +345,7 @@ function PresetSelectionCell({
     shown,
     onShow,
     onLeftPresetSelect,
-    onRightPresetSelect
+    onRightPresetSelect,
 }: {
     shown: boolean;
     onShow: () => void;
@@ -323,17 +355,14 @@ function PresetSelectionCell({
     return (
         <TableCell component="th" scope="row" align="left">
             <Box display="flex" gap={0.5}>
-                <ShowPresetButton
-                    onClick={onShow}
-                    checked={shown}
-                />
+                <ShowPresetButton onClick={onShow} checked={shown} />
                 <IconButton
                     color="primary"
                     onClick={onLeftPresetSelect}
                     aria-label="Apply left preset"
                     size="small"
                 >
-                L
+                    L
                 </IconButton>
                 <IconButton
                     color="primary"
@@ -341,18 +370,18 @@ function PresetSelectionCell({
                     aria-label="Apply right preset"
                     size="small"
                 >
-                R
+                    R
                 </IconButton>
             </Box>
         </TableCell>
-  );
+    );
 }
 
 function ActionButtonsCell({
     isEditMode,
     onPreviewOpen,
     onEditClick,
-    onDeleteClick
+    onDeleteClick,
 }: {
     isEditMode: boolean;
     onPreviewOpen: () => void;
@@ -389,21 +418,17 @@ function ActionButtonsCell({
                 </IconButton>
             </Box>
         </TableCell>
-  );
+    );
 }
 
 export function TitleTableRow({
     data,
     onShow,
     onEdit,
-    onDelete
+    onDelete,
 }: TitleTableRowProps): React.ReactElement {
-    const {
-        editData,
-        onClickEdit,
-        onSubmitEdit,
-        onChangeField
-    } = usePresetTableRowDataState(data, onEdit);
+    const { editData, onClickEdit, onSubmitEdit, onChangeField } =
+        usePresetTableRowDataState(data, onEdit);
 
     const [previewDialogOpen, setPreviewDialogOpen] = useState<boolean>(false);
     const isEditMode = editData !== undefined;
@@ -416,8 +441,16 @@ export function TitleTableRow({
         setPreviewDialogOpen(false);
     }
 
-    const applyLeftPreset = createPresetUpdater(data, data.settings.leftPreset, onEdit);
-    const applyRightPreset = createPresetUpdater(data, data.settings.rightPreset, onEdit);
+    const applyLeftPreset = createPresetUpdater(
+        data,
+        data.settings.leftPreset,
+        onEdit,
+    );
+    const applyRightPreset = createPresetUpdater(
+        data,
+        data.settings.rightPreset,
+        onEdit,
+    );
 
     return (
         <>
@@ -429,7 +462,9 @@ export function TitleTableRow({
 
             <TableRow
                 key={data.id}
-                sx={{ backgroundColor: data.shown ? activeRowColor : undefined }}
+                sx={{
+                    backgroundColor: data.shown ? activeRowColor : undefined,
+                }}
             >
                 <PresetSelectionCell
                     shown={data.shown}
@@ -479,12 +514,15 @@ export function TitleTableRow({
                 />
             </TableRow>
         </>
-  );
+    );
 }
 
 export function Title(): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
-    const service = usePresetWidgetService<TitleSettings>("/title", errorHandlerWithSnackbar(enqueueSnackbar));
+    const service = usePresetWidgetService<TitleSettings>(
+        "/title",
+        errorHandlerWithSnackbar(enqueueSnackbar),
+    );
 
     const defaultRowData: TitleSettings = {
         preset: "",
@@ -498,7 +536,12 @@ export function Title(): React.ReactElement {
             <PresetsManager<TitleSettings>
                 service={service}
                 tableKeys={["leftPreset", "rightPreset", "preset", "data"]}
-                tableKeysHeaders={["Left template", "Right template", "Template", "Data"]}
+                tableKeysHeaders={[
+                    "Left template",
+                    "Right template",
+                    "Template",
+                    "Data",
+                ]}
                 defaultRowData={defaultRowData}
                 RowComponent={TitleTableRow}
             />
@@ -511,7 +554,7 @@ export type {
     TitleSettings,
     TitleTableRowProps,
     PreviewSVGDialogProps,
-    ParamsLineProps
+    ParamsLineProps,
 };
 
 export default Title;

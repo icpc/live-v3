@@ -6,7 +6,7 @@ export enum TeamTaskStatus {
     failed = 2,
     untouched = 3,
     unknown = 4,
-    first = 5
+    first = 5,
 }
 
 // export const TeamTaskStatus = Object.freeze({
@@ -17,7 +17,6 @@ export enum TeamTaskStatus {
 //     first: 5
 // });
 
-
 export const TeamTaskSymbol = Object.freeze({
     [TeamTaskStatus.solved]: "+",
     [TeamTaskStatus.failed]: "-",
@@ -26,7 +25,12 @@ export const TeamTaskSymbol = Object.freeze({
     [TeamTaskStatus.first]: "+",
 });
 
-export function getStatus(isFirstToSolve: boolean, isSolved: boolean, pendingAttempts: number, wrongAttempts: number): TeamTaskStatus {
+export function getStatus(
+    isFirstToSolve: boolean,
+    isSolved: boolean,
+    pendingAttempts: number,
+    wrongAttempts: number,
+): TeamTaskStatus {
     if (isFirstToSolve) {
         return TeamTaskStatus.first;
     } else if (isSolved) {
@@ -48,7 +52,11 @@ export const TeamTaskColor = Object.freeze({
     [TeamTaskStatus.first]: c.VERDICT_OK,
 });
 
-export const getIOIColor = (score?: number, minScore?: number, maxScore?: number): string | undefined => {
+export const getIOIColor = (
+    score?: number,
+    minScore?: number,
+    maxScore?: number,
+): string | undefined => {
     if (score === undefined) {
         return undefined;
     }
@@ -65,9 +73,24 @@ export const getIOIColor = (score?: number, minScore?: number, maxScore?: number
         const middleFactor = 90;
 
         const [red, green, blue] = [
-            Math.min(minRed + score * (redDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
-            Math.min(minGreen + score * (greenDiff / scoreDiff) + (middleFactor * Math.sin(middleRange)), 255),
-            Math.min(minBlue + score * (blueDiff / scoreDiff) + ((middleFactor * Math.sin(middleRange)) / 10), 255)
+            Math.min(
+                minRed +
+                    score * (redDiff / scoreDiff) +
+                    middleFactor * Math.sin(middleRange),
+                255,
+            ),
+            Math.min(
+                minGreen +
+                    score * (greenDiff / scoreDiff) +
+                    middleFactor * Math.sin(middleRange),
+                255,
+            ),
+            Math.min(
+                minBlue +
+                    score * (blueDiff / scoreDiff) +
+                    (middleFactor * Math.sin(middleRange)) / 10,
+                255,
+            ),
         ];
 
         return `#${((1 << 24) + (red << 16) + (green << 8) + blue).toString(16).slice(1, 7)}`;
@@ -76,11 +99,17 @@ export const getIOIColor = (score?: number, minScore?: number, maxScore?: number
     return undefined;
 };
 
-const scaleNumber = (value: number, oldMin: number, oldMax: number, newMin: number, newMax: number): number => {
-    const result = (value - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin;
+const scaleNumber = (
+    value: number,
+    oldMin: number,
+    oldMax: number,
+    newMin: number,
+    newMax: number,
+): number => {
+    const result =
+        ((value - oldMin) * (newMax - newMin)) / (oldMax - oldMin) + newMin;
     return Math.min(Math.max(result, newMin), newMax);
 };
-
 
 export const isFTS = (run: QueueRunInfo): boolean => {
     return (
@@ -88,4 +117,3 @@ export const isFTS = (run: QueueRunInfo): boolean => {
         (run.result.type === "IOI" && run.result.isFirstBestRun)
     );
 };
-

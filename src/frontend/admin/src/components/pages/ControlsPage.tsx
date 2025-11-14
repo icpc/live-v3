@@ -2,16 +2,24 @@ import {
     Accordion,
     AccordionDetails,
     AccordionSummary,
-    Container, Typography,
+    Container,
+    Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ShowPresetButton from "@/components/controls/ShowPresetButton.tsx";
 import { ReactNode, useState } from "react";
-import { useServiceLoadStatus, useSingleWidgetService } from "@/services/abstractSingleWidget.ts";
+import {
+    useServiceLoadStatus,
+    useSingleWidgetService,
+} from "@/services/abstractSingleWidget.ts";
 import { FullScreenClockSettings, ObjectSettings } from "@shared/api.ts";
 import { useScoreboardWidgetService } from "@/services/scoreboardService.ts";
-import ScoreboardManager, { DEFAULT_SCOREBOARD_SETTINGS } from "@/components/managers/ScoreboardManager.tsx";
-import FullScreenClockManager, { DEFAULT_FULL_SCREEN_CLOCK_SETTINGS } from "@/components/managers/FullScreenClockManager.tsx";
+import ScoreboardManager, {
+    DEFAULT_SCOREBOARD_SETTINGS,
+} from "@/components/managers/ScoreboardManager.tsx";
+import FullScreenClockManager, {
+    DEFAULT_FULL_SCREEN_CLOCK_SETTINGS,
+} from "@/components/managers/FullScreenClockManager.tsx";
 
 type WidgetGroupProp = {
     title: string;
@@ -20,7 +28,12 @@ type WidgetGroupProp = {
     onClickShow: (newState: boolean) => void;
 };
 
-const WidgetGroup = ({ title, children, isShown, onClickShow }: WidgetGroupProp) => {
+const WidgetGroup = ({
+    title,
+    children,
+    isShown,
+    onClickShow,
+}: WidgetGroupProp) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
@@ -30,24 +43,21 @@ const WidgetGroup = ({ title, children, isShown, onClickShow }: WidgetGroupProp)
             onChange={(_, e) => setExpanded(e)}
             className="WidgetGroupAccordion"
         >
-            <AccordionSummary 
+            <AccordionSummary
                 expandIcon={children && <ExpandMoreIcon />}
                 sx={{
-                    '& .MuiAccordionSummary-content': {
-                        alignItems: 'center',
-                        gap: 1
-                    }
+                    "& .MuiAccordionSummary-content": {
+                        alignItems: "center",
+                        gap: 1,
+                    },
                 }}
             >
-                <ShowPresetButton
-                    onClick={onClickShow}
-                    checked={isShown}
-                />
-                <Typography className="aboba" variant="body2">{title}</Typography>
+                <ShowPresetButton onClick={onClickShow} checked={isShown} />
+                <Typography className="aboba" variant="body2">
+                    {title}
+                </Typography>
             </AccordionSummary>
-            <AccordionDetails sx={{ py: 1 }}>
-                {children}
-            </AccordionDetails>
+            <AccordionDetails sx={{ py: 1 }}>{children}</AccordionDetails>
         </Accordion>
     );
 };
@@ -62,30 +72,57 @@ const SimpleWidgetGroup = ({ title, apiPath }: NoSettingsWidgetProps) => {
     const { isShown } = useServiceLoadStatus(service, undefined);
 
     return (
-        <WidgetGroup title={title} isShown={isShown} onClickShow={s => s ? service.show() : service.hide()}/>
+        <WidgetGroup
+            title={title}
+            isShown={isShown}
+            onClickShow={(s) => (s ? service.show() : service.hide())}
+        />
     );
 };
 
 const ScoreboardWidgetGroup = () => {
     const service = useScoreboardWidgetService();
-    const { isShown, settings, setSettings } =
-        useServiceLoadStatus(service, DEFAULT_SCOREBOARD_SETTINGS);
+    const { isShown, settings, setSettings } = useServiceLoadStatus(
+        service,
+        DEFAULT_SCOREBOARD_SETTINGS,
+    );
 
     return (
-        <WidgetGroup title={"Scoreboard"} isShown={isShown} onClickShow={s => s ? service.show() : service.hide()}>
-            <ScoreboardManager service={service} isShown={isShown} settings={settings} setSettings={setSettings} />
+        <WidgetGroup
+            title={"Scoreboard"}
+            isShown={isShown}
+            onClickShow={(s) => (s ? service.show() : service.hide())}
+        >
+            <ScoreboardManager
+                service={service}
+                isShown={isShown}
+                settings={settings}
+                setSettings={setSettings}
+            />
         </WidgetGroup>
     );
 };
 
 const FullScreenClockWidgetGroup = () => {
-    const service = useSingleWidgetService<FullScreenClockSettings>("/fullScreenClock");
-    const { isShown, settings, setSettings } =
-        useServiceLoadStatus(service, DEFAULT_FULL_SCREEN_CLOCK_SETTINGS);
+    const service =
+        useSingleWidgetService<FullScreenClockSettings>("/fullScreenClock");
+    const { isShown, settings, setSettings } = useServiceLoadStatus(
+        service,
+        DEFAULT_FULL_SCREEN_CLOCK_SETTINGS,
+    );
 
     return (
-        <WidgetGroup title={"Full screen clock"} isShown={isShown} onClickShow={s => s ? service.show() : service.hide()}>
-            <FullScreenClockManager service={service} isShown={isShown} settings={settings} setSettings={setSettings} />
+        <WidgetGroup
+            title={"Full screen clock"}
+            isShown={isShown}
+            onClickShow={(s) => (s ? service.show() : service.hide())}
+        >
+            <FullScreenClockManager
+                service={service}
+                isShown={isShown}
+                settings={settings}
+                setSettings={setSettings}
+            />
         </WidgetGroup>
     );
 };
@@ -93,11 +130,11 @@ const FullScreenClockWidgetGroup = () => {
 const ControlsPage = () => {
     return (
         <Container maxWidth="md" sx={{ pt: 2 }} className="Controls">
-            <ScoreboardWidgetGroup/>
-            <SimpleWidgetGroup title={"Queue"} apiPath={"/queue"}/>
-            <SimpleWidgetGroup title={"Statistics"} apiPath={"/statistics"}/>
-            <SimpleWidgetGroup title={"Ticker"} apiPath={"/ticker"}/>
-            <FullScreenClockWidgetGroup/>
+            <ScoreboardWidgetGroup />
+            <SimpleWidgetGroup title={"Queue"} apiPath={"/queue"} />
+            <SimpleWidgetGroup title={"Statistics"} apiPath={"/statistics"} />
+            <SimpleWidgetGroup title={"Ticker"} apiPath={"/ticker"} />
+            <FullScreenClockWidgetGroup />
         </Container>
     );
 };

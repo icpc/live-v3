@@ -9,6 +9,8 @@ body {
     max-width: 100% !important;
 }
 
-.WidgetGroupAccordion > .MuiAccordionSummary-root > .MuiAccordionSummary-content {
+.WidgetGroupAccordion
+    > .MuiAccordionSummary-root
+    > .MuiAccordionSummary-content {
     align-items: center;
 }

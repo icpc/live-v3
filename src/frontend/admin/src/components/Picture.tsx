@@ -6,12 +6,11 @@ import { errorHandlerWithSnackbar } from "shared-code/errors";
 import { PresetsManager } from "./PresetsManager";
 import { usePresetWidgetService } from "../services/presetWidget";
 
-
 function Picture(): React.ReactElement {
-    const { enqueueSnackbar, } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const service = usePresetWidgetService(
         "/picture",
-        errorHandlerWithSnackbar(enqueueSnackbar)
+        errorHandlerWithSnackbar(enqueueSnackbar),
     );
 
     return (
