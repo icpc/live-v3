@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
-import { ContestInfo, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
-import { calculateContestTime } from "@/components/molecules/Clock";
+import { ContestInfo, ContestStatus, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
+import { calculateContestTime, getStartTime } from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { KeylogGraph } from "./KeylogGraph";
 
@@ -230,8 +230,8 @@ function getProblemColor(
             p => p.id === problemResult.problemId
         );
         return getIOIColor(
-            problemResult.score, 
-            problem?.minScore ?? null, 
+            problemResult.score,
+            problem?.minScore ?? null,
             problem?.maxScore ?? null
         );
     default:
@@ -285,11 +285,11 @@ function calculateHourMarkerPosition(
     return `calc(${percentage}% + ${c.TIMELINE_LEFT_TIME_PADDING}px)`;
 }
 
-function Problem({ 
-    problemResult, 
-    contestInfo, 
-    syncStartTime, 
-    config 
+function Problem({
+    problemResult,
+    contestInfo,
+    syncStartTime,
+    config
 }: ProblemProps) {
     const problemLetterRef = useRef<HTMLDivElement>(null);
     const scoreVerdictRef = useRef<HTMLDivElement>(null);
@@ -356,7 +356,7 @@ function Problem({
 
     function renderScoreOrVerdict() {
         if (config.isPvp) return null;
-        
+
         if (problemResult.type === TimeLineRunInfo.Type.ICPC && !problemResult.isAccepted) {
             return (
                 <AnimatedText ref={scoreVerdictRef}>
@@ -364,7 +364,7 @@ function Problem({
                 </AnimatedText>
             );
         }
-        
+
         if (problemResult.type === TimeLineRunInfo.Type.IOI) {
             const roundedScore = Math.round(problemResult.score * 100) / 100;
             return (
@@ -373,7 +373,7 @@ function Problem({
                 </AnimatedText>
             );
         }
-        
+
         return null;
     };
 
@@ -388,26 +388,41 @@ function Problem({
     );
 };
 
-export function TimeLineBackground({ 
-    teamId, 
-    classname = null 
+export function TimeLineBackground({
+    teamId,
+    classname = null
 }: TimeLineBackgroundProps) {
     const teamData = useAppSelector(
         state => state.contestInfo.info?.teamsId[teamId]
     ) as TeamInfo | undefined;
 
     return (
-        <TimelineBackground 
-            className={classname ?? undefined} 
-            color={teamData?.color ?? c.CONTEST_COLOR} 
+        <TimelineBackground
+            className={classname ?? undefined}
+            color={teamData?.color ?? c.CONTEST_COLOR}
         />
     );
 };
 
-export function TimeLine({ 
-    teamId, 
-    className = null, 
-    isPvp = false 
+interface KeyboardEvent {
+  timestamp: string; // ISO8601 format
+  keys: {
+    [key: string]: KeyData;
+  };
+}
+
+interface KeyData {
+  shift?: number;
+  raw?: number;
+  bare?: number;
+  ctrl?: number;
+  "ctrl+shift"?: number;
+}
+
+export function TimeLine({
+    teamId,
+    className = null,
+    isPvp = false
 }: TimeLineProps) {
     const contestInfo = useAppSelector(state => state.contestInfo.info) as ContestInfo | undefined;
     const teamData = useAppSelector(
@@ -480,18 +495,53 @@ export function TimeLine({
     }, [contestInfo, isPvp]);
 
     useEffect(() => {
-        if (!keylogUrl) return;
-        
+        const startTime = getStartTime(contestInfo);
+        if (!keylogUrl || !startTime) return;
+
+        // TODO: Move all this code to KeylogGraph
+        async function fetchNDJSON(): Promise<KeyboardEvent[]> {
+            const response = await fetch(keylogUrl);
+            const text = await response.text();
+            return text
+                .trim()
+                .split("\n")
+                .filter(line => line.trim())
+                .map(line => JSON.parse(line) as KeyboardEvent);
+        }
+
         async function fetchKeylogData() {
             try {
-                const response = await fetch(keylogUrl);
-                const data: number[] = await response.json();
-                setKeylog(data);
+                const events = await fetchNDJSON();
+                const startTimeDate = new Date(startTime);
+                const newKeylog: number[] = [];
+                const intervalCount = contestInfo?.contestLengthMs / c.KEYLOG_INTERVAL_LENGTH;
+                const countToAggregate = c.KEYLOG_INTERVAL_LENGTH / 1000 / 60;
+                let keylogValue: number = 0;
+                events.filter(event => {
+                    const eventTime = new Date(event.timestamp);
+                    return eventTime >= startTimeDate;
+                }).forEach((event, index) => {
+                    if (newKeylog.length >= intervalCount) return;
+
+                    const keys = Object.values(event.keys);
+                    let counter = 0;
+                    keys.forEach(key => {
+                        if (key.bare) counter += key.bare;
+                        if (key.shift) counter += key.shift;
+                    });
+
+                    if (index != 0 && index % countToAggregate == 0 || index == events.length - 1) {
+                        newKeylog.push(keylogValue);
+                        keylogValue = 0;
+                    }
+                    keylogValue += counter;
+                });
+                setKeylog(newKeylog.slice(0, intervalCount));
             } catch (error) {
                 console.error("Error fetching keylog data:", error);
             }
         }
-        
+
         fetchKeylogData();
     }, [keylogUrl]);
 
