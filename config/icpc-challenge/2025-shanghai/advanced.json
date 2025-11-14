@@ -1,0 +1,26 @@
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": true
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A1": {
+                "maxScore": 1000000.0,
+                "color": "#cf0a2cff",
+                "ftsMode": {
+                    "type":"hidden"
+                }
+            },
+            "A2": {
+                "maxScore": 1000000.0,
+                "color": "#cf0a2cff",
+                "ftsMode": {
+                    "type":"hidden"
+                }
+
+            }
+        }
+    }
+]
