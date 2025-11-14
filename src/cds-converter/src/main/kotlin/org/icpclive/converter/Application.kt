@@ -11,6 +11,7 @@ import com.github.ajalt.mordant.terminal.info
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.html.*
+import io.ktor.server.http.content.staticFiles
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.*
@@ -101,6 +102,8 @@ fun Application.module() {
 
     routing {
         install(ContentNegotiation) { json(serverResponseJsonSettings()) }
+        staticFiles("/media", ServerCommand.mediaDirectory.toFile())
+
         get {
             call.respondHtml {
                 body {
