@@ -1,44 +1,54 @@
 import { css, keyframes } from "styled-components";
 
+const shimmerTimingFunction = "cubic-bezier(0.4, 0, 0.2, 1)";
+const shimmerDuration = "2.4s";
+
 export const shimmerAnimationHorizontal = keyframes`
-  0% {
-    background-position: -100% 0;
-  }
-  100% {
-    background-position: 100% 0;
-  }
+    0% {
+        background-position: 200% 50%;
+    }
+    100% {
+        background-position: -200% 50%;
+    }
 `;
 
 export const shimmerAnimationDiagonal = keyframes`
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 100% 100%;
-  }
+    0% {
+        background-position: 200% 200%;
+    }
+    100% {
+        background-position: -200% -200%;
+    }
 `;
 
 export const createShimmerStyles = (
     problemColor?: string,
     diagonal: boolean = false,
-) => css`
-    background: linear-gradient(
-        ${diagonal ? "135deg" : "90deg"},
-        ${problemColor || "#4a90e2"} 0%,
-        ${problemColor || "#4a90e2"} 35%,
-        #fff 50%,
-        ${problemColor || "#4a90e2"} 65%,
-        ${problemColor || "#4a90e2"} 100%
-    );
-    background-size: ${diagonal ? "200% 200%" : "200% 100%"};
-    animation: ${diagonal
-            ? shimmerAnimationDiagonal
-            : shimmerAnimationHorizontal}
-        2s linear infinite;
-    color: #fff;
-    font-weight: bold;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-`;
+) => {
+    const baseColor = problemColor || "#4a90e2";
+    const gradientAngle = diagonal ? "135deg" : "90deg";
+
+    return css`
+        background: linear-gradient(
+            ${gradientAngle},
+            ${baseColor} 0%,
+            ${baseColor} 30%,
+            #fff 50%,
+            ${baseColor} 70%,
+            ${baseColor} 100%
+        );
+        background-repeat: no-repeat;
+        background-size: ${diagonal ? "350% 350%" : "350% 200%"};
+        animation: ${diagonal
+                ? shimmerAnimationDiagonal
+                : shimmerAnimationHorizontal}
+            ${shimmerDuration} ${shimmerTimingFunction} infinite;
+        color: #fff;
+        font-weight: bold;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        will-change: background-position;
+    `;
+};
 
 export const conditionalShimmerStyles = (
     isShimmering: boolean,
