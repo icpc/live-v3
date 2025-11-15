@@ -69,9 +69,6 @@ fun Application.module() {
         route("/") {
             install(ConditionalHeaders)
             staticResources("/schemas", "schemas")
-            route("/examples") {
-                staticResources("/advanced", "examples.advanced")
-            }
             staticResources("/", "main", index = "main.html")
             singlePageApplication {
                 useResources = true
@@ -100,12 +97,12 @@ fun Application.module() {
             .toFlow()
             .addComputedData()
 
-        val emptyJson = JsonObject(emptyMap())
-        val visualConfigFlow = config.visualConfigFile?.let {
-            fileJsonContentFlow<JsonObject>(it)
-        } ?: flowOf(emptyJson)
+        val visualConfigFlow = fileJsonContentFlow<JsonObject>(
+            config.visualConfigFile,
+            noData = JsonObject(emptyMap())
+        ).stateIn(this)
 
-        DataBus.visualConfigFlow.completeOrThrow(visualConfigFlow.stateIn(this))
+        DataBus.visualConfigFlow.completeOrThrow(visualConfigFlow)
 
         launchServices(loader)
     }

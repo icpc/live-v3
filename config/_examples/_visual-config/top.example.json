@@ -1,3 +1,4 @@
+// Ticker and queue for top of 2 contests on the same screen
 {
   "WIDGET_POSITIONS": {
     "queue": {

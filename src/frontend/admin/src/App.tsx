@@ -21,7 +21,6 @@ import {
     isShouldUseDarkColor,
     useLocalStorageState,
 } from "./utils";
-import AdvancedJson from "./components/AdvancedJson.tsx";
 import MediaFiles from "./components/MediaFiles.tsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BACKEND_ROOT } from "./config";
@@ -31,6 +30,7 @@ import {
     useReloadHandleService,
 } from "@/services/reloadHandler.ts";
 import ScoreboardPage from "@/components/pages/ScoreboardPage.tsx";
+import ConfigurationsEditor from "./components/ConfigurationEditor.tsx";
 
 const title_elements = {
     Advertisement: <Advertisement />,
@@ -151,8 +151,8 @@ function App() {
                                 element={<TeamSpotlight />}
                             />
                             <Route
-                                path="/advancedJson"
-                                element={<AdvancedJson />}
+                                path="/configurationsEditor"
+                                element={<ConfigurationsEditor />}
                             />
                             <Route path="/media" element={<MediaFiles />} />
                         </Routes>
