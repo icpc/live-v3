@@ -499,7 +499,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "04",
@@ -517,7 +518,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "08",
@@ -535,7 +537,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "07",
@@ -553,7 +556,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "02",
@@ -571,7 +575,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "01",
@@ -589,7 +594,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "02",
@@ -607,7 +613,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "01",
@@ -625,7 +632,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "04",
@@ -643,7 +651,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "10",
@@ -661,7 +670,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "02",
@@ -679,7 +689,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "07",
@@ -697,7 +708,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "01",
@@ -715,7 +727,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "04",
@@ -733,7 +746,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "09",
@@ -751,7 +765,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "13",
@@ -769,7 +784,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "04",
@@ -787,7 +803,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "15",
@@ -805,7 +822,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "09",
@@ -823,7 +841,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "13",
@@ -841,7 +860,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "14",
@@ -859,7 +879,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "07",
@@ -877,7 +898,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "04",
@@ -895,7 +917,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "05",
@@ -913,7 +936,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "10",
@@ -931,7 +955,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "10",
@@ -949,7 +974,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "14",
@@ -967,7 +993,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "07",
@@ -985,7 +1012,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "20",
@@ -1003,7 +1031,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "12",
@@ -1021,7 +1050,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "12",
@@ -1039,7 +1069,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "08",
@@ -1057,7 +1088,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "07",
@@ -1075,7 +1107,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "08",
@@ -1093,7 +1126,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "12",
@@ -1111,7 +1145,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "12",
@@ -1129,7 +1164,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "06",
@@ -1147,7 +1183,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "04",
@@ -1165,7 +1202,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "07",
@@ -1183,7 +1221,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "09",
@@ -1201,7 +1240,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "01",
@@ -1219,7 +1259,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "05",
@@ -1237,7 +1278,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "01",
@@ -1255,7 +1297,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "01",
@@ -1273,7 +1316,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "04",
@@ -1291,7 +1335,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "04",
@@ -1309,7 +1354,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "15",
@@ -1327,7 +1373,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "08",
@@ -1345,7 +1392,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "09",
@@ -1363,7 +1411,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "15",
@@ -1381,7 +1430,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "02",
@@ -1399,7 +1449,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "06",
@@ -1417,7 +1468,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "19",
@@ -1435,7 +1487,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "05",
@@ -1453,7 +1506,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "09",
@@ -1471,7 +1525,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "02",
@@ -1489,7 +1544,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "15",
@@ -1507,7 +1563,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "17",
@@ -1525,7 +1582,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "13",
@@ -1543,7 +1601,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "03",
@@ -1561,7 +1620,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "09",
@@ -1579,7 +1639,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "08",
@@ -1597,7 +1658,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "07",
@@ -1615,7 +1677,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "17",
@@ -1633,7 +1696,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "14",
@@ -1651,7 +1715,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "08",
@@ -1669,7 +1734,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "02",
@@ -1687,7 +1753,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "17",
@@ -1705,7 +1772,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "07",
@@ -1723,7 +1791,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -1741,7 +1810,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "17",
@@ -1759,7 +1829,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "19",
@@ -1777,7 +1848,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "10",
@@ -1795,7 +1867,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "12",
@@ -1813,7 +1886,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "14",
@@ -1831,7 +1905,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "09",
@@ -1849,7 +1924,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "14",
@@ -1867,7 +1943,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "09",
@@ -1885,7 +1962,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -1903,7 +1981,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "19",
@@ -1921,7 +2000,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "05",
@@ -1939,7 +2019,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "19",
@@ -1957,7 +2038,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "02",
@@ -1975,7 +2057,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "06",
@@ -1993,7 +2076,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "13",
@@ -2011,7 +2095,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "18",
@@ -2029,7 +2114,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "05",
@@ -2047,7 +2133,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "07",
@@ -2065,7 +2152,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -2083,7 +2171,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "14",
@@ -2101,7 +2190,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "08",
@@ -2119,7 +2209,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "14",
@@ -2137,7 +2228,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "14",
@@ -2155,7 +2247,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "15",
@@ -2173,7 +2266,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -2191,7 +2285,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "19",
@@ -2209,7 +2304,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -2227,7 +2323,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "03",
@@ -2245,7 +2342,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "05",
@@ -2263,7 +2361,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "02",
@@ -2281,7 +2380,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "10",
@@ -2299,7 +2399,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -2317,7 +2418,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "03",
@@ -2335,7 +2437,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "04",
@@ -2353,7 +2456,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "19",
@@ -2371,7 +2475,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "06",
@@ -2389,7 +2494,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "05",
@@ -2407,7 +2513,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "14",
@@ -2425,7 +2532,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "05",
@@ -2443,7 +2551,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "19",
@@ -2461,7 +2570,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "14",
@@ -2479,7 +2589,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -2497,7 +2608,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "15",
@@ -2515,7 +2627,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "06",
@@ -2533,7 +2646,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "03",
@@ -2551,7 +2665,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "07",
@@ -2569,7 +2684,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -2587,7 +2703,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "18",
@@ -2605,7 +2722,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "15",
@@ -2623,7 +2741,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "18",
@@ -2641,7 +2760,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "09",
@@ -2659,7 +2779,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "04",
@@ -2677,7 +2798,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "04",
@@ -2695,7 +2817,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "03",
@@ -2713,7 +2836,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "12",
@@ -2731,7 +2855,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "03",
@@ -2749,7 +2874,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "17",
@@ -2767,7 +2893,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "03",
@@ -2785,7 +2912,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "10",
@@ -2803,7 +2931,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "03",
@@ -2821,7 +2950,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "14",
@@ -2839,7 +2969,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "19",
@@ -2857,7 +2988,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "18",
@@ -2875,7 +3007,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "15",
@@ -2893,7 +3026,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "12",
@@ -2911,7 +3045,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "06",
@@ -2929,7 +3064,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "12",
@@ -2947,7 +3083,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "18",
@@ -2965,7 +3102,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "04",
@@ -2983,7 +3121,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -3001,7 +3140,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -3019,7 +3159,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "A",
             "teamId": "02",
@@ -3037,7 +3178,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "04",
@@ -3055,7 +3197,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -3073,7 +3216,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "A",
             "teamId": "02",
@@ -3091,7 +3235,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -3109,7 +3254,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "18",
@@ -3127,7 +3273,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "10",
@@ -3145,7 +3292,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "01",
@@ -3163,7 +3311,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "18",
@@ -3181,7 +3330,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "10",
@@ -3199,7 +3349,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "01",
@@ -3217,7 +3368,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "10",
@@ -3235,7 +3387,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "04",
@@ -3253,7 +3406,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "01",
@@ -3271,7 +3425,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -3289,7 +3444,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "17",
@@ -3307,7 +3463,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "J",
             "teamId": "09",
@@ -3325,7 +3482,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "17",
@@ -3343,7 +3501,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "04",
@@ -3361,7 +3520,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "01",
@@ -3379,7 +3539,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "04",
@@ -3397,7 +3558,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "04",
@@ -3415,7 +3577,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "01",
@@ -3433,7 +3596,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -3451,7 +3615,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "04",
@@ -3469,7 +3634,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -3487,7 +3653,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -3505,7 +3672,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -3523,7 +3691,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -3541,7 +3710,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -3559,7 +3729,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -3577,7 +3748,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "14",
@@ -3595,7 +3767,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "04",
@@ -3613,7 +3786,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -3631,7 +3805,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -3649,7 +3824,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "07",
@@ -3667,7 +3843,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "08",
@@ -3685,7 +3862,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "02",
@@ -3703,7 +3881,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "07",
@@ -3721,7 +3900,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "18",
@@ -3739,7 +3919,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -3757,7 +3938,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "05",
@@ -3775,7 +3957,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -3793,7 +3976,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -3811,7 +3995,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "17",
@@ -3829,7 +4014,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -3847,7 +4033,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -3865,7 +4052,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -3883,7 +4071,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -3901,7 +4090,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -3919,7 +4109,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -3937,7 +4128,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -3955,7 +4147,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "14",
@@ -3973,7 +4166,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "14",
@@ -3991,7 +4185,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -4009,7 +4204,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "08",
@@ -4027,7 +4223,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "06",
@@ -4045,7 +4242,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -4063,7 +4261,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -4081,7 +4280,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "08",
@@ -4099,7 +4299,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "14",
@@ -4117,7 +4318,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4135,7 +4337,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "04",
@@ -4153,7 +4356,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "14",
@@ -4171,7 +4375,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "06",
@@ -4189,7 +4394,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -4207,7 +4413,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "20",
@@ -4225,7 +4432,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4243,7 +4451,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "08",
@@ -4261,7 +4470,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4279,7 +4489,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -4297,7 +4508,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4315,7 +4527,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "08",
@@ -4333,7 +4546,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "18",
@@ -4351,7 +4565,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "05",
@@ -4369,7 +4584,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -4387,7 +4603,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "08",
@@ -4405,7 +4622,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4423,7 +4641,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "05",
@@ -4441,7 +4660,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "10",
@@ -4459,7 +4679,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -4477,7 +4698,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "02",
@@ -4495,7 +4717,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -4513,7 +4736,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "04",
@@ -4531,7 +4755,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "03",
@@ -4549,7 +4774,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4567,7 +4793,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -4585,7 +4812,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4603,7 +4831,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "10",
@@ -4621,7 +4850,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "20",
@@ -4639,7 +4869,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "08",
@@ -4657,7 +4888,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "04",
@@ -4675,7 +4907,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4693,7 +4926,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "10",
@@ -4711,7 +4945,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "05",
@@ -4729,7 +4964,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "16",
@@ -4747,7 +4983,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4765,7 +5002,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "09",
@@ -4783,7 +5021,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "04",
@@ -4801,7 +5040,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "01",
@@ -4819,7 +5059,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "03",
@@ -4837,7 +5078,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -4855,7 +5097,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4873,7 +5116,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -4891,7 +5135,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -4909,7 +5154,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -4927,7 +5173,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -4945,7 +5192,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -4963,7 +5211,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -4981,7 +5230,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "K",
             "teamId": "20",
@@ -4999,7 +5249,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5017,7 +5268,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5035,7 +5287,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -5053,7 +5306,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5071,7 +5325,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -5089,7 +5344,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "02",
@@ -5107,7 +5363,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -5125,7 +5382,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "05",
@@ -5143,7 +5401,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "12",
@@ -5161,7 +5420,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5179,7 +5439,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -5197,7 +5458,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -5215,7 +5477,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "01",
@@ -5233,7 +5496,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5251,7 +5515,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "13",
@@ -5269,7 +5534,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -5287,7 +5553,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "13",
@@ -5305,7 +5572,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "04",
@@ -5323,7 +5591,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5341,7 +5610,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -5359,7 +5629,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "09",
@@ -5377,7 +5648,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "04",
@@ -5395,7 +5667,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "05",
@@ -5413,7 +5686,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "05",
@@ -5431,7 +5705,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "18",
@@ -5449,7 +5724,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5467,7 +5743,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "07",
@@ -5485,7 +5762,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "07",
@@ -5503,7 +5781,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5521,7 +5800,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "07",
@@ -5539,7 +5819,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "10",
@@ -5557,7 +5838,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "09",
@@ -5575,7 +5857,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -5593,7 +5876,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5611,7 +5895,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "09",
@@ -5629,7 +5914,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -5647,7 +5933,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -5665,7 +5952,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "15",
@@ -5683,7 +5971,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "12",
@@ -5701,7 +5990,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -5719,7 +6009,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -5737,7 +6028,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "07",
@@ -5755,7 +6047,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "02",
@@ -5773,7 +6066,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -5791,7 +6085,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -5809,7 +6104,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "05",
@@ -5827,7 +6123,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -5845,7 +6142,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -5863,7 +6161,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -5881,7 +6180,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -5899,7 +6199,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -5917,7 +6218,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "A",
             "teamId": "08",
@@ -5935,7 +6237,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -5953,7 +6256,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -5971,7 +6275,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -5989,7 +6294,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "07",
@@ -6007,7 +6313,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -6025,7 +6332,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -6043,7 +6351,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "09",
@@ -6061,7 +6370,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -6079,7 +6389,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -6097,7 +6408,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "03",
@@ -6115,7 +6427,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "18",
@@ -6133,7 +6446,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6151,7 +6465,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6169,7 +6484,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "15",
@@ -6187,7 +6503,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -6205,7 +6522,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6223,7 +6541,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6241,7 +6560,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "07",
@@ -6259,7 +6579,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "07",
@@ -6277,7 +6598,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -6295,7 +6617,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -6313,7 +6636,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "10",
@@ -6331,7 +6655,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6349,7 +6674,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -6367,7 +6693,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -6385,7 +6712,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6403,7 +6731,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "10",
@@ -6421,7 +6750,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -6439,7 +6769,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6457,7 +6788,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -6475,7 +6807,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6493,7 +6826,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6511,7 +6845,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6529,7 +6864,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "07",
@@ -6547,7 +6883,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6565,7 +6902,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6583,7 +6921,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6601,7 +6940,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -6619,7 +6959,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6637,7 +6978,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6655,7 +6997,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -6673,7 +7016,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6691,7 +7035,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -6709,7 +7054,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6727,7 +7073,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "08",
@@ -6745,7 +7092,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6763,7 +7111,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -6781,7 +7130,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6799,7 +7149,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "F",
             "teamId": "15",
@@ -6817,7 +7168,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "B",
             "teamId": "16",
@@ -6835,7 +7187,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "08",
@@ -6853,7 +7206,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "15",
@@ -6871,7 +7225,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "05",
@@ -6889,7 +7244,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "A",
             "teamId": "04",
@@ -6907,7 +7263,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -6925,7 +7282,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -6943,7 +7301,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -6961,7 +7320,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -6979,7 +7339,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -6997,7 +7358,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "01",
@@ -7015,7 +7377,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "07",
@@ -7033,7 +7396,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -7051,7 +7415,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -7069,7 +7434,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "07",
@@ -7087,7 +7453,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "19",
@@ -7105,7 +7472,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "09",
@@ -7123,7 +7491,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "07",
@@ -7141,7 +7510,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -7159,7 +7529,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "09",
@@ -7177,7 +7548,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7195,7 +7567,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -7213,7 +7586,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "09",
@@ -7231,7 +7605,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "13",
@@ -7249,7 +7624,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "13",
@@ -7267,7 +7643,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "01",
@@ -7285,7 +7662,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "03",
@@ -7303,7 +7681,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "06",
@@ -7321,7 +7700,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "05",
@@ -7339,7 +7719,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "09",
@@ -7357,7 +7738,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "07",
@@ -7375,7 +7757,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -7393,7 +7776,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "L",
             "teamId": "13",
@@ -7411,7 +7795,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "07",
@@ -7429,7 +7814,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "01",
@@ -7447,7 +7833,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -7465,7 +7852,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "18",
@@ -7483,7 +7871,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "12",
@@ -7501,7 +7890,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "07",
@@ -7519,7 +7909,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7537,7 +7928,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "01",
@@ -7555,7 +7947,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7573,7 +7966,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -7591,7 +7985,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "01",
@@ -7609,7 +8004,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "I",
             "teamId": "04",
@@ -7627,7 +8023,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -7645,7 +8042,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7663,7 +8061,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "12",
@@ -7681,7 +8080,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -7699,7 +8099,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -7717,7 +8118,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "I",
             "teamId": "04",
@@ -7735,7 +8137,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7753,7 +8156,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -7771,7 +8175,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7789,7 +8194,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "12",
@@ -7807,7 +8213,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7825,7 +8232,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "03",
@@ -7843,7 +8251,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7861,7 +8270,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "I",
             "teamId": "04",
@@ -7879,7 +8289,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -7897,7 +8308,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "12",
@@ -7915,7 +8327,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -7933,7 +8346,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -7951,7 +8365,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -7969,7 +8384,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "01",
@@ -7987,7 +8403,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -8005,7 +8422,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "10",
@@ -8023,7 +8441,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8041,7 +8460,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "D",
             "teamId": "01",
@@ -8059,7 +8479,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "01",
@@ -8077,7 +8498,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8095,7 +8517,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "03",
@@ -8113,7 +8536,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8131,7 +8555,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -8149,7 +8574,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -8167,7 +8593,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "10",
@@ -8185,7 +8612,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8203,7 +8631,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8221,7 +8650,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -8239,7 +8669,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -8257,7 +8688,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -8275,7 +8707,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "03",
@@ -8293,7 +8726,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8311,7 +8745,8 @@
                     "isAddingPenalty": false,
                     "isAccepted": true
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "04",
@@ -8329,7 +8764,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8347,7 +8783,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8365,7 +8802,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "07",
@@ -8383,7 +8821,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -8401,7 +8840,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "07",
@@ -8419,7 +8859,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8437,7 +8878,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8455,7 +8897,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8473,7 +8916,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "E",
             "teamId": "05",
@@ -8491,7 +8935,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8509,7 +8954,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8527,7 +8973,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8545,7 +8992,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8563,7 +9011,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "06",
@@ -8581,7 +9030,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
@@ -8599,7 +9049,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "C",
             "teamId": "10",
@@ -8617,7 +9068,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "H",
             "teamId": "02",
@@ -8635,7 +9087,8 @@
                     "isAddingPenalty": true,
                     "isAccepted": false
                 },
-                "isFirstToSolveRun": false
+                "isFirstToSolveRun": false,
+                "isAfterFirstOk": false
             },
             "problemId": "G",
             "teamId": "02",
