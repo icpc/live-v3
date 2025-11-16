@@ -1,0 +1,132 @@
+[
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "custom": {
+        "from": "{team.fullName}",
+        "rules": {
+          "([^:]*): (.*) (\\([^)]*\\))": {
+            "org": "$1",
+            "funnyNameValue": "$2",
+            "contestants": "$3",
+          },
+          "spb(.*)": {
+                        "compValue": "$1"
+                    }
+        }
+      }
+    },
+    "organizationId": "{regexes.custom.org}",
+    "customFields": {
+      "funnyName": "{regexes.custom.funnyNameValue}",
+      "comp": "{regexes.custom.compValue}"
+    }
+  },
+  {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(.*)": {
+                        "compValue": "$1"
+                    }
+                }
+            }
+        },
+        "customFields": {
+            "comp": "{regexes.custom.compValue}"
+        }
+    },
+  {
+    "type": "overrideTeamTemplate",
+    "displayName": "{org.displayName}: {funnyName}",
+    "medias": {
+      "screen": {
+        "type": "WebRTCGrabberConnection",
+        "url": "https://grabber.com",
+        "peerName": "{comp}",
+        "streamType": "desktop",
+        "credential": "live"
+      },
+      "camera": {
+        "type": "WebRTCGrabberConnection",
+        "url": "https://grabber.com",
+        "peerName": "{comp}",
+        "streamType": "webcam",
+        "credential": "live"
+      },
+      "achievement": {
+        "type": "Object",
+        "url": "/api/overlay/svgAchievement/ach-smart-with-logo.svg?teamId={team.id}"
+      }
+    }
+  },
+  {
+    "type": "overrideProblems",
+    "rules": {
+      "W": {
+        "color": "#a6406eff"
+      },
+      "X": {
+        "color": "#bb7190ff"
+      },
+      "Y": {
+        "color": "#3daa91ff"
+      },
+      "Z": {
+        "color": "#3f4a58ff"
+      }
+    }
+  },
+  {
+    "type": "addMedals",
+    "gold": 5,
+    "silver": 8,
+    "bronze": 10
+  },
+  {
+    "type": "overrideQueue",
+    "maxQueueSize": 20
+  },
+  {
+    "type": "overrideScoreboardSettings",
+    "problemColorPolicy": {
+      "type": "whenSolved",
+      "colorBeforeSolved": "#808080"
+    }
+  },
+  {
+    "type": "overrideProblems",
+    "rules": {
+      "A": { "color": "#C28039" },
+      "B": { "color": "#3E8DC2" },
+      "C": { "color": "#b94743" },
+      "D": { "color": "#7FB26A" },
+      "E": { "color": "#53724B" },
+      "F": { "color": "#D1C962" },
+      "G": { "color": "#f4ddc5" },
+      "H": { "color": "#D3557E" },
+      "I": { "color": "#714A4C" },
+      "J": { "color": "#3EABB4" },
+      "K": { "color": "#000000" },
+      "L": { "color": "#8E74B7" },
+      "M": { "color": "#B2982A" },
+    }
+  },
+  {
+        "type": "overrideTeamTemplate",
+        "organizationId": "{team.customFields.organization_id}"
+    },
+    {
+        "type": "overrideOrganisationTemplate",
+        "logo": {
+            "type": "Image",
+            "url": "/media/organizations/{org.id}/logo.svg"
+        }
+    },
+    {
+      "type": "overrideScoreboardSettings",
+      "showTeamsWithoutSubmissions": true
+    }
+]
