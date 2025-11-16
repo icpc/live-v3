@@ -1,0 +1,17 @@
+{
+  "type": "clics",
+  "network": { "allowUnsecureConnections": true },
+  "feeds": [
+    {
+      "source": {
+        "url": "https://pacnwserver.icpc-vcss.org:50443",
+        "login": "login",
+        "password": "pass"
+      },
+      "contestId": "",
+      "eventFeedPath": "contests/pnw25_real",
+      "eventFeedName":"event-feed?groupids=1206",
+      "feedVersion": "2023_06"
+    }
+  ]
+}

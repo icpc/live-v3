@@ -1,0 +1,60 @@
+[
+      {
+    "type": "addMedals",
+    "gold": 1,
+    "silver": 1,
+    "bronze": 1
+   },
+
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {team.customFields.clicsTeamDisplayName}"
+    },
+
+    {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
+        "type": "overrideGroups",
+        "rules": {
+            "1205": {"isHidden": true},
+            "1206": {"isHidden": false}
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "bouquetofballoons-1": {"isHidden": true},
+            "busseating-1": {"isHidden": true},
+            "closestequalpair-1": {"isHidden": true},
+            "farthestcity-1": {"isHidden": true},
+            "fractalpainting-1": {"isHidden": true},
+            "friendships-1": {"isHidden": true},
+            "honkaistressrelief-1": {"isHidden": true},
+            "kthking-1": {"isHidden": true},
+            "pairlinkedmokepon-1": {"isHidden": true},
+            "serverroom-1": {"isHidden": true},
+            "shh-1": {"isHidden": true},
+            "traininground4-1": {"isHidden": true},
+            "triangleoftriangles-1": {"isHidden": true},
+            "anelephantproblem-2": {"isHidden": false},
+            "callforproblemsround3-2": {"isHidden": false},
+            "gpacomputation-2": {"isHidden": false},
+            "honkaistressrelief-2": {"isHidden": false},
+            "missedalarm-2": {"isHidden": false},
+            "strawberry-2": {"isHidden": false},
+            "bouquetofballoons-2": {"isHidden": false},
+            "fractalpainting-2": {"isHidden": false},
+            "servercorridor-2": {"isHidden": false},
+            "shh-2": {"isHidden": false},
+            "solidarityofthehappycats-2": {"isHidden": false},
+            "traininground4-2": {"isHidden": false},
+            "triangleoftriangles-2": {"isHidden": false}
+        }
+    }
+        
+]

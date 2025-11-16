@@ -1,0 +1,74 @@
+[
+  {
+        "type": "overrideContestSettings",
+        "name": "Unofficial Scoreboard 2025/2026 Southern California Regional ICPC",
+        "freezeTimeSeconds": 14400
+    },    
+          {
+    "type": "addMedals",
+    "gold": 1,
+    "silver": 1,
+    "bronze": 1
+   },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {clicsTeamDisplayName}"
+    },
+   {
+        "type": "overrideQueue",
+        "maxQueueSize": 5
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "childsplaykpp": {
+                "color": "#e6194B"
+            },
+            "connectionskpp": {
+                "color": "#3cb44b"
+            },
+            "farthestcitykpp": {
+                "color": "#ffe119"
+            },
+            "fractalpaintingkpp": {
+                "color": "#4363d8"
+            },
+            "gpakpp": {
+                "color": "#f58231"
+            },
+            "pairlinkedmokeponkpp": {
+                "color": "#42d4f4"
+            },
+            "pairsumskpp": {
+                "color": "#f032e6"
+            },
+            "pennilesskpp": {
+                "color": "#fabed4"
+            },
+            "rubikscubekpp": {
+                "color": "#469990"
+            },
+            "sanfranciscodistanceskpp": {
+                "color": "#dcbeff"
+            },
+            "snakesladderskpp": {
+                "color": "#9A6324"
+            },
+            "tvremoteskpp": {
+                "color": "#fffac8"
+            },
+            "twoforonecrosswordskpp": {
+                "color": "#800000"
+            }
+        }
+    }
+
+]

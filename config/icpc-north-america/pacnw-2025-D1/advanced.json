@@ -1,0 +1,57 @@
+[
+      {
+    "type": "addMedals",
+    "gold": 1,
+    "silver": 1,
+    "bronze": 1
+   },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {team.customFields.clicsTeamDisplayName}"
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080ff"
+        }
+    },
+    {
+        "type": "overrideGroups",
+        "rules": {
+            "1205": {"isHidden": false},
+            "1206": {"isHidden": true}
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "bouquetofballoons-1": {"isHidden": false},
+            "busseating-1": {"isHidden": false},
+            "closestequalpair-1": {"isHidden": false},
+            "farthestcity-1": {"isHidden": false},
+            "fractalpainting-1": {"isHidden": false},
+            "friendships-1": {"isHidden": false},
+            "honkaistressrelief-1": {"isHidden": false},
+            "kthking-1": {"isHidden": false},
+            "pairlinkedmokepon-1": {"isHidden": false},
+            "serverroom-1": {"isHidden": false},
+            "shh-1": {"isHidden": false},
+            "traininground4-1": {"isHidden": false},
+            "triangleoftriangles-1": {"isHidden": false},
+            "anelephantproblem-2": {"isHidden": true},
+            "callforproblemsround3-2": {"isHidden": true},
+            "gpacomputation-2": {"isHidden": true},
+            "honkaistressrelief-2": {"isHidden": true},
+            "missedalarm-2": {"isHidden": true},
+            "strawberry-2": {"isHidden": true},
+            "bouquetofballoons-2": {"isHidden": true},
+            "fractalpainting-2": {"isHidden": true},
+            "servercorridor-2": {"isHidden": true},
+            "shh-2": {"isHidden": true},
+            "solidarityofthehappycats-2": {"isHidden": true},
+            "traininground4-2": {"isHidden": true},
+            "triangleoftriangles-2": {"isHidden": true}
+        }
+    }
+]
