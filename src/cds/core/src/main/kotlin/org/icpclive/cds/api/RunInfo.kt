@@ -62,7 +62,7 @@ public sealed class Verdict(
             LookupHolder.lookup(shortName, isAddingPenalty, isAccepted)
     }
 
-    public fun toICPCRunResult(): RunResult.ICPC = RunResult.ICPC(this, false)
+    public fun toICPCRunResult(): RunResult.ICPC = RunResult.ICPC(this)
 }
 
 
@@ -125,7 +125,8 @@ public sealed class RunResult {
     @SerialName("ICPC")
     public data class ICPC(
         val verdict: Verdict,
-        val isFirstToSolveRun: Boolean,
+        @Required val isFirstToSolveRun: Boolean = false,
+        @Required val isAfterFirstOk: Boolean = false,
     ) : RunResult()
 
     @Serializable
@@ -141,6 +142,9 @@ public sealed class RunResult {
 
     @Serializable
     @SerialName("IN_PROGRESS")
-    public data class InProgress(val testedPart: Double): RunResult()
+    public data class InProgress(
+        val testedPart: Double,
+        @Required val isAfterFirstOk: Boolean = false,
+    ): RunResult()
 }
 

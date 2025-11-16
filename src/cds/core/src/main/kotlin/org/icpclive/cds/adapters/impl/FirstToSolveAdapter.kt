@@ -41,8 +41,7 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
     },
     transformGroup = transform@{ k, _, runs, info ->
         if (runs.isEmpty()) return@transform runs
-        val ftsMode = info?.problems?.get(runs[0].problemId)?.ftsMode
-        val bestRunId = when (ftsMode) {
+        val bestRunId = when (val ftsMode = info?.problems?.get(runs[0].problemId)?.ftsMode) {
             is FtsMode.Hidden, null -> null
             is FtsMode.Custom -> ftsMode.runId
             is FtsMode.Auto -> {
@@ -50,7 +49,7 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
                     is RunType.NotBest -> null
                     is RunType.ICPCBest -> runs.firstOrNull()
                     is RunType.IOIBest -> runs.maxByOrNull { (it.result as RunResult.IOI).scoreAfter }
-                }?.id.takeIf { info.awardsSettings.firstToSolveProblems == true }
+                }?.id.takeIf { info.awardsSettings.firstToSolveProblems }
             }
         }
         if (bestRunId == null) {

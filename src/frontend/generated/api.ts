@@ -378,6 +378,7 @@ export namespace RunResult {
     type: RunResult.Type.ICPC;
     verdict: Verdict;
     isFirstToSolveRun: boolean;
+    isAfterFirstOk: boolean;
   }
   
   export interface IOI {
@@ -393,6 +394,7 @@ export namespace RunResult {
   export interface IN_PROGRESS {
     type: RunResult.Type.IN_PROGRESS;
     testedPart: number;
+    isAfterFirstOk: boolean;
   }
 }
 

@@ -20,6 +20,7 @@ public fun Flow<ContestUpdate>.removeAfterEndSubmissions(): Flow<ContestUpdate> 
 public fun Flow<ContestUpdate>.removeFrozenSubmissionsResults(): Flow<ContestUpdate> = removeFrozenSubmissionsResults(this)
 public fun Flow<ContestUpdate>.selectProblemColors(): Flow<ContestUpdate> = selectProblemColors(this)
 public fun Flow<ContestUpdate>.propagateRunMediaTemplates(): Flow<ContestUpdate> = propagateRunMediaTemplates(this)
+public fun Flow<ContestUpdate>.markSubmissionAfterFirstOk(): Flow<ContestUpdate> = markSubmissionAfterFirstOk(this)
 
 public fun Flow<ContestUpdate>.toEmulationFlow(emulationSettings: EmulationSettings): Flow<ContestUpdate> = toEmulationFlow(this, emulationSettings)
 
@@ -50,6 +51,7 @@ public class ComputedDataConfig internal constructor() {
     public var replaceCommentaryTags: Boolean = true
     public var autoFinalize: Boolean = false
     public var propagateRunMediaTemplates: Boolean = true
+    public var markSubmissionsAfterFirstOk: Boolean = true
 }
 
 private inline fun Flow<ContestUpdate>.applyIf(cond: Boolean, adapter: Flow<ContestUpdate>.() -> Flow<ContestUpdate>) = if (cond) adapter() else this
@@ -66,6 +68,7 @@ public fun Flow<ContestUpdate>.addComputedData(configure: ComputedDataConfig.() 
         .applyIf(config.propagateHidden) { hideHiddenProblemsRuns() }
         .applyIf(config.propagateRunMediaTemplates) { propagateRunMediaTemplates() }
         .applyIf(config.ioiScoreDifferences) { calculateScoreDifferences() }
+        .applyIf(config.markSubmissionsAfterFirstOk) { markSubmissionAfterFirstOk() }
         .applyIf(config.firstToSolves) { addFirstToSolves() }
         .applyIf(config.replaceCommentaryTags) { processCommentaryTags() }
         .applyIf(config.autoFinalize) { autoFinalize() }

@@ -73,6 +73,7 @@ public final class org/icpclive/cds/adapters/AdaptersKt {
 	public static final fun hideHiddenGroupsTeams (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun hideHiddenProblemsRuns (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun hideHiddenTeamsRuns (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun markSubmissionAfterFirstOk (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun processCommentaryTags (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun propagateRunMediaTemplates (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun removeAfterEndSubmissions (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
@@ -97,6 +98,7 @@ public final class org/icpclive/cds/adapters/ComputedDataConfig {
 	public final fun getAutoFinalize ()Z
 	public final fun getFirstToSolves ()Z
 	public final fun getIoiScoreDifferences ()Z
+	public final fun getMarkSubmissionsAfterFirstOk ()Z
 	public final fun getPropagateHidden ()Z
 	public final fun getPropagateRunMediaTemplates ()Z
 	public final fun getReplaceCommentaryTags ()Z
@@ -107,6 +109,7 @@ public final class org/icpclive/cds/adapters/ComputedDataConfig {
 	public final fun setAutoFinalize (Z)V
 	public final fun setFirstToSolves (Z)V
 	public final fun setIoiScoreDifferences (Z)V
+	public final fun setMarkSubmissionsAfterFirstOk (Z)V
 	public final fun setPropagateHidden (Z)V
 	public final fun setPropagateRunMediaTemplates (Z)V
 	public final fun setReplaceCommentaryTags (Z)V
@@ -1684,14 +1687,17 @@ public final class org/icpclive/cds/api/RunResult$Companion {
 
 public final class org/icpclive/cds/api/RunResult$ICPC : org/icpclive/cds/api/RunResult {
 	public static final field Companion Lorg/icpclive/cds/api/RunResult$ICPC$Companion;
-	public fun <init> (Lorg/icpclive/cds/api/Verdict;Z)V
+	public fun <init> (Lorg/icpclive/cds/api/Verdict;ZZ)V
+	public synthetic fun <init> (Lorg/icpclive/cds/api/Verdict;ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lorg/icpclive/cds/api/Verdict;
 	public final fun component2 ()Z
-	public final fun copy (Lorg/icpclive/cds/api/Verdict;Z)Lorg/icpclive/cds/api/RunResult$ICPC;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/RunResult$ICPC;Lorg/icpclive/cds/api/Verdict;ZILjava/lang/Object;)Lorg/icpclive/cds/api/RunResult$ICPC;
+	public final fun component3 ()Z
+	public final fun copy (Lorg/icpclive/cds/api/Verdict;ZZ)Lorg/icpclive/cds/api/RunResult$ICPC;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/RunResult$ICPC;Lorg/icpclive/cds/api/Verdict;ZZILjava/lang/Object;)Lorg/icpclive/cds/api/RunResult$ICPC;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getVerdict ()Lorg/icpclive/cds/api/Verdict;
 	public fun hashCode ()I
+	public final fun isAfterFirstOk ()Z
 	public final fun isFirstToSolveRun ()Z
 	public fun toString ()Ljava/lang/String;
 }
@@ -1749,13 +1755,16 @@ public final class org/icpclive/cds/api/RunResult$IOI$Companion {
 
 public final class org/icpclive/cds/api/RunResult$InProgress : org/icpclive/cds/api/RunResult {
 	public static final field Companion Lorg/icpclive/cds/api/RunResult$InProgress$Companion;
-	public fun <init> (D)V
+	public fun <init> (DZ)V
+	public synthetic fun <init> (DZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()D
-	public final fun copy (D)Lorg/icpclive/cds/api/RunResult$InProgress;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/RunResult$InProgress;DILjava/lang/Object;)Lorg/icpclive/cds/api/RunResult$InProgress;
+	public final fun component2 ()Z
+	public final fun copy (DZ)Lorg/icpclive/cds/api/RunResult$InProgress;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/RunResult$InProgress;DZILjava/lang/Object;)Lorg/icpclive/cds/api/RunResult$InProgress;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getTestedPart ()D
 	public fun hashCode ()I
+	public final fun isAfterFirstOk ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
