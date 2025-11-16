@@ -3,7 +3,6 @@ package org.icpclive.gradle.tasks
 import dev.adamko.kxstsgen.KxsTsGenerator
 import dev.adamko.kxstsgen.core.SerializerDescriptorsExtractor
 import dev.adamko.kxstsgen.core.util.MutableMapWithDefaultPut
-import gradle.kotlin.dsl.accessors._0efe46a4cec2e9e682da24afc1fcb716.runtimeClasspath
 import kotlinx.serialization.serializer
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
@@ -36,7 +35,7 @@ abstract class TsInterfaceGeneratorTask : DefaultTask() {
     abstract val outputLocation: RegularFileProperty
 
     init {
-        classpath.convention(project.configurations.runtimeClasspath)
+        classpath.convention(project.configurations.named("runtimeClasspath"))
         outputLocation.convention(fileName.flatMap { project.layout.buildDirectory.file("ts/${it}.ts") })
     }
 
@@ -57,8 +56,8 @@ abstract class TsInterfaceGeneratorTask : DefaultTask() {
     @TaskAction
     fun generate() {
         clearKxsTsGeneratorCaches()
-        val taskClassLoader = Thread.currentThread().getContextClassLoader();
-        val targetClassUrls = classpath.files.map { it.toURI().toURL() }.toTypedArray();
+        val taskClassLoader = Thread.currentThread().getContextClassLoader()
+        val targetClassUrls = classpath.files.map { it.toURI().toURL() }.toTypedArray()
         URLClassLoader(targetClassUrls, taskClassLoader).use { classLoader ->
             val tsGenerator = KxsTsGenerator()
             val descriptors = rootClasses.get().map { serializer(classLoader.loadClass(it)) }

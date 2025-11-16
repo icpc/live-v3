@@ -233,9 +233,8 @@ internal class ClicsModel {
             referenceSet.getOrPut(it) { mutableSetOf() }.add(id)
             add(it)
         }
-        distinct()
         putInSet(set, id, data, getId)
-    }
+    }.distinct()
 
     private suspend fun processContest(contest: Contest?) {
         require(contest != null) { "Removing contest is not supported" }

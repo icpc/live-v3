@@ -1,8 +1,5 @@
 package org.icpclive.gradle.tasks
 
-import gradle.kotlin.dsl.accessors._0efe46a4cec2e9e682da24afc1fcb716.main
-import gradle.kotlin.dsl.accessors._0efe46a4cec2e9e682da24afc1fcb716.runtimeClasspath
-import gradle.kotlin.dsl.accessors._0efe46a4cec2e9e682da24afc1fcb716.sourceSets
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.*
@@ -49,7 +46,7 @@ abstract class SchemaGeneratorTask : DefaultTask() {
     abstract val outputLocation: RegularFileProperty
 
     init {
-        classpath.convention(project.configurations.runtimeClasspath)
+        classpath.convention(project.configurations.named("runtimeClasspath"))
         outputLocation.convention(fileName.flatMap {  project.layout.buildDirectory.file("schema/${it}.schema.json") })
     }
 
@@ -60,8 +57,8 @@ abstract class SchemaGeneratorTask : DefaultTask() {
 
     @TaskAction
     fun generate() {
-        val taskClassLoader = Thread.currentThread().getContextClassLoader();
-        val targetClassUrls = classpath.files.map { it.toURI().toURL() }.toTypedArray();
+        val taskClassLoader = Thread.currentThread().getContextClassLoader()
+        val targetClassUrls = classpath.files.map { it.toURI().toURL() }.toTypedArray()
         URLClassLoader(targetClassUrls, taskClassLoader).use { classLoader ->
             val clazz = classLoader.loadClass(rootClass.get()).kotlin
             val companion = clazz.companionObject
