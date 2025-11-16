@@ -1,0 +1,14 @@
+{
+  "type":"clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://offsite.socalcontest.org/domjudge/api/",
+        "login": "login",
+        "password": "pass"
+      },
+      "contestId": "dj-4",
+      "feedVersion": "2023_06"
+    }
+  ]
+}
