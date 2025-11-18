@@ -1,0 +1,130 @@
+[
+  {
+    "type": "overrideScoreboardSettings",
+    "showTeamsWithoutSubmissions": false
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "org": {
+        "from": "{team.fullName}",
+        "rules": {
+          "^([^:]*).*": {
+            "id": "$1"
+          }
+        }
+      },
+      "custom": {
+        "from": "{team.fullName}",
+        "rules": {
+          "[^:]*: (.*) \\([^)]*\\)": {
+            "funnyNameValue": "$1"
+          }
+        }
+      }
+    },
+    "organizationId": "{regexes.org.id}",
+    "customFields": {
+      "funnyName": "{regexes.custom.funnyNameValue}"
+    }
+  },
+  {
+    "type": "overrideOrganizations",
+    "rules": {
+      "Moscow Aviation Institute": {
+        "displayName": "MAI"
+      },
+      "* Moscow Aviation Institute": {
+        "displayName": "* MAI"
+      },
+      "Moscow Polytechnic University": {
+        "displayName": "MPU"
+      },
+      "* Moscow Polytechnic University": {
+        "displayName": "* MPU"
+      },
+      "Peoples’ Friendship University of Russia": {
+        "displayName": "RUDN University"
+      },
+      "* Peoples’ Friendship University of Russia": {
+        "displayName": "* RUDN University"
+      },
+      "National Research University of Electronic Technology": {
+        "displayName": "MIET"
+      },
+      "* National Research University of Electronic Technology": {
+        "displayName": "* MIET"
+      },
+      "National University of Science and Technology \"MISIS\"": {
+        "displayName": "MISIS"
+      },
+      "* National University of Science and Technology \"MISIS\"": {
+        "displayName": "* MISIS"
+      },
+      "Moscow Technological University - MIREA": {
+        "displayName": "MIREA"
+      },
+      "* Moscow Technological University - MIREA": {
+        "displayName": "* MIREA"
+      },
+      "Moscow Institute of Physics and Technology": {
+        "displayName": "MIPT"
+      },
+      "HSE University": {
+        "displayName": "HSE"
+      },
+      "Moscow State University": {
+        "displayName": "MSU"
+      },
+      "* Moscow State University": {
+        "displayName": "* MSU"
+      },
+      "Bauman Moscow State Technical University": {
+        "displayName": "MSTU"
+      },
+      "Central University": {
+        "displayName": "CU"
+      },
+      "Skolkovo Institute of Science and Technology": {
+        "displayName": "Skoltech"
+      },
+      "National Research Nuclear University MEPhI": {
+        "displayName": "MEPhI"
+      },
+      "Moscow Pedagogical State University": {
+        "displayName": "MPSU"
+      },
+      "Moscow Power Engineering Institute": {
+        "displayName": "MPET"
+      },
+      "Financial University Under the Government of Russian Federation": {
+        "displayName": "FinU"
+      },
+      "Leonov Moscow Region University of Technology": {
+        "displayName": "UNITECH"
+      },
+      "Plekhanov Russian Economic University": {
+        "displayName": "PRUE"
+      },
+      "Moscow State University of Technology \"STANKIN\"": {
+        "displayName": "MSU of Technology \"STANKIN\""
+      },
+      "Moscow State University of Civil Engineering": {
+        "displayName": "MSU of Civil Engineering"
+      },
+      "Moscow University for Industry and Finance \"Synergy\"": {
+        "displayName": "Synergy University"
+      },
+      "Saint Tikhon's Orthodox University for the Humanities": {
+        "displayName": "PSTGU"
+      },
+      "Moscow Technical University of Communications and Informatics": {
+        "displayName": "MTUCI"
+      },
+    }
+  },  
+  {
+    "type": "overrideTeamTemplate",
+    "displayName": "{org.displayName}: {funnyName}"
+  },
+]

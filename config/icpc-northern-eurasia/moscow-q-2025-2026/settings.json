@@ -1,0 +1,6 @@
+{
+  "type": "yandex",
+  "apiKey": "$creds.yandex",
+  "contestId": 82785,
+  "loginRegex": "^mrcq2025-.*",
+}
