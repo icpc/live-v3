@@ -30,4 +30,8 @@ tasks {
 
         archiveClassifier = null
     }
+    distZip { enabled = false }
+    distTar { enabled = false }
+    shadowDistZip { enabled = false }
+    shadowDistTar { enabled = false }
 }
