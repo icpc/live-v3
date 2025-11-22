@@ -3,8 +3,17 @@ import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
-import { ContestInfo, ContestStatus, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
-import { calculateContestTime, getStartTime } from "@/components/molecules/Clock";
+import {
+    ContestInfo,
+    ContestStatus,
+    TeamId,
+    TeamInfo,
+    TimeLineRunInfo,
+} from "@shared/api";
+import {
+    calculateContestTime,
+    getStartTime,
+} from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { KeylogGraph } from "./KeylogGraph";
 
@@ -423,7 +432,7 @@ export function TimeLineBackground({
             color={teamData?.color ?? c.CONTEST_COLOR}
         />
     );
-};
+}
 
 interface KeyboardEvent {
     timestamp: string; // ISO8601
@@ -550,8 +559,8 @@ export function TimeLine({
                 return text
                     .trim()
                     .split("\n")
-                    .filter(line => line.trim())
-                    .map(line => JSON.parse(line) as KeyboardEvent);
+                    .filter((line) => line.trim())
+                    .map((line) => JSON.parse(line) as KeyboardEvent);
             } catch (e) {
                 console.error(e);
                 return [];
@@ -565,10 +574,12 @@ export function TimeLine({
             const contestStart = new Date(startTime!).getTime();
             const AGGREGATION_MS = c.KEYLOG_INTERVAL_LENGTH;
 
-            const totalIntervals = Math.ceil(contestInfo!.contestLengthMs / AGGREGATION_MS);
+            const totalIntervals = Math.ceil(
+                contestInfo!.contestLengthMs / AGGREGATION_MS,
+            );
             const newKeylog = new Array(totalIntervals).fill(0);
 
-            events.forEach(event => {
+            events.forEach((event) => {
                 const eventTime = new Date(event.timestamp).getTime();
 
                 if (eventTime < contestStart) return;
@@ -579,7 +590,7 @@ export function TimeLine({
                 if (index >= 0 && index < totalIntervals) {
                     let totalPressesInInterval = 0;
 
-                    Object.values(event.keys).forEach(stats => {
+                    Object.values(event.keys).forEach((stats) => {
                         if (stats.bare) {
                             totalPressesInInterval += stats.bare;
                         }
