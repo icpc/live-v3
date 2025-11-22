@@ -81,7 +81,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 groups = emptyList(),
                 hashTag = null,
                 medias = mapOf(
-                    TeamMediaType.PHOTO to listOf(MediaType.Image("${settings.source}/faces/$k", true))
+                    TeamMediaType.PHOTO to listOf(MediaType.Image("${settings.source}/faces/$k", vertical = true))
                 ),
                 isHidden = false,
                 isOutOfContest = false,

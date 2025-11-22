@@ -903,17 +903,19 @@ public final class org/icpclive/cds/api/ICPCProblemResult$Companion {
 
 public final class org/icpclive/cds/api/IOIProblemResult : org/icpclive/cds/api/ProblemResult {
 	public static final field Companion Lorg/icpclive/cds/api/IOIProblemResult$Companion;
-	public synthetic fun <init> (Ljava/lang/Double;Lkotlin/time/Duration;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/Double;Lkotlin/time/Duration;ZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Double;
 	public final fun component2-FghU774 ()Lkotlin/time/Duration;
 	public final fun component3 ()Z
 	public final fun component4 ()I
-	public final fun copy-hhJSO8g (Ljava/lang/Double;Lkotlin/time/Duration;ZI)Lorg/icpclive/cds/api/IOIProblemResult;
-	public static synthetic fun copy-hhJSO8g$default (Lorg/icpclive/cds/api/IOIProblemResult;Ljava/lang/Double;Lkotlin/time/Duration;ZIILjava/lang/Object;)Lorg/icpclive/cds/api/IOIProblemResult;
+	public final fun component5 ()I
+	public final fun copy-C2H2yOE (Ljava/lang/Double;Lkotlin/time/Duration;ZII)Lorg/icpclive/cds/api/IOIProblemResult;
+	public static synthetic fun copy-C2H2yOE$default (Lorg/icpclive/cds/api/IOIProblemResult;Ljava/lang/Double;Lkotlin/time/Duration;ZIIILjava/lang/Object;)Lorg/icpclive/cds/api/IOIProblemResult;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getLastSubmitTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getPendingAttempts ()I
 	public final fun getScore ()Ljava/lang/Double;
+	public final fun getTotalAttempts ()I
 	public fun hashCode ()I
 	public final fun isFirstBest ()Z
 	public fun toString ()Ljava/lang/String;
@@ -1003,16 +1005,29 @@ public final class org/icpclive/cds/api/LanguageKt {
 public abstract class org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Companion;
 	public synthetic fun <init> (ILkotlinx/serialization/internal/SerializationConstructorMarker;)V
+	public abstract fun getFilename ()Ljava/lang/String;
+	public abstract fun getHash ()Ljava/lang/String;
+	public abstract fun getMime ()Ljava/lang/String;
+	public abstract fun getTags ()Ljava/util/List;
 	public static final synthetic fun write$Self (Lorg/icpclive/cds/api/MediaType;Lkotlinx/serialization/encoding/CompositeEncoder;Lkotlinx/serialization/descriptors/SerialDescriptor;)V
 }
 
 public final class org/icpclive/cds/api/MediaType$Audio : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Audio$Companion;
-	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Audio;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Audio;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Audio;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Audio;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Audio;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Audio;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1038,15 +1053,23 @@ public final class org/icpclive/cds/api/MediaType$Companion {
 
 public final class org/icpclive/cds/api/MediaType$HLSVideo : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$HLSVideo$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Z
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$HLSVideo;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$HLSVideo;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$HLSVideo;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$HLSVideo;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$HLSVideo;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$HLSVideo;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
 	public final fun getJwtToken ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public final fun getVertical ()Z
 	public fun hashCode ()I
@@ -1069,15 +1092,27 @@ public final class org/icpclive/cds/api/MediaType$HLSVideo$Companion {
 
 public final class org/icpclive/cds/api/MediaType$Image : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Image$Companion;
-	public fun <init> (Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Z
-	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$Image;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Image;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Image;
+	public final fun component2 ()Ljava/lang/Integer;
+	public final fun component3 ()Ljava/lang/Integer;
+	public final fun component4 ()Z
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Image;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Image;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Image;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public final fun getHeight ()Ljava/lang/Integer;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public final fun getVertical ()Z
+	public final fun getWidth ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1098,13 +1133,21 @@ public final class org/icpclive/cds/api/MediaType$Image$Companion {
 
 public final class org/icpclive/cds/api/MediaType$M2tsVideo : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$M2tsVideo$Companion;
-	public fun <init> (Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Z
-	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$M2tsVideo;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$M2tsVideo;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$M2tsVideo;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$M2tsVideo;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$M2tsVideo;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$M2tsVideo;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public final fun getVertical ()Z
 	public fun hashCode ()I
@@ -1127,11 +1170,20 @@ public final class org/icpclive/cds/api/MediaType$M2tsVideo$Companion {
 
 public final class org/icpclive/cds/api/MediaType$Object : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Object$Companion;
-	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Object;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Object;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Object;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Object;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Object;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Object;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1153,11 +1205,20 @@ public final class org/icpclive/cds/api/MediaType$Object$Companion {
 
 public final class org/icpclive/cds/api/MediaType$Text : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Text$Companion;
-	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Text;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Text;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Text;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Text;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Text;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Text;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1179,13 +1240,21 @@ public final class org/icpclive/cds/api/MediaType$Text$Companion {
 
 public final class org/icpclive/cds/api/MediaType$Video : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$Video$Companion;
-	public fun <init> (Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Z
-	public final fun copy (Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$Video;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Video;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Video;
+	public final fun component3 ()Ljava/util/List;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$Video;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$Video;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$Video;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public final fun getVertical ()Z
 	public fun hashCode ()I
@@ -1208,19 +1277,27 @@ public final class org/icpclive/cds/api/MediaType$Video$Companion {
 
 public final class org/icpclive/cds/api/MediaType$WebRTCGrabberConnection : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$WebRTCGrabberConnection$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Z
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$WebRTCGrabberConnection;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$WebRTCGrabberConnection;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$WebRTCGrabberConnection;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$WebRTCGrabberConnection;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$WebRTCGrabberConnection;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$WebRTCGrabberConnection;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCredential ()Ljava/lang/String;
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
 	public final fun getPeerName ()Ljava/lang/String;
 	public final fun getStreamType ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public final fun getVertical ()Z
 	public fun hashCode ()I
@@ -1243,15 +1320,23 @@ public final class org/icpclive/cds/api/MediaType$WebRTCGrabberConnection$Compan
 
 public final class org/icpclive/cds/api/MediaType$WebRTCProxyConnection : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$WebRTCProxyConnection$Companion;
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Z
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Z)Lorg/icpclive/cds/api/MediaType$WebRTCProxyConnection;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$WebRTCProxyConnection;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$WebRTCProxyConnection;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$WebRTCProxyConnection;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$WebRTCProxyConnection;Ljava/lang/String;Ljava/lang/String;ZLjava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$WebRTCProxyConnection;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudioUrl ()Ljava/lang/String;
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public final fun getVertical ()Z
 	public fun hashCode ()I
@@ -1274,11 +1359,20 @@ public final class org/icpclive/cds/api/MediaType$WebRTCProxyConnection$Companio
 
 public final class org/icpclive/cds/api/MediaType$ZipArchive : org/icpclive/cds/api/MediaType {
 	public static final field Companion Lorg/icpclive/cds/api/MediaType$ZipArchive$Companion;
-	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$ZipArchive;
-	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$ZipArchive;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$ZipArchive;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/MediaType$ZipArchive;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/api/MediaType$ZipArchive;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/MediaType$ZipArchive;
 	public fun equals (Ljava/lang/Object;)Z
+	public fun getFilename ()Ljava/lang/String;
+	public fun getHash ()Ljava/lang/String;
+	public fun getMime ()Ljava/lang/String;
+	public fun getTags ()Ljava/util/List;
 	public final fun getUrl ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;

@@ -190,7 +190,6 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                 "kotlinx.serialization.descriptors.*",
                 "kotlinx.datetime.*",
                 "kotlin.time.*",
-                "kotlinx.serialization.builtins.ListSerializer"
             )
 
             fun getSerializer(type: KSType, annotated: KSAnnotated) : String {
@@ -210,8 +209,13 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                         }
                     }
                     List::class.qualifiedName -> {
+                       val singleBefore = annotated.getAnnotationsByType(SingleBefore::class).singleOrNull()
                        val listType = type.arguments.single().type!!.resolve()
-                       "ListSerializer(" + getSerializer(listType, annotated) + ")"
+                        if (singleBefore != null && feedVersion < singleBefore.feedVersion) {
+                            "org.icpclive.cds.util.serializers.SingleElementListSerializer(" + getSerializer(listType, annotated) + ")"
+                        } else {
+                            "kotlinx.serialization.builtins.ListSerializer(" + getSerializer(listType, annotated) + ")"
+                        }
                     }
                     else -> "serializer<${type.render(null)}>()"
                 }

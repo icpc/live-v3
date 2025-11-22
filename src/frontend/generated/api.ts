@@ -270,6 +270,10 @@ export namespace MediaType {
   export interface Audio {
     type: MediaType.Type.Audio;
     url: string;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface HLSVideo {
@@ -277,34 +281,60 @@ export namespace MediaType {
     url: string;
     jwtToken?: string | null;
     vertical?: boolean;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface Image {
     type: MediaType.Type.Image;
     url: string;
+    width?: number | null;
+    height?: number | null;
     vertical?: boolean;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface M2tsVideo {
     type: MediaType.Type.M2tsVideo;
     url: string;
     vertical?: boolean;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface Object {
     type: MediaType.Type.Object;
     url: string;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface Text {
     type: MediaType.Type.Text;
     url: string;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface Video {
     type: MediaType.Type.Video;
     url: string;
     vertical?: boolean;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface WebRTCGrabberConnection {
@@ -314,6 +344,10 @@ export namespace MediaType {
     streamType: string;
     credential: string | null;
     vertical?: boolean;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface WebRTCProxyConnection {
@@ -321,11 +355,19 @@ export namespace MediaType {
     url: string;
     audioUrl?: string | null;
     vertical?: boolean;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
   
   export interface ZipArchive {
     type: MediaType.Type.ZipArchive;
     url: string;
+    tags?: string[];
+    filename?: string | null;
+    hash?: string | null;
+    mime?: string | null;
   }
 }
 
@@ -488,6 +530,7 @@ export namespace ProblemResult {
     lastSubmitTimeMs: number | null;
     isFirstBest: boolean;
     pendingAttempts: number;
+    totalAttempts: number;
   }
 }
 

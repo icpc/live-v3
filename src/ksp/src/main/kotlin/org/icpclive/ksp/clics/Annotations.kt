@@ -22,6 +22,10 @@ annotation class LongMinutesBefore(val feedVersion: FeedVersion)
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)
+annotation class SingleBefore(val feedVersion: FeedVersion)
+
+@Retention(AnnotationRetention.SOURCE)
+@Target(AnnotationTarget.PROPERTY)
 annotation class InlinedBefore(val feedVersion: FeedVersion, val prefix: String)
 
 @Retention(AnnotationRetention.SOURCE)

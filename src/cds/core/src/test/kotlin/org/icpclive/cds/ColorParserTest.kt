@@ -15,14 +15,14 @@ class ColorParserTest {
     fun testStandardCssShorthand() {
         doTest(
             mapOf(
-                "#f00" to "#ff0000ff",
-                "#F00" to "#ff0000ff",
-                "#0f0" to "#00ff00ff",
-                "#0F0" to "#00ff00ff",
-                "#00f" to "#0000ffff",
-                "#00F" to "#0000ffff",
-                "#09c" to "#0099ccff",
-                "#09C" to "#0099ccff",
+                "#f00" to "#ff0000",
+                "#F00" to "#ff0000",
+                "#0f0" to "#00ff00",
+                "#0F0" to "#00ff00",
+                "#00f" to "#0000ff",
+                "#00F" to "#0000ff",
+                "#09c" to "#0099cc",
+                "#09C" to "#0099cc",
             )
         )
     }
@@ -31,13 +31,13 @@ class ColorParserTest {
     fun testStandardCssSixDigit() {
         doTest(
             mapOf(
-                "#ff0000" to "#ff0000ff",
-                "#FF0000" to "#ff0000ff",
-                "#00ff00" to "#00ff00ff",
-                "#00FF00" to "#00ff00ff",
-                "#0000ff" to "#0000ffff",
-                "#0000FF" to "#0000ffff",
-                "#123456" to "#123456ff",
+                "#ff0000" to "#ff0000",
+                "#FF0000" to "#ff0000",
+                "#00ff00" to "#00ff00",
+                "#00FF00" to "#00ff00",
+                "#0000ff" to "#0000ff",
+                "#0000FF" to "#0000ff",
+                "#123456" to "#123456",
             )
         )
     }
@@ -46,11 +46,11 @@ class ColorParserTest {
     fun testStandardCssRgbaShorthand() {
         doTest(
             mapOf(
-                "#f008" to "#ff000088",
-                "#F008" to "#ff000088",
-                "#0f0c" to "#00ff00cc",
-                "#0F0C" to "#00ff00cc",
-                "#1234" to "#11223344",
+                "#f008" to "#ff0000",
+                "#F008" to "#ff0000",
+                "#0f0c" to "#00ff00",
+                "#0F0C" to "#00ff00",
+                "#1234" to "#112233",
             )
         )
     }
@@ -59,10 +59,10 @@ class ColorParserTest {
     fun testStandardCssEightDigitRgba() {
         doTest(
             mapOf(
-                "#ff000080" to "#ff000080",
-                "#FF000080" to "#ff000080",
-                "#00000000" to "#00000000",
-                "#FFFFFFFF" to "#ffffffff",
+                "#ff000080" to "#ff0000",
+                "#FF000080" to "#ff0000",
+                "#00000000" to "#000000",
+                "#FFFFFFFF" to "#ffffff",
             )
         )
     }
@@ -71,9 +71,9 @@ class ColorParserTest {
     fun testNonstandardPermissive() {
         doTest(
             mapOf(
-                "0x11223344" to "#22334411",
-                "0xff0000" to "#ff0000ff",
-                "0xFF0000" to "#ff0000ff",
+                "0x11223344" to "#223344",
+                "0xff0000" to "#ff0000",
+                "0xFF0000" to "#ff0000",
             )
         )
     }

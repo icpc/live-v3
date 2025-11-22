@@ -9,7 +9,8 @@ import kotlin.time.Instant
 public data class Clarification(
     @Required public val id: String,
     public val fromTeamId: String? = null,
-    public val toTeamId: String? = null,
+    @SingleBefore(FeedVersion.DRAFT)public val toTeamIds: List<String> = emptyList(),
+    @SinceClics(FeedVersion.DRAFT) public val toGroupIds: List<String> = emptyList(),
     public val replyToId: String? = null,
     public val problemId: String? = null,
     public val text: String? = null,

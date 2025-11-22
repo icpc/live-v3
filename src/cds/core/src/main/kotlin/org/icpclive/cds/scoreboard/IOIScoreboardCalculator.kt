@@ -32,7 +32,8 @@ internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
                 score = (finalRun?.result as? RunResult.IOI?)?.scoreAfter,
                 lastSubmitTime = finalRun?.time,
                 isFirstBest = (finalRun?.result as? RunResult.IOI?)?.isFirstBestRun == true,
-                pendingAttempts = problemRuns.count { it.result is RunResult.InProgress }
+                pendingAttempts = problemRuns.count { it.result is RunResult.InProgress },
+                totalAttempts = problemRuns.size,
             )
         }
         return ScoreboardRow(

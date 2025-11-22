@@ -74,13 +74,13 @@ internal class ClicsModel {
         val mime = mime ?: return null
         val href = href?.value ?: return null
         return when {
-            mime.startsWith("image") -> MediaType.Image(href)
-            mime.startsWith("audio") -> MediaType.Audio(href)
-            mime.startsWith("video/m2ts") -> MediaType.M2tsVideo(href)
-            mime.startsWith("application/vnd.apple.mpegurl") -> MediaType.HLSVideo(href)
-            mime.startsWith("video") -> MediaType.Video(href)
-            mime.startsWith("text") -> MediaType.Text(href)
-            mime.startsWith("application/zip") -> MediaType.ZipArchive(href)
+            mime.startsWith("image") -> MediaType.Image(url = href, width = width, height = height, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("audio") -> MediaType.Audio(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("video/m2ts") -> MediaType.M2tsVideo(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("application/vnd.apple.mpegurl") -> MediaType.HLSVideo(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("video") -> MediaType.Video(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("text") -> MediaType.Text(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("application/zip") -> MediaType.ZipArchive(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
             else -> null
         }
     }
@@ -128,7 +128,7 @@ internal class ClicsModel {
         val judgment = submissionJudgmentIds[id]?.mapNotNull { judgements[it] }?.filter { it.current != false }?.maxByOrNull { it.startContestTime }
         val problem = problems[problemId]
         val passedTests = judgment?.id?.let { judgmentRunIds[it] }?.size ?: 0
-        val judgementType = judgementTypes[judgment?.judgementTypeId]
+        val judgementType = judgementTypes[judgment?.judgementTypeId ?: judgment?.simplifiedJudgementTypeId]
         return RunInfo(
             id = id.toRunId(),
             result = if (judgementType == null) {

@@ -138,6 +138,15 @@ public final class org/icpclive/cds/util/serializers/RegexSerializer : kotlinx/s
 	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlin/text/Regex;)V
 }
 
+public final class org/icpclive/cds/util/serializers/SingleElementListSerializer : kotlinx/serialization/KSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/util/List;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/util/List;)V
+}
+
 public final class org/icpclive/cds/util/serializers/TimeZoneSerializer : kotlinx/serialization/KSerializer {
 	public static final field INSTANCE Lorg/icpclive/cds/util/serializers/TimeZoneSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;

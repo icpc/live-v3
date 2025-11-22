@@ -364,6 +364,12 @@
                 }
             }
         },
+        "kotlin.collections.ArrayList<kotlin.String>": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "Audio": {
             "type": "object",
             "properties": {
@@ -372,6 +378,18 @@
                     "default": "Audio"
                 },
                 "url": {
+                    "type": "string"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
                     "type": "string"
                 }
             },
@@ -397,6 +415,18 @@
                 },
                 "vertical": {
                     "type": "boolean"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -416,8 +446,26 @@
                 "url": {
                     "type": "string"
                 },
+                "width": {
+                    "type": "number"
+                },
+                "height": {
+                    "type": "number"
+                },
                 "vertical": {
                     "type": "boolean"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -439,6 +487,18 @@
                 },
                 "vertical": {
                     "type": "boolean"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -457,6 +517,18 @@
                 },
                 "url": {
                     "type": "string"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -474,6 +546,18 @@
                     "default": "Text"
                 },
                 "url": {
+                    "type": "string"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
                     "type": "string"
                 }
             },
@@ -496,6 +580,18 @@
                 },
                 "vertical": {
                     "type": "boolean"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -526,6 +622,18 @@
                 },
                 "vertical": {
                     "type": "boolean"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -553,6 +661,18 @@
                 },
                 "vertical": {
                     "type": "boolean"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
+                    "type": "string"
                 }
             },
             "additionalProperties": false,
@@ -570,6 +690,18 @@
                     "default": "ZipArchive"
                 },
                 "url": {
+                    "type": "string"
+                },
+                "tags": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "mime": {
                     "type": "string"
                 }
             },

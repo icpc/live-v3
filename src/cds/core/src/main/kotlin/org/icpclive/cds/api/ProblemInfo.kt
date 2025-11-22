@@ -97,7 +97,7 @@ public value class Color internal constructor(public val value: String) {
                         else -> throw NumberFormatException("Invalid color string length")
                     }
                 }
-                Color("#%08x".format(colorValue.toInt()))
+                Color("#%06x".format(colorValue.toInt() ushr 8))
             }.getOrElse {  e ->
                 log.error(e) { "Failed to parse color from $data" }
                 null

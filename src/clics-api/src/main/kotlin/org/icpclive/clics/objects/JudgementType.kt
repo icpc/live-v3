@@ -8,5 +8,6 @@ public data class JudgementType(
     @Required public val id: String,
     @Required public val name: String,
     @Required public val solved: Boolean,
-    @Required public val penalty: Boolean
+    @Required public val penalty: Boolean,
+    @SinceClics(FeedVersion.DRAFT) public val simplifiedJudgementTypeId: String? = null,
 )

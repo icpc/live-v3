@@ -20,4 +20,5 @@ public data class Problem(
     public val maxScore: Double? = null,
     @SinceClics(FeedVersion.`2022_07`) @JsonName("package") public val problemPackage: List<File>? = null,
     @SinceClics(FeedVersion.`2022_07`) public val statement: List<File>? = null,
+    @SinceClics(FeedVersion.DRAFT) public val attachments: List<File>? = null,
 )

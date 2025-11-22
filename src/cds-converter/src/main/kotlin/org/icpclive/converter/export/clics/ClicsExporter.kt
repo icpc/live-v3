@@ -71,21 +71,24 @@ private fun LanguageInfo.toClicsLang() = Language(
 )
 
 
-private fun MediaType.toClicsMedia() = when (this) {
-    is MediaType.Object -> null
-    is MediaType.Image -> File("image", Url(url))
-    is MediaType.Video -> File("video", Url(url))
-    is MediaType.Audio -> File("audio", Url(url))
-    is MediaType.Text -> File("text/plain", Url(url))
-    is MediaType.ZipArchive -> File("application/zip", Url(url))
-    is MediaType.M2tsVideo -> File("video/m2ts", Url(url))
-    is MediaType.HLSVideo -> File("application/vnd.apple.mpegurl", Url(url))
-    is MediaType.WebRTCGrabberConnection -> File(
-        "application/vnd.webrtc-grabber.stream",
-        Url(this.url).withQueryParams("peerName" to peerName, "streamType" to streamType, "credential" to (credential ?: ""))
-    )
+private fun MediaType.toClicsMedia(): File? {
+    return when (this) {
+        is MediaType.Object -> null
+        is MediaType.Image -> File(mime ?: "image", Url(url), width = width, height = height, filename = filename, tag = tags, hash = hash)
+        is MediaType.Video -> File(mime ?: "video", Url(url), filename = filename, tag = tags, hash = hash)
+        is MediaType.Audio -> File(mime ?: "audio", Url(url), filename = filename, tag = tags, hash = hash)
+        is MediaType.Text -> File(mime ?: "text/plain", Url(url), filename = filename, tag = tags, hash = hash)
+        is MediaType.ZipArchive -> File(mime ?: "application/zip", Url(url), filename = filename, tag = tags, hash = hash)
+        is MediaType.M2tsVideo -> File(mime ?: "video/m2ts", Url(url), filename = filename, tag = tags, hash = hash)
+        is MediaType.HLSVideo -> File(mime ?: "application/vnd.apple.mpegurl", Url(url), filename = filename, tag = tags, hash = hash)
+        is MediaType.WebRTCGrabberConnection -> File(
+            mime ?: "application/vnd.webrtc-grabber.stream",
+            Url(this.url).withQueryParams("peerName" to peerName, "streamType" to streamType, "credential" to (credential ?: ""))
+            , filename = filename, tag = tags, hash = hash
+        )
 
-    is MediaType.WebRTCProxyConnection -> null
+        is MediaType.WebRTCProxyConnection -> null
+    }
 }
 
 private fun TeamInfo.toClicsTeam() = Team(
@@ -595,16 +598,29 @@ object ClicsExporter : Exporter {
                 ScoreboardRow(
                     rank,
                     teamId.sanitizedValue,
-                    ScoreboardRowScore(row.totalScore.toInt(), row.penalty),
+                    ScoreboardRowScore(
+                        numSolved = row.totalScore.toInt().takeIf { info.resultType == ContestResultType.ICPC },
+                        totalTime = row.penalty.takeIf { info.resultType == ContestResultType.ICPC },
+                        score = row.totalScore.takeIf { info.resultType == ContestResultType.IOI },
+                        time = row.lastAccepted.takeIf { row.totalScore > 0 }
+                    ),
                     row.problemResults.mapIndexed { index, v ->
-                        val iv = v as ICPCProblemResult
-                        ScoreboardRowProblem(
-                            info.scoreboardProblems[index].id.sanitizedValue,
-                            iv.wrongAttempts + (if (iv.isSolved) 1 else 0),
-                            iv.pendingAttempts,
-                            iv.isSolved,
-                            iv.lastSubmitTime?.inWholeMinutes.takeIf { iv.isSolved }
-                        )
+                        when (v) {
+                            is ICPCProblemResult -> ScoreboardRowProblem(
+                                problemId = info.scoreboardProblems[index].id.sanitizedValue,
+                                numJudged = v.wrongAttempts + (if (v.isSolved) 1 else 0),
+                                numPending = v.pendingAttempts,
+                                solved = v.isSolved,
+                                time = v.lastSubmitTime?.inWholeMinutes.takeIf { v.isSolved }
+                            )
+                            is IOIProblemResult -> ScoreboardRowProblem(
+                                problemId = info.scoreboardProblems[index].id.sanitizedValue,
+                                numJudged = v.totalAttempts,
+                                numPending = v.pendingAttempts,
+                                score = v.score,
+                                time = v.lastSubmitTime?.inWholeMinutes.takeIf { v.score != null }
+                            )
+                        }
                     }
                 )
             }

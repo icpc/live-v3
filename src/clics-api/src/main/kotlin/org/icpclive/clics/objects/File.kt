@@ -12,4 +12,5 @@ public data class File(
     public val height: Int? = null,
     @SinceClics(FeedVersion.`2022_07`) public val filename: String? = null,
     @SinceClics(FeedVersion.`2022_07`) public val hash: String? = null,
+    @SinceClics(FeedVersion.DRAFT) public val tag: List<String> = emptyList(),
 )
