@@ -1,7 +1,6 @@
 @file:OptIn(ExperimentalAbiValidation::class)
 
 import org.gradle.api.internal.catalog.DelegatingProjectDependency
-import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.provideDelegate
 import org.icpclive.gradle.tasks.SchemaGeneratorTask
 import org.jetbrains.kotlin.gradle.dsl.abi.ExperimentalAbiValidation

@@ -1,5 +1,6 @@
 package org.icpclive.gradle.tasks
 
+import gradle.kotlin.dsl.accessors._0efe46a4cec2e9e682da24afc1fcb716.sourceSets
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.*
@@ -46,7 +47,10 @@ abstract class SchemaGeneratorTask : DefaultTask() {
     abstract val outputLocation: RegularFileProperty
 
     init {
-        classpath.convention(project.configurations.named("runtimeClasspath"))
+        val runtimeClassPath = project.configurations.named("runtimeClasspath")
+        val currentClassModules = project.tasks.named("compileKotlin").map { it.outputs.files }
+        val merged = project.files(runtimeClassPath, currentClassModules)
+        classpath.convention(merged)
         outputLocation.convention(fileName.flatMap {  project.layout.buildDirectory.file("schema/${it}.schema.json") })
     }
 

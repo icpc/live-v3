@@ -13,7 +13,6 @@ dependencies {
 }
 
 val generateApiTypeScript by tasks.registering(TsInterfaceGeneratorTask::class) {
-    classpath.setFrom(sourceSets.main.map { it.runtimeClasspath })
     rootClasses.addAll(listOf(
         "org.icpclive.cds.api.ContestInfo",
         "org.icpclive.cds.api.RunInfo",

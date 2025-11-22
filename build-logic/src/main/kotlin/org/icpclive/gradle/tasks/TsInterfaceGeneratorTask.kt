@@ -35,7 +35,10 @@ abstract class TsInterfaceGeneratorTask : DefaultTask() {
     abstract val outputLocation: RegularFileProperty
 
     init {
-        classpath.convention(project.configurations.named("runtimeClasspath"))
+        val runtimeClasspathConfig = project.configurations.named("runtimeClasspath")
+        val currentClassOutput = project.tasks.named("compileKotlin").map { it.outputs.files }
+
+        classpath.convention(project.files(runtimeClasspathConfig, currentClassOutput))
         outputLocation.convention(fileName.flatMap { project.layout.buildDirectory.file("ts/${it}.ts") })
     }
 

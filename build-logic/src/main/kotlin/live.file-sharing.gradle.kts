@@ -1,46 +1,35 @@
-fun createConfiguration(name: String, desc: String) {
-    val filesUsageAttribute = objects.named<Usage>("live.files.$name")
+import org.gradle.kotlin.dsl.provideDelegate
 
-    val declarator = configurations.create(name) {
-        description = "Declare dependencies on $desc from other subprojects"
-
-        isCanBeResolved = false
-        isCanBeConsumed = false
-        isCanBeDeclared = true
-        dependencies.add(project.dependencies.project(project.path))
-    }
-
-    val provider = configurations.create("${name}Provider") {
-        description = "Provides $desc to other subprojects"
-
-        isCanBeResolved = false
-        isCanBeConsumed = true
-        isCanBeDeclared = false
-
-        attributes {
-            attribute(Usage.USAGE_ATTRIBUTE, filesUsageAttribute)
+fun ConfigurationContainer.allThree(name: String, desc: String) {
+        val filesUsageAttribute = objects.named<Usage>("live.files.$name")
+        val declarator by dependencyScope(name) {
+            description = "Declare dependencies on $desc from other subprojects"
+            dependencies.add(project.dependencies.project(project.path))
         }
-    }
 
-    configurations.create("${name}Resolver") {
-        description = "Resolves $desc from other subprojects"
-
-        isCanBeResolved = true
-        isCanBeConsumed = false
-        isCanBeDeclared = false
-
-        extendsFrom(declarator)
-
-        attributes {
-            attribute(Usage.USAGE_ATTRIBUTE, filesUsageAttribute)
+        consumable("${name}Provider") {
+            description = "Provides $desc to other subprojects"
+            attributes {
+                attribute(Usage.USAGE_ATTRIBUTE, filesUsageAttribute)
+            }
         }
-    }
 
+        resolvable("${name}Resolver") {
+            description = "Resolves $desc from other subprojects"
+
+            extendsFrom(declarator)
+
+            attributes {
+                attribute(Usage.USAGE_ATTRIBUTE, filesUsageAttribute)
+            }
+        }
 }
 
-createConfiguration("jsonSchemas", "json schemas")
-createConfiguration("tsInterfaces", "type script interfaces")
-createConfiguration("adminJsApp", "admin js app")
-createConfiguration("overlayJsApp", "overlay js app")
-createConfiguration("locatorAdminJsApp", "locator admin js app")
-createConfiguration("applicationJar", "application jar")
+configurations {
+    allThree("jsonSchemas", "json schemas")
+    allThree("tsInterfaces", "type script interfaces")
+    allThree("adminJsApp", "admin js app")
+    allThree("overlayJsApp", "overlay js app")
+    allThree("locatorAdminJsApp", "locator admin js app")
+    allThree("applicationJar", "application jar")
+}
