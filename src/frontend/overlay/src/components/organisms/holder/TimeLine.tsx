@@ -426,18 +426,31 @@ export function TimeLineBackground({
 };
 
 interface KeyboardEvent {
-  timestamp: string; // ISO8601 format
-  keys: {
-    [key: string]: KeyData;
-  };
+    timestamp: string; // ISO8601
+    keys: Record<string, KeyStats>;
 }
 
-interface KeyData {
-  shift?: number;
-  raw?: number;
-  bare?: number;
-  ctrl?: number;
-  "ctrl+shift"?: number;
+interface KeyStats {
+    raw?: number;
+    bare?: number;
+    shift?: number;
+    ctrl?: number;
+    alt?: number;
+    meta?: number;
+
+    "ctrl+shift"?: number;
+    "ctrl+alt"?: number;
+    "shift+alt"?: number;
+    "ctrl+meta"?: number;
+    "shift+meta"?: number;
+    "alt+meta"?: number;
+
+    "ctrl+shift+alt"?: number;
+    "ctrl+shift+meta"?: number;
+    "ctrl+alt+meta"?: number;
+    "shift+alt+meta"?: number;
+
+    "ctrl+shift+alt+meta"?: number;
 }
 
 export function TimeLine({
@@ -529,50 +542,59 @@ export function TimeLine({
 
         // TODO: Move all this code to KeylogGraph
         async function fetchNDJSON(): Promise<KeyboardEvent[]> {
-            const response = await fetch(keylogUrl);
-            const text = await response.text();
-            return text
-                .trim()
-                .split("\n")
-                .filter(line => line.trim())
-                .map(line => JSON.parse(line) as KeyboardEvent);
-        }
-
-        async function fetchKeylogData() {
             try {
-                const events = await fetchNDJSON();
-                const startTimeDate = new Date(startTime);
-                const newKeylog: number[] = [];
-                const intervalCount = contestInfo?.contestLengthMs / c.KEYLOG_INTERVAL_LENGTH;
-                const countToAggregate = c.KEYLOG_INTERVAL_LENGTH / 1000 / 60;
-                let keylogValue: number = 0;
-                events.filter(event => {
-                    const eventTime = new Date(event.timestamp);
-                    return eventTime >= startTimeDate;
-                }).forEach((event, index) => {
-                    if (newKeylog.length >= intervalCount) return;
+                const response = await fetch(keylogUrl);
+                if (!response.ok) throw new Error("Failed to fetch keylog");
 
-                    const keys = Object.values(event.keys);
-                    let counter = 0;
-                    keys.forEach(key => {
-                        if (key.bare) counter += key.bare;
-                        if (key.shift) counter += key.shift;
-                    });
-
-                    if (index != 0 && index % countToAggregate == 0 || index == events.length - 1) {
-                        newKeylog.push(keylogValue);
-                        keylogValue = 0;
-                    }
-                    keylogValue += counter;
-                });
-                setKeylog(newKeylog.slice(0, intervalCount));
-            } catch (error) {
-                console.error("Error fetching keylog data:", error);
+                const text = await response.text();
+                return text
+                    .trim()
+                    .split("\n")
+                    .filter(line => line.trim())
+                    .map(line => JSON.parse(line) as KeyboardEvent);
+            } catch (e) {
+                console.error(e);
+                return [];
             }
         }
 
+        async function fetchKeylogData() {
+            const events = await fetchNDJSON();
+            if (events.length === 0) return;
+
+            const contestStart = new Date(startTime!).getTime();
+            const AGGREGATION_MS = c.KEYLOG_INTERVAL_LENGTH;
+
+            const totalIntervals = Math.ceil(contestInfo!.contestLengthMs / AGGREGATION_MS);
+            const newKeylog = new Array(totalIntervals).fill(0);
+
+            events.forEach(event => {
+                const eventTime = new Date(event.timestamp).getTime();
+
+                if (eventTime < contestStart) return;
+
+                const timeDiff = eventTime - contestStart;
+                const index = Math.floor(timeDiff / AGGREGATION_MS);
+
+                if (index >= 0 && index < totalIntervals) {
+                    let totalPressesInInterval = 0;
+
+                    Object.values(event.keys).forEach(stats => {
+                        if (stats.bare) {
+                            totalPressesInInterval += stats.bare;
+                        }
+                        if (stats.shift) {
+                            totalPressesInInterval += stats.shift;
+                        }
+                    });
+
+                    newKeylog[index] += totalPressesInInterval;
+                }
+            });
+        }
+
         fetchKeylogData();
-    }, [keylogUrl]);
+    }, [keylogUrl, contestInfo]);
 
     if (!contestInfo) return null;
 
