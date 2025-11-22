@@ -575,8 +575,10 @@ export function TimeLine({
             const AGGREGATION_MS = c.KEYLOG_INTERVAL_LENGTH;
 
             const totalIntervals = Math.ceil(
-                contestInfo!.contestLengthMs / AGGREGATION_MS,
+                contestInfo!.contestLengthMs / c.KEYLOG_INTERVAL_LENGTH,
             );
+            const interval_minutes = c.KEYLOG_INTERVAL_LENGTH / 60000;
+            const pressesPerMinuteFactor = 1 / interval_minutes;
             const newKeylog = new Array(totalIntervals).fill(0);
 
             events.forEach((event) => {
@@ -588,22 +590,12 @@ export function TimeLine({
                 const index = Math.floor(timeDiff / AGGREGATION_MS);
 
                 if (index >= 0 && index < totalIntervals) {
-                    let totalPressesInInterval = 0;
-
-                    Object.values(event.keys).forEach((stats) => {
-                        if (stats.bare) {
-                            totalPressesInInterval += stats.bare;
-                        }
-                        if (stats.shift) {
-                            totalPressesInInterval += stats.shift;
-                        }
-                    });
-
-                    newKeylog[index] += totalPressesInInterval;
+                    const pressesCount = Object.values(event.keys).reduce((sum, k) => sum + (k.bare ?? 0) + (k.shift ?? 0), 0);
+                    newKeylog[index] += pressesCount;
                 }
             });
 
-            setKeylog(newKeylog);
+            setKeylog(newKeylog.map(v => v * pressesPerMinuteFactor));
         }
 
         fetchKeylogData();
