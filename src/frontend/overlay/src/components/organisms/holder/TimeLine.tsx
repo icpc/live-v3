@@ -602,6 +602,8 @@ export function TimeLine({
                     newKeylog[index] += totalPressesInInterval;
                 }
             });
+
+            setKeylog(newKeylog);
         }
 
         fetchKeylogData();
