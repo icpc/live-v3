@@ -4,20 +4,18 @@ import com.github.ajalt.clikt.parameters.groups.OptionGroup
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.cds.ContestUpdate
-import org.icpclive.cds.adapters.applyCustomFieldsMap
 import org.icpclive.cds.adapters.applyTuningRules
-import org.icpclive.cds.api.toTeamId
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.fileContentFlow
 import org.icpclive.cds.util.getLogger
+import java.io.InputStream
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.io.path.exists
@@ -38,9 +36,13 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
 
-    public val customFieldsCsvPath: Path by option("--custom-fields-csv", help = "Path to file with custom fields")
+    public val customFieldsCsvPath: Path by option("--custom-fields-csv", help = "Path to file with custom fields for teams")
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/custom-fields.csv") { configDirectory.resolve("custom-fields.csv") }
+
+    public val orgCustomFieldsCsvPath: Path by option("--org-custom-fields-csv", help = "Path to file with custom fields for organizations")
+        .path(mustExist = true, canBeFile = true, canBeDir = false)
+        .defaultLazy("configDirectory/org-custom-fields.csv") { configDirectory.resolve("org-custom-fields.csv") }
 
     public fun toFlow(): Flow<ContestUpdate> {
         val advancedProperties = fileContentFlow(
@@ -61,39 +63,58 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         }
         val customFields = fileContentFlow(
             customFieldsCsvPath,
-            noData = emptyMap()
+            noData = emptyList()
         ) {
-            val parser = CSVParser.parse(it.reader(), CSVFormat.EXCEL.builder().setHeader().setSkipHeaderRecord(true).get())
-            val names = parser.headerNames
-            if (names.isEmpty()) {
-                log.warning { "Ignoring malformed ${customFieldsCsvPath.name}: empty file" }
-                emptyMap()
-            } else if (names[0] != "team_id") {
-                log.warning { "Ignoring malformed ${customFieldsCsvPath.name}: first column should be team_id" }
-                emptyMap()
-            } else {
-                parser.records.associate { record ->
-                    record[0].toTeamId() to names.zip(record).drop(1).associate { it.first!! to it.second!! }
-                }
-            }
+            val parsed = parseCsv(customFieldsCsvPath, it, "team_id")
+            listOf(TuningRule.fromTeamFields(parsed))
+        }
+        val orgCustomFields = fileContentFlow(
+            orgCustomFieldsCsvPath,
+            noData = emptyList()
+        ) {
+            val parsed = parseCsv(orgCustomFieldsCsvPath, it, "org_id")
+            listOf(TuningRule.fromOrganizationFields(parsed))
+        }
+
+        val combinedTuningFlow = combine(customFields, orgCustomFields, advancedProperties) { a, b, c ->
+            a + b + c
         }
         log.info { "Using config directory ${this.configDirectory}" }
         log.info { "Current working directory is ${Paths.get("").toAbsolutePath()}" }
-        val path = this.configDirectory.resolve("events.properties")
-            .takeIf { it.exists() }
-            ?.also { log.warning { "Using events.properties is deprecated, use settings.json instead." } }
+        val path = this.configDirectory.resolve("events.properties").takeIf { it.exists() }
             ?: this.configDirectory.resolve("settings.json5").takeIf { it.exists() }
             ?: this.configDirectory.resolve("settings.json")
         val creds: Map<String, String> = this.credentialFile?.let { Json.decodeFromStream<Map<String, String>?>(it.toFile().inputStream()) } ?: emptyMap()
         return CDSSettings.fromFile(path) { creds[it] }
             .toFlow()
-            .applyCustomFieldsMap(customFields)
-            .applyTuningRules(advancedProperties)
+            .applyTuningRules(combinedTuningFlow)
             .flowOn(Dispatchers.IO)
     }
+
     private companion object {
         val log by getLogger()
     }
+
+    private fun parseCsv(
+        path: Path,
+        input: InputStream,
+        idHeaderName: String,
+    ): Map<String, Map<String, String>> {
+        val parser = CSVParser.parse(input.reader(), CSVFormat.EXCEL.builder().setHeader().setSkipHeaderRecord(true).get())
+        val names = parser.headerNames
+        if (names.isEmpty()) {
+            log.warning { "Ignoring malformed ${path.name}: empty file" }
+            return emptyMap()
+        }
+        if (names[0] != idHeaderName) {
+            log.warning { "Ignoring malformed ${path.name}: first column should be ${idHeaderName}" }
+            return emptyMap()
+        }
+        return parser.records.associate { record ->
+            record[0] to names.zip(record).drop(1).associate { it.first!! to it.second!! }
+        }
+    }
+
 }
 
 

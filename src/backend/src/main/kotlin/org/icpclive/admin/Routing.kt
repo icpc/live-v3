@@ -205,6 +205,15 @@ fun Route.configureAdminApiRouting() {
                 examplesPackage = null
             )
         }
+        route("/orgCustomFields") {
+            configureConfigFileRouting(
+                Config.cdsSettings.orgCustomFieldsCsvPath,
+                emptyResponse = "",
+                validate = { },
+                schemaLocation = null,
+                examplesPackage = null
+            )
+        }
 
 
         get("/contestInfo") {

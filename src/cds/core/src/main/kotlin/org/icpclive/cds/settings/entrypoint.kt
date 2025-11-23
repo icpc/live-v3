@@ -13,6 +13,7 @@ public fun CDSSettings.Companion.fromFile(path: Path, credentialProvider: Creden
     return when {
         !file.exists() -> throw IllegalArgumentException("File ${file.absolutePath} does not exist")
         file.name.endsWith(".properties") -> throw IllegalStateException("Properties format is not supported anymore, use settings.json instead")
+        file.name.endsWith(".json5") -> throw IllegalStateException("Json5 format is not supported anymore, use settings.json instead")
         file.name.endsWith(".json") -> {
             val format = Json {
                 serializersModule = serializersModule(credentialProvider, path)

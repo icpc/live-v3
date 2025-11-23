@@ -1,11 +1,47 @@
 package org.icpclive.cds.tunning
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.elementDescriptors
+import kotlinx.serialization.descriptors.elementNames
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.serializer
 import org.icpclive.cds.api.*
 import org.icpclive.cds.api.AwardsSettings.MedalGroup
 import java.io.InputStream
+
+private fun SerialDescriptor.unwrapInlines(): SerialDescriptor = if (isInline) elementDescriptors.first().unwrapInlines() else this
+
+private inline fun <K, reified T> fieldsToOverrideImpl(rules: Map<K, Map<String, String>>) : Map<K, T> {
+    val s = serializer<T>()
+    val knownFields = buildSet {
+        val descriptor = s.descriptor
+        for ((index, element) in descriptor.elementNames.withIndex()) {
+            if (descriptor.getElementDescriptor(index).unwrapInlines().kind == PrimitiveKind.STRING) {
+                add(element)
+            }
+        }
+    }
+    return rules.mapValues { (_, data) ->
+        val knownData = data.filterKeys { it in knownFields }
+        val customData = data.filterKeys { it !in knownFields }
+        Json.decodeFromJsonElement(
+            s,
+            buildJsonObject {
+                for ((k, v) in knownData) {
+                    put(k, JsonPrimitive(v))
+                }
+                put("customFields", JsonObject(customData.mapValues { JsonPrimitive(it.value) }))
+            }
+        )
+    }
+}
+
 
 /**
  * This is a base interface for all rules in advanced.json file.
@@ -34,6 +70,13 @@ public sealed interface TuningRule {
         public fun tryListFromLegacyFormatFromInputStream(input: InputStream): List<TuningRule>? = runCatching {
             AdvancedProperties.fromInputStream(input).toRulesList()
         }.getOrNull()
+
+        public fun fromTeamFields(input: Map<String, Map<String, String>>): TuningRule {
+            return OverrideTeams(rules = fieldsToOverrideImpl(input.mapKeys { it.key.toTeamId() }))
+        }
+        public fun fromOrganizationFields(input: Map<String, Map<String, String>>): TuningRule {
+            return OverrideOrganizations(rules = fieldsToOverrideImpl(input.mapKeys { it.key.toOrganizationId() }))
+        }
     }
 
     public fun process(info: ContestInfo): ContestInfo

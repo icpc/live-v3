@@ -30,7 +30,6 @@ public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<ContestState>)
 public fun Flow<ContestUpdate>.addPreviousDays(previousDays: List<PreviousDaySettings>): Flow<ContestUpdate> = addPreviousDays(this, previousDays)
 
 public fun Flow<ContestUpdate>.applyTuningRules(tuningRulesFlow: Flow<List<TuningRule>>): Flow<ContestUpdate> = applyTuningRules(this, tuningRulesFlow)
-public fun Flow<ContestUpdate>.applyCustomFieldsMap(customFieldsFlow: Flow<Map<TeamId, Map<String, String>>>): Flow<ContestUpdate> = applyCustomFieldsMap(this, customFieldsFlow)
 
 public fun Flow<ContestUpdate>.autoCreateMissingGroupsAndOrgs(): Flow<ContestUpdate> = autoCreateMissingGroupsAndOrgs(this)
 

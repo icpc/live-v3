@@ -182,6 +182,7 @@ enum EditorType {
     advancedJson = "advancedJson",
     visualConfig = "visualConfig",
     customFields = "customFields",
+    orgCustomFields = "orgCustomFields",
 }
 
 function ConfigurationsEditor(): React.ReactElement {
@@ -192,6 +193,9 @@ function ConfigurationsEditor(): React.ReactElement {
         console.log(`Selection is now ${event.target.value}`);
         setSelection(event.target.value as EditorType);
     };
+    const isCsv =
+        selection == EditorType.customFields ||
+        selection == EditorType.orgCustomFields;
     return (
         <Container>
             <Select
@@ -216,17 +220,19 @@ function ConfigurationsEditor(): React.ReactElement {
                     key={EditorType.customFields}
                     value={EditorType.customFields}
                 >
-                    Custom fields
+                    Teams custom fields
+                </MenuItem>
+                <MenuItem
+                    key={EditorType.orgCustomFields}
+                    value={EditorType.orgCustomFields}
+                >
+                    Organizations custom fields
                 </MenuItem>
             </Select>
 
             <ConfigurationEditor
                 apiRoot={`${BASE_URL_BACKEND}/${selection}`}
-                editorType={
-                    selection == EditorType.customFields
-                        ? EditorLanguage.CSV
-                        : EditorLanguage.Json
-                }
+                editorType={isCsv ? EditorLanguage.CSV : EditorLanguage.Json}
             />
         </Container>
     );
