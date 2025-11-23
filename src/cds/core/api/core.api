@@ -65,7 +65,6 @@ public final class org/icpclive/cds/adapters/AdaptersKt {
 	public static final fun addFirstToSolves (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun addPreviousDaysByResults (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun addPreviousDaysBySettings (Lkotlinx/coroutines/flow/Flow;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
-	public static final fun applyCustomFieldsMap (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun applyTuningRules (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun autoCreateMissingGroupsAndOrgs (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun calculateScoreDifferences (Lkotlinx/coroutines/flow/Flow;)Lkotlinx/coroutines/flow/Flow;
@@ -3006,6 +3005,8 @@ public abstract interface class org/icpclive/cds/tunning/TuningRule {
 }
 
 public final class org/icpclive/cds/tunning/TuningRule$Companion {
+	public final fun fromOrganizationFields (Ljava/util/Map;)Lorg/icpclive/cds/tunning/TuningRule;
+	public final fun fromTeamFields (Ljava/util/Map;)Lorg/icpclive/cds/tunning/TuningRule;
 	public final fun listFromInputStream (Ljava/io/InputStream;)Ljava/util/List;
 	public final fun listFromString (Ljava/lang/String;)Ljava/util/List;
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
