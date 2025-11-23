@@ -30,7 +30,12 @@ public data class OverrideOrganizations(
                 org.copy(
                     displayName = override.displayName ?: org.displayName,
                     fullName = override.fullName ?: org.fullName,
-                    logo = (override.logo ?: org.logo) + override.extraLogo.orEmpty(),
+                    logo = (override.logo ?: org.logo) + override.extraLogos.orEmpty(),
+                    country = override.country ?: org.country,
+                    countryFlag = (override.countryFlag ?: org.countryFlag) + override.extraCountryFlags.orEmpty(),
+                    countrySubdivision = override.countrySubdivision ?: org.countrySubdivision,
+                    countrySubdivisionFlag = (override.countrySubdivisionFlag ?: org.countrySubdivisionFlag) + override.extraCountrySubdivisionFlags.orEmpty(),
+                    customFields = mergeMaps(org.customFields, override.customFields),
                 )
             }
         )
@@ -43,15 +48,29 @@ public data class OverrideOrganizations(
      *
      * @param displayName Name of the organization shown in most places.
      * @param fullName Full name of the organization. Will be mostly shown on admin pages.
-     * @param logo Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved. Replace data from cds
-     * @param extraLogos Organization logo. Not displayed anywhere for now, but can be exported to e.g., icpc resolved. Adds to data from cds
+     * @param logo Organization logo. Replace data from cds
+     * @param extraLogos Organization logo. Adds to data from cds
+     * @param country ISO 3166-1 alpha-3 code of the organization's country.
+     * @param countryFlag Country flags of the organization. Replace data from cds
+     * @param extraCountryFlags Country flags of the organization. Adds to data from cds
+     * @param countrySubdivision ISO 3166-2 code of country subdivision of the organization (like region or state). Adds to data from cds
+     * @param countrySubdivisionFlag Subdivision flags. Replace data from cds
+     * @param extraCountrySubdivisionFlags Subdivision flags. Adds to data from cds
+     * @param customFields Map of custom values. They can be used in substitutions in templates.
      */
     @Serializable
     public class Override(
         public val displayName: String? = null,
         public val fullName: String? = null,
         @Serializable(with = ListOrSingleElementSerializer::class) public val logo: List<MediaType>? = null,
-        public val extraLogo: List<MediaType>? = null,
+        @Serializable(with = ListOrSingleElementSerializer::class) public val extraLogos: List<MediaType>? = null,
+        public val country: String? = null,
+        @Serializable(with = ListOrSingleElementSerializer::class) public val countryFlag: List<MediaType>? = null,
+        @Serializable(with = ListOrSingleElementSerializer::class) public val extraCountryFlags: List<MediaType>? = null,
+        public val countrySubdivision: String? = null,
+        @Serializable(with = ListOrSingleElementSerializer::class) public val countrySubdivisionFlag: List<MediaType>? = null,
+        @Serializable(with = ListOrSingleElementSerializer::class) public val extraCountrySubdivisionFlags: List<MediaType>? = null,
+        public val customFields: Map<String, String>? = null,
     )
 
     private companion object {

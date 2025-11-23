@@ -28,8 +28,15 @@ public data class OverrideOrganisationTemplate(
     public val fullName: String? = null,
     public val displayName: String? = null,
     @Serializable(with = ListOrSingleElementSerializer::class) public val logo: List<MediaType>? = null,
-    @Serializable(with = ListOrSingleElementSerializer::class) public val extraLogo: List<MediaType>? = null,
-): Desugarable, TuningRule {
+    @Serializable(with = ListOrSingleElementSerializer::class) public val extraLogos: List<MediaType>? = null,
+    public val country: String? = null,
+    @Serializable(with = ListOrSingleElementSerializer::class) public val countryFlag: List<MediaType>? = null,
+    @Serializable(with = ListOrSingleElementSerializer::class) public val extraCountryFlags: List<MediaType>? = null,
+    public val countrySubdivision: String? = null,
+    @Serializable(with = ListOrSingleElementSerializer::class) public val countrySubdivisionFlag: List<MediaType>? = null,
+    @Serializable(with = ListOrSingleElementSerializer::class) public val extraCountrySubdivisionFlags: List<MediaType>? = null,
+    public val customFields: Map<String, String>? = null,
+    ): Desugarable, TuningRule {
     override fun process(info: ContestInfo): ContestInfo {
         return desugar(info).process(info)
     }
@@ -43,7 +50,14 @@ public data class OverrideOrganisationTemplate(
                         fullName = substituteRaw(fullName),
                         displayName = substituteRaw(displayName),
                         logo = logo?.map { substitute(it) },
-                        extraLogo = extraLogo?.map { substitute(it) }
+                        extraLogos = extraLogos?.map { substitute(it) },
+                        country = substituteRaw(country),
+                        countryFlag = countryFlag?.map { substitute(it) },
+                        extraCountryFlags = extraCountryFlags?.map { substitute(it) },
+                        countrySubdivision = substituteRaw(countrySubdivision),
+                        countrySubdivisionFlag = countrySubdivisionFlag?.map { substitute(it) },
+                        extraCountrySubdivisionFlags = extraCountrySubdivisionFlags?.map { substitute(it) },
+                        customFields = customFields?.mapValues { substituteRaw(it.value) },
                     )
                 }
             }
