@@ -1,46 +1,39 @@
 [
   {
-    "type": "overrideTeamTemplate",
-    "regexes": {
-      "custom": {
-        "from": "{team.fullName}",
-        "rules": {
-          "([^:]*): (.*) (\\([^)]*\\))": {
-            "org": "$1",
-            "funnyNameValue": "$2",
-            "contestants": "$3",
-          },
-          "spb(.*)": {
-                        "compValue": "$1"
-                    }
-        }
-      }
-    },
-    "organizationId": "{regexes.custom.org}",
-    "customFields": {
-      "funnyName": "{regexes.custom.funnyNameValue}",
-      "comp": "{regexes.custom.compValue}"
+    "type": "overrideOrganisationTemplate",
+    "logo": {
+      "type": "Image",
+      "url": "/media/organizations/{org.id}/logo.svg"
     }
   },
   {
-        "type": "overrideTeamTemplate",
-        "regexes": {
-            "custom": {
-                "from": "{team.id}",
-                "rules": {
-                    "spb(.*)": {
-                        "compValue": "$1"
-                    }
-                }
-            }
-        },
-        "customFields": {
-            "comp": "{regexes.custom.compValue}"
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "fromName": {
+        "from": "{team.fullName}",
+        "rules": {
+          "([^:]*): (.*) (\\([^)]*\\))": {
+            "funnyNameValue": "$2",
+            "contestants": "$3"
+          }
         }
+      },
+      "fromId": {
+        "from": "{team.id}",
+        "rules": {
+          "spb(.*)": {"compValue": "$1"}
+        }
+      }
     },
+    "customFields": {
+      "funnyName": "{regexes.fromName.funnyNameValue}",
+      "comp": "{regexes.fromId.compValue}"
+    }
+  },
   {
     "type": "overrideTeamTemplate",
     "displayName": "{org.displayName}: {funnyName}",
+    "fullName": "{org.fullName}: {funnyName}",
     "medias": {
       "screen": {
         "type": "WebRTCGrabberConnection",
@@ -63,31 +56,10 @@
     }
   },
   {
-    "type": "overrideProblems",
-    "rules": {
-      "W": {
-        "color": "#a6406eff"
-      },
-      "X": {
-        "color": "#bb7190ff"
-      },
-      "Y": {
-        "color": "#3daa91ff"
-      },
-      "Z": {
-        "color": "#3f4a58ff"
-      }
-    }
-  },
-  {
     "type": "addMedals",
     "gold": 5,
     "silver": 8,
     "bronze": 10
-  },
-  {
-    "type": "overrideQueue",
-    "maxQueueSize": 20
   },
   {
     "type": "overrideScoreboardSettings",
@@ -111,100 +83,11 @@
       "J": { "color": "#3EABB4" },
       "K": { "color": "#000000" },
       "L": { "color": "#8E74B7" },
+
+      "W": { "color": "#a6406e" },
+      "X": { "color": "#bb7190" },
+      "Y": { "color": "#3daa91" },
+      "Z": { "color": "#3f4a58" }
     }
-  },
-  {
-        "type": "overrideTeamTemplate",
-        "organizationId": "{team.customFields.organization_id}"
-    },
-    {
-        "type": "overrideOrganisationTemplate",
-        "logo": {
-            "type": "Image",
-            "url": "/media/organizations/{org.id}/logo.svg"
-        }
-    },
-    {
-        "type": "overrideOrganizations",
-        "rules": {
-            "3295": {
-                "displayName": "St. Petersburg ITMO University"
-            },
-            "1366": {
-                "displayName": "Novgorod State University"
-            },
-            "1456": {
-                "displayName": "Petrozavodsk State University"
-            },
-            "1584": {
-                "displayName": "St. Petersburg Baltic State Technical University"
-            },
-            "1587": {
-                "displayName": "St. Petersburg Polytechnic University"
-            },
-            "1592": {
-                "displayName": "St. Petersburg University of Aerospace Instrumentation"
-            },
-            "1772": {
-                "displayName": "St. Petersburg State University of Architecture and Civil Engineering"
-            },
-            "1802": {
-                "displayName": "St. Petersburg State University"
-            },
-            "3526": {
-                "displayName": "St. Petersburg Academic University"
-            },
-            "4325": {
-                "displayName": "St. Petersburg State University of Telecommunications"
-            },
-            "5320": {
-                "displayName": "St. Petersburg Electrotechnical University LETI"
-            },
-            "5341": {
-                "displayName": "Herzen State Pedagogical University"
-            },
-            "5343": {
-                "displayName": "Popov Naval Institute of Radio Electronics"
-            },
-            "6536": {
-                "displayName": "Pskov State University"
-            },
-            "7043": {
-                "displayName": "Admiral Makarov State University of Maritime and Inland Shipping"
-            },
-            "7537": {
-                "displayName": "St. Petersburg State University of Economics"
-            },
-            "7846": {
-                "displayName": "A. Pushkin Leningrad State University"
-            },
-            "7935": {
-                "displayName": "Military Telecommunications Academy named after the Soviet Union Marshal Budienny S.M."
-            },
-            "9606": {
-                "displayName": "St. Petersburg Campus of HSE University"
-            },
-            "10354": {
-                "displayName": "Mikhailovskaya Military Artillery Academy"
-            },
-            "10615": {
-                "displayName": "St. Petersburg State University of Industrial Technologies and Design"
-            },
-            "10617": {
-                "displayName": "Murmansk Arctic University"
-            },
-            "10618": {
-                "displayName": "Polytechnic College of Novgorod State University"
-            },
-            "14046": {
-                "displayName": "St. Petersburg State Forest Technical University named after S.M. Kirova"
-            },
-            "14047": {
-                "displayName": "Military Space Academy"
-            },
-            "24938": {
-                "displayName": "Military Academy of Logistics"
-            }
-        }
-    }
+  }
 ]
