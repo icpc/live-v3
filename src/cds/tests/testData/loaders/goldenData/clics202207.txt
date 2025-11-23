@@ -4107,7 +4107,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "PRT",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/366/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/366/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/366/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/366/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "366"
+                }
             },
             {
                 "id": "443",
@@ -4130,7 +4168,46 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/443/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/443/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/443/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/443/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "clicsTwitterHashtag": "#Polytechnique",
+                    "icpc_id": "443"
+                }
             },
             {
                 "id": "444",
@@ -4153,7 +4230,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "CHE",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/444/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/444/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/444/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/444/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "444"
+                }
             },
             {
                 "id": "451",
@@ -4176,7 +4291,46 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "CHE",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/451/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/451/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/451/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/451/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "clicsTwitterHashtag": "#ETH",
+                    "icpc_id": "451"
+                }
             },
             {
                 "id": "460",
@@ -4199,7 +4353,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/460/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/460/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/460/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/460/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "460"
+                }
             },
             {
                 "id": "478",
@@ -4222,7 +4414,46 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "PRT",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/478/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/478/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/478/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/478/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "clicsTwitterHashtag": "#UPorto",
+                    "icpc_id": "478"
+                }
             },
             {
                 "id": "742",
@@ -4245,7 +4476,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/742/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/742/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/742/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/742/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "742"
+                }
             },
             {
                 "id": "789",
@@ -4268,7 +4537,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "PRT",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/789/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/789/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/789/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/789/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "789"
+                }
             },
             {
                 "id": "2079",
@@ -4291,7 +4598,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2079/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2079/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2079/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2079/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "2079"
+                }
             },
             {
                 "id": "2122",
@@ -4314,7 +4659,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2122/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2122/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2122/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2122/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "2122"
+                }
             },
             {
                 "id": "2166",
@@ -4337,7 +4720,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2166/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2166/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2166/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2166/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "2166"
+                }
             },
             {
                 "id": "2170",
@@ -4360,7 +4781,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2170/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2170/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2170/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2170/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "2170"
+                }
             },
             {
                 "id": "2257",
@@ -4383,7 +4842,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2257/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2257/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2257/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2257/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "2257"
+                }
             },
             {
                 "id": "2260",
@@ -4406,7 +4903,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2260/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2260/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2260/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2260/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "2260"
+                }
             },
             {
                 "id": "2261",
@@ -4429,7 +4964,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2261/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2261/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2261/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2261/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "2261"
+                }
             },
             {
                 "id": "2263",
@@ -4452,7 +5025,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2263/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2263/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2263/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2263/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "2263"
+                }
             },
             {
                 "id": "2273",
@@ -4475,7 +5086,46 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2273/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2273/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2273/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/2273/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "clicsTwitterHashtag": "#UPC",
+                    "icpc_id": "2273"
+                }
             },
             {
                 "id": "3236",
@@ -4498,7 +5148,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ISR",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3236/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3236/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3236/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3236/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "3236"
+                }
             },
             {
                 "id": "3409",
@@ -4521,7 +5209,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3409/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3409/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3409/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3409/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "3409"
+                }
             },
             {
                 "id": "3436",
@@ -4544,7 +5270,46 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3436/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3436/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3436/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3436/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "clicsTwitterHashtag": "#ENS_Ulm",
+                    "icpc_id": "3436"
+                }
             },
             {
                 "id": "3545",
@@ -4567,7 +5332,45 @@
                         "filename": "logo.jpg",
                         "mime": "image/jpeg"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3545/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3545/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3545/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/3545/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "3545"
+                }
             },
             {
                 "id": "5282",
@@ -4590,7 +5393,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "PRT",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5282/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5282/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5282/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5282/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "5282"
+                }
             },
             {
                 "id": "5687",
@@ -4613,7 +5454,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5687/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5687/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5687/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/5687/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "5687"
+                }
             },
             {
                 "id": "6369",
@@ -4636,7 +5515,45 @@
                         "filename": "logo.jpg",
                         "mime": "image/jpeg"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6369/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6369/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6369/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6369/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "6369"
+                }
             },
             {
                 "id": "6379",
@@ -4659,7 +5576,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6379/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6379/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6379/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/6379/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "6379"
+                }
             },
             {
                 "id": "7032",
@@ -4682,7 +5637,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7032/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7032/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7032/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7032/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "7032"
+                }
             },
             {
                 "id": "7083",
@@ -4705,7 +5698,45 @@
                         "filename": "logo.jpg",
                         "mime": "image/jpeg"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7083/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7083/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7083/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7083/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "7083"
+                }
             },
             {
                 "id": "7435",
@@ -4728,7 +5759,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7435/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7435/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7435/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7435/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "7435"
+                }
             },
             {
                 "id": "7990",
@@ -4751,7 +5820,46 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7990/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7990/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7990/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/7990/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "clicsTwitterHashtag": "#LaStatale",
+                    "icpc_id": "7990"
+                }
             },
             {
                 "id": "8246",
@@ -4774,7 +5882,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8246/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8246/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8246/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8246/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "8246"
+                }
             },
             {
                 "id": "8450",
@@ -4797,7 +5943,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "CHE",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8450/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8450/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8450/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8450/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "8450"
+                }
             },
             {
                 "id": "8460",
@@ -4820,7 +6004,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8460/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8460/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8460/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8460/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "8460"
+                }
             },
             {
                 "id": "8483",
@@ -4843,7 +6065,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ISR",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8483/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8483/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8483/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8483/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "8483"
+                }
             },
             {
                 "id": "8488",
@@ -4866,7 +6126,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8488/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8488/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8488/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8488/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "8488"
+                }
             },
             {
                 "id": "8818",
@@ -4889,7 +6187,46 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8818/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8818/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8818/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8818/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "clicsTwitterHashtag": "#ScuolaNormale",
+                    "icpc_id": "8818"
+                }
             },
             {
                 "id": "8869",
@@ -4912,7 +6249,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8869/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8869/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8869/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8869/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "8869"
+                }
             },
             {
                 "id": "8886",
@@ -4935,7 +6310,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8886/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8886/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8886/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/8886/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "8886"
+                }
             },
             {
                 "id": "9009",
@@ -4958,7 +6371,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9009/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9009/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9009/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9009/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "9009"
+                }
             },
             {
                 "id": "9635",
@@ -4981,7 +6432,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9635/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9635/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9635/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9635/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "9635"
+                }
             },
             {
                 "id": "9745",
@@ -5004,7 +6493,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9745/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9745/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9745/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/9745/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "9745"
+                }
             },
             {
                 "id": "10640",
@@ -5027,7 +6554,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10640/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10640/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10640/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10640/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "10640"
+                }
             },
             {
                 "id": "10678",
@@ -5050,7 +6615,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10678/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10678/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10678/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10678/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "10678"
+                }
             },
             {
                 "id": "10685",
@@ -5073,7 +6676,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10685/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10685/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10685/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10685/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "10685"
+                }
             },
             {
                 "id": "10689",
@@ -5096,7 +6737,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10689/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10689/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10689/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10689/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "10689"
+                }
             },
             {
                 "id": "10706",
@@ -5119,7 +6798,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10706/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10706/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10706/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/10706/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "10706"
+                }
             },
             {
                 "id": "11111",
@@ -5142,7 +6859,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ISR",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11111/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11111/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11111/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11111/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "11111"
+                }
             },
             {
                 "id": "11205",
@@ -5165,7 +6920,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11205/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11205/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11205/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11205/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "11205"
+                }
             },
             {
                 "id": "11538",
@@ -5188,7 +6981,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11538/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11538/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11538/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/11538/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "11538"
+                }
             },
             {
                 "id": "15696",
@@ -5211,7 +7042,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/15696/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/15696/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/15696/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/15696/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "15696"
+                }
             },
             {
                 "id": "16191",
@@ -5234,7 +7103,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ITA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/16191/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/16191/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/16191/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/16191/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "16191"
+                }
             },
             {
                 "id": "19561",
@@ -5257,7 +7164,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/19561/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/19561/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/19561/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/19561/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "19561"
+                }
             },
             {
                 "id": "20085",
@@ -5280,7 +7225,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "ESP",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20085/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20085/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20085/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20085/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "20085"
+                }
             },
             {
                 "id": "20090",
@@ -5303,7 +7286,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "FRA",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20090/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20090/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20090/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/20090/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "20090"
+                }
             },
             {
                 "id": "42424242",
@@ -5326,7 +7347,45 @@
                         "filename": "logo.64.png",
                         "mime": "image/png"
                     }
-                ]
+                ],
+                "country": "GBR",
+                "countryFlag": [
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/42424242/country_flag-4",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-4.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/42424242/country_flag-2",
+                        "width": 512,
+                        "height": 512,
+                        "filename": "country_flag-2.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/42424242/country_flag",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag.svg",
+                        "mime": "image/svg+xml"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "../../tests/testData/loaders/clics-2022-07/contests/swerc2022/organizations/42424242/country_flag-3",
+                        "width": 640,
+                        "height": 480,
+                        "filename": "country_flag-3.svg",
+                        "mime": "image/svg+xml"
+                    }
+                ],
+                "customFields": {
+                    "icpc_id": "42424242"
+                }
             }
         ],
         "languages": [

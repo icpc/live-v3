@@ -801,6 +801,21 @@
                 }
             ]
         },
+        "kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
         "overrideOrganisationTemplate": {
             "type": "object",
             "properties": {
@@ -820,8 +835,29 @@
                 "logo": {
                     "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                 },
-                "extraLogo": {
+                "extraLogos": {
                     "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "countryFlag": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "extraCountryFlags": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "countrySubdivision": {
+                    "type": "string"
+                },
+                "countrySubdivisionFlag": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "extraCountrySubdivisionFlags": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "customFields": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>"
                 }
             },
             "additionalProperties": false,
@@ -830,20 +866,7 @@
             ],
             "title": "overrideOrganisationTemplate"
         },
-        "kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>": {
-            "oneOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/org.icpclive.cds.api.MediaType<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
-                    }
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
-        "org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,ListOrSingleElement?,kotlin.collections.ArrayList?>": {
+        "org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.collections.LinkedHashMap?>": {
             "type": "object",
             "properties": {
                 "displayName": {
@@ -855,8 +878,29 @@
                 "logo": {
                     "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                 },
-                "extraLogo": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>"
+                "extraLogos": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "countryFlag": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "extraCountryFlags": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "countrySubdivision": {
+                    "type": "string"
+                },
+                "countrySubdivisionFlag": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "extraCountrySubdivisionFlags": {
+                    "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
+                },
+                "customFields": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>"
                 }
             },
             "additionalProperties": false,
@@ -866,7 +910,7 @@
             "type": "object",
             "patternProperties": {
                 ".*": {
-                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,ListOrSingleElement?,kotlin.collections.ArrayList?>"
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.collections.LinkedHashMap?>"
                 }
             }
         },
@@ -1181,21 +1225,6 @@
                 }
             ]
         },
-        "kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String>": {
-            "oneOf": [
-                {
-                    "type": "object",
-                    "patternProperties": {
-                        ".*": {
-                            "type": "string"
-                        }
-                    }
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
         "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.TeamMediaType,ListOrSingleElement?>": {
             "oneOf": [
                 {
@@ -1231,6 +1260,19 @@
                         "toolData": {
                             "$ref": "#/$defs/ListOrSingleElement?<kotlin.collections.ArrayList,org.icpclive.cds.api.MediaType>"
                         }
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "kotlin.collections.ArrayList?<org.icpclive.cds.api.MediaType>": {
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/org.icpclive.cds.api.MediaType<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
                     }
                 },
                 {

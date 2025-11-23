@@ -118,7 +118,7 @@ internal class ClicsModel {
             customFields = buildMap {
                 put("clicsTeamFullName", name)
                 put("clicsTeamDisplayName", displayName ?: name)
-                label?.let { put("clicsTeamLabel", it) }
+                label?.let { put("label", it) }
                 icpcId?.let { put("icpc_id", it) }
             }
         )
@@ -167,7 +167,16 @@ internal class ClicsModel {
         id = id.toOrganizationId(),
         displayName = name ?: formalName ?: id,
         fullName = formalName ?: name ?: id,
-        logo = logo.mapNotNull { it.toApi() }
+        logo = logo.mapNotNull { it.toApi() },
+        country = country,
+        countryFlag = countryFlag.mapNotNull { it.toApi() },
+        countrySubdivision = countrySubdivision,
+        countrySubdivisionFlag = countrySubdivisionFlag.mapNotNull { it.toApi() },
+        customFields = buildMap {
+            twitterHashtag?.let { put("clicsTwitterHashtag", it) }
+            twitterAccount?.let { put("clicsTwitterAccount", it) }
+            icpcId?.let { put("icpc_id", it) }
+        }
     )
 
     private fun Language.toApi() = LanguageInfo(

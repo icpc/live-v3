@@ -61,7 +61,14 @@ private fun OrganizationInfo.toClicsOrg() = Organization(
     id = id.sanitizedValue,
     name = displayName,
     formalName = fullName,
-    logo = logo.mapNotNull { it.toClicsMedia() }
+    logo = logo.mapNotNull { it.toClicsMedia() },
+    country = country,
+    countryFlag = countryFlag.mapNotNull { it.toClicsMedia() },
+    countrySubdivision = countrySubdivision,
+    countrySubdivisionFlag = countrySubdivisionFlag.mapNotNull { it.toClicsMedia() },
+    icpcId = customFields["icpc_id"],
+    twitterAccount = customFields["clicsTwitterAccount"],
+    twitterHashtag = customFields["clicsTwitterHashtag"],
 )
 
 private fun LanguageInfo.toClicsLang() = Language(
@@ -94,6 +101,7 @@ private fun MediaType.toClicsMedia(): File? {
 private fun TeamInfo.toClicsTeam() = Team(
     id = id.sanitizedValue,
     label = customFields["label"] ?: id.sanitizedValue,
+    icpcId = customFields["icpc_id"],
     name = fullName,
     displayName = displayName,
     hidden = isHidden,

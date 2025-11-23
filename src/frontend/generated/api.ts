@@ -162,6 +162,11 @@ export interface OrganizationInfo {
   displayName: string;
   fullName: string;
   logo: MediaType[];
+  country?: string | null;
+  countryFlag?: MediaType[];
+  countrySubdivision?: string | null;
+  countrySubdivisionFlag?: MediaType[];
+  customFields: { [key: string]: string };
 }
 
 export interface LanguageInfo {
