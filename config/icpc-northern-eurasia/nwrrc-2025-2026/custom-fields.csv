@@ -1,4 +1,4 @@
-team_id,icpcid,icpc_id,original_name,university_display_name,group_id,organization_id
+team_id,icpcid,icpc_id,original_name,university_display_name,group_id,organizationId
 spb101,1115012,1115012,<3,St. Petersburg State University,37957,1802
 spb102,1117231,1117231,Deprecated 25,St. Petersburg ITMO University,37957,3295
 spb103,1117232,1117232,Log'n'roll,St. Petersburg State University,37957,1802
