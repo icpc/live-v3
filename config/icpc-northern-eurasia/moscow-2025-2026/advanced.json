@@ -1,0 +1,127 @@
+[
+  {
+    "type": "overrideScoreboardSettings",
+    "showTeamsWithoutSubmissions": false
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "org": {
+        "from": "{team.fullName}",
+        "rules": {
+          "^([^:]*).*": {
+            "id": "$1"
+          }
+        }
+      },
+      "custom": {
+        "from": "{team.fullName}",
+        "rules": {
+          "[^:]*: (.*) \\([^)]*\\)": {
+            "funnyNameValue": "$1"
+          }
+        }
+      },
+      "login": {
+        "from": "{team.id}",
+        "rules": {
+          "mrc2025-(\\d{3})": {
+            "compValue": "$1"
+          }
+        }
+      },
+    },
+    "organizationId": "{regexes.org.id}",
+    "customFields": {
+      "funnyName": "{regexes.custom.funnyNameValue}",
+      "grabberUrl": "192.168.168.2",
+      "grabberPeer": "{regexes.login.compValue}",
+      "grabberPswd": "hidden"
+    }
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "organizationId": "{team.customFields.org_id}"
+  },
+  {
+    "type": "overrideOrganizations",
+    "rules": {
+      "130": { "displayName": "BMSTU", "fullName": "Bauman Moscow State Technical University" },
+      "1214": { "displayName": "MAI", "fullName": "Moscow Aviation Institute" },
+      "1215": { "displayName": "MEPhI", "fullName": "National Research Nuclear University MEPhI" },
+      "1220": { "displayName": "MIPT", "fullName": "Moscow Institute of Physics and Technology" },
+      "1222": { "displayName": "Moscow Tech U MIREA", "fullName": "Russian Technological University - MIREA" },
+      "1223": { "displayName": "MPSU", "fullName": "Moscow Pedagogical State University" },
+      "1228": { "displayName": "MPEI", "fullName": "Moscow Power Engineering Institute" },
+      "1234": { "displayName": "MIET", "fullName": "National Research University of Electronic Technology" },
+      "1235": { "displayName": "MISIS", "fullName": "National University of Science and Technology \"MISIS\"" },
+      "1237": { "displayName": "Moscow SU", "fullName": "Moscow State University" },
+      "1241": { "displayName": "MSTU STANKIN", "fullName": "Moscow State University of Technology \"STANKIN\"" },
+      "3534": { "displayName": "HSE", "fullName": "HSE University" },
+      "6405": { "displayName": "PREU", "fullName": "Plekhanov Russian Economic University" },
+      "6517": { "displayName": "Moscow Polytech U", "fullName": "Moscow Polytechnic University" },
+      "6525": { "displayName": "MGSU", "fullName": "Moscow State University of Civil Engineering" },
+      "7787": { "displayName": "Skoltech", "fullName": "Skolkovo Institute of Science and Technology" },
+      "8914": { "displayName": "Financial U", "fullName": "Financial University Under the Government of Russian Federation" },
+      "9631": { "displayName": "Leonov UNITECH", "fullName": "Leonov Moscow Region University of Technology" },
+      "11398": { "displayName": "RUDN", "fullName": "Peoples’ Friendship University of Russia" },
+      "14842": { "displayName": "MTUCI", "fullName": "Moscow Technical University of Communications and Informatics" },
+      "19262": { "displayName": "PSTGU", "fullName": "Saint Tikhon's Orthodox University for the Humanities" },
+      "24847": { "displayName": "Synergy University", "fullName": "Moscow University for Industry and Finance \"Synergy\"" },
+      "25895": { "displayName": "CentralU", "fullName": "Central University" },
+    }
+  },
+  {
+    "type": "overrideOrganisationTemplate",
+    "logo": {
+      "type": "Image",
+      "url": "/media/organizations/{org.id}/logo.svg"
+    }
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "displayName": "{org.displayName}: {funnyName}",
+    "medias": {
+      "screen": {
+        "type": "WebRTCGrabberConnection",
+        "url": "http://192.168.168.2:20055",
+        "peerName": "{grabberPeer}",
+        "streamType": "desktop",
+        "credential": "{grabberPswd}",
+      },
+      "camera": {
+        "type": "WebRTCGrabberConnection",
+        "url": "http://192.168.168.2:20055",
+        "peerName": "{grabberPeer}",
+        "streamType": "webcam",
+        "credential": "{grabberPswd}",
+      },
+      "keylog": {
+        "type": "Object",
+        "url": "https://files.m.icpc.live/keylogsjds/{grabberPeer}_keylog.ndjson"
+      },
+      "achievement": {
+        "type": "Object",
+        "url": "/api/overlay/svgAchievement/ach-smart-with-logo.svg?teamId={team.id}"
+      },
+    }
+  },
+  {
+    "type": "overrideProblems",
+    "rules": {
+      "7/2025_11_15/uUe9YJziPT":{"color":"#FFC0CB"},
+      "7/2025_11_15/mbECKH7LdN":{"color":"#0000FF"},
+      "7/2025_11_15/cWgkjemGBl":{"color":"#C0C0C0"},
+      "7/2025_11_15/Vv3zLrbHUO":{"color":"#008000"},
+      "7/2025_11_15/e2JPc4Q9l3":{"color":"#F5F5DC"},
+      "7/2025_11_15/H9ynNpdW3E":{"color":"#FFFF00"},
+      "7/2025_11_15/1LnXm6fIxA":{"color":"#000000"},
+      "7/2025_11_15/RcUjYBRDNu":{"color":"#40E0D0"},
+      "7/2025_11_15/Y2LTWBtU7S":{"color":"#00b3ff"},
+      "7/2025_11_15/NdrikRK5mw":{"color":"#9D9B6A"},
+      "7/2025_11_15/s0vqxVcNYK":{"color":"#800080"},
+      "7/2025_11_15/BDZOhIWJjx":{"color":"#00FF00"},
+      "7/2025_11_15/3NVJesHD4L":{"color":"#FF0000"}
+    }
+  }
+]
