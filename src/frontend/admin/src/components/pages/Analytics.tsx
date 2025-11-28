@@ -161,7 +161,7 @@ const buildMessagesTableColumns = (
             if (message.runInfo?.result?.type === RunResult.Type.ICPC) {
                 return message.runInfo.result.verdict.shortName;
             } else if (message.runInfo?.result?.type === RunResult.Type.IOI) {
-                return message.runInfo.result.scoreAfter.toString(0);
+                return message.runInfo.result.scoreAfter.toString();
             }
             return "";
         },
