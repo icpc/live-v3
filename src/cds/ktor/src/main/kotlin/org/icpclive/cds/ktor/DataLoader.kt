@@ -1,5 +1,6 @@
 package org.icpclive.cds.ktor
 
+import io.ktor.client.HttpClient
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -12,6 +13,7 @@ import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.util.logger
 import org.w3c.dom.Document
 import java.io.File
+import java.util.WeakHashMap
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.time.*
@@ -21,6 +23,7 @@ public fun interface DataLoader<out T> {
 
     public companion object {
         private val logger by getLogger()
+        private val httpClientsCache = mutableMapOf<NetworkSettings, HttpClient>()
 
         private fun <T> impl(
             networkSettings: NetworkSettings,
@@ -28,7 +31,9 @@ public fun interface DataLoader<out T> {
             processFile: File.() -> T,
             processRequest: suspend HttpResponse.() -> T
         ) : DataLoader<T> {
-            val httpClient = networkSettings.createHttpClient()
+            val httpClient = httpClientsCache.getOrPut(networkSettings) {
+                networkSettings.createHttpClient()
+            }
 
             return DataLoader {
                 when (val url = computeURL()) {

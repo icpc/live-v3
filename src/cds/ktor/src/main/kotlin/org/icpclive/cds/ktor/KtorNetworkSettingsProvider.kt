@@ -3,7 +3,7 @@ package org.icpclive.cds.ktor
 import kotlinx.serialization.Serializable
 
 @Serializable
-public class NetworkSettings(
+public data class NetworkSettings(
     public val allowUnsecureConnections: Boolean = false,
     public val checkedServerName: String? = null,
 )
