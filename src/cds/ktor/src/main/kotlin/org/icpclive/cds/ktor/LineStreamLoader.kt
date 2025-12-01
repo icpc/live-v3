@@ -41,8 +41,7 @@ internal fun getLineFlow(networkSettings: NetworkSettings, url: UrlOrLocalPath):
             }
         }
     }
-}.flowOn(Dispatchers.IO)
-    .catch { throw wrapIfSSLError(it) }
+}.catch { throw wrapIfSSLError(it) }
 
 
 private val logger by getLogger()

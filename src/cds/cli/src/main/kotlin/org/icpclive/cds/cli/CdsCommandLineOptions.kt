@@ -3,7 +3,9 @@ package org.icpclive.cds.cli
 import com.github.ajalt.clikt.parameters.groups.OptionGroup
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
 import org.apache.commons.csv.CSVFormat
@@ -87,6 +89,7 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
             .toFlow()
             .applyCustomFieldsMap(customFields)
             .applyTuningRules(advancedProperties)
+            .flowOn(Dispatchers.IO)
     }
     private companion object {
         val log by getLogger()

@@ -21,22 +21,21 @@ public abstract class FullReloadContestDataSource(private val interval: Duration
         loadOnce().also {
             logger.info { "Reloaded contest data in ${loadStart.elapsedNow()}" }
         }
-    }.flowOn(Dispatchers.IO)
-        .conflate()
-        .transform {
-            val status = it.contestInfo.status
-            if (!isOver && status is ContestStatus.OVER) {
-                emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.RUNNING(status.startedAt, status.frozenAt, isFake = true))))
-            } else {
-                emit(InfoUpdate(it.contestInfo))
-            }
-            it.runs.sortedBy { it.time }.forEach { run -> emit(RunUpdate(run)) }
-            it.commentaryMessages.forEach { msg -> emit(CommentaryMessagesUpdate(msg)) }
-            if (!isOver && status is ContestStatus.OVER) {
-                isOver = true
-                emit(InfoUpdate(it.contestInfo))
-            }
-        }
+    }.conflate()
+     .transform {
+         val status = it.contestInfo.status
+         if (!isOver && status is ContestStatus.OVER) {
+             emit(InfoUpdate(it.contestInfo.copy(status = ContestStatus.RUNNING(status.startedAt, status.frozenAt, isFake = true))))
+         } else {
+             emit(InfoUpdate(it.contestInfo))
+         }
+         it.runs.sortedBy { it.time }.forEach { run -> emit(RunUpdate(run)) }
+         it.commentaryMessages.forEach { msg -> emit(CommentaryMessagesUpdate(msg)) }
+         if (!isOver && status is ContestStatus.OVER) {
+             isOver = true
+             emit(InfoUpdate(it.contestInfo))
+         }
+     }
 
     private companion object {
         val logger by getLogger()

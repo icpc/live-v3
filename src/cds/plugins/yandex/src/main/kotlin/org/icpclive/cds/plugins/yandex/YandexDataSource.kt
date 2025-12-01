@@ -50,7 +50,7 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
                     participantLoader.load(),
                     settings.resultType
                 )
-            }.flowOn(Dispatchers.IO)
+            }
                 .stateIn(this)
             val info = rawContestInfoFlow.value.toApi()
             val status = info.status
@@ -76,7 +76,6 @@ internal class YandexDataSource(private val settings: YandexSettings) : ContestD
                 onError = { log.error(it) { "Failed to reload data, retrying" } }
             ) { allSubmissionsLoader.load() }
                 .onStart { delay(120.seconds) }
-                .flowOn(Dispatchers.IO)
             val allRunsFlow = merge(allSubmissionsFlow, newSubmissionsFlow).map {
                 with(rawContestInfoFlow.value) {
                     it.sortedWith(compareBy({ it.time }, { it.id }))
