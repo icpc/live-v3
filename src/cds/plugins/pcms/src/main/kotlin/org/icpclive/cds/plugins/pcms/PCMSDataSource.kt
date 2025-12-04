@@ -97,7 +97,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             log.info { "Loaded contestInfo for time = $contestTime" }
         }
         val teams = teamsAndRuns.map { it.first }.sortedBy { it.id.value }
-        val mainRuns = teamsAndRuns.flatMap { it.second }
+        val mainRuns = teamsAndRuns.flatMap { it.second }.associateBy { it.id }
         jobsElement?.let {
             for (job in it.children("job")) {
                 val problem =  job.attr("problem-alias")?.toProblemId() ?: continue
@@ -109,10 +109,17 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
             it.children("job")
                 .filter { it.hasAttribute("problem-alias") }
                 .map { parseRunFromJob(it) }
-                .toList()
-        } ?: emptyList()
-        val runs = (mainRuns + jobsRuns).groupBy { it.id }.values.map {
-            it.firstOrNull { it.result !is RunResult.InProgress } ?: it.first()
+                .associateBy { it.id }
+        } ?: emptyMap()
+        val runs = (mainRuns.keys + jobsRuns.keys).map {
+            val fromMain = mainRuns[it]
+            val fromJobs = jobsRuns[it]
+            when {
+                fromMain == null -> fromJobs!!
+                fromJobs == null -> fromMain
+                fromMain.result is RunResult.InProgress -> fromJobs
+                else -> fromMain
+            }
         }
         return ContestParseResult(
             ContestInfo(
