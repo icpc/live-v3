@@ -355,6 +355,7 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         TIMELINE_TIME_BORDER_WIDTH: 2,
 
         KEYLOG_MAXIMUM_FOR_NORMALIZATION: 500, // max value for normalization
+        KEYLOG_INTERVAL_LENGTH: 1000 * 60, // ms
         KEYLOG_TOP_PADDING: 6, // px
         KEYLOG_BOTTOM_PADDING: 2, // px
         KEYLOG_Z_INDEX: 0,
