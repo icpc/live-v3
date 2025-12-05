@@ -123,6 +123,8 @@ export const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
     align-items: center;
     align-self: stretch;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
 `;
 
 interface ScoreboardRowProps {
