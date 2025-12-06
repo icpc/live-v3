@@ -9,7 +9,10 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 interface Exporter {
     val subscriptionCount: Int
         get() = 1
-    fun CoroutineScope.runOn(contestUpdates: Flow<ContestStateWithScoreboard>): Router
+    fun CoroutineScope.runOn(
+        contestUpdates: Flow<ContestStateWithScoreboard>,
+        adminContestUpdates: Flow<ContestStateWithScoreboard>,
+    ): Router
 }
 
 fun interface Router {

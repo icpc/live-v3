@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.selects.onTimeout
 import kotlinx.coroutines.selects.select
 import kotlin.concurrent.atomics.*
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import kotlin.time.Duration
 
 public fun <T> Flow<T>.logAndRetryWithDelay(duration: Duration, log: (Throwable) -> Unit): Flow<T> = retryWhen { cause: Throwable, _: Long ->
@@ -69,8 +71,8 @@ public class SharedFlowSubscriptionScope<T> @PublishedApi internal constructor(
         subscriptionWaitingFlow.update { it - 1 }
     }
 
-    @OptIn(ExperimentalAtomicApi::class)
     public inline fun withSubscription(count: Int = 1, block: (Flow<T>) -> Unit) {
+        contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
         acquire(count)
         val remaining = AtomicInt(count)
         block(flow.onSubscription {
@@ -81,6 +83,7 @@ public class SharedFlowSubscriptionScope<T> @PublishedApi internal constructor(
 }
 
 public inline fun <T> Flow<T>.shareWith(scope: CoroutineScope, subscribers: SharedFlowSubscriptionScope<T>.() -> Unit) {
+    contract { callsInPlace(subscribers, InvocationKind.EXACTLY_ONCE) }
     val subscriptionWaitingFlow = MutableStateFlow(1)
     val starter = SharingStarted {
         subscriptionWaitingFlow.transformWhile {
