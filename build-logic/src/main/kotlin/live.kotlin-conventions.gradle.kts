@@ -24,7 +24,9 @@ kotlin {
             freeCompilerArgs.add("-Xjvm-default=all")
             optIn.addAll(listOf(
                 "kotlinx.serialization.ExperimentalSerializationApi",
-                "kotlin.time.ExperimentalTime"
+                "kotlin.time.ExperimentalTime",
+                "kotlin.contracts.ExperimentalContracts",
+                "kotlin.concurrent.atomics.ExperimentalAtomicApi"
             ))
         }
     }

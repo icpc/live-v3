@@ -24,6 +24,7 @@ dependencies {
     implementation(libs.ktor.server.contentNegotiation)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.html)
+    implementation(libs.ktor.server.auth)
     implementation(projects.cds.full)
     implementation(projects.clicsApi)
     implementation(projects.serverShared)

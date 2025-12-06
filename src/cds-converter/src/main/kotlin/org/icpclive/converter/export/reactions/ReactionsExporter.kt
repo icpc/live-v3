@@ -3,6 +3,8 @@
 package org.icpclive.converter.export.reactions
 
 import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.html.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -18,6 +20,7 @@ import org.icpclive.cds.scoreboard.Ranking
 import org.icpclive.cds.util.serializers.DurationInMillisecondsSerializer
 import org.icpclive.converter.export.Exporter
 import org.icpclive.converter.export.Router
+import org.icpclive.converter.isAdminAccount
 import kotlin.time.Duration
 
 @Serializable
@@ -199,23 +202,33 @@ private fun RunInfo.toShortRun(state: ContestStateWithScoreboard): ShortRun {
     )
 }
 
+class ReactionsData(
+    scope: CoroutineScope,
+    data: Flow<ContestStateWithScoreboard>,
+) {
+    val stateFlow = data
+        .mapNotNull { it.state.infoAfterEvent?.toShortContestInfo() }
+        .stateIn(scope, SharingStarted.Eagerly, null)
+        .filterNotNull()
+    val shortRuns = data
+        .toRunsMap { run, state -> run.toShortRun(state) }
+        .stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
+    val fullRuns = data
+        .toRunsMap { run, info -> run.toFullReactionsRun(info) }
+        .stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
+
+}
 
 object ReactionsExporter : Exporter {
     override val subscriptionCount: Int
         get() = 3
-    override fun CoroutineScope.runOn(contestUpdates: Flow<ContestStateWithScoreboard>): Router {
-        val stateFlow =
-            contestUpdates
-                .mapNotNull { it.state.infoAfterEvent?.toShortContestInfo() }
-                .stateIn(this, SharingStarted.Eagerly, null)
-                .filterNotNull()
-
-        val shortRuns = contestUpdates
-            .toRunsMap { run, state -> run.toShortRun(state) }
-            .stateIn(this, SharingStarted.Eagerly, persistentMapOf())
-        val fullRuns = contestUpdates
-            .toRunsMap { run, info -> run.toFullReactionsRun(info) }
-            .stateIn(this, SharingStarted.Eagerly, persistentMapOf())
+    override fun CoroutineScope.runOn(
+        contestUpdates: Flow<ContestStateWithScoreboard>,
+        adminContestUpdates: Flow<ContestStateWithScoreboard>,
+    ): Router {
+        val data = ReactionsData(this, contestUpdates)
+        val adminData = ReactionsData(this, adminContestUpdates)
+        fun ApplicationCall.getData() = if (principal<AccountInfo>().isAdminAccount()) adminData else data
 
         return object : Router {
             override fun HtmlBlockTag.mainPage() {
@@ -239,16 +252,16 @@ object ReactionsExporter : Exporter {
                         }
                     }
                     get("/contestInfo.json") {
-                        call.respond(stateFlow.first())
+                        call.respond(call.getData().stateFlow.first())
                     }
                     get("/runs.json") {
-                        call.respond(shortRuns.first().values.toList())
+                        call.respond(call.getData().shortRuns.first().values.toList())
                     }
                     get("/fullRuns.json") {
-                        call.respond(fullRuns.first().values.toList())
+                        call.respond(call.getData().fullRuns.first().values.toList())
                     }
                     get("/fullRuns/{id}") {
-                        val runInfo = fullRuns.first()[call.parameters["id"]!!.toRunId()]
+                        val runInfo = call.getData().fullRuns.first()[call.parameters["id"]!!.toRunId()]
                         if (runInfo == null) {
                             call.respond(HttpStatusCode.NotFound)
                         } else {

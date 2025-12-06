@@ -16,7 +16,6 @@ import java.nio.file.Path
 import kotlin.concurrent.atomics.*
 import kotlin.time.Duration
 
-@OptIn(ExperimentalAtomicApi::class)
 class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeWithId>(
     private val presetsPath: Path,
     private val widgetManager: Manager<OverlayWidgetType>,
