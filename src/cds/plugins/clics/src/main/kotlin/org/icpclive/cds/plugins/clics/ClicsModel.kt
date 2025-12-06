@@ -26,6 +26,7 @@ internal class ClicsModel {
     private val runs = mutableMapOf<String, Run>()
     private val judgmentRunIds = mutableMapOf<String, MutableSet<String>>()
     private val groups = mutableMapOf<String, Group>()
+    private val persons = mutableMapOf<String, Person>()
 
     private var startTime: Instant? = null
     private var contestLength = 5.hours
@@ -184,6 +185,17 @@ internal class ClicsModel {
         name = name,
         extensions = extensions
     )
+    private fun Person.toApi() = PersonInfo(
+        id = id.toPersonId(),
+        name = name ?: id,
+        role = role ?: "other",
+        icpcId = icpcId,
+        teamIds = teamIds.map { it.toTeamId() },
+        title = title,
+        email = email,
+        sex = sex,
+        photo = photo.mapNotNull { it.toApi() }
+    )
 
     val contestInfo: ContestInfo
         get() = ContestInfo(
@@ -199,15 +211,16 @@ internal class ClicsModel {
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
             organizationList = organizations.values.map { it.toApi() },
             languagesList = languages.values.map { it.toApi() },
+            personsList = persons.values.map { it.toApi() },
             cdsSupportsFinalization = true
         )
 
-    private inline fun <reified T> putInSet(set: MutableMap<String, T>, id: String, data: T?, getId: T.() -> String) {
+    private inline fun <reified T: ObjectWithId> putInSet(set: MutableMap<String, T>, id: String, data: T?) {
         if (data == null) {
             set.remove(id)
         } else {
-            require(id == data.getId()) {
-                "Mismatch of id in event and ${T::class.simpleName} object: in event = ${id}, in object = ${data.getId()}"
+            require(id == data.id) {
+                "Mismatch of id in event and ${T::class.simpleName} object: in event = ${id}, in object = ${data.id}"
             }
             set[id] = data
         }
@@ -225,11 +238,10 @@ internal class ClicsModel {
         }
     }
 
-    private inline fun <reified T> putInSetLinked(
+    private inline fun <reified T: ObjectWithId> putInSetLinked(
         set: MutableMap<String, T>,
         id: String,
         data: T?,
-        getId: T.() -> String,
         referenceSet: MutableMap<String, MutableSet<String>>,
         getReferenceId: T.() -> String
     ) : List<String> = buildList {
@@ -242,7 +254,7 @@ internal class ClicsModel {
             referenceSet.getOrPut(it) { mutableSetOf() }.add(id)
             add(it)
         }
-        putInSet(set, id, data, getId)
+        putInSet(set, id, data)
     }.distinct()
 
     private suspend fun processContest(contest: Contest?) {
@@ -263,27 +275,32 @@ internal class ClicsModel {
     }
 
     private suspend fun processLanguage(id: String, language: Language?) {
-        putInSet(languages, id, language, Language::id)
+        putInSet(languages, id, language)
+        contestInfoUpdated()
+    }
+
+    private suspend fun processPerson(id: String, person: Person?) {
+        putInSet(persons, id, person)
         contestInfoUpdated()
     }
 
     private suspend fun processProblem(id: String, problem: Problem?) {
-        putInSet(problems, id, problem, Problem::id)
+        putInSet(problems, id, problem)
         contestInfoUpdated()
     }
 
     private suspend fun processOrganization(id: String, organization: Organization?) {
-        putInSet(organizations, id, organization, Organization::id)
+        putInSet(organizations, id, organization)
         contestInfoUpdated()
     }
 
     private suspend fun processTeam(id: String, team: Team?) {
-        putInSet(teams, id, team, Team::id)
+        putInSet(teams, id, team)
         contestInfoUpdated()
     }
 
     private suspend fun processJudgementType(id: String, judgementType: JudgementType?) {
-        putInSet(judgementTypes, id, judgementType, JudgementType::id)
+        putInSet(judgementTypes, id, judgementType)
         for ((_, submission) in submissions) {
             if (submissionJudgmentIds[submission.id]?.any { judgements[it]?.judgementTypeId == id } == true) {
                 submissionUpdated(submission.id)
@@ -292,7 +309,7 @@ internal class ClicsModel {
     }
 
     private suspend fun processGroup(id: String, group: Group?) {
-        putInSet(groups, id, group, Group::id)
+        putInSet(groups, id, group)
         contestInfoUpdated()
     }
 
@@ -306,7 +323,6 @@ internal class ClicsModel {
             set = judgements,
             id = id,
             data = judgement,
-            getId = Judgement::id,
             referenceSet = submissionJudgmentIds,
             getReferenceId = Judgement::submissionId
         ).forEach { submissionUpdated(it) }
@@ -317,14 +333,13 @@ internal class ClicsModel {
             set = runs,
             id = id,
             data = run,
-            getId = Run::id,
             referenceSet = judgmentRunIds,
             getReferenceId = Run::judgementId
         ).forEach { judgements[it]?.let { j -> submissionUpdated(j.submissionId)} }
     }
 
     private suspend fun processCommentary(id: String, commentary: Commentary?) {
-        putInSet(commentaries, id, commentary, Commentary::id)
+        putInSet(commentaries, id, commentary)
         commentaryUpdated(id)
     }
 
@@ -366,27 +381,28 @@ internal class ClicsModel {
         contestInfoUpdated()
     }
 
-    private suspend fun <T> processBatch(batch: List<T>, keys: Set<String>, single: suspend (String, T?) -> Unit, id: T.() -> String) {
-        for (kid in keys.toSet() - batch.map { it.id() }.toSet()) {
+    private suspend fun <T : ObjectWithId> processBatch(batch: List<T>, keys: Set<String>, single: suspend (String, T?) -> Unit) {
+        for (kid in keys.toSet() - batch.map { it.id }.toSet()) {
             single(kid, null)
         }
         for (e in batch) {
-            single(e.id(), e)
+            single(e.id, e)
         }
     }
 
     suspend fun processEvent(event: Event) {
         when (event) {
-            is BatchCommentaryEvent -> processBatch(event.data, commentaries.keys, ::processCommentary, Commentary::id)
-            is BatchGroupEvent -> processBatch(event.data, groups.keys, ::processGroup, Group::id)
-            is BatchJudgementEvent -> processBatch(event.data, judgements.keys, ::processJudgement, Judgement::id)
-            is BatchJudgementTypeEvent ->  processBatch(event.data, judgementTypes.keys, ::processJudgementType, JudgementType::id)
-            is BatchLanguageEvent -> processBatch(event.data, languages.keys, ::processLanguage, Language::id)
-            is BatchOrganizationEvent -> processBatch(event.data, organizations.keys, ::processOrganization, Organization::id)
-            is BatchProblemEvent -> processBatch(event.data, problems.keys, ::processProblem, Problem::id)
-            is BatchRunEvent -> processBatch(event.data, runs.keys, ::processRun, Run::id)
-            is BatchSubmissionEvent -> processBatch(event.data, submissions.keys, ::processSubmission, Submission::id)
-            is BatchTeamEvent -> processBatch(event.data, teams.keys, ::processTeam, Team::id)
+            is BatchCommentaryEvent -> processBatch(event.data, commentaries.keys, ::processCommentary)
+            is BatchGroupEvent -> processBatch(event.data, groups.keys, ::processGroup)
+            is BatchJudgementEvent -> processBatch(event.data, judgements.keys, ::processJudgement)
+            is BatchJudgementTypeEvent ->  processBatch(event.data, judgementTypes.keys, ::processJudgementType)
+            is BatchLanguageEvent -> processBatch(event.data, languages.keys, ::processLanguage)
+            is BatchOrganizationEvent -> processBatch(event.data, organizations.keys, ::processOrganization)
+            is BatchProblemEvent -> processBatch(event.data, problems.keys, ::processProblem)
+            is BatchRunEvent -> processBatch(event.data, runs.keys, ::processRun)
+            is BatchSubmissionEvent -> processBatch(event.data, submissions.keys, ::processSubmission)
+            is BatchTeamEvent -> processBatch(event.data, teams.keys, ::processTeam)
+            is BatchPersonEvent -> processBatch(event.data, persons.keys, ::processPerson)
             is ContestEvent -> processContest(event.data)
             is ProblemEvent -> processProblem(event.id, event.data)
             is OrganizationEvent -> processOrganization(event.id, event.data)
@@ -399,9 +415,10 @@ internal class ClicsModel {
             is JudgementEvent -> processJudgement(event.id, event.data)
             is RunEvent -> processRun(event.id, event.data)
             is CommentaryEvent -> processCommentary(event.id, event.data)
+            is PersonEvent -> processPerson(event.id, event.data)
             is PreloadFinishedEvent -> {}
-            is AwardEvent, is AccountEvent, is PersonEvent, is ClarificationEvent -> {}
-            is BatchAccountEvent, is BatchAwardEvent, is BatchPersonEvent, is BatchClarificationEvent -> {}
+            is AwardEvent, is AccountEvent, is ClarificationEvent -> {}
+            is BatchAccountEvent, is BatchAwardEvent, is BatchClarificationEvent -> {}
         }
     }
 

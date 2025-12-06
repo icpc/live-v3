@@ -5,7 +5,7 @@ import org.icpclive.ksp.clics.*
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("problems")
 public data class Problem(
-    @Required public val id: String,
+    @Required override val id: String,
     public val uuid: String? = null,
     @Required public val ordinal: Int,
     @Required public val label: String,
@@ -21,4 +21,4 @@ public data class Problem(
     @SinceClics(FeedVersion.`2022_07`) @JsonName("package") public val problemPackage: List<File>? = null,
     @SinceClics(FeedVersion.`2022_07`) public val statement: List<File>? = null,
     @SinceClics(FeedVersion.DRAFT) public val attachments: List<File>? = null,
-)
+): ObjectWithId

@@ -17,6 +17,7 @@ export interface ContestInfo {
   showTeamsWithoutSubmissions: boolean;
   problemColorPolicy: ProblemColorPolicy;
   customFields: { [key: string]: string };
+  persons: PersonInfo[];
 }
 
 export type ContestStatus =
@@ -175,6 +176,18 @@ export interface LanguageInfo {
   extensions: string[];
 }
 
+export interface PersonInfo {
+  id: PersonId;
+  name: string;
+  role: string;
+  icpcId?: string | null;
+  teamIds?: TeamId[];
+  title?: string | null;
+  email?: string | null;
+  sex?: string | null;
+  photo?: MediaType[];
+}
+
 export type ProblemId = string;
 
 export enum ScoreMergeMode {
@@ -230,6 +243,8 @@ export interface ManualAwardSetting {
   citation: string;
   teamCdsIds: TeamId[];
 }
+
+export type PersonId = string;
 
 export type RunId = string;
 

@@ -5,7 +5,7 @@ import org.icpclive.ksp.clics.*
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("organizations")
 public data class Organization(
-    @Required public val id: String,
+    @Required override val id: String,
     public val icpcId: String? = null,
     public val name: String? = null,
     public val formalName: String? = null,
@@ -18,4 +18,4 @@ public data class Organization(
     @SinceClics(FeedVersion.`2023_06`) public val twitterAccount: String? = null,
     public val location: Location? = null,
     public val logo: List<File> = emptyList()
-)
+): ObjectWithId

@@ -7,7 +7,7 @@ import kotlin.time.Instant
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("commentary")
 public data class Commentary(
-    @Required public val id: String,
+    @Required override val id: String,
     @Required public val time: Instant,
     @Required public val contestTime: Duration,
     @Required public val message: String,
@@ -16,4 +16,4 @@ public data class Commentary(
     public val teamIds: List<String>? = null,
     public val problemIds: List<String>? = null,
     public val submissionIds: List<String>? = null
-)
+): ObjectWithId

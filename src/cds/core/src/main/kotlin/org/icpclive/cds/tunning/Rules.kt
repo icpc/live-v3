@@ -291,7 +291,26 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
                 it.id to OverrideOrganizations.Override(
                     displayName = it.displayName,
                     fullName = it.fullName,
-                    logo = it.logo
+                    logo = it.logo,
+                    country = it.country,
+                    countryFlag = it.countryFlag,
+                    countrySubdivision = it.countrySubdivision,
+                    countrySubdivisionFlag = it.countrySubdivisionFlag,
+                    customFields = it.customFields
+                )
+            }
+        ),
+        OverridePersons(
+            rules = personsList.associate {
+                it.id to OverridePersons.Override(
+                    name = it.name,
+                    role = it.role,
+                    icpcId = it.icpcId,
+                    teamIds = it.teamIds,
+                    title = it.title,
+                    email = it.email,
+                    sex = it.sex,
+                    photo = it.photo,
                 )
             }
         ),
@@ -315,6 +334,6 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
             inProgressRunWaitTime = queueSettings.inProgressRunWaitTime,
             maxQueueSize = queueSettings.maxQueueSize,
             maxUntestedRun = queueSettings.maxUntestedRun,
-        )
+        ),
     )
 }

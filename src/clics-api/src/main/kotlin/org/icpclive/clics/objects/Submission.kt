@@ -7,7 +7,7 @@ import kotlin.time.Instant
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("submissions")
 public data class Submission(
-    @Required public val id: String,
+    @Required override val id: String,
     public val languageId: String? = null,
     @Required public val teamId: String,
     @Required public val problemId: String,
@@ -16,4 +16,4 @@ public data class Submission(
     public val entryPoint: String? = null,
     public val files: List<File> = emptyList(),
     public val reaction: List<File>? = null
-)
+): ObjectWithId

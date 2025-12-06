@@ -1,6 +1,8 @@
 package org.icpclive.clics.events
 
-public sealed interface IdEvent<out T> : Event {
+import org.icpclive.clics.objects.ObjectWithId
+
+public sealed interface IdEvent<out T: ObjectWithId> : Event {
     public val id: String
     public val data: T?
 }

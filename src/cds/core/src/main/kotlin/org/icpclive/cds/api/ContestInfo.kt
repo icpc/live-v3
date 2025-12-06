@@ -212,7 +212,8 @@ public data class ContestInfo(
     @Required val showTeamsWithoutSubmissions: Boolean = true,
     @Required val problemColorPolicy: ProblemColorPolicy = ProblemColorPolicy.Always,
     @Transient val cdsSupportsFinalization: Boolean = false,
-    @Required val customFields: Map<String, String> = emptyMap()
+    @Required val customFields: Map<String, String> = emptyMap(),
+    @Required @InefficientContestInfoApi @SerialName("persons") val personsList: List<PersonInfo> = emptyList(),
 ) {
     public constructor(
         name: String,
@@ -234,7 +235,7 @@ public data class ContestInfo(
             status = ContestStatus.byCurrentTime(startTime, freezeTime, contestLength, holdTime = null),
             resultType = resultType, contestLength = contestLength, freezeTime = freezeTime,
             problemList = problemList, teamList = teamList, groupList = groupList, organizationList = organizationList,
-            languagesList = languagesList,
+            languagesList = languagesList, personsList = emptyList(),
             penaltyRoundingMode = penaltyRoundingMode,
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             cdsSupportsFinalization = cdsSupportsFinalization,
@@ -247,6 +248,7 @@ public data class ContestInfo(
     val problems: Map<ProblemId, ProblemInfo> by lazy { problemList.associateBy { it.id } }
     val languages: Map<LanguageId, LanguageInfo> by lazy { languagesList.associateBy { it.id } }
     val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }
+    val persons: Map<PersonId, PersonInfo> by lazy { personsList.associateBy { it.id } }
 }
 
 public val ContestInfo.startTimeOrZero: Instant

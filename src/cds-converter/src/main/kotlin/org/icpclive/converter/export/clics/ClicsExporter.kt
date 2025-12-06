@@ -40,6 +40,7 @@ private val LanguageId.sanitizedValue get() = sanitize(value)
 private val ProblemId.sanitizedValue get() = sanitize(value)
 private val GroupId.sanitizedValue get() = sanitize(value)
 private val RunId.sanitizedValue get() = sanitize(value)
+private val PersonId.sanitizedValue get() = sanitize(value)
 private val CommentaryMessageId.sanitizedValue get() = sanitize(value)
 
 private fun ProblemInfo.toClicsProblem() = Problem(
@@ -75,6 +76,18 @@ private fun LanguageInfo.toClicsLang() = Language(
     id = id.sanitizedValue,
     name = name,
     extensions = extensions
+)
+
+private fun PersonInfo.toClicsPerson() = Person(
+    id = id.sanitizedValue,
+    name = name,
+    icpcId = icpcId,
+    teamIds = teamIds.map { it.sanitizedValue },
+    title = title,
+    email = email,
+    sex = sex,
+    role = role,
+    photo = photo.mapNotNull { it.toClicsMedia() },
 )
 
 
@@ -172,28 +185,25 @@ object ClicsExporter : Exporter {
         penaltyTime = info.penaltyPerWrongAttempt
     )
 
-    private suspend fun <ID, T, CT> FlowCollector<EventProducer>.diffChange(
-        old: MutableMap<ID, T>,
+    private suspend fun <T: ObjectWithId> FlowCollector<EventProducer>.diffChange(
+        old: MutableMap<String, T>,
         new: List<T>,
-        id: T.() -> ID,
-        convert: T.() -> CT,
-        toFinalEvent: (ID, EventToken, CT?) -> Event
+        toFinalEvent: (String, EventToken, T?) -> Event
     ) {
         for (n in new) {
-            if (old[n.id()] != n) {
-                updateEvent(n.id(), n.convert(), toFinalEvent)
-                old[n.id()] = n
+            if (old[n.id] != n) {
+                updateEvent(n.id, n, toFinalEvent)
+                old[n.id] = n
             }
         }
     }
 
-    private suspend fun <ID, T> FlowCollector<EventProducer>.diffRemove(
-        old: MutableMap<ID, T>,
+    private suspend fun <T : ObjectWithId> FlowCollector<EventProducer>.diffRemove(
+        old: MutableMap<String, T>,
         new: List<T>,
-        id: T.() -> ID,
-        toFinalEvent: (ID, EventToken, Nothing?) -> Event
+        toFinalEvent: (String, EventToken, Nothing?) -> Event
     ) {
-        val values = new.map { it.id() }.toSet()
+        val values = new.map { it.id }.toSet()
         val toRemove = buildList {
             for (k in old.keys) {
                 if (k !in values) {
@@ -205,17 +215,6 @@ object ClicsExporter : Exporter {
         for (i in toRemove) {
             old.remove(i)
         }
-    }
-
-    private suspend fun <ID, T, CT> FlowCollector<EventProducer>.diff(
-        old: MutableMap<ID, T>,
-        new: List<T>,
-        id: T.() -> ID,
-        convert: T.() -> CT,
-        toFinalEvent: (ID, EventToken, CT?) -> Event
-    ) {
-        diffChange(old, new, id, convert, toFinalEvent)
-        diffRemove(old, new, id, toFinalEvent)
     }
 
     private fun getState(info: ContestInfo) = when (val status = info.status) {
@@ -327,12 +326,13 @@ object ClicsExporter : Exporter {
         }
     }
 
-    private val groupsMap = mutableMapOf<GroupId, GroupInfo>()
-    private val orgsMap = mutableMapOf<OrganizationId, OrganizationInfo>()
-    private val languagesMap = mutableMapOf<LanguageId, LanguageInfo>()
-    private val problemsMap = mutableMapOf<ProblemId, ProblemInfo>()
-    private val teamsMap = mutableMapOf<TeamId, TeamInfo>()
+    private val groupsMap = mutableMapOf<String, Group>()
+    private val orgsMap = mutableMapOf<String, Organization>()
+    private val languagesMap = mutableMapOf<String, Language>()
+    private val problemsMap = mutableMapOf<String, Problem>()
+    private val teamsMap = mutableMapOf<String, Team>()
     private val awardsMap = mutableMapOf<String, Award>()
+    private val personsMap = mutableMapOf<String, Person>()
 
     @OptIn(InefficientContestInfoApi::class)
     private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
@@ -343,16 +343,26 @@ object ClicsExporter : Exporter {
                 updateEvent(type.id, type, ::JudgementTypeEvent)
             }
         }
-        diff(problemsMap, newInfo.problemList, { id }, { toClicsProblem() }) { id, token, data -> ProblemEvent(id.sanitizedValue, token, data) }
-        diffChange(groupsMap, newInfo.groupList, { id }, { toClicsGroup() }) { id, token, data -> GroupEvent(id.sanitizedValue, token, data) }
-        diffChange(orgsMap, newInfo.organizationList, { id }, { toClicsOrg() }) { id, token, data -> OrganizationEvent(id.sanitizedValue, token, data) }
-        diffChange(languagesMap, newInfo.languagesList + unknownLanguage, { id }, { toClicsLang() }) { id, token, data -> LanguageEvent(id.sanitizedValue, token, data) }
+        val clicsProblems = newInfo.problemList.map { it.toClicsProblem() }
+        val clicsGroups = newInfo.groupList.map { it.toClicsGroup() }
+        val clicsOrgs = newInfo.organizationList.map { it.toClicsOrg() }
+        val clicsLangs = (newInfo.languagesList + unknownLanguage).map { it.toClicsLang() }
+        val clicsTeams = newInfo.teamList.map { it.toClicsTeam() }
+        val clicsPersons = newInfo.personsList.map { it.toClicsPerson() }
 
-        diff(teamsMap, newInfo.teamList, { id }, TeamInfo::toClicsTeam) { id, token, data -> TeamEvent(id.sanitizedValue, token, data) }
+        diffChange(problemsMap, clicsProblems, ::ProblemEvent)
+        diffChange(groupsMap, clicsGroups, ::GroupEvent)
+        diffChange(orgsMap, clicsOrgs, ::OrganizationEvent)
+        diffChange(languagesMap, clicsLangs, ::LanguageEvent)
+        diffChange(teamsMap, clicsTeams, ::TeamEvent)
+        diffChange(personsMap, clicsPersons, ::PersonEvent)
 
-        diffRemove(groupsMap, newInfo.groupList, { id }) { id, token, data -> GroupEvent(id.sanitizedValue, token, data) }
-        diffRemove(orgsMap, newInfo.organizationList, { id }) { id, token, data -> OrganizationEvent(id.sanitizedValue, token, data) }
-        diffRemove(languagesMap, newInfo.languagesList + unknownLanguage, { id }) { id, token, data -> LanguageEvent(id.sanitizedValue, token, data) }
+        diffRemove(personsMap, clicsPersons, ::PersonEvent)
+        diffRemove(teamsMap, clicsTeams, ::TeamEvent)
+        diffRemove(groupsMap, clicsGroups, ::GroupEvent)
+        diffRemove(orgsMap, clicsOrgs, ::OrganizationEvent)
+        diffRemove(languagesMap, clicsLangs, ::LanguageEvent)
+        diffRemove(problemsMap, clicsProblems, ::ProblemEvent)
     }
 
     private suspend fun FlowCollector<EventProducer>.processCommentaryMessage(event: CommentaryMessage) {
@@ -383,13 +393,9 @@ object ClicsExporter : Exporter {
                 is RunUpdate -> processRun(state.state.infoBeforeEvent!!, event.newInfo)
                 is CommentaryMessagesUpdate -> processCommentaryMessage(event.message)
             }
-            diff(
-                awardsMap,
-                state.toClicsAwards(),
-                Award::id,
-                { this },
-                ::AwardEvent
-            )
+            val newAwards = state.toClicsAwards()
+            diffChange(awardsMap, newAwards, ::AwardEvent)
+            diffRemove(awardsMap, newAwards, ::AwardEvent)
         }.map { it(EventToken("live-cds-${eventCounter++}")) }
     }
 

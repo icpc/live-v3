@@ -34,16 +34,16 @@ public final class org/icpclive/clics/UrlKt {
 
 public final class org/icpclive/clics/events/AccountEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Account;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Account;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
 public final class org/icpclive/clics/events/AwardEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Award;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Award;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
@@ -152,16 +152,16 @@ public final class org/icpclive/clics/events/BatchTeamEvent : org/icpclive/clics
 
 public final class org/icpclive/clics/events/ClarificationEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Clarification;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Clarification;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
 public final class org/icpclive/clics/events/CommentaryEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Commentary;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Commentary;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
@@ -212,44 +212,44 @@ public abstract interface class org/icpclive/clics/events/GlobalEvent : org/icpc
 
 public final class org/icpclive/clics/events/GroupEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Group;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Group;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
 public abstract interface class org/icpclive/clics/events/IdEvent : org/icpclive/clics/events/Event {
-	public abstract fun getData ()Ljava/lang/Object;
+	public abstract fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public abstract fun getId ()Ljava/lang/String;
 }
 
 public final class org/icpclive/clics/events/JudgementEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Judgement;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Judgement;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
 public final class org/icpclive/clics/events/JudgementTypeEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/JudgementType;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/JudgementType;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
 public final class org/icpclive/clics/events/LanguageEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Language;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
 	public fun getData ()Lorg/icpclive/clics/objects/Language;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
 public final class org/icpclive/clics/events/OrganizationEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Organization;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getData ()Lorg/icpclive/clics/objects/Organization;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
@@ -257,7 +257,7 @@ public final class org/icpclive/clics/events/OrganizationEvent : org/icpclive/cl
 
 public final class org/icpclive/clics/events/PersonEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Person;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getData ()Lorg/icpclive/clics/objects/Person;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
@@ -270,7 +270,7 @@ public final class org/icpclive/clics/events/PreloadFinishedEvent : org/icpclive
 
 public final class org/icpclive/clics/events/ProblemEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Problem;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getData ()Lorg/icpclive/clics/objects/Problem;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
@@ -278,7 +278,7 @@ public final class org/icpclive/clics/events/ProblemEvent : org/icpclive/clics/e
 
 public final class org/icpclive/clics/events/RunEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Run;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getData ()Lorg/icpclive/clics/objects/Run;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
@@ -293,7 +293,7 @@ public final class org/icpclive/clics/events/StateEvent : org/icpclive/clics/eve
 
 public final class org/icpclive/clics/events/SubmissionEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Submission;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getData ()Lorg/icpclive/clics/objects/Submission;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
@@ -301,7 +301,7 @@ public final class org/icpclive/clics/events/SubmissionEvent : org/icpclive/clic
 
 public final class org/icpclive/clics/events/TeamEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Team;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun getData ()Ljava/lang/Object;
+	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;
 	public fun getData ()Lorg/icpclive/clics/objects/Team;
 	public fun getId ()Ljava/lang/String;
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
@@ -320,7 +320,7 @@ public final class org/icpclive/clics/objects/Access {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Account {
+public final class org/icpclive/clics/objects/Account : org/icpclive/clics/objects/ObjectWithId {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -334,7 +334,7 @@ public final class org/icpclive/clics/objects/Account {
 	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/clics/objects/Account;
 	public static synthetic fun copy$default (Lorg/icpclive/clics/objects/Account;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Account;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getIp ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getPassword ()Ljava/lang/String;
@@ -380,7 +380,7 @@ public final class org/icpclive/clics/objects/ApiInformationProvider {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Award {
+public final class org/icpclive/clics/objects/Award : org/icpclive/clics/objects/ObjectWithId {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -390,13 +390,13 @@ public final class org/icpclive/clics/objects/Award {
 	public static synthetic fun copy$default (Lorg/icpclive/clics/objects/Award;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Award;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCitation ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getTeamIds ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Clarification {
+public final class org/icpclive/clics/objects/Clarification : org/icpclive/clics/objects/ObjectWithId {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -413,7 +413,7 @@ public final class org/icpclive/clics/objects/Clarification {
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getContestTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getFromTeamId ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getProblemId ()Ljava/lang/String;
 	public final fun getReplyToId ()Ljava/lang/String;
 	public final fun getText ()Ljava/lang/String;
@@ -424,7 +424,7 @@ public final class org/icpclive/clics/objects/Clarification {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Commentary {
+public final class org/icpclive/clics/objects/Commentary : org/icpclive/clics/objects/ObjectWithId {
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -440,7 +440,7 @@ public final class org/icpclive/clics/objects/Commentary {
 	public static synthetic fun copy-OCcUtpk$default (Lorg/icpclive/clics/objects/Commentary;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Commentary;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getContestTime-UwyO8pc ()J
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getMessage ()Ljava/lang/String;
 	public final fun getProblemIds ()Ljava/util/List;
 	public final fun getSourceId ()Ljava/lang/String;
@@ -452,7 +452,7 @@ public final class org/icpclive/clics/objects/Commentary {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Contest {
+public final class org/icpclive/clics/objects/Contest : org/icpclive/clics/objects/ObjectWithId {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -475,7 +475,7 @@ public final class org/icpclive/clics/objects/Contest {
 	public final fun getCountdownPauseTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getDuration-UwyO8pc ()J
 	public final fun getFormalName ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getLocation ()Lorg/icpclive/clics/objects/Location;
 	public final fun getLogo ()Ljava/util/List;
 	public final fun getName ()Ljava/lang/String;
@@ -527,7 +527,7 @@ public final class org/icpclive/clics/objects/File {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Group {
+public final class org/icpclive/clics/objects/Group : org/icpclive/clics/objects/ObjectWithId {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Location;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Location;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -539,7 +539,7 @@ public final class org/icpclive/clics/objects/Group {
 	public static synthetic fun copy$default (Lorg/icpclive/clics/objects/Group;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Location;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Group;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getIcpcId ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getLocation ()Lorg/icpclive/clics/objects/Location;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getType ()Ljava/lang/String;
@@ -547,7 +547,7 @@ public final class org/icpclive/clics/objects/Group {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Judgement {
+public final class org/icpclive/clics/objects/Judgement : org/icpclive/clics/objects/ObjectWithId {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;JLkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Duration;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;JLkotlin/time/Instant;Lkotlin/time/Instant;Lkotlin/time/Duration;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -567,7 +567,7 @@ public final class org/icpclive/clics/objects/Judgement {
 	public final fun getCurrent ()Ljava/lang/Boolean;
 	public final fun getEndContestTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getEndTime ()Lkotlin/time/Instant;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getJudgementTypeId ()Ljava/lang/String;
 	public final fun getMaxRunTime ()Ljava/lang/Double;
 	public final fun getScore ()Ljava/lang/Double;
@@ -579,7 +579,7 @@ public final class org/icpclive/clics/objects/Judgement {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/JudgementType {
+public final class org/icpclive/clics/objects/JudgementType : org/icpclive/clics/objects/ObjectWithId {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -590,7 +590,7 @@ public final class org/icpclive/clics/objects/JudgementType {
 	public final fun copy (Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;)Lorg/icpclive/clics/objects/JudgementType;
 	public static synthetic fun copy$default (Lorg/icpclive/clics/objects/JudgementType;Ljava/lang/String;Ljava/lang/String;ZZLjava/lang/String;ILjava/lang/Object;)Lorg/icpclive/clics/objects/JudgementType;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getPenalty ()Z
 	public final fun getSimplifiedJudgementTypeId ()Ljava/lang/String;
@@ -599,7 +599,7 @@ public final class org/icpclive/clics/objects/JudgementType {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Language {
+public final class org/icpclive/clics/objects/Language : org/icpclive/clics/objects/ObjectWithId {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -609,7 +609,7 @@ public final class org/icpclive/clics/objects/Language {
 	public static synthetic fun copy$default (Lorg/icpclive/clics/objects/Language;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Language;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getExtensions ()Ljava/util/List;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -630,7 +630,11 @@ public final class org/icpclive/clics/objects/Location {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Organization {
+public abstract interface class org/icpclive/clics/objects/ObjectWithId {
+	public abstract fun getId ()Ljava/lang/String;
+}
+
+public final class org/icpclive/clics/objects/Organization : org/icpclive/clics/objects/ObjectWithId {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Location;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Location;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -655,7 +659,7 @@ public final class org/icpclive/clics/objects/Organization {
 	public final fun getCountrySubdivisionFlag ()Ljava/util/List;
 	public final fun getFormalName ()Ljava/lang/String;
 	public final fun getIcpcId ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getLocation ()Lorg/icpclive/clics/objects/Location;
 	public final fun getLogo ()Ljava/util/List;
 	public final fun getName ()Ljava/lang/String;
@@ -666,35 +670,35 @@ public final class org/icpclive/clics/objects/Organization {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Person {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+public final class org/icpclive/clics/objects/Person : org/icpclive/clics/objects/ObjectWithId {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/util/List;
 	public final fun component5 ()Ljava/lang/String;
 	public final fun component6 ()Ljava/lang/String;
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/lang/String;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lorg/icpclive/clics/objects/Person;
-	public static synthetic fun copy$default (Lorg/icpclive/clics/objects/Person;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Person;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lorg/icpclive/clics/objects/Person;
+	public static synthetic fun copy$default (Lorg/icpclive/clics/objects/Person;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Person;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getEmail ()Ljava/lang/String;
 	public final fun getIcpcId ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getPhoto ()Ljava/util/List;
 	public final fun getRole ()Ljava/lang/String;
 	public final fun getSex ()Ljava/lang/String;
-	public final fun getTeamId ()Ljava/lang/String;
+	public final fun getTeamIds ()Ljava/util/List;
 	public final fun getTitle ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Problem {
+public final class org/icpclive/clics/objects/Problem : org/icpclive/clics/objects/ObjectWithId {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/lang/Double;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;Ljava/lang/Double;Ljava/lang/Double;Ljava/lang/Double;Ljava/lang/Integer;Ljava/lang/Double;Ljava/util/List;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -719,7 +723,7 @@ public final class org/icpclive/clics/objects/Problem {
 	public final fun getAttachments ()Ljava/util/List;
 	public final fun getCodeLimit ()Ljava/lang/Double;
 	public final fun getColor ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getLabel ()Ljava/lang/String;
 	public final fun getMaxScore ()Ljava/lang/Double;
 	public final fun getMemoryLimit ()Ljava/lang/Double;
@@ -736,7 +740,7 @@ public final class org/icpclive/clics/objects/Problem {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Run {
+public final class org/icpclive/clics/objects/Run : org/icpclive/clics/objects/ObjectWithId {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Ljava/lang/Integer;Ljava/lang/String;Lkotlin/time/Duration;Ljava/lang/Double;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Ljava/lang/Integer;Ljava/lang/String;Lkotlin/time/Duration;Ljava/lang/Double;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -750,7 +754,7 @@ public final class org/icpclive/clics/objects/Run {
 	public static synthetic fun copy-7Yrd8eY$default (Lorg/icpclive/clics/objects/Run;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Ljava/lang/Integer;Ljava/lang/String;Lkotlin/time/Duration;Ljava/lang/Double;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Run;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getContestTime-FghU774 ()Lkotlin/time/Duration;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getJudgementId ()Ljava/lang/String;
 	public final fun getJudgementTypeId ()Ljava/lang/String;
 	public final fun getOrdinal ()Ljava/lang/Integer;
@@ -860,7 +864,7 @@ public final class org/icpclive/clics/objects/State {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Submission {
+public final class org/icpclive/clics/objects/Submission : org/icpclive/clics/objects/ObjectWithId {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -878,7 +882,7 @@ public final class org/icpclive/clics/objects/Submission {
 	public final fun getContestTime-UwyO8pc ()J
 	public final fun getEntryPoint ()Ljava/lang/String;
 	public final fun getFiles ()Ljava/util/List;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getLanguageId ()Ljava/lang/String;
 	public final fun getProblemId ()Ljava/lang/String;
 	public final fun getReaction ()Ljava/util/List;
@@ -888,7 +892,7 @@ public final class org/icpclive/clics/objects/Submission {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/objects/Team {
+public final class org/icpclive/clics/objects/Team : org/icpclive/clics/objects/ObjectWithId {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/TeamLocation;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/TeamLocation;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -918,7 +922,7 @@ public final class org/icpclive/clics/objects/Team {
 	public final fun getGroupIds ()Ljava/util/List;
 	public final fun getHidden ()Ljava/lang/Boolean;
 	public final fun getIcpcId ()Ljava/lang/String;
-	public final fun getId ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
 	public final fun getKeyLog ()Ljava/util/List;
 	public final fun getLabel ()Ljava/lang/String;
 	public final fun getLocation ()Lorg/icpclive/clics/objects/TeamLocation;

@@ -138,10 +138,16 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
         data class SerialProperty(
             val name: String,
             val type: KSType,
-            val jsonName: String,
+            val jsonName: Map<FeedVersion, String>,
             val accessName: String,
             val annotated: KSAnnotated
         )
+
+        fun KSPropertyDeclaration.getJsonName(version: FeedVersion) : String {
+            getAnnotationsByType(SingleBefore::class).singleOrNull()?.takeIf { it.feedVersion < version }?.let { return it.oldName }
+            getAnnotationsByType(JsonName::class).singleOrNull()?.let { return it.name }
+            return simpleName.asString().toSnakeCase()
+        }
 
         fun process(
             s: Sequence<KSPropertyDeclaration>,
@@ -158,7 +164,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                             SerialProperty(
                                 name = it.name,
                                 type = it.type.run { if (isNullable && !isList()) makeNullable() else this },
-                                jsonName = ann.prefix + it.jsonName,
+                                jsonName = it.jsonName.mapValues { (_, v) -> ann.prefix + v },
                                 accessName = property.simpleName.asString() + (if (isNullable) "?." else ".") + it.accessName,
                                 annotated = property,
                             )
@@ -170,7 +176,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                     SerialProperty(
                         property.simpleName.asString(),
                         property.type.resolve(),
-                        property.getAnnotationsByType(JsonName::class).singleOrNull()?.name ?: property.simpleName.asString().toSnakeCase(),
+                        FeedVersion.entries.associateWith { property.getJsonName(it) },
                         property.simpleName.asString(),
                         property
                     )
@@ -229,7 +235,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                 }
                 withCodeBlock("override val descriptor: SerialDescriptor = buildClassSerialDescriptor(\"${feedVersion}.${obj.simpleName}\")") {
                     for (i in serialProperties) {
-                        +"element(\"${i.jsonName}\", ${i.name}SerializerCache.descriptor, emptyList(), isOptional = ${i.annotated.isAnnotationPresent(Required::class).not()})"
+                        +"element(\"${i.jsonName[feedVersion]}\", ${i.name}SerializerCache.descriptor, emptyList(), isOptional = ${i.annotated.isAnnotationPresent(Required::class).not()})"
                     }
                 }
                 withCodeBlock("override fun serialize(encoder: Encoder, value: org.icpclive.clics.objects.${obj.simpleName})") {

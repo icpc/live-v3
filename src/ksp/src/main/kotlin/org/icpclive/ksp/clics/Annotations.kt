@@ -22,7 +22,7 @@ annotation class LongMinutesBefore(val feedVersion: FeedVersion)
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)
-annotation class SingleBefore(val feedVersion: FeedVersion)
+annotation class SingleBefore(val feedVersion: FeedVersion, val oldName: String)
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)

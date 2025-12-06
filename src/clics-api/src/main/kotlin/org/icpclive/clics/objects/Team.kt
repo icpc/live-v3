@@ -5,7 +5,7 @@ import org.icpclive.ksp.clics.*
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("teams")
 public data class Team(
-    @Required public val id: String,
+    @Required override val id: String,
     @Required public val name: String,
     public val icpcId: String? = null,
     public val organizationId: String? = null,
@@ -22,7 +22,7 @@ public data class Team(
     public val toolData: List<File> = emptyList(),
     public val audio: List<File> = emptyList(),
     public val location: TeamLocation? = null
-)
+): ObjectWithId
 
 @SinceClics(FeedVersion.`2020_03`)
 @NoEvent

@@ -1495,7 +1495,8 @@
         "problemColorPolicy": {
             "type": "always"
         },
-        "customFields": {}
+        "customFields": {},
+        "persons": []
     },
     "runs": [
         {

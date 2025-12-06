@@ -7,7 +7,7 @@ import kotlin.time.Instant
 @SinceClics(FeedVersion.`2020_03`)
 @EventSerialName("contests", "contest")
 public data class Contest(
-    @Required public val id: String,
+    @Required override val id: String,
     public val name: String? = null,
     public val formalName: String? = null,
     public val startTime: Instant? = null,
@@ -20,4 +20,4 @@ public data class Contest(
     public val banner: List<File> = emptyList(),
     public val logo: List<File> = emptyList(),
     @InlinedBefore(FeedVersion.`2023_06`, "location.") public val location: Location? = null
-)
+): ObjectWithId

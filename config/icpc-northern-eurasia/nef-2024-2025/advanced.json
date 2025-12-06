@@ -9,6 +9,37 @@
         "showTeamsWithoutSubmissions": true
     },
     {
+      "type": "addPersonsByTeamTemplate",
+      "regexes": {
+        "people": {
+          "from": "{team.fullName}",
+          "rules": {
+            "[^:]*: .* \\((.*),(.*),(.*)\\)": {}
+          }
+        }
+      },
+      "persons": [
+        {
+          "id": "{team.id}-1",
+          "name": "{regexes.people.1}",
+          "role": "contestant",
+          "teamIds": ["{team.id}"]
+        },
+        {
+          "id": "{team.id}-2",
+          "name": "{regexes.people.2}",
+          "role": "contestant",
+          "teamIds": ["{team.id}"]
+        },
+        {
+          "id": "{team.id}-3",
+          "name": "{regexes.people.3}",
+          "role": "contestant",
+          "teamIds": ["{team.id}"]
+        }
+      ]
+    },
+    {
         "type": "overrideTeamTemplate",
         "regexes": {
             "custom": {

@@ -3,6 +3,7 @@ package org.icpclive.clics.events
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.json.*
+import org.icpclive.clics.objects.ObjectWithId
 
 @Serializable
 internal class IdEventSurrogate<T>(
@@ -11,7 +12,7 @@ internal class IdEventSurrogate<T>(
     val data: T?,
 )
 
-internal class IdEventSerializer<T : IdEvent<D>, D>(
+internal class IdEventSerializer<T : IdEvent<D>, D : ObjectWithId>(
     dataSerializer: KSerializer<D>,
     serialName: String,
     val constructor: (String, String?, D?) -> T,

@@ -11,7 +11,9 @@ import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.applyTuningRules
+import org.icpclive.cds.api.PersonInfo
 import org.icpclive.cds.settings.*
+import org.icpclive.cds.tunning.AddPersons
 import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.fileContentFlow
 import org.icpclive.cds.util.getLogger
@@ -44,6 +46,10 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/org-custom-fields.csv") { configDirectory.resolve("org-custom-fields.csv") }
 
+    public val personsJsonPath: Path by option("--persons-json", help = "Path to file with persons")
+        .path(mustExist = true, canBeFile = true, canBeDir = false)
+        .defaultLazy("configDirectory/persons.json") { configDirectory.resolve("persons.json")  }
+
     public fun toFlow(): Flow<ContestUpdate> {
         val advancedProperties = fileContentFlow(
             advancedJsonPath,
@@ -52,7 +58,7 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
             try {
                 TuningRule.listFromInputStream(it)
             } catch (e: SerializationException) {
-                val old = advancedJsonPath.toFile().inputStream().use {  TuningRule.tryListFromLegacyFormatFromInputStream(it) } ?: throw e
+                val old = advancedJsonPath.toFile().inputStream().use { TuningRule.tryListFromLegacyFormatFromInputStream(it) } ?: throw e
                 val upgradedPath = advancedJsonPath.resolveSibling(advancedJsonPath.name + ".upgraded")
                 upgradedPath.toFile().outputStream().use {
                     val json = Json { prettyPrint = true }
@@ -75,9 +81,16 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
             val parsed = parseCsv(orgCustomFieldsCsvPath, it, "org_id")
             listOf(TuningRule.fromOrganizationFields(parsed))
         }
+        val persons = fileContentFlow<List<TuningRule>>(
+            personsJsonPath,
+            noData = emptyList()
+        ) {
+            val parsed = Json.decodeFromString<List<PersonInfo>>(it.reader().readText())
+            listOf(AddPersons(persons = parsed))
+        }
 
-        val combinedTuningFlow = combine(customFields, orgCustomFields, advancedProperties) { a, b, c ->
-            a + b + c
+        val combinedTuningFlow = combine(customFields, orgCustomFields, persons, advancedProperties) {
+            it.reduce(List<TuningRule>::plus)
         }
         log.info { "Using config directory ${this.configDirectory}" }
         log.info { "Current working directory is ${Paths.get("").toAbsolutePath()}" }
