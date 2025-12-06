@@ -1,3 +1,12 @@
+public abstract class org/icpclive/cds/util/DelegatedSerializer : kotlinx/serialization/KSerializer {
+	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	protected abstract fun onDeserialize (Ljava/lang/Object;)Ljava/lang/Object;
+	protected abstract fun onSerialize (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+}
+
 public final class org/icpclive/cds/util/FileChangesWatcherKt {
 	public static final fun directoryChangesFlow (Ljava/nio/file/Path;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun fileChangesFlow (Ljava/nio/file/Path;)Lkotlinx/coroutines/flow/Flow;

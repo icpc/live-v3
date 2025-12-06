@@ -1,6 +1,61 @@
 {
     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.tunning.TuningRule>",
     "$defs": {
+        "org.icpclive.cds.api.AccountInfo<org.icpclive.cds.api.AccountId,kotlin.String,kotlin.String,kotlin.String?,kotlin.String?,org.icpclive.cds.api.TeamId?,org.icpclive.cds.api.PersonId?>": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "teamId": {
+                    "type": "string"
+                },
+                "personId": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "type"
+            ]
+        },
+        "kotlin.collections.ArrayList<org.icpclive.cds.api.AccountInfo>": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.api.AccountInfo<org.icpclive.cds.api.AccountId,kotlin.String,kotlin.String,kotlin.String?,kotlin.String?,org.icpclive.cds.api.TeamId?,org.icpclive.cds.api.PersonId?>"
+            }
+        },
+        "addAccounts": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "addAccounts",
+                    "default": "addAccounts"
+                },
+                "accounts": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.AccountInfo>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "accounts"
+            ],
+            "title": "addAccounts"
+        },
         "kotlin.collections.ArrayList<org.icpclive.cds.api.TeamId>": {
             "type": "array",
             "items": {
@@ -1588,6 +1643,9 @@
         },
         "org.icpclive.cds.tunning.TuningRule<kotlin.String,kotlinx.serialization.Sealed<TuningRule>>": {
             "oneOf": [
+                {
+                    "$ref": "#/$defs/addAccounts"
+                },
                 {
                     "$ref": "#/$defs/addGroupToTeams"
                 },

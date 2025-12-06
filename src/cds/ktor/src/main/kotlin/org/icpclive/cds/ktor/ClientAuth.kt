@@ -13,7 +13,7 @@ private fun HttpMessageBuilder.setupHeaders(auth: Authorization) {
         cookie(name, decodeCookieValue(value.value, CookieEncoding.URI_ENCODING))
     }
     for ((name, value) in auth.headers) {
-        header(name, value)
+        header(name, value.value)
     }
 }
 
@@ -40,9 +40,9 @@ public fun HttpRequestBuilder.setupAuth(auth: Authorization?) {
     setupHeaders(auth)
 }
 
-public fun Authorization.withOAuth(token: Credential?): Authorization = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("OAuth ${token.value}", "OAuth ${token.displayValue}"))
-public fun Authorization.withBearer(token: Credential?): Authorization = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("Bearer ${token.value}", "Bearer ${token.displayValue}"))
+public fun Authorization.withOAuth(token: Credential?): Authorization = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("OAuth ${token.displayValue}", "OAuth ${token.value}"))
+public fun Authorization.withBearer(token: Credential?): Authorization = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("Bearer ${token.displayValue}", "Bearer ${token.value}"))
 
-public fun UrlOrLocalPath.Url.withOAuth(token: Credential?): UrlOrLocalPath.Url = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("OAuth ${token.value}", "OAuth ${token.displayValue}"))
-public fun UrlOrLocalPath.Url.withBearer(token: Credential?): UrlOrLocalPath.Url = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("Bearer ${token.value}", "Bearer ${token.displayValue}"))
+public fun UrlOrLocalPath.Url.withOAuth(token: Credential?): UrlOrLocalPath.Url = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("OAuth ${token.displayValue}", "OAuth ${token.value}"))
+public fun UrlOrLocalPath.Url.withBearer(token: Credential?): UrlOrLocalPath.Url = if (token == null) this else withHeader(HttpHeaders.Authorization, Credential("Bearer ${token.displayValue}", "Bearer ${token.value}"))
 

@@ -214,6 +214,7 @@ public data class ContestInfo(
     @Transient val cdsSupportsFinalization: Boolean = false,
     @Required val customFields: Map<String, String> = emptyMap(),
     @Required @InefficientContestInfoApi @SerialName("persons") val personsList: List<PersonInfo> = emptyList(),
+    @Required @InefficientContestInfoApi @SerialName("accounts") val accountsList: List<AccountInfo> = emptyList(),
 ) {
     public constructor(
         name: String,
@@ -249,6 +250,7 @@ public data class ContestInfo(
     val languages: Map<LanguageId, LanguageInfo> by lazy { languagesList.associateBy { it.id } }
     val scoreboardProblems: List<ProblemInfo> by lazy { problemList.sortedBy { it.ordinal }.filterNot { it.isHidden } }
     val persons: Map<PersonId, PersonInfo> by lazy { personsList.associateBy { it.id } }
+    val accounts: Map<AccountId, AccountInfo> by lazy { accountsList.associateBy { it.id } }
 }
 
 public val ContestInfo.startTimeOrZero: Instant

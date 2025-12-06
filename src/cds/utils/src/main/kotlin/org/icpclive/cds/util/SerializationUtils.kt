@@ -26,12 +26,19 @@ public inline fun <reified T: Any, reified S: Any> SerializersModuleBuilder.post
 public inline fun <T, R> KSerializer<T>.map(
     crossinline onDeserialize: (T) -> R,
     crossinline onSerialize: (R) -> T,
-): KSerializer<R> = object : KSerializer<R> {
-    override val descriptor: SerialDescriptor
-        get() = this@map.descriptor
+): KSerializer<R> = object : DelegatedSerializer<R, T>(this) {
+    override fun onDeserialize(value: T) = onDeserialize(value)
+    override fun onSerialize(value: R) = onSerialize(value)
+}
 
-    override fun deserialize(decoder: Decoder) = onDeserialize(this@map.deserialize(decoder))
-    override fun serialize(encoder: Encoder, value: R) = this@map.serialize(encoder, onSerialize(value))
+public abstract class DelegatedSerializer<T, D>(private val delegate: KSerializer<D>) : KSerializer<T> {
+    override val descriptor: SerialDescriptor get() = delegate.descriptor
+    protected abstract fun onDeserialize(value: D): T
+    protected abstract fun onSerialize(value: T): D
+    override fun deserialize(decoder: Decoder): T = onDeserialize(delegate.deserialize(decoder))
+    override fun serialize(encoder: Encoder, value: T) {
+        delegate.serialize(encoder, onSerialize(value))
+    }
 }
 
 public inline fun <reified S, reified T : S> KSerializer<T>.asSuperClass(): KSerializer<S> = map(

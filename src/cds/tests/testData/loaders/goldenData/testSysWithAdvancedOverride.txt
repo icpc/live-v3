@@ -571,7 +571,8 @@
             "type": "always"
         },
         "customFields": {},
-        "persons": []
+        "persons": [],
+        "accounts": []
     },
     "runs": [
         {

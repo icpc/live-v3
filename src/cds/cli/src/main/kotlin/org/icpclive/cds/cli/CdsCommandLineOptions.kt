@@ -11,11 +11,14 @@ import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.applyTuningRules
+import org.icpclive.cds.api.AccountInfo
 import org.icpclive.cds.api.PersonInfo
 import org.icpclive.cds.settings.*
+import org.icpclive.cds.tunning.AddAccounts
 import org.icpclive.cds.tunning.AddPersons
 import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.fileContentFlow
+import org.icpclive.cds.util.fileJsonContentFlow
 import org.icpclive.cds.util.getLogger
 import java.io.InputStream
 import java.nio.file.Path
@@ -50,11 +53,12 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/persons.json") { configDirectory.resolve("persons.json")  }
 
+    public val accountsJsonPath: Path by option("--accounts-json", help = "Path to file with accounts")
+        .path(mustExist = true, canBeFile = true, canBeDir = false)
+        .defaultLazy("configDirectory/persons.json") { configDirectory.resolve("accounts.json")  }
+
     public fun toFlow(): Flow<ContestUpdate> {
-        val advancedProperties = fileContentFlow(
-            advancedJsonPath,
-            noData = emptyList()
-        ) {
+        val advancedProperties = fileContentFlow(advancedJsonPath, noData = emptyList()) {
             try {
                 TuningRule.listFromInputStream(it)
             } catch (e: SerializationException) {
@@ -67,29 +71,20 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
                 throw SerializationException("It looks like, your ${advancedJsonPath.name} is outdated. Upgraded version is stored in ${upgradedPath.name}")
             }
         }
-        val customFields = fileContentFlow(
-            customFieldsCsvPath,
-            noData = emptyList()
-        ) {
+        val customFields = fileContentFlow(customFieldsCsvPath, noData = emptyList()) {
             val parsed = parseCsv(customFieldsCsvPath, it, "team_id")
             listOf(TuningRule.fromTeamFields(parsed))
         }
-        val orgCustomFields = fileContentFlow(
-            orgCustomFieldsCsvPath,
-            noData = emptyList()
-        ) {
+        val orgCustomFields = fileContentFlow(orgCustomFieldsCsvPath, noData = emptyList()) {
             val parsed = parseCsv(orgCustomFieldsCsvPath, it, "org_id")
             listOf(TuningRule.fromOrganizationFields(parsed))
         }
-        val persons = fileContentFlow<List<TuningRule>>(
-            personsJsonPath,
-            noData = emptyList()
-        ) {
-            val parsed = Json.decodeFromString<List<PersonInfo>>(it.reader().readText())
-            listOf(AddPersons(persons = parsed))
-        }
+        val persons = fileJsonContentFlow<List<PersonInfo>>(personsJsonPath, noData = emptyList())
+            .map { listOf(AddPersons(it) as TuningRule) }
+        val accounts = fileJsonContentFlow<List<AccountInfo>>(accountsJsonPath, noData = emptyList())
+            .map { listOf(AddAccounts(it) as TuningRule) }
 
-        val combinedTuningFlow = combine(customFields, orgCustomFields, persons, advancedProperties) {
+        val combinedTuningFlow = combine(customFields, orgCustomFields, persons, accounts, advancedProperties) {
             it.reduce(List<TuningRule>::plus)
         }
         log.info { "Using config directory ${this.configDirectory}" }

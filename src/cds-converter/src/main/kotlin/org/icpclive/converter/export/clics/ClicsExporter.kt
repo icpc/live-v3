@@ -42,6 +42,7 @@ private val GroupId.sanitizedValue get() = sanitize(value)
 private val RunId.sanitizedValue get() = sanitize(value)
 private val PersonId.sanitizedValue get() = sanitize(value)
 private val CommentaryMessageId.sanitizedValue get() = sanitize(value)
+private val AccountId.sanitizedValue get() = sanitize(value)
 
 private fun ProblemInfo.toClicsProblem() = Problem(
     id = id.sanitizedValue,
@@ -88,6 +89,16 @@ private fun PersonInfo.toClicsPerson() = Person(
     sex = sex,
     role = role,
     photo = photo.mapNotNull { it.toClicsMedia() },
+)
+
+private fun AccountInfo.toClicsAccount() = Account(
+    id = id.sanitizedValue,
+    username = username,
+    name = name,
+    password = password?.value,
+    type = type,
+    teamId = teamId?.sanitizedValue,
+    personId = personId?.sanitizedValue,
 )
 
 
@@ -333,6 +344,7 @@ object ClicsExporter : Exporter {
     private val teamsMap = mutableMapOf<String, Team>()
     private val awardsMap = mutableMapOf<String, Award>()
     private val personsMap = mutableMapOf<String, Person>()
+    private val accountsMap = mutableMapOf<String, Account>()
 
     @OptIn(InefficientContestInfoApi::class)
     private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
@@ -349,6 +361,7 @@ object ClicsExporter : Exporter {
         val clicsLangs = (newInfo.languagesList + unknownLanguage).map { it.toClicsLang() }
         val clicsTeams = newInfo.teamList.map { it.toClicsTeam() }
         val clicsPersons = newInfo.personsList.map { it.toClicsPerson() }
+        val clicsAccounts = newInfo.accountsList.map { it.toClicsAccount() }
 
         diffChange(problemsMap, clicsProblems, ::ProblemEvent)
         diffChange(groupsMap, clicsGroups, ::GroupEvent)
@@ -356,7 +369,9 @@ object ClicsExporter : Exporter {
         diffChange(languagesMap, clicsLangs, ::LanguageEvent)
         diffChange(teamsMap, clicsTeams, ::TeamEvent)
         diffChange(personsMap, clicsPersons, ::PersonEvent)
+        diffChange(accountsMap, clicsAccounts, ::AccountEvent)
 
+        diffRemove(accountsMap, clicsAccounts, ::AccountEvent)
         diffRemove(personsMap, clicsPersons, ::PersonEvent)
         diffRemove(teamsMap, clicsTeams, ::TeamEvent)
         diffRemove(groupsMap, clicsGroups, ::GroupEvent)
@@ -465,7 +480,7 @@ object ClicsExporter : Exporter {
         //val runsFlow = eventFeed.filterIdEvent<_, RunsEvent>(this)
         val commentaryFlow = eventFeed.filterIdEvent<_, CommentaryEvent>(this)
         val personsFlow = eventFeed.filterIdEvent<_, PersonEvent>(this)
-        //val accountsFlow = eventFeed.filterIdEvent<_, AccountEvent>(this)
+        val accountsFlow = eventFeed.filterIdEvent<_, AccountEvent>(this)
         //val clarificationsFlow = eventFeed.filterIdEvent<_, ClarificationEvent>(this)
         val awardsFlow = eventFeed.filterIdEvent<_, AwardEvent>(this)
 
@@ -566,7 +581,7 @@ object ClicsExporter : Exporter {
                         //getId("runs", runsFlow, endpoint, clicsEventsSerializersModule)
                         getId("commentary", commentaryFlow, endpoint, clicsEventsSerializersModule)
                         getId("persons", personsFlow, endpoint, clicsEventsSerializersModule)
-                        //getId("accounts", accountsFlow, endpoint, clicsEventsSerializersModule)
+                        getId("accounts", accountsFlow, endpoint, clicsEventsSerializersModule)
                         //getId("clarifications", clarificationsFlow, endpoint, clicsEventsSerializersModule)
                         getId("awards", awardsFlow, endpoint, clicsEventsSerializersModule)
                         get("/scoreboard") { call.respond(currentState.filterNotNull().first().toClicsScoreboard()) }

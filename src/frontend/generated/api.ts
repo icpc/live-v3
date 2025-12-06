@@ -18,6 +18,7 @@ export interface ContestInfo {
   problemColorPolicy: ProblemColorPolicy;
   customFields: { [key: string]: string };
   persons: PersonInfo[];
+  accounts: AccountInfo[];
 }
 
 export type ContestStatus =
@@ -188,6 +189,16 @@ export interface PersonInfo {
   photo?: MediaType[];
 }
 
+export interface AccountInfo {
+  id: AccountId;
+  username?: string;
+  type: string;
+  password?: string | null;
+  name?: string | null;
+  teamId?: TeamId | null;
+  personId?: PersonId | null;
+}
+
 export type ProblemId = string;
 
 export enum ScoreMergeMode {
@@ -245,6 +256,8 @@ export interface ManualAwardSetting {
 }
 
 export type PersonId = string;
+
+export type AccountId = string;
 
 export type RunId = string;
 

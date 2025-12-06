@@ -1,6 +1,7 @@
 package org.icpclive.cds.plugins.clics
 
 import org.icpclive.cds.api.*
+import org.icpclive.cds.settings.Credential
 import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
 import kotlin.time.Duration
@@ -27,6 +28,7 @@ internal class ClicsModel {
     private val judgmentRunIds = mutableMapOf<String, MutableSet<String>>()
     private val groups = mutableMapOf<String, Group>()
     private val persons = mutableMapOf<String, Person>()
+    private val accounts = mutableMapOf<String, Account>()
 
     private var startTime: Instant? = null
     private var contestLength = 5.hours
@@ -197,6 +199,16 @@ internal class ClicsModel {
         photo = photo.mapNotNull { it.toApi() }
     )
 
+    private fun Account.toApi() = AccountInfo(
+        id = id.toAccountId(),
+        username = username,
+        password = password?.let { Credential("***", it) },
+        name = name,
+        type = type ?: "other",
+        teamId = teamId?.toTeamId(),
+        personId = personId?.toPersonId(),
+    )
+
     val contestInfo: ContestInfo
         get() = ContestInfo(
             name = name,
@@ -212,6 +224,7 @@ internal class ClicsModel {
             organizationList = organizations.values.map { it.toApi() },
             languagesList = languages.values.map { it.toApi() },
             personsList = persons.values.map { it.toApi() },
+            accountsList = accounts.values.map { it.toApi() },
             cdsSupportsFinalization = true
         )
 
@@ -286,6 +299,10 @@ internal class ClicsModel {
 
     private suspend fun processProblem(id: String, problem: Problem?) {
         putInSet(problems, id, problem)
+        contestInfoUpdated()
+    }
+    private suspend fun processAccount(id: String, account: Account?) {
+        putInSet(accounts, id, account)
         contestInfoUpdated()
     }
 
@@ -403,6 +420,7 @@ internal class ClicsModel {
             is BatchSubmissionEvent -> processBatch(event.data, submissions.keys, ::processSubmission)
             is BatchTeamEvent -> processBatch(event.data, teams.keys, ::processTeam)
             is BatchPersonEvent -> processBatch(event.data, persons.keys, ::processPerson)
+            is BatchAccountEvent -> processBatch(event.data, accounts.keys, ::processAccount)
             is ContestEvent -> processContest(event.data)
             is ProblemEvent -> processProblem(event.id, event.data)
             is OrganizationEvent -> processOrganization(event.id, event.data)
@@ -416,9 +434,10 @@ internal class ClicsModel {
             is RunEvent -> processRun(event.id, event.data)
             is CommentaryEvent -> processCommentary(event.id, event.data)
             is PersonEvent -> processPerson(event.id, event.data)
+            is AccountEvent -> processAccount(event.id, event.data)
             is PreloadFinishedEvent -> {}
-            is AwardEvent, is AccountEvent, is ClarificationEvent -> {}
-            is BatchAccountEvent, is BatchAwardEvent, is BatchClarificationEvent -> {}
+            is AwardEvent, is ClarificationEvent -> {}
+            is BatchAwardEvent, is BatchClarificationEvent -> {}
         }
     }
 

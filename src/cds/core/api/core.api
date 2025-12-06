@@ -123,6 +123,79 @@ public final class org/icpclive/cds/adapters/ContestStateKt {
 	public static final fun transformContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;)Lkotlinx/coroutines/flow/Flow;
 }
 
+public final class org/icpclive/cds/api/AccountId {
+	public static final field Companion Lorg/icpclive/cds/api/AccountId$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/AccountId;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final synthetic class org/icpclive/cds/api/AccountId$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/AccountId$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize-Y_OZ6wY (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/String;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize-hiRPuX4 (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/String;)V
+}
+
+public final class org/icpclive/cds/api/AccountId$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/AccountInfo {
+	public static final field Companion Lorg/icpclive/cds/api/AccountInfo$Companion;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-NJuwqIY ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lorg/icpclive/cds/settings/Credential;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6-T9Kg-8Y ()Ljava/lang/String;
+	public final fun component7-MVuCSWs ()Ljava/lang/String;
+	public final fun copy-5ZG02uw (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/icpclive/cds/api/AccountInfo;
+	public static synthetic fun copy-5ZG02uw$default (Lorg/icpclive/cds/api/AccountInfo;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/AccountInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getId-NJuwqIY ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getPassword ()Lorg/icpclive/cds/settings/Credential;
+	public final fun getPersonId-MVuCSWs ()Ljava/lang/String;
+	public final fun getTeamId-T9Kg-8Y ()Ljava/lang/String;
+	public final fun getType ()Ljava/lang/String;
+	public final fun getUsername ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/icpclive/cds/api/AccountInfo$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/AccountInfo$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/AccountInfo;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/AccountInfo;)V
+}
+
+public final class org/icpclive/cds/api/AccountInfo$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/api/AccountInfoKt {
+	public static final fun toAccountId (I)Ljava/lang/String;
+	public static final fun toAccountId (J)Ljava/lang/String;
+	public static final fun toAccountId (Ljava/lang/String;)Ljava/lang/String;
+}
+
 public final class org/icpclive/cds/api/AnalyticsKt {
 	public static final fun toCommentaryMessageId (Ljava/lang/String;)Ljava/lang/String;
 }
@@ -509,8 +582,8 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public static final field Companion Lorg/icpclive/cds/api/ContestInfo$Companion;
 	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlin/time/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlin/time/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLjava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/util/List;
 	public final fun component11 ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
@@ -524,6 +597,7 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun component19 ()Ljava/util/Map;
 	public final fun component2 ()Lorg/icpclive/cds/api/ContestStatus;
 	public final fun component20 ()Ljava/util/List;
+	public final fun component21 ()Ljava/util/List;
 	public final fun component3 ()Lorg/icpclive/cds/api/ContestResultType;
 	public final fun component4-UwyO8pc ()J
 	public final fun component5-FghU774 ()Lkotlin/time/Duration;
@@ -531,9 +605,11 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy-vtseq88 (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;)Lorg/icpclive/cds/api/ContestInfo;
-	public static synthetic fun copy-vtseq88$default (Lorg/icpclive/cds/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestInfo;
+	public final fun copy-cPfCmdM (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/cds/api/ContestInfo;
+	public static synthetic fun copy-cPfCmdM$default (Lorg/icpclive/cds/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLorg/icpclive/cds/api/AwardsSettings;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestInfo;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccounts ()Ljava/util/Map;
+	public final fun getAccountsList ()Ljava/util/List;
 	public final fun getAwardsSettings ()Lorg/icpclive/cds/api/AwardsSettings;
 	public final fun getCdsSupportsFinalization ()Z
 	public final fun getContestLength-UwyO8pc ()J
@@ -2447,6 +2523,28 @@ public final class org/icpclive/cds/settings/UrlOrLocalPath$Url : org/icpclive/c
 	public final fun withBasicAuth (Lorg/icpclive/cds/settings/Credential;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
 	public final fun withCookie (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
 	public final fun withHeader (Ljava/lang/String;Lorg/icpclive/cds/settings/Credential;)Lorg/icpclive/cds/settings/UrlOrLocalPath$Url;
+}
+
+public final class org/icpclive/cds/tunning/AddAccounts : org/icpclive/cds/tunning/TuningRule {
+	public fun <init> (Ljava/util/List;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lorg/icpclive/cds/tunning/AddAccounts;
+	public static synthetic fun copy$default (Lorg/icpclive/cds/tunning/AddAccounts;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/AddAccounts;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccounts ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun process (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/api/ContestInfo;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/icpclive/cds/tunning/AddAccounts$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/tunning/AddAccounts$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/AddAccounts;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/AddAccounts;)V
 }
 
 public final class org/icpclive/cds/tunning/AddGroupToTeams : org/icpclive/cds/tunning/SimpleDesugarable, org/icpclive/cds/tunning/TuningRule {

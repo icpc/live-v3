@@ -83,11 +83,11 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
             is GroupEvent, is BatchGroupEvent -> 5
             is PersonEvent, is BatchPersonEvent -> 6
             is TeamEvent, is BatchTeamEvent -> 7
-            is ProblemEvent, is BatchProblemEvent -> 8
+            is AccountEvent, is BatchAccountEvent -> 8
+            is ProblemEvent, is BatchProblemEvent -> 9
             is PreloadFinishedEvent -> throw IllegalStateException()
-            is AwardEvent, is BatchAwardEvent -> 9
-            is AccountEvent, is BatchAccountEvent -> 9
-            is BatchClarificationEvent, is ClarificationEvent -> 9
+            is AwardEvent, is BatchAwardEvent -> 10
+            is BatchClarificationEvent, is ClarificationEvent -> 10
             // events about runs
             is SubmissionEvent, is BatchSubmissionEvent -> 100
             is JudgementEvent, is BatchJudgementEvent -> 101
