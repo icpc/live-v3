@@ -122,7 +122,7 @@ function TeamScoreTable({
                                 }}
                                 onClick={() => onRowClick(team)}
                             >
-                                <TableCell>{team.name}</TableCell>
+                                <TableCell>{team.teamName}</TableCell>
                                 <TableCell>
                                     {calculatedScore &&
                                         `+${formatScore(calculatedScore)}`}

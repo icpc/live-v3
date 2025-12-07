@@ -6,7 +6,7 @@ import { TeamId } from "@shared/api";
 
 export interface Team {
     id: TeamId;
-    name: string;
+    teamName: string;
     score: number;
 }
 
