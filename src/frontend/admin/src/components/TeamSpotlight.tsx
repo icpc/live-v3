@@ -14,8 +14,7 @@ import {
 } from "@mui/material";
 import { selectedRowColor } from "../styles";
 import { useTeamSpotlightService } from "../services/teamSpotlight";
-import { TeamId } from "@shared/api";
-import { Team, ScoreEntry } from "@/services/teamSpotlight";
+import { AddTeamScoreRequest, InterestingTeam, TeamId } from "@shared/api";
 
 interface ButtonGroupTextFieldProps {
     value: number;
@@ -24,9 +23,9 @@ interface ButtonGroupTextFieldProps {
 }
 
 interface TeamScoreTableProps {
-    teams: Team[];
+    teams: InterestingTeam[];
     selectedTeams: TeamId[];
-    onRowClick: (team: Team) => void;
+    onRowClick: (team: InterestingTeam) => void;
     scoreCalculator: (teamId: TeamId) => number | undefined;
 }
 
@@ -96,8 +95,8 @@ function TeamScoreTable({
     scoreCalculator,
 }: TeamScoreTableProps) {
     const getRowBackground = useCallback(
-        (team: Team): string | undefined => {
-            return selectedTeams.includes(team.id)
+        (team: InterestingTeam): string | undefined => {
+            return selectedTeams.includes(team.teamId)
                 ? selectedRowColor
                 : undefined;
         },
@@ -109,10 +108,10 @@ function TeamScoreTable({
             <Table sx={{ m: 2 }} size="small">
                 <TableBody>
                     {teams.map((team, rowId) => {
-                        const calculatedScore = scoreCalculator(team.id);
+                        const calculatedScore = scoreCalculator(team.teamId);
                         return (
                             <TableRow
-                                key={`${team.id}-${rowId}`}
+                                key={`${team.teamId}-${rowId}`}
                                 sx={{
                                     backgroundColor: getRowBackground(team),
                                     cursor: "pointer",
@@ -122,7 +121,7 @@ function TeamScoreTable({
                                 }}
                                 onClick={() => onRowClick(team)}
                             >
-                                <TableCell>{team.name}</TableCell>
+                                <TableCell>{team.teamName}</TableCell>
                                 <TableCell>
                                     {calculatedScore &&
                                         `+${formatScore(calculatedScore)}`}
@@ -144,12 +143,12 @@ function TeamSpotlight(): React.ReactElement {
     const [scoreTo, setScoreTo] = useState<number>(90);
 
     const selectTeam = useCallback(
-        (team: Team) => {
+        (team: InterestingTeam) => {
             setSelectedTeamIds((prev) => {
-                if (prev.includes(team.id)) {
-                    return prev.filter((id) => id !== team.id);
+                if (prev.includes(team.teamId)) {
+                    return prev.filter((id) => id !== team.teamId);
                 }
-                return [...prev, team.id];
+                return [...prev, team.teamId];
             });
         },
         [setSelectedTeamIds],
@@ -173,10 +172,12 @@ function TeamSpotlight(): React.ReactElement {
     );
 
     const handleAddScoreClick = useCallback(async () => {
-        const scoreEntires: ScoreEntry[] = selectedTeamIds.map((teamId) => ({
-            teamId,
-            score: getCurrentScore(teamId) || 0,
-        }));
+        const scoreEntires: AddTeamScoreRequest[] = selectedTeamIds.map(
+            (teamId) => ({
+                teamId,
+                score: getCurrentScore(teamId) || 0,
+            }),
+        );
 
         try {
             await addScore(scoreEntires);

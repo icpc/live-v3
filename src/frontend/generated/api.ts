@@ -1114,3 +1114,14 @@ export namespace TimeLineRunInfo {
     problemId: ProblemId;
   }
 }
+
+export interface AddTeamScoreRequest {
+  teamId: TeamId;
+  score: number;
+}
+
+export interface InterestingTeam {
+  teamId: TeamId;
+  teamName: string;
+  score: number;
+}

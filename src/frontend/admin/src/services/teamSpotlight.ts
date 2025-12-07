@@ -2,22 +2,11 @@ import { createApiPost } from "shared-code/utils";
 import { useWebsocket } from "../utils";
 import { BASE_URL_BACKEND, BASE_URL_WS } from "../config";
 import { useMemo, useState, useCallback } from "react";
-import { TeamId } from "@shared/api";
-
-export interface Team {
-    id: TeamId;
-    name: string;
-    score: number;
-}
-
-export interface ScoreEntry {
-    teamId: TeamId;
-    score: number;
-}
+import { AddTeamScoreRequest, InterestingTeam } from "@shared/api";
 
 interface TeamSpotlightService {
-    teamsList: Team[];
-    addScore: (entries: ScoreEntry[]) => unknown;
+    teamsList: InterestingTeam[];
+    addScore: (entries: AddTeamScoreRequest[]) => unknown;
     isLoading: boolean;
     error: string | null;
 }
@@ -29,7 +18,7 @@ const API_ENDPOINTS = {
 
 const apiPost = createApiPost(BASE_URL_BACKEND + API_PATH);
 
-async function addScoreApi(requests: ScoreEntry[]) {
+async function addScoreApi(requests: AddTeamScoreRequest[]) {
     try {
         await apiPost(API_ENDPOINTS.ADD_SCORE, requests, "POST");
     } catch (error) {
@@ -39,18 +28,18 @@ async function addScoreApi(requests: ScoreEntry[]) {
 }
 
 export const useTeamSpotlightService = (): TeamSpotlightService => {
-    const [teams, setTeams] = useState<Team[]>([]);
+    const [teams, setTeams] = useState<InterestingTeam[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const teamsList = useMemo(
+    const teamsList: InterestingTeam[] = useMemo(
         () => [...teams].sort((a, b) => b.score - a.score),
         [teams],
     );
 
     const handleWSMessage = useCallback((event: MessageEvent) => {
         try {
-            const data = JSON.parse(event.data) as Team[];
+            const data = JSON.parse(event.data) as InterestingTeam[];
             setTeams(data);
             setError(null);
         } catch (error) {
@@ -61,8 +50,8 @@ export const useTeamSpotlightService = (): TeamSpotlightService => {
 
     useWebsocket(BASE_URL_WS + API_PATH, handleWSMessage);
 
-    const addScore = useCallback(async (entires: ScoreEntry[]) => {
-        if (entires.length) {
+    const addScore = useCallback(async (entries: AddTeamScoreRequest[]) => {
+        if (entries.length === 0) {
             throw new Error("no score entries provided");
         }
 
@@ -70,7 +59,7 @@ export const useTeamSpotlightService = (): TeamSpotlightService => {
         setError(null);
 
         try {
-            await addScoreApi(entires);
+            await addScoreApi(entries);
         } catch (error) {
             const errorMessage =
                 error instanceof Error

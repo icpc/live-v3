@@ -26,6 +26,8 @@ val generateApiTypeScript by tasks.registering(TsInterfaceGeneratorTask::class) 
         "org.icpclive.api.ObjectSettings",
         "org.icpclive.api.WidgetUsageStatistics",
         "org.icpclive.api.TimeLineRunInfo",
+        "org.icpclive.api.AddTeamScoreRequest",
+        "org.icpclive.api.InterestingTeam"
     ))
     fileName = "api"
 }
