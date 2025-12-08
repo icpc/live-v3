@@ -1,0 +1,19 @@
+{
+    "GLOBAL_DEFAULT_FONT_FAMILY": "JetBrains Mono", 
+    "CONTEST_CAPTION":"Algorithm",
+    "QUEUE_TITLE": "",
+    "QUEUE_CAPTION": "",
+    "QUEUE_BACKGROUND_COLOR":"#00000000",
+    "QUEUE_ROW_BACKGROUND":"#006AFF",    
+    "CONTEST_COLOR": "#006AFF",
+    "VERDICT_OK": "#3D9A03",
+    "QUEUE_WRAP_PADDING": 4,
+    "QUEUE_SCORE_LABEL_WIDTH": "0px",
+    "SCOREBOARD_CELL_PLACE_SIZE": "50px",
+    "SCOREBOARD_CELL_TEAMNAME_SIZE": "380px",
+    "WIDGET_POSITIONS": {
+        "scoreboard": {"positionX": 16, "positionY": 16, "sizeX": 1888, "sizeY": 1048},
+        "queue": {"positionX": 1596, "positionY": 855, "sizeX": 318, "sizeY": 213},
+        "teamViewSingle": {"positionX": 0, "positionY": 0, "sizeX": 1920, "sizeY": 1080}
+    }
+}

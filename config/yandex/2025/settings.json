@@ -1,0 +1,38 @@
+{
+  "type": "merged",
+  "sources": [
+      {
+          "settings": {
+            "type": "yandex",
+            "apiKey": "$creds.yandex",
+            "contestId": 86430,
+            "resultType": "IOI",
+            "loginRegex": "(ecnerwal|hos.lyric|qibenjamin|turevski2010|maroonrk|Golovanov399|potato167|Jeroen Op de Beek|晃平 森田|ksun481|kotatsugame|yahordubovik|sakuyahiiragi|fedor.romaschov|albert.huang2004@gmail.com|molamaloma|Heltion2023|abdullingimran|snukey|erdemkiraz@gmail.com)"
+          },
+          "teamIdRegex": {"^(.*)$": "MAIN.$1"},
+          "runIdRegex": {"^(.*)$": "MAIN.$1"}
+      },
+      {
+          "settings": {
+            "type": "yandex",
+            "apiKey": "$creds.yandex",
+            "contestId": 86433,
+            "resultType": "IOI",
+            "loginRegex": "(magor1744|NIGO2007|shnirelman2|seregei.dushenkov|george.ns2004|wery0123|Alexdat2000|YaBlackAnt|Mangoost17|yndx-lemur99|max.armaged|MVLevin)"
+          },
+          "teamIdRegex": {"^(.*)$": "STAFF.$1"},
+          "runIdRegex": {"^(.*)$": "STAFF.$1"}
+      },
+      {
+          "settings": {
+            "type": "yandex",
+            "apiKey": "$creds.yandex",
+            "contestId": 86432,
+            "resultType": "IOI",
+            "loginRegex": "(m1900.makarov|zhigan0vvlad|SpeedOfLightGames|vova@zwezdin.com|Вадим Кустов|makravio|EJIC-B-KEDAX|ivanalex239|ustim.artem|IHATEGEOMETRY)"
+          },
+          "teamIdRegex": {"^(.*)$": "JUNIOR.$1"},
+          "runIdRegex": {"^(.*)$": "JUNIOR.$1"}
+      }
+  ]
+}

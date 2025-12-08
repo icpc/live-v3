@@ -1,0 +1,83 @@
+[
+    {
+        "type": "overrideProblems",
+        "rules": {
+        "1992/2025_11_29/kzNGvUAaOT": {"color": "#05B752","maxScore": 10.0,"scoreMergeMode": "MAX_TOTAL"}, 
+        "1992/2025_11_28/EftCJYqwZ3": {"color": "#FD5B25","maxScore": 10.0,"scoreMergeMode": "MAX_TOTAL"},
+        "1992/2025_11_29/X7C77VKAv8": {"color": "#FF6BFF","maxScore": 10.0,"scoreMergeMode": "MAX_TOTAL"},
+        "1992/2025_11_29/VgWu1nNAFH": {"color": "#00D7D2","maxScore": 10.0,"scoreMergeMode": "MAX_TOTAL"},
+        "1992/2025_11_29/qsoqq593PR": {"color": "#852AF6","maxScore": 10.0,"scoreMergeMode": "MAX_TOTAL"},
+        "1992/2025_11_29/NirsvRXWVu": {"color": "#006AFF","maxScore": 10.0,"scoreMergeMode": "MAX_TOTAL"},
+        "1992/2025_11_29/6pTFSzs5IR": {"color": "#00563F","maxScore": 10.0,"scoreMergeMode": "MAX_TOTAL"}
+        }
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false,
+        "penaltyRoundingMode": "last"
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.id}",
+                "rules": {
+                    "^STAFF.*": {
+                        "id": "staff"
+                    },
+                    "^JUNIOR.*": {
+                        "id": "junior"
+                    },
+                    "^MAIN.*": {
+                        "id": "main"
+                    }
+                }
+            },
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "^MAIN.*": {
+                        "emojiValue": ""
+                    },
+                    "^STAFF.*": {
+                        "emojiValue": "👨‍💼"
+                    },
+                    "^JUNIOR.*": {
+                        "emojiValue": "👶"
+                    }
+                }
+            }
+        },
+        "medias": {
+            "screen": {
+            "type": "WebRTCGrabberConnection",
+            "url": "https://grabber.ya.icpc.live",
+            "peerName": "{team.customFields.GrabberName}",
+            "streamType": "desktop",
+            "credential": "l1veisLifeforewer2025"
+        },
+        "camera": {
+            "type": "WebRTCGrabberConnection",
+            "url": "https://grabber.ya.icpc.live",
+            "peerName": "{team.customFields.GrabberName}",
+            "streamType": "webcam",
+            "credential": "l1veisLifeforewer2025"
+        },
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{team.id}.svg"
+            }
+        },
+        "extraGroups": [
+            "{regexes.group.id}"
+        ],
+        "customFields": {
+            "emoji": "{regexes.custom.emojiValue}"
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{emoji} {team.customFields.e_d}"
+    }
+
+]
