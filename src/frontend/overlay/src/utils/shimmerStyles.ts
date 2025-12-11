@@ -30,7 +30,7 @@ export const createShimmerStyles = (
         ${problemColor || "#4a90e2"} 65%,
         ${problemColor || "#4a90e2"} 100%
     );
-    background-size: ${diagonal ? "200% 200%" : "200% 100%"};
+    background-size: ${diagonal ? "300% 300%" : "200% 100%"};
     animation: ${diagonal
             ? shimmerAnimationDiagonal
             : shimmerAnimationHorizontal}
