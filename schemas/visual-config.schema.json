@@ -226,6 +226,9 @@
         "KEYLOG_GLOW_BLUR": {
             "type": "number"
         },
+        "KEYLOG_INTERVAL_LENGTH": {
+            "type": "number"
+        },
         "KEYLOG_MAXIMUM_FOR_NORMALIZATION": {
             "type": "number"
         },
