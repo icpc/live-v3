@@ -61,6 +61,7 @@ object MainCommand : CliktCommand(name = "java -jar cds-converter.jar") {
 fun main(args: Array<String>): Unit = MainCommand.subcommands(
     PCMSDumpCommand,
     PCMSScoreboardDumpCommand,
+    ClicsArchiveCommand,
     ServerCommand,
     IcpcCSVDumpCommand
 ).main(args)
@@ -120,7 +121,7 @@ fun Application.module() {
                     PCMSXmlExporter.run(this@nonAdmin, this@admin)
                     PCMSHtmlExporter.run(this@nonAdmin, this@admin)
                     IcpcCsvExporter.run(this@nonAdmin, this@admin)
-                    ClicsExporter.run(this@nonAdmin, this@admin)
+                    ClicsExporter(ServerCommand.mediaDirectory).run(this@nonAdmin, this@admin)
                     ReactionsExporter.run(this@nonAdmin, this@admin)
                 }
             }

@@ -1,9 +1,9 @@
 package org.icpclive.converter.export.clics
 
-import io.ktor.http.ContentType
+import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.principal
+import io.ktor.server.auth.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -11,28 +11,33 @@ import io.ktor.utils.io.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.html.*
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.elementNames
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToStream
 import kotlinx.serialization.modules.SerializersModule
-import org.icpclive.cds.api.*
+import org.icpclive.cds.api.AccountInfo
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.onIdle
-import org.icpclive.clics.*
-import org.icpclive.clics.events.BatchEvent
-import org.icpclive.clics.events.GlobalEvent
-import org.icpclive.clics.events.IdEvent
-import org.icpclive.clics.events.PreloadFinishedEvent
+import org.icpclive.clics.FeedVersion
+import org.icpclive.clics.clicsEventsSerializersModule
+import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
 import org.icpclive.converter.export.Exporter
 import org.icpclive.converter.export.Router
 import org.icpclive.converter.isAdminAccount
+import java.io.OutputStream
 import java.nio.ByteBuffer
+import java.nio.file.Files
+import java.nio.file.Path
+import java.util.zip.*
+import kotlin.io.path.exists
+import kotlin.io.path.relativeTo
 import kotlin.time.Duration.Companion.minutes
 
 
-object ClicsExporter : Exporter {
+internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
 
     @Serializable
     data class Error(val code: Int, val message: String)
@@ -44,11 +49,12 @@ object ClicsExporter : Exporter {
             is Account -> {
                 whoAmI?.id?.value == x.id
             }
+
             else -> true
         }
     }
 
-    private inline fun <reified T: ObjectWithId> Route.getId(
+    private inline fun <reified T : ObjectWithId> Route.getId(
         prefix: String,
         crossinline flow: ApplicationCall.() -> Flow<Map<String, T>>,
         endpoint: MutableMap<String, SerialDescriptor>,
@@ -66,20 +72,97 @@ object ClicsExporter : Exporter {
                     call.respond(element)
                 } else {
                     call.respond(
-                        Error(404,"Object with ID '$id' not found")
+                        Error(404, "Object with ID '$id' not found")
                     )
                 }
             }
         }
     }
 
-    private inline fun <reified T: Any> Route.getGlobal(prefix: String, crossinline flow: ApplicationCall.() -> Flow<T>, endpoint: MutableMap<String, SerialDescriptor>, module: SerializersModule) {
+    private inline fun <reified T : Any> Route.getGlobal(
+        prefix: String,
+        crossinline flow: ApplicationCall.() -> Flow<T>,
+        endpoint: MutableMap<String, SerialDescriptor>,
+        module: SerializersModule
+    ) {
         endpoint[prefix] = module.getContextual(T::class)?.descriptor ?: return
         route("/$prefix") {
             get { call.respond(call.flow().first()) }
         }
     }
 
+    private inline fun ZipOutputStream.file(name: String, content: () -> Unit) {
+        putNextEntry(ZipEntry(name))
+        content()
+        closeEntry()
+    }
+
+    context(json: Json)
+    private inline fun <reified T> ZipOutputStream.writeJson(value: T) {
+        json.encodeToStream(value, this)
+    }
+
+    context(json: Json)
+    private inline fun <reified T> ZipOutputStream.jsonFile(name: String, value: T) {
+        file(name) { writeJson(value) }
+    }
+
+    suspend fun formatArchive(stream: OutputStream, feed: ClicsFeedGenerator) {
+        val localFiles = mutableMapOf<Path, String>()
+        val with = Json {
+            serializersModule = clicsEventsSerializersModule(
+                FeedVersion.`2023_06`,
+                "",
+                urlSerializerHook = { url ->
+                    if (url.value.startsWith("/media/")) {
+                        val local = mediaDirectory.resolve(url.value.removePrefix("/media/"))
+                            .normalize()
+                            .takeIf { it.startsWith(mediaDirectory) }
+                            ?.takeIf { it.exists() }
+                        if (local != null) {
+                            "media/" + local.relativeTo(mediaDirectory).joinToString("/", prefix = "media/").also {
+                                localFiles[local] = it
+                            }
+                        }
+                    }
+                    url.value
+                }
+            )
+            encodeDefaults = true
+            explicitNulls = false
+        }
+        context(with) {
+            ZipOutputStream(stream).use { zos ->
+                with(zos) {
+                    jsonFile("api.json", apiInformation(FeedVersion.`2023_06`))
+                    jsonFile("contest.json", feed.contestFlow.last())
+                    jsonFile("state.json",feed.stateFlow.last())
+                    jsonFile("judgement-types.json", feed.judgementTypesFlow.last())
+                    jsonFile("languages.json",  feed.languagesFlow.last())
+                    jsonFile("problems.json",  feed.problemsFlow.last())
+                    jsonFile("groups.json",  feed.groupsFlow.last())
+                    jsonFile("organizations.json",  feed.organizationsFlow.last())
+                    jsonFile("teams.json",  feed.teamsFlow.last())
+                    jsonFile("submissions.json",  feed.submissionsFlow.last())
+                    jsonFile("judgements.json",  feed.judgementsFlow.last())
+                    jsonFile("commentary.json",  feed.commentaryFlow.last())
+                    jsonFile("persons.json",  feed.personsFlow.last())
+                    jsonFile("accounts.json",  feed.accountsFlow.last())
+                    jsonFile("awards.json",  feed.awardsFlow.last())
+                    jsonFile("scoreboard.json", feed.getScoreboard())
+                    file("event-feed.ndjson") {
+                        feed.eventFeed.collect {
+                            writeJson(it.event)
+                            write('\n'.code)
+                        }
+                    }
+                    for ((local, name) in localFiles) {
+                        file(name) { Files.copy(local, this) }
+                    }
+                }
+            }
+        }
+    }
 
     override fun CoroutineScope.runOn(
         contestUpdates: Flow<ContestStateWithScoreboard>,
@@ -105,7 +188,7 @@ object ClicsExporter : Exporter {
                         """.trimIndent()
                     }
                 }
-                + "Clics feed Version:  "
+                +"Clics feed Version:  "
                 select {
                     onChange = "setClicsVersion( this.value )"
                     for (i in FeedVersion.entries) {
@@ -134,7 +217,13 @@ object ClicsExporter : Exporter {
                     +"Clics event feed"
                 }
                 br
+                a("/clics/archive.zip") {
+                    id = "clics-archive"
+                    +"CLICS contest archive (zip)"
+                }
+                br
             }
+
             override fun Route.setUpRoutes() {
                 route("/clics/api") {
                     setupClics(FeedVersion.DRAFT)
@@ -146,7 +235,16 @@ object ClicsExporter : Exporter {
                         }
                     }
                 }
+                // Simple archive endpoint (placeholder empty zip for now)
+                get("/clics/archive.zip") {
+                    if (call.feed().stateFlow.first().finalized == null) {
+                        call.respondText("Contest is not finalized yet")
+                    } else {
+                        call.respondOutputStream(contentType = ContentType.Application.Zip) { formatArchive(this, call.feed()) }
+                    }
+                }
             }
+
             private fun Route.setupClics(version: FeedVersion) {
                 val clicsEventsSerializersModule = clicsEventsSerializersModule(version, tokenPrefix = "")
                 val endpoint = mutableMapOf<String, SerialDescriptor>()
@@ -160,13 +258,7 @@ object ClicsExporter : Exporter {
                 get {
                     if (clicsEventsSerializersModule.getContextual(ApiInformation::class) != null) {
                         call.respond(
-                            ApiInformation(
-                                version = version.name,
-                                versionUrl = version.url,
-                                provider = ApiInformationProvider(
-                                    name = "icpc live"
-                                )
-                            )
+                            apiInformation(version)
                         )
                     }
                 }
@@ -177,10 +269,10 @@ object ClicsExporter : Exporter {
                         getGlobal("state", { feed().stateFlow }, endpoint, clicsEventsSerializersModule)
                         getId("judgement-types", { feed().judgementTypesFlow }, endpoint, clicsEventsSerializersModule)
                         getId("languages", { feed().languagesFlow }, endpoint, clicsEventsSerializersModule)
-                        getId("problems", { feed().problemsFlow } , endpoint, clicsEventsSerializersModule)
+                        getId("problems", { feed().problemsFlow }, endpoint, clicsEventsSerializersModule)
                         getId("groups", { feed().groupsFlow }, endpoint, clicsEventsSerializersModule)
                         getId("organizations", { feed().organizationsFlow }, endpoint, clicsEventsSerializersModule)
-                        getId("teams", { feed().teamsFlow}, endpoint, clicsEventsSerializersModule)
+                        getId("teams", { feed().teamsFlow }, endpoint, clicsEventsSerializersModule)
                         getId("submissions", { feed().submissionsFlow }, endpoint, clicsEventsSerializersModule)
                         getId("judgements", { feed().judgementsFlow }, endpoint, clicsEventsSerializersModule)
                         //getId("runs", runsFlow, endpoint, clicsEventsSerializersModule)
@@ -225,6 +317,16 @@ object ClicsExporter : Exporter {
                     }
                 }
             }
+
         }
     }
+
+    private fun apiInformation(version: FeedVersion): ApiInformation = ApiInformation(
+        version = version.name,
+        versionUrl = version.url,
+        provider = ApiInformationProvider(
+            name = "icpc live"
+        )
+    )
+
 }

@@ -22,6 +22,7 @@ kotlin {
         allWarningsAsErrors = true
         compilerOptions {
             freeCompilerArgs.add("-Xjvm-default=all")
+            freeCompilerArgs.add("-Xcontext-parameters")
             optIn.addAll(listOf(
                 "kotlinx.serialization.ExperimentalSerializationApi",
                 "kotlin.time.ExperimentalTime",

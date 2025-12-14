@@ -362,3 +362,5 @@ artifacts
 /playwright/.cache/
 /_site
 *.ipynb
+
+.junie

@@ -4,7 +4,7 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.converter.export.pcms.PCMSHtmlExporter
 import org.icpclive.converter.export.pcms.PCMSXmlExporter
 
-object PCMSDumpCommand : DumpFileCommand(
+object PCMSDumpCommand : DumpTextFileCommand(
     name = "pcms",
     help = "Dump pcms xml",
     outputHelp = "Path to new xml file",
@@ -13,7 +13,7 @@ object PCMSDumpCommand : DumpFileCommand(
     override fun format(data: ContestStateWithScoreboard) = PCMSXmlExporter.format(data)
 }
 
-object PCMSScoreboardDumpCommand : DumpFileCommand(
+object PCMSScoreboardDumpCommand : DumpTextFileCommand(
     name = "pcms-scoreboard",
     help = "Dump pcms scoreboard",
     outputHelp = "Path to new html file",

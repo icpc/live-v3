@@ -21,6 +21,8 @@ public final class org/icpclive/cds/util/FlowUtilsKt {
 	public static final fun onIdle-8Mi8wO0 (Lkotlinx/coroutines/flow/Flow;JLkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/flow/Flow;
 	public static final fun runCatchingIfNotCancellation (Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static final fun shareWith (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function1;)V
+	public static final fun stateInCompletable (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineScope;)Lkotlinx/coroutines/flow/Flow;
+	public static final fun stateInCompletable (Lkotlinx/coroutines/flow/Flow;Lkotlinx/coroutines/CoroutineScope;Ljava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class org/icpclive/cds/util/ListOrSingleElementSerializer : kotlinx/serialization/json/JsonTransformingSerializer {

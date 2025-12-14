@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
+import org.icpclive.cds.util.stateInCompletable
 import org.icpclive.clics.Url
 import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
@@ -495,7 +496,7 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
     private inline fun <X: Any, reified T: GlobalEvent<X>> Flow<EventWithOldValue>.filterGlobalEvent(scope: CoroutineScope) = map { it.event }
         .filterIsInstance<T>()
         .map { it.data }
-        .stateIn(scope, SharingStarted.Eagerly, null)
+        .stateInCompletable(scope)
         .filterNotNull()
 
     private inline fun <X: ObjectWithId, reified T: IdEvent<X>> Flow<EventWithOldValue>.filterIdEvent(scope: CoroutineScope) = map { it.event }
@@ -507,6 +508,6 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
             } else {
                 accumulator.put(value.id, data)
             }
-        }.stateIn(scope, SharingStarted.Eagerly, persistentMapOf())
+        }.stateInCompletable(scope, emptyMap())
 
 }

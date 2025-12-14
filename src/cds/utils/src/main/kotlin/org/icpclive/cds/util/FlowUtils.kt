@@ -100,3 +100,21 @@ public inline fun <T> Flow<T>.shareWith(scope: CoroutineScope, subscribers: Shar
         subscriptionWaitingFlow.update { it - 1 }
     }
 }
+
+@Suppress("UNCHECKED_CAST")
+public fun <T> Flow<T>.stateInCompletable(scope: CoroutineScope, initialValue: T) : Flow<T> {
+    return (this as Flow<T?>)
+        .map { it to true }
+        .onCompletion { if (it == null) { emit(null to false) } }
+        .runningReduce { acc, it -> if (it.second) it else (acc.first to false) }
+        .stateIn(scope, SharingStarted.Eagerly, initialValue to true)
+        .transformWhile {
+            emit(it.first as T)
+            it.second
+        }
+}
+
+public fun <T: Any> Flow<T>.stateInCompletable(scope: CoroutineScope) : Flow<T> {
+    return stateInCompletable(scope, null)
+        .filterNotNull()
+}

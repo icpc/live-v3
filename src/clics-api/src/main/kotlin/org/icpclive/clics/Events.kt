@@ -8,6 +8,7 @@ import org.icpclive.clics.events.EventToken
 public fun clicsEventsSerializersModule(
     feedVersion: FeedVersion,
     tokenPrefix: String,
+    urlSerializerHook: (Url) -> String = { it.value },
     urlPostprocessor: (String) -> Url = { Url(it) },
 ): SerializersModule = SerializersModule {
     include(
@@ -25,7 +26,7 @@ public fun clicsEventsSerializersModule(
     )
     postProcess(
         String.serializer(),
-        onSerialize = { it: Url -> it.value },
+        onSerialize = urlSerializerHook,
         onDeserialize = urlPostprocessor
     )
 }

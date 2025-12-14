@@ -94,6 +94,7 @@
             },
             "photo": {
                 "type": "Image",
+                "mime": "image/svg+xml;charset=utf-8",
                 "url": "/media/ach/{team.id}.svg"
             },
             "screen": {

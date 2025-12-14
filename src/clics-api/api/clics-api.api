@@ -1,6 +1,6 @@
 public final class org/icpclive/clics/EventsKt {
-	public static final fun clicsEventsSerializersModule (Lorg/icpclive/clics/FeedVersion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lkotlinx/serialization/modules/SerializersModule;
-	public static synthetic fun clicsEventsSerializersModule$default (Lorg/icpclive/clics/FeedVersion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/serialization/modules/SerializersModule;
+	public static final fun clicsEventsSerializersModule (Lorg/icpclive/clics/FeedVersion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/serialization/modules/SerializersModule;
+	public static synthetic fun clicsEventsSerializersModule$default (Lorg/icpclive/clics/FeedVersion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lkotlinx/serialization/modules/SerializersModule;
 }
 
 public final class org/icpclive/clics/FeedVersion : java/lang/Enum {
