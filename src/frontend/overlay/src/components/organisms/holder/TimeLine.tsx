@@ -590,12 +590,15 @@ export function TimeLine({
                 const index = Math.floor(timeDiff / AGGREGATION_MS);
 
                 if (index >= 0 && index < totalIntervals) {
-                    const pressesCount = Object.values(event.keys).reduce((sum, k) => sum + (k.bare ?? 0) + (k.shift ?? 0), 0);
+                    const pressesCount = Object.values(event.keys).reduce(
+                        (sum, k) => sum + (k.bare ?? 0) + (k.shift ?? 0),
+                        0,
+                    );
                     newKeylog[index] += pressesCount;
                 }
             });
 
-            setKeylog(newKeylog.map(v => v * pressesPerMinuteFactor));
+            setKeylog(newKeylog.map((v) => v * pressesPerMinuteFactor));
         }
 
         fetchKeylogData();
