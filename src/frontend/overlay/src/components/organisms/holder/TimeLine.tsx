@@ -3,8 +3,17 @@ import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
-import { ContestInfo, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
-import { calculateContestTime } from "@/components/molecules/Clock";
+import {
+    ContestInfo,
+    ContestStatus,
+    TeamId,
+    TeamInfo,
+    TimeLineRunInfo,
+} from "@shared/api";
+import {
+    calculateContestTime,
+    getStartTime,
+} from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { KeylogGraph } from "./KeylogGraph";
 
@@ -425,6 +434,34 @@ export function TimeLineBackground({
     );
 }
 
+interface KeyboardEvent {
+    timestamp: string; // ISO8601
+    keys: Record<string, KeyStats>;
+}
+
+interface KeyStats {
+    raw?: number;
+    bare?: number;
+    shift?: number;
+    ctrl?: number;
+    alt?: number;
+    meta?: number;
+
+    "ctrl+shift"?: number;
+    "ctrl+alt"?: number;
+    "shift+alt"?: number;
+    "ctrl+meta"?: number;
+    "shift+meta"?: number;
+    "alt+meta"?: number;
+
+    "ctrl+shift+alt"?: number;
+    "ctrl+shift+meta"?: number;
+    "ctrl+alt+meta"?: number;
+    "shift+alt+meta"?: number;
+
+    "ctrl+shift+alt+meta"?: number;
+}
+
 export function TimeLine({
     teamId,
     className = null,
@@ -509,20 +546,63 @@ export function TimeLine({
     }, [contestInfo, isPvp]);
 
     useEffect(() => {
-        if (!keylogUrl) return;
+        const startTime = getStartTime(contestInfo);
+        if (!keylogUrl || !startTime) return;
 
-        async function fetchKeylogData() {
+        // TODO: Move all this code to KeylogGraph
+        async function fetchNDJSON(): Promise<KeyboardEvent[]> {
             try {
                 const response = await fetch(keylogUrl);
-                const data: number[] = await response.json();
-                setKeylog(data);
-            } catch (error) {
-                console.error("Error fetching keylog data:", error);
+                if (!response.ok) throw new Error("Failed to fetch keylog");
+
+                const text = await response.text();
+                return text
+                    .trim()
+                    .split("\n")
+                    .filter((line) => line.trim())
+                    .map((line) => JSON.parse(line) as KeyboardEvent);
+            } catch (e) {
+                console.error(e);
+                return [];
             }
         }
 
+        async function fetchKeylogData() {
+            const events = await fetchNDJSON();
+            if (events.length === 0) return;
+
+            const contestStart = new Date(startTime!).getTime();
+            const AGGREGATION_MS = c.KEYLOG_INTERVAL_LENGTH;
+
+            const totalIntervals = Math.ceil(
+                contestInfo!.contestLengthMs / c.KEYLOG_INTERVAL_LENGTH,
+            );
+            const interval_minutes = c.KEYLOG_INTERVAL_LENGTH / 60000;
+            const pressesPerMinuteFactor = 1 / interval_minutes;
+            const newKeylog = new Array(totalIntervals).fill(0);
+
+            events.forEach((event) => {
+                const eventTime = new Date(event.timestamp).getTime();
+
+                if (eventTime < contestStart) return;
+
+                const timeDiff = eventTime - contestStart;
+                const index = Math.floor(timeDiff / AGGREGATION_MS);
+
+                if (index >= 0 && index < totalIntervals) {
+                    const pressesCount = Object.values(event.keys).reduce(
+                        (sum, k) => sum + (k.bare ?? 0) + (k.shift ?? 0),
+                        0,
+                    );
+                    newKeylog[index] += pressesCount;
+                }
+            });
+
+            setKeylog(newKeylog.map((v) => v * pressesPerMinuteFactor));
+        }
+
         fetchKeylogData();
-    }, [keylogUrl]);
+    }, [keylogUrl, contestInfo]);
 
     if (!contestInfo) return null;
 
