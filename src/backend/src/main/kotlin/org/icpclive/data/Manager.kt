@@ -31,6 +31,7 @@ abstract class ManagerWithEvents<T : TypeWithId, E> : Manager<T>() {
         items.forEach(block)
     }
 
+    @IgnorableReturnValue
     private fun removeById(id: String) : Boolean {
         val myItems = items.filter { it.id == id }
         for (item in myItems) {

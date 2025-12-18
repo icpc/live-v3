@@ -16,13 +16,13 @@ class AllConfigsAreParsable {
     @OptIn(ExperimentalPathApi::class)
     private fun test(
         configDir: Path,
-        nameFileter: (String) -> Boolean,
-        parser: (Path) -> Unit
+        nameFilter: (String) -> Boolean,
+        parser: (Path) -> Any?
     ) : List<DynamicTest> {
         return configDir.walk()
-            .filter { nameFileter(it.name) }
+            .filter { nameFilter(it.name) }
             .map {
-                DynamicTest.dynamicTest(it.relativeTo(configDir).toString()) { parser(it) }
+                DynamicTest.dynamicTest(it.relativeTo(configDir).toString()) { val _ = parser(it) }
             }.toList()
             .also { require(it.isNotEmpty()) }
     }
@@ -32,7 +32,7 @@ class AllConfigsAreParsable {
     fun testSettings() : List<DynamicTest> {
         return test(
             Path("").absolute().parent.parent.parent.resolve("config"),
-            nameFileter = { it == "settings.json" },
+            nameFilter = { it == "settings.json" },
             parser = { CDSSettings.fromFile(it) { "" } }
         )
     }
@@ -42,7 +42,7 @@ class AllConfigsAreParsable {
     fun testAdvancedJson() : List<DynamicTest> {
         return test(
             Path("").absolute().parent.parent.parent.resolve("config"),
-            nameFileter = { it == "advanced.json" },
+            nameFilter = { it == "advanced.json" },
             parser = { path ->
                 path.toFile().inputStream().use {
                     TuningRule.listFromInputStream(it)
@@ -63,7 +63,7 @@ class AllConfigsAreParsable {
         }
         return test(
             projectDir.resolve("config"),
-            nameFileter = { it.startsWith("visual-config") || it.startsWith("visualConfig") },
+            nameFilter = { it.startsWith("visual-config") || it.startsWith("visualConfig") },
             parser = { path ->
                 path.toFile().inputStream().use {
                     jsonSchema.validate(json.decodeFromStream<JsonElement>(it)) {error ->
@@ -79,7 +79,7 @@ class AllConfigsAreParsable {
     fun testAdvancedJsonExamples() : List<DynamicTest> {
         return test(
             Path("").absolute().parent.parent.parent.resolve("config/_examples/_advanced"),
-            nameFileter = { true },
+            nameFilter = { true },
             parser = { path ->
                 path.toFile().inputStream().use {
                     TuningRule.listFromInputStream(it)

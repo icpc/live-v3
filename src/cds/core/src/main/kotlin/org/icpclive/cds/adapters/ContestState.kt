@@ -44,6 +44,6 @@ public fun <T> Flow<T>.transformContestState(block: suspend FlowCollector<Contes
                 if (isUseless) return@collect
             }
             curContestState = curContestState.applyEvent(value)
-            curContestState?.let { emit(it) }
+            emit(curContestState)
         }
     }

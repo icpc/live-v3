@@ -119,11 +119,9 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
                             .normalize()
                             .takeIf { it.startsWith(mediaDirectory) }
                             ?.takeIf { it.exists() }
-                        if (local != null) {
-                            "media/" + local.relativeTo(mediaDirectory).joinToString("/", prefix = "media/").also {
-                                localFiles[local] = it
-                            }
-                        }
+                        local?.relativeTo(mediaDirectory)
+                            ?.joinToString("/", prefix = "media/")
+                            ?.also { localFiles[local] = it }
                     }
                     url.value
                 }

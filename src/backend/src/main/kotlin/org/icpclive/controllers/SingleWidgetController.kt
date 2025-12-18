@@ -45,7 +45,9 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
         overlayWidgetId = null
     }
 
+    @IgnorableReturnValue
     fun launchWhileWidgetExists(block: suspend () -> Unit) = widgetScope.launch { block() }
+    @IgnorableReturnValue
     fun launchWhileWidgetShown(block: suspend () -> Unit) = widgetShowScope?.launch { block() }
 
     suspend fun getSettings() = mutex.withLock { settings }

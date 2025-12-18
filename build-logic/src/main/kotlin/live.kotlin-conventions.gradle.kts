@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+
 plugins {
     java
     kotlin("jvm")
@@ -21,8 +23,10 @@ kotlin {
     compilerOptions {
         allWarningsAsErrors = true
         compilerOptions {
-            freeCompilerArgs.add("-Xjvm-default=all")
+            jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
             freeCompilerArgs.add("-Xcontext-parameters")
+            freeCompilerArgs.add("-Xreturn-value-checker=full")
+            progressiveMode = true
             optIn.addAll(listOf(
                 "kotlinx.serialization.ExperimentalSerializationApi",
                 "kotlin.time.ExperimentalTime",

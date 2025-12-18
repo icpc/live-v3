@@ -49,4 +49,5 @@ dependencies {
     runtimeOnly(libs.grpc.netty)
     implementation(libs.grpc.protobuf)
     implementation(libs.grpc.stub)
+    implementation(libs.grpc.kotlin.stub)
 }

@@ -155,11 +155,11 @@ object ClicsTimeTest {
         )
 
         for (pp in relSigns) for (hh in relHours) for (mm in relMinutes) for (ss in relSeconds) {
-            hh.first ?: continue
-            mm.first ?: continue
+            if (hh.first == null) continue
+            if (mm.first == null) continue
             val duration = (hh.second.hours + mm.second.minutes + ss.second.seconds) * pp.second
             val durationString = formatClicsRelativeTime(duration)
-            parseClicsRelativeTime(durationString)
+            parseClicsRelativeTime(durationString).also { assertEquals(duration, it) }
             val obj = ObjectWithDuration(duration)
             val encodedString = Json.encodeToString(obj)
             assertEquals("{\"dur\":\"$durationString\"}", encodedString)

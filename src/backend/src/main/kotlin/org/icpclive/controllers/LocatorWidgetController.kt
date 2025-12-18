@@ -14,7 +14,7 @@ class LocatorWidgetController(manager: Manager<in TeamLocatorWidget>) :
     override suspend fun checkSettings(settings: ExternalTeamLocatorSettings) {
         val info = DataBus.currentContestInfo()
         settings.circles.forEach {
-            it.getTeam(info) ?: throw ApiActionException("No team for circle $it")
+            val _ = it.getTeam(info) ?: throw ApiActionException("No team for circle $it")
         }
     }
 

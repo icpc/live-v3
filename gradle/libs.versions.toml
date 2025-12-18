@@ -1,25 +1,25 @@
 [versions]
-ktor = "3.3.2"                     # https://ktor.io/
+ktor = "3.3.3"                     # https://ktor.io/
 datetime = "0.7.1"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.9.0"            # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "2.2.21"
-ksp = "2.3.3"                      # https://github.com/google/ksp
+kotlin = "2.3.0"
+ksp = "2.3.4"                      # https://github.com/google/ksp
 slf4j = "2.0.17"                   # https://www.slf4j.org/download.html
-logback = "1.5.21"                 # https://logback.qos.ch/download.html
+logback = "1.5.22"                 # https://logback.qos.ch/download.html
 node-plugin = "7.1.0"              # https://github.com/node-gradle/gradle-node-plugin
 coroutines = "1.10.2"              # https://github.com/Kotlin/kotlinx.coroutines/
-shadow-plugin = "9.2.2"            # https://github.com/GradleUp/shadow
+shadow-plugin = "9.3.0"            # https://github.com/GradleUp/shadow
 clikt = "5.0.3"                    # https://ajalt.github.io/clikt/
 immutable = "0.4.0"                # https://github.com/Kotlin/kotlinx.collections.immutable
-protobuf-plugin = "0.9.5"          # https://github.com/google/protobuf-gradle-plugin
-protobuf = "4.32.1"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
-grpc = "1.73.0"                    # https://mvnrepository.com/artifact/io.grpc/grpc-stub
-grpc-kotlin = "1.4.1"              # https://mvnrepository.com/artifact/io.grpc/grpc-kotlin-stub
+protobuf-plugin = "0.9.6"          # https://github.com/google/protobuf-gradle-plugin
+protobuf = "4.33.2"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
+grpc = "1.77.0"                    # https://mvnrepository.com/artifact/io.grpc/grpc-stub
+grpc-kotlin = "1.5.0"              # https://mvnrepository.com/artifact/io.grpc/grpc-kotlin-stub
 dokka = "2.1.0"                    # https://github.com/Kotlin/dokka
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.14.1"      # https://commons.apache.org/proper/commons-csv/
 graphql = "8.8.1"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
-json-schema-validator = "0.5.2"    # https://github.com/OptimumCode/json-schema-validator
+json-schema-validator = "0.5.3"    # https://github.com/OptimumCode/json-schema-validator
 
 [libraries]
 
@@ -63,7 +63,8 @@ cli = { version.ref = "clikt", group = "com.github.ajalt.clikt", name = "clikt" 
 
 grpc-netty = { version.ref = "grpc", group = "io.grpc", name = "grpc-netty" }
 grpc-protobuf = { version.ref = "grpc", group = "io.grpc", name = "grpc-protobuf" }
-grpc-stub = { version.ref = "grpc-kotlin", group = "io.grpc", name = "grpc-kotlin-stub" }
+grpc-stub = { version.ref = "grpc", group = "io.grpc", name = "grpc-stub" }
+grpc-kotlin-stub = { version.ref = "grpc-kotlin", group = "io.grpc", name = "grpc-kotlin-stub" }
 grpc-gen-java = { version.ref = "grpc", group = "io.grpc", name = "protoc-gen-grpc-java" }
 grpc-gen-kotlin = { version.ref = "grpc-kotlin", group = "io.grpc", name = "protoc-gen-grpc-kotlin" }
 
