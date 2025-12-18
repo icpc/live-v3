@@ -176,7 +176,7 @@ fun Route.configureAdminApiRouting() {
                 validate = {
                     try {
                         // check if parsable
-                        TuningRule.listFromString(it)
+                        val _ = TuningRule.listFromString(it)
                     } catch (e: SerializationException) {
                         throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
                     }

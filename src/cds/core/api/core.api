@@ -3267,8 +3267,8 @@ public final class org/icpclive/cds/tunning/TemplateSubstitutionBuilder {
 	public final fun addJson (Ljava/lang/String;Lkotlinx/serialization/json/JsonElement;)V
 	public final fun addOrganization (Lorg/icpclive/cds/api/OrganizationInfo;Ljava/lang/String;)V
 	public static synthetic fun addOrganization$default (Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;Lorg/icpclive/cds/api/OrganizationInfo;Ljava/lang/String;ILjava/lang/Object;)V
-	public final fun addRegex (Ljava/lang/String;Lorg/icpclive/cds/tunning/TemplateRegexParser;Ljava/lang/String;)Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;
-	public static synthetic fun addRegex$default (Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;Ljava/lang/String;Lorg/icpclive/cds/tunning/TemplateRegexParser;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;
+	public final fun addRegex (Ljava/lang/String;Lorg/icpclive/cds/tunning/TemplateRegexParser;Ljava/lang/String;)V
+	public static synthetic fun addRegex$default (Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;Ljava/lang/String;Lorg/icpclive/cds/tunning/TemplateRegexParser;Ljava/lang/String;ILjava/lang/Object;)V
 	public final fun addTeam (Lorg/icpclive/cds/api/TeamInfo;Ljava/lang/String;Z)V
 	public static synthetic fun addTeam$default (Lorg/icpclive/cds/tunning/TemplateSubstitutionBuilder;Lorg/icpclive/cds/api/TeamInfo;Ljava/lang/String;ZILjava/lang/Object;)V
 	public final fun build ()Lorg/icpclive/cds/tunning/TemplateSubstitutor;

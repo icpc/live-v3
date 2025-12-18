@@ -17,8 +17,7 @@ fun Route.setupRouting() {
         call.adminApiAction {
             log.info { "hello!!!" }
             val request = call.receive<OracleRequest>()
-            OracleMover.moveToTeam(request.oracleId, request.teamId)
-            Unit
+            val _ = OracleMover.moveToTeam(request.oracleId, request.teamId)
         }
     }
 

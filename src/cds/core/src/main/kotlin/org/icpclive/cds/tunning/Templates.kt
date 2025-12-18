@@ -130,7 +130,7 @@ public class TemplateSubstitutionBuilder @PublishedApi internal constructor() {
     public fun addOrganization(info: OrganizationInfo, name: String = "org") {
         addJson(name, Json.encodeToJsonElement(info) as JsonObject)
     }
-    public fun addRegex(groupName: String, parser: TemplateRegexParser, name: String = "regexes") : TemplateSubstitutionBuilder = apply {
+    public fun addRegex(groupName: String, parser: TemplateRegexParser, name: String = "regexes") {
         fun <T> Result<T>.getOrNullAndWarn(regex: Regex, value: String, replacement: String? = null): T? {
             exceptionOrNull()?.let {
                 logger(OverrideTeamTemplate::class).error(it) {
