@@ -960,12 +960,12 @@
                 }
             ]
         },
-        "overrideOrganisationTemplate": {
+        "overrideOrganizationTemplate": {
             "type": "object",
             "properties": {
                 "type": {
-                    "const": "overrideOrganisationTemplate",
-                    "default": "overrideOrganisationTemplate"
+                    "const": "overrideOrganizationTemplate",
+                    "default": "overrideOrganizationTemplate"
                 },
                 "regexes": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,org.icpclive.cds.tunning.TemplateRegexParser>"
@@ -1008,7 +1008,7 @@
             "required": [
                 "type"
             ],
-            "title": "overrideOrganisationTemplate"
+            "title": "overrideOrganizationTemplate"
         },
         "org.icpclive.cds.tunning.OverrideOrganizations.Override<kotlin.String?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.String?,ListOrSingleElement?,ListOrSingleElement?,kotlin.collections.LinkedHashMap?>": {
             "type": "object",
@@ -1668,7 +1668,7 @@
                     "$ref": "#/$defs/overrideGroups"
                 },
                 {
-                    "$ref": "#/$defs/overrideOrganisationTemplate"
+                    "$ref": "#/$defs/overrideOrganizationTemplate"
                 },
                 {
                     "$ref": "#/$defs/overrideOrganizations"

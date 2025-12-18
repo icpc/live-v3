@@ -35,7 +35,7 @@
         
     },
       {
-    "type": "overrideOrganisationTemplate",
+    "type": "overrideOrganizationTemplate",
     "logo": {
       "type": "Image",
       "url": "http://cds/api/contests/wf49_finals/organizations/{org.id}/logo.160x160"

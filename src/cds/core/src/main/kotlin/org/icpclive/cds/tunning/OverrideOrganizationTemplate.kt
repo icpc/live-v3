@@ -22,8 +22,8 @@ import org.icpclive.cds.util.ListOrSingleElementSerializer
  *
  */
 @Serializable
-@SerialName("overrideOrganisationTemplate")
-public data class OverrideOrganisationTemplate(
+@SerialName("overrideOrganizationTemplate")
+public data class OverrideOrganizationTemplate(
     public val regexes: Map<String, TemplateRegexParser> = emptyMap(),
     public val fullName: String? = null,
     public val displayName: String? = null,

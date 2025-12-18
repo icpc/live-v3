@@ -72,7 +72,7 @@
     }
   },
   {
-    "type": "overrideOrganisationTemplate",
+    "type": "overrideOrganizationTemplate",
     "logo": {
       "type": "Image",
       "url": "/media/organizations/{org.id}/logo.svg"
