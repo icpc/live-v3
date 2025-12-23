@@ -9,5 +9,22 @@
   "SCOREBOARD_CELL_PENALTY_SIZE": "90px",
   "SCOREBOARD_CELL_PENALTY_ALIGN": "center",
   "SCOREBOARD_CELL_TEAMNAME_SIZE": "400px",
-  "TICKER_SCOREBOARD_ROWS": 2
+  "TICKER_SCOREBOARD_ROWS": 2,
+  "TICKER_TEXT_FONT_SIZE": "48px",
+  "TICKER_CLOCK_FONT_SIZE": "48px",
+  "TICKER_LIVE_ICON_SIZE": "0px",
+  "TICKER_LIVE_ICON_PADDING": "0px 0",
+  "TICKER_LIVE_ICON_MARGIN": "0 0px",
+  "WIDGET_POSITIONS": {
+    "ticker0": {"positionX": 0, "positionY": 0, "sizeX": 2016, "sizeY": 96},
+    "ticker1": {"positionX": 96, "positionY": 96, "sizeX": 2016, "sizeY": 96},
+    "ticker2": {"positionX": 0, "positionY": 192, "sizeX": 2016, "sizeY": 96},
+    "ticker3": {"positionX": 96, "positionY": 288, "sizeX": 2016, "sizeY": 96},
+    "ticker4": {"positionX": 0, "positionY": 384, "sizeX": 2016, "sizeY": 96},
+    "ticker5": {"positionX": 96, "positionY": 480, "sizeX": 2016, "sizeY": 96},
+    "ticker6": {"positionX": 0, "positionY": 576, "sizeX": 2016, "sizeY": 96},
+    "ticker7": {"positionX": 96, "positionY": 672, "sizeX": 2016, "sizeY": 96},
+    "cubeScoreboard": {"positionX": 0, "positionY": 0, "sizeX": 1280, "sizeY": 1024},
+    "cubeClock": {"positionX": 0, "positionY": 0, "sizeX": 1280, "sizeY": 1024}
+  }
 }
