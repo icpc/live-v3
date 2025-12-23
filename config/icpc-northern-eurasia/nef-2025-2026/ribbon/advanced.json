@@ -88,7 +88,7 @@
             "site": "nsk"
           },
           "kaz(\\d\\d\\d)": {
-            "grabberPeerNameValue": "kaz$1",
+            "grabberPeerNameValue": "k$1",
             "grabberIpValue": "192.168.1.1",
             "site": "kaz"
           }
@@ -108,98 +108,64 @@
     "rules": {
       "A": {
         "color": "#be2e67",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "B": {
         "color": "#cb2a28",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "C": {
         "color": "#82d4f8",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "D": {
         "color": "#d57d01",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "E": {
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "F": {
         "color": "#02472d",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "G": {
         "color": "#d89eb1",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "H": {
         "color": "#2273bd",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "I": {
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "J": {
         "color": "#c6c8c1",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "K": {
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "L": {
         "color": "#7763e6",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "M": {
         "color": "#c6bd18",
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "W": {
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "X": {
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "Y": {
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       },
       "Z": {
-        "ftsMode": {
-          "type": "hidden"
-        }
+        "ftsMode": {"type": "hidden"}
       }
     }
   },
@@ -261,35 +227,6 @@
     "gold": 4,
     "silver": 4,
     "bronze": 4
-  },
-  {
-    "type": "overrideAwards",
-    "championTitle": "Northern Eurasia Champions",
-    "rankAwardsMaxRank": 13,
-    "extraMedalGroups": [
-      {
-        "medals": [
-          {
-            "id": "first-diploma",
-            "citation": "First Award",
-            "minScore": 8.0,
-            "tiebreakMode": "NONE"
-          },
-          {
-            "id": "second-diploma",
-            "citation": "Second Award",
-            "minScore": 6.0,
-            "tiebreakMode": "NONE"
-          },
-          {
-            "id": "third-diploma",
-            "citation": "Third Award",
-            "minScore": 5.0,
-            "tiebreakMode": "NONE"
-          }
-        ]
-      }
-    ]
   },
   {
     "type": "overrideQueue",
