@@ -19,6 +19,7 @@ export interface OverlayConfig {
 
     // Behaviour
     TICKER_SCOREBOARD_REPEATS: number;
+    TICKER_SCOREBOARD_ROWS: number;
     QUEUE_MAX_ROWS: number;
     QUEUE_HORIZONTAL_HEIGHT_NUM: number;
 

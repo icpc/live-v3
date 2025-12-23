@@ -735,6 +735,9 @@
         "TICKER_SCOREBOARD_REPEATS": {
             "type": "number"
         },
+        "TICKER_SCOREBOARD_ROWS": {
+            "type": "number"
+        },
         "TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME": {
             "type": "number"
         },

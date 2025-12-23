@@ -58,6 +58,7 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
 
         // Behaviour
         TICKER_SCOREBOARD_REPEATS: 1,
+        TICKER_SCOREBOARD_ROWS: 1,
         QUEUE_MAX_ROWS: 20,
         QUEUE_HORIZONTAL_HEIGHT_NUM: 5,
 
