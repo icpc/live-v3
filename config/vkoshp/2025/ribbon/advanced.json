@@ -1,0 +1,200 @@
+[
+  {
+    "type": "overrideContestSettings",
+    "freezeTimeSeconds": 14400
+  },
+  {
+    "type": "overrideScoreboardSettings",
+    "showTeamsWithoutSubmissions": false
+  },
+  {
+    "type": "addPersonsByTeamTemplate",
+    "regexes": {
+      "people": {
+        "from": "{team.fullName}",
+        "rules": {
+          "[^:]*: .* \\((.*),(.*),(.*)\\)": {}
+        }
+      }
+    },
+    "persons": [
+      {
+        "id": "{team.id}-1",
+        "name": "{regexes.people.1}",
+        "role": "contestant",
+        "teamIds": ["{team.id}"]
+      },
+      {
+        "id": "{team.id}-2",
+        "name": "{regexes.people.2}",
+        "role": "contestant",
+        "teamIds": ["{team.id}"]
+      },
+      {
+        "id": "{team.id}-3",
+        "name": "{regexes.people.3}",
+        "role": "contestant",
+        "teamIds": ["{team.id}"]
+      }
+    ]
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "custom": {
+        "from": "{team.fullName}",
+        "rules": {
+          "([^:]*): (.*) (\\([^)]*\\))": {
+            "org": "$1",
+            "funnyNameValue": "$2",
+            "contestants": "$3"
+          }
+        }
+      }
+    },
+    "organizationId": "{regexes.custom.org}",
+    "customFields": {
+      "funnyName": "{regexes.custom.funnyNameValue}"
+    }
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "custom": {
+        "from": "{team.id}",
+        "rules": {
+          "spb(\\d\\d\\d)": {
+            "grabberPeerNameValue": "$1",
+            "grabberIpValue": "192.168.1.1",
+            "site": "spb"
+          },
+          "geo(\\d\\d\\d)": {
+            "grabberPeerNameValue": "g$1",
+            "grabberIpValue": "192.168.1.1",
+            "site": "geo"
+          },
+          "nsk(\\d\\d\\d)": {
+            "grabberPeerNameValue": "n$1",
+            "grabberIpValue": "192.168.1.1",
+            "site": "nsk"
+          },
+          "kaz(\\d\\d\\d)": {
+            "grabberPeerNameValue": "k$1",
+            "grabberIpValue": "192.168.1.1",
+            "site": "kaz"
+          }
+        }
+      }
+    },
+    "extraGroups": [
+      "{regexes.custom.site}"
+    ],
+    "customFields": {
+      "grabberPeerName": "{regexes.custom.grabberPeerNameValue}",
+      "grabberIp": "{regexes.custom.grabberIpValue}"
+    }
+  },
+  {
+    "type": "overrideProblems",
+    "rules": {
+      "A": {
+        "color": "#cb2a28",
+        "ftsMode": {"type": "hidden"}
+      },
+      "B": {
+        "color": "#842634",
+        "ftsMode": {"type": "hidden"}
+      },
+      "C": {
+        "color": "#c6bd18",
+        "ftsMode": {"type": "hidden"}
+      },
+      "D": {
+        "color": "#d89eb1",
+        "ftsMode": {"type": "hidden"}
+      },
+      "E": {
+        "color": "#2273bd",
+        "ftsMode": {"type": "hidden"}
+      },
+      "F": {
+        "color": "#808080",
+        "ftsMode": {"type": "hidden"}
+      },
+      "G": {
+        "color": "#7763e6",
+        "ftsMode": {"type": "hidden"}
+      },
+      "H": {
+        "color": "#41ba33",
+        "ftsMode": {"type": "hidden"}
+      },
+      "I": {
+        "color": "#02472d",
+        "ftsMode": {"type": "hidden"}
+      },
+      "J": {
+        "color": "#808080",
+        "ftsMode": {"type": "hidden"}
+      },
+      "K": {
+        "color": "#03a9f4",
+        "ftsMode": {"type": "hidden"}
+      },
+      "L": {
+        "color": "#d57d01",
+        "ftsMode": {"type": "hidden"}
+      },
+      "M": {
+        "color": "#c6c8c1",
+        "ftsMode": {"type": "hidden"}
+      },
+      "W": {
+        "ftsMode": {"type": "hidden"}
+      },
+      "X": {
+        "ftsMode": {"type": "hidden"}
+      },
+      "Y": {
+        "ftsMode": {"type": "hidden"}
+      },
+      "Z": {
+        "ftsMode": {"type": "hidden"}
+      }
+    }
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "displayName": "{org.displayName}: {funnyName}",
+    "medias": {
+      "screen": {
+        "type": "WebRTCGrabberConnection",
+        "url": "https://{grabberIp}",
+        "peerName": "{grabberPeerName}",
+        "streamType": "desktop",
+        "credential": "live"
+      },
+      "camera": {
+        "type": "WebRTCGrabberConnection",
+        "url": "https://{grabberIp}",
+        "peerName": "{grabberPeerName}",
+        "streamType": "webcam",
+        "credential": "live"
+      },
+      "achievement": {
+        "type": "Image",
+        "url": "/media/ach/{team.id}.svg"
+      }
+    }
+  },
+  {
+    "type": "addMedals",
+    "gold": 4,
+    "silver": 8,
+    "bronze": 16
+  },
+  {
+    "type": "overrideQueue",
+    "maxQueueSize": 20
+  }
+]
