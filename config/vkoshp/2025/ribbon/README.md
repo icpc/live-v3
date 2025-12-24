@@ -1,0 +1,1 @@
+See [README.md](../../../icpc-northern-eurasia/nef-2025-2026/ribbon/README.md) from NEF 2025
