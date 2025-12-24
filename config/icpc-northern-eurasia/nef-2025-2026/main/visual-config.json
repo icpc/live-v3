@@ -1,0 +1,11 @@
+{
+  "EXTRA_CSS": "@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap')",
+  "GLOBAL_DEFAULT_FONT_FAMILY": "Roboto",
+  "SCOREBOARD_HEADER_FONT_WEIGHT": 800,
+  "CONTEST_COLOR": "#09116C",
+  "SCOREBOARD_CELL_PLACE_SIZE": "60px",
+  "SCOREBOARD_CELL_POINTS_SIZE": "50px",
+  "SCOREBOARD_CELL_PENALTY_SIZE": "90px",
+  "SCOREBOARD_CELL_PENALTY_ALIGN": "center",
+  "SCOREBOARD_CELL_TEAMNAME_SIZE": "400px"
+}

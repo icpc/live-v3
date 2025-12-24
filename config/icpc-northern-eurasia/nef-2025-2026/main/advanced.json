@@ -1,0 +1,168 @@
+[
+  {
+    "type": "overrideContestSettings",
+    "freezeTimeSeconds": 14400
+  },
+  {
+    "type": "overrideScoreboardSettings",
+    "showTeamsWithoutSubmissions": true
+  },
+  {
+    "type": "addPersonsByTeamTemplate",
+    "regexes": {
+      "people": {
+        "from": "{team.fullName}",
+        "rules": {
+          "[^:]*: .* \\((.*),(.*),(.*)\\)": {}
+        }
+      }
+    },
+    "persons": [
+      {
+        "id": "{team.id}-1",
+        "name": "{regexes.people.1}",
+        "role": "contestant",
+        "teamIds": ["{team.id}"]
+      },
+      {
+        "id": "{team.id}-2",
+        "name": "{regexes.people.2}",
+        "role": "contestant",
+        "teamIds": ["{team.id}"]
+      },
+      {
+        "id": "{team.id}-3",
+        "name": "{regexes.people.3}",
+        "role": "contestant",
+        "teamIds": ["{team.id}"]
+      }
+    ]
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "custom": {
+        "from": "{team.fullName}",
+        "rules": {
+          "([^:]*): (.*) (\\([^)]*\\))": {
+            "org": "$1",
+            "funnyNameValue": "$2",
+            "contestants": "$3"
+          }
+        }
+      }
+    },
+    "organizationId": "{regexes.custom.org}",
+    "customFields": {
+      "funnyName": "{regexes.custom.funnyNameValue}"
+    }
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "custom": {
+        "from": "{team.id}",
+        "rules": {
+          "spb(\\d\\d\\d)": {
+            "grabberPeerNameValue": "$1",
+            "grabberIpValue": "192.168.1.1",
+            "site": "spb"
+          },
+          "geo(\\d\\d\\d)": {
+            "grabberPeerNameValue": "g$1",
+            "grabberIpValue": "192.168.1.1",
+            "site": "geo"
+          },
+          "nsk(\\d\\d\\d)": {
+            "grabberPeerNameValue": "n$1",
+            "grabberIpValue": "192.168.1.1",
+            "site": "nsk"
+          },
+          "kaz(\\d\\d\\d)": {
+            "grabberPeerNameValue": "k$1",
+            "grabberIpValue": "192.168.1.1",
+            "site": "kaz"
+          }
+        }
+      }
+    },
+    "extraGroups": [
+      "{regexes.custom.site}"
+    ],
+    "customFields": {
+      "grabberPeerName": "{regexes.custom.grabberPeerNameValue}",
+      "grabberIp": "{regexes.custom.grabberIpValue}"
+    }
+  },
+  {
+    "type": "overrideOrganizations",
+    "rules": {
+      "Moscow Tech U MIREA": {"displayName": "MIREA"},
+      "Komsomolsk-na-Amure SU": {"displayName": "KnASU"},
+      "South Ural SU": {"displayName": "SUSU"},
+      "Nizhny Novgorod HSE": {"displayName": "NN HSE"},
+      "St. Petersburg SU": {"displayName": "SPbSU"},
+      "Moscow SU": {"displayName": "MSU"},
+      "Petrozavodsk SU": {"displayName": "PetrSU"},
+      "Kalashnikov ISTU": {"displayName": "ISTU"}
+    }
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "displayName": "{org.displayName}: {funnyName}",
+    "hashTag": "#{team.id}",
+    "medias": {
+      "screen": {
+        "type": "WebRTCGrabberConnection",
+        "url": "https://{grabberIp}",
+        "peerName": "{grabberPeerName}",
+        "streamType": "desktop",
+        "credential": "live"
+      },
+      "camera": {
+        "type": "WebRTCGrabberConnection",
+        "url": "https://{grabberIp}",
+        "peerName": "{grabberPeerName}",
+        "streamType": "webcam",
+        "credential": "live"
+      },
+      "achievement": {
+        "type": "Image",
+        "url": "/media/ach/{team.id}.svg"
+      }
+    }
+  },
+  {
+    "type": "overrideTeams",
+    "rules": {
+      "spb301": {
+        "isOutOfContest": true
+      }
+    }
+  },
+  {
+    "type": "overrideProblems",
+    "rules": {
+      "A": {"color": "#be2e67"},
+      "B": {"color": "#cb2a28"},
+      "C": {"color": "#82d4f8"},
+      "D": {"color": "#d57d01"},
+      "F": {"color": "#02472d"},
+      "G": {"color": "#d89eb1"},
+      "H": {"color": "#2273bd"},
+      "J": {"color": "#c6c8c1"},
+      "L": {"color": "#7763e6"},
+      "M": {"color": "#c6bd18"}
+    }
+  },
+  {
+    "type": "addMedals",
+    "gold": 4,
+    "silver": 4,
+    "bronze": 4
+  },
+  {
+    "type": "overrideQueue",
+    "maxQueueSize": 20
+  }
+]
