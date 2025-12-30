@@ -18,9 +18,9 @@ export const createShimmerStyles = (
     const useDarkContent = isShouldUseDarkColor(bgColor);
 
     const textColor = useDarkContent ? "#000" : "#fff";
-    
-    const textShadow = useDarkContent 
-        ? "0 1px 0 rgba(255, 255, 255, 0.4)" 
+
+    const textShadow = useDarkContent
+        ? "0 1px 0 rgba(255, 255, 255, 0.4)"
         : "0 1px 2px rgba(0, 0, 0, 0.5)";
 
     const shimmerGradient = useDarkContent
@@ -46,7 +46,7 @@ export const createShimmerStyles = (
     return css`
         position: relative;
         overflow: hidden;
-        
+
         background-color: ${bgColor};
         color: ${textColor};
         font-weight: bold;
@@ -59,12 +59,13 @@ export const createShimmerStyles = (
             left: 0;
             right: 0;
             bottom: 0;
-            
+
             background: ${shimmerGradient};
             mix-blend-mode: ${blendMode};
-            
+
             transform: translateX(-150%);
-            animation: ${shimmerTranslate} 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            animation: ${shimmerTranslate} 6s cubic-bezier(0.4, 0, 0.2, 1)
+                infinite;
             will-change: transform;
             pointer-events: none;
             z-index: 1;

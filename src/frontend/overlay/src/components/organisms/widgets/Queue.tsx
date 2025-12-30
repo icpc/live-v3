@@ -49,16 +49,16 @@ const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(
     position: absolute;
     bottom: 0;
     right: 0;
-    
+
     transition-duration: ${({ fts }) =>
         fts ? c.QUEUE_ROW_FTS_TRANSITION_TIME : c.QUEUE_ROW_TRANSITION_TIME}ms;
     transition-timing-function: linear;
     transition-property: transform;
-    
+
     animation: ${({ animation }) => animation} ${c.QUEUE_ROW_APPEAR_TIME}ms
         linear; /* dissapear is also linear for now. FIXME */
     animation-fill-mode: forwards;
-    
+
     will-change: transform;
 `;
 
@@ -260,7 +260,6 @@ const useHorizontalQueueRowsData = ({
     }, [ftsRowWidth]);
 
     const { queue, totalQueueItems } = useAppSelector((state) => state.queue);
-    console.log(totalQueueItems);
     const [loadedMediaRun, setLoadedMediaRun] = useState(null);
 
     const queueStateRef = useRef<QueueState>({
@@ -782,8 +781,6 @@ const QueueComponent = ({ shouldShow, widget }: QueueComponentProps) => {
 
     const featured = horizontal ? horizontalFeatured : verticalFeatured;
     const queueRows = horizontal ? horizontalQueueRows : verticalQueueRows;
-
-    console.log(queueRows);
 
     const FeaturedComponent = horizontal ? HorizontalFeatured : Featured;
     const RowsContainerComponent = horizontal
