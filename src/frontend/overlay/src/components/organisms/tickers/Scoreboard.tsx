@@ -6,13 +6,15 @@ import { ContestantInfo } from "../../molecules/info/ContestantInfo";
 import { OptimismLevel } from "@shared/api";
 
 type ScoreboardWrapProps = {
-    top: string;
+    translateY: string;
     nrows: number;
 };
 
-const ScoreboardWrap = styled.div.attrs<ScoreboardWrapProps>(({ top }) => ({
-    style: { top },
-}))<ScoreboardWrapProps>`
+const ScoreboardWrap = styled.div.attrs<ScoreboardWrapProps>(
+    ({ translateY }) => ({
+        style: { transform: `translate3d(0, ${translateY}, 0)` },
+    }),
+)<ScoreboardWrapProps>`
     position: absolute;
 
     display: grid;
@@ -23,7 +25,9 @@ const ScoreboardWrap = styled.div.attrs<ScoreboardWrapProps>(({ top }) => ({
     width: 100%;
     height: 100%;
 
-    transition: top ${c.TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME}ms ease-in-out;
+    transition: transform ${c.TICKER_SCOREBOARD_SCROLL_TRANSITION_TIME}ms
+        ease-in-out;
+    will-change: transform;
 
     /* align-items: center; */
 `;
@@ -62,7 +66,7 @@ export const Scoreboard = ({ tickerSettings, state }) => {
     return (
         <ScoreboardWrap
             nrows={nrows * 2}
-            top={`calc(${-row * 100}% - ${2 * row} * ${c.TICKER_SCOREBOARD_GAP})`}
+            translateY={`calc(${-row * 100}% - ${2 * row} * ${c.TICKER_SCOREBOARD_GAP})`}
         >
             {order.map((teamId) => (
                 <TickerScoreboardContestantInfo
