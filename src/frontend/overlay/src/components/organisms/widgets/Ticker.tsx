@@ -14,19 +14,19 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const rowAppear = keyframes`
   from {
-    top: -100%;
+    transform: translate3d(0, -100%, 0);
   }
   to {
-    top: 0;
+    transform: translate3d(0, 0, 0);
   }
 `;
 
 const rowDisappear = keyframes`
   from {
-    top: 0;
+    transform: translate3d(0, 0, 0);
   }
   to {
-    top: 100%;
+    transform: translate3d(0, 100%, 0);
   }
 `;
 
@@ -37,6 +37,8 @@ const transitionProps = {
 
 const TickerRowContainer = styled.div<{ animation: string }>`
     position: absolute;
+    top: 0;
+    left: 0;
 
     overflow: hidden;
     display: flex;
@@ -51,6 +53,7 @@ const TickerRowContainer = styled.div<{ animation: string }>`
     animation: ${(props) => props.animation} ease-in-out
         ${c.TICKER_SCROLL_TRANSITION_TIME}ms;
     animation-fill-mode: forwards;
+    will-change: transform;
 `;
 
 const TickerRow = ({ children, state }) => {
