@@ -6,19 +6,19 @@ import { useAppDispatch } from "@/redux/hooks";
 
 const slideIn = keyframes`
   from {
-    left: 100%;
+    transform: translate3d(100%, 0, 0);
   }
   to {
-    left: 0;
+    transform: translate3d(0, 0, 0);
   }
 `;
 
 const slideOut = keyframes`
   from {
-    left: 0;
+    transform: translate3d(0, 0, 0);
   }
   to {
-    left: 100%;
+    transform: translate3d(100%, 0, 0);
   }
 `;
 
@@ -40,6 +40,7 @@ const PicturesContainerWrap = styled.div<{
     animation: ${(props) => props.animation} ${c.PICTURES_APPEAR_TIME}ms
         ${(props) => props.animationStyle};
     animation-fill-mode: forwards;
+    will-change: transform;
 `;
 
 const PicturesContainer = styled.div`

@@ -26,13 +26,14 @@ type JSTickerBodyProps = { pos: number };
 
 const JSTickerBody = styled.div.attrs<JSTickerBodyProps>(({ pos }) => ({
     style: {
-        left: pos,
+        transform: `translate3d(${pos}px, 0, 0)`,
     },
 }))<JSTickerBodyProps>`
     position: absolute;
     width: ${TICKER_WIDTH}px;
     height: 100%;
     background-color: blue;
+    will-change: transform;
 `;
 
 export const JSTicker = () => {
@@ -61,11 +62,11 @@ const CSSTickerContainer = JSTickerContainer;
 
 const animation = keyframes`
   from {
-    left: 0;
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    left: calc(100% - ${TICKER_WIDTH}px);
+    transform: translate3d(calc(100% - ${TICKER_WIDTH}px), 0, 0);
   }
 `;
 
@@ -79,6 +80,7 @@ const CSSTickerBody = styled.div`
 
     animation: ${animation} linear infinite
         ${((TOTAL_WIDTH - TICKER_WIDTH + INCREMENT) / INCREMENT) * INTERVAL}ms;
+    will-change: transform;
 `;
 
 export const CSSTicker = () => {
