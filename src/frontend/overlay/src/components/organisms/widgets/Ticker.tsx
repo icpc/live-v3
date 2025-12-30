@@ -29,7 +29,9 @@ const rowDisappear = keyframes`
   }
 `;
 
-const TickerRowContainer = styled.div<{ animation?: any }>`
+type AnimationType = ReturnType<typeof keyframes> | null;
+
+const TickerRowContainer = styled.div<{ animation?: AnimationType }>`
     position: absolute;
     top: 0;
     left: 0;
@@ -44,13 +46,21 @@ const TickerRowContainer = styled.div<{ animation?: any }>`
 
     font-family: ${c.TICKER_FONT_FAMILY};
 
-    ${({ animation }) => animation && css`
-        animation: ${animation} ${c.TICKER_SCROLL_TRANSITION_TIME}ms ease-in-out forwards;
-    `}
+    ${({ animation }) =>
+        animation &&
+        css`
+            animation: ${animation} ${c.TICKER_SCROLL_TRANSITION_TIME}ms
+                ease-in-out forwards;
+        `}
     will-change: transform;
 `;
 
-const TickerRow = ({ children, animation }) => {
+interface TickerRowProps {
+    children: React.ReactNode;
+    animation: AnimationType;
+}
+
+const TickerRow: React.FC<TickerRowProps> = ({ children, animation }) => {
     return (
         <TickerRowContainer animation={animation}>
             {children}
@@ -85,7 +95,21 @@ const widgetTypes = Object.freeze({
     image: Image,
 });
 
-const DefaultTicker = ({ tickerSettings }) => {
+interface TickerSettings {
+    [key: string]: unknown;
+}
+
+interface TickerMessage {
+    id: string;
+    type: keyof typeof widgetTypes | string;
+    settings: TickerSettings;
+}
+
+interface DefaultTickerProps {
+    tickerSettings: TickerSettings;
+}
+
+const DefaultTicker: React.FC<DefaultTickerProps> = ({ tickerSettings }) => {
     return (
         <div style={{ backgroundColor: "red", wordBreak: "break-all" }}>
             {JSON.stringify(tickerSettings)}
@@ -95,11 +119,15 @@ const DefaultTicker = ({ tickerSettings }) => {
 
 interface TickerMessageState {
     id: string;
-    message: any;
+    message: TickerMessage;
     status: "entering" | "entered" | "exiting";
 }
 
-export const SingleTickerRows = ({ part }) => {
+interface SingleTickerRowsProps {
+    part: string;
+}
+
+export const SingleTickerRows: React.FC<SingleTickerRowsProps> = ({ part }) => {
     const dispatch = useAppDispatch();
     const curMessage = useAppSelector(
         (state) => state.ticker.tickers[part].curDisplaying,
@@ -107,8 +135,10 @@ export const SingleTickerRows = ({ part }) => {
     const isFirst = useAppSelector(
         (state) => state.ticker.tickers[part].isFirst,
     );
-    
-    const [displayMessages, setDisplayMessages] = useState<TickerMessageState[]>([]);
+
+    const [displayMessages, setDisplayMessages] = useState<
+        TickerMessageState[]
+    >([]);
     const lastMessageId = useRef<string | null>(null);
 
     useEffect(() => {
@@ -132,7 +162,7 @@ export const SingleTickerRows = ({ part }) => {
             const next = prev
                 .filter((m) => m.status !== "exiting")
                 .map((m) => ({ ...m, status: "exiting" as const }));
-            
+
             next.push(newMessage);
             return next;
         });
@@ -141,9 +171,14 @@ export const SingleTickerRows = ({ part }) => {
 
         if (!isFirst) {
             const timer = setTimeout(() => {
-                setDisplayMessages((prev) => 
-                    prev.map(m => m.id === curMessage.id ? { ...m, status: "entered" as const } : m)
-                        .filter(m => m.status !== "exiting")
+                setDisplayMessages((prev) =>
+                    prev
+                        .map((m) =>
+                            m.id === curMessage.id
+                                ? { ...m, status: "entered" as const }
+                                : m,
+                        )
+                        .filter((m) => m.status !== "exiting"),
                 );
             }, c.TICKER_SCROLL_TRANSITION_TIME);
             return () => clearTimeout(timer);
@@ -153,9 +188,15 @@ export const SingleTickerRows = ({ part }) => {
     return (
         <>
             {displayMessages.map((m) => {
-                const TickerComponent = widgetTypes[m.message.type] ?? DefaultTicker;
-                const animation = m.status === "entering" ? rowAppear : (m.status === "exiting" ? rowDisappear : null);
-                
+                const TickerComponent =
+                    widgetTypes[m.message.type] ?? DefaultTicker;
+                const animation =
+                    m.status === "entering"
+                        ? rowAppear
+                        : m.status === "exiting"
+                          ? rowDisappear
+                          : null;
+
                 return (
                     <TickerRow key={m.id} animation={animation}>
                         <TickerComponent

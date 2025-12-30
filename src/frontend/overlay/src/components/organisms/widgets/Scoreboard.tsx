@@ -218,6 +218,7 @@ const PositionedScoreboardRow = styled.div.attrs<PositionedScoreboardRowProps>(
     transition: transform ${c.SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
     will-change: transform;
     /* Optimizes rendering for off-screen elements */
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     content-visibility: auto;
     contain-intrinsic-size: ${c.SCOREBOARD_ROW_HEIGHT}px;
 `;
