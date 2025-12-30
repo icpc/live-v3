@@ -203,18 +203,23 @@ const PositionedScoreboardRow = styled.div.attrs<PositionedScoreboardRowProps>(
     ({ zIndex, pos }) => ({
         style: {
             zIndex: zIndex,
-            top: pos + "px",
+            transform: `translate3d(0, ${pos}px, 0)`,
         },
     }),
 )<PositionedScoreboardRowProps>`
     position: absolute;
+    top: 0;
     right: 0;
     left: 0;
 
     width: 100%;
     height: ${c.SCOREBOARD_ROW_HEIGHT}px;
 
-    transition: top ${c.SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
+    transition: transform ${c.SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
+    will-change: transform;
+    /* Optimizes rendering for off-screen elements */
+    content-visibility: auto;
+    contain-intrinsic-size: ${c.SCOREBOARD_ROW_HEIGHT}px;
 `;
 
 const ScoreboardRowsWrap = styled.div<{ maxHeight: number }>`
@@ -240,28 +245,31 @@ export const useScoreboardRows = (
         (state) => state.scoreboard[optimismLevel]?.orderById,
     );
     const teamsId = useAppSelector((state) => state.contestInfo.info?.teamsId);
-    if (teamsId === undefined || order === undefined) {
-        return [];
-    }
-    const result = Object.entries(order).filter(
-        ([k]) =>
-            selectedGroup === "all" ||
-            (teamsId[k]?.groups ?? []).includes(selectedGroup),
-    );
-    if (selectedGroup !== "all") {
-        // we should compress the row numbers.
-        // FIXME: this is ugly and I don't like it at all
-        const rowsNumbers = result.map(([_, b]) => b);
-        rowsNumbers.sort((a, b) => (a > b ? 1 : a == b ? 0 : -1));
-        const mapping = new Map();
-        for (let i = 0; i < rowsNumbers.length; i++) {
-            mapping.set(rowsNumbers[i], i);
+
+    return useMemo(() => {
+        if (teamsId === undefined || order === undefined) {
+            return [];
         }
-        for (let i = 0; i < result.length; i++) {
-            result[i][1] = mapping.get(result[i][1]);
+        const result = Object.entries(order).filter(
+            ([k]) =>
+                selectedGroup === "all" ||
+                (teamsId[k]?.groups ?? []).includes(selectedGroup),
+        );
+        if (selectedGroup !== "all") {
+            // we should compress the row numbers.
+            // FIXME: this is ugly and I don't like it at all
+            const rowsNumbers = result.map(([_, b]) => b);
+            rowsNumbers.sort((a, b) => (a > b ? 1 : a == b ? 0 : -1));
+            const mapping = new Map();
+            for (let i = 0; i < rowsNumbers.length; i++) {
+                mapping.set(rowsNumbers[i], i);
+            }
+            for (let i = 0; i < result.length; i++) {
+                result[i][1] = mapping.get(result[i][1]);
+            }
         }
-    }
-    return result;
+        return result;
+    }, [order, teamsId, selectedGroup]);
 };
 
 /**
