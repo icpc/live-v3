@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { useTransition } from "react-transition-state";
-import styled, { keyframes } from "styled-components";
+import React, { useEffect, useState, useRef } from "react";
+import styled, { keyframes, css } from "styled-components";
 import c from "../../../config";
 import { pushLog } from "@/redux/debug";
 import { startScrolling, stopScrolling } from "@/redux/ticker";
@@ -30,12 +29,7 @@ const rowDisappear = keyframes`
   }
 `;
 
-const transitionProps = {
-    entering: rowAppear,
-    exiting: rowDisappear,
-};
-
-const TickerRowContainer = styled.div<{ animation: string }>`
+const TickerRowContainer = styled.div<{ animation?: any }>`
     position: absolute;
     top: 0;
     left: 0;
@@ -50,15 +44,15 @@ const TickerRowContainer = styled.div<{ animation: string }>`
 
     font-family: ${c.TICKER_FONT_FAMILY};
 
-    animation: ${(props) => props.animation} ease-in-out
-        ${c.TICKER_SCROLL_TRANSITION_TIME}ms;
-    animation-fill-mode: forwards;
+    ${({ animation }) => animation && css`
+        animation: ${animation} ${c.TICKER_SCROLL_TRANSITION_TIME}ms ease-in-out forwards;
+    `}
     will-change: transform;
 `;
 
-const TickerRow = ({ children, state }) => {
+const TickerRow = ({ children, animation }) => {
     return (
-        <TickerRowContainer animation={transitionProps[state]}>
+        <TickerRowContainer animation={animation}>
             {children}
         </TickerRowContainer>
     );
@@ -99,6 +93,12 @@ const DefaultTicker = ({ tickerSettings }) => {
     );
 };
 
+interface TickerMessageState {
+    id: string;
+    message: any;
+    status: "entering" | "entered" | "exiting";
+}
+
 export const SingleTickerRows = ({ part }) => {
     const dispatch = useAppDispatch();
     const curMessage = useAppSelector(
@@ -107,39 +107,66 @@ export const SingleTickerRows = ({ part }) => {
     const isFirst = useAppSelector(
         (state) => state.ticker.tickers[part].isFirst,
     );
-    const [transition, toggle] = useTransition({
-        timeout: c.TICKER_SCROLL_TRANSITION_TIME,
-        mountOnEnter: true,
-        unmountOnExit: true,
-    });
+    
+    const [displayMessages, setDisplayMessages] = useState<TickerMessageState[]>([]);
+    const lastMessageId = useRef<string | null>(null);
 
     useEffect(() => {
-        toggle(!!curMessage);
-    }, [curMessage, toggle]);
+        if (!curMessage) {
+            setDisplayMessages([]);
+            lastMessageId.current = null;
+            return;
+        }
 
-    if (!curMessage) {
-        return null;
-    }
+        if (curMessage.id === lastMessageId.current) {
+            return;
+        }
 
-    const TickerComponent = widgetTypes[curMessage.type] ?? DefaultTicker;
-    if (TickerComponent === undefined) {
-        dispatch(pushLog(`ERROR: Unknown ticker type: ${curMessage.type}`));
-    }
-    const sanitizedState =
-        isFirst && transition.status === "entering"
-            ? "entered"
-            : transition.status;
+        const newMessage: TickerMessageState = {
+            id: curMessage.id,
+            message: curMessage,
+            status: isFirst ? "entered" : "entering",
+        };
+
+        setDisplayMessages((prev) => {
+            const next = prev
+                .filter((m) => m.status !== "exiting")
+                .map((m) => ({ ...m, status: "exiting" as const }));
+            
+            next.push(newMessage);
+            return next;
+        });
+
+        lastMessageId.current = curMessage.id;
+
+        if (!isFirst) {
+            const timer = setTimeout(() => {
+                setDisplayMessages((prev) => 
+                    prev.map(m => m.id === curMessage.id ? { ...m, status: "entered" as const } : m)
+                        .filter(m => m.status !== "exiting")
+                );
+            }, c.TICKER_SCROLL_TRANSITION_TIME);
+            return () => clearTimeout(timer);
+        }
+    }, [curMessage, isFirst]);
 
     return (
-        transition.isMounted && (
-            <TickerRow state={sanitizedState}>
-                <TickerComponent
-                    tickerSettings={curMessage.settings}
-                    state={sanitizedState}
-                    part={part}
-                />
-            </TickerRow>
-        )
+        <>
+            {displayMessages.map((m) => {
+                const TickerComponent = widgetTypes[m.message.type] ?? DefaultTicker;
+                const animation = m.status === "entering" ? rowAppear : (m.status === "exiting" ? rowDisappear : null);
+                
+                return (
+                    <TickerRow key={m.id} animation={animation}>
+                        <TickerComponent
+                            tickerSettings={m.message.settings}
+                            state={m.status}
+                            part={part}
+                        />
+                    </TickerRow>
+                );
+            })}
+        </>
     );
 };
 
@@ -166,6 +193,7 @@ export const SingleTicker: React.FC<SingleTickerProps> = ({ part, color }) => {
     const curMessage = useAppSelector(
         (state) => state.ticker.tickers[part].curDisplaying,
     );
+
     if (part === "short") {
         return (
             <SingleTickerWrap color={color}>
