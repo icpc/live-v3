@@ -18,8 +18,10 @@ import {
     OptimismLevel,
     Widget,
     ScoreboardScrollDirection,
+    ScoreboardRow as APIScoreboardRow,
 } from "@shared/api";
 import { OverlayWidgetC } from "@/components/organisms/widgets/types";
+import { ScoreboardData } from "@/redux/contest/scoreboard";
 
 const ScoreboardWrap = styled.div`
     overflow: hidden;
@@ -128,40 +130,23 @@ export const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
 `;
 
 interface ScoreboardRowProps {
+    scoreboardRow: APIScoreboardRow;
+    awards: Award[] | null | undefined;
+    rank: number;
     teamId: string;
-    hideTasks?: boolean;
-    optimismLevel: OptimismLevel;
 }
 
-export const ScoreboardRow = ({
+const ScoreboardTeamRow = ({
+    scoreboardRow,
     teamId,
-    hideTasks = false, // wtf is this?
-    optimismLevel,
-}: ScoreboardRowProps) => {
-    const scoreboardData = useAppSelector(
-        (state) => state.scoreboard[optimismLevel].ids[teamId],
-    );
-    const contestData = useAppSelector((state) => state.contestInfo.info);
-    const teamData = useAppSelector(
-        (state) => state.contestInfo.info?.teamsId[teamId],
-    );
-    const awards: Award[] = useAppSelector(
-        (state) => state.scoreboard[OptimismLevel.normal].idAwards[teamId],
-    );
-    const rank = useAppSelector(
-        (state) => state.scoreboard[OptimismLevel.normal].rankById[teamId],
-    );
-    const medal = awards?.find(
-        (award) => award.type == Award.Type.medal,
-    ) as Award.medal;
-    const needPenalty = useNeedPenalty();
+    needPenalty,
+    contestData,
+}) => {
+    const teamData = contestData?.teamsId[teamId];
     const formatPenalty = useFormatPenalty();
+
     return (
-        <ScoreboardRowWrap
-            nProblems={Math.max(contestData?.problems?.length ?? 0, 1)}
-            needPenalty={needPenalty}
-        >
-            <ScoreboardRankLabel rank={rank} medal={medal?.medalColor} />
+        <>
             <ScoreboardRowName
                 align={c.SCOREBOARD_CELL_TEAMNANE_ALIGN}
                 text={teamData?.shortName ?? "??"}
@@ -169,27 +154,54 @@ export const ScoreboardRow = ({
             <ShrinkingBox
                 align={c.SCOREBOARD_CELL_POINTS_ALIGN}
                 text={
-                    scoreboardData === null
+                    scoreboardRow === null
                         ? "??"
-                        : formatScore(scoreboardData?.totalScore ?? 0.0, 1)
+                        : formatScore(scoreboardRow?.totalScore ?? 0.0, 1)
                 }
             />
             {needPenalty && (
                 <ShrinkingBox
                     align={c.SCOREBOARD_CELL_PENALTY_ALIGN}
-                    text={formatPenalty(scoreboardData?.penalty)}
+                    text={formatPenalty(scoreboardRow?.penalty)}
                 />
             )}
-            {!hideTasks &&
-                scoreboardData?.problemResults.map((result, i) => (
-                    <ScoreboardTaskResultLabel
-                        problemResult={result}
-                        key={i}
-                        problemColor={contestData?.problems[i]?.color}
-                        minScore={contestData?.problems[i]?.minScore}
-                        maxScore={contestData?.problems[i]?.maxScore}
-                    />
-                ))}
+            {scoreboardRow?.problemResults.map((result, i) => (
+                <ScoreboardTaskResultLabel
+                    problemResult={result}
+                    key={i}
+                    problemColor={contestData?.problems[i]?.color}
+                    minScore={contestData?.problems[i]?.minScore}
+                    maxScore={contestData?.problems[i]?.maxScore}
+                />
+            ))}
+        </>
+    );
+};
+
+export const ScoreboardRow = ({
+    scoreboardRow,
+    awards,
+    rank,
+    teamId,
+}: ScoreboardRowProps) => {
+    const contestData = useAppSelector((state) => state.contestInfo.info);
+
+    const medal = awards?.find(
+        (award) => award.type == Award.Type.medal,
+    ) as Award.medal;
+    const needPenalty = useNeedPenalty();
+    return (
+        <ScoreboardRowWrap
+            nProblems={Math.max(contestData?.problems?.length ?? 0, 1)}
+            needPenalty={needPenalty}
+        >
+            <ScoreboardRankLabel rank={rank} medal={medal?.medalColor} />
+            <ScoreboardTeamRow
+                scoreboardRow={scoreboardRow}
+                teamId={teamId}
+                needPenalty={needPenalty}
+                contestData={contestData}
+            />
         </ScoreboardRowWrap>
     );
 };
@@ -350,6 +362,12 @@ export const ScoreboardRows = ({ settings, onPage }: ScoreboardRowsProps) => {
         c.SCOREBOARD_SCROLL_INTERVAL,
         settings.scrollDirection,
     );
+    const scoreboardData = useAppSelector(
+        (state) => state.scoreboard[settings.optimismLevel],
+    );
+    const normalScoreboardData = useAppSelector(
+        (state) => state.scoreboard[OptimismLevel.normal],
+    );
     return (
         <ScoreboardRowsWrap maxHeight={onPage * rowHeight}>
             {rows.map(([teamId, position]) => (
@@ -362,8 +380,10 @@ export const ScoreboardRows = ({ settings, onPage }: ScoreboardRowsProps) => {
                     }
                 >
                     <ScoreboardRow
+                        scoreboardRow={scoreboardData.ids[teamId]}
+                        rank={normalScoreboardData.rankById[teamId]}
+                        awards={scoreboardData?.idAwards[teamId]}
                         teamId={teamId}
-                        optimismLevel={settings.optimismLevel}
                     />
                 </PositionedScoreboardRow>
             ))}

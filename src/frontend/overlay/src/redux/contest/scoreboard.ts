@@ -49,28 +49,31 @@ const scoreboardSlice = createSlice({
             }>,
         ) {
             const { optimism, diff } = action.payload;
-            state[optimism].awards = diff.awards;
-            state[optimism].order = diff.order;
-            state[optimism].ranks = diff.ranks;
-            for (const [id, newData] of Object.entries(diff.rows)) {
-                state[optimism].ids[id] = newData;
-            }
-            state[optimism].orderById = Object.fromEntries(
-                diff.order.map((teamId, index) => [teamId, index]),
-            );
-            state[optimism].rankById = Object.fromEntries(
-                _.zip(diff.order, diff.ranks),
-            );
-            state[optimism].idAwards = {};
+            const s = state[optimism];
+            s.awards = diff.awards;
+            s.order = diff.order;
+            s.ranks = diff.ranks;
+            const nextIdAwards = {};
             for (const award of diff.awards) {
                 for (const teamId of award.teams) {
-                    if (state[optimism].idAwards[teamId] === undefined) {
-                        state[optimism].idAwards[teamId] = [];
-                    }
-                    state[optimism].idAwards[teamId].push({
-                        ...award,
-                        teams: undefined,
-                    });
+                    if (!nextIdAwards[teamId]) nextIdAwards[teamId] = [];
+                    nextIdAwards[teamId].push({ ...award, teams: undefined });
+                }
+            }
+
+            for (const [id, newData] of Object.entries(diff.rows)) {
+                s.ids[id] = newData;
+            }
+            s.orderById = Object.fromEntries(
+                diff.order.map((teamId, index) => [teamId, index]),
+            );
+            s.rankById = Object.fromEntries(_.zip(diff.order, diff.ranks));
+            Object.keys(s.idAwards).forEach((id) => {
+                if (!(id in nextIdAwards)) delete s.idAwards[id];
+            });
+            for (const id in nextIdAwards) {
+                if (!_.isEqual(s.idAwards[id], nextIdAwards[id])) {
+                    s.idAwards[id] = nextIdAwards[id];
                 }
             }
         },
