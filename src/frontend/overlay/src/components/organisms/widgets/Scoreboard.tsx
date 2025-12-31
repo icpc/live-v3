@@ -1,4 +1,12 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import React, {
+    useEffect,
+    useState,
+    useRef,
+    useMemo,
+    useLayoutEffect,
+    useCallback,
+    startTransition,
+} from "react";
 import styled from "styled-components";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
@@ -19,9 +27,11 @@ import {
     Widget,
     ScoreboardScrollDirection,
     ScoreboardRow as APIScoreboardRow,
+    ContestInfo,
+    TeamInfo,
+    ProblemInfo,
 } from "@shared/api";
 import { OverlayWidgetC } from "@/components/organisms/widgets/types";
-import { ScoreboardData } from "@/redux/contest/scoreboard";
 
 const ScoreboardWrap = styled.div`
     overflow: hidden;
@@ -110,8 +120,6 @@ const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
 
 const ScoreboardRowName = styled(ShrinkingBox)`
     padding: 0 ${c.SCOREBOARD_CELL_PADDING};
-
-    /* font-weight: 700; */
 `;
 
 const ScoreboardRankLabel = styled(RankLabel)`
@@ -120,6 +128,7 @@ const ScoreboardRankLabel = styled(RankLabel)`
     align-self: stretch;
     justify-content: center;
 `;
+
 export const ScoreboardTaskResultLabel = styled(TaskResultLabel)`
     display: flex;
     align-items: center;
@@ -134,91 +143,94 @@ interface ScoreboardRowProps {
     awards: Award[] | null | undefined;
     rank: number;
     teamId: string;
+    contestData: ContestInfo & {
+        teamsId: Record<TeamInfo["id"], TeamInfo>;
+        problemsId: Record<ProblemInfo["id"], ProblemInfo>;
+    };
 }
 
-const ScoreboardTeamRow = ({
-    scoreboardRow,
-    teamId,
-    needPenalty,
-    contestData,
-}) => {
-    const teamData = contestData?.teamsId[teamId];
-    const formatPenalty = useFormatPenalty();
+const ScoreboardTeamRow = React.memo(
+    ({
+        scoreboardRow,
+        teamId,
+        needPenalty,
+        contestData,
+    }: {
+        scoreboardRow: APIScoreboardRow;
+        teamId: string;
+        needPenalty: boolean;
+        contestData: ContestInfo & {
+            teamsId: Record<TeamInfo["id"], TeamInfo>;
+            problemsId: Record<ProblemInfo["id"], ProblemInfo>;
+        };
+    }) => {
+        const teamData = contestData?.teamsId[teamId];
+        const formatPenalty = useFormatPenalty();
 
-    return (
-        <>
-            <ScoreboardRowName
-                align={c.SCOREBOARD_CELL_TEAMNANE_ALIGN}
-                text={teamData?.shortName ?? "??"}
-            />
-            <ShrinkingBox
-                align={c.SCOREBOARD_CELL_POINTS_ALIGN}
-                text={
-                    scoreboardRow === null
-                        ? "??"
-                        : formatScore(scoreboardRow?.totalScore ?? 0.0, 1)
-                }
-            />
-            {needPenalty && (
+        return (
+            <>
+                <ScoreboardRowName
+                    align={c.SCOREBOARD_CELL_TEAMNANE_ALIGN}
+                    text={teamData?.shortName ?? "??"}
+                />
                 <ShrinkingBox
-                    align={c.SCOREBOARD_CELL_PENALTY_ALIGN}
-                    text={formatPenalty(scoreboardRow?.penalty)}
+                    align={c.SCOREBOARD_CELL_POINTS_ALIGN}
+                    text={
+                        scoreboardRow === null
+                            ? "??"
+                            : formatScore(scoreboardRow?.totalScore ?? 0.0, 1)
+                    }
                 />
-            )}
-            {scoreboardRow?.problemResults.map((result, i) => (
-                <ScoreboardTaskResultLabel
-                    problemResult={result}
-                    key={i}
-                    problemColor={contestData?.problems[i]?.color}
-                    minScore={contestData?.problems[i]?.minScore}
-                    maxScore={contestData?.problems[i]?.maxScore}
-                />
-            ))}
-        </>
-    );
-};
+                {needPenalty && (
+                    <ShrinkingBox
+                        align={c.SCOREBOARD_CELL_PENALTY_ALIGN}
+                        text={formatPenalty(scoreboardRow?.penalty)}
+                    />
+                )}
+                {scoreboardRow?.problemResults.map((result, i) => (
+                    <ScoreboardTaskResultLabel
+                        problemResult={result}
+                        key={i}
+                        problemColor={contestData?.problems[i]?.color}
+                        minScore={contestData?.problems[i]?.minScore}
+                        maxScore={contestData?.problems[i]?.maxScore}
+                    />
+                ))}
+            </>
+        );
+    },
+);
 
-export const ScoreboardRow = ({
-    scoreboardRow,
-    awards,
-    rank,
-    teamId,
-}: ScoreboardRowProps) => {
-    const contestData = useAppSelector((state) => state.contestInfo.info);
-
-    const medal = awards?.find(
-        (award) => award.type == Award.Type.medal,
-    ) as Award.medal;
-    const needPenalty = useNeedPenalty();
-    return (
-        <ScoreboardRowWrap
-            nProblems={Math.max(contestData?.problems?.length ?? 0, 1)}
-            needPenalty={needPenalty}
-        >
-            <ScoreboardRankLabel rank={rank} medal={medal?.medalColor} />
-            <ScoreboardTeamRow
-                scoreboardRow={scoreboardRow}
-                teamId={teamId}
+export const ScoreboardRow = React.memo(
+    ({
+        scoreboardRow,
+        awards,
+        rank,
+        teamId,
+        contestData,
+    }: ScoreboardRowProps) => {
+        const medal = awards?.find(
+            (award) => award.type == Award.Type.medal,
+        ) as Award.medal;
+        const needPenalty = useNeedPenalty();
+        return (
+            <ScoreboardRowWrap
+                nProblems={Math.max(contestData?.problems?.length ?? 0, 1)}
                 needPenalty={needPenalty}
-                contestData={contestData}
-            />
-        </ScoreboardRowWrap>
-    );
-};
+            >
+                <ScoreboardRankLabel rank={rank} medal={medal?.medalColor} />
+                <ScoreboardTeamRow
+                    scoreboardRow={scoreboardRow}
+                    teamId={teamId}
+                    needPenalty={needPenalty}
+                    contestData={contestData}
+                />
+            </ScoreboardRowWrap>
+        );
+    },
+);
 
-type PositionedScoreboardRowProps = {
-    zIndex: number;
-    pos: number;
-};
-
-const PositionedScoreboardRow = styled.div.attrs<PositionedScoreboardRowProps>(
-    ({ zIndex, pos }) => ({
-        style: {
-            zIndex: zIndex,
-            transform: `translate3d(0, ${pos}px, 0)`,
-        },
-    }),
-)<PositionedScoreboardRowProps>`
+const PositionedScoreboardRowDiv = styled.div`
     position: absolute;
     top: 0;
     right: 0;
@@ -227,12 +239,7 @@ const PositionedScoreboardRow = styled.div.attrs<PositionedScoreboardRowProps>(
     width: 100%;
     height: ${c.SCOREBOARD_ROW_HEIGHT}px;
 
-    transition: transform ${c.SCOREBOARD_ROW_TRANSITION_TIME}ms ease-in-out;
     will-change: transform;
-    /* Optimizes rendering for off-screen elements */
-    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-    content-visibility: auto;
-    contain-intrinsic-size: ${c.SCOREBOARD_ROW_HEIGHT}px;
 `;
 
 const ScoreboardRowsWrap = styled.div<{ maxHeight: number }>`
@@ -245,11 +252,6 @@ const ScoreboardRowsWrap = styled.div<{ maxHeight: number }>`
     max-height: ${({ maxHeight }) => `${maxHeight}px`};
 `;
 
-/**
- * Returns a stable list of teams with each having their row number in the scoreboard.
- * @param optimismLevel
- * @param selectedGroup
- */
 export const useScoreboardRows = (
     optimismLevel: OptimismLevel,
     selectedGroup: string,
@@ -269,8 +271,6 @@ export const useScoreboardRows = (
                 (teamsId[k]?.groups ?? []).includes(selectedGroup),
         );
         if (selectedGroup !== "all") {
-            // we should compress the row numbers.
-            // FIXME: this is ugly and I don't like it at all
             const rowsNumbers = result.map(([_, b]) => b);
             rowsNumbers.sort((a, b) => (a > b ? 1 : a == b ? 0 : -1));
             const mapping = new Map();
@@ -285,42 +285,47 @@ export const useScoreboardRows = (
     }, [order, teamsId, selectedGroup]);
 };
 
-/**
- * Scollbar for scoreboard
- * @param {number} totalRows - total number of rows in scoreboard
- * @param {number} singleScreenRowCount - total number of rows that can fit on a single screen
- * @param {number} interval - interval of scrolling
- * @param {number | undefined} direction - row to start from inclusive
- * @returns {number} - index of the first row to show
- */
 export const useScroller = (
     totalRows: number,
     singleScreenRowCount: number,
     interval: number,
     direction: ScoreboardScrollDirection | undefined,
 ) => {
+    const effectiveRowCount = Math.max(1, singleScreenRowCount);
     const showRows = totalRows;
-    const numPages = Math.ceil(showRows / singleScreenRowCount);
+    const numPages = Math.max(1, Math.ceil(showRows / effectiveRowCount));
     const singlePageRowCount = Math.ceil(showRows / numPages);
-    const [curPage, setCurPage] = useState(0);
 
-    // Handle immediate page changes
-    const targetPage = useMemo(() => {
-        if (direction === ScoreboardScrollDirection.FirstPage) {
-            return 0;
-        } else if (direction === ScoreboardScrollDirection.LastPage) {
-            return numPages - 1;
-        }
-        return null;
-    }, [direction, numPages]);
+    const curPageRef = useRef(0);
+    const [scrollPos, setScrollPos] = useState(() => {
+        const pageEndRow = Math.min(
+            (curPageRef.current + 1) * singlePageRowCount,
+            totalRows,
+        );
+        return Math.max(0, pageEndRow - effectiveRowCount);
+    });
+
+    const calcScrollPos = useCallback(
+        (page: number) => {
+            const pageEndRow = Math.min(
+                (page + 1) * singlePageRowCount,
+                totalRows,
+            );
+            return Math.max(0, pageEndRow - effectiveRowCount);
+        },
+        [singlePageRowCount, totalRows, effectiveRowCount],
+    );
 
     useEffect(() => {
-        if (targetPage !== null) {
-            setCurPage(targetPage);
+        if (direction === ScoreboardScrollDirection.FirstPage) {
+            curPageRef.current = 0;
+            startTransition(() => setScrollPos(calcScrollPos(0)));
+        } else if (direction === ScoreboardScrollDirection.LastPage) {
+            curPageRef.current = numPages - 1;
+            startTransition(() => setScrollPos(calcScrollPos(numPages - 1)));
         }
-    }, [targetPage]);
+    }, [direction, numPages, calcScrollPos]);
 
-    // Handle scrolling
     useEffect(() => {
         if (
             direction !== ScoreboardScrollDirection.Pause &&
@@ -328,25 +333,288 @@ export const useScroller = (
             direction !== ScoreboardScrollDirection.LastPage
         ) {
             const intervalId = setInterval(() => {
-                setCurPage((page) =>
-                    Math.max(
-                        0,
-                        (page +
-                            (direction === ScoreboardScrollDirection.Back
-                                ? -1
-                                : 1)) %
-                            numPages,
-                    ),
-                );
+                const delta =
+                    direction === ScoreboardScrollDirection.Back ? -1 : 1;
+                let nextPage = curPageRef.current + delta;
+                if (nextPage < 0) {
+                    nextPage = numPages - 1;
+                }
+                if (nextPage >= numPages) {
+                    nextPage = 0;
+                }
+                curPageRef.current = nextPage;
+                startTransition(() => setScrollPos(calcScrollPos(nextPage)));
             }, interval);
             return () => {
                 clearInterval(intervalId);
             };
         }
-    }, [interval, numPages, direction]);
-    const pageEndRow = Math.min((curPage + 1) * singlePageRowCount, totalRows);
-    return Math.max(0, pageEndRow - singleScreenRowCount);
+    }, [interval, numPages, direction, calcScrollPos]);
+
+    return scrollPos;
 };
+
+type AnimatingTeam = {
+    fromPos: number;
+    toPos: number;
+    startTime: number;
+};
+
+const useAnimatingTeams = (rows: [string, number][]) => {
+    const [animatingTeams, setAnimatingTeams] = useState<
+        Map<string, AnimatingTeam>
+    >(new Map());
+    const prevOrderRef = useRef<Map<string, number>>(new Map());
+
+    useEffect(() => {
+        const prevOrder = prevOrderRef.current;
+        const newAnimating = new Map<string, AnimatingTeam>();
+
+        for (const [teamId, newPos] of rows) {
+            const oldPos = prevOrder.get(teamId);
+            if (oldPos !== undefined && oldPos !== newPos) {
+                newAnimating.set(teamId, {
+                    fromPos: oldPos,
+                    toPos: newPos,
+                    startTime: performance.now(),
+                });
+            }
+        }
+
+        if (newAnimating.size > 0) {
+            startTransition(() => {
+                setAnimatingTeams((prev) => {
+                    const merged = new Map(prev);
+                    for (const [k, v] of newAnimating) {
+                        merged.set(k, v);
+                    }
+                    return merged;
+                });
+            });
+        }
+
+        prevOrderRef.current = new Map(rows);
+    }, [rows]);
+
+    useEffect(() => {
+        if (animatingTeams.size === 0) return;
+
+        const timeout = setTimeout(() => {
+            const now = performance.now();
+            startTransition(() => {
+                setAnimatingTeams((prev) => {
+                    const filtered = new Map<string, AnimatingTeam>();
+                    for (const [k, v] of prev) {
+                        if (
+                            now - v.startTime <
+                            c.SCOREBOARD_ROW_TRANSITION_TIME
+                        ) {
+                            filtered.set(k, v);
+                        }
+                    }
+                    return filtered;
+                });
+            });
+        }, c.SCOREBOARD_ROW_TRANSITION_TIME);
+
+        return () => clearTimeout(timeout);
+    }, [animatingTeams]);
+
+    return animatingTeams;
+};
+
+const useAnimatedScrollPos = (targetScrollPos: number) => {
+    const scrollPosRef = useRef(targetScrollPos);
+    const animationRef = useRef<number | null>(null);
+    const startTimeRef = useRef<number>(0);
+    const startPosRef = useRef<number>(targetScrollPos);
+    const targetPosRef = useRef<number>(targetScrollPos);
+    const subscribersRef = useRef<Set<() => void>>(new Set());
+
+    const subscribe = useCallback((callback: () => void) => {
+        subscribersRef.current.add(callback);
+        return () => subscribersRef.current.delete(callback);
+    }, []);
+
+    const getScrollPos = useCallback(() => scrollPosRef.current, []);
+
+    useLayoutEffect(() => {
+        if (targetScrollPos === targetPosRef.current) return;
+
+        startPosRef.current = scrollPosRef.current;
+        targetPosRef.current = targetScrollPos;
+        startTimeRef.current = performance.now();
+
+        const animate = (now: number) => {
+            const elapsed = now - startTimeRef.current;
+            const duration = c.SCOREBOARD_ROW_TRANSITION_TIME;
+            const progress = Math.min(elapsed / duration, 1);
+
+            const easeInOut =
+                progress < 0.5
+                    ? 2 * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+            scrollPosRef.current =
+                startPosRef.current +
+                (targetPosRef.current - startPosRef.current) * easeInOut;
+
+            subscribersRef.current.forEach((cb) => cb());
+
+            if (progress < 1) {
+                animationRef.current = requestAnimationFrame(animate);
+            }
+        };
+
+        if (animationRef.current) {
+            cancelAnimationFrame(animationRef.current);
+        }
+        animationRef.current = requestAnimationFrame(animate);
+
+        return () => {
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        };
+    }, [targetScrollPos]);
+
+    return { getScrollPos, subscribe };
+};
+
+interface AnimatedRowProps {
+    teamId: string;
+    targetPos: number;
+    animatingInfo: AnimatingTeam | undefined;
+    rowHeight: number;
+    getScrollPos: () => number;
+    subscribeScroll: (cb: () => void) => () => void;
+    zIndex: number;
+    scoreboardRow: APIScoreboardRow;
+    rank: number;
+    awards: Award[] | null | undefined;
+    contestData: ContestInfo & {
+        teamsId: Record<TeamInfo["id"], TeamInfo>;
+        problemsId: Record<ProblemInfo["id"], ProblemInfo>;
+    };
+}
+
+const calcCurrentAnimatedPos = (
+    animatingInfo: AnimatingTeam | undefined,
+    targetPos: number,
+): number => {
+    if (!animatingInfo) return targetPos;
+
+    const elapsed = performance.now() - animatingInfo.startTime;
+    const duration = c.SCOREBOARD_ROW_TRANSITION_TIME;
+    const progress = Math.min(elapsed / duration, 1);
+
+    const easeInOut =
+        progress < 0.5
+            ? 2 * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+    return (
+        animatingInfo.fromPos + (targetPos - animatingInfo.fromPos) * easeInOut
+    );
+};
+
+const AnimatedRow = React.memo(
+    ({
+        teamId,
+        targetPos,
+        animatingInfo,
+        rowHeight,
+        getScrollPos,
+        subscribeScroll,
+        zIndex,
+        scoreboardRow,
+        rank,
+        awards,
+        contestData,
+    }: AnimatedRowProps) => {
+        const rowRef = useRef<HTMLDivElement>(null);
+        const animatedPosRef = useRef<number>(
+            calcCurrentAnimatedPos(animatingInfo, targetPos),
+        );
+        const animationRef = useRef<number | null>(null);
+        const rowHeightRef = useRef(rowHeight);
+        rowHeightRef.current = rowHeight;
+
+        const updateTransform = useCallback(() => {
+            if (rowRef.current) {
+                const visualPos =
+                    (animatedPosRef.current - getScrollPos()) *
+                        rowHeightRef.current -
+                    c.SCOREBOARD_ROW_PADDING;
+                rowRef.current.style.transform = `translate3d(0, ${visualPos}px, 0)`;
+            }
+        }, [getScrollPos]);
+
+        useEffect(() => {
+            return subscribeScroll(updateTransform);
+        }, [subscribeScroll, updateTransform]);
+
+        useEffect(() => {
+            if (animatingInfo) {
+                const animate = (now: number) => {
+                    const elapsed = now - animatingInfo.startTime;
+                    const duration = c.SCOREBOARD_ROW_TRANSITION_TIME;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    const easeInOut =
+                        progress < 0.5
+                            ? 2 * progress * progress
+                            : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+                    animatedPosRef.current =
+                        animatingInfo.fromPos +
+                        (targetPos - animatingInfo.fromPos) * easeInOut;
+                    updateTransform();
+
+                    if (progress < 1) {
+                        animationRef.current = requestAnimationFrame(animate);
+                    }
+                };
+
+                if (animationRef.current) {
+                    cancelAnimationFrame(animationRef.current);
+                }
+                animationRef.current = requestAnimationFrame(animate);
+
+                return () => {
+                    if (animationRef.current) {
+                        cancelAnimationFrame(animationRef.current);
+                    }
+                };
+            } else {
+                animatedPosRef.current = targetPos;
+                updateTransform();
+            }
+        }, [targetPos, animatingInfo, updateTransform]);
+
+        const initialVisualPos =
+            (animatedPosRef.current - getScrollPos()) * rowHeight -
+            c.SCOREBOARD_ROW_PADDING;
+
+        return (
+            <PositionedScoreboardRowDiv
+                ref={rowRef}
+                style={{
+                    zIndex,
+                    transform: `translate3d(0, ${initialVisualPos}px, 0)`,
+                }}
+            >
+                <ScoreboardRow
+                    scoreboardRow={scoreboardRow}
+                    rank={rank}
+                    awards={awards}
+                    teamId={teamId}
+                    contestData={contestData}
+                />
+            </PositionedScoreboardRowDiv>
+        );
+    },
+);
 
 interface ScoreboardRowsProps {
     settings: ScoreboardSettings;
@@ -356,36 +624,93 @@ interface ScoreboardRowsProps {
 export const ScoreboardRows = ({ settings, onPage }: ScoreboardRowsProps) => {
     const rows = useScoreboardRows(settings.optimismLevel, settings.group);
     const rowHeight = c.SCOREBOARD_ROW_HEIGHT + c.SCOREBOARD_ROW_PADDING;
-    const scrollPos = useScroller(
+    const targetScrollPos = useScroller(
         rows.length,
         onPage,
         c.SCOREBOARD_SCROLL_INTERVAL,
         settings.scrollDirection,
     );
+    const { getScrollPos, subscribe } = useAnimatedScrollPos(targetScrollPos);
     const scoreboardData = useAppSelector(
         (state) => state.scoreboard[settings.optimismLevel],
     );
     const normalScoreboardData = useAppSelector(
         (state) => state.scoreboard[OptimismLevel.normal],
     );
+    const contestData = useAppSelector((state) => state.contestInfo.info);
+
+    const animatingTeams = useAnimatingTeams(rows);
+
+    const [prevWindow, setPrevWindow] = useState({
+        scrollPos: targetScrollPos,
+        onPage,
+    });
+
+    const visibleTeams = useMemo(() => {
+        const effectiveOnPage = Math.max(1, onPage);
+        const effectivePrevOnPage = Math.max(1, prevWindow.onPage);
+
+        const currentMin = targetScrollPos;
+        const currentMax = targetScrollPos + effectiveOnPage;
+
+        const prevMin = prevWindow.scrollPos;
+        const prevMax = prevWindow.scrollPos + effectivePrevOnPage;
+
+        const visible = new Set<string>();
+
+        for (const [teamId, position] of rows) {
+            if (position >= currentMin && position <= currentMax) {
+                visible.add(teamId);
+            }
+            if (position >= prevMin && position <= prevMax) {
+                visible.add(teamId);
+            }
+        }
+
+        for (const [teamId, info] of animatingTeams) {
+            const trajMin = Math.min(info.fromPos, info.toPos);
+            const trajMax = Math.max(info.fromPos, info.toPos);
+
+            if (trajMax >= currentMin && trajMin <= currentMax) {
+                visible.add(teamId);
+            }
+        }
+
+        return visible;
+    }, [rows, targetScrollPos, onPage, animatingTeams, prevWindow]);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            startTransition(() =>
+                setPrevWindow({ scrollPos: targetScrollPos, onPage }),
+            );
+        }, c.SCOREBOARD_ROW_TRANSITION_TIME);
+        return () => clearTimeout(timeout);
+    }, [targetScrollPos, onPage]);
+
+    const teamsToRender = useMemo(() => {
+        return rows.filter(([teamId]) => visibleTeams.has(teamId));
+    }, [rows, visibleTeams]);
+
+    const effectiveOnPage = Math.max(1, onPage);
+
     return (
-        <ScoreboardRowsWrap maxHeight={onPage * rowHeight}>
-            {rows.map(([teamId, position]) => (
-                <PositionedScoreboardRow
+        <ScoreboardRowsWrap maxHeight={effectiveOnPage * rowHeight}>
+            {teamsToRender.map(([teamId, position]) => (
+                <AnimatedRow
                     key={teamId}
+                    teamId={teamId}
+                    targetPos={position}
+                    animatingInfo={animatingTeams.get(teamId)}
+                    rowHeight={rowHeight}
+                    getScrollPos={getScrollPos}
+                    subscribeScroll={subscribe}
                     zIndex={rows.length - position}
-                    pos={
-                        (position - scrollPos) * rowHeight -
-                        c.SCOREBOARD_ROW_PADDING
-                    }
-                >
-                    <ScoreboardRow
-                        scoreboardRow={scoreboardData.ids[teamId]}
-                        rank={normalScoreboardData.rankById[teamId]}
-                        awards={scoreboardData?.idAwards[teamId]}
-                        teamId={teamId}
-                    />
-                </PositionedScoreboardRow>
+                    scoreboardRow={scoreboardData?.ids[teamId]}
+                    rank={normalScoreboardData?.rankById[teamId]}
+                    awards={scoreboardData?.idAwards[teamId]}
+                    contestData={contestData}
+                />
             ))}
         </ScoreboardRowsWrap>
     );
