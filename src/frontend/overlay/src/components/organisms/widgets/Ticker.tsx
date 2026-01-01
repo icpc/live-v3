@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
 import c from "../../../config";
-import { pushLog } from "@/redux/debug";
 import { startScrolling, stopScrolling } from "@/redux/ticker";
 import live from "../../../assets/icons/live.svg";
 import Clock from "../tickers/Clock";
@@ -128,7 +127,6 @@ interface SingleTickerRowsProps {
 }
 
 export const SingleTickerRows: React.FC<SingleTickerRowsProps> = ({ part }) => {
-    const dispatch = useAppDispatch();
     const curMessage = useAppSelector(
         (state) => state.ticker.tickers[part].curDisplaying,
     );
