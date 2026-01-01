@@ -50,9 +50,16 @@ const scoreboardSlice = createSlice({
         ) {
             const { optimism, diff } = action.payload;
             const s = state[optimism];
-            s.awards = diff.awards;
-            s.order = diff.order;
-            s.ranks = diff.ranks;
+
+            if (!_.isEqual(s.awards, diff.awards)) {
+                s.awards = diff.awards;
+            }
+            if (!_.isEqual(s.order, diff.order)) {
+                s.order = diff.order;
+            }
+            if (!_.isEqual(s.ranks, diff.ranks)) {
+                s.ranks = diff.ranks;
+            }
             const nextIdAwards = {};
             for (const award of diff.awards) {
                 for (const teamId of award.teams) {
@@ -62,12 +69,23 @@ const scoreboardSlice = createSlice({
             }
 
             for (const [id, newData] of Object.entries(diff.rows)) {
-                s.ids[id] = newData;
+                if (!_.isEqual(s.ids[id], newData)) {
+                    s.ids[id] = newData;
+                }
             }
-            s.orderById = Object.fromEntries(
+
+            const nextOrderById = Object.fromEntries(
                 diff.order.map((teamId, index) => [teamId, index]),
             );
-            s.rankById = Object.fromEntries(_.zip(diff.order, diff.ranks));
+            if (!_.isEqual(s.orderById, nextOrderById)) {
+                s.orderById = nextOrderById;
+            }
+
+            const nextRankById = Object.fromEntries(_.zip(diff.order, diff.ranks));
+            if (!_.isEqual(s.rankById, nextRankById)) {
+                s.rankById = nextRankById;
+            }
+
             Object.keys(s.idAwards).forEach((id) => {
                 if (!(id in nextIdAwards)) delete s.idAwards[id];
             });

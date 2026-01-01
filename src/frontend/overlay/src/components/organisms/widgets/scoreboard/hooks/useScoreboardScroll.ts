@@ -104,7 +104,7 @@ export function useAnimatedScrollPos(targetScrollPos: number) {
                 startPosRef.current +
                 (targetPosRef.current - startPosRef.current) * easeInOutQuad(progress);
 
-            subscribersRef.current.forEach((cb) => cb());
+            subscribersRef.current.forEach((cb: () => void) => cb());
 
             if (progress < 1) {
                 animationRef.current = requestAnimationFrame(animate);
