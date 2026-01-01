@@ -1,10 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { DateTime } from "luxon";
-import { isFTS } from "@/utils/statusInfo";
 import c from "../../../config";
 import { ProblemLabel } from "../../atoms/ProblemLabel";
-import { ScoreboardTaskResultLabel } from "../../organisms/widgets/Scoreboard";
+import { ScoreboardTaskResultLabel } from "../../organisms/widgets/scoreboard/Scoreboard";
 import { ProblemResult, TeamInfo } from "@shared/api";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { createShimmerStyles } from "@/utils/shimmerStyles";

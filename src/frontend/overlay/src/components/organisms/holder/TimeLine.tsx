@@ -5,7 +5,6 @@ import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
 import {
     ContestInfo,
-    ContestStatus,
     TeamId,
     TeamInfo,
     TimeLineRunInfo,
