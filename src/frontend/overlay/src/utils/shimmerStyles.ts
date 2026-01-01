@@ -10,9 +10,7 @@ const shimmerTranslate = keyframes`
   }
 `;
 
-export const createShimmerStyles = (
-    problemColor?: string,
-) => {
+export const createShimmerStyles = (problemColor?: string) => {
     const bgColor = problemColor || "#4a90e2";
     const useDarkContent = isShouldUseDarkColor(bgColor);
 
