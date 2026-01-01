@@ -1,5 +1,16 @@
+interface MessageData {
+    event: string;
+    [key: string]: unknown;
+}
+
 export class GrabberSocket {
-    constructor(url) {
+    private url: string;
+    private target: EventTarget;
+    private messageQueue: MessageData[];
+    private isClosed: boolean;
+    private ws!: WebSocket;
+
+    constructor(url: string) {
         if (url.startsWith("http")) {
             url = "ws" + url.substring(4);
         } else if (!url.startsWith("ws")) {
@@ -45,7 +56,7 @@ export class GrabberSocket {
         this.ws = ws;
     }
 
-    emit(event, payload) {
+    emit(event: string, payload: Record<string, unknown>) {
         const data = { ...payload, event: event };
         if (this.ws.readyState === this.ws.OPEN) {
             this.ws.send(JSON.stringify(data));
@@ -54,8 +65,10 @@ export class GrabberSocket {
         }
     }
 
-    on(event, callback) {
-        this.target.addEventListener(event, (e) => callback(e.detail));
+    on(event: string, callback: (detail: unknown) => void) {
+        this.target.addEventListener(event, (e) =>
+            callback((e as CustomEvent).detail),
+        );
     }
 
     close() {

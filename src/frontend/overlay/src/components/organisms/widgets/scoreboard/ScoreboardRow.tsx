@@ -138,8 +138,8 @@ const ScoreboardTeamRow = React.memo(
                 )}
                 {scoreboardRow?.problemResults.map((result, i) => (
                     <ScoreboardTaskResultLabel
-                        problemResult={result}
                         key={i}
+                        problemResult={result}
                         problemColor={contestData?.problems[i]?.color}
                         minScore={contestData?.problems[i]?.minScore}
                         maxScore={contestData?.problems[i]?.maxScore}
