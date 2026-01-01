@@ -58,9 +58,9 @@ export function useScoreboardData(optimismLevel: OptimismLevel): {
     );
     const contestData = useAppSelector(state => state.contestInfo.info);
 
-    return {
+    return useMemo(() => ({
         scoreboardData,
         normalScoreboardData,
         contestData,
-    };
+    }), [scoreboardData, normalScoreboardData, contestData]);
 };
