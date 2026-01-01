@@ -1,7 +1,9 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, Keyframes } from "styled-components";
 import { CornerContestantInfo } from "../../molecules/info/ContestantViewCorner";
 import c from "../../../config";
+import { Widget } from "@shared/api";
+import { OverlayWidgetC } from "./types";
 
 const slideIn = keyframes`
   from {
@@ -21,19 +23,39 @@ const slideOut = keyframes`
   }
 `;
 
-const TeamViewWrapper = styled.div`
+const TeamViewWrapper = styled.div<{
+    top: number;
+    left: number;
+    animation: Keyframes;
+    animationStyle: string;
+    duration: number;
+}>`
     position: absolute;
     top: ${({ top }) => top}px;
     left: ${({ left }) => left}px;
 `;
 
-const LineWrapper = styled.div`
+const LineWrapper = styled.div<{
+    animation: Keyframes;
+    animationStyle: string;
+    duration: number;
+}>`
     width: 100%;
     height: 100%;
 `;
 
-export const Locator = ({ widgetData, transitionState }) => {
-    let circles = widgetData.settings.circles;
+interface Circle {
+    x: number;
+    y: number;
+    radius: number;
+    teamId: string;
+}
+
+export const Locator: OverlayWidgetC<Widget.TeamLocatorWidget> = ({
+    widgetData,
+    transitionState,
+}) => {
+    const circles: Circle[] = widgetData.settings.circles;
     const css = `
     .circles{filter:url(#maskfilter);}
     .circle{fill:#FFFFFF;}

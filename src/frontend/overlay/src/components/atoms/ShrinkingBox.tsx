@@ -2,7 +2,7 @@ import styled from "styled-components";
 import c from "../../config";
 import React, { useEffect, useRef, useMemo } from "react";
 
-const TextShrinkingWrap = styled.div`
+const TextShrinkingWrap = styled.div<{ align: string }>`
     overflow: hidden;
     display: flex;
     justify-content: ${(props) => props.align};
@@ -16,9 +16,9 @@ const TextShrinkingWrap = styled.div`
 
 const storage = window.localStorage;
 
-let sharedCanvas = null;
+let sharedCanvas: HTMLCanvasElement | null = null;
 
-export const getTextWidth = (text, font) => {
+export const getTextWidth = (text: string | number, font: string): number => {
     const stringText = text + "";
     const key = stringText + ";" + font;
     const fontChecker = document.fonts && document.fonts.check(font);
@@ -33,6 +33,9 @@ export const getTextWidth = (text, font) => {
     }
 
     const context = sharedCanvas.getContext("2d");
+    if (!context) {
+        return 0;
+    }
     context.font = font;
     context.fontKerning = "none";
     const metrics = context.measureText(stringText);
@@ -45,6 +48,14 @@ export const getTextWidth = (text, font) => {
     return result;
 };
 
+interface ShrinkingBoxProps {
+    text: string;
+    fontFamily?: string;
+    fontSize?: string;
+    align?: string;
+    className?: string;
+}
+
 export const ShrinkingBox = React.memo(
     ({
         text,
@@ -52,9 +63,9 @@ export const ShrinkingBox = React.memo(
         fontSize = c.GLOBAL_DEFAULT_FONT_SIZE,
         align = "left",
         className,
-    }) => {
-        const boxRef = useRef(null);
-        const containerRef = useRef(null);
+    }: ShrinkingBoxProps) => {
+        const boxRef = useRef<HTMLDivElement>(null);
+        const containerRef = useRef<HTMLDivElement>(null);
         const widthRef = useRef(0);
         const textWidthRef = useRef(0);
 
@@ -78,7 +89,7 @@ export const ShrinkingBox = React.memo(
             const contentRef = containerRef.current;
             if (!cellRef || !contentRef) return;
 
-            const updateTransform = (width) => {
+            const updateTransform = (width: number) => {
                 if (
                     width === widthRef.current &&
                     textWidthRef.current === textWidth
@@ -134,7 +145,10 @@ export const ShrinkingBox = React.memo(
     },
 );
 
-const TextShrinkingContainer = styled.div`
+const TextShrinkingContainer = styled.div<{
+    align: string;
+    scaleFactor: number;
+}>`
     position: relative;
     transform-origin: ${({ align }) => align};
 
