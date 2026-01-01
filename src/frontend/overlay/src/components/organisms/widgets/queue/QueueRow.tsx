@@ -100,7 +100,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
     ${({ isFts, problemColor }) =>
         isFts
             ? css`
-                  ${createShimmerStyles(problemColor, true)}
+                  ${createShimmerStyles(problemColor)}
                   border-radius: 4px;
               `
             : css`

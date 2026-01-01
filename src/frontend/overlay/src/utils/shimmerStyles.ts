@@ -12,7 +12,6 @@ const shimmerTranslate = keyframes`
 
 export const createShimmerStyles = (
     problemColor?: string,
-    diagonal: boolean = false,
 ) => {
     const bgColor = problemColor || "#4a90e2";
     const useDarkContent = isShouldUseDarkColor(bgColor);
@@ -77,10 +76,9 @@ export const conditionalShimmerStyles = (
     isShimmering: boolean,
     problemColor?: string,
     fallbackColor?: string,
-    diagonal: boolean = false,
 ) =>
     isShimmering
-        ? createShimmerStyles(problemColor, diagonal)
+        ? createShimmerStyles(problemColor)
         : css`
               background-color: ${fallbackColor};
           `;

@@ -7,7 +7,7 @@ export const useDelayed = <T>(timeout: number, value: T, initial: T): T => {
             setIsNotShownYet(value);
         }, timeout);
         return () => clearTimeout(timer);
-    }, []);
+    }, [timeout, value]);
     return isNotShownYet;
 };
 

@@ -445,6 +445,7 @@ export const TeamView: OverlayWidgetC<Widget.TeamViewWidget> = ({
 
     useEffect(() => {
         if (shouldUpdateSettings) {
+            // eslint-disable-next-line react-compiler/react-compiler
             setNextSettings(widgetData.settings);
         }
     }, [shouldUpdateSettings, widgetData.settings]);
