@@ -63,7 +63,7 @@ export function useVerticalQueueRowsData({
 
     rows.forEach((row) => {
         if (row.isFts) {
-            row.bottom = 
+            row.bottom =
                 height -
                 bottomPosition(totalFts - ftsRowCount) +
                 c.QUEUE_FTS_BOTTOM_OFFSET;

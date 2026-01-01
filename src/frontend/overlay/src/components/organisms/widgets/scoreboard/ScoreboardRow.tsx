@@ -16,7 +16,10 @@ import {
     ProblemInfo,
 } from "@shared/api";
 import { AnimatingTeam } from "@/components/organisms/widgets/scoreboard/hooks/useScoreboardAnimation";
-import { calculateProgress, interpolate } from "@/components/organisms/widgets/scoreboard/utils/easingFunctions";
+import {
+    calculateProgress,
+    interpolate,
+} from "@/components/organisms/widgets/scoreboard/utils/easingFunctions";
 
 type ContestDataWithMaps = ContestInfo & {
     teamsId: Record<TeamInfo["id"], TeamInfo>;
@@ -41,7 +44,6 @@ const ScoreboardTableRowWrap = styled.div<{
 
     background-color: ${c.SCOREBOARD_BACKGROUND_COLOR};
 `;
-
 
 const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
     overflow: hidden;
@@ -112,9 +114,10 @@ const ScoreboardTeamRow = React.memo(
         const formatPenalty = useFormatPenalty();
 
         const teamName = teamData?.shortName ?? "??";
-        const scoreText = scoreboardRow === null
-            ? "??"
-            : formatScore(scoreboardRow?.totalScore ?? 0.0, 1);
+        const scoreText =
+            scoreboardRow === null
+                ? "??"
+                : formatScore(scoreboardRow?.totalScore ?? 0.0, 1);
         const penaltyText = formatPenalty(scoreboardRow?.penalty);
 
         return (
@@ -152,7 +155,7 @@ const ScoreboardTeamRow = React.memo(
             prevProps.needPenalty === nextProps.needPenalty &&
             prevProps.contestData === nextProps.contestData
         );
-    }
+    },
 );
 ScoreboardTeamRow.displayName = "ScoreboardTeamRow";
 
@@ -176,7 +179,7 @@ export const ScoreboardRow = React.memo(
             (award) => award.type == Award.Type.medal,
         ) as Award.medal;
         const needPenalty = useNeedPenalty();
-        
+
         return (
             <ScoreboardRowWrap
                 nProblems={Math.max(contestData?.problems?.length ?? 0, 1)}
@@ -220,7 +223,7 @@ function calcCurrentAnimatedPos(
     );
 
     return interpolate(animatingInfo.fromPos, targetPos, progress);
-};
+}
 
 export const AnimatedRow = React.memo(
     ({
@@ -314,17 +317,26 @@ export const AnimatedRow = React.memo(
 
                     const smoothTransition = (now: number) => {
                         const elapsed = now - startTime;
-                        const progress = Math.min(elapsed / c.SCOREBOARD_ROW_TRANSITION_TIME, 1);
+                        const progress = Math.min(
+                            elapsed / c.SCOREBOARD_ROW_TRANSITION_TIME,
+                            1,
+                        );
 
-                        animatedPosRef.current = interpolate(startPos, targetPos, progress);
+                        animatedPosRef.current = interpolate(
+                            startPos,
+                            targetPos,
+                            progress,
+                        );
                         updateTransform();
 
                         if (progress < 1) {
-                            animationRef.current = requestAnimationFrame(smoothTransition);
+                            animationRef.current =
+                                requestAnimationFrame(smoothTransition);
                         }
                     };
 
-                    animationRef.current = requestAnimationFrame(smoothTransition);
+                    animationRef.current =
+                        requestAnimationFrame(smoothTransition);
 
                     return () => {
                         if (animationRef.current) {
@@ -374,6 +386,6 @@ export const AnimatedRow = React.memo(
             prevProps.getScrollPos === nextProps.getScrollPos &&
             prevProps.subscribeScroll === nextProps.subscribeScroll
         );
-    }
+    },
 );
 AnimatedRow.displayName = "AnimatedRow";

@@ -86,13 +86,12 @@ interface ScoreboardHeaderProps {
     optimismLevel: OptimismLevel;
 }
 
-
 export function ScoreboardTableHeader() {
     const problems = useAppSelector(
         (state) => state.contestInfo.info?.problems,
     );
     const needPenalty = useNeedPenalty();
-    
+
     return (
         <ScoreboardTableHeaderWrap
             nProblems={Math.max(problems?.length ?? 0, 1)}
@@ -116,7 +115,7 @@ export function ScoreboardTableHeader() {
                 ))}
         </ScoreboardTableHeaderWrap>
     );
-};
+}
 
 export function ScoreboardHeader({ optimismLevel }: ScoreboardHeaderProps) {
     return (
@@ -128,4 +127,4 @@ export function ScoreboardHeader({ optimismLevel }: ScoreboardHeaderProps) {
             <ScoreboardCaption>{c.SCOREBOARD_CAPTION}</ScoreboardCaption>
         </ScoreboardHeaderWrap>
     );
-};
+}

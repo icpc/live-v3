@@ -81,7 +81,9 @@ const scoreboardSlice = createSlice({
                 s.orderById = nextOrderById;
             }
 
-            const nextRankById = Object.fromEntries(_.zip(diff.order, diff.ranks));
+            const nextRankById = Object.fromEntries(
+                _.zip(diff.order, diff.ranks),
+            );
             if (!_.isEqual(s.rankById, nextRankById)) {
                 s.rankById = nextRankById;
             }

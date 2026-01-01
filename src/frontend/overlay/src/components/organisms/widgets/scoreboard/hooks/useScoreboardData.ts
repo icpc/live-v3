@@ -8,9 +8,9 @@ export function useScoreboardRows(
     selectedGroup: string,
 ) {
     const order = useAppSelector(
-        state => state.scoreboard[optimismLevel]?.orderById,
+        (state) => state.scoreboard[optimismLevel]?.orderById,
     );
-    const teamsId = useAppSelector(state => state.contestInfo.info?.teamsId);
+    const teamsId = useAppSelector((state) => state.contestInfo.info?.teamsId);
 
     return useMemo(() => {
         if (teamsId === undefined || order === undefined) {
@@ -18,7 +18,7 @@ export function useScoreboardRows(
         }
 
         const result = Object.entries(order).filter(
-            ([k]) => 
+            ([k]) =>
                 selectedGroup === "all" ||
                 (teamsId[k]?.groups ?? []).includes(selectedGroup),
         );
@@ -39,28 +39,30 @@ export function useScoreboardRows(
 
         return result;
     }, [order, teamsId, selectedGroup]);
-};
-
+}
 
 export function useScoreboardData(optimismLevel: OptimismLevel): {
-    scoreboardData: ScoreboardData,
-    normalScoreboardData: ScoreboardData,
+    scoreboardData: ScoreboardData;
+    normalScoreboardData: ScoreboardData;
     contestData: ContestInfo & {
         teamsId: Record<TeamInfo["id"], TeamInfo>;
         problemsId: Record<ProblemInfo["id"], ProblemInfo>;
-    },
+    };
 } {
     const scoreboardData = useAppSelector(
-        state => state.scoreboard[optimismLevel],
+        (state) => state.scoreboard[optimismLevel],
     );
     const normalScoreboardData = useAppSelector(
-        state => state.scoreboard[OptimismLevel.normal],
+        (state) => state.scoreboard[OptimismLevel.normal],
     );
-    const contestData = useAppSelector(state => state.contestInfo.info);
+    const contestData = useAppSelector((state) => state.contestInfo.info);
 
-    return useMemo(() => ({
-        scoreboardData,
-        normalScoreboardData,
-        contestData,
-    }), [scoreboardData, normalScoreboardData, contestData]);
-};
+    return useMemo(
+        () => ({
+            scoreboardData,
+            normalScoreboardData,
+            contestData,
+        }),
+        [scoreboardData, normalScoreboardData, contestData],
+    );
+}

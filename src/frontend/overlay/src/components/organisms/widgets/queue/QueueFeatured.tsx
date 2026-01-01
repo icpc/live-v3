@@ -91,7 +91,11 @@ export const Featured = ({ runInfo }: { runInfo: QueueRowInfo | null }) => {
     );
 };
 
-export const HorizontalFeatured = ({ runInfo }: { runInfo: QueueRowInfo | null }) => {
+export const HorizontalFeatured = ({
+    runInfo,
+}: {
+    runInfo: QueueRowInfo | null;
+}) => {
     const [transition, toggle] = useTransition({
         timeout: c.QUEUE_ROW_FEATURED_RUN_APPEAR_TIME,
         mountOnEnter: true,

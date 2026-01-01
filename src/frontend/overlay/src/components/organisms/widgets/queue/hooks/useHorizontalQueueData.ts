@@ -29,7 +29,10 @@ function calculateNextHorizontalState(
     }
 
     for (const run of currentQueue) {
-        if ((run.featuredRunMedia?.length ?? 0) > 0 || nextState.ftsPositions[run.id] !== undefined) {
+        if (
+            (run.featuredRunMedia?.length ?? 0) > 0 ||
+            nextState.ftsPositions[run.id] !== undefined
+        ) {
             continue;
         }
 
@@ -76,7 +79,10 @@ function assignNewBatchPosition(state: QueueState, runId: string) {
     if (firstBatchPositions.length >= MAX_ROWS_PER_BATCH) {
         createNewBatch(state, runId);
     } else {
-        const freeSlot = findFirstFreeSlot(MAX_ROWS_PER_BATCH, firstBatchPositions);
+        const freeSlot = findFirstFreeSlot(
+            MAX_ROWS_PER_BATCH,
+            firstBatchPositions,
+        );
         if (freeSlot !== null) {
             state.batches[firstBatchId][runId] = freeSlot;
             state.currentRuns[runId] = firstBatchId;
@@ -94,13 +100,15 @@ function createNewBatch(state: QueueState, runId: string) {
 
 function cleanupStaleRuns(state: QueueState, currentQueue: QueueRowInfo[]) {
     for (const [runId, delegateId] of Object.entries(state.currentRuns)) {
-        const stillExists = currentQueue.some(r => r.id === runId);
+        const stillExists = currentQueue.some((r) => r.id === runId);
         if (!stillExists && state.ftsPositions[runId] === undefined) {
             delete state.currentRuns[runId];
             if (state.batches[delegateId]) {
                 delete state.batches[delegateId][runId];
                 if (Object.keys(state.batches[delegateId]).length === 0) {
-                    state.batchOrder = state.batchOrder.filter(b => b !== delegateId);
+                    state.batchOrder = state.batchOrder.filter(
+                        (b) => b !== delegateId,
+                    );
                     delete state.batches[delegateId];
                 }
             }
@@ -108,7 +116,7 @@ function cleanupStaleRuns(state: QueueState, currentQueue: QueueRowInfo[]) {
     }
 
     for (const runId of Object.keys(state.ftsPositions)) {
-        if (!currentQueue.some(r => r.id === runId)) {
+        if (!currentQueue.some((r) => r.id === runId)) {
             delete state.ftsPositions[runId];
         }
     }
@@ -123,24 +131,25 @@ export const useHorizontalQueueRowsData = ({
     ftsRowWidth: number;
     basicZIndex?: number;
 }): [QueueRowInfo | null, QueueRowInfo[]] => {
-    const {
-        processingQueue,
-        featured
-    } = useQueueItemProcessing(basicZIndex);
+    const { processingQueue, featured } = useQueueItemProcessing(basicZIndex);
 
     const allowedMaxBatches = useMemo(
         () => Math.floor(height / GRID_OFFSET_Y) - 1,
-        [height]
+        [height],
     );
 
     const allowedFtsSlots = useMemo(
         () => Math.floor(ftsRowWidth / GRID_OFFSET_X),
-        [ftsRowWidth]
+        [ftsRowWidth],
     );
 
     const layoutState = useMemo(() => {
         const emptyState = createEmptyQueueState();
-        return calculateNextHorizontalState(emptyState, processingQueue, allowedFtsSlots);
+        return calculateNextHorizontalState(
+            emptyState,
+            processingQueue,
+            allowedFtsSlots,
+        );
     }, [processingQueue, allowedFtsSlots]);
 
     const rows = useMemo(() => {
@@ -148,7 +157,10 @@ export const useHorizontalQueueRowsData = ({
 
         processingQueue.forEach((row) => {
             if (layoutState.ftsPositions[row.id] !== undefined) {
-                row.bottom = height - c.QUEUE_HORIZONTAL_ROW_Y_PADDING - c.QUEUE_ROW_HEIGHT;
+                row.bottom =
+                    height -
+                    c.QUEUE_HORIZONTAL_ROW_Y_PADDING -
+                    c.QUEUE_ROW_HEIGHT;
                 row.right = layoutState.ftsPositions[row.id] * GRID_OFFSET_X;
                 resultRows.push(row);
                 return;
@@ -163,7 +175,9 @@ export const useHorizontalQueueRowsData = ({
             if (batchIndex === -1 || slotInBatch === undefined) return;
             if (batchIndex >= allowedMaxBatches) return;
 
-            row.bottom = (c.QUEUE_ROW_HEIGHT + c.QUEUE_HORIZONTAL_ROW_Y_PADDING) * batchIndex;
+            row.bottom =
+                (c.QUEUE_ROW_HEIGHT + c.QUEUE_HORIZONTAL_ROW_Y_PADDING) *
+                batchIndex;
             row.right = (MAX_ROWS_PER_BATCH - 1 - slotInBatch) * GRID_OFFSET_X;
 
             resultRows.push(row);

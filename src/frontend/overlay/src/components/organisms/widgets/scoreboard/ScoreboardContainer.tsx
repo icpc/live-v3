@@ -1,4 +1,10 @@
-import React, { useRef, useMemo, useEffect, useState, startTransition } from "react";
+import React, {
+    useRef,
+    useMemo,
+    useEffect,
+    useState,
+    startTransition,
+} from "react";
 import styled from "styled-components";
 import c from "@/config";
 import { useResizeObserver } from "usehooks-ts";
@@ -6,7 +12,10 @@ import { ScoreboardSettings, Widget } from "@shared/api";
 import { OverlayWidgetC } from "@/components/organisms/widgets/types";
 import { ScoreboardHeader, ScoreboardTableHeader } from "./ScoreboardHeader";
 import { AnimatedRow } from "./ScoreboardRow";
-import { useScoreboardRows, useScoreboardData } from "./hooks/useScoreboardData";
+import {
+    useScoreboardRows,
+    useScoreboardData,
+} from "./hooks/useScoreboardData";
 import { useScroller, useAnimatedScrollPos } from "./hooks/useScoreboardScroll";
 import { useAnimatingTeams } from "./hooks/useScoreboardAnimation";
 
@@ -53,14 +62,14 @@ interface ScoreboardRowsProps {
 const ScoreboardRows = ({ settings, onPage }: ScoreboardRowsProps) => {
     const rows = useScoreboardRows(settings.optimismLevel, settings.group);
     const rowHeight = c.SCOREBOARD_ROW_HEIGHT + c.SCOREBOARD_ROW_PADDING;
-    
+
     const targetScrollPos = useScroller(
         rows.length,
         onPage,
         c.SCOREBOARD_SCROLL_INTERVAL,
         settings.scrollDirection,
     );
-    
+
     const { getScrollPos, subscribe } = useAnimatedScrollPos(targetScrollPos);
     const { scoreboardData, normalScoreboardData, contestData } =
         useScoreboardData(settings.optimismLevel);

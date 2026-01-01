@@ -3,12 +3,7 @@ import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
-import {
-    ContestInfo,
-    TeamId,
-    TeamInfo,
-    TimeLineRunInfo,
-} from "@shared/api";
+import { ContestInfo, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
 import {
     calculateContestTime,
     getStartTime,
