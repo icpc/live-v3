@@ -139,7 +139,7 @@ export const QueueRow = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     const medal = awards?.find(
         (award) => award.type == Award.Type.medal,
     ) as Award.medal;
-    
+
     const isFTSRun =
         (runInfo?.result?.type === "ICPC" &&
             runInfo.result.isFirstToSolveRun) ||

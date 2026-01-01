@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef, startTransition } from "react";
 import c from "@/config";
 
-
 export type AnimatingTeam = {
     fromPos: number;
     toPos: number;
@@ -70,4 +69,4 @@ export function useAnimatingTeams(rows: [string, number][]) {
     }, [animatingTeams]);
 
     return animatingTeams;
-};
+}

@@ -90,9 +90,7 @@ const QueueComponent = ({ shouldShow, widget }: QueueComponentProps) => {
                 hasFeatured={!!featured}
                 variant={horizontal ? "horizontal" : "vertical"}
             >
-                <QueueHeader
-                    onRef={horizontal ? handleHeaderRef : undefined}
-                />
+                <QueueHeader onRef={horizontal ? handleHeaderRef : undefined} />
                 <RowsContainerComponent ref={handleRowsContainerRef}>
                     {shouldShow &&
                         queueRows.map((row) => (

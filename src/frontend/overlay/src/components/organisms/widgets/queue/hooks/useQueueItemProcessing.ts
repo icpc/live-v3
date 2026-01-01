@@ -6,7 +6,9 @@ import { QueueRunInfo } from "@shared/api";
 
 export function useQueueItemProcessing(basicZIndex: number) {
     const { queue, totalQueueItems } = useAppSelector((state) => state.queue);
-    const [loadedMediaRunId, setLoadedMediaRunId] = useState<string | null>(null);
+    const [loadedMediaRunId, setLoadedMediaRunId] = useState<string | null>(
+        null,
+    );
 
     const createBaseRow = useCallback(
         (run: QueueRunInfo, index: number): QueueRowInfo => ({
@@ -19,7 +21,7 @@ export function useQueueItemProcessing(basicZIndex: number) {
             isFts: isFTS(run),
             setIsFeaturedRunMediaLoaded: null,
         }),
-        [basicZIndex, totalQueueItems]
+        [basicZIndex, totalQueueItems],
     );
 
     return useMemo(() => {

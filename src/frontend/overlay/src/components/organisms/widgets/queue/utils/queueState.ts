@@ -18,7 +18,7 @@ export interface QueueRowInfo extends QueueRunInfo {
     isFeaturedRunMediaLoaded: boolean;
     isFts: boolean;
     setIsFeaturedRunMediaLoaded: ((state: boolean) => void) | null;
-};
+}
 
 export const createEmptyQueueState = (): QueueState => ({
     currentRuns: {},
@@ -26,4 +26,3 @@ export const createEmptyQueueState = (): QueueState => ({
     batchOrder: [],
     ftsPositions: {},
 });
-

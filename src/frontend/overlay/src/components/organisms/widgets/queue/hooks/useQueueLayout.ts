@@ -23,4 +23,4 @@ export function useQueueLayout(initialHeight?: number) {
         handleHeaderRef,
         handleRowsContainerRef,
     };
-};
+}

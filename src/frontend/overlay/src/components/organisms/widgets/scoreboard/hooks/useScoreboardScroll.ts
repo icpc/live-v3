@@ -71,7 +71,7 @@ export function useScroller(
     }, [interval, numPages, direction, calcScrollPos]);
 
     return scrollPos;
-};
+}
 
 export function useAnimatedScrollPos(targetScrollPos: number) {
     const scrollPosRef = useRef(targetScrollPos);
@@ -102,7 +102,8 @@ export function useAnimatedScrollPos(targetScrollPos: number) {
 
             scrollPosRef.current =
                 startPosRef.current +
-                (targetPosRef.current - startPosRef.current) * easeInOutQuad(progress);
+                (targetPosRef.current - startPosRef.current) *
+                    easeInOutQuad(progress);
 
             subscribersRef.current.forEach((cb: () => void) => cb());
 
@@ -124,4 +125,4 @@ export function useAnimatedScrollPos(targetScrollPos: number) {
     }, [targetScrollPos]);
 
     return { getScrollPos, subscribe };
-};
+}
