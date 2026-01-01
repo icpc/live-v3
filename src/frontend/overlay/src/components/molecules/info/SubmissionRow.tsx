@@ -28,7 +28,7 @@ const QueueProblemLabel = styled(ProblemLabel)`
     ${({ isFts, problemColor }) =>
         isFts
             ? css`
-                  ${createShimmerStyles(problemColor, true)}
+                  ${createShimmerStyles(problemColor)}
               `
             : css`
                   background-color: ${problemColor || "#4a90e2"};

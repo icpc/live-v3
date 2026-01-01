@@ -141,6 +141,7 @@ export const SingleTickerRows: React.FC<SingleTickerRowsProps> = ({ part }) => {
 
     useEffect(() => {
         if (!curMessage) {
+            // eslint-disable-next-line react-compiler/react-compiler
             setDisplayMessages([]);
             lastMessageId.current = null;
             return;

@@ -190,24 +190,25 @@ export const M2tsVideoMediaHolder = ({
     const videoRef = useRef<HTMLVideoElement>(null);
     useEffect(() => {
         onLoadStatus(false);
-        if (videoRef.current) {
+        const videoElement = videoRef.current;
+        if (videoElement) {
             const player = mpegts.createPlayer({
                 type: "mpegts",
                 isLive: true,
                 url: url,
             });
-            player.attachMediaElement(videoRef.current);
+            player.attachMediaElement(videoElement);
             player.load();
             return () => {
                 player.destroy();
             };
         }
         return () => {
-            if (videoRef.current) {
-                videoRef.current.srcObject = null;
+            if (videoElement) {
+                videoElement.srcObject = null;
             }
         };
-    }, [url]);
+    }, [url, onLoadStatus]);
 
     return (
         <MediaWrapper $vertical={vertical} className={className}>
@@ -234,6 +235,7 @@ export const WebRTCGrabberMediaHolder = ({
 
     const videoRef = useRef<HTMLVideoElement>(null);
     useEffect(() => {
+        const videoElement = videoRef.current;
         const client = new GrabberPlayerClient("play", url);
         client.authorize(credential);
         client.on("initialized", () => {
@@ -241,9 +243,11 @@ export const WebRTCGrabberMediaHolder = ({
                 `WebRTCGrabber: Connecting to peer ${peerName} for stream ${streamType}`,
             );
             client.connect({ peerName: peerName }, streamType, (track) => {
-                videoRef.current.srcObject = null;
-                videoRef.current.srcObject = track;
-                videoRef.current.play();
+                if (videoElement) {
+                    videoElement.srcObject = null;
+                    videoElement.srcObject = track;
+                    videoElement.play();
+                }
                 console.info(
                     `WebRTCGrabber: pc2 received remote stream (${peerName}, ${streamType})`,
                 );
@@ -263,11 +267,11 @@ export const WebRTCGrabberMediaHolder = ({
 
         return () => {
             client.close();
-            if (videoRef.current) {
-                videoRef.current.srcObject = null;
+            if (videoElement) {
+                videoElement.srcObject = null;
             }
         };
-    }, [url, peerName, streamType]);
+    }, [url, peerName, streamType, credential, onLoadStatus]);
 
     return (
         <MediaWrapper $vertical={vertical} className={className}>
@@ -323,7 +327,7 @@ export const WebRTCProxyMediaHolder = ({
             );
 
         return () => rtcRef.current?.close();
-    }, [url]);
+    }, [url, onLoadStatus]);
 
     return (
         <MediaWrapper $vertical={vertical} className={className}>
