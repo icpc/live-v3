@@ -172,11 +172,7 @@ const TaskResultLabelWrapper2 = styled.div`
     color: #fff;
 
     ${({ color, isShimmering, problemColor, isFake }) =>
-        conditionalShimmerStyles(
-            isShimmering && !isFake,
-            problemColor,
-            color
-        )}
+        conditionalShimmerStyles(isShimmering && !isFake, problemColor, color)}
 `;
 const AttemptsOrScoreLabelWrapper = styled.div`
     position: absolute;
