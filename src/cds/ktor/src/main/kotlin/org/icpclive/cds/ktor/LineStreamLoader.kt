@@ -34,7 +34,7 @@ internal fun getLineFlow(networkSettings: NetworkSettings, url: UrlOrLocalPath):
                 }
                 val channel = httpResponse.bodyAsChannel()
                 while (!channel.isClosedForRead) {
-                    val line = channel.readUTF8Line() ?: continue
+                    val line = channel.readLine() ?: continue
                     if (line.isEmpty()) continue
                     emit(line)
                 }
