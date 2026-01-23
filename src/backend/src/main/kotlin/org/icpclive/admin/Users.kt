@@ -2,7 +2,6 @@ package org.icpclive.admin
 
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.util.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
@@ -11,6 +10,7 @@ import org.icpclive.Config
 import org.icpclive.api.AdminUser
 import java.io.File
 import java.security.MessageDigest
+import kotlin.io.encoding.Base64
 
 
 @Serializable
@@ -55,13 +55,13 @@ class FileBasedUsersController(val file: File) : UsersController {
         }
         val user = mutex.withLock {
             users[name] ?: run {
-                val newUser = User(name, digest.encodeBase64(), users.isEmpty())
+                val newUser = User(name, Base64.encode(digest), users.isEmpty())
                 users[name] = newUser
                 saveUsers()
                 newUser
             }
         }
-        return user.takeIf { MessageDigest.isEqual(digest, user.pass.decodeBase64Bytes()) }
+        return user.takeIf { MessageDigest.isEqual(digest, Base64.decode(user.pass)) }
     }
 
     override suspend fun getAllUsers() = mutex.withLock {
