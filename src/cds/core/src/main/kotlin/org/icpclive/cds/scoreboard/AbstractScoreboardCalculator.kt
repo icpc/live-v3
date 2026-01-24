@@ -21,17 +21,8 @@ public interface ScoreboardCalculator {
     public fun getRanking(info: ContestInfo, rows: Map<TeamId, ScoreboardRow>): Ranking
 }
 
-private fun ordinalText(x: Int) = if (x in 11..13) {
-    "$x-th"
-} else {
-    val r = x % 10
-    val suffix = when (r) {
-        1 -> "st"
-        2 -> "nd"
-        3 -> "rd"
-        else -> "th"
-    }
-    "$x-$suffix"
+private fun <T> List<T>.intersectsWith(other: Set<T>): Boolean {
+    return any { other.contains(it) }
 }
 
 internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
@@ -52,8 +43,6 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
         val ranks = MutableList(order.size) { 0 }
         val orderedRows = orderList.map { it.second }
 
-        val firstGroupRank = mutableMapOf<GroupId, Int>()
-
         var nextRank = 1
         var right = 0
         while (right < order.size) {
@@ -67,91 +56,87 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
                 if (!team.isOutOfContest) {
                     ranks[i] = curRank
                     nextRank++
-                    for (group in team.groups) {
-                        firstGroupRank.putIfAbsent(group, curRank)
-                    }
                 }
             }
         }
 
-        val awardsSettings = info.awardsSettings
-        val teamRanks = (0 until ranks.size).groupBy({ ranks[it] }, { order[it] })
         val awards = buildList {
-            awardsSettings.championTitle?.let { title ->
-                add(Award.Winner("winner", title, teamRanks[1]?.toSet() ?: emptySet()))
-            }
-            for ((groupId, title) in awardsSettings.groupsChampionTitles) {
-                val groupBestRank = firstGroupRank[groupId]
-                add(
-                    Award.GroupChampion(
-                        id = "group-winner-$groupId",
-                        citation = title,
-                        groupId = groupId,
-                        teams = teamRanks[groupBestRank]!!.filter { groupId in info.teams[it]!!.groups }.toSet()
-                    )
-                )
-            }
-            for (medalGroup in awardsSettings.medalGroups) {
-                var position = 1
-                val teamRanksFiltered = run {
-                    if (medalGroup.excludedGroups.isEmpty() && medalGroup.groups.isEmpty()) {
-                        teamRanks
-                    } else {
-                        val medalGroupSet = medalGroup.groups.toSet()
-                        val medalExcludedGroupSet = medalGroup.excludedGroups.toSet()
-                        val orderFiltered = order.zip(ranks).filter { (it, _) ->
-                            val teamGroups = info.teams[it]!!.groups
-                            (medalGroup.groups.isEmpty() || teamGroups.intersect(medalGroupSet).isNotEmpty()) &&
-                                    teamGroups.intersect(medalExcludedGroupSet).isEmpty()
+            for (chain in info.awardsSettings) {
+                if (chain.awards.isEmpty()) continue
+                val medalGroupSet = chain.groups.toSet()
+                val medalExcludedGroupSet = chain.excludedGroups.toSet()
+                val indicesFilteredByGroup = buildList {
+                    for ((index, teamId) in order.withIndex()) {
+                        val team = info.teams[teamId]!!
+                        if (team.isOutOfContest) continue
+                        if (chain.groups.isNotEmpty() && !team.groups.intersectsWith(medalGroupSet)) continue
+                        if (team.groups.intersectsWith(medalExcludedGroupSet)) continue
+                        add(index)
+                    }
+                }
+                val chainAwarded = mutableSetOf<Int>()
+                val chainOrganizationAwarded = mutableMapOf< OrganizationId, Int>()
+                for (award in chain.awards) {
+                    val awarded = mutableSetOf<Int>()
+                    val organizationAwarded = mutableMapOf<OrganizationId, Int>()
+                    @IgnorableReturnValue
+                    fun processChunk(chunk: List<Int>) : Boolean {
+                        if (award.tiebreakMode == AwardTiebreakMode.NONE) {
+                            if (chainAwarded.size + chunk.size > (award.chainLimit ?: Int.MAX_VALUE)) return false
+                            if (awarded.size + chunk.size > (award.limit ?: Int.MAX_VALUE)) return false
                         }
-                        val preRes = orderFiltered.groupBy({ it.second }, { it.first }).toList().sortedBy { it.first }.map { it.second }
-                        buildMap {
-                            var curRank = 1
-                            for (teams in preRes) {
-                                put(curRank, teams)
-                                curRank += teams.size
+                        for (i in chunk) {
+                            awarded.add(i)
+                            chainAwarded.add(i)
+                            val team = info.teams[order[i]]!!
+                            if (team.organizationId != null) {
+                                organizationAwarded[team.organizationId] = (organizationAwarded[team.organizationId] ?: 0) + 1
+                                chainOrganizationAwarded[team.organizationId] = (chainOrganizationAwarded[team.organizationId] ?: 0) + 1
                             }
                         }
-                    }
-                }
-                for (medal in medalGroup.medals) {
-                    val rankLimit = medal.maxRank ?: nextRank
-                    val teams = buildSet {
-                        while (position <= rankLimit) {
-                            val teams = teamRanksFiltered[position] ?: break
-                            if (rows[teams[0]]!!.totalScore < (medal.minScore ?: Double.MIN_VALUE)) break
-                            if (medal.tiebreakMode == AwardsSettings.MedalTiebreakMode.NONE && (position + teams.size - 1) > rankLimit) break
-                            position += teams.size
-                            addAll(teams)
+                        if (award.tiebreakMode == AwardTiebreakMode.ALL) {
+                            if (chainAwarded.size >= (award.chainLimit ?: Int.MAX_VALUE)) return false
+                            if (awarded.size >= (award.limit ?: Int.MAX_VALUE)) return false
                         }
+                        return true
                     }
-                    add(
-                        Award.Medal(
-                            medal.id,
-                            medal.citation,
-                            medal.color,
-                            teams
-                        )
-                    )
+                    if (award.manualTeamIds.isNotEmpty()) {
+                        processChunk(order.indices.filter { award.manualTeamIds.contains(order[it]) && !chainAwarded.contains(it) })
+                    }
+                    var currentChunkRank = -1
+                    val currentChunk = mutableListOf<Int>()
+                    for (it in indicesFilteredByGroup) {
+                        if (chainAwarded.contains(it)) continue
+                        if (award.maxRank != null && ranks[it] > award.maxRank) break
+                        val teamId = order[it]
+                        val row = rows[teamId]!!
+                        val teamInfo = info.teams[teamId]!!
+                        if (award.minScore != null && row.totalScore < award.minScore) break
+                        if (currentChunkRank != ranks[it]) {
+                            if (!processChunk(currentChunk)) {
+                                currentChunk.clear()
+                                break
+                            }
+                            currentChunkRank = ranks[it]
+                            currentChunk.clear()
+                        }
+                        val org = info.organizations[teamInfo.organizationId]
+                        if (org != null) {
+                            val chainOrganizationLimit = org.customFields[award.chainOrganizationLimitCustomField]?.toIntOrNull() ?: award.chainOrganizationLimit
+                            if (chainOrganizationLimit != null && (chainOrganizationAwarded[org.id] ?: 0) >= chainOrganizationLimit) {
+                                continue
+                            }
+                            val organizationLimit = org.customFields[award.organizationLimitCustomField]?.toIntOrNull() ?: award.organizationLimit
+                            if (organizationLimit != null && (organizationAwarded[org.id] ?: 0) >= organizationLimit) {
+                                continue
+                            }
+                        }
+                        currentChunk.add(it)
+                    }
+                    processChunk(currentChunk)
+
+                    add(Award(award.id, award.citation, awarded.map { order[it] }.toSet()))
                 }
-            }
-            for (rank in 1..awardsSettings.rankAwardsMaxRank) {
-                add(
-                    Award.Custom(
-                        "rank-$rank",
-                        "${ordinalText(rank)} place",
-                        teamRanks[rank]?.toSet() ?: emptySet()
-                    )
-                )
-            }
-            for (manual in awardsSettings.manual) {
-                add(
-                    Award.Custom(
-                        manual.id,
-                        manual.citation,
-                        manual.teamCdsIds.toSet()
-                    )
-                )
             }
         }
 
@@ -228,7 +213,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
             val newInfo = state.infoBeforeEvent?.teams[it]
             val oldInfo = state.infoAfterEvent.teams[it]
             rows = rows.put(it, newRow)
-            newRow != oldRow || newInfo?.isOutOfContest != oldInfo?.isOutOfContest || newInfo?.isHidden != oldInfo?.isHidden
+            newRow != oldRow || newInfo?.isOutOfContest != oldInfo?.isOutOfContest || newInfo?.customFields != oldInfo?.customFields || newInfo?.isHidden != oldInfo?.isHidden
         }
         if (teamsReallyAffected.isNotEmpty() || state.infoBeforeEvent?.awardsSettings != state.infoAfterEvent.awardsSettings) {
             lastRanking = calculator.getRanking(info, rows)

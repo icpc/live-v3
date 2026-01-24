@@ -12,7 +12,6 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.serializer
 import org.icpclive.cds.api.*
-import org.icpclive.cds.api.AwardsSettings.MedalGroup
 import java.io.InputStream
 
 private fun SerialDescriptor.unwrapInlines(): SerialDescriptor = if (isInline) elementDescriptors.first().unwrapInlines() else this
@@ -195,33 +194,24 @@ internal fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buil
     }
     if (awardsSettings != null) {
         val (championTitle, groupChampionTitles, rankAwardsMaxRank, medalsExtra, medalGroups, manual) = awardsSettings
-        fun MedalGroup.tryToMedals() : TuningRule? {
-            val goldCut = medals.getOrNull(0)?.maxRank ?: return null
-            val silverCut = medals.getOrNull(1)?.maxRank ?: goldCut
-            val bronzeCut = medals.getOrNull(2)?.maxRank ?: silverCut
-            val cand = AddMedals(goldCut, silverCut - goldCut, bronzeCut - silverCut)
-            val des = cand.desugar() as? OverrideAwards ?: return null
-            val group = des.extraMedalGroups?.singleOrNull() ?: return null
-            return cand.takeIf { group == this }
-        }
         val medals = buildList {
-            val original = medalGroups + medalsExtra.takeIf { it.isNotEmpty() }?.let { MedalGroup(medalsExtra, emptyList(), emptyList()) }
-            for (cand in original.filterNotNull()) {
-                val simple: TuningRule? = cand.tryToMedals()
-                if (simple != null) {
-                    this@buildRulesList.add(simple)
-                } else {
-                    add(cand)
-                }
-            }
+            val original = medalGroups + medalsExtra.takeIf { it.isNotEmpty() }?.let { AwardChain(medalsExtra, emptyList(), emptyList()) }
+            addAll(original.filterNotNull())
         }
         if (championTitle != null || groupChampionTitles.isNotEmpty() || rankAwardsMaxRank != 0 || medals.isNotEmpty() || manual.isNotEmpty()) {
-            add(OverrideAwards(
+            add(AddKnownAwards(
                 championTitle = championTitle,
                 groupsChampionTitles = groupChampionTitles.takeIf { it.isNotEmpty() },
                 rankAwardsMaxRank = rankAwardsMaxRank.takeIf { it != 0 },
-                medalGroups = medals.takeIf { it.isNotEmpty() },
-                manualAwards = manual.takeIf { it.isNotEmpty() },
+            ))
+        }
+        for (i in medals) {
+            add(AddAwardChain(
+                awards = i.awards,
+                groups = i.groups,
+                excludedGroups = i.excludedGroups,
+                organizationLimit = i.organizationLimit,
+                organizationLimitCustomField = i.organizationLimitCustomField,
             ))
         }
     }
@@ -320,13 +310,13 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
             problemColorPolicy = problemColorPolicy,
             showTeamsWithoutSubmissions = showTeamsWithoutSubmissions,
         ),
-        OverrideAwards(
-            championTitle = awardsSettings.championTitle,
-            groupsChampionTitles = awardsSettings.groupsChampionTitles,
-            rankAwardsMaxRank = awardsSettings.rankAwardsMaxRank,
-            medalGroups = awardsSettings.medalGroups,
-            manualAwards = awardsSettings.manual,
-        ),
+        *awardsSettings.map {  AddAwardChain(
+            awards = it.awards,
+            groups = it.groups,
+            excludedGroups = it.excludedGroups,
+            organizationLimit = it.organizationLimit,
+            organizationLimitCustomField = it.organizationLimitCustomField,
+        ) }.toTypedArray(),
         OverrideQueue(
             waitTime = queueSettings.waitTime,
             firstToSolveWaitTime = queueSettings.firstToSolveWaitTime,

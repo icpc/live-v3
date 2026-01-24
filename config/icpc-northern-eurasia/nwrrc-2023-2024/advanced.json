@@ -431,27 +431,28 @@
         }
     },
     {
-        "type": "overrideAwards",
+        "type": "addKnownAwards",
         "championTitle": "Northwestern Russia Champions",
-        "rankAwardsMaxRank": 10,
-        "medalGroups": [
+        "rankAwardsMaxRank": 10
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "leaders",
-                        "citation": "Лидеры",
-                        "color": "SILVER",
-                        "maxRank": 10,
-                        "tiebreakMode": "NONE"
-                    }
-                ]
+                "id": "leaders",
+                "citation": "Лидеры",
+                "maxRank": 10,
+                "tiebreakMode": "NONE"
             }
-        ],
-        "manualAwards": [
+        ]
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
             {
                 "id": "qualified",
                 "citation": "Qualified to Northern Eurasia Finals",
-                "teamCdsIds": [
+                "manualTeamIds": [
                     "spb201",
                     "spb520",
                     "spb431",

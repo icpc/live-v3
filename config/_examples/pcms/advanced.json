@@ -98,12 +98,12 @@
         }
     },
     {
-        "type": "overrideAwards",
-        "manualAwards": [
+        "type": "addAwardChain",
+        "awards": [
             {
                 "id": "qualified",
                 "citation": "Qualified to Northwestern Russia Regional Contest",
-                "teamCdsIds": [
+                "manualTeamIds": [
                     "922155"
                 ]
             }

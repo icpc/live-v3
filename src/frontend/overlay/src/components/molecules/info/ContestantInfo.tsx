@@ -5,8 +5,9 @@ import { ShrinkingBox } from "../../atoms/ShrinkingBox";
 import { RankLabel } from "../../atoms/ContestLabels";
 import { formatScore, useFormatPenalty } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, OptimismLevel, TeamId } from "@shared/api";
+import { OptimismLevel, TeamId } from "@shared/api";
 import { isShouldUseDarkColor } from "@/utils/colors";
+import { getAwardsEffects } from "@/utils/awards";
 
 const ContestantInfoLabel = styled(RankLabel)`
     flex-shrink: 0;
@@ -65,9 +66,6 @@ export const ContestantInfo: React.FC<{
     const rank = useAppSelector(
         (state) => state.scoreboard[OptimismLevel.normal].rankById[teamId],
     );
-    const medal = awards?.find(
-        (award) => award.type == Award.Type.medal,
-    ) as Award.medal;
     const teamData = useAppSelector(
         (state) => state.contestInfo.info?.teamsId[teamId],
     );
@@ -91,7 +89,7 @@ export const ContestantInfo: React.FC<{
         >
             <ContestantInfoLabel
                 rank={rank}
-                medal={medal?.medalColor}
+                effects={getAwardsEffects(awards)}
                 bg_color={teamData?.color}
             />
             <ContestantInfoTeamNameLabel text={teamData?.shortName ?? "??"} />

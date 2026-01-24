@@ -3,6 +3,7 @@ import { isShouldUseDarkColor } from "@/utils/colors";
 import { faviconTemplate } from "@/consts";
 import { LocationRectangle } from "@/utils/location-rectangle";
 import type { OverlayConfig } from "./config.interface";
+import { AwardEffect } from "@/utils/awards";
 
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
@@ -309,10 +310,10 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
             cfg.GLOBAL_DEFAULT_FONT_SIZE,
 
         // Medals
-        MEDAL_COLORS: {
-            gold: "#F9A80D",
-            silver: "#ACACAC",
-            bronze: "#E27B5A",
+        EFFECT_RANK_BACKGROUND_COLOR: {
+            [AwardEffect.GOLD]: "#F9A80D",
+            [AwardEffect.SILVER]: "#ACACAC",
+            [AwardEffect.BRONZE]: "#E27B5A",
         },
 
         // Debug Behaviour
@@ -421,6 +422,11 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
             scoreboardOptimistic: `${cfg.BASE_URL_WS}/scoreboard/optimistic`,
             scoreboardPessimistic: `${cfg.BASE_URL_WS}/scoreboard/pessimistic`,
         }),
+        AWARD_EFFECTS: {
+            "gold-medal": AwardEffect.GOLD,
+            "silver-medal": AwardEffect.SILVER,
+            "bronze-medal": AwardEffect.BRONZE,
+        },
         WIDGET_POSITIONS: {
             advertisement: Location(16, 16, 1488, 984),
             picture: Location(16, 16, 1488, 984),

@@ -477,40 +477,42 @@
         "bronze": 4
     },
     {
-        "type": "overrideAwards",
+        "type": "addKnownAwards",
         "championTitle": "Northern Eurasia Finals Champions",
-        "rankAwardsMaxRank": 13,
-        "medalGroups": [
+        "rankAwardsMaxRank": 13
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "first-diploma",
-                        "citation": "First Degree Diploma",
-                        "minScore": 7.0
-                    },
-                    {
-                        "id": "second-diploma",
-                        "citation": "Second Degree Diploma",
-                        "minScore": 5.0
-                    },
-                    {
-                        "id": "third-diploma",
-                        "citation": "Third Degree Diploma",
-                        "minScore": 4.0
-                    },
-                    {
-                        "id": "mention",
-                        "citation": "Honorable Mention",
-                        "minScore": 0.0
-                    }
-                ]
+                "id": "first-diploma",
+                "citation": "First Degree Diploma",
+                "minScore": 7.0
+            },
+            {
+                "id": "second-diploma",
+                "citation": "Second Degree Diploma",
+                "minScore": 5.0
+            },
+            {
+                "id": "third-diploma",
+                "citation": "Third Degree Diploma",
+                "minScore": 4.0
+            },
+            {
+                "id": "mention",
+                "citation": "Honorable Mention",
+                "minScore": 0.0
             }
-        ],
-        "manualAwards": [
+        ]
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
             {
                 "id": "qualified",
                 "citation": "Qualified to world finals",
-                "teamCdsIds": [
+                "manualTeamIds": [
                     "nef788321",
                     "nef788318",
                     "nef780668",
