@@ -20,7 +20,7 @@ import org.icpclive.api.WidgetUsageStatisticsEntry
 import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.tunning.toRulesList
 import org.icpclive.data.*
-import org.icpclive.util.sendFlow
+import org.icpclive.overlay.flowEndpoint
 import kotlin.io.path.notExists
 
 fun Route.configureConfigFileRouting(
@@ -215,17 +215,9 @@ fun Route.configureAdminApiRouting() {
             )
         }
 
-
-        get("/contestInfo") {
-            run {
-                call.respondText(contentType = ContentType.Application.Json) {
-                    Json.encodeToString(DataBus.currentContestInfo())
-                }
-            }
-        }
-
-        webSocket("/backendLog") { sendFlow(DataBus.loggerFlow) }
-        webSocket("/adminActions") { sendFlow(DataBus.adminActionsFlow) }
+        flowEndpoint("/contestInfo") { DataBus.currentContestInfoFlow() }
+        flowEndpoint("/backendLog") { DataBus.loggerFlow }
+        flowEndpoint("/adminActions") { DataBus.adminActionsFlow }
 
         route("/media") {
             get {

@@ -1,6 +1,6 @@
 import { ContestInfo } from "@shared/api";
 import { useCallback, useState } from "react";
-import { BACKEND_PORT, WS_PROTO } from "@/config.ts";
+import { BASE_URL_WS } from "@/config.ts";
 import { useWebsocket } from "../utils";
 
 export const useContestInfo = () => {
@@ -9,14 +9,6 @@ export const useContestInfo = () => {
         (event) => setContestInfo(JSON.parse(event.data)),
         [],
     );
-    useWebsocket(
-        import.meta.env.VITE_WEBSOCKET_URL ??
-            WS_PROTO +
-                window.location.hostname +
-                ":" +
-                BACKEND_PORT +
-                "/api/overlay/contestInfo",
-        handleWSMessage,
-    );
+    useWebsocket(BASE_URL_WS + "/contestInfo", handleWSMessage);
     return contestInfo;
 };
