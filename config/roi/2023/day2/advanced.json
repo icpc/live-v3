@@ -74,32 +74,29 @@
         }
     },
     {
-        "type": "overrideAwards",
+        "type": "addKnownAwards",
         "groupsChampionTitles": {
             "9": "Победитель среди 9 классов",
             "10": "Победитель среди 10 классов",
             "11": "Победитель среди 11 классов"
-        },
-        "medalGroups": [
+        }
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "first-diploma",
-                        "citation": "Победитель",
-                        "color": "GOLD",
-                        "maxRank": 28,
-                        "minScore": 400.0,
-                        "tiebreakMode": "NONE"
-                    },
-                    {
-                        "id": "second-diploma",
-                        "citation": "Призер",
-                        "color": "SILVER",
-                        "maxRank": 160,
-                        "minScore": 400.0,
-                        "tiebreakMode": "NONE"
-                    }
-                ]
+                "id": "first-diploma",
+                "citation": "Победитель",
+                "maxRank": 28,
+                "minScore": 400.0,
+                "tiebreakMode": "NONE"
+            },
+            {
+                "id": "second-diploma",
+                "citation": "Призер",
+                "maxRank": 160,
+                "minScore": 400.0,
+                "tiebreakMode": "NONE"
             }
         ]
     }

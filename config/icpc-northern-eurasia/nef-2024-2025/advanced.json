@@ -173,31 +173,30 @@
         "bronze": 4
     },
     {
-        "type": "overrideAwards",
+        "type": "addKnownAwards",
         "championTitle": "Northern Eurasia Champions",
-        "rankAwardsMaxRank": 13,
-        "extraMedalGroups": [
+        "rankAwardsMaxRank": 13
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "first-diploma",
-                        "citation": "First Award",
-                        "minScore": 8.0,
-                        "tiebreakMode": "NONE"
-                    },
-                    {
-                        "id": "second-diploma",
-                        "citation": "Second Award",
-                        "minScore": 6.0,
-                        "tiebreakMode": "NONE"
-                    },
-                    {
-                        "id": "third-diploma",
-                        "citation": "Third Award",
-                        "minScore": 5.0,
-                        "tiebreakMode": "NONE"
-                    }
-                ]
+                "id": "first-diploma",
+                "citation": "First Award",
+                "minScore": 8.0,
+                "tiebreakMode": "NONE"
+            },
+            {
+                "id": "second-diploma",
+                "citation": "Second Award",
+                "minScore": 6.0,
+                "tiebreakMode": "NONE"
+            },
+            {
+                "id": "third-diploma",
+                "citation": "Third Award",
+                "minScore": 5.0,
+                "tiebreakMode": "NONE"
             }
         ]
     },

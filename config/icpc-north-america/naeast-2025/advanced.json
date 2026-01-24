@@ -33,45 +33,38 @@
         ]
     },
     {
-        "type": "overrideAwards",
-        "medalGroups": [
+        "type": "addAwardChain",
+        "groups": ["GNY"],
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "GNY",
-                        "citation": "GNY top3",
-                        "color": "GOLD",
-                        "maxRank": 3
-                    }
-                ],
-                "groups": ["GNY"]
-            },
-            {
-                "medals": [
-                    {
-                        "id": "NENA",
-                        "citation": "NENA top3",
-                        "color": "GOLD",
-                        "maxRank": 3
-                    }
-                ],
-                "groups": ["nena-all"]
-            },
-            {
-                "medals": [
-                    {
-                        "id": "ECNA",
-                        "citation": "ECNA top3",
-                        "color": "GOLD",
-                        "maxRank": 3
-                    }
-                ],
-                "groups": ["ecna-all"]
+                "id": "top-GNY",
+                "citation": "GNY top3",
+                "maxRank": 3
             }
-
         ]
     },
-
+    {
+        "type": "addAwardChain",
+        "groups": ["NENA"],
+        "awards": [
+            {
+                "id": "top-NENA",
+                "citation": "NENA top3",
+                "maxRank": 3
+            }
+        ]
+    },
+    {
+        "type": "addAwardChain",
+        "groups": ["ECNA"],
+        "awards": [
+            {
+                "id": "top-ECNA",
+                "citation": "ECNA top3",
+                "maxRank": 3
+            }
+        ]
+    },
     {
         "type": "overrideOrganizations",
         "rules": {

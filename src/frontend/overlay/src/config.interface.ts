@@ -1,4 +1,5 @@
 import { LocationRectangle } from "@/utils/location-rectangle";
+import { AwardEffect } from "@/utils/awards";
 
 // Explicit interface for the evaluated overlay config (after applying defaults and lambdas)
 export interface OverlayConfig {
@@ -243,11 +244,8 @@ export interface OverlayConfig {
     QUEUE_PROBLEM_LABEL_FONT_SIZE: string;
 
     // Medals
-    MEDAL_COLORS: {
-        gold: string;
-        silver: string;
-        bronze: string;
-        [key: string]: string;
+    EFFECT_RANK_BACKGROUND_COLOR: {
+        [key in AwardEffect]?: string;
     };
 
     // Debug Behaviour
@@ -354,6 +352,10 @@ export interface OverlayConfig {
         scoreboardNormal: string;
         scoreboardOptimistic: string;
         scoreboardPessimistic: string;
+    };
+
+    AWARD_EFFECTS: {
+        [key: string]: AwardEffect;
     };
 
     // Widget positions

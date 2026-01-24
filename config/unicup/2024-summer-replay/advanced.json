@@ -205,34 +205,29 @@
         }
     },
     {
-        "type": "overrideAwards",
-        "medalGroups": [
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "predefined",
-                        "citation": "Already passed",
-                        "color": "GOLD",
-                        "maxRank": 100
-                    }
-                ],
-                "groups": [
-                    "finalists"
-                ]
-            },
-            {
-                "medals": [
-                    {
-                        "id": "now1",
-                        "citation": "Passed now",
-                        "color": "SILVER",
-                        "maxRank": 8
-                    }
-                ],
-                "excludedGroups": [
-                    "finalists"
-                ]
+                "id": "predefined",
+                "citation": "Already passed",
+                "maxRank": 100
             }
+        ],
+        "groups": [
+            "finalists"
+        ]
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
+            {
+                "id": "now1",
+                "citation": "Passed now",
+                "maxRank": 8
+            }
+        ],
+        "excludedGroups": [
+            "finalists"
         ]
     },
     {

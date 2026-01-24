@@ -17,46 +17,37 @@
         }
     },
     {
-        "type": "overrideAwards",
-        "medalGroups": [
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "first-medal",
-                        "citation": "First Award",
-                        "color": "SILVER",
-                        "minScore": 9.0,
-                        "tiebreakMode": "NONE"
-                    },
-                    {
-                        "id": "second-medal",
-                        "citation": "Second Award",
-                        "color": "SILVER",
-                        "minScore": 7.0,
-                        "tiebreakMode": "NONE"
-                    },
-                    {
-                        "id": "third-medal",
-                        "citation": "Third Award",
-                        "color": "SILVER",
-                        "minScore": 6.0,
-                        "tiebreakMode": "NONE"
-                    },
-                    {
-                        "id": "fourth-medal",
-                        "citation": "High Achievement",
-                        "color": "SILVER",
-                        "minScore": 5.0,
-                        "tiebreakMode": "NONE"
-                    },
-                    {
-                        "id": "fourth-medal",
-                        "citation": "Honourable Mention",
-                        "color": "SILVER",
-                        "minScore": 1.0,
-                        "tiebreakMode": "NONE"
-                    }
-                ]
+                "id": "first-medal",
+                "citation": "First Award",
+                "minScore": 9.0,
+                "tiebreakMode": "NONE"
+            },
+            {
+                "id": "second-medal",
+                "citation": "Second Award",
+                "minScore": 7.0,
+                "tiebreakMode": "NONE"
+            },
+            {
+                "id": "third-medal",
+                "citation": "Third Award",
+                "minScore": 6.0,
+                "tiebreakMode": "NONE"
+            },
+            {
+                "id": "fourth-medal",
+                "citation": "High Achievement",
+                "minScore": 5.0,
+                "tiebreakMode": "NONE"
+            },
+            {
+                "id": "honourable-mention",
+                "citation": "Honourable Mention",
+                "minScore": 1.0,
+                "tiebreakMode": "NONE"
             }
         ]
     }

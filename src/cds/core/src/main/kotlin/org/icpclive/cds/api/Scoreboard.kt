@@ -60,49 +60,11 @@ public data class ScoreboardRow(
 )
 
 @Serializable
-public sealed class Award {
-    public abstract val id: String
-    public abstract val citation: String
-    public abstract val teams: Set<TeamId>
-
-    @Serializable
-    @SerialName("winner")
-    public data class Winner(
-        override val id: String,
-        override val citation: String,
-        override val teams: Set<TeamId>,
-    ) : Award()
-
-    @Serializable
-    @SerialName("medal")
-    public data class Medal(
-        override val id: String,
-        override val citation: String,
-        val medalColor: MedalColor?,
-        override val teams: Set<TeamId>,
-    ) : Award() {
-        public enum class MedalColor {
-            GOLD, SILVER, BRONZE;
-        }
-    }
-
-    @Serializable
-    @SerialName("group_champion")
-    public data class GroupChampion(
-        override val id: String,
-        override val citation: String,
-        val groupId: GroupId,
-        override val teams: Set<TeamId>,
-    ) : Award()
-
-    @Serializable
-    @SerialName("custom")
-    public data class Custom(
-        override val id: String,
-        override val citation: String,
-        override val teams: Set<TeamId>,
-    ) : Award()
-}
+public data class Award(
+    public val id: String,
+    public val citation: String,
+    public val teams: Set<TeamId>,
+)
 
 /**
  * @param rows map from teams [TeamInfo.id] to scoreboard row for that team, if that row changed from previous update

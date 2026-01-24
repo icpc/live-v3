@@ -204,7 +204,7 @@ public data class ContestInfo(
     @InefficientContestInfoApi @SerialName("languages") val languagesList: List<LanguageInfo>,
     val penaltyRoundingMode: PenaltyRoundingMode,
     @Required val emulationSpeed: Double = 1.0,
-    @Required val awardsSettings: AwardsSettings = AwardsSettings(),
+    @Required val awardsSettings: List<AwardChain> = emptyList(),
     @Serializable(with = DurationInSecondsSerializer::class)
     @SerialName("penaltyPerWrongAttemptSeconds")
     @Required val penaltyPerWrongAttempt: Duration = 20.minutes,

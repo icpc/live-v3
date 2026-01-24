@@ -56,10 +56,26 @@
     }
   },
   {
-    "type": "addMedals",
-    "gold": 5,
-    "silver": 8,
-    "bronze": 10
+    "type": "overrideOrganizations",
+    "rules": {
+      "3295": {"customFields": {"qualifiedLimit": "6"}},
+      "1802": {"customFields": {"qualifiedLimit": "5"}},
+      "1456": {"customFields": {"qualifiedLimit": "3"}},
+      "1584": {"customFields": {"qualifiedLimit": "3"}}
+    }
+  },
+  {
+    "type": "addAwardChain",
+    "awards": [
+      {
+        "id": "qualified",
+        "citation": "Qualified to Northern Eurasia Finals",
+        "limit": 23,
+        "minScore": 0,
+        "organizationLimit": 2,
+        "organizationLimitCustomField": "qualifiedLimit"
+      }
+    ]
   },
   {
     "type": "overrideScoreboardSettings",

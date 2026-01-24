@@ -229,17 +229,12 @@
         }
     },
     {
-        "type": "overrideAwards",
-        "medalGroups": [
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "top-4",
-                        "citation": "Top 4",
-                        "color": "GOLD",
-                        "maxRank": 4
-                    }
-                ]
+                "id": "top-4",
+                "citation": "Top 4",
+                "maxRank": 4
             }
         ]
     }

@@ -29,6 +29,7 @@ import {
     GroupInfo,
     FtsMode,
     ProblemColorPolicy,
+    TeamId,
 } from "@shared/api.ts";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
@@ -230,6 +231,121 @@ const QueueSettingsContainer = ({ contestInfo }: BasicContainerProps) => {
                 name="Max untested runs"
                 value={contestInfo?.queueSettings?.maxUntestedRun}
             />
+        </div>
+    );
+};
+
+const orgsCustomField = (info: ContestInfo, name: string, def: string) => {
+    const data = info.organizations
+        .map((t) => ({
+            id: t.id,
+            name: t.displayName,
+            value: t.customFields[name],
+        }))
+        .filter((t) => t.value != null && t.value != def);
+    const columns = [
+        { field: "id", headerName: "ID" },
+        { field: "name", headerName: "Organization" },
+        { field: "value", headerName: "Overridden value" },
+    ];
+    if (data.length == 0) return "";
+    return <SimpleGrid rows={data} columns={columns} />;
+};
+
+const AwardTableColumns = (info: ContestInfo) => [
+    {
+        field: "id",
+        headerName: "ID",
+    },
+    {
+        field: "citation",
+        headerName: "Citation",
+    },
+    {
+        field: "maxRank",
+        headerName: "Max rank",
+    },
+    {
+        field: "minScore",
+        headerName: "Min score",
+    },
+    {
+        field: "tieBreakMode",
+        headerName: "Tie-break mode",
+    },
+    {
+        field: "organizationLimit",
+        headerName: "Organization limit",
+    },
+    {
+        field: "organizationLimitCustomField",
+        headerName: "Organization limit overrides",
+        renderCell: ({ value, row }) =>
+            orgsCustomField(info, value, row.organizationLimit),
+    },
+    {
+        field: "chainOrganizationLimit",
+        headerName: "Chain organization limit",
+    },
+    {
+        field: "chainOrganizationLimitCustomField",
+        headerName: "Chain organization limit overrides",
+        renderCell: ({ value, row }) =>
+            orgsCustomField(info, value, row.chainOrganizationLimit),
+    },
+    {
+        field: "manualTeamIds",
+        headerName: "Manual teams",
+        valueGetter: (v: TeamId[]) => v.map((c) => c).join(", "),
+    },
+];
+
+const AwardsContainer = ({ contestInfo }: BasicContainerProps) => {
+    return (
+        <div>
+            {(contestInfo?.awardsSettings || [])?.map((chain, index) => (
+                <Box
+                    key={index}
+                    sx={{ borderBottom: 1, borderColor: "divider" }}
+                >
+                    <InfoRowContainer
+                        name={"Groups"}
+                        value={
+                            chain.groups?.length == 0
+                                ? "all"
+                                : chain.groups.join(", ")
+                        }
+                    />
+                    <InfoRowContainer
+                        name={"Excluded groups"}
+                        value={
+                            chain.excludedGroups?.length == 0
+                                ? "none"
+                                : chain.groups.join(", ")
+                        }
+                    />
+                    <InfoRowContainer
+                        name={"Organization Limit"}
+                        value={
+                            chain.organizationLimit === null
+                                ? "unlimited"
+                                : chain.organizationLimit
+                        }
+                    />
+                    <InfoRowContainer
+                        name={"Overridden organization limits"}
+                        value={orgsCustomField(
+                            contestInfo,
+                            chain.organizationLimitCustomField,
+                            chain.organizationLimit?.toString(),
+                        )}
+                    />
+                    <SimpleGrid
+                        rows={chain.awards}
+                        columns={AwardTableColumns(contestInfo)}
+                    />
+                </Box>
+            ))}
         </div>
     );
 };
@@ -548,6 +664,7 @@ const ContestInfoPage = () => {
                             <Tab label="Groups" value="Groups" />
                             <Tab label="Organizations" value="Organizations" />
                             <Tab label="Queue" value="Queue" />
+                            <Tab label="Awards" value="Awards" />
                         </TabList>
                     </Box>
                     <TabPanel value="Contest">
@@ -585,6 +702,9 @@ const ContestInfoPage = () => {
                     </TabPanel>
                     <TabPanel value="Queue">
                         <QueueSettingsContainer contestInfo={contestInfo} />
+                    </TabPanel>
+                    <TabPanel value="Awards">
+                        <AwardsContainer contestInfo={contestInfo} />
                     </TabPanel>
                 </TabContext>
             </Box>

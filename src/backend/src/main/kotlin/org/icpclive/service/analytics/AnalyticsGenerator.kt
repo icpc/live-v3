@@ -85,6 +85,9 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
 
             is RunResult.InProgress -> {
                 add("submission")
+                for (i in analyse.awards) {
+                    add("submission-${i.id}")
+                }
             }
 
             is RunResult.ICPC -> {
@@ -96,12 +99,8 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
                         add("accepted-first-to-solve")
                     }
 
-                    if (analyse.rank == 1) {
-                        add("accepted-winner")
-                    }
-                    if (analyse.medalColor != null) {
-                        add("accepted-medal")
-                        add("accepted-${analyse.medalColor.name.lowercase()}-medal")
+                    for (i in analyse.awards) {
+                        add("accepted-${i.id}")
                     }
                 }
             }
@@ -117,11 +116,10 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
         val index = scoreboard.order.indexOf(run.teamId)
 
         val analyse = getOrPut(run.id) {
-            val medal = scoreboard.awards.firstOrNull { it is Award.Medal && run.teamId in it.teams} as? Award.Medal
             RunAnalyse(
                 run, Clock.System.now(), result,
                 scoreboard.ranks[index],
-                medal?.medalColor
+                scoreboard.awards.filter { run.teamId in it.teams }
             )
         }
         analyse.run = run
@@ -135,7 +133,7 @@ class AnalyticsGenerator(jsonTemplatePath: Path?) {
         val creationTime: Instant,
         var result: ScoreboardRow,
         val rank: Int,
-        val medalColor: Award.Medal.MedalColor?,
+        val awards: List<Award>,
     ) {
         var solvedProblems: Int? = null
 //        val rankDelta: Int

@@ -4,5 +4,9 @@
     "STATISTICS_TITLE": "Статистика",
     "SCOREBOARD_NORMAL_NAME": "Текущие",
     "SCOREBOARD_STANDINGS_NAME": "результаты",
-    "TICKER_SMALL_BACKGROUND": "#4C83C3"
+    "TICKER_SMALL_BACKGROUND": "#4C83C3",
+    "AWARD_EFFECTS": {
+        "first-diploma": "gold",
+        "second-diploma": "silver"
+    }
 }

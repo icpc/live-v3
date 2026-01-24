@@ -56,6 +56,164 @@
             ],
             "title": "addAccounts"
         },
+        "org.icpclive.cds.api.AwardTiebreakMode<org.icpclive.cds.api.AwardTiebreakMode.NONE,org.icpclive.cds.api.AwardTiebreakMode.ALL>": {
+            "enum": [
+                "NONE",
+                "ALL"
+            ]
+        },
+        "kotlin.collections.LinkedHashSet<org.icpclive.cds.api.TeamId>": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "org.icpclive.cds.api.RankBasedAward<kotlin.String,kotlin.String,kotlin.Int?,kotlin.Double?,org.icpclive.cds.api.AwardTiebreakMode,kotlin.Int?,kotlin.Int?,kotlin.Int?,kotlin.String?,kotlin.Int?,kotlin.String?,kotlin.collections.LinkedHashSet>": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "citation": {
+                    "type": "string"
+                },
+                "maxRank": {
+                    "type": "number"
+                },
+                "minScore": {
+                    "type": "number"
+                },
+                "tiebreakMode": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.AwardTiebreakMode<org.icpclive.cds.api.AwardTiebreakMode.NONE,org.icpclive.cds.api.AwardTiebreakMode.ALL>"
+                },
+                "limit": {
+                    "type": "number"
+                },
+                "chainLimit": {
+                    "type": "number"
+                },
+                "organizationLimit": {
+                    "type": "number"
+                },
+                "organizationLimitCustomField": {
+                    "type": "string"
+                },
+                "chainOrganizationLimit": {
+                    "type": "number"
+                },
+                "chainOrganizationLimitCustomField": {
+                    "type": "string"
+                },
+                "manualTeamIds": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashSet<org.icpclive.cds.api.TeamId>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "citation"
+            ]
+        },
+        "ArrayList": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.api.RankBasedAward<kotlin.String,kotlin.String,kotlin.Int?,kotlin.Double?,org.icpclive.cds.api.AwardTiebreakMode,kotlin.Int?,kotlin.Int?,kotlin.Int?,kotlin.String?,kotlin.Int?,kotlin.String?,kotlin.collections.LinkedHashSet>"
+            },
+            "title": "ArrayList"
+        },
+        "RankBasedAward": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "citation": {
+                    "type": "string"
+                },
+                "maxRank": {
+                    "type": "number"
+                },
+                "minScore": {
+                    "type": "number"
+                },
+                "tiebreakMode": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.AwardTiebreakMode<org.icpclive.cds.api.AwardTiebreakMode.NONE,org.icpclive.cds.api.AwardTiebreakMode.ALL>"
+                },
+                "limit": {
+                    "type": "number"
+                },
+                "chainLimit": {
+                    "type": "number"
+                },
+                "organizationLimit": {
+                    "type": "number"
+                },
+                "organizationLimitCustomField": {
+                    "type": "string"
+                },
+                "chainOrganizationLimit": {
+                    "type": "number"
+                },
+                "chainOrganizationLimitCustomField": {
+                    "type": "string"
+                },
+                "manualTeamIds": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashSet<org.icpclive.cds.api.TeamId>"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "citation"
+            ],
+            "title": "RankBasedAward"
+        },
+        "ListOrSingleElement<kotlin.collections.ArrayList,org.icpclive.cds.api.RankBasedAward>": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/ArrayList"
+                },
+                {
+                    "$ref": "#/$defs/RankBasedAward"
+                }
+            ]
+        },
+        "kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "addAwardChain": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "addAwardChain",
+                    "default": "addAwardChain"
+                },
+                "awards": {
+                    "$ref": "#/$defs/ListOrSingleElement<kotlin.collections.ArrayList,org.icpclive.cds.api.RankBasedAward>"
+                },
+                "groups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>"
+                },
+                "excludedGroups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>"
+                },
+                "organizationLimit": {
+                    "type": "number"
+                },
+                "organizationLimitCustomField": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "awards"
+            ],
+            "title": "addAwardChain"
+        },
         "kotlin.collections.ArrayList<org.icpclive.cds.api.TeamId>": {
             "type": "array",
             "items": {
@@ -84,11 +242,75 @@
             ],
             "title": "addGroupToTeams"
         },
-        "org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode<org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.NONE,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.ALL>": {
-            "enum": [
-                "NONE",
-                "ALL"
+        "org.icpclive.cds.tunning.MedalSettings?<kotlin.Int,kotlin.Int,kotlin.Int,kotlin.Double?,org.icpclive.cds.api.AwardTiebreakMode>": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "gold": {
+                            "type": "number"
+                        },
+                        "silver": {
+                            "type": "number"
+                        },
+                        "bronze": {
+                            "type": "number"
+                        },
+                        "minScore": {
+                            "type": "number"
+                        },
+                        "tiebreakMode": {
+                            "$ref": "#/$defs/org.icpclive.cds.api.AwardTiebreakMode<org.icpclive.cds.api.AwardTiebreakMode.NONE,org.icpclive.cds.api.AwardTiebreakMode.ALL>"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": []
+                },
+                {
+                    "type": "null"
+                }
             ]
+        },
+        "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.GroupId,kotlin.String>": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "type": "string"
+                        }
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "addKnownAwards": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "addKnownAwards",
+                    "default": "addKnownAwards"
+                },
+                "medals": {
+                    "$ref": "#/$defs/org.icpclive.cds.tunning.MedalSettings?<kotlin.Int,kotlin.Int,kotlin.Int,kotlin.Double?,org.icpclive.cds.api.AwardTiebreakMode>"
+                },
+                "championTitle": {
+                    "type": "string"
+                },
+                "groupsChampionTitles": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.GroupId,kotlin.String>"
+                },
+                "rankAwardsMaxRank": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "title": "addKnownAwards"
         },
         "addMedals": {
             "type": "object",
@@ -110,7 +332,7 @@
                     "type": "number"
                 },
                 "tiebreakMode": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode<org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.NONE,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.ALL>"
+                    "$ref": "#/$defs/org.icpclive.cds.api.AwardTiebreakMode<org.icpclive.cds.api.AwardTiebreakMode.NONE,org.icpclive.cds.api.AwardTiebreakMode.ALL>"
                 }
             },
             "additionalProperties": false,
@@ -630,177 +852,6 @@
             ],
             "title": "addPersonsByTeamTemplate"
         },
-        "kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.GroupId,kotlin.String?>": {
-            "oneOf": [
-                {
-                    "type": "object",
-                    "patternProperties": {
-                        ".*": {
-                            "type": "string"
-                        }
-                    }
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
-        "org.icpclive.cds.api.Award.Medal.MedalColor?<org.icpclive.cds.api.Award.Medal.MedalColor.GOLD,org.icpclive.cds.api.Award.Medal.MedalColor.SILVER,org.icpclive.cds.api.Award.Medal.MedalColor.BRONZE>": {
-            "oneOf": [
-                {
-                    "enum": [
-                        "GOLD",
-                        "SILVER",
-                        "BRONZE"
-                    ]
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
-        "org.icpclive.cds.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.cds.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double?,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode>": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "citation": {
-                    "type": "string"
-                },
-                "color": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.Award.Medal.MedalColor?<org.icpclive.cds.api.Award.Medal.MedalColor.GOLD,org.icpclive.cds.api.Award.Medal.MedalColor.SILVER,org.icpclive.cds.api.Award.Medal.MedalColor.BRONZE>"
-                },
-                "maxRank": {
-                    "type": "number"
-                },
-                "minScore": {
-                    "type": "number"
-                },
-                "tiebreakMode": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode<org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.NONE,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode.ALL>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "id",
-                "citation"
-            ]
-        },
-        "kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalSettings>": {
-            "type": "array",
-            "items": {
-                "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalSettings<kotlin.String,kotlin.String,org.icpclive.cds.api.Award.Medal.MedalColor?,kotlin.Int?,kotlin.Double?,org.icpclive.cds.api.AwardsSettings.MedalTiebreakMode>"
-            }
-        },
-        "kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
-        "org.icpclive.cds.api.AwardsSettings.MedalGroup<kotlin.collections.ArrayList,kotlin.collections.ArrayList,kotlin.collections.ArrayList>": {
-            "type": "object",
-            "properties": {
-                "medals": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.AwardsSettings.MedalSettings>"
-                },
-                "groups": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>"
-                },
-                "excludedGroups": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.GroupId>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "medals"
-            ]
-        },
-        "kotlin.collections.ArrayList?<org.icpclive.cds.api.AwardsSettings.MedalGroup>": {
-            "oneOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.MedalGroup<kotlin.collections.ArrayList,kotlin.collections.ArrayList,kotlin.collections.ArrayList>"
-                    }
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
-        "org.icpclive.cds.api.AwardsSettings.ManualAwardSetting<kotlin.String,kotlin.String,kotlin.collections.ArrayList>": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "citation": {
-                    "type": "string"
-                },
-                "teamCdsIds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.api.TeamId>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "id",
-                "citation",
-                "teamCdsIds"
-            ]
-        },
-        "kotlin.collections.ArrayList?<org.icpclive.cds.api.AwardsSettings.ManualAwardSetting>": {
-            "oneOf": [
-                {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/org.icpclive.cds.api.AwardsSettings.ManualAwardSetting<kotlin.String,kotlin.String,kotlin.collections.ArrayList>"
-                    }
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
-        "overrideAwards": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "overrideAwards",
-                    "default": "overrideAwards"
-                },
-                "firstToSolveProblems": {
-                    "type": "boolean"
-                },
-                "championTitle": {
-                    "type": "string"
-                },
-                "groupsChampionTitles": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?<org.icpclive.cds.api.GroupId,kotlin.String?>"
-                },
-                "rankAwardsMaxRank": {
-                    "type": "number"
-                },
-                "medalGroups": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.AwardsSettings.MedalGroup>"
-                },
-                "extraMedalGroups": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.AwardsSettings.MedalGroup>"
-                },
-                "manualAwards": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.AwardsSettings.ManualAwardSetting>"
-                },
-                "extraManualAwards": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList?<org.icpclive.cds.api.AwardsSettings.ManualAwardSetting>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type"
-            ],
-            "title": "overrideAwards"
-        },
         "kotlin.collections.LinkedHashMap?<kotlin.String,kotlin.String?>": {
             "oneOf": [
                 {
@@ -889,13 +940,6 @@
                 "rules"
             ],
             "title": "overrideGroups"
-        },
-        "ArrayList": {
-            "type": "array",
-            "items": {
-                "$ref": "#/$defs/org.icpclive.cds.api.MediaType<kotlin.String,kotlinx.serialization.Sealed<MediaType>>"
-            },
-            "title": "ArrayList"
         },
         "MediaType": {
             "oneOf": [
@@ -1647,7 +1691,13 @@
                     "$ref": "#/$defs/addAccounts"
                 },
                 {
+                    "$ref": "#/$defs/addAwardChain"
+                },
+                {
                     "$ref": "#/$defs/addGroupToTeams"
+                },
+                {
+                    "$ref": "#/$defs/addKnownAwards"
                 },
                 {
                     "$ref": "#/$defs/addMedals"
@@ -1657,9 +1707,6 @@
                 },
                 {
                     "$ref": "#/$defs/addPersonsByTeamTemplate"
-                },
-                {
-                    "$ref": "#/$defs/overrideAwards"
                 },
                 {
                     "$ref": "#/$defs/overrideContestSettings"
