@@ -26,7 +26,7 @@ abstract class DumpFileCommand(
     override fun help(context: Context) = help
     override val printHelpOnEmptyArgs = true
 
-    protected val cdsOptions by ExtendedCdsCommandLineOptions()
+    protected val cdsOptions by ExtendedCdsCommandLineOptions(defaultAutoFinalize = true)
     private val loggingOptions by LoggingOptions(logfileDefaultPrefix = "converter")
     private val output by option("-o", "--output", help = outputHelp).path().convert {
         if (it.isDirectory()) {
@@ -47,12 +47,13 @@ abstract class DumpFileCommand(
     override fun run() {
         loggingOptions.setupLogging()
         logger.info { "Would save result to ${output}" }
+        logger.info { "Settings: freeze=${cdsOptions.freeze}, upsolving=${cdsOptions.upsolving}, autoFinalize=${cdsOptions.autoFinalize}" }
         val flow = cdsOptions
             .toFlow()
             .addComputedData {
                 submissionResultsAfterFreeze = !cdsOptions.freeze
                 submissionsAfterEnd = cdsOptions.upsolving
-                autoFinalize = !cdsOptions.noAutoFinalize
+                autoFinalize = cdsOptions.autoFinalize
             }
         create(output.toFile(), flow)
     }

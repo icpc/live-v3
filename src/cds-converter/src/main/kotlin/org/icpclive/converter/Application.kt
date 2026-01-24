@@ -103,18 +103,18 @@ fun Application.module() {
 
     ServerCommand.cdsOptions.toFlow().shareWith(scope) {
         withSubscription(3) { rootFlow ->
-            accounts = rootFlow.filterIsInstance<InfoUpdate>().map {
-                it.newInfo.accounts.values.associateBy { it.username }
-            }.stateIn(scope, SharingStarted.Eagerly, emptyMap())
+            accounts = rootFlow.filterIsInstance<InfoUpdate>()
+                .map { it.newInfo.accounts.values.associateBy { it.username } }
+                .stateIn(scope, SharingStarted.Eagerly, emptyMap())
             val nonAdminFlow = rootFlow.addComputedData {
                 submissionResultsAfterFreeze = false
                 submissionsAfterEnd = false
-                autoFinalize = !ServerCommand.cdsOptions.noAutoFinalize
+                autoFinalize = ServerCommand.cdsOptions.autoFinalize
             }.calculateScoreboard(OptimismLevel.NORMAL)
             val adminFlow = rootFlow.addComputedData {
-                submissionResultsAfterFreeze = true
+                submissionResultsAfterFreeze = !ServerCommand.cdsOptions.freeze
                 submissionsAfterEnd = ServerCommand.cdsOptions.upsolving
-                autoFinalize = !ServerCommand.cdsOptions.noAutoFinalize
+                autoFinalize = ServerCommand.cdsOptions.autoFinalize
             }.calculateScoreboard(OptimismLevel.NORMAL)
             nonAdminFlow.shareWith(scope) nonAdmin@{
                 adminFlow.shareWith(scope) admin@{
