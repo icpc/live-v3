@@ -3227,30 +3227,9 @@
         }
     },
     {
-        "type": "overrideAwards",
-        "medalGroups": [
-            {
-                "medals": [
-                    {
-                        "id": "gold-medal",
-                        "citation": "Gold medal",
-                        "color": "GOLD",
-                        "maxRank": 4
-                    },
-                    {
-                        "id": "silver-medal",
-                        "citation": "Silver medal",
-                        "color": "SILVER",
-                        "maxRank": 8
-                    },
-                    {
-                        "id": "bronze-medal",
-                        "citation": "Bronze medal",
-                        "color": "BRONZE",
-                        "maxRank": 12
-                    }
-                ]
-            }
-        ]
+        "type": "addMedals",
+        "gold": 4,
+        "silver": 4,
+        "bronze": 4,
     }
 ]

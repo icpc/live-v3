@@ -11,30 +11,9 @@
         }
     },
     {
-        "type": "overrideAwards",
-        "medalGroups": [
-            {
-                "medals": [
-                    {
-                        "id": "gold-medal",
-                        "citation": "Gold medal",
-                        "color": "GOLD",
-                        "maxRank": 1
-                    },
-                    {
-                        "id": "silver-medal",
-                        "citation": "Silver medal",
-                        "color": "SILVER",
-                        "maxRank": 2
-                    },
-                    {
-                        "id": "bronze-medal",
-                        "citation": "Bronze medal",
-                        "color": "BRONZE",
-                        "maxRank": 3
-                    }
-                ]
-            }
-        ]
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 3,
     }
 ]

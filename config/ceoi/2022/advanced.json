@@ -27,30 +27,23 @@
         }
     },
     {
-        "type": "overrideAwards",
-        "medalGroups": [
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "gold-medal",
-                        "citation": "Gold Medal",
-                        "color": "GOLD",
-                        "maxRank": 5
-                    },
-                    {
-                        "id": "silver-medal",
-                        "citation": "Silver Medal",
-                        "color": "SILVER",
-                        "maxRank": 13
-                    },
-                    {
-                        "id": "bronze-medal",
-                        "citation": "Bronze Medal",
-                        "color": "BRONZE",
-                        "maxRank": 25,
-                        "tiebreakMode": "NONE"
-                    }
-                ]
+                "id": "gold-medal",
+                "citation": "Gold Medal",
+                "maxRank": 5
+            },
+            {
+                "id": "silver-medal",
+                "citation": "Silver Medal",
+                "maxRank": 13
+            },
+            {
+                "id": "bronze-medal",
+                "citation": "Bronze Medal",
+                "maxRank": 25,
+                "tiebreakMode": "NONE"
             }
         ]
     }

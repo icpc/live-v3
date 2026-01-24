@@ -6,5 +6,9 @@
     "SCOREBOARD_STANDINGS_NAME": "результаты",
     "TICKER_SMALL_BACKGROUND": "#4C83C3",
     "TIMELINE_WRAP_HEIGHT": 100,
-    "SCOREBOARD_SCROLL_INTERVAL": 10000
+    "SCOREBOARD_SCROLL_INTERVAL": 10000,
+    "AWARD_EFFECTS": {
+        "first-diploma": "gold",
+        "second-diploma": "silver"
+    }
 }

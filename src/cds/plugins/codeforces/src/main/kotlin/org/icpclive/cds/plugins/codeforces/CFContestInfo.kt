@@ -53,7 +53,8 @@ internal class CFContestInfo {
                     CFContestType.ICPC, CFContestType.BLITZ -> null
                     CFContestType.IOI -> ScoreMergeMode.MAX_TOTAL
                 },
-                weight = if (contestType == CFContestType.BLITZ) problem.points!!.toInt() else 1
+                weight = if (contestType == CFContestType.BLITZ) problem.points!!.toInt() else 1,
+                ftsMode = if (contestType == CFContestType.BLITZ) FtsMode.Hidden else FtsMode.Auto
             )
             problems.add(problemInfo)
         }
@@ -278,9 +279,6 @@ internal class CFContestInfo {
         },
         organizationList = emptyList(),
         languagesList = emptyList(),
-        awardsSettings = AwardsSettings(
-            firstToSolveProblems = contestType != CFContestType.BLITZ,
-        )
     )
 
     companion object {

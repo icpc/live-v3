@@ -2,6 +2,14 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "AwardEffect": {
+            "enum": [
+                "gold",
+                "silver",
+                "bronze"
+            ],
+            "type": "string"
+        },
         "LocationRectangle": {
             "additionalProperties": false,
             "properties": {
@@ -16,6 +24,21 @@
                 },
                 "sizeY": {
                     "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "{gold?:string;silver?:string;bronze?:string;}": {
+            "additionalProperties": false,
+            "properties": {
+                "bronze": {
+                    "type": "string"
+                },
+                "gold": {
+                    "type": "string"
+                },
+                "silver": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -54,6 +77,12 @@
         },
         "ADVERTISEMENT_VERTICAL_PADDING": {
             "type": "string"
+        },
+        "AWARD_EFFECTS": {
+            "additionalProperties": {
+                "$ref": "#/definitions/AwardEffect"
+            },
+            "type": "object"
         },
         "BASE_URL_WS": {
             "type": "string"
@@ -162,6 +191,9 @@
         },
         "CONTEST_COLOR": {
             "type": "string"
+        },
+        "EFFECT_RANK_BACKGROUND_COLOR": {
+            "$ref": "#/definitions/{gold?:string;silver?:string;bronze?:string;}"
         },
         "EXTRA_CSS": {
             "type": "string"
@@ -282,23 +314,6 @@
         },
         "LOG_LINES": {
             "type": "number"
-        },
-        "MEDAL_COLORS": {
-            "additionalProperties": {
-                "type": "string"
-            },
-            "properties": {
-                "bronze": {
-                    "type": "string"
-                },
-                "gold": {
-                    "type": "string"
-                },
-                "silver": {
-                    "type": "string"
-                }
-            },
-            "type": "object"
         },
         "PICTURES_APPEAR_TIME": {
             "type": "number"
