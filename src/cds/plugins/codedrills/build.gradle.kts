@@ -11,7 +11,7 @@ plugins {
 kotlin {
     abiValidation {
         filters {
-            excluded {
+            exclude {
                 byNames.add("io.codedrills.proto.**")
             }
         }

@@ -2,7 +2,7 @@
 ktor = "3.4.0"                     # https://ktor.io/
 datetime = "0.7.1"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.9.0"            # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "2.3.0"
+kotlin = "2.3.20-RC3"
 ksp = "2.3.4"                      # https://github.com/google/ksp
 slf4j = "2.0.17"                   # https://www.slf4j.org/download.html
 logback = "1.5.25"                 # https://logback.qos.ch/download.html
