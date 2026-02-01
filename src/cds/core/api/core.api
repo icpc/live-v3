@@ -123,6 +123,15 @@ public final class org/icpclive/cds/adapters/ContestStateKt {
 	public static final fun transformContestState (Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function3;)Lkotlinx/coroutines/flow/Flow;
 }
 
+public final class org/icpclive/cds/api/AccountCredentialSerializer : kotlinx/serialization/KSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/AccountCredentialSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/settings/Credential;
+	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/settings/Credential;)V
+}
+
 public final class org/icpclive/cds/api/AccountId {
 	public static final field Companion Lorg/icpclive/cds/api/AccountId$Companion;
 	public static final synthetic fun box-impl (Ljava/lang/String;)Lorg/icpclive/cds/api/AccountId;

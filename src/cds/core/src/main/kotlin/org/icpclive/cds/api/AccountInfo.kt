@@ -1,11 +1,8 @@
 package org.icpclive.cds.api
 
-import kotlinx.serialization.EncodeDefault
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.*
 import org.icpclive.cds.settings.Credential
-import org.icpclive.cds.util.DelegatedSerializer
+import org.icpclive.cds.util.map
 
 @JvmInline
 @Serializable
@@ -29,7 +26,7 @@ public data class AccountInfo(
     val personId: PersonId? = null,
 )
 
-internal class AccountCredentialSerializer: DelegatedSerializer<Credential, String>(String.serializer()) {
-    override fun onDeserialize(value: String) = Credential("***", value)
-    override fun onSerialize(value: Credential) = value.displayValue
-}
+public object AccountCredentialSerializer: KSerializer<Credential> by serializer<String>().map(
+    "AccountCred",
+    { Credential("***", it) },
+    { it.displayValue })

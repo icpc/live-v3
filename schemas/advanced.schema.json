@@ -1,7 +1,7 @@
 {
     "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.tunning.TuningRule>",
     "$defs": {
-        "org.icpclive.cds.api.AccountInfo<org.icpclive.cds.api.AccountId,kotlin.String,kotlin.String,kotlin.String?,kotlin.String?,org.icpclive.cds.api.TeamId?,org.icpclive.cds.api.PersonId?>": {
+        "org.icpclive.cds.api.AccountInfo<org.icpclive.cds.api.AccountId,kotlin.String,kotlin.String,AccountCred?,kotlin.String?,org.icpclive.cds.api.TeamId?,org.icpclive.cds.api.PersonId?>": {
             "type": "object",
             "properties": {
                 "id": {
@@ -35,7 +35,7 @@
         "kotlin.collections.ArrayList<org.icpclive.cds.api.AccountInfo>": {
             "type": "array",
             "items": {
-                "$ref": "#/$defs/org.icpclive.cds.api.AccountInfo<org.icpclive.cds.api.AccountId,kotlin.String,kotlin.String,kotlin.String?,kotlin.String?,org.icpclive.cds.api.TeamId?,org.icpclive.cds.api.PersonId?>"
+                "$ref": "#/$defs/org.icpclive.cds.api.AccountInfo<org.icpclive.cds.api.AccountId,kotlin.String,kotlin.String,AccountCred?,kotlin.String?,org.icpclive.cds.api.TeamId?,org.icpclive.cds.api.PersonId?>"
             }
         },
         "addAccounts": {

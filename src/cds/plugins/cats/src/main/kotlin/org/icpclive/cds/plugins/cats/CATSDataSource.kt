@@ -3,6 +3,7 @@ package org.icpclive.cds.plugins.cats
 import kotlinx.datetime.*
 import kotlinx.datetime.format.DateTimeComponents
 import kotlinx.datetime.format.char
+import kotlinx.datetime.serializers.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.*
@@ -10,13 +11,11 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.DataLoader
 import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.util.serializers.FormatterInstantSerializer
-import org.icpclive.cds.util.serializers.FormatterLocalDateSerializer
 import org.icpclive.ksp.cds.Builder
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.Instant
 
-private object ContestTimeSerializer : FormatterLocalDateSerializer(LocalDateTime.Format {
+private object ContestTimeSerializer : FormattedLocalDateTimeSerializer("ContestTime", LocalDateTime.Format {
     day()
     char('.')
     monthNumber()
@@ -28,7 +27,7 @@ private object ContestTimeSerializer : FormatterLocalDateSerializer(LocalDateTim
     minute()
 })
 
-private object SubmissionTimeSerializer : FormatterInstantSerializer(DateTimeComponents.Format {
+internal object SubmissionTimeSerializer : FormattedInstantSerializer("SubmissionTime",DateTimeComponents.Format {
     date(LocalDate.Formats.ISO_BASIC)
     char('T')
     hour()

@@ -2,22 +2,17 @@ package org.icpclive.cds.util.serializers
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.builtins.serializer
+import org.icpclive.cds.util.map
 
-public object RegexSerializer : KSerializer<Regex> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Regex", PrimitiveKind.STRING)
-    override fun deserialize(decoder: Decoder) : Regex {
-        val s = decoder.decodeString()
-        return try {
-            Regex(s)
+public object RegexSerializer : KSerializer<Regex> by String.serializer().map(
+    "Regex",
+    {
+        try {
+            Regex(it)
         } catch (e: Exception) {
-            throw SerializationException("Failed to compile regexp: $s", e)
+            throw SerializationException("Failed to compile regexp: $it", e)
         }
-    }
-
-    override fun serialize(encoder: Encoder, value: Regex) {
-        encoder.encodeString(value.pattern)
-    }
-}
+    },
+    { it.pattern }
+)
