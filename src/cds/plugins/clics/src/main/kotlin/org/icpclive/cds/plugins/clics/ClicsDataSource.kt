@@ -23,6 +23,7 @@ public enum class FeedVersion {
     `2020_03`,
     `2022_07`,
     `2023_06`,
+    `2026_01`,
     DRAFT
 }
 

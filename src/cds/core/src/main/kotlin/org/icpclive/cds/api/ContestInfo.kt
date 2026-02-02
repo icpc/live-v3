@@ -215,6 +215,7 @@ public data class ContestInfo(
     @Required val customFields: Map<String, String> = emptyMap(),
     @Required @InefficientContestInfoApi @SerialName("persons") val personsList: List<PersonInfo> = emptyList(),
     @Required @InefficientContestInfoApi @SerialName("accounts") val accountsList: List<AccountInfo> = emptyList(),
+    val mainScoreboardGroupId: GroupId? = null,
 ) {
     public constructor(
         name: String,

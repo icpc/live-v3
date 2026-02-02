@@ -1,6 +1,7 @@
 package org.icpclive.clics.objects
 
 import org.icpclive.ksp.clics.*
+import kotlin.time.Duration
 
 @SinceClics(FeedVersion.`2020_03`)
 @NoEvent
@@ -11,5 +12,6 @@ public data class ScoreboardRowProblem(
     public val solved: Boolean? = null,
     @SinceClics(FeedVersion.`2022_07`)
     public val score: Double? = null,
-    public val time: Long? = null
+    @LongMinutesBefore(FeedVersion.`2026_01`)
+    public val time: Duration? = null
 )

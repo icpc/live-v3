@@ -2,6 +2,7 @@ package org.icpclive.cds.plugins.clics
 
 import org.icpclive.cds.api.*
 import org.icpclive.cds.settings.Credential
+import org.icpclive.cds.util.logger
 import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
 import kotlin.time.Duration
@@ -37,6 +38,7 @@ internal class ClicsModel {
     private var penaltyPerWrongAttempt = 20.minutes
     private var holdBeforeStartTime: Duration? = null
     private var name: String = ""
+    private var mainScoreboardGroupId: String? = null
 
     suspend fun addContestInfoListener(callback: suspend (ContestInfo) -> Unit) {
         contestInfoListeners.add(callback)
@@ -88,7 +90,31 @@ internal class ClicsModel {
         }
     }
 
-    private fun Group.toApi(): GroupInfo = GroupInfo(id.toGroupId(), name!!, isHidden = false, isOutOfContest = false)
+    private fun Group.toApi(): GroupInfo =
+        GroupInfo(
+            id.toGroupId(),
+            name!!,
+            isHidden = false,
+            isOutOfContest = false
+        )
+
+    private fun AccountId.toFakeTeamId() = "account$$${value}".toTeamId()
+
+    private fun Account.toFakeTeam() = TeamInfo(
+        id = id.toTeamId(),
+        fullName = name ?: id,
+        displayName = name ?: id,
+        groups = emptyList(),
+        hashTag = null,
+        medias = emptyMap(),
+        isHidden = true,
+        isOutOfContest = true,
+        organizationId = null,
+        color = null,
+        customFields = emptyMap(),
+        reactionVideoTemplate = null,
+        sourceTemplate = null,
+    )
 
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organizationId?.let { organizations[it] }
@@ -117,7 +143,7 @@ internal class ClicsModel {
                 put(TeamMediaType.TOOL_DATA, toolData.mapNotNull { it.toApi() })
             }.filterValues { it.isNotEmpty() },
             organizationId = organizationId?.toOrganizationId(),
-            isOutOfContest = false,
+            isOutOfContest = mainScoreboardGroupId == null || mainScoreboardGroupId in groups,
             customFields = buildMap {
                 put("clicsTeamFullName", name)
                 put("clicsTeamDisplayName", displayName ?: name)
@@ -148,13 +174,14 @@ internal class ClicsModel {
                 ).toICPCRunResult()
             },
             problemId = problemId.toProblemId(),
-            teamId = teamId.toTeamId(),
+            teamId = (teamId?.toTeamId() ?: accountId?.toAccountId()?.toFakeTeamId()) ?: error("Either account or team should be set for submission $id"),
             time = contestTime,
             testedTime = judgment?.endContestTime,
             reactionVideos = reaction?.mapNotNull { it.toApi() } ?: emptyList(),
             languageId = languageId?.toLanguageId(),
             isHidden = id in removedSubmissionIds,
-            sourceFiles = files.mapNotNull { it.toApi() }
+            sourceFiles = files.mapNotNull { it.toApi() },
+            accountId = accountId?.toAccountId()
         )
     }
 
@@ -205,7 +232,7 @@ internal class ClicsModel {
         password = password?.let { Credential("***", it) },
         name = name,
         type = type ?: "other",
-        teamId = teamId?.toTeamId(),
+        teamId = teamId?.toTeamId() ?: id.toAccountId().toFakeTeamId(),
         personId = personId?.toPersonId(),
     )
 
@@ -217,7 +244,7 @@ internal class ClicsModel {
             contestLength = contestLength,
             freezeTime = freezeTime,
             problemList = problems.values.map { it.toApi() },
-            teamList = teams.values.map { it.toApi() },
+            teamList = teams.values.map { it.toApi() } + accounts.values.filter { it.teamId == null }.map { it.toFakeTeam() },
             groupList = groups.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
@@ -273,6 +300,7 @@ internal class ClicsModel {
     private suspend fun processContest(contest: Contest?) {
         require(contest != null) { "Removing contest is not supported" }
         name = contest.formalName ?: contest.name ?: "Unknown"
+        mainScoreboardGroupId = contest.mainScoreboardGroupId
         startTime = contest.startTime
         contestLength = contest.duration
         freezeTime = contestLength - (contest.scoreboardFreezeDuration ?: Duration.ZERO)
@@ -331,7 +359,14 @@ internal class ClicsModel {
     }
 
     private suspend fun processSubmission(id: String, submission: Submission?) {
-        putInSetWithRemoved(submissions, removedSubmissionIds, id, submission, Submission::id)
+        if (submission != null && submission.teamId == null && submission.accountId == null) {
+            logger(ClicsModel::class).error {
+                "Ignoring submissions without both team or account"
+            }
+            putInSetWithRemoved(submissions, removedSubmissionIds, id, null, Submission::id)
+        } else {
+            putInSetWithRemoved(submissions, removedSubmissionIds, id, submission, Submission::id)
+        }
         submissionUpdated(id)
     }
 

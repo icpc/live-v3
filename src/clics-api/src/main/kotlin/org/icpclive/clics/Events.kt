@@ -16,6 +16,7 @@ public fun clicsEventsSerializersModule(
             FeedVersion.`2020_03` -> org.icpclive.clics.v202003.serializersModule()
             FeedVersion.`2022_07` -> org.icpclive.clics.v202207.serializersModule()
             FeedVersion.`2023_06` -> org.icpclive.clics.v202306.serializersModule()
+            FeedVersion.`2026_01` -> org.icpclive.clics.v202601.serializersModule()
             FeedVersion.DRAFT -> org.icpclive.clics.vDRAFT.serializersModule()
         }
     )

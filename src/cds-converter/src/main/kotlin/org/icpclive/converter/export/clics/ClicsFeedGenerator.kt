@@ -43,7 +43,7 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
     val accountsFlow = eventFeed.filterIdEvent<_, AccountEvent>(scope)
     //val clarificationsFlow = eventFeed.filterIdEvent<_, ClarificationEvent>(scope)
     val awardsFlow = eventFeed.filterIdEvent<_, AwardEvent>(scope)
-    suspend fun getScoreboard() = currentState.filterNotNull().first().toClicsScoreboard()
+    suspend fun getScoreboard(groupId: String?) = currentState.filterNotNull().first().toClicsScoreboard(groupId)
 
 
 
@@ -152,7 +152,6 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         icpcId = customFields["icpc_id"],
         name = fullName,
         displayName = displayName,
-        hidden = isHidden,
         groupIds = groups.map { it.sanitizedValue },
         organizationId = organizationId?.sanitizedValue,
         photo = medias[TeamMediaType.PHOTO]?.mapNotNull { it.toClicsMedia() }.orEmpty(),
@@ -216,7 +215,8 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
             ContestResultType.ICPC -> "pass-fail"
             ContestResultType.IOI -> "score"
         },
-        penaltyTime = info.penaltyPerWrongAttempt
+        penaltyTime = info.penaltyPerWrongAttempt,
+        mainScoreboardGroupId = info.mainScoreboardGroupId?.value
     )
 
     private suspend fun <T: ObjectWithId> FlowCollector<EventProducer>.diffChange(
@@ -385,7 +385,7 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         val clicsGroups = newInfo.groupList.map { it.toClicsGroup() }
         val clicsOrgs = newInfo.organizationList.map { it.toClicsOrg() }
         val clicsLangs = (newInfo.languagesList + unknownLanguage).map { it.toClicsLang() }
-        val clicsTeams = newInfo.teamList.map { it.toClicsTeam() }
+        val clicsTeams = newInfo.teamList.mapNotNull { it.takeUnless { it.isHidden }?.toClicsTeam() }
         val clicsPersons = newInfo.personsList.map { it.toClicsPerson() }
         val clicsAccounts = newInfo.accountsList.map { it.toClicsAccount() }
 
@@ -431,13 +431,34 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         }.map { it(EventToken("live-cds-${eventCounter++}")) }
     }
 
-    private fun ContestStateWithScoreboard.toClicsScoreboard(): Scoreboard {
+    private fun List<Pair<TeamId, Int>>.removeNotInGroup(info: ContestInfo, group: GroupId?) : List<Pair<TeamId, Int>> {
+        if (group == null) return this
+        return buildList {
+            var curRank = 1
+            var nextRank = 1
+            var prevGlobalRank = -1
+            for ((teamId, rank) in this@removeNotInGroup) {
+                if (rank != prevGlobalRank) {
+                    prevGlobalRank = rank
+                    curRank = nextRank
+                }
+                if (info.teams[teamId]?.groups?.contains(group) != true) continue
+                nextRank++
+                add(teamId to curRank)
+            }
+        }
+    }
+
+    private fun ContestStateWithScoreboard.toClicsScoreboard(groupId: String?): Scoreboard {
         val info = state.infoAfterEvent!!
         return Scoreboard(
             time = info.startTimeOrZero + lastSubmissionTime,
             contestTime = lastSubmissionTime,
             state = getState(info),
-            rows = rankingAfter.order.zip(rankingAfter.ranks).map { (teamId, rank) ->
+            rows = rankingAfter.order.zip(rankingAfter.ranks)
+                .filter { it.second > 0 }
+                .removeNotInGroup(info, groupId?.toGroupId() ?: info.mainScoreboardGroupId)
+                .map { (teamId, rank) ->
                 val row = scoreboardRowAfter(teamId)
                 ScoreboardRow(
                     rank,
@@ -455,7 +476,7 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
                                 numJudged = v.wrongAttempts + (if (v.isSolved) 1 else 0),
                                 numPending = v.pendingAttempts,
                                 solved = v.isSolved,
-                                time = v.lastSubmitTime?.inWholeMinutes.takeIf { v.isSolved }
+                                time = v.lastSubmitTime.takeIf { v.isSolved }
                             )
 
                             is IOIProblemResult -> ScoreboardRowProblem(
@@ -463,7 +484,7 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
                                 numJudged = v.totalAttempts,
                                 numPending = v.pendingAttempts,
                                 score = v.score,
-                                time = v.lastSubmitTime?.inWholeMinutes.takeIf { v.score != null }
+                                time = v.lastSubmitTime.takeIf { v.score != null }
                             )
                         }
                     }

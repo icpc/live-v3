@@ -12,7 +12,7 @@ public data class Team(
     public val groupIds: List<String> = emptyList(),
     public val label: String? = null,
     public val displayName: String? = null,
-    public val hidden: Boolean? = null,
+    @UntilClics(FeedVersion.`2026_01`) public val hidden: Boolean? = null,
     public val photo: List<File> = emptyList(),
     public val video: List<File> = emptyList(),
     public val desktop: List<File> = emptyList(),
