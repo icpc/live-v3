@@ -66,7 +66,7 @@ export const Scoreboard = ({ tickerSettings, state }) => {
     return (
         <ScoreboardWrap
             nrows={nrows * 2}
-            translateY={`calc(${-row * 100}% - ${2 * row} * ${c.TICKER_SCOREBOARD_GAP})`}
+            translateY={`calc(${-row * 100}% - ${row} * ${c.TICKER_SCOREBOARD_GAP})`}
         >
             {order.map((teamId) => (
                 <TickerScoreboardContestantInfo
