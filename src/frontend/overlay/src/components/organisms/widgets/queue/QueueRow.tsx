@@ -146,7 +146,7 @@ export const QueueRow = ({ runInfo }: { runInfo: QueueRowInfo }) => {
     return (
         <StyledQueueRow>
             <QueueRankLabel rank={rank} effects={getAwardsEffects(awards)} />
-            <QueueTeamNameLabel text={teamData?.shortName ?? "??"} />
+            <QueueTeamNameLabel text={teamData?.shortName ?? "??"} fontSize={c.QUEUE_ROW_FONT_SIZE} />
             <QueueScoreLabel
                 align={"right"}
                 text={
