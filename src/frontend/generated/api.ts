@@ -19,6 +19,7 @@ export interface ContestInfo {
   customFields: { [key: string]: string };
   persons: PersonInfo[];
   accounts: AccountInfo[];
+  mainScoreboardGroupId?: GroupId | null;
 }
 
 export type ContestStatus =
@@ -121,6 +122,8 @@ export namespace ProblemColorPolicy {
     colorBeforeSolved?: string | null;
   }
 }
+
+export type GroupId = string;
 
 export interface ProblemInfo {
   id: ProblemId;
@@ -238,8 +241,6 @@ export namespace FtsMode {
 export type TeamId = string;
 
 export type OrganizationId = string;
-
-export type GroupId = string;
 
 export type LanguageId = string;
 
@@ -435,6 +436,7 @@ export interface RunInfo {
   reactionVideos: MediaType[];
   isHidden: boolean;
   sourceFiles?: MediaType[];
+  accountId?: AccountId | null;
 }
 
 export type RunResult =

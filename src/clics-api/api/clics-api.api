@@ -7,6 +7,7 @@ public final class org/icpclive/clics/FeedVersion : java/lang/Enum {
 	public static final field 2020_03 Lorg/icpclive/clics/FeedVersion;
 	public static final field 2022_07 Lorg/icpclive/clics/FeedVersion;
 	public static final field 2023_06 Lorg/icpclive/clics/FeedVersion;
+	public static final field 2026_01 Lorg/icpclive/clics/FeedVersion;
 	public static final field DRAFT Lorg/icpclive/clics/FeedVersion;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getUrl ()Ljava/lang/String;
@@ -453,13 +454,14 @@ public final class org/icpclive/clics/objects/Commentary : org/icpclive/clics/ob
 }
 
 public final class org/icpclive/clics/objects/Contest : org/icpclive/clics/objects/ObjectWithId {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10-FghU774 ()Lkotlin/time/Duration;
 	public final fun component11 ()Ljava/util/List;
 	public final fun component12 ()Ljava/util/List;
 	public final fun component13 ()Lorg/icpclive/clics/objects/Location;
+	public final fun component14 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Lkotlin/time/Instant;
@@ -468,8 +470,8 @@ public final class org/icpclive/clics/objects/Contest : org/icpclive/clics/objec
 	public final fun component7-FghU774 ()Lkotlin/time/Duration;
 	public final fun component8 ()Lkotlin/time/Instant;
 	public final fun component9 ()Ljava/lang/String;
-	public final fun copy-EE2BBHw (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;)Lorg/icpclive/clics/objects/Contest;
-	public static synthetic fun copy-EE2BBHw$default (Lorg/icpclive/clics/objects/Contest;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Contest;
+	public final fun copy-jme4--w (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;Ljava/lang/String;)Lorg/icpclive/clics/objects/Contest;
+	public static synthetic fun copy-jme4--w$default (Lorg/icpclive/clics/objects/Contest;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;JLkotlin/time/Duration;Lkotlin/time/Instant;Ljava/lang/String;Lkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Lorg/icpclive/clics/objects/Location;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Contest;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBanner ()Ljava/util/List;
 	public final fun getCountdownPauseTime-FghU774 ()Lkotlin/time/Duration;
@@ -478,6 +480,7 @@ public final class org/icpclive/clics/objects/Contest : org/icpclive/clics/objec
 	public fun getId ()Ljava/lang/String;
 	public final fun getLocation ()Lorg/icpclive/clics/objects/Location;
 	public final fun getLogo ()Ljava/util/List;
+	public final fun getMainScoreboardGroupId ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getPenaltyTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getScoreboardFreezeDuration-FghU774 ()Lkotlin/time/Duration;
@@ -799,24 +802,23 @@ public final class org/icpclive/clics/objects/ScoreboardRow {
 }
 
 public final class org/icpclive/clics/objects/ScoreboardRowProblem {
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/Long;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Lkotlin/time/Duration;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Lkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/Integer;
 	public final fun component3 ()Ljava/lang/Integer;
 	public final fun component4 ()Ljava/lang/Boolean;
 	public final fun component5 ()Ljava/lang/Double;
-	public final fun component6 ()Ljava/lang/Long;
-	public final fun copy (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/Long;)Lorg/icpclive/clics/objects/ScoreboardRowProblem;
-	public static synthetic fun copy$default (Lorg/icpclive/clics/objects/ScoreboardRowProblem;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Ljava/lang/Long;ILjava/lang/Object;)Lorg/icpclive/clics/objects/ScoreboardRowProblem;
+	public final fun component6-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-BAu0izY (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Lkotlin/time/Duration;)Lorg/icpclive/clics/objects/ScoreboardRowProblem;
+	public static synthetic fun copy-BAu0izY$default (Lorg/icpclive/clics/objects/ScoreboardRowProblem;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Lkotlin/time/Duration;ILjava/lang/Object;)Lorg/icpclive/clics/objects/ScoreboardRowProblem;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getNumJudged ()Ljava/lang/Integer;
 	public final fun getNumPending ()Ljava/lang/Integer;
 	public final fun getProblemId ()Ljava/lang/String;
 	public final fun getScore ()Ljava/lang/Double;
 	public final fun getSolved ()Ljava/lang/Boolean;
-	public final fun getTime ()Ljava/lang/Long;
+	public final fun getTime-FghU774 ()Lkotlin/time/Duration;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -865,20 +867,22 @@ public final class org/icpclive/clics/objects/State {
 }
 
 public final class org/icpclive/clics/objects/Submission : org/icpclive/clics/objects/ObjectWithId {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/util/List;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Lkotlin/time/Instant;
-	public final fun component6-UwyO8pc ()J
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/util/List;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Lkotlin/time/Instant;
+	public final fun component7-UwyO8pc ()J
+	public final fun component8 ()Ljava/lang/String;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy-Tu6dINM (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/clics/objects/Submission;
-	public static synthetic fun copy-Tu6dINM$default (Lorg/icpclive/clics/objects/Submission;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Submission;
+	public final fun copy-mLShkvk (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;)Lorg/icpclive/clics/objects/Submission;
+	public static synthetic fun copy-mLShkvk$default (Lorg/icpclive/clics/objects/Submission;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/time/Instant;JLjava/lang/String;Ljava/util/List;Ljava/util/List;ILjava/lang/Object;)Lorg/icpclive/clics/objects/Submission;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccountId ()Ljava/lang/String;
 	public final fun getContestTime-UwyO8pc ()J
 	public final fun getEntryPoint ()Ljava/lang/String;
 	public final fun getFiles ()Ljava/util/List;

@@ -293,11 +293,12 @@
                 }
             }
         },
-        "org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07,org.icpclive.cds.plugins.clics.FeedVersion.2023_06,org.icpclive.cds.plugins.clics.FeedVersion.DRAFT>": {
+        "org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07,org.icpclive.cds.plugins.clics.FeedVersion.2023_06,org.icpclive.cds.plugins.clics.FeedVersion.2026_01,org.icpclive.cds.plugins.clics.FeedVersion.DRAFT>": {
             "enum": [
                 "2020_03",
                 "2022_07",
                 "2023_06",
+                "2026_01",
                 "DRAFT"
             ]
         },
@@ -320,7 +321,7 @@
                     "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
                 },
                 "feedVersion": {
-                    "$ref": "#/$defs/org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07,org.icpclive.cds.plugins.clics.FeedVersion.2023_06,org.icpclive.cds.plugins.clics.FeedVersion.DRAFT>"
+                    "$ref": "#/$defs/org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07,org.icpclive.cds.plugins.clics.FeedVersion.2023_06,org.icpclive.cds.plugins.clics.FeedVersion.2026_01,org.icpclive.cds.plugins.clics.FeedVersion.DRAFT>"
                 }
             },
             "additionalProperties": false,

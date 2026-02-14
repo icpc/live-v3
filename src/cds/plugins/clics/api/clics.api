@@ -54,6 +54,7 @@ public final class org/icpclive/cds/plugins/clics/FeedVersion : java/lang/Enum {
 	public static final field 2020_03 Lorg/icpclive/cds/plugins/clics/FeedVersion;
 	public static final field 2022_07 Lorg/icpclive/cds/plugins/clics/FeedVersion;
 	public static final field 2023_06 Lorg/icpclive/cds/plugins/clics/FeedVersion;
+	public static final field 2026_01 Lorg/icpclive/cds/plugins/clics/FeedVersion;
 	public static final field DRAFT Lorg/icpclive/cds/plugins/clics/FeedVersion;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lorg/icpclive/cds/plugins/clics/FeedVersion;
