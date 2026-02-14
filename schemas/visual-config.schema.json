@@ -390,7 +390,7 @@
         "QUEUE_FEATURED_RUN_WIDTH": {
             "type": "string"
         },
-        "QUEUE_FTS_BOTTOM_MIN_OFFSET": {
+        "QUEUE_FTS_BOTTOM_OFFSET": {
             "type": "number"
         },
         "QUEUE_GAP": {
