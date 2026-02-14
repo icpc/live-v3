@@ -1,0 +1,120 @@
+[
+  {
+    "type": "overrideScoreboardSettings",
+    "showTeamsWithoutSubmissions": true
+  },
+  {
+    "type": "overrideContestSettings",
+    "freezeTimeSeconds": 18000
+  },
+  {
+    "type": "overrideQueue",
+    "maxUntestedRun": 10
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "regexes": {
+      "custom": {
+        "from": "{team.fullName}",
+        "rules": {
+          "\\s*([^\\s]+)\\s*([^\\s]+)\\s*([^\\s]+)\\s*,\\s*([^\\s]+?)\\s*,\\s*(.+)\\s*": {
+            "lastname": "$1",
+            "firstname": "$2",
+            "patronymic": "$3",
+            "grade": "$4",
+            "city": "$5"
+          }
+        }
+      }
+    },
+    "organizationId": "{regexes.custom.city}",
+    "customFields": {
+      "name": "{regexes.custom.lastname} {regexes.custom.firstname}",
+      "grade": "{regexes.custom.grade}"
+    }
+  },
+  {
+    "type": "overrideTeamTemplate",
+    "displayName": "{name} ({grade})",
+    "groups": [
+      "{org.displayName}",
+      "{grade}"
+    ]
+  },
+  {
+    "type": "overrideTeams",
+    "rules": {
+      "1139": {
+        "displayName": "Касерес Гутьеррес Никита (11)",
+        "groups": [
+          "Москва",
+          "11"
+        ]
+      },
+      "1181": {
+        "displayName": "Ражабов Сайидазим (11)",
+        "groups": [
+          "Москва",
+          "11"
+        ]
+      },
+      "1182": {
+        "displayName": "Kamal Al-Fakir (10)",
+        "groups": [
+          "Сирийская Арабская Республика",
+          "10"
+        ]
+      }
+    }
+  },
+  {
+    "type": "overrideProblems",
+    "rules": {
+      "A": {
+        "color": "#fc3f2cff"
+      },
+      "B": {
+        "color": "#19464fff"
+      },
+      "C": {
+        "color": "#9937ecff"
+      },
+      "D": {
+        "color": "#ec8d1aff"
+      },
+      "E": {
+        "color": "#e5d612ff"
+      },
+      "F": {
+        "color": "#094f0bff"
+      },
+      "G": {
+        "color": "#ef41e6ff"
+      },
+      "H": {
+        "color": "#ecebecff"
+      },
+      "I": {
+        "color": "#e58a5eff"
+      },
+      "J": {
+        "color": "#2835f3ff"
+      },
+      "K": {
+        "color": "#742d46ff"
+      },
+      "L": {
+        "color": "#4ac6a1ff"
+      },
+      "M": {
+        "color": "#b68cedff"
+      },
+      "N": {
+        "color": "#3d7027ff"
+      },
+      "O": {
+        "color": "#d8c0ccff"
+      }
+    }
+  }
+]
