@@ -143,7 +143,7 @@ internal class ClicsModel {
                 put(TeamMediaType.TOOL_DATA, toolData.mapNotNull { it.toApi() })
             }.filterValues { it.isNotEmpty() },
             organizationId = organizationId?.toOrganizationId(),
-            isOutOfContest = mainScoreboardGroupId == null || mainScoreboardGroupId in groups,
+            isOutOfContest = mainScoreboardGroupId != null && mainScoreboardGroupId !in groups,
             customFields = buildMap {
                 put("clicsTeamFullName", name)
                 put("clicsTeamDisplayName", displayName ?: name)
