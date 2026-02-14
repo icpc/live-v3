@@ -1,6 +1,7 @@
 package org.icpclive.controllers
 
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.filter
 import org.icpclive.api.*
 import org.icpclive.cds.api.TeamMediaType
 import org.icpclive.data.*
@@ -34,11 +35,16 @@ class TeamViewController(manager: Manager<in TeamViewWidget>, val position: Team
     override suspend fun createWidgetAndShow(settings: ExternalTeamViewSettings) {
         if (settings.teamId == null) {
             launchWhileWidgetShown {
-                DataBus.teamSpotlightFlow.await().collect {
-                    val staticSettings = settings.copy(teamId = it.teamId)
-                    super.createWidgetAndShow(staticSettings)
-                    delay(30.seconds)
-                }
+                DataBus.teamSpotlightFlow.await()
+                    .filter {
+                        val teamInfo = DataBus.currentContestInfo().teams[it.teamId]
+                        return@filter teamInfo?.isHidden?.not() ?: false
+                    }
+                    .collect {
+                        val staticSettings = settings.copy(teamId = it.teamId)
+                        super.createWidgetAndShow(staticSettings)
+                        delay(30.seconds)
+                    }
             }
         } else {
             super.createWidgetAndShow(settings)
