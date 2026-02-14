@@ -34,10 +34,12 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
             is RunResult.InProgress -> RunType.NotBest
         }
     },
-    needUpdateGroup = { new, old, _ ->
-        new.problems.any {
-            it.value.ftsMode != old?.problems?.get(it.key)?.ftsMode
-        } || new.awardsSettings.firstToSolveProblems != old?.awardsSettings?.firstToSolveProblems
+    needUpdateGroup = { new, old, type ->
+        when (type) {
+            is RunType.NotBest -> false
+            is RunType.ICPCBest -> new.problems[type.problemId]?.ftsMode != old?.problems?.get(type.problemId)?.ftsMode
+            is RunType.IOIBest -> new.problems[type.problemId]?.ftsMode != old?.problems?.get(type.problemId)?.ftsMode
+        }
     },
     transformGroup = transform@{ k, _, runs, info ->
         if (runs.isEmpty()) return@transform runs
@@ -49,7 +51,7 @@ internal fun addFirstToSolves(flow: Flow<ContestUpdate>): Flow<ContestUpdate> = 
                     is RunType.NotBest -> null
                     is RunType.ICPCBest -> runs.firstOrNull()
                     is RunType.IOIBest -> runs.maxByOrNull { (it.result as RunResult.IOI).scoreAfter }
-                }?.id.takeIf { info.awardsSettings.firstToSolveProblems }
+                }?.id
             }
         }
         if (bestRunId == null) {

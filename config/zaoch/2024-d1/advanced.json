@@ -131,25 +131,19 @@
         }
     },
     {
-        "type": "overrideAwards",
-        "medalGroups": [
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "first-diploma",
-                        "citation": "Победитель",
-                        "color": "GOLD",
-                        "maxRank": 33,
-                        "tiebreakMode": "NONE"
-                    },
-                    {
-                        "id": "second-diploma",
-                        "citation": "Призер",
-                        "color": "SILVER",
-                        "maxRank": 104,
-                        "tiebreakMode": "NONE"
-                    }
-                ]
+                "id": "first-diploma",
+                "citation": "Победитель",
+                "maxRank": 33,
+                "tiebreakMode": "NONE"
+            },
+            {
+                "id": "second-diploma",
+                "citation": "Призер",
+                "maxRank": 104,
+                "tiebreakMode": "NONE"
             }
         ]
     }

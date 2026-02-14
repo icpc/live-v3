@@ -1,9 +1,5 @@
 [
   {
-    "type": "overrideContestSettings",
-    "freezeTimeSeconds": 14400
-  },
-  {
     "type": "overrideScoreboardSettings",
     "showTeamsWithoutSubmissions": true
   },
@@ -156,10 +152,34 @@
     }
   },
   {
-    "type": "addMedals",
-    "gold": 4,
-    "silver": 4,
-    "bronze": 4
+    "type": "addKnownAwards",
+    "medals": {
+      "gold": 4,
+      "silver": 4,
+      "bronze": 4
+    },
+    "championTitle": "Nothern Eurasian Finals 2025 Champion",
+    "rankAwardsMaxRank": 15
+  },
+  {
+    "type": "addAwardChain",
+    "awards": [
+      {"id": "first-diploma", "citation": "First degree diploma", "minScore": 8},
+      {"id": "second-diploma", "citation": "Second degree diploma", "minScore": 7},
+      {"id": "third-diploma", "citation": "Third degree diploma", "minScore": 6}
+    ]
+  },
+  {
+    "type": "addAwardChain",
+    "awards": [
+      {
+        "id": "qualified",
+        "citation": "Qualified to World Finals",
+        "organizationLimit": 1,
+        "limit": 16,
+        "minScore": 1
+      }
+    ]
   },
   {
     "type": "overrideQueue",

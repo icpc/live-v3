@@ -7,11 +7,12 @@ import { RankLabel, RunStatusLabel } from "../../../atoms/ContestLabels";
 import { ProblemLabel } from "@/components/atoms/ProblemLabel";
 import { formatScore } from "@/services/displayUtils";
 import { useAppSelector } from "@/redux/hooks";
-import { Award, OptimismLevel } from "@shared/api";
+import { OptimismLevel } from "@shared/api";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { createShimmerStyles } from "@/utils/shimmerStyles";
 import { QueueRowInfo } from "./utils/queueState";
 import { queueRowContractionStates } from "./utils/transitionStates";
+import { getAwardsEffects } from "@/utils/awards";
 
 interface QueueRowAnimatorProps {
     bottom: number;
@@ -136,9 +137,6 @@ export const QueueRow = ({ runInfo }: { runInfo: QueueRowInfo }) => {
         (state) =>
             state.scoreboard[OptimismLevel.normal].rankById[runInfo.teamId],
     );
-    const medal = awards?.find(
-        (award) => award.type == Award.Type.medal,
-    ) as Award.medal;
 
     const isFTSRun =
         (runInfo?.result?.type === "ICPC" &&
@@ -147,7 +145,7 @@ export const QueueRow = ({ runInfo }: { runInfo: QueueRowInfo }) => {
 
     return (
         <StyledQueueRow>
-            <QueueRankLabel rank={rank} medal={medal?.medalColor} />
+            <QueueRankLabel rank={rank} effects={getAwardsEffects(awards)} />
             <QueueTeamNameLabel text={teamData?.shortName ?? "??"} />
             <QueueScoreLabel
                 align={"right"}

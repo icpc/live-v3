@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.api.*
-import org.icpclive.cds.api.AwardsSettings.*
 import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.util.serializers.*
 import java.io.InputStream
@@ -181,7 +180,7 @@ internal data class AwardsSettingsOverride(
     val championTitle: String? = null,
     val groupsChampionTitles: Map<GroupId, String> = emptyMap(),
     val rankAwardsMaxRank: Int = 0,
-    val medals: List<MedalSettings> = emptyList(),
-    val medalGroups: List<MedalGroup> = emptyList(),
+    val medals: List<RankBasedAward> = emptyList(),
+    val medalGroups: List<AwardChain> = emptyList(),
     val manual: List<ManualAwardSetting> = emptyList(),
 )

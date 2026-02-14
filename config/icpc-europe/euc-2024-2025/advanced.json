@@ -32,12 +32,6 @@
         }
     },
     {
-        "type": "addMedals",
-        "gold": 2,
-        "silver": 4,
-        "bronze": 6
-    },
-    {
         "type": "overrideTeams",
         "rules": {
             "2": {
@@ -85,52 +79,45 @@
         }
     },
     {
-        "type": "addGroupToTeams",
-        "id": "Not yet qualified for World Finals",
-        "teams": [
-            "1", "2", "4", "6", "7", "8", "9", "10",
-            "11", "12", "13", "14", "15", "16", "17",
-            "18", "19", "20", "23", "24", "25", "26",
-            "28", "29", "31", "33", "36", "38", "39",
-            "40", "41", "42", "43", "44", "45", "46",
-            "47", "48", "50", "51", "53"
-        ]
+        "type": "addKnownAwards",
+        "championTitle": "Europe Champion",
+        "medals": {
+            "gold": 2,
+            "silver": 4,
+            "bronze": 6
+        }
     },
     {
-        "type": "overrideAwards",
-        "championTitle": "Europe Champion",
-        "extraMedalGroups": [
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "advanced-euc",
-                        "citation": "Qualified to World Finals through EUC",
-                        "maxRank": 4
-                    }
-                ],
-                "groups": ["Not yet qualified for World Finals"]
-            }
-        ],
-        "extraManualAwards": [
-            {
-                "id": "advanced-swerc",
+                "id": "qualified-swerc",
                 "citation": "Qualified to World Finals through SWERC",
-                "teamCdsIds": ["3", "22", "32"]
+                "manualTeamIds": ["3", "22", "32"],
+                "limit": 0
             },
             {
-                "id": "advanced-nwerc",
+                "id": "qualified-nwerc",
                 "citation": "Qualified to World Finals through NWERC",
-                "teamCdsIds": ["5", "27", "30"]
+                "manualTeamIds": ["5", "27", "30"],
+                "limit": 0
             },
             {
-                "id": "advanced-cerc",
+                "id": "qualified-cerc",
                 "citation": "Qualified to World Finals through CERC",
-                "teamCdsIds": ["21", "34", "52"]
+                "manualTeamIds": ["21", "34", "52"],
+                "limit": 0
             },
             {
-                "id": "advanced-seerc",
+                "id": "qualified-seerc",
                 "citation": "Qualified to World Finals through SEERC",
-                "teamCdsIds": ["35", "37", "49"]
+                "manualTeamIds": ["35", "37", "49"],
+                "limit": 0
+            },
+            {
+                "id": "qualified-euc",
+                "citation": "Qualified to World Finals through EUC",
+                "limit": 4
             }
         ]
     },

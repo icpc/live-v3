@@ -480,7 +480,7 @@
         "languages": [],
         "penaltyRoundingMode": "sum_down_to_minute",
         "emulationSpeed": 1.0,
-        "awardsSettings": {},
+        "awardsSettings": [],
         "penaltyPerWrongAttemptSeconds": 1200,
         "queueSettings": {},
         "showTeamsWithoutSubmissions": true,
