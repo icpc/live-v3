@@ -20,7 +20,7 @@ export function useVerticalQueueRowsData({
     const allowedMaxRows = Math.min(
         Math.floor(
             (_width / c.QUEUE_ROW_WIDTH) *
-                ((height - c.QUEUE_FTS_BOTTOM_MIN_OFFSET) /
+                ((height - c.QUEUE_FTS_BOTTOM_OFFSET) /
                     (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_Y_PADDING)),
         ),
         c.QUEUE_MAX_ROWS,
