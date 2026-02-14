@@ -97,9 +97,15 @@ export function ScoreboardTableHeader() {
             nProblems={Math.max(problems?.length ?? 0, 1)}
             needPenalty={needPenalty}
         >
-            <ScoreboardTableHeaderCell>{c.SCOREBOARD_HEADER_POSITION_TITLE}</ScoreboardTableHeaderCell>
-            <ScoreboardTableHeaderNameCell>{c.SCOREBOARD_HEADER_NAME_TITLE}</ScoreboardTableHeaderNameCell>
-            <ScoreboardTableHeaderCell>{c.SCOREBOARD_HEADER_SCORE_TITLE}</ScoreboardTableHeaderCell>
+            <ScoreboardTableHeaderCell>
+                {c.SCOREBOARD_HEADER_POSITION_TITLE}
+            </ScoreboardTableHeaderCell>
+            <ScoreboardTableHeaderNameCell>
+                {c.SCOREBOARD_HEADER_NAME_TITLE}
+            </ScoreboardTableHeaderNameCell>
+            <ScoreboardTableHeaderCell>
+                {c.SCOREBOARD_HEADER_SCORE_TITLE}
+            </ScoreboardTableHeaderCell>
             {needPenalty && (
                 <ScoreboardTableHeaderCell>
                     <ShrinkingBox text={c.SCOREBOARD_HEADER_PENALTY_TITLE} />
