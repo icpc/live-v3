@@ -145,6 +145,11 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         SCOREBOARD_UNDEFINED_NAME: "??",
         SCOREBOARD_STANDINGS_NAME: "standings",
 
+        SCOREBOARD_HEADER_POSITION_TITLE: "#",
+        SCOREBOARD_HEADER_NAME_TITLE: "Name",
+        SCOREBOARD_HEADER_SCORE_TITLE: "Σ",
+        SCOREBOARD_HEADER_PENALTY_TITLE: "Penalty",
+
         SCOREBOARD_GAP: "14px",
         SCOREBOARD_PADDING_TOP: "7px",
         SCOREBOARD_PADDING_RIGHT: "16px",

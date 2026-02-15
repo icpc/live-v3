@@ -552,7 +552,19 @@
         "SCOREBOARD_HEADER_HEIGHT": {
             "type": "number"
         },
+        "SCOREBOARD_HEADER_NAME_TITLE": {
+            "type": "string"
+        },
         "SCOREBOARD_HEADER_PADDING_TOP": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_PENALTY_TITLE": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_POSITION_TITLE": {
+            "type": "string"
+        },
+        "SCOREBOARD_HEADER_SCORE_TITLE": {
             "type": "string"
         },
         "SCOREBOARD_NORMAL_NAME": {

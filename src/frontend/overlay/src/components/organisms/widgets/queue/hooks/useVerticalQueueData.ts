@@ -18,7 +18,11 @@ export function useVerticalQueueRowsData({
     }
 
     const allowedMaxRows = Math.min(
-        (_width / c.QUEUE_ROW_WIDTH) * (height / c.QUEUE_ROW_HEIGHT),
+        Math.floor(
+            (_width / c.QUEUE_ROW_WIDTH) *
+                ((height - c.QUEUE_FTS_BOTTOM_OFFSET) /
+                    (c.QUEUE_ROW_HEIGHT + c.QUEUE_ROW_Y_PADDING)),
+        ),
         c.QUEUE_MAX_ROWS,
     );
 
@@ -63,10 +67,7 @@ export function useVerticalQueueRowsData({
 
     rows.forEach((row) => {
         if (row.isFts) {
-            row.bottom =
-                height -
-                bottomPosition(totalFts - ftsRowCount) +
-                c.QUEUE_FTS_BOTTOM_OFFSET;
+            row.bottom = height - bottomPosition(totalFts - ftsRowCount);
             ftsRowCount++;
         } else {
             row.bottom = bottomPosition(regularRowCount);
