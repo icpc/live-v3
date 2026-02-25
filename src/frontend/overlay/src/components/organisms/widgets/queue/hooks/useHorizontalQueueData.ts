@@ -68,7 +68,11 @@ function findFirstFreeSlot(max: number, used: number[]): number | null {
     return null;
 }
 
-function assignNewBatchPosition(state: QueueState, runId: string, maxColumns: number) {
+function assignNewBatchPosition(
+    state: QueueState,
+    runId: string,
+    maxColumns: number,
+) {
     if (state.batchOrder.length === 0) {
         createNewBatch(state, runId);
         return;
@@ -80,10 +84,7 @@ function assignNewBatchPosition(state: QueueState, runId: string, maxColumns: nu
     if (lastBatchPositions.length >= maxColumns) {
         createNewBatch(state, runId);
     } else {
-        const freeSlot = findFirstFreeSlot(
-            maxColumns,
-            lastBatchPositions,
-        );
+        const freeSlot = findFirstFreeSlot(maxColumns, lastBatchPositions);
         if (freeSlot !== null) {
             state.batches[lastBatchId][runId] = freeSlot;
             state.currentRuns[runId] = lastBatchId;
@@ -142,15 +143,21 @@ export const useHorizontalQueueRowsData = ({
     );
 
     const hasFtsRow = totalVerticalSlots >= 2;
-    const allowedMaxBatches = hasFtsRow ? totalVerticalSlots - 1 : totalVerticalSlots;
+    const allowedMaxBatches = hasFtsRow
+        ? totalVerticalSlots - 1
+        : totalVerticalSlots;
 
     const effectiveColumnsPerBatch = useMemo(
-        () => Math.max(1, Math.min(MAX_ROWS_PER_BATCH, Math.floor(width / GRID_OFFSET_X))),
+        () =>
+            Math.max(
+                1,
+                Math.min(MAX_ROWS_PER_BATCH, Math.floor(width / GRID_OFFSET_X)),
+            ),
         [width],
     );
 
     const allowedFtsSlots = useMemo(
-        () => hasFtsRow ? Math.floor(ftsRowWidth / GRID_OFFSET_X) : 0,
+        () => (hasFtsRow ? Math.floor(ftsRowWidth / GRID_OFFSET_X) : 0),
         [ftsRowWidth, hasFtsRow],
     );
 
@@ -197,7 +204,13 @@ export const useHorizontalQueueRowsData = ({
         });
 
         return resultRows;
-    }, [processingQueue, layoutState, height, allowedMaxBatches, effectiveColumnsPerBatch]);
+    }, [
+        processingQueue,
+        layoutState,
+        height,
+        allowedMaxBatches,
+        effectiveColumnsPerBatch,
+    ]);
 
     return [featured, rows];
 };
