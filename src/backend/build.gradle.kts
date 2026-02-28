@@ -51,11 +51,8 @@ tasks {
             from(configurations.overlayJsAppResolver) {
                 into("overlay")
             }
-            from(project(":frontend").projectDir.resolve("main")) {
-                into("main")
-            }
             from(gitVersionFiles) {
-                into("main")
+                into("admin-router")
             }
             from(advancedExamples) {
                 into("examples/advanced")

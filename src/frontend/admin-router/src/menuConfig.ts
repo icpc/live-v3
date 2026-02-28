@@ -5,8 +5,16 @@ export interface MenuItem {
 
 export const ADMIN_MENU_ITEMS: MenuItem[] = [
     {
+        name: "Main",
+        path: "/",
+    },
+    {
         name: "Overlay frontend",
         path: "/admin",
+    },
+    {
+        name: "Contest Info",
+        path: "/admin-contest-info",
     },
 ];
 

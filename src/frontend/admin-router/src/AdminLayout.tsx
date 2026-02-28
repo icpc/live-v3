@@ -10,21 +10,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-export interface MenuItem {
-    name: string;
-    path: string;
-}
-
-export const ADMIN_MENU_ITEMS: MenuItem[] = [
-    {
-        name: "Overlay frontend",
-        path: "/admin",
-    },
-    {
-        name: "Contest Info",
-        path: "/admin-contest-info",
-    },
-];
+import { ADMIN_MENU_ITEMS } from "./menuConfig";
 
 export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     const [drawerOpen, setDrawerOpen] = useState(false);

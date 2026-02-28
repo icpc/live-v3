@@ -69,7 +69,6 @@ fun Application.module() {
         route("/") {
             install(ConditionalHeaders)
             staticResources("/schemas", "schemas")
-            staticResources("/", "main", index = "main.html")
             singlePageApplication {
                 useResources = true
                 applicationRoute = "admin-contest-info"
@@ -82,13 +81,13 @@ fun Application.module() {
             }
             singlePageApplication {
                 useResources = true
-                applicationRoute = "admin-router"
-                react("admin-router")
+                applicationRoute = "overlay"
+                react("overlay")
             }
             singlePageApplication {
                 useResources = true
-                applicationRoute = "overlay"
-                react("overlay")
+                applicationRoute = ""
+                react("admin-router")
             }
         }
         route("/api") {

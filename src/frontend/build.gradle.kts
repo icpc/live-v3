@@ -74,11 +74,13 @@ tasks {
     }
     val buildAdminOverlay = pnpmBuild("pnpm_run_buildAdminOverlay", layout.projectDirectory.dir("admin-overlay"), "/admin") {
         inputs.file(it.file("index.html"))
+        inputs.dir(layout.projectDirectory.dir("admin-router/src"))
     }
     val buildAdminContestInfo = pnpmBuild("pnpm_run_buildAdminContestInfo", layout.projectDirectory.dir("admin-contest-info"), "/admin-contest-info") {
         inputs.file(it.file("index.html"))
+        inputs.dir(layout.projectDirectory.dir("admin-router/src"))
     }
-    val buildAdminRouter = pnpmBuild("pnpm_run_buildAdminRouter", layout.projectDirectory.dir("admin-router"), "/admin-router") {
+    val buildAdminRouter = pnpmBuild("pnpm_run_buildAdminRouter", layout.projectDirectory.dir("admin-router"), "/") {
         inputs.file(it.file("index.html"))
     }
     val buildLocatorAdmin = pnpmBuild("pnpm_run_buildLocatorAdmin", layout.projectDirectory.dir("locator"), "/locator") {
