@@ -72,8 +72,18 @@ fun Application.module() {
             staticResources("/", "main", index = "main.html")
             singlePageApplication {
                 useResources = true
+                applicationRoute = "admin-contest-info"
+                react("admin-contest-info")
+            }
+            singlePageApplication {
+                useResources = true
                 applicationRoute = "admin"
-                react("admin")
+                react("admin-overlay")
+            }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin-router"
+                react("admin-router")
             }
             singlePageApplication {
                 useResources = true

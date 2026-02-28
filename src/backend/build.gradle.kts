@@ -39,8 +39,14 @@ tasks {
 
     processResources {
         if (project.properties["live.dev.embedFrontend"] == "true") {
-            from(configurations.adminJsAppResolver) {
-                into("admin")
+            from(configurations.adminOverlayJsAppResolver) {
+                into("admin-overlay")
+            }
+            from(configurations.adminContestInfoJsAppResolver) {
+                into("admin-contest-info")
+            }
+            from(configurations.adminRouterJsAppResolver) {
+                into("admin-router")
             }
             from(configurations.overlayJsAppResolver) {
                 into("overlay")
@@ -75,5 +81,7 @@ dependencies {
     implementation(projects.serverShared)
     jsonSchemas(projects.frontend)
     overlayJsApp(projects.frontend)
-    adminJsApp(projects.frontend)
+    adminOverlayJsApp(projects.frontend)
+    adminContestInfoJsApp(projects.frontend)
+    adminRouterJsApp(projects.frontend)
 }

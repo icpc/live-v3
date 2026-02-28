@@ -1,6 +1,7 @@
 packages:
   - 'overlay'
-  - 'admin'
+  - 'admin-overlay'
+  - 'admin-router'
   - 'common'
   - 'locator'
   - 'tests'

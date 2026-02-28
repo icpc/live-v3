@@ -30,8 +30,11 @@ val checkTsExport by tasks.registering(CheckExportedFiles::class) {
 }
 
 
-fun PnpmTask.setInputs(directory: Directory) {
-    environment.set(mapOf("PUBLIC_URL" to "/${directory.asFile.name}", "BUILD_PATH" to "build"))
+fun PnpmTask.setInputs(directory: Directory, publicUrl: String? = null) {
+    environment.set(buildMap {
+        publicUrl?.let { put("PUBLIC_URL", it) }
+        put("BUILD_PATH", "build")
+    })
     inputs.dir(layout.projectDirectory.dir("common"))
     inputs.dir(layout.projectDirectory.dir("generated"))
     inputs.file(layout.projectDirectory.file("package.json"))
@@ -41,9 +44,9 @@ fun PnpmTask.setInputs(directory: Directory) {
     mustRunAfter(copyGeneratedTs)
 }
 
-fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, configure: PnpmTask.(Directory) -> Unit = {}) = named<PnpmTask>(name) {
+fun TaskContainerScope.pnpmBuild(name: String, directory: Directory, publicUrl: String, configure: PnpmTask.(Directory) -> Unit = {}) = named<PnpmTask>(name) {
     outputs.cacheIf { true }
-    setInputs(directory)
+    setInputs(directory, publicUrl)
     outputs.dir(directory.dir("build"))
     configure(directory)
 }
@@ -55,7 +58,9 @@ dependencies {
 tasks {
     pnpmInstall {
         inputs.file("package.json")
-        inputs.file("admin/package.json")
+        inputs.file("admin-overlay/package.json")
+        inputs.file("admin-contest-info/package.json")
+        inputs.file("admin-router/package.json")
         inputs.file("overlay/package.json")
         inputs.file("locator/package.json")
         pnpmCommand.set(listOf("install", "--frozen-lockfile", "--prefer-offline"))
@@ -64,13 +69,19 @@ tasks {
             exclude("**")
         }
     }
-    val buildOverlay = pnpmBuild("pnpm_run_buildOverlay", layout.projectDirectory.dir("overlay")) {
+    val buildOverlay = pnpmBuild("pnpm_run_buildOverlay", layout.projectDirectory.dir("overlay"), "/overlay") {
         inputs.file(it.file("index.html"))
     }
-    val buildAdmin = pnpmBuild("pnpm_run_buildAdmin", layout.projectDirectory.dir("admin")) {
+    val buildAdminOverlay = pnpmBuild("pnpm_run_buildAdminOverlay", layout.projectDirectory.dir("admin-overlay"), "/admin") {
         inputs.file(it.file("index.html"))
     }
-    val buildLocatorAdmin = pnpmBuild("pnpm_run_buildLocatorAdmin", layout.projectDirectory.dir("locator")) {
+    val buildAdminContestInfo = pnpmBuild("pnpm_run_buildAdminContestInfo", layout.projectDirectory.dir("admin-contest-info"), "/admin-contest-info") {
+        inputs.file(it.file("index.html"))
+    }
+    val buildAdminRouter = pnpmBuild("pnpm_run_buildAdminRouter", layout.projectDirectory.dir("admin-router"), "/admin-router") {
+        inputs.file(it.file("index.html"))
+    }
+    val buildLocatorAdmin = pnpmBuild("pnpm_run_buildLocatorAdmin", layout.projectDirectory.dir("locator"), "/locator") {
     }
     val overlayConfigSchema = named<PnpmTask>("pnpm_run_overlayConfigSchema") {
         setInputs(layout.projectDirectory.dir("overlay"))
@@ -79,7 +90,9 @@ tasks {
     }
     artifacts {
         jsonSchemasProvider(overlayConfigSchema)
-        adminJsAppProvider(buildAdmin)
+        adminOverlayJsAppProvider(buildAdminOverlay)
+        adminContestInfoJsAppProvider(buildAdminContestInfo)
+        adminRouterJsAppProvider(buildAdminRouter)
         overlayJsAppProvider(buildOverlay)
         locatorAdminJsAppProvider(buildLocatorAdmin)
     }
@@ -92,7 +105,7 @@ tasks {
         dependsOn(runTests, checkTsExport)
     }
     assemble {
-        dependsOn(buildOverlay, buildAdmin, buildLocatorAdmin)
+        dependsOn(buildOverlay, buildAdminOverlay, buildAdminContestInfo, buildAdminRouter, buildLocatorAdmin)
     }
 }
 

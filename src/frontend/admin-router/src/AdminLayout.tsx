@@ -1,0 +1,93 @@
+import React, { useState } from "react";
+import {
+    Box,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+
+export interface MenuItem {
+    name: string;
+    path: string;
+}
+
+export const ADMIN_MENU_ITEMS: MenuItem[] = [
+    {
+        name: "Overlay frontend",
+        path: "/admin",
+    },
+    {
+        name: "Contest Info",
+        path: "/admin-contest-info",
+    },
+];
+
+export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const handleDrawerToggle = () => {
+        setDrawerOpen(!drawerOpen);
+    };
+
+    const handleMenuItemClick = (path: string) => {
+        window.location.href = path;
+    };
+
+    return (
+        <Box sx={{ display: "flex", width: "100%", minHeight: "100vh" }}>
+            <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerToggle}
+                sx={{
+                    position: "fixed",
+                    left: 16,
+                    top: 100, // Slightly below the typical AppBar
+                    zIndex: 1300,
+                    backgroundColor: "rgba(0, 0, 0, 0.1)",
+                    "&:hover": {
+                        backgroundColor: "rgba(0, 0, 0, 0.2)",
+                    },
+                }}
+            >
+                <MenuIcon />
+            </IconButton>
+            <Drawer
+                anchor="left"
+                open={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
+            >
+                <Box
+                    sx={{ width: 250 }}
+                    role="presentation"
+                >
+                    <List>
+                        {ADMIN_MENU_ITEMS.map((item) => (
+                            <ListItem key={item.name} disablePadding>
+                                <ListItemButton
+                                    onClick={() => handleMenuItemClick(item.path)}
+                                    selected={window.location.pathname === item.path || (item.path !== "/" && window.location.pathname.startsWith(item.path))}
+                                >
+                                    <ListItemText primary={item.name} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Box>
+            </Drawer>
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    width: "100%",
+                }}
+            >
+                {children}
+            </Box>
+        </Box>
+    );
+};
