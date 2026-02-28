@@ -9,7 +9,6 @@ import Advertisement from "./components/Advertisement.tsx";
 import Title from "./components/Title";
 import Picture from "./components/Picture.tsx";
 import TeamView from "./components/pages/TeamView";
-import ContestLog from "./components/pages/ContestInfo";
 import { SnackbarProvider } from "notistack";
 import BackendLog from "./components/BackendLog.tsx";
 import Dashboard from "./components/Dashboard.tsx";
@@ -30,7 +29,6 @@ import {
     useReloadHandleService,
 } from "@admin/services/reloadHandler.ts";
 import ScoreboardPage from "@admin/components/pages/ScoreboardPage.tsx";
-import ConfigurationsEditor from "./components/ConfigurationEditor.tsx";
 import { AdminLayout } from "admin-router";
 
 const title_elements = {
@@ -142,18 +140,10 @@ export function AdminApp() {
                             />
                             <Route path="/ticker" element={<TickerMessage />} />
                             <Route path="/log" element={<BackendLog />} />
-                            <Route
-                                path="/contestInfo"
-                                element={<ContestLog />}
-                            />
                             <Route path="/analytics" element={<Analytics />} />
                             <Route
                                 path="/teamSpotlight"
                                 element={<TeamSpotlight />}
-                            />
-                            <Route
-                                path="/configurationsEditor"
-                                element={<ConfigurationsEditor />}
                             />
                             <Route path="/media" element={<MediaFiles />} />
                         </Routes>

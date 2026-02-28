@@ -12,29 +12,19 @@ import {
     MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import PreviewIcon from "@mui/icons-material/Preview";
 import NotesIcon from "@mui/icons-material/Notes";
 import { createApiGet } from "shared-code/utils";
-import { BACKEND_ROOT } from "./config";
+import { BACKEND_ROOT } from "@admin-contest-info/config";
 
 interface PageConfig {
     [pageName: string]: string;
 }
 
-interface ResponsiveAppBarProps {
-    showOrHideOverlayPreview: () => void;
-}
+interface ResponsiveAppBarProps {}
 
 const DEFAULT_PAGES: PageConfig = {
-    Controls: "controls",
-    Titles: "titles",
-    TeamView: "teamview",
-    Scoreboard: "scoreboard",
-    Ticker: "ticker",
-    Analytics: "analytics",
-    Spotlight: "teamSpotlight",
-    Media: "media",
-    "Backend Log": "log",
+    Configs: "configurationsEditor",
+    Info: "contestInfo",
 } as const;
 
 function filterVisiblePages(
@@ -66,9 +56,7 @@ async function loadVisualConfig() {
     }
 }
 
-function ResponsiveAppBar({
-    showOrHideOverlayPreview,
-}: ResponsiveAppBarProps): React.ReactElement {
+function ResponsiveAppBar({}: ResponsiveAppBarProps): React.ReactElement {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
     const [pages, setPages] = useState<PageConfig>(DEFAULT_PAGES);
@@ -223,17 +211,6 @@ function ResponsiveAppBar({
                         {Object.entries(pages).map(([pageName, route]) =>
                             renderPageButton(pageName, route as string),
                         )}
-                        <Button
-                            onClick={showOrHideOverlayPreview}
-                            sx={{
-                                my: 2,
-                                color: "text.primary",
-                                display: "block",
-                            }}
-                            aria-label="Toggle overlay preview"
-                        >
-                            <PreviewIcon />
-                        </Button>
                     </Box>
                 </Toolbar>
             </Container>

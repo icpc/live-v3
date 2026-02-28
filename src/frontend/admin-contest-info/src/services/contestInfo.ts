@@ -1,6 +1,6 @@
 import { ContestInfo } from "@shared/api";
 import { useCallback, useState } from "react";
-import { BASE_URL_WS } from "@admin/config.ts";
+import { BASE_URL_WS } from "@admin-contest-info/config.ts";
 import { useWebsocket } from "../utils";
 
 export const useContestInfo = () => {
