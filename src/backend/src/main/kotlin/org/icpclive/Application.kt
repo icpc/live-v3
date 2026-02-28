@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
+import org.icpclive.admin.configureLiveRouterRouting
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.fileJsonContentFlow
@@ -94,6 +95,7 @@ fun Application.module() {
             route("/admin") { configureAdminApiRouting() }
             route("/overlay") { configureOverlayRouting() }
         }
+        route("/live-router") { configureLiveRouterRouting() }
     }
     val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         environment.log.error("Uncaught exception in coroutine context $coroutineContext", throwable)

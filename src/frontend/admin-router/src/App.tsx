@@ -2,63 +2,49 @@ import { AdminLayout } from "./AdminLayout";
 import { Box, Typography, Link, List, ListItem, Paper } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const GitInfoItem = ({ label, url }: { label: string; url: string }) => {
-    const [info, setInfo] = useState("loading...");
+const App = () => {
+    const [gitInfo, setGitInfo] = useState<{ commit: string, branch: string, description: string } | null>(null);
+    const [usefulLinks, setUsefulLinks] = useState<{ name: string, url: string }[]>([]);
 
     useEffect(() => {
-        fetch(url)
-            .then((response) => response.text())
-            .then((text) => setInfo(text))
-            .catch((error) => {
-                console.error(`Error fetching ${label}:`, error);
-                setInfo("error");
-            });
-    }, [url, label]);
+        fetch("/live-router/git")
+            .then((response) => response.json())
+            .then((data) => setGitInfo(data))
+            .catch((error) => console.error("Error fetching git info:", error));
 
-    return (
-        <Typography variant="body1">
-            <strong>{label}:</strong> {info}
-        </Typography>
-    );
-};
+        fetch("/live-router/links")
+            .then((response) => response.json())
+            .then((data) => setUsefulLinks(data))
+            .catch((error) => console.error("Error fetching links:", error));
+    }, []);
 
-const App = () => {
     return (
         <AdminLayout>
             <Box sx={{ p: 3, display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
                 <Typography variant="h4">ICPC Live 3</Typography>
                 
                 <Paper sx={{ p: 2, minWidth: 300 }}>
-                    <GitInfoItem label="Commit" url="/git_commit" />
-                    <GitInfoItem label="Branch" url="/git_branch" />
-                    <GitInfoItem label="Version" url="/git_description" />
+                    <Typography variant="body1">
+                        <strong>Commit:</strong> {gitInfo?.commit || "loading..."}
+                    </Typography>
+                    <Typography variant="body1">
+                        <strong>Branch:</strong> {gitInfo?.branch || "loading..."}
+                    </Typography>
+                    <Typography variant="body1">
+                        <strong>Version:</strong> {gitInfo?.description || "loading..."}
+                    </Typography>
                 </Paper>
 
                 <Box sx={{ textAlign: "center" }}>
                     <Typography variant="h6" sx={{ mb: 1 }}>Useful Links</Typography>
                     <List sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <ListItem sx={{ justifyContent: "center" }}>
-                            <Link href="/admin" variant="h5" underline="hover">/admin</Link>
-                        </ListItem>
-                        <ListItem sx={{ justifyContent: "center" }}>
-                            <Link href="/admin-configuration/contestInfo" variant="h5" underline="hover">/admin-configuration/contestInfo</Link>
-                        </ListItem>
-                        <ListItem sx={{ justifyContent: "center" }}>
-                            <Link href="/admin-configuration/advancedJson" variant="h5" underline="hover">/admin-configuration/advancedJson</Link>
-                        </ListItem>
-                        <ListItem sx={{ justifyContent: "center" }}>
-                            <Link href="/overlay?noStatus" variant="h5" underline="hover">/overlay?noStatus</Link>
-                        </ListItem>
-                        <ListItem sx={{ justifyContent: "center" }}>
-                            <Link href="/api/admin/advancedJsonPreview?fields=all" variant="h5" underline="hover">
-                                /api/admin/advancedJsonPreview?fields=all
-                            </Link>
-                        </ListItem>
-                        <ListItem sx={{ justifyContent: "center" }}>
-                            <Link href="https://github.com/icpc/live-v3" variant="h5" underline="hover" target="_blank" rel="noopener">
-                                https://github.com/icpc/live-v3
-                            </Link>
-                        </ListItem>
+                        {usefulLinks.map((link) => (
+                            <ListItem key={link.url} sx={{ justifyContent: "center" }}>
+                                <Link href={link.url} variant="h5" underline="hover" {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}>
+                                    {link.name}
+                                </Link>
+                            </ListItem>
+                        ))}
                     </List>
                 </Box>
             </Box>

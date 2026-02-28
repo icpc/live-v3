@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Box,
     Drawer,
@@ -10,10 +10,18 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import { ADMIN_MENU_ITEMS } from "./menuConfig";
+import { MenuItem } from "./menuConfig";
 
 export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+
+    useEffect(() => {
+        fetch("/live-router/menu")
+            .then((response) => response.json())
+            .then((data) => setMenuItems(data))
+            .catch((error) => console.error("Error fetching menu:", error));
+    }, []);
 
     const handleDrawerToggle = () => {
         setDrawerOpen(!drawerOpen);
@@ -52,7 +60,7 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                     role="presentation"
                 >
                     <List>
-                        {ADMIN_MENU_ITEMS.map((item) => (
+                        {menuItems.map((item) => (
                             <ListItem key={item.name} disablePadding>
                                 <ListItemButton
                                     onClick={() => handleMenuItemClick(item.path)}
