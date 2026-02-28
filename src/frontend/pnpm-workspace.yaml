@@ -2,6 +2,7 @@ packages:
   - 'overlay'
   - 'admin-overlay'
   - 'admin-configuration'
+  - 'admin-converter'
   - 'admin-router'
   - 'common'
   - 'locator'

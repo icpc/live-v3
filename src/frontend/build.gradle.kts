@@ -60,6 +60,7 @@ tasks {
         inputs.file("package.json")
         inputs.file("admin-overlay/package.json")
         inputs.file("admin-configuration/package.json")
+        inputs.file("admin-converter/package.json")
         inputs.file("admin-router/package.json")
         inputs.file("overlay/package.json")
         inputs.file("locator/package.json")
@@ -80,6 +81,10 @@ tasks {
         inputs.file(it.file("index.html"))
         inputs.dir(layout.projectDirectory.dir("admin-router/src"))
     }
+    val buildAdminConverter = pnpmBuild("pnpm_run_buildAdminConverter", layout.projectDirectory.dir("admin-converter"), "/admin-converter") {
+        inputs.file(it.file("index.html"))
+        inputs.dir(layout.projectDirectory.dir("admin-router/src"))
+    }
     val buildAdminRouter = pnpmBuild("pnpm_run_buildAdminRouter", layout.projectDirectory.dir("admin-router"), "/") {
         inputs.file(it.file("index.html"))
     }
@@ -94,6 +99,7 @@ tasks {
         jsonSchemasProvider(overlayConfigSchema)
         adminOverlayJsAppProvider(buildAdminOverlay)
         adminConfigurationJsAppProvider(buildAdminConfiguration)
+        adminConverterJsAppProvider(buildAdminConverter)
         adminRouterJsAppProvider(buildAdminRouter)
         overlayJsAppProvider(buildOverlay)
         locatorAdminJsAppProvider(buildLocatorAdmin)
@@ -107,7 +113,7 @@ tasks {
         dependsOn(runTests, checkTsExport)
     }
     assemble {
-        dependsOn(buildOverlay, buildAdminOverlay, buildAdminConfiguration, buildAdminRouter, buildLocatorAdmin)
+        dependsOn(buildOverlay, buildAdminOverlay, buildAdminConfiguration, buildAdminConverter, buildAdminRouter, buildLocatorAdmin)
     }
 }
 

@@ -14,6 +14,7 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.html.*
 import io.ktor.server.http.content.*
+import io.ktor.server.plugins.conditionalheaders.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -157,6 +158,37 @@ fun Application.module() {
         }
         staticFiles("/media", ServerCommand.mediaDirectory.toFile())
 
+        route("/") {
+            install(ConditionalHeaders)
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin-configuration"
+                react("admin-configuration")
+            }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin-converter"
+                react("admin-converter")
+            }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = ""
+                react("admin-router")
+            }
+        }
+        route("/live-router") {
+            configureLiveRouterRouting(
+                listOf(
+                    MenuItem("Main", "/"),
+                    MenuItem("Contest Info", "/admin-configuration"),
+                    MenuItem("Converter Admin", "/admin-converter")
+                ),
+                listOf(
+                    UsefulLink("https://github.com/icpc/live-v3", "https://github.com/icpc/live-v3")
+                )
+            )
+        }
+
         authenticate("auth", optional = false) {
             get("/login") {
                 call.respondRedirect("/")
@@ -170,7 +202,7 @@ fun Application.module() {
             }
         }
         authenticate("auth", optional = true) {
-            get {
+            get("/old-admin") {
                 call.respondHtml {
                     body {
                         for (router in routers) {
@@ -192,7 +224,6 @@ fun Application.module() {
                     }
                 }
             }
-
         }
         authenticate("auth", "guest", strategy = AuthenticationStrategy.FirstSuccessful) {
             for (router in routers) {

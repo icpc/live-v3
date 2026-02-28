@@ -30,6 +30,7 @@ configurations {
     allThree("tsInterfaces", "type script interfaces")
     allThree("adminOverlayJsApp", "admin overlay js app")
     allThree("adminConfigurationJsApp", "admin configuration js app")
+    allThree("adminConverterJsApp", "admin converter js app")
     allThree("adminRouterJsApp", "admin router js app")
     allThree("overlayJsApp", "overlay js app")
     allThree("locatorAdminJsApp", "locator admin js app")
