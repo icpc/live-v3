@@ -25,6 +25,7 @@ dependencies {
     implementation(libs.ktor.server.contentNegotiation)
     implementation(libs.ktor.server.conditionalHeaders)
     implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.websockets)
     implementation(libs.ktor.server.html)
     implementation(libs.ktor.server.auth)
     implementation(projects.cds.full)
@@ -33,6 +34,7 @@ dependencies {
     adminConfigurationJsApp(projects.frontend)
     adminConverterJsApp(projects.frontend)
     adminRouterJsApp(projects.frontend)
+    jsonSchemas(projects.frontend)
 }
 
 tasks {

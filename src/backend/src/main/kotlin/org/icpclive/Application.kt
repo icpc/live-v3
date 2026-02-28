@@ -33,12 +33,6 @@ fun main(args: Array<String>): Unit = Config.main(args)
 private fun Application.setupKtorPlugins() {
     setupDefaultKtorPlugins()
     install(ContentNegotiation) { json(serverResponseJsonSettings()) }
-    install(WebSockets) {
-        pingPeriod = 15.seconds
-        timeout = 15.seconds
-        maxFrameSize = Long.MAX_VALUE
-        masking = false
-    }
     install(Authentication) {
         if (Config.authDisabled) {
             val config = object : AuthenticationProvider.Config("admin-api-auth") {}

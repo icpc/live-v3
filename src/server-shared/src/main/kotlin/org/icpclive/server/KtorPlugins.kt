@@ -10,6 +10,10 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
+import io.ktor.server.websocket.WebSockets
+import io.ktor.server.websocket.pingPeriod
+import io.ktor.server.websocket.timeout
+import kotlin.time.Duration.Companion.seconds
 
 fun Application.setupDefaultKtorPlugins() {
     install(DefaultHeaders)
@@ -25,6 +29,12 @@ fun Application.setupDefaultKtorPlugins() {
     }
     install(Compression) {
         minimumSize(1024)
+    }
+    install(WebSockets) {
+        pingPeriod = 15.seconds
+        timeout = 15.seconds
+        maxFrameSize = Long.MAX_VALUE
+        masking = false
     }
     install(AutoHeadResponse)
     install(IgnoreTrailingSlash)
