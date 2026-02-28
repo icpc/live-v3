@@ -92,7 +92,7 @@ function ExamplesContainer({
     );
 }
 
-enum EditorLanguage {
+export enum EditorLanguage {
     Json,
     CSV,
 }
@@ -102,7 +102,7 @@ interface ConfigurationEditorProps {
     editorType: EditorLanguage;
 }
 
-function ConfigurationEditor({
+export function ConfigurationEditor({
     apiRoot,
     editorType,
 }: ConfigurationEditorProps): React.ReactElement {
@@ -178,64 +178,38 @@ function ConfigurationEditor({
     );
 }
 
-enum EditorType {
-    advancedJson = "advancedJson",
-    visualConfig = "visualConfig",
-    customFields = "customFields",
-    orgCustomFields = "orgCustomFields",
-}
-
-function ConfigurationsEditor(): React.ReactElement {
-    const [selection, setSelection] = useState<EditorType>(
-        EditorType.advancedJson,
-    );
-    const handleChange = (event: SelectChangeEvent) => {
-        console.log(`Selection is now ${event.target.value}`);
-        setSelection(event.target.value as EditorType);
-    };
-    const isCsv =
-        selection == EditorType.customFields ||
-        selection == EditorType.orgCustomFields;
+export function AdvancedJsonPage(): React.ReactElement {
     return (
-        <Container>
-            <Select
-                labelId="examples-select-label"
-                value={selection}
-                onChange={handleChange}
-                displayEmpty
-            >
-                <MenuItem
-                    key={EditorType.advancedJson}
-                    value={EditorType.advancedJson}
-                >
-                    Advanced
-                </MenuItem>
-                <MenuItem
-                    key={EditorType.visualConfig}
-                    value={EditorType.visualConfig}
-                >
-                    Visual config
-                </MenuItem>
-                <MenuItem
-                    key={EditorType.customFields}
-                    value={EditorType.customFields}
-                >
-                    Teams custom fields
-                </MenuItem>
-                <MenuItem
-                    key={EditorType.orgCustomFields}
-                    value={EditorType.orgCustomFields}
-                >
-                    Organizations custom fields
-                </MenuItem>
-            </Select>
-
-            <ConfigurationEditor
-                apiRoot={`${BASE_URL_BACKEND}/${selection}`}
-                editorType={isCsv ? EditorLanguage.CSV : EditorLanguage.Json}
-            />
-        </Container>
+        <ConfigurationEditor
+            apiRoot={`${BASE_URL_BACKEND}/advancedJson`}
+            editorType={EditorLanguage.Json}
+        />
     );
 }
 
-export default ConfigurationsEditor;
+export function VisualConfigPage(): React.ReactElement {
+    return (
+        <ConfigurationEditor
+            apiRoot={`${BASE_URL_BACKEND}/visualConfig`}
+            editorType={EditorLanguage.Json}
+        />
+    );
+}
+
+export function CustomFieldsPage(): React.ReactElement {
+    return (
+        <ConfigurationEditor
+            apiRoot={`${BASE_URL_BACKEND}/customFields`}
+            editorType={EditorLanguage.CSV}
+        />
+    );
+}
+
+export function OrgCustomFieldsPage(): React.ReactElement {
+    return (
+        <ConfigurationEditor
+            apiRoot={`${BASE_URL_BACKEND}/orgCustomFields`}
+            editorType={EditorLanguage.CSV}
+        />
+    );
+}

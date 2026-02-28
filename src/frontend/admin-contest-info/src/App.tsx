@@ -15,7 +15,12 @@ import {
     useReloadHandleService,
 } from "@admin-contest-info/services/reloadHandler.ts";
 import ContestLog from "./components/pages/ContestInfo";
-import ConfigurationsEditor from "./components/ConfigurationEditor.tsx";
+import {
+    AdvancedJsonPage,
+    VisualConfigPage,
+    CustomFieldsPage,
+    OrgCustomFieldsPage,
+} from "./components/ConfigurationEditor.tsx";
 import { AdminLayout } from "admin-router";
 
 const getTheme = (contestColor) => {
@@ -89,8 +94,20 @@ export function AdminApp() {
                                 element={<ContestLog />}
                             />
                             <Route
-                                path="/configurationsEditor"
-                                element={<ConfigurationsEditor />}
+                                path="/advancedJson"
+                                element={<AdvancedJsonPage />}
+                            />
+                            <Route
+                                path="/visualConfig"
+                                element={<VisualConfigPage />}
+                            />
+                            <Route
+                                path="/customFields"
+                                element={<CustomFieldsPage />}
+                            />
+                            <Route
+                                path="/orgCustomFields"
+                                element={<OrgCustomFieldsPage />}
                             />
                         </Routes>
                     </div>

@@ -23,8 +23,11 @@ interface PageConfig {
 interface ResponsiveAppBarProps {}
 
 const DEFAULT_PAGES: PageConfig = {
-    Configs: "configurationsEditor",
-    Info: "contestInfo",
+    "Contest Info": "/contestInfo",
+    "Advanced JSON": "/advancedJson",
+    "Visual config": "/visualConfig",
+    "Teams custom fields": "/customFields",
+    "Organizations custom fields": "/orgCustomFields",
 } as const;
 
 function filterVisiblePages(
