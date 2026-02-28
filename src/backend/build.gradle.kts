@@ -42,8 +42,8 @@ tasks {
             from(configurations.adminOverlayJsAppResolver) {
                 into("admin-overlay")
             }
-            from(configurations.adminContestInfoJsAppResolver) {
-                into("admin-contest-info")
+            from(configurations.adminConfigurationJsAppResolver) {
+                into("admin-configuration")
             }
             from(configurations.adminRouterJsAppResolver) {
                 into("admin-router")
@@ -79,6 +79,6 @@ dependencies {
     jsonSchemas(projects.frontend)
     overlayJsApp(projects.frontend)
     adminOverlayJsApp(projects.frontend)
-    adminContestInfoJsApp(projects.frontend)
+    adminConfigurationJsApp(projects.frontend)
     adminRouterJsApp(projects.frontend)
 }

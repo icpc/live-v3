@@ -41,10 +41,10 @@ const App = () => {
                             <Link href="/admin" variant="h5" underline="hover">/admin</Link>
                         </ListItem>
                         <ListItem sx={{ justifyContent: "center" }}>
-                            <Link href="/admin-contest-info/contestInfo" variant="h5" underline="hover">/admin-contest-info/contestInfo</Link>
+                            <Link href="/admin-configuration/contestInfo" variant="h5" underline="hover">/admin-configuration/contestInfo</Link>
                         </ListItem>
                         <ListItem sx={{ justifyContent: "center" }}>
-                            <Link href="/admin-contest-info/advancedJson" variant="h5" underline="hover">/admin-contest-info/advancedJson</Link>
+                            <Link href="/admin-configuration/advancedJson" variant="h5" underline="hover">/admin-configuration/advancedJson</Link>
                         </ListItem>
                         <ListItem sx={{ justifyContent: "center" }}>
                             <Link href="/overlay?noStatus" variant="h5" underline="hover">/overlay?noStatus</Link>

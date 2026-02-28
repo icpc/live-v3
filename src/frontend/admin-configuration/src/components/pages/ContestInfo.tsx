@@ -1,4 +1,4 @@
-import { useContestInfo } from "@admin-contest-info/services/contestInfo";
+import { useContestInfo } from "@admin-configuration/services/contestInfo";
 import React, { useState } from "react";
 import {
     Tab,
@@ -17,7 +17,7 @@ import {
     timeMsToDuration,
     timeSecondsToDuration,
     unixTimeMsToLocalTime,
-} from "@admin-contest-info/utils";
+} from "@admin-configuration/utils";
 import {
     ContestStatus,
     ContestInfo,

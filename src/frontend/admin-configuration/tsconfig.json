@@ -29,7 +29,7 @@
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["../common/src/*", "../generated/*"],
-      "@admin-contest-info/*": ["./src/*"],
+      "@admin-configuration/*": ["./src/*"],
       "@/*": ["./src/*"],
       "admin-router": ["../admin-router/src/index.ts"]
     }

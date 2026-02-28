@@ -14,7 +14,7 @@ export const ADMIN_MENU_ITEMS: MenuItem[] = [
     },
     {
         name: "Contest Info",
-        path: "/admin-contest-info",
+        path: "/admin-configuration",
     },
 ];
 

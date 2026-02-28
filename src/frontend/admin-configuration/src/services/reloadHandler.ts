@@ -6,7 +6,7 @@ import {
     useMemo,
     useRef,
 } from "react";
-import { ADMIN_ACTIONS_WS_URL, WEBSOCKET_RECONNECT_TIME } from "@admin-contest-info/config.ts";
+import { ADMIN_ACTIONS_WS_URL, WEBSOCKET_RECONNECT_TIME } from "@admin-configuration/config.ts";
 
 export type ReloadHandler = (url: string) => void;
 

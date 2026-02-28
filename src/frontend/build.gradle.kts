@@ -59,7 +59,7 @@ tasks {
     pnpmInstall {
         inputs.file("package.json")
         inputs.file("admin-overlay/package.json")
-        inputs.file("admin-contest-info/package.json")
+        inputs.file("admin-configuration/package.json")
         inputs.file("admin-router/package.json")
         inputs.file("overlay/package.json")
         inputs.file("locator/package.json")
@@ -76,7 +76,7 @@ tasks {
         inputs.file(it.file("index.html"))
         inputs.dir(layout.projectDirectory.dir("admin-router/src"))
     }
-    val buildAdminContestInfo = pnpmBuild("pnpm_run_buildAdminContestInfo", layout.projectDirectory.dir("admin-contest-info"), "/admin-contest-info") {
+    val buildAdminConfiguration = pnpmBuild("pnpm_run_buildAdminConfiguration", layout.projectDirectory.dir("admin-configuration"), "/admin-configuration") {
         inputs.file(it.file("index.html"))
         inputs.dir(layout.projectDirectory.dir("admin-router/src"))
     }
@@ -93,7 +93,7 @@ tasks {
     artifacts {
         jsonSchemasProvider(overlayConfigSchema)
         adminOverlayJsAppProvider(buildAdminOverlay)
-        adminContestInfoJsAppProvider(buildAdminContestInfo)
+        adminConfigurationJsAppProvider(buildAdminConfiguration)
         adminRouterJsAppProvider(buildAdminRouter)
         overlayJsAppProvider(buildOverlay)
         locatorAdminJsAppProvider(buildLocatorAdmin)
@@ -107,7 +107,7 @@ tasks {
         dependsOn(runTests, checkTsExport)
     }
     assemble {
-        dependsOn(buildOverlay, buildAdminOverlay, buildAdminContestInfo, buildAdminRouter, buildLocatorAdmin)
+        dependsOn(buildOverlay, buildAdminOverlay, buildAdminConfiguration, buildAdminRouter, buildLocatorAdmin)
     }
 }
 

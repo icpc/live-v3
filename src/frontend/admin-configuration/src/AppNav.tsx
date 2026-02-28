@@ -14,7 +14,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import NotesIcon from "@mui/icons-material/Notes";
 import { createApiGet } from "shared-code/utils";
-import { BACKEND_ROOT } from "@admin-contest-info/config";
+import { BACKEND_ROOT } from "@admin-configuration/config";
 
 interface PageConfig {
     [pageName: string]: string;

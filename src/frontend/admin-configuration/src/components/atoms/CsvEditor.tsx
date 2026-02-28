@@ -10,7 +10,7 @@ function CsvCodeEditor({
     defaultValue,
     onChange,
 }: CsvEditorProps): React.ReactElement {
-    const editorRef = useRef<unknown | null>(null);
+    const editorRef = useRef<any | null>(null);
     const monacoRef = useRef<Monaco | null>(null);
 
     const handleMount: OnMount = (editor, monaco) => {

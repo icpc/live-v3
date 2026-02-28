@@ -13,7 +13,7 @@ import { faviconTemplate } from "./styles.ts";
 import {
     ReloadHandleContext,
     useReloadHandleService,
-} from "@admin-contest-info/services/reloadHandler.ts";
+} from "@admin-configuration/services/reloadHandler.ts";
 import ContestLog from "./components/pages/ContestInfo";
 import {
     AdvancedJsonPage,

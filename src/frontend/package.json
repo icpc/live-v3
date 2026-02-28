@@ -6,12 +6,12 @@
         "": "TODO: change to use pnpm",
         "buildOverlay": "npm run build -w overlay",
         "buildAdminOverlay": "npm run build -w admin-overlay",
-        "buildAdminContestInfo": "npm run build -w admin-contest-info",
+        "buildAdminConfiguration": "npm run build -w admin-configuration",
         "buildAdminRouter": "npm run build -w admin-router",
         "buildLocatorAdmin": "npm run build -w locator",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "lint": "npm run lint -w overlay && npm run lint -w admin-overlay && npm run lint -w admin-contest-info && npm run lint -w locator",
+        "lint": "npm run lint -w overlay && npm run lint -w admin-overlay && npm run lint -w admin-configuration && npm run lint -w locator",
         "test": "npm run test -w tests",
         "install-browsers": "npm run install-browsers -w tests",
         "overlayConfigSchema": "npm run schema:config -w overlay"
@@ -19,7 +19,7 @@
     "workspaces": [
         "overlay",
         "admin-overlay",
-        "admin-contest-info",
+        "admin-configuration",
         "admin-router",
         "locator",
         "common",

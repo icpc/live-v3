@@ -14,8 +14,8 @@ import { createApiGet, createApiPost } from "shared-code/utils";
 import JsonEditor, { JSONSchema } from "./atoms/JsonEditor";
 import Box from "@mui/material/Box";
 import Editor from "@monaco-editor/react";
-import { BASE_URL_BACKEND } from "@admin-contest-info/config.ts";
-import CsvCodeEditor from "@admin-contest-info/components/atoms/CsvEditor.tsx";
+import { BASE_URL_BACKEND } from "@admin-configuration/config.ts";
+import CsvCodeEditor from "@admin-configuration/components/atoms/CsvEditor.tsx";
 
 type ExampleOptions = Record<string, string>;
 

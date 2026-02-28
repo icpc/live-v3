@@ -71,8 +71,8 @@ fun Application.module() {
             staticResources("/schemas", "schemas")
             singlePageApplication {
                 useResources = true
-                applicationRoute = "admin-contest-info"
-                react("admin-contest-info")
+                applicationRoute = "admin-configuration"
+                react("admin-configuration")
             }
             singlePageApplication {
                 useResources = true
