@@ -14,19 +14,6 @@ application {
 }
 
 tasks {
-    val gitVersionFiles by registering(GitVersionFilesTask::class) {
-        outputDirectory.set(project.layout.buildDirectory.dir("git_version_files"))
-    }
-
-    val advancedExamples by registering(PackExamplesTask::class) {
-        sourceDirectory.set(rootProject.layout.projectDirectory.dir( provider { "config/_examples/_advanced" }))
-        packedDirectory.set(project.layout.buildDirectory.dir("advanced_examples"))
-    }
-    val visualConfigExamples by registering(PackExamplesTask::class) {
-        sourceDirectory.set(rootProject.layout.projectDirectory.dir( provider { "config/_examples/_visual-config" }))
-        packedDirectory.set(project.layout.buildDirectory.dir("visual_examples"))
-    }
-
     runTask {
         this.args = listOfNotNull(
             "--no-auth",
@@ -39,23 +26,11 @@ tasks {
 
     processResources {
         if (project.properties["live.dev.embedFrontend"] == "true") {
-            from(configurations.adminJsAppResolver) {
-                into("admin")
+            from(configurations.adminOverlayJsAppResolver) {
+                into("admin-overlay")
             }
             from(configurations.overlayJsAppResolver) {
                 into("overlay")
-            }
-            from(project(":frontend").projectDir.resolve("main")) {
-                into("main")
-            }
-            from(gitVersionFiles) {
-                into("main")
-            }
-            from(advancedExamples) {
-                into("examples/advanced")
-            }
-            from(visualConfigExamples) {
-                into("examples/visual")
             }
         }
     }
@@ -75,5 +50,5 @@ dependencies {
     implementation(projects.serverShared)
     jsonSchemas(projects.frontend)
     overlayJsApp(projects.frontend)
-    adminJsApp(projects.frontend)
+    adminOverlayJsApp(projects.frontend)
 }

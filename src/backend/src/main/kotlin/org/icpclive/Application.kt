@@ -7,8 +7,8 @@ import io.ktor.server.auth.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.conditionalheaders.*
 import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.response.respondRedirect
 import io.ktor.server.routing.*
-import io.ktor.server.websocket.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -20,11 +20,12 @@ import org.icpclive.cds.util.fileJsonContentFlow
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.overlay.configureOverlayRouting
+import org.icpclive.server.UsefulLink
+import org.icpclive.server.configureMainPageRouting
 import org.icpclive.server.serverResponseJsonSettings
 import org.icpclive.server.setupDefaultKtorPlugins
 import org.icpclive.service.launchServices
 import kotlin.system.exitProcess
-import kotlin.time.Duration.Companion.seconds
 
 
 fun main(args: Array<String>): Unit = Config.main(args)
@@ -32,12 +33,6 @@ fun main(args: Array<String>): Unit = Config.main(args)
 private fun Application.setupKtorPlugins() {
     setupDefaultKtorPlugins()
     install(ContentNegotiation) { json(serverResponseJsonSettings()) }
-    install(WebSockets) {
-        pingPeriod = 15.seconds
-        timeout = 15.seconds
-        maxFrameSize = Long.MAX_VALUE
-        masking = false
-    }
     install(Authentication) {
         if (Config.authDisabled) {
             val config = object : AuthenticationProvider.Config("admin-api-auth") {}
@@ -69,22 +64,32 @@ fun Application.module() {
         route("/") {
             install(ConditionalHeaders)
             staticResources("/schemas", "schemas")
-            staticResources("/", "main", index = "main.html")
             singlePageApplication {
                 useResources = true
                 applicationRoute = "admin"
-                react("admin")
+                react("admin-overlay")
             }
             singlePageApplication {
                 useResources = true
                 applicationRoute = "overlay"
                 react("overlay")
             }
+            get {
+                call.respondRedirect("/admin")
+            }
         }
         route("/api") {
             route("/admin") { configureAdminApiRouting() }
             route("/overlay") { configureOverlayRouting() }
         }
+        configureMainPageRouting(
+            listOf(
+                UsefulLink("/admin", "/admin"),
+                UsefulLink("/overlay?noStatus", "/overlay?noStatus"),
+                UsefulLink("/api/admin/advancedJsonPreview?fields=all", "/api/admin/advancedJsonPreview?fields=all"),
+                UsefulLink("https://github.com/icpc/live-v3", "https://github.com/icpc/live-v3")
+            )
+        )
     }
     val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         environment.log.error("Uncaught exception in coroutine context $coroutineContext", throwable)
@@ -107,4 +112,3 @@ fun Application.module() {
         launchServices(loader)
     }
 }
-

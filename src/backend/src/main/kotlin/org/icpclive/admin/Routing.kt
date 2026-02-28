@@ -21,6 +21,9 @@ import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.tunning.toRulesList
 import org.icpclive.data.*
 import org.icpclive.overlay.flowEndpoint
+import org.icpclive.server.AdminDataBus
+import org.icpclive.server.ApiActionException
+import org.icpclive.server.adminApiAction
 import org.icpclive.util.sendFlow
 import kotlin.io.path.notExists
 
@@ -217,12 +220,8 @@ fun Route.configureAdminApiRouting() {
         }
 
         flowEndpoint("/contestInfo") { DataBus.currentContestInfoFlow() }
-        webSocket("/backendLog") {
-            sendFlow(DataBus.loggerFlow)
-        }
-        webSocket("/adminActions") {
-            sendFlow(DataBus.adminActionsFlow)
-        }
+        webSocket("/backendLog") { sendFlow(AdminDataBus.loggerFlow) }
+        webSocket("/adminActions") { sendFlow(AdminDataBus.adminActionsFlow) }
 
         route("/media") {
             get {

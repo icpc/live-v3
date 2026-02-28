@@ -8,6 +8,7 @@ import com.github.ajalt.clikt.parameters.options.defaultLazy
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.path
 import org.icpclive.server.*
+import org.icpclive.util.FlowLogger
 
 object ServerCommand : CliktCommand(name = "server") {
     override val printHelpOnEmptyArgs = true
@@ -21,7 +22,8 @@ object ServerCommand : CliktCommand(name = "server") {
         .defaultLazy("configDirectory/media") { cdsOptions.configDirectory.resolve("media") }
 
     override fun run() {
-        loggingOptions.setupLogging()
+        loggingOptions.setupLogging(extraLoggers = listOf(::FlowLogger))
+        mediaDirectory.toFile().mkdirs()
         serverOptions.start()
     }
 }

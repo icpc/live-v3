@@ -1,9 +1,9 @@
 package org.icpclive.controllers
 
-import org.icpclive.admin.ApiActionException
 import org.icpclive.api.*
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.data.*
+import org.icpclive.server.ApiActionException
 
 class LocatorWidgetController(manager: Manager<in TeamLocatorWidget>) :
     SingleWidgetController<ExternalTeamLocatorSettings, TeamLocatorWidget>(ExternalTeamLocatorSettings(), manager) {

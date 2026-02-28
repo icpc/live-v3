@@ -5,18 +5,22 @@
     "scripts": {
         "": "TODO: change to use pnpm",
         "buildOverlay": "npm run build -w overlay",
-        "buildAdmin": "npm run build -w admin",
+        "buildAdminOverlay": "npm run build -w admin-overlay",
+        "buildAdminConverter": "npm run build -w admin-converter",
         "buildLocatorAdmin": "npm run build -w locator",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "lint": "npm run lint -w overlay && npm run lint -w admin && npm run lint -w locator",
+        "lint": "npm run lint -w overlay && npm run lint -w admin-overlay && npm run lint -w admin-configuration && npm run lint -w admin-converter && npm run lint -w admin-home-page",
         "test": "npm run test -w tests",
         "install-browsers": "npm run install-browsers -w tests",
         "overlayConfigSchema": "npm run schema:config -w overlay"
     },
     "workspaces": [
         "overlay",
-        "admin",
+        "admin-overlay",
+        "admin-configuration",
+        "admin-converter",
+        "admin-home-page",
         "locator",
         "common",
         "tests"

@@ -7,6 +7,7 @@ import org.icpclive.api.ChatMessage
 import org.icpclive.api.SocialEvent
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.data.DataBus
+import org.icpclive.server.adminApiAction
 import org.icpclive.util.sendJsonFlow
 
 fun Route.setupSocial() {

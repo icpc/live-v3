@@ -7,6 +7,8 @@ import org.icpclive.api.ObjectSettings
 import org.icpclive.api.TypeWithId
 import org.icpclive.controllers.PresetsController
 import org.icpclive.controllers.SingleWidgetController
+import org.icpclive.server.ApiActionException
+import org.icpclive.server.adminApiAction
 import kotlin.time.Duration.Companion.milliseconds
 
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupController(

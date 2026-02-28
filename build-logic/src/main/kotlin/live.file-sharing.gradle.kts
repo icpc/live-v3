@@ -28,7 +28,8 @@ fun ConfigurationContainer.allThree(name: String, desc: String) {
 configurations {
     allThree("jsonSchemas", "json schemas")
     allThree("tsInterfaces", "type script interfaces")
-    allThree("adminJsApp", "admin js app")
+    allThree("adminOverlayJsApp", "admin overlay js app")
+    allThree("adminConverterJsApp", "admin converter js app")
     allThree("overlayJsApp", "overlay js app")
     allThree("locatorAdminJsApp", "locator admin js app")
     allThree("applicationJar", "application jar")

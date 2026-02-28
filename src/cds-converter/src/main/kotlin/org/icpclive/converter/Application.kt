@@ -14,17 +14,21 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.html.*
 import io.ktor.server.http.content.*
+import io.ktor.server.plugins.conditionalheaders.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.websocket.webSocket
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.html.*
+import kotlinx.serialization.*
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.calculateScoreboard
+import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.*
 import org.icpclive.converter.commands.*
 import org.icpclive.converter.export.Exporter
@@ -35,6 +39,7 @@ import org.icpclive.converter.export.pcms.PCMSHtmlExporter
 import org.icpclive.converter.export.pcms.PCMSXmlExporter
 import org.icpclive.converter.export.reactions.ReactionsExporter
 import org.icpclive.server.*
+import org.icpclive.util.sendFlow
 import kotlin.system.exitProcess
 
 
@@ -58,6 +63,17 @@ object MainCommand : CliktCommand(name = "java -jar cds-converter.jar") {
     }
 }
 
+private fun AccountInfo.isAdminAccount() = type == "admin"
+
+class ConverterAdminPrincipal(
+    val accountInfo: AccountInfo,
+    val loggedIn: Boolean,
+) : AdminPrincipal {
+    override val name: String = accountInfo.username
+    override val confirmed: Boolean = true
+    fun isAdminAccount() = accountInfo.isAdminAccount()
+}
+
 fun main(args: Array<String>): Unit = MainCommand.subcommands(
     PCMSDumpCommand,
     PCMSScoreboardDumpCommand,
@@ -66,6 +82,12 @@ fun main(args: Array<String>): Unit = MainCommand.subcommands(
     IcpcCSVDumpCommand
 ).main(args)
 
+
+@Serializable
+data class SessionData(
+    val loggedIn: Boolean,
+    val username: String?,
+)
 
 private val logger by getLogger()
 
@@ -84,7 +106,7 @@ fun Application.module() {
     val routers = mutableListOf<Router>()
 
     val scope = this + handler
-
+    val contestInfoFlow: Flow<ContestInfo>
     val accounts: StateFlow<Map<String, AccountInfo>>
 
     fun Exporter.run(
@@ -103,8 +125,13 @@ fun Application.module() {
 
     ServerCommand.cdsOptions.toFlow().shareWith(scope) {
         withSubscription(3) { rootFlow ->
-            accounts = rootFlow.filterIsInstance<InfoUpdate>()
-                .map { it.newInfo.accounts.values.associateBy { it.username } }
+            contestInfoFlow = rootFlow.filterIsInstance<InfoUpdate>()
+                .map { it.newInfo }
+                .stateIn(scope, SharingStarted.Eagerly, null)
+                .filterNotNull()
+
+            accounts = contestInfoFlow
+                .map { it.accounts.values.associateBy { it.username } }
                 .stateIn(scope, SharingStarted.Eagerly, emptyMap())
             val nonAdminFlow = rootFlow.addComputedData {
                 submissionResultsAfterFreeze = false
@@ -136,7 +163,7 @@ fun Application.module() {
                 validate {
                     val account = accounts.value[it.name] ?: return@validate null
                     if (it.password == account.password?.value) {
-                        account
+                        ConverterAdminPrincipal(account, loggedIn = true)
                     } else {
                         null
                     }
@@ -148,52 +175,76 @@ fun Application.module() {
             register(object : AuthenticationProvider(guestConfig) {
                 override suspend fun onAuthenticate(context: AuthenticationContext) {
                     if (accounts.value.none { it.value.isAdminAccount() }) {
-                        context.principal(guestConfig.name, unknownAdmin)
+                        context.principal(guestConfig.name, ConverterAdminPrincipal(unknownAdmin, loggedIn = false))
                     } else {
-                        context.principal(guestConfig.name, unknownUser)
+                        context.principal(guestConfig.name, ConverterAdminPrincipal(unknownUser, loggedIn = false))
                     }
                 }
             })
         }
-        staticFiles("/media", ServerCommand.mediaDirectory.toFile())
-
-        authenticate("auth", optional = false) {
-            get("/login") {
-                call.respondRedirect("/")
-            }
-        }
-        get("/logout") {
-            call.respondHtml(HttpStatusCode.Unauthorized) {
-                body {
-                    meta { httpEquiv = "refresh"; content = "0; url=/" }
+        route("/api/admin") {
+            authenticate("auth", "guest", strategy = AuthenticationStrategy.FirstSuccessful) {
+                get("/session") {
+                    val principal = call.principal<ConverterAdminPrincipal>()
+                    call.respond(
+                        SessionData(
+                            loggedIn = (principal?.loggedIn == true),
+                            username = principal
+                                ?.takeIf { it.loggedIn }
+                                ?.name
+                        )
+                    )
                 }
-            }
-        }
-        authenticate("auth", optional = true) {
-            get {
-                call.respondHtml {
-                    body {
-                        for (router in routers) {
-                            with (router) {
-                                mainPage()
-                                br
+                flowEndpoint<ContestInfo>("/contestInfo") { contestInfoFlow }
+                route("/advancedJson") {
+                    configureConfigFileRouting(
+                        ServerCommand.cdsOptions.advancedJsonPath,
+                        "[]",
+                        {
+                            try {
+                                // check if parsable
+                                val _ = TuningRule.listFromString(it)
+                            } catch (e: SerializationException) {
+                                throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
                             }
-                        }
-                        val user = call.principal<AccountInfo>()
-                        if (user == null) {
-                            a("/login") { +"Login" }
-                            br
-                        } else {
-                            +"Logged in as ${user.username} (isAdmin = ${user.isAdminAccount()})"
-                            br
-                            a("/logout") { +"Logout" }
-                            br
-                        }
-                    }
+                        },
+                        "/schemas/advanced.schema.json",
+                        "examples/advanced"
+                    )
+                }
+                route("/visualConfig") {
+                    configureConfigFileRouting(
+                        ServerCommand.cdsOptions.visualConfigFile,
+                        "{}",
+                        { },
+                        "/schemas/visual-config.schema.json",
+                        "examples/visual"
+                    )
+                }
+                route("/customFields") {
+                    configureConfigFileRouting(
+                        ServerCommand.cdsOptions.customFieldsCsvPath,
+                        "",
+                        { },
+                        null,
+                        null
+                    )
+                }
+                route("/orgCustomFields") {
+                    configureConfigFileRouting(
+                        ServerCommand.cdsOptions.orgCustomFieldsCsvPath,
+                        "",
+                        { },
+                        null,
+                        null
+                    )
                 }
             }
-
+            webSocket("/backendLog") { sendFlow(AdminDataBus.loggerFlow) }
+            webSocket("/adminActions") { sendFlow(AdminDataBus.adminActionsFlow) }
         }
+
+
         authenticate("auth", "guest", strategy = AuthenticationStrategy.FirstSuccessful) {
             for (router in routers) {
                 with(router) {
@@ -201,9 +252,45 @@ fun Application.module() {
                 }
             }
         }
+
+        configureMainPageRouting(
+            listOf(
+                UsefulLink("https://github.com/icpc/live-v3", "GitHub"),
+                UsefulLink("/clics/api", "CLICS API"),
+                UsefulLink("/pcms/standings.html", "PCMS HTML"),
+                UsefulLink("/pcms/standings.xml", "PCMS XML"),
+                UsefulLink("/reactions", "Reactions API"),
+            )
+        )
+
+        authenticate("auth", optional = false) {
+            get("/login") {
+                call.respondRedirect(call.request.queryParameters["redirectTo"] ?: "/")
+            }
+        }
+        get("/logout") {
+            val redirectTo = call.request.queryParameters["redirectTo"] ?: "/"
+            call.respondHtml(HttpStatusCode.Unauthorized) {
+                head {
+                    meta { httpEquiv = "refresh"; content = "0; url=$redirectTo" }
+                }
+                body {
+                    p { +"You have been logged out." }
+                }
+            }
+        }
+
+        staticFiles("/media", ServerCommand.mediaDirectory.toFile())
+
+        route("/") {
+            install(ConditionalHeaders)
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "/"
+                react("admin-converter")
+            }
+        }
     }
 
     log.info("Configuration is done")
 }
-
-fun AccountInfo?.isAdminAccount() = this?.type == "admin"
