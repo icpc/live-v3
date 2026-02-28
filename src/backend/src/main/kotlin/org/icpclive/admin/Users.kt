@@ -8,13 +8,20 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.*
 import org.icpclive.Config
 import org.icpclive.api.AdminUser
+import org.icpclive.server.AdminPrincipal
+import org.icpclive.server.ApiActionException
+import org.icpclive.server.adminApiAction
 import java.io.File
 import java.security.MessageDigest
 import kotlin.io.encoding.Base64
 
 
 @Serializable
-data class User(val name: String, val pass: String, val confirmed: Boolean)
+data class User(
+    override val name: String,
+    val pass: String,
+    override val confirmed: Boolean
+) : AdminPrincipal
 
 interface UsersController {
     suspend fun validateAdminApiCredits(name: String, password: String): User?

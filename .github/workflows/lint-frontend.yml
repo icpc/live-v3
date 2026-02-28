@@ -1,0 +1,36 @@
+name: Lint frontend
+
+on:
+  push:
+    paths:
+      - src/frontend/**
+      - .github/workflows/lint-frontend.yml
+  pull_request:
+    paths:
+      - src/frontend/**
+      - .github/workflows/lint-frontend.yml
+
+jobs:
+  lint:
+    name: Lint frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.20.0'
+          cache: 'pnpm'
+          cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
+      - run: echo "::add-matcher::.github/problem-matchers.json"
+      - name: Install frontend dependencies
+        working-directory: src/frontend
+        run: pnpm install --frozen-lockfile
+      - name: Lint frontend
+        working-directory: src/frontend
+        run: pnpm run lint
+      - name: Check frontend formatting
+        working-directory: src/frontend
+        run: pnpm run format:check

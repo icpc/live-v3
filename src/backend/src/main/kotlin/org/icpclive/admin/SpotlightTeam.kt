@@ -10,6 +10,7 @@ import org.icpclive.cds.api.InefficientContestInfoApi
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
+import org.icpclive.server.adminApiAction
 import org.icpclive.util.sendJsonFlow
 
 fun Route.setupSpotlight() {

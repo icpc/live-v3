@@ -7,10 +7,10 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.*
 import kotlinx.serialization.serializer
-import org.icpclive.admin.ApiActionException
 import org.icpclive.api.ObjectSettings
 import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
+import org.icpclive.server.ApiActionException
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.concurrent.atomics.*
