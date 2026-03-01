@@ -20,7 +20,9 @@ interface PageConfig {
     [pageName: string]: string;
 }
 
-interface ResponsiveAppBarProps {}
+interface ResponsiveAppBarProps {
+    onDrawerToggle: () => void;
+}
 
 const DEFAULT_PAGES: PageConfig = {
     "Contest Info": "/contestInfo",
@@ -59,7 +61,9 @@ async function loadVisualConfig() {
     }
 }
 
-function ResponsiveAppBar({}: ResponsiveAppBarProps): React.ReactElement {
+function ResponsiveAppBar({
+    onDrawerToggle,
+}: ResponsiveAppBarProps): React.ReactElement {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
     const [pages, setPages] = useState<PageConfig>(DEFAULT_PAGES);
@@ -136,6 +140,15 @@ function ResponsiveAppBar({}: ResponsiveAppBarProps): React.ReactElement {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    <IconButton
+                        size="large"
+                        aria-label="side menu"
+                        onClick={onDrawerToggle}
+                        color="inherit"
+                        sx={{ mr: 1 }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
                     <Box
                         sx={{
                             flexGrow: 1,

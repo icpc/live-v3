@@ -79,13 +79,19 @@ export function AdminApp() {
 
     const reloadHandleService = useReloadHandleService();
 
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const handleDrawerToggle = () => {
+        setDrawerOpen((open) => !open);
+    };
+
     return (
-        <AdminLayout>
+        <AdminLayout hideToggleButton drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle}>
             <ReloadHandleContext.Provider value={reloadHandleService}>
                 <SnackbarProvider maxSnack={5}>
                     <div className="App">
                         <ThemeProvider theme={getTheme(contestColor)}>
-                            <AppNav />
+                            <AppNav onDrawerToggle={handleDrawerToggle} />
                         </ThemeProvider>
                         <Routes>
                             <Route path="/" element={<Navigate to="/contestInfo" />} />

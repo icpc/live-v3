@@ -100,8 +100,14 @@ export function AdminApp() {
         setIsOverlayPreviewShown(!isOverlayPreviewShown);
     }, [isOverlayPreviewShown, setIsOverlayPreviewShown]);
 
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const handleDrawerToggle = useCallback(() => {
+        setDrawerOpen((open) => !open);
+    }, []);
+
     return (
-        <AdminLayout>
+        <AdminLayout hideToggleButton drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle}>
             <ReloadHandleContext.Provider value={reloadHandleService}>
                 <SnackbarProvider maxSnack={5}>
                     <div className="App">
@@ -110,6 +116,7 @@ export function AdminApp() {
                                 showOrHideOverlayPreview={
                                     handleToggleOverlayPreview
                                 }
+                                onDrawerToggle={handleDrawerToggle}
                             />
                         </ThemeProvider>
                         <Routes>

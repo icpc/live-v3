@@ -23,6 +23,7 @@ interface PageConfig {
 
 interface ResponsiveAppBarProps {
     showOrHideOverlayPreview: () => void;
+    onDrawerToggle: () => void;
 }
 
 const DEFAULT_PAGES: PageConfig = {
@@ -68,6 +69,7 @@ async function loadVisualConfig() {
 
 function ResponsiveAppBar({
     showOrHideOverlayPreview,
+    onDrawerToggle,
 }: ResponsiveAppBarProps): React.ReactElement {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
@@ -145,6 +147,15 @@ function ResponsiveAppBar({
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    <IconButton
+                        size="large"
+                        aria-label="side menu"
+                        onClick={onDrawerToggle}
+                        color="inherit"
+                        sx={{ mr: 1 }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
                     <Box
                         sx={{
                             flexGrow: 1,

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AdminLayout } from "admin-router";
 import AppNav from "./AppNav";
@@ -8,9 +9,15 @@ import { ReactionsAdmin } from "./components/pages/ReactionsAdmin";
 import { LoginAdmin } from "./components/pages/LoginAdmin";
 
 export function AdminApp() {
+    const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const handleDrawerToggle = () => {
+        setDrawerOpen((open) => !open);
+    };
+
     return (
-        <AdminLayout>
-            <AppNav />
+        <AdminLayout hideToggleButton drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle}>
+            <AppNav onDrawerToggle={handleDrawerToggle} />
             <div className="App">
                 <Routes>
                     <Route path="/" element={<Navigate to="/clics" replace />} />

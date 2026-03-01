@@ -12,8 +12,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import { MenuItem } from "./menuConfig";
 
-export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
-    const [drawerOpen, setDrawerOpen] = useState(false);
+export const AdminLayout = ({ children, hideToggleButton, drawerOpen, onDrawerToggle }: { children: React.ReactNode, hideToggleButton?: boolean, drawerOpen?: boolean, onDrawerToggle?: () => void }) => {
+    const isRoot = window.location.pathname === "/" || window.location.pathname === "";
+    const [localDrawerOpen, setLocalDrawerOpen] = useState(isRoot);
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
     useEffect(() => {
@@ -23,40 +24,54 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             .catch((error) => console.error("Error fetching menu:", error));
     }, []);
 
-    const handleDrawerToggle = () => {
-        setDrawerOpen(!drawerOpen);
-    };
+    const actualDrawerOpen = drawerOpen !== undefined ? drawerOpen : localDrawerOpen;
+    const handleDrawerToggle = onDrawerToggle || (() => {
+        setLocalDrawerOpen(!localDrawerOpen);
+    });
 
     const handleMenuItemClick = (path: string) => {
         window.location.href = path;
     };
 
+    const drawerWidth = 250;
+
     return (
         <Box sx={{ display: "flex", width: "100%", minHeight: "100vh" }}>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerToggle}
+            {!hideToggleButton && !isRoot && (
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerToggle}
+                    sx={{
+                        position: "fixed",
+                        left: 16,
+                        top: 100, // Slightly below the typical AppBar
+                        zIndex: 1300,
+                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                        "&:hover": {
+                            backgroundColor: "rgba(0, 0, 0, 0.2)",
+                        },
+                    }}
+                >
+                    <MenuIcon />
+                </IconButton>
+            )}
+            <Drawer
+                variant={isRoot ? "permanent" : "temporary"}
+                anchor="left"
+                open={actualDrawerOpen}
+                onClose={() => (onDrawerToggle ? onDrawerToggle() : setLocalDrawerOpen(false))}
                 sx={{
-                    position: "fixed",
-                    left: 16,
-                    top: 100, // Slightly below the typical AppBar
-                    zIndex: 1300,
-                    backgroundColor: "rgba(0, 0, 0, 0.1)",
-                    "&:hover": {
-                        backgroundColor: "rgba(0, 0, 0, 0.2)",
+                    width: isRoot ? drawerWidth : 0,
+                    flexShrink: 0,
+                    "& .MuiDrawer-paper": {
+                        width: drawerWidth,
+                        boxSizing: "border-box",
                     },
                 }}
             >
-                <MenuIcon />
-            </IconButton>
-            <Drawer
-                anchor="left"
-                open={drawerOpen}
-                onClose={() => setDrawerOpen(false)}
-            >
                 <Box
-                    sx={{ width: 250 }}
+                    sx={{ width: drawerWidth }}
                     role="presentation"
                 >
                     <List>
@@ -77,7 +92,7 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                 component="main"
                 sx={{
                     flexGrow: 1,
-                    width: "100%",
+                    width: isRoot ? `calc(100% - ${drawerWidth}px)` : "100%",
                 }}
             >
                 {children}
