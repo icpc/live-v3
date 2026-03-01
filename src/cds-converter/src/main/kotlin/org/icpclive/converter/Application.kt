@@ -163,75 +163,6 @@ fun Application.module() {
                 }
             })
         }
-        staticFiles("/media", ServerCommand.mediaDirectory.toFile())
-
-        route("/") {
-            install(ConditionalHeaders)
-            singlePageApplication {
-                useResources = true
-                applicationRoute = "admin-configuration"
-                react("admin-configuration")
-            }
-            singlePageApplication {
-                useResources = true
-                applicationRoute = "admin-converter"
-                react("admin-converter")
-            }
-            singlePageApplication {
-                useResources = true
-                applicationRoute = ""
-                react("admin-router")
-            }
-        }
-        route("/live-router") {
-            configureLiveRouterRouting(
-                listOf(
-                    MenuItem("Main", "/"),
-                    MenuItem("Contest Info", "/admin-configuration"),
-                    MenuItem("Converter Admin", "/admin-converter")
-                ),
-                listOf(
-                    UsefulLink("https://github.com/icpc/live-v3", "https://github.com/icpc/live-v3")
-                )
-            )
-        }
-
-        authenticate("auth", optional = false) {
-            get("/login") {
-                call.respondRedirect("/")
-            }
-        }
-        get("/logout") {
-            call.respondHtml(HttpStatusCode.Unauthorized) {
-                body {
-                    meta { httpEquiv = "refresh"; content = "0; url=/" }
-                }
-            }
-        }
-        authenticate("auth", optional = true) {
-            get("/old-admin") {
-                call.respondHtml {
-                    body {
-                        for (router in routers) {
-                            with (router) {
-                                mainPage()
-                                br
-                            }
-                        }
-                        val user = call.principal<AccountInfo>()
-                        if (user == null) {
-                            a("/login") { +"Login" }
-                            br
-                        } else {
-                            +"Logged in as ${user.username} (isAdmin = ${user.isAdminAccount()})"
-                            br
-                            a("/logout") { +"Logout" }
-                            br
-                        }
-                    }
-                }
-            }
-        }
         route("/api/admin") {
             authenticate("auth", "guest", strategy = AuthenticationStrategy.FirstSuccessful) {
                 flowEndpoint<ContestInfo>("/contestInfo") { contestInfoFlow }
@@ -286,6 +217,82 @@ fun Application.module() {
                 with(router) {
                     setUpRoutes()
                 }
+            }
+        }
+
+        route("/live-router") {
+            configureLiveRouterRouting(
+                listOf(
+                    MenuItem("Main", "/"),
+                    MenuItem("Contest Info", "/admin-configuration"),
+                    MenuItem("Converter Admin", "/admin-converter")
+                ),
+                listOf(
+                    UsefulLink("https://github.com/icpc/live-v3", "GitHub"),
+                    UsefulLink("/clics/api", "CLICS API"),
+                    UsefulLink("/pcms/standings.html", "PCMS HTML"),
+                    UsefulLink("/pcms/standings.xml", "PCMS XML"),
+                    UsefulLink("/reactions", "Reactions API"),
+                    UsefulLink("/logout", "Logout")
+                )
+            )
+        }
+
+        authenticate("auth", optional = false) {
+            get("/login") {
+                call.respondRedirect("/")
+            }
+        }
+        get("/logout") {
+            call.respondHtml(HttpStatusCode.Unauthorized) {
+                body {
+                    meta { httpEquiv = "refresh"; content = "0; url=/" }
+                }
+            }
+        }
+        authenticate("auth", optional = true) {
+            get("/old-admin") {
+                call.respondHtml {
+                    body {
+                        for (router in routers) {
+                            with (router) {
+                                mainPage()
+                                br
+                            }
+                        }
+                        val user = call.principal<AccountInfo>()
+                        if (user == null) {
+                            a("/login") { +"Login" }
+                            br
+                        } else {
+                            +"Logged in as ${user.username} (isAdmin = ${user.isAdminAccount()})"
+                            br
+                            a("/logout") { +"Logout" }
+                            br
+                        }
+                    }
+                }
+            }
+        }
+
+        staticFiles("/media", ServerCommand.mediaDirectory.toFile())
+
+        route("/") {
+            install(ConditionalHeaders)
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin-configuration"
+                react("admin-configuration")
+            }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin-converter"
+                react("admin-converter")
+            }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = ""
+                react("admin-router")
             }
         }
     }
