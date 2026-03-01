@@ -22,14 +22,16 @@ interface ResponsiveAppBarProps {
 }
 
 const DEFAULT_PAGES: PageConfig = {
-    "Clics": "/clics",
-    "PCMS": "/pcms",
-    "ICPC": "/icpc",
-    "Reactions": "/reactions",
+    Clics: "/clics",
+    PCMS: "/pcms",
+    ICPC: "/icpc",
+    Reactions: "/reactions",
     "Login/Logout": "/session",
 } as const;
 
-function ResponsiveAppBar({ onDrawerToggle }: ResponsiveAppBarProps): React.ReactElement {
+function ResponsiveAppBar({
+    onDrawerToggle,
+}: ResponsiveAppBarProps): React.ReactElement {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
 
@@ -119,8 +121,9 @@ function ResponsiveAppBar({ onDrawerToggle }: ResponsiveAppBarProps): React.Reac
                             onClose={handleCloseNavMenu}
                             sx={{ display: { xs: "block", md: "none" } }}
                         >
-                            {Object.entries(DEFAULT_PAGES).map(([pageName, route]) =>
-                                renderMenuItem(pageName, route as string),
+                            {Object.entries(DEFAULT_PAGES).map(
+                                ([pageName, route]) =>
+                                    renderMenuItem(pageName, route as string),
                             )}
                         </Menu>
                     </Box>
@@ -162,8 +165,9 @@ function ResponsiveAppBar({ onDrawerToggle }: ResponsiveAppBarProps): React.Reac
                             display: { xs: "none", md: "flex" },
                         }}
                     >
-                        {Object.entries(DEFAULT_PAGES).map(([pageName, route]) =>
-                            renderPageButton(pageName, route as string),
+                        {Object.entries(DEFAULT_PAGES).map(
+                            ([pageName, route]) =>
+                                renderPageButton(pageName, route as string),
                         )}
                     </Box>
                 </Toolbar>

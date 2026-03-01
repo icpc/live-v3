@@ -3,10 +3,7 @@ import AppNav from "./AppNav.tsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import { createApiGet } from "@shared/utils";
-import {
-    setFavicon,
-    isShouldUseDarkColor,
-} from "./utils";
+import { setFavicon, isShouldUseDarkColor } from "./utils";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BACKEND_ROOT } from "./config";
 import { faviconTemplate } from "./styles.ts";
@@ -86,7 +83,11 @@ export function AdminApp() {
     };
 
     return (
-        <AdminLayout hideToggleButton drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle}>
+        <AdminLayout
+            hideToggleButton
+            drawerOpen={drawerOpen}
+            onDrawerToggle={handleDrawerToggle}
+        >
             <ReloadHandleContext.Provider value={reloadHandleService}>
                 <SnackbarProvider maxSnack={5}>
                     <div className="App">
@@ -94,7 +95,10 @@ export function AdminApp() {
                             <AppNav onDrawerToggle={handleDrawerToggle} />
                         </ThemeProvider>
                         <Routes>
-                            <Route path="/" element={<Navigate to="/contestInfo" />} />
+                            <Route
+                                path="/"
+                                element={<Navigate to="/contestInfo" />}
+                            />
                             <Route
                                 path="/contestInfo"
                                 element={<ContestLog />}

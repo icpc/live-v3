@@ -15,7 +15,10 @@ import {
 } from "@mui/x-data-grid";
 import { activeRowColor } from "@admin/styles.js";
 import { timeMsToDuration, unixTimeMsToLocalTime } from "@admin/utils";
-import { FeaturedRunStatus, useAnalyticsService } from "@admin/services/analytics";
+import {
+    FeaturedRunStatus,
+    useAnalyticsService,
+} from "@admin/services/analytics";
 import {
     AnalyticsMessage,
     AnalyticsMessageComment,

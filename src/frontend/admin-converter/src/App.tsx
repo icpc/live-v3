@@ -16,11 +16,18 @@ export function AdminApp() {
     };
 
     return (
-        <AdminLayout hideToggleButton drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle}>
+        <AdminLayout
+            hideToggleButton
+            drawerOpen={drawerOpen}
+            onDrawerToggle={handleDrawerToggle}
+        >
             <AppNav onDrawerToggle={handleDrawerToggle} />
             <div className="App">
                 <Routes>
-                    <Route path="/" element={<Navigate to="/clics" replace />} />
+                    <Route
+                        path="/"
+                        element={<Navigate to="/clics" replace />}
+                    />
                     <Route path="/clics" element={<ClicsAdmin />} />
                     <Route path="/pcms" element={<PCMSAdmin />} />
                     <Route path="/icpc" element={<IcpcAdmin />} />

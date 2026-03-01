@@ -6,7 +6,10 @@ import {
     useMemo,
     useRef,
 } from "react";
-import { ADMIN_ACTIONS_WS_URL, WEBSOCKET_RECONNECT_TIME } from "@admin/config.ts";
+import {
+    ADMIN_ACTIONS_WS_URL,
+    WEBSOCKET_RECONNECT_TIME,
+} from "@admin/config.ts";
 
 export type ReloadHandler = (url: string) => void;
 

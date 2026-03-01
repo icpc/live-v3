@@ -12,8 +12,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import { MenuItem } from "./menuConfig";
 
-export const AdminLayout = ({ children, hideToggleButton, drawerOpen, onDrawerToggle }: { children: React.ReactNode, hideToggleButton?: boolean, drawerOpen?: boolean, onDrawerToggle?: () => void }) => {
-    const isRoot = window.location.pathname === "/" || window.location.pathname === "";
+export const AdminLayout = ({
+    children,
+    hideToggleButton,
+    drawerOpen,
+    onDrawerToggle,
+}: {
+    children: React.ReactNode;
+    hideToggleButton?: boolean;
+    drawerOpen?: boolean;
+    onDrawerToggle?: () => void;
+}) => {
+    const isRoot =
+        window.location.pathname === "/" || window.location.pathname === "";
     const [localDrawerOpen, setLocalDrawerOpen] = useState(isRoot);
     const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
@@ -24,10 +35,13 @@ export const AdminLayout = ({ children, hideToggleButton, drawerOpen, onDrawerTo
             .catch((error) => console.error("Error fetching menu:", error));
     }, []);
 
-    const actualDrawerOpen = drawerOpen !== undefined ? drawerOpen : localDrawerOpen;
-    const handleDrawerToggle = onDrawerToggle || (() => {
-        setLocalDrawerOpen(!localDrawerOpen);
-    });
+    const actualDrawerOpen =
+        drawerOpen !== undefined ? drawerOpen : localDrawerOpen;
+    const handleDrawerToggle =
+        onDrawerToggle ||
+        (() => {
+            setLocalDrawerOpen(!localDrawerOpen);
+        });
 
     const handleMenuItemClick = (path: string) => {
         window.location.href = path;
@@ -60,7 +74,11 @@ export const AdminLayout = ({ children, hideToggleButton, drawerOpen, onDrawerTo
                 variant={isRoot ? "permanent" : "temporary"}
                 anchor="left"
                 open={actualDrawerOpen}
-                onClose={() => (onDrawerToggle ? onDrawerToggle() : setLocalDrawerOpen(false))}
+                onClose={() =>
+                    onDrawerToggle
+                        ? onDrawerToggle()
+                        : setLocalDrawerOpen(false)
+                }
                 sx={{
                     width: isRoot ? drawerWidth : 0,
                     flexShrink: 0,
@@ -70,16 +88,22 @@ export const AdminLayout = ({ children, hideToggleButton, drawerOpen, onDrawerTo
                     },
                 }}
             >
-                <Box
-                    sx={{ width: drawerWidth }}
-                    role="presentation"
-                >
+                <Box sx={{ width: drawerWidth }} role="presentation">
                     <List>
                         {menuItems.map((item) => (
                             <ListItem key={item.name} disablePadding>
                                 <ListItemButton
-                                    onClick={() => handleMenuItemClick(item.path)}
-                                    selected={window.location.pathname === item.path || (item.path !== "/" && window.location.pathname.startsWith(item.path))}
+                                    onClick={() =>
+                                        handleMenuItemClick(item.path)
+                                    }
+                                    selected={
+                                        window.location.pathname ===
+                                            item.path ||
+                                        (item.path !== "/" &&
+                                            window.location.pathname.startsWith(
+                                                item.path,
+                                            ))
+                                    }
                                 >
                                     <ListItemText primary={item.name} />
                                 </ListItemButton>

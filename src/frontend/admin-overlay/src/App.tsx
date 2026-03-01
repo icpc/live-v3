@@ -107,7 +107,11 @@ export function AdminApp() {
     }, []);
 
     return (
-        <AdminLayout hideToggleButton drawerOpen={drawerOpen} onDrawerToggle={handleDrawerToggle}>
+        <AdminLayout
+            hideToggleButton
+            drawerOpen={drawerOpen}
+            onDrawerToggle={handleDrawerToggle}
+        >
             <ReloadHandleContext.Provider value={reloadHandleService}>
                 <SnackbarProvider maxSnack={5}>
                     <div className="App">
