@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Dual Contestants</title>
+<style>
+html,body{margin:0;height:100%;}
+iframe{border:0;width:100%;height:100%;}
+</style>
+</head>
+<body>
+
+<iframe id="frame"></iframe>
+
+<script>
+const params = new URLSearchParams(location.search);
+
+const leftFull  = params.get("left")  || "guest-000";
+const rightFull = params.get("right") || "guest-000";
+
+const leftUser  = leftFull.split("-")[0];
+const rightUser = rightFull.split("-")[0];
+
+const widgets = [
+
+{
+"type":"TeamViewWidget",
+"widgetId":"teamViewBottomLeft",
+"widgetLocationId":"teamViewBottomLeft",
+"statisticsId":"teamView",
+"settings":{
+"teamId":leftUser,
+"primary":[{"type":"Image","url":"media/transparent.png","vertical":false,"tags":[]}],
+"secondary":[{
+"type":"WebRTCGrabberConnection",
+"url":"https://grab.live.icpc.global",
+"peerName":leftFull,
+"streamType":"webcam",
+"credential":"password",
+"vertical":false,"tags":[]
+}],
+"showTaskStatus":true,
+"achievement":[],
+"showTimeLine":false,
+"position":"BOTTOM_LEFT"
+}
+},
+
+{
+"type":"TeamViewWidget",
+"widgetId":"teamViewBottomRight",
+"widgetLocationId":"teamViewBottomRight",
+"statisticsId":"teamView",
+"settings":{
+"teamId":rightUser,
+"primary":[{"type":"Image","url":"media/transparent.png","vertical":false,"tags":[]}],
+"secondary":[{
+"type":"WebRTCGrabberConnection",
+"url":"https://grab.live.icpc.global",
+"peerName":rightFull,
+"streamType":"webcam",
+"credential":"password",
+"vertical":false,"tags":[]
+}],
+"showTaskStatus":true,
+"achievement":[],
+"showTimeLine":false,
+"position":"BOTTOM_RIGHT"
+}
+}
+
+];
+
+const config = {
+CONTESTER_INFO_SCORE_WIDTH: "0px",
+};
+
+document.getElementById("frame").src =
+"https://blitz.live.icpc.global/overlay?noStatus"
++"&forceWidgets="+encodeURIComponent(JSON.stringify(widgets))
++"&forceVisualConfig="+encodeURIComponent(JSON.stringify(config));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+[
+    {
+        "type":"overrideQueue",
+        "waitTimeSeconds": 120
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {"color": "#42d4f4"},
+            "B": {"color": "#f032e6"},
+            "C": {"color": "#fabed4"},
+            "D": {"color": "#469990"},
+            "E": {"color": "#dcbeff"},
+            "F": {"color": "#9A6324"},
+            "G": {"color": "#fffac8"}
+        }
+    },
+    {
+        "type": "overrideQueue",
+        "waitTimeSeconds": 120
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://grab.live.icpc.global",
+                "peerName": "{peer}",
+                "streamType": "desktop",
+                "vertical": true,
+                "credential": "password"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://grab.live.icpc.global",
+                "peerName": "{peer}",
+                "streamType": "webcam",
+                "vertical": false,
+                "credential": "password"
+            },
+            "photo": {
+                "type": "Image",
+                "url": "{!avatar}",
+                "vertical": true
+            }
+
+        }
+    }
+
+]
