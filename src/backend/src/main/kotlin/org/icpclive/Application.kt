@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
+import org.icpclive.admin.configureLiveRouterRouting
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.fileJsonContentFlow
@@ -32,12 +33,6 @@ fun main(args: Array<String>): Unit = Config.main(args)
 private fun Application.setupKtorPlugins() {
     setupDefaultKtorPlugins()
     install(ContentNegotiation) { json(serverResponseJsonSettings()) }
-    install(WebSockets) {
-        pingPeriod = 15.seconds
-        timeout = 15.seconds
-        maxFrameSize = Long.MAX_VALUE
-        masking = false
-    }
     install(Authentication) {
         if (Config.authDisabled) {
             val config = object : AuthenticationProvider.Config("admin-api-auth") {}
@@ -69,22 +64,32 @@ fun Application.module() {
         route("/") {
             install(ConditionalHeaders)
             staticResources("/schemas", "schemas")
-            staticResources("/", "main", index = "main.html")
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin-configuration"
+                react("admin-configuration")
+            }
             singlePageApplication {
                 useResources = true
                 applicationRoute = "admin"
-                react("admin")
+                react("admin-overlay")
             }
             singlePageApplication {
                 useResources = true
                 applicationRoute = "overlay"
                 react("overlay")
             }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = ""
+                react("admin-router")
+            }
         }
         route("/api") {
             route("/admin") { configureAdminApiRouting() }
             route("/overlay") { configureOverlayRouting() }
         }
+        route("/live-router") { configureLiveRouterRouting() }
     }
     val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         environment.log.error("Uncaught exception in coroutine context $coroutineContext", throwable)

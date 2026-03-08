@@ -39,17 +39,20 @@ tasks {
 
     processResources {
         if (project.properties["live.dev.embedFrontend"] == "true") {
-            from(configurations.adminJsAppResolver) {
-                into("admin")
+            from(configurations.adminOverlayJsAppResolver) {
+                into("admin-overlay")
+            }
+            from(configurations.adminConfigurationJsAppResolver) {
+                into("admin-configuration")
+            }
+            from(configurations.adminRouterJsAppResolver) {
+                into("admin-router")
             }
             from(configurations.overlayJsAppResolver) {
                 into("overlay")
             }
-            from(project(":frontend").projectDir.resolve("main")) {
-                into("main")
-            }
             from(gitVersionFiles) {
-                into("main")
+                into("admin-router")
             }
             from(advancedExamples) {
                 into("examples/advanced")
@@ -75,5 +78,7 @@ dependencies {
     implementation(projects.serverShared)
     jsonSchemas(projects.frontend)
     overlayJsApp(projects.frontend)
-    adminJsApp(projects.frontend)
+    adminOverlayJsApp(projects.frontend)
+    adminConfigurationJsApp(projects.frontend)
+    adminRouterJsApp(projects.frontend)
 }

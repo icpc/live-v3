@@ -252,7 +252,7 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
                     if (call.feed().stateFlow.first().finalized == null) {
                         call.respondText("Contest is not finalized yet")
                     } else {
-                        call.respondOutputStream(contentType = ContentType.Application.Zip) { formatArchive(this, call.feed(), FeedVersion.DRAFT) }
+                        call.respondOutputStream(contentType = ContentType.Application.Zip) { formatArchive(this, call.feed(), version) }
                     }
                 }
                 route("/contests") {

@@ -14,17 +14,20 @@ import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.html.*
 import io.ktor.server.http.content.*
+import io.ktor.server.plugins.conditionalheaders.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.html.*
+import kotlinx.serialization.SerializationException
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.calculateScoreboard
+import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.*
 import org.icpclive.converter.commands.*
 import org.icpclive.converter.export.Exporter
@@ -84,7 +87,7 @@ fun Application.module() {
     val routers = mutableListOf<Router>()
 
     val scope = this + handler
-
+    val contestInfoFlow: Flow<ContestInfo>
     val accounts: StateFlow<Map<String, AccountInfo>>
 
     fun Exporter.run(
@@ -103,8 +106,13 @@ fun Application.module() {
 
     ServerCommand.cdsOptions.toFlow().shareWith(scope) {
         withSubscription(3) { rootFlow ->
-            accounts = rootFlow.filterIsInstance<InfoUpdate>()
-                .map { it.newInfo.accounts.values.associateBy { it.username } }
+            contestInfoFlow = rootFlow.filterIsInstance<InfoUpdate>()
+                .map { it.newInfo }
+                .stateIn(scope, SharingStarted.Eagerly, null)
+                .filterNotNull()
+
+            accounts = contestInfoFlow
+                .map { it.accounts.values.associateBy { it.username } }
                 .stateIn(scope, SharingStarted.Eagerly, emptyMap())
             val nonAdminFlow = rootFlow.addComputedData {
                 submissionResultsAfterFreeze = false
@@ -155,7 +163,80 @@ fun Application.module() {
                 }
             })
         }
-        staticFiles("/media", ServerCommand.mediaDirectory.toFile())
+        route("/api/admin") {
+            authenticate("auth", "guest", strategy = AuthenticationStrategy.FirstSuccessful) {
+                flowEndpoint<ContestInfo>("/contestInfo") { contestInfoFlow }
+                route("/advancedJson") {
+                    configureConfigFileRouting(
+                        ServerCommand.cdsOptions.advancedJsonPath,
+                        "[]",
+                        {
+                            try {
+                                // check if parsable
+                                val _ = TuningRule.listFromString(it)
+                            } catch (e: SerializationException) {
+                                throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
+                            }
+                        },
+                        "/schemas/advanced.schema.json",
+                        "examples/advanced"
+                    )
+                }
+                route("/visualConfig") {
+                    configureConfigFileRouting(
+                        ServerCommand.cdsOptions.visualConfigFile,
+                        "{}",
+                        { },
+                        "/schemas/visual-config.schema.json",
+                        "examples/visual"
+                    )
+                }
+                route("/customFields") {
+                    configureConfigFileRouting(
+                        ServerCommand.cdsOptions.customFieldsCsvPath,
+                        "",
+                        { },
+                        null,
+                        null
+                    )
+                }
+                route("/orgCustomFields") {
+                    configureConfigFileRouting(
+                        ServerCommand.cdsOptions.orgCustomFieldsCsvPath,
+                        "",
+                        { },
+                        null,
+                        null
+                    )
+                }
+            }
+        }
+
+        authenticate("auth", "guest", strategy = AuthenticationStrategy.FirstSuccessful) {
+            for (router in routers) {
+                with(router) {
+                    setUpRoutes()
+                }
+            }
+        }
+
+        route("/live-router") {
+            configureLiveRouterRouting(
+                listOf(
+                    MenuItem("Main", "/"),
+                    MenuItem("Contest Info", "/admin-configuration"),
+                    MenuItem("Converter Admin", "/admin-converter")
+                ),
+                listOf(
+                    UsefulLink("https://github.com/icpc/live-v3", "GitHub"),
+                    UsefulLink("/clics/api", "CLICS API"),
+                    UsefulLink("/pcms/standings.html", "PCMS HTML"),
+                    UsefulLink("/pcms/standings.xml", "PCMS XML"),
+                    UsefulLink("/reactions", "Reactions API"),
+                    UsefulLink("/logout", "Logout")
+                )
+            )
+        }
 
         authenticate("auth", optional = false) {
             get("/login") {
@@ -170,7 +251,7 @@ fun Application.module() {
             }
         }
         authenticate("auth", optional = true) {
-            get {
+            get("/old-admin") {
                 call.respondHtml {
                     body {
                         for (router in routers) {
@@ -192,13 +273,26 @@ fun Application.module() {
                     }
                 }
             }
-
         }
-        authenticate("auth", "guest", strategy = AuthenticationStrategy.FirstSuccessful) {
-            for (router in routers) {
-                with(router) {
-                    setUpRoutes()
-                }
+
+        staticFiles("/media", ServerCommand.mediaDirectory.toFile())
+
+        route("/") {
+            install(ConditionalHeaders)
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin-configuration"
+                react("admin-configuration")
+            }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = "admin-converter"
+                react("admin-converter")
+            }
+            singlePageApplication {
+                useResources = true
+                applicationRoute = ""
+                react("admin-router")
             }
         }
     }
