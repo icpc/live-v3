@@ -13,6 +13,7 @@ import org.icpclive.cds.scoreboard.toScoreboardDiff
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.loopFlow
 import org.icpclive.data.DataBus
+import org.icpclive.data.currentContestInfo
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -117,6 +118,10 @@ class TeamSpotlightService(
                 }
                 if (element == null) {
                     delay(1.seconds)
+                    continue
+                }
+                val teamIsHidden = DataBus.currentContestInfo().teams[element.teamId]?.isHidden ?: true
+                if (teamIsHidden) {
                     continue
                 }
                 emit(KeyTeam(element.teamId, element.caused))
