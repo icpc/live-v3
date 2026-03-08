@@ -93,6 +93,7 @@ internal class UrlOrLocalPathSerializer(
     }
 
     internal val raw = UrlOrLocalPathSurrogate.Raw.serializer().map(
+        "UrlOrLocalPathRaw",
         onDeserialize = {
             if (isHttpUrl(it.s)) {
                 UrlOrLocalPath.Url(it.s)
@@ -112,10 +113,12 @@ internal class UrlOrLocalPathSerializer(
         }
     )
     internal val withLoginPassword = UrlOrLocalPathSurrogate.WithLoginPassword.serializer().map(
+        "UrlOrLocalPathLoginPassword",
         onDeserialize = { UrlOrLocalPath.Url(it.url, Authorization(Authorization.BasicAuth(it.login, it.password), emptyMap())) },
         onSerialize = { UrlOrLocalPathSurrogate.WithLoginPassword(it.value, it.auth!!.basic!!.login, it.auth.basic.password) }
     )
     internal val withWholeAuth = UrlOrLocalPathSurrogate.WithWholeAuth.serializer().map(
+        "UrlOrLocalPathFull",
         onDeserialize = { UrlOrLocalPath.Url(it.url, it.auth) },
         onSerialize = { UrlOrLocalPathSurrogate.WithWholeAuth(it.value, it.auth ?: Authorization()) }
     )

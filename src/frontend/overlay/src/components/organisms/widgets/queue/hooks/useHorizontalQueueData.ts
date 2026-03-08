@@ -16,6 +16,7 @@ function calculateNextHorizontalState(
     prevState: QueueState,
     currentQueue: QueueRowInfo[],
     maxFtsPositions: number,
+    maxColumnsPerBatch: number,
 ): QueueState {
     const nextState: QueueState = {
         currentRuns: { ...prevState.currentRuns },
@@ -51,7 +52,7 @@ function calculateNextHorizontalState(
         if (existingDelegate) {
             nextState.currentRuns[run.id] = existingDelegate;
         } else {
-            assignNewBatchPosition(nextState, run.id);
+            assignNewBatchPosition(nextState, run.id, maxColumnsPerBatch);
         }
     }
 
@@ -67,25 +68,26 @@ function findFirstFreeSlot(max: number, used: number[]): number | null {
     return null;
 }
 
-function assignNewBatchPosition(state: QueueState, runId: string) {
+function assignNewBatchPosition(
+    state: QueueState,
+    runId: string,
+    maxColumns: number,
+) {
     if (state.batchOrder.length === 0) {
         createNewBatch(state, runId);
         return;
     }
 
-    const firstBatchId = state.batchOrder[0];
-    const firstBatchPositions = Object.values(state.batches[firstBatchId]);
+    const lastBatchId = state.batchOrder[state.batchOrder.length - 1];
+    const lastBatchPositions = Object.values(state.batches[lastBatchId]);
 
-    if (firstBatchPositions.length >= MAX_ROWS_PER_BATCH) {
+    if (lastBatchPositions.length >= maxColumns) {
         createNewBatch(state, runId);
     } else {
-        const freeSlot = findFirstFreeSlot(
-            MAX_ROWS_PER_BATCH,
-            firstBatchPositions,
-        );
+        const freeSlot = findFirstFreeSlot(maxColumns, lastBatchPositions);
         if (freeSlot !== null) {
-            state.batches[firstBatchId][runId] = freeSlot;
-            state.currentRuns[runId] = firstBatchId;
+            state.batches[lastBatchId][runId] = freeSlot;
+            state.currentRuns[runId] = lastBatchId;
         } else {
             createNewBatch(state, runId);
         }
@@ -93,7 +95,7 @@ function assignNewBatchPosition(state: QueueState, runId: string) {
 }
 
 function createNewBatch(state: QueueState, runId: string) {
-    state.batchOrder.unshift(runId);
+    state.batchOrder.push(runId);
     state.batches[runId] = { [runId]: 0 };
     state.currentRuns[runId] = runId;
 }
@@ -124,23 +126,39 @@ function cleanupStaleRuns(state: QueueState, currentQueue: QueueRowInfo[]) {
 
 export const useHorizontalQueueRowsData = ({
     height,
+    width,
     ftsRowWidth,
     basicZIndex = c.QUEUE_BASIC_ZINDEX,
 }: {
     height: number;
+    width: number;
     ftsRowWidth: number;
     basicZIndex?: number;
 }): [QueueRowInfo | null, QueueRowInfo[]] => {
     const { processingQueue, featured } = useQueueItemProcessing(basicZIndex);
 
-    const allowedMaxBatches = useMemo(
-        () => Math.floor(height / GRID_OFFSET_Y) - 1,
+    const totalVerticalSlots = useMemo(
+        () => Math.max(1, Math.floor(height / GRID_OFFSET_Y)),
         [height],
     );
 
+    const hasFtsRow = totalVerticalSlots >= 2;
+    const allowedMaxBatches = hasFtsRow
+        ? totalVerticalSlots - 1
+        : totalVerticalSlots;
+
+    const effectiveColumnsPerBatch = useMemo(
+        () =>
+            Math.max(
+                1,
+                Math.min(MAX_ROWS_PER_BATCH, Math.floor(width / GRID_OFFSET_X)),
+            ),
+        [width],
+    );
+
     const allowedFtsSlots = useMemo(
-        () => Math.floor(ftsRowWidth / GRID_OFFSET_X),
-        [ftsRowWidth],
+        () => (hasFtsRow ? Math.floor(ftsRowWidth / GRID_OFFSET_X) : 0),
+        [ftsRowWidth, hasFtsRow],
     );
 
     const layoutState = useMemo(() => {
@@ -149,8 +167,9 @@ export const useHorizontalQueueRowsData = ({
             emptyState,
             processingQueue,
             allowedFtsSlots,
+            effectiveColumnsPerBatch,
         );
-    }, [processingQueue, allowedFtsSlots]);
+    }, [processingQueue, allowedFtsSlots, effectiveColumnsPerBatch]);
 
     const rows = useMemo(() => {
         const resultRows: QueueRowInfo[] = [];
@@ -174,17 +193,24 @@ export const useHorizontalQueueRowsData = ({
 
             if (batchIndex === -1 || slotInBatch === undefined) return;
             if (batchIndex >= allowedMaxBatches) return;
+            if (slotInBatch >= effectiveColumnsPerBatch) return;
 
             row.bottom =
                 (c.QUEUE_ROW_HEIGHT + c.QUEUE_HORIZONTAL_ROW_Y_PADDING) *
                 batchIndex;
-            row.right = (MAX_ROWS_PER_BATCH - 1 - slotInBatch) * GRID_OFFSET_X;
+            row.right = slotInBatch * GRID_OFFSET_X;
 
             resultRows.push(row);
         });
 
         return resultRows;
-    }, [processingQueue, layoutState, height, allowedMaxBatches]);
+    }, [
+        processingQueue,
+        layoutState,
+        height,
+        allowedMaxBatches,
+        effectiveColumnsPerBatch,
+    ]);
 
     return [featured, rows];
 };

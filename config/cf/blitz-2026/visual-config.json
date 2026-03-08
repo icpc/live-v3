@@ -1,0 +1,39 @@
+{
+  "CONTEST_CAPTION":"",
+  "GLOBAL_BORDER_RADIUS": "0px",
+  "GLOBAL_BACKGROUND_COLOR": "#FF000000",
+
+  "QUEUE_TITLE": "",
+  "QUEUE_BACKGROUND_COLOR": "#242425",
+  "QUEUE_ROW_BACKGROUND": "#4C83C3",
+  "QUEUE_ROW_WIDTH" : 300,
+  "QUEUE_HEADER_LINE_HEIGHT": "0px",
+
+  "SCOREBOARD_BACKGROUND_COLOR": "#242425",
+  "SCOREBOARD_CAPTION_FONT_SIZE": "0px",
+  "SCOREBOARD_CELL_PLACE_SIZE": "0px",
+  "SCOREBOARD_CELL_TEAMNAME_SIZE": "120px",
+
+  "CONTESTER_INFO_RANK_WIDTH": "0px",
+  "CONTESTER_INFO_LEFT_PADDING": "0px",
+
+  "TICKER_TEXT_FONT_SIZE": "22px",
+  "TICKER_SMALL_SIZE": "100%",
+  "TICKER_LIVE_ICON_SIZE" : "16px",
+  "TICKER_CLOCK_FONT_SIZE" : "22px",
+
+  "WIDGET_POSITIONS": {
+    "scoreboard"         : {"positionX": 0,   "positionY": 66,  "sizeX": 1920, "sizeY": 142  },
+    "customQueue"        : {"positionX": 0,   "positionY": 515, "sizeX": 653,  "sizeY": 50   }, 
+    "customScoreboard"   : {"positionX": 0,   "positionY": 615, "sizeX": 653,  "sizeY": 142  },
+                                              
+    "ticker"             : {"positionX": 653, "positionY": 524, "sizeX": 307,  "sizeY": 32   },
+    "customTicker"       : {"positionX": 0,   "positionY": 565, "sizeX": 653,  "sizeY": 50   },
+                                              
+    "teamViewSingle"     : {"positionX": 0,   "positionY": 0,   "sizeX": 1920, "sizeY": 1080 },
+    "teamViewPvpTop"     : {"positionX": 0,   "positionY": 0,   "sizeX": 1920, "sizeY": 556  },
+    "teamViewPvpBottom"  : {"positionX": 0,   "positionY": 524, "sizeX": 1920, "sizeY": 556  },
+    "teamViewBottomLeft" : {"positionX": 0,   "positionY": 0,   "sizeX": 960,  "sizeY": 540  },
+    "teamViewBottomRight": {"positionX": 374, "positionY": 0,   "sizeX": 960,  "sizeY": 540  }
+  }
+}

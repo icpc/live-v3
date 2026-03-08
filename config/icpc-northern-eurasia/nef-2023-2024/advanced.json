@@ -153,14 +153,17 @@
         "bronze": 4
     },
     {
-        "type": "overrideAwards",
+        "type": "addKnownAwards",
         "championTitle": "Northern Eurasia Finals Champions",
-        "rankAwardsMaxRank": 13,
-        "manualAwards": [
+        "rankAwardsMaxRank": 13
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
             {
                 "id": "qualified",
                 "citation": "Qualified to world finals",
-                "teamCdsIds": []
+                "manualTeamIds": []
             }
         ]
     },

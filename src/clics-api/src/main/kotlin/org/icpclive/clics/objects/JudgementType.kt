@@ -9,5 +9,5 @@ public data class JudgementType(
     @Required public val name: String,
     @Required public val solved: Boolean,
     @Required public val penalty: Boolean,
-    @SinceClics(FeedVersion.DRAFT) public val simplifiedJudgementTypeId: String? = null,
+    @SinceClics(FeedVersion.`2026_01`) public val simplifiedJudgementTypeId: String? = null,
 ): ObjectWithId

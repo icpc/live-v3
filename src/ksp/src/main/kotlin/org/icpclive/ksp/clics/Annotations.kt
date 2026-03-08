@@ -4,8 +4,8 @@ enum class FeedVersion {
     `2020_03`,
     `2022_07`,
     `2023_06`,
-    DRAFT,
-
+    `2026_01`,
+    DRAFT
     ;
 
     val packageName: String
@@ -15,6 +15,10 @@ enum class FeedVersion {
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
 annotation class SinceClics(val feedVersion: FeedVersion)
+
+@Retention(AnnotationRetention.SOURCE)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
+annotation class UntilClics(val feedVersion: FeedVersion)
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)

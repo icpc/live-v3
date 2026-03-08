@@ -9,17 +9,18 @@ import {
     useNeedPenalty,
 } from "@/services/displayUtils";
 import {
-    Award,
     ScoreboardRow as APIScoreboardRow,
     ContestInfo,
     TeamInfo,
     ProblemInfo,
+    Award,
 } from "@shared/api";
 import { AnimatingTeam } from "@/components/organisms/widgets/scoreboard/hooks/useScoreboardAnimation";
 import {
     calculateProgress,
     interpolate,
 } from "@/components/organisms/widgets/scoreboard/utils/easingFunctions";
+import { getAwardsEffects } from "@/utils/awards";
 
 type ContestDataWithMaps = ContestInfo & {
     teamsId: Record<TeamInfo["id"], TeamInfo>;
@@ -175,9 +176,6 @@ export const ScoreboardRow = React.memo(
         teamId,
         contestData,
     }: ScoreboardRowProps) => {
-        const medal = awards?.find(
-            (award) => award.type == Award.Type.medal,
-        ) as Award.medal;
         const needPenalty = useNeedPenalty();
 
         return (
@@ -185,7 +183,10 @@ export const ScoreboardRow = React.memo(
                 nProblems={Math.max(contestData?.problems?.length ?? 0, 1)}
                 needPenalty={needPenalty}
             >
-                <ScoreboardRankLabel rank={rank} medal={medal?.medalColor} />
+                <ScoreboardRankLabel
+                    rank={rank}
+                    effects={getAwardsEffects(awards)}
+                />
                 <ScoreboardTeamRow
                     scoreboardRow={scoreboardRow}
                     teamId={teamId}

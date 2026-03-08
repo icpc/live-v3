@@ -16,8 +16,9 @@ public data class Contest(
     public val scoreboardFreezeDuration: Duration? = null,
     @SinceClics(FeedVersion.`2023_06`) public val scoreboardThawTime: Instant? = null,
     public val scoreboardType: String? = null,
-    @LongMinutesBefore(FeedVersion.DRAFT) public val penaltyTime: Duration? = null,
+    @LongMinutesBefore(FeedVersion.`2026_01`) public val penaltyTime: Duration? = null,
     public val banner: List<File> = emptyList(),
     public val logo: List<File> = emptyList(),
-    @InlinedBefore(FeedVersion.`2023_06`, "location.") public val location: Location? = null
+    @InlinedBefore(FeedVersion.`2023_06`, "location.") public val location: Location? = null,
+    @SinceClics(FeedVersion.`2026_01`) public val mainScoreboardGroupId: String? = null
 ): ObjectWithId

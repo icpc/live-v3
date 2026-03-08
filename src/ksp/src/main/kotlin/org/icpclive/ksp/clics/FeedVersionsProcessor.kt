@@ -130,7 +130,8 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
     @OptIn(KspExperimental::class)
     private fun generateVersionObjectSerializer(feedVersion: FeedVersion, obj: ObjectDescription) {
         fun KSPropertyDeclaration.hiddenIn(feedVersion: FeedVersion) =
-            getAnnotationsByType(SinceClics::class).any { it.feedVersion > feedVersion }
+            getAnnotationsByType(SinceClics::class).any { it.feedVersion > feedVersion } ||
+                    getAnnotationsByType(UntilClics::class).any { it.feedVersion <= feedVersion }
 
         fun KSPropertyDeclaration.inlinedIn(feedVersion: FeedVersion) =
             getAnnotationsByType(InlinedBefore::class).any { it.feedVersion > feedVersion }

@@ -1,7 +1,10 @@
 package org.icpclive.converter.commands
 
+import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.defaultLazy
 import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.types.choice
+import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.path
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.runBlocking
@@ -9,6 +12,7 @@ import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.clics.FeedVersion
 import org.icpclive.converter.export.clics.ClicsExporter
 import org.icpclive.converter.export.clics.ClicsFeedGenerator
 import java.io.File
@@ -24,6 +28,10 @@ object ClicsArchiveCommand : DumpFileCommand(
         .path(canBeFile = false, canBeDir = true)
         .defaultLazy("configDirectory/media") { cdsOptions.configDirectory.resolve("media") }
 
+    val feedVersion by option("--feed-version", help = "Version of CLICS feed to generate")
+        .enum<FeedVersion>()
+        .default(FeedVersion.`2023_06`)
+
     override fun create(file: File, flow: Flow<ContestUpdate>) {
         runBlocking {
             file.outputStream().use {
@@ -32,7 +40,7 @@ object ClicsArchiveCommand : DumpFileCommand(
                     updates = flow.calculateScoreboard(OptimismLevel.NORMAL),
                     isAdmin = true
                 )
-                ClicsExporter(mediaDirectory).formatArchive(it, feed)
+                ClicsExporter(mediaDirectory).formatArchive(it, feed, feedVersion)
             }
         }
     }

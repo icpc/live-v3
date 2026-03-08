@@ -107,11 +107,11 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
         file(name) { writeJson(value) }
     }
 
-    suspend fun formatArchive(stream: OutputStream, feed: ClicsFeedGenerator) {
+    suspend fun formatArchive(stream: OutputStream, feed: ClicsFeedGenerator, feedVersion: FeedVersion) {
         val localFiles = mutableMapOf<Path, String>()
         val with = Json {
             serializersModule = clicsEventsSerializersModule(
-                FeedVersion.`2023_06`,
+                feedVersion,
                 "",
                 urlSerializerHook = { url ->
                     if (url.value.startsWith("/media/")) {
@@ -132,7 +132,7 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
         context(with) {
             ZipOutputStream(stream).use { zos ->
                 with(zos) {
-                    jsonFile("api.json", apiInformation(FeedVersion.`2023_06`))
+                    jsonFile("api.json", apiInformation(feedVersion))
                     jsonFile("contest.json", feed.contestFlow.last())
                     jsonFile("state.json",feed.stateFlow.last())
                     jsonFile("judgement-types.json", feed.judgementTypesFlow.last())
@@ -147,7 +147,7 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
                     jsonFile("persons.json",  feed.personsFlow.last())
                     jsonFile("accounts.json",  feed.accountsFlow.last())
                     jsonFile("awards.json",  feed.awardsFlow.last())
-                    jsonFile("scoreboard.json", feed.getScoreboard())
+                    jsonFile("scoreboard.json", feed.getScoreboard(null))
                     file("event-feed.ndjson") {
                         feed.eventFeed.collect {
                             writeJson(it.event)
@@ -182,6 +182,7 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
                                 document.getElementById('clics1').href = prefix;
                                 document.getElementById('clics2').href = `${prefix}/contests/contest`;
                                 document.getElementById('clics3').href = `${prefix}/contests/contest/event-feed`;
+                                document.getElementById('clics4').href = `${prefix}/archive.zip`;
                             }
                         """.trimIndent()
                     }
@@ -216,29 +217,18 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
                 }
                 br
                 a("/clics/archive.zip") {
-                    id = "clics-archive"
+                    id = "clics4"
                     +"CLICS contest archive (zip)"
                 }
                 br
             }
 
             override fun Route.setUpRoutes() {
-                route("/clics/api") {
-                    setupClics(FeedVersion.DRAFT)
-                }
                 for (version in FeedVersion.entries) {
-                    if (version != FeedVersion.DRAFT) {
-                        route("/clics/${version}/api") {
+                    route(if (version == FeedVersion.DRAFT) "/clics" else "/clics/${version}") {
+                        route("/api") {
                             setupClics(version)
                         }
-                    }
-                }
-                // Simple archive endpoint (placeholder empty zip for now)
-                get("/clics/archive.zip") {
-                    if (call.feed().stateFlow.first().finalized == null) {
-                        call.respondText("Contest is not finalized yet")
-                    } else {
-                        call.respondOutputStream(contentType = ContentType.Application.Zip) { formatArchive(this, call.feed()) }
                     }
                 }
             }
@@ -255,9 +245,14 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
                 install(ContentNegotiation) { json(json) }
                 get {
                     if (clicsEventsSerializersModule.getContextual(ApiInformation::class) != null) {
-                        call.respond(
-                            apiInformation(version)
-                        )
+                        call.respond(apiInformation(version))
+                    }
+                }
+                get("archive.zip") {
+                    if (call.feed().stateFlow.first().finalized == null) {
+                        call.respondText("Contest is not finalized yet")
+                    } else {
+                        call.respondOutputStream(contentType = ContentType.Application.Zip) { formatArchive(this, call.feed(), FeedVersion.DRAFT) }
                     }
                 }
                 route("/contests") {
@@ -279,7 +274,9 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
                         getId("accounts", { feed().accountsFlow }, endpoint, clicsEventsSerializersModule)
                         //getId("clarifications", clarificationsFlow, endpoint, clicsEventsSerializersModule)
                         getId("awards", { feed().awardsFlow }, endpoint, clicsEventsSerializersModule)
-                        get("/scoreboard") { call.respond(call.feed().getScoreboard()) }
+                        get("/scoreboard") {
+                            call.respond(call.feed().getScoreboard(call.parameters["group_id"]))
+                        }
                         get("/event-feed") {
                             call.respondBytesWriter(contentType = ContentType("application", "x-ndjson")) {
                                 call.feed().eventFeed

@@ -1,0 +1,4 @@
+https://grab.live.icpc.global/player?peerName=ksun48-48&streamType=desktop&credential=password
+https://grab.live.icpc.global/player?peerName=Um_nik-33&streamType=desktop&credential=password
+
+https://blitz.live.icpc.global/overlay?noStatus&forceWidgets=[{"type":"QueueWidget","widgetId":"queue","widgetLocationId":"customQueue","settings":{"horizontal":true}},{"type":"TickerWidget","widgetId":"ticker","widgetLocationId":"customTicker","statisticsId":"ticker","settings":{}},{"type":"ScoreboardWidget","widgetId":"scoreboard","widgetLocationId":"customScoreboard","settings":{"isInfinite":true,"startFromRow":1,"optimismLevel":"normal","group":"all"}}]

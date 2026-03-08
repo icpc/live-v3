@@ -1,4 +1,8 @@
 {
   "CONTEST_COLOR": "#B539A4D0",
   "ADVERTISEMENT_COLOR" : "#B539A4",
+  "AWARD_EFFECTS": {
+    "predefined": "gold",
+    "now1": "silver"
+  }
 }

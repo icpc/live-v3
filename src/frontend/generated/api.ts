@@ -11,7 +11,7 @@ export interface ContestInfo {
   languages: LanguageInfo[];
   penaltyRoundingMode: PenaltyRoundingMode;
   emulationSpeed: number;
-  awardsSettings: AwardsSettings;
+  awardsSettings: AwardChain[];
   penaltyPerWrongAttemptSeconds: number;
   queueSettings: QueueSettings;
   showTeamsWithoutSubmissions: boolean;
@@ -19,6 +19,7 @@ export interface ContestInfo {
   customFields: { [key: string]: string };
   persons: PersonInfo[];
   accounts: AccountInfo[];
+  mainScoreboardGroupId?: GroupId | null;
 }
 
 export type ContestStatus =
@@ -77,15 +78,6 @@ export enum PenaltyRoundingMode {
   zero = "zero",
 }
 
-export interface AwardsSettings {
-  firstToSolveProblems?: boolean;
-  championTitle?: string | null;
-  groupsChampionTitles?: { [key: GroupId]: string };
-  rankAwardsMaxRank?: number;
-  medalGroups?: MedalGroup[];
-  manual?: ManualAwardSetting[];
-}
-
 export interface QueueSettings {
   waitTimeSeconds?: number;
   firstToSolveWaitTimeSeconds?: number;
@@ -121,6 +113,8 @@ export namespace ProblemColorPolicy {
     colorBeforeSolved?: string | null;
   }
 }
+
+export type GroupId = string;
 
 export interface ProblemInfo {
   id: ProblemId;
@@ -175,6 +169,14 @@ export interface LanguageInfo {
   id: LanguageId;
   name: string;
   extensions: string[];
+}
+
+export interface AwardChain {
+  awards: RankBasedAward[];
+  groups?: GroupId[];
+  excludedGroups?: GroupId[];
+  organizationLimit?: number | null;
+  organizationLimitCustomField?: string | null;
 }
 
 export interface PersonInfo {
@@ -239,21 +241,7 @@ export type TeamId = string;
 
 export type OrganizationId = string;
 
-export type GroupId = string;
-
 export type LanguageId = string;
-
-export interface MedalGroup {
-  medals: MedalSettings[];
-  groups?: GroupId[];
-  excludedGroups?: GroupId[];
-}
-
-export interface ManualAwardSetting {
-  id: string;
-  citation: string;
-  teamCdsIds: TeamId[];
-}
 
 export type PersonId = string;
 
@@ -404,22 +392,22 @@ export namespace MediaType {
   }
 }
 
-export interface MedalSettings {
+export interface RankBasedAward {
   id: string;
   citation: string;
-  color?: MedalColor | null;
   maxRank?: number | null;
   minScore?: number | null;
-  tiebreakMode?: MedalTiebreakMode;
+  tiebreakMode?: AwardTiebreakMode;
+  limit?: number | null;
+  chainLimit?: number | null;
+  organizationLimit?: number | null;
+  organizationLimitCustomField?: string | null;
+  chainOrganizationLimit?: number | null;
+  chainOrganizationLimitCustomField?: string | null;
+  manualTeamIds?: TeamId[];
 }
 
-export enum MedalColor {
-  GOLD = "GOLD",
-  SILVER = "SILVER",
-  BRONZE = "BRONZE",
-}
-
-export enum MedalTiebreakMode {
+export enum AwardTiebreakMode {
   NONE = "NONE",
   ALL = "ALL",
 }
@@ -435,6 +423,7 @@ export interface RunInfo {
   reactionVideos: MediaType[];
   isHidden: boolean;
   sourceFiles?: MediaType[];
+  accountId?: AccountId | null;
 }
 
 export type RunResult =
@@ -493,49 +482,10 @@ export interface ScoreboardRow {
   problemResults: ProblemResult[];
 }
 
-export type Award =
-  | Award.custom
-  | Award.group_champion
-  | Award.medal
-  | Award.winner;
-
-export namespace Award {
-  export enum Type {
-    custom = "custom",
-    group_champion = "group_champion",
-    medal = "medal",
-    winner = "winner",
-  }
-  
-  export interface custom {
-    type: Award.Type.custom;
-    id: string;
-    citation: string;
-    teams: TeamId[];
-  }
-  
-  export interface group_champion {
-    type: Award.Type.group_champion;
-    id: string;
-    citation: string;
-    groupId: GroupId;
-    teams: TeamId[];
-  }
-  
-  export interface medal {
-    type: Award.Type.medal;
-    id: string;
-    citation: string;
-    medalColor: MedalColor | null;
-    teams: TeamId[];
-  }
-  
-  export interface winner {
-    type: Award.Type.winner;
-    id: string;
-    citation: string;
-    teams: TeamId[];
-  }
+export interface Award {
+  id: string;
+  citation: string;
+  teams: TeamId[];
 }
 
 export type ProblemResult =

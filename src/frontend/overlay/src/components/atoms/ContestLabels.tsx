@@ -14,6 +14,7 @@ import {
 import { formatScore } from "../../services/displayUtils";
 import { conditionalShimmerStyles } from "../../utils/shimmerStyles";
 import { RunInfo, ProblemResult, QueueRunInfo } from "@shared/api";
+import { AwardEffect } from "@/utils/awards";
 
 const VerdictLabel = styled(ShrinkingBox)<{ color: string }>`
     display: flex;
@@ -101,20 +102,21 @@ const RankLabelWrap = styled(ShrinkingBox)<{ color: string; dark: boolean }>`
 
 interface RankLabelProps {
     rank: number | undefined | null;
-    medal?: string;
+    effects?: AwardEffect[];
     className?: string;
     bg_color?: string;
 }
 
 export const RankLabel = ({
     rank,
-    medal,
+    effects,
     className,
     bg_color,
 }: RankLabelProps) => {
-    const color = c.MEDAL_COLORS[medal?.toLowerCase() ?? ""]
-        ? c.MEDAL_COLORS[medal?.toLowerCase() ?? ""]
-        : bg_color;
+    const color =
+        effects
+            ?.map((effect) => c.EFFECT_RANK_BACKGROUND_COLOR[effect])
+            .find((color) => color !== undefined) ?? bg_color;
     const dark = isShouldUseDarkColor(color ?? "");
     return (
         <RankLabelWrap

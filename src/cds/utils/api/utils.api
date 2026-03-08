@@ -1,5 +1,5 @@
 public abstract class org/icpclive/cds/util/DelegatedSerializer : kotlinx/serialization/KSerializer {
-	public fun <init> (Lkotlinx/serialization/KSerializer;)V
+	public fun <init> (Ljava/lang/String;Lkotlinx/serialization/KSerializer;)V
 	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
 	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	protected abstract fun onDeserialize (Ljava/lang/Object;)Ljava/lang/Object;
@@ -63,10 +63,6 @@ public final class org/icpclive/cds/util/LoggingUtilsKt {
 	public static final fun logger (Lkotlin/reflect/KClass;)Lorg/icpclive/cds/util/Logger;
 }
 
-public final class org/icpclive/cds/util/SerializationUtilsKt {
-	public static final fun map (Lkotlinx/serialization/KSerializer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlinx/serialization/KSerializer;
-}
-
 public final class org/icpclive/cds/util/SharedFlowSubscriptionScope {
 	public fun <init> (Lkotlinx/coroutines/flow/SharedFlow;Lkotlinx/coroutines/flow/MutableStateFlow;)V
 	public final fun acquire (I)V
@@ -112,24 +108,6 @@ public final class org/icpclive/cds/util/serializers/DurationInSecondsSerializer
 	public fun serialize-HG0u8IE (Lkotlinx/serialization/encoding/Encoder;J)V
 }
 
-public abstract class org/icpclive/cds/util/serializers/FormatterInstantSerializer : kotlinx/serialization/KSerializer {
-	public fun <init> (Lkotlinx/datetime/format/DateTimeFormat;)V
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lkotlin/time/Instant;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlin/time/Instant;)V
-}
-
-public abstract class org/icpclive/cds/util/serializers/FormatterLocalDateSerializer : kotlinx/serialization/KSerializer {
-	public fun <init> (Lkotlinx/datetime/format/DateTimeFormat;)V
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lkotlinx/datetime/LocalDateTime;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlinx/datetime/LocalDateTime;)V
-}
-
 public final class org/icpclive/cds/util/serializers/HumanTimeSerializer : kotlinx/serialization/KSerializer {
 	public static final field INSTANCE Lorg/icpclive/cds/util/serializers/HumanTimeSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
@@ -149,22 +127,8 @@ public final class org/icpclive/cds/util/serializers/RegexSerializer : kotlinx/s
 	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlin/text/Regex;)V
 }
 
-public final class org/icpclive/cds/util/serializers/SingleElementListSerializer : kotlinx/serialization/KSerializer {
-	public fun <init> (Lkotlinx/serialization/KSerializer;)V
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/util/List;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/util/List;)V
-}
-
-public final class org/icpclive/cds/util/serializers/TimeZoneSerializer : kotlinx/serialization/KSerializer {
-	public static final field INSTANCE Lorg/icpclive/cds/util/serializers/TimeZoneSerializer;
-	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
-	public fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lkotlinx/datetime/TimeZone;
-	public fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
-	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
-	public fun serialize (Lkotlinx/serialization/encoding/Encoder;Lkotlinx/datetime/TimeZone;)V
+public final class org/icpclive/cds/util/serializers/SingleElementListSerializerKt {
+	public static final fun SingleElementListSerializer (Lkotlinx/serialization/KSerializer;)Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/util/serializers/UnixMillisecondsSerializer : kotlinx/serialization/KSerializer {

@@ -7,9 +7,9 @@ import kotlin.time.Duration
 @NoEvent
 public data class ScoreboardRowScore(
     public val numSolved: Int? = null,
-    @LongMinutesBefore(FeedVersion.DRAFT)
+    @LongMinutesBefore(FeedVersion.`2026_01`)
     public val totalTime: Duration? = null,
     @SinceClics(FeedVersion.`2022_07`) public val score: Double? = null,
-    @LongMinutesBefore(FeedVersion.DRAFT)
+    @LongMinutesBefore(FeedVersion.`2026_01`)
     @SinceClics(FeedVersion.`2022_07`) public val time: Duration? = null,
 )

@@ -9,7 +9,8 @@ import kotlin.time.Instant
 public data class Submission(
     @Required override val id: String,
     public val languageId: String? = null,
-    @Required public val teamId: String,
+    public val teamId: String? = null,
+    public val accountId: String? = null,
     @Required public val problemId: String,
     public val time: Instant? = null,
     @Required public val contestTime: Duration,

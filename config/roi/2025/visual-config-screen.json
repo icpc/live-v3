@@ -12,5 +12,9 @@
       "sizeX": 1920,
       "sizeY": 1000
     }
+  },
+  "AWARD_EFFECTS": {
+    "first-diploma": "gold",
+    "second-diploma": "silver"
   }
 }

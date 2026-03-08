@@ -72,6 +72,7 @@ const QueueComponent = ({ shouldShow, widget }: QueueComponentProps) => {
     const [horizontalFeatured, horizontalQueueRows] =
         useHorizontalQueueRowsData({
             height: height ?? 0,
+            width,
             ftsRowWidth: width - headerWidth,
         });
 
