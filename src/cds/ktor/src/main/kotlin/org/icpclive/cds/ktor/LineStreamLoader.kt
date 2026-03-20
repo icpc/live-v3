@@ -10,11 +10,14 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.cds.util.getLogger
 
-internal fun getLineFlow(networkSettings: NetworkSettings, url: UrlOrLocalPath): Flow<String> = flow {
+internal fun getLineFlow(networkSettings: NetworkSettings, url: UrlOrLocalPath): Flow<String> = channelFlow {
+    val c = channel
     when (url) {
         is UrlOrLocalPath.Local -> {
             url.value.toFile().useLines { lines ->
-                emitAll(lines.asFlow())
+                for (l in lines) {
+                    c.send(l)
+                }
             }
         }
 
@@ -36,7 +39,7 @@ internal fun getLineFlow(networkSettings: NetworkSettings, url: UrlOrLocalPath):
                 while (!channel.isClosedForRead) {
                     val line = channel.readLine() ?: continue
                     if (line.isEmpty()) continue
-                    emit(line)
+                    c.send(line)
                 }
             }
         }
