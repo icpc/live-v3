@@ -1,6 +1,8 @@
 package org.icpclive.cds.plugins.clics
 
 import org.icpclive.cds.api.*
+import org.icpclive.cds.settings.Credential
+import org.icpclive.cds.util.logger
 import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
 import kotlin.time.Duration
@@ -26,6 +28,8 @@ internal class ClicsModel {
     private val runs = mutableMapOf<String, Run>()
     private val judgmentRunIds = mutableMapOf<String, MutableSet<String>>()
     private val groups = mutableMapOf<String, Group>()
+    private val persons = mutableMapOf<String, Person>()
+    private val accounts = mutableMapOf<String, Account>()
 
     private var startTime: Instant? = null
     private var contestLength = 5.hours
@@ -34,6 +38,7 @@ internal class ClicsModel {
     private var penaltyPerWrongAttempt = 20.minutes
     private var holdBeforeStartTime: Duration? = null
     private var name: String = ""
+    private var mainScoreboardGroupId: String? = null
 
     suspend fun addContestInfoListener(callback: suspend (ContestInfo) -> Unit) {
         contestInfoListeners.add(callback)
@@ -74,19 +79,43 @@ internal class ClicsModel {
         val mime = mime ?: return null
         val href = href?.value ?: return null
         return when {
-            mime.startsWith("image") -> MediaType.Image(href)
-            mime.startsWith("audio") -> MediaType.Audio(href)
-            mime.startsWith("video/m2ts") -> MediaType.M2tsVideo(href)
-            mime.startsWith("video/mp2t") -> MediaType.M2tsVideo(href)
-            mime.startsWith("application/vnd.apple.mpegurl") -> MediaType.HLSVideo(href)
-            mime.startsWith("video") -> MediaType.Video(href)
-            mime.startsWith("text") -> MediaType.Text(href)
-            mime.startsWith("application/zip") -> MediaType.ZipArchive(href)
+            mime.startsWith("image") -> MediaType.Image(url = href, width = width, height = height, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("audio") -> MediaType.Audio(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("video/m2ts") -> MediaType.M2tsVideo(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("video/mp2t") -> MediaType.M2tsVideo(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("application/vnd.apple.mpegurl") -> MediaType.HLSVideo(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("video") -> MediaType.Video(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("text") -> MediaType.Text(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
+            mime.startsWith("application/zip") -> MediaType.ZipArchive(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
             else -> null
         }
     }
 
-    private fun Group.toApi(): GroupInfo = GroupInfo(id.toGroupId(), name!!, isHidden = false, isOutOfContest = false)
+    private fun Group.toApi(): GroupInfo =
+        GroupInfo(
+            id.toGroupId(),
+            name!!,
+            isHidden = false,
+            isOutOfContest = false
+        )
+
+    private fun AccountId.toFakeTeamId() = "account$$${value}".toTeamId()
+
+    private fun Account.toFakeTeam() = TeamInfo(
+        id = id.toTeamId(),
+        fullName = name ?: id,
+        displayName = name ?: id,
+        groups = emptyList(),
+        hashTag = null,
+        medias = emptyMap(),
+        isHidden = true,
+        isOutOfContest = true,
+        organizationId = null,
+        color = null,
+        customFields = emptyMap(),
+        reactionVideoTemplate = null,
+        sourceTemplate = null,
+    )
 
     private fun Team.toApi(): TeamInfo {
         val teamOrganization = organizationId?.let { organizations[it] }
@@ -115,11 +144,11 @@ internal class ClicsModel {
                 put(TeamMediaType.TOOL_DATA, toolData.mapNotNull { it.toApi() })
             }.filterValues { it.isNotEmpty() },
             organizationId = organizationId?.toOrganizationId(),
-            isOutOfContest = false,
+            isOutOfContest = mainScoreboardGroupId != null && mainScoreboardGroupId !in groups,
             customFields = buildMap {
                 put("clicsTeamFullName", name)
                 put("clicsTeamDisplayName", displayName ?: name)
-                label?.let { put("clicsTeamLabel", it) }
+                label?.let { put("label", it) }
                 icpcId?.let { put("icpc_id", it) }
             }
         )
@@ -129,7 +158,7 @@ internal class ClicsModel {
         val judgment = submissionJudgmentIds[id]?.mapNotNull { judgements[it] }?.filter { it.current != false }?.maxByOrNull { it.startContestTime }
         val problem = problems[problemId]
         val passedTests = judgment?.id?.let { judgmentRunIds[it] }?.size ?: 0
-        val judgementType = judgementTypes[judgment?.judgementTypeId]
+        val judgementType = judgementTypes[judgment?.judgementTypeId ?: judgment?.simplifiedJudgementTypeId]
         return RunInfo(
             id = id.toRunId(),
             result = if (judgementType == null) {
@@ -146,13 +175,14 @@ internal class ClicsModel {
                 ).toICPCRunResult()
             },
             problemId = problemId.toProblemId(),
-            teamId = teamId.toTeamId(),
+            teamId = (teamId?.toTeamId() ?: accountId?.toAccountId()?.toFakeTeamId()) ?: error("Either account or team should be set for submission $id"),
             time = contestTime,
             testedTime = judgment?.endContestTime,
             reactionVideos = reaction?.mapNotNull { it.toApi() } ?: emptyList(),
             languageId = languageId?.toLanguageId(),
             isHidden = id in removedSubmissionIds,
-            sourceFiles = files.mapNotNull { it.toApi() }
+            sourceFiles = files.mapNotNull { it.toApi() },
+            accountId = accountId?.toAccountId()
         )
     }
 
@@ -168,13 +198,43 @@ internal class ClicsModel {
         id = id.toOrganizationId(),
         displayName = name ?: formalName ?: id,
         fullName = formalName ?: name ?: id,
-        logo = logo.mapNotNull { it.toApi() }
+        logo = logo.mapNotNull { it.toApi() },
+        country = country,
+        countryFlag = countryFlag.mapNotNull { it.toApi() },
+        countrySubdivision = countrySubdivision,
+        countrySubdivisionFlag = countrySubdivisionFlag.mapNotNull { it.toApi() },
+        customFields = buildMap {
+            twitterHashtag?.let { put("clicsTwitterHashtag", it) }
+            twitterAccount?.let { put("clicsTwitterAccount", it) }
+            icpcId?.let { put("icpc_id", it) }
+        }
     )
 
     private fun Language.toApi() = LanguageInfo(
         id = id.toLanguageId(),
         name = name,
         extensions = extensions
+    )
+    private fun Person.toApi() = PersonInfo(
+        id = id.toPersonId(),
+        name = name ?: id,
+        role = role ?: "other",
+        icpcId = icpcId,
+        teamIds = teamIds.map { it.toTeamId() },
+        title = title,
+        email = email,
+        sex = sex,
+        photo = photo.mapNotNull { it.toApi() }
+    )
+
+    private fun Account.toApi() = AccountInfo(
+        id = id.toAccountId(),
+        username = username,
+        password = password?.let { Credential("***", it) },
+        name = name,
+        type = type ?: "other",
+        teamId = teamId?.toTeamId() ?: id.toAccountId().toFakeTeamId(),
+        personId = personId?.toPersonId(),
     )
 
     val contestInfo: ContestInfo
@@ -185,21 +245,23 @@ internal class ClicsModel {
             contestLength = contestLength,
             freezeTime = freezeTime,
             problemList = problems.values.map { it.toApi() },
-            teamList = teams.values.map { it.toApi() },
+            teamList = teams.values.map { it.toApi() } + accounts.values.filter { it.teamId == null }.map { it.toFakeTeam() },
             groupList = groups.values.map { it.toApi() },
             penaltyPerWrongAttempt = penaltyPerWrongAttempt,
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
             organizationList = organizations.values.map { it.toApi() },
             languagesList = languages.values.map { it.toApi() },
+            personsList = persons.values.map { it.toApi() },
+            accountsList = accounts.values.map { it.toApi() },
             cdsSupportsFinalization = true
         )
 
-    private inline fun <reified T> putInSet(set: MutableMap<String, T>, id: String, data: T?, getId: T.() -> String) {
+    private inline fun <reified T: ObjectWithId> putInSet(set: MutableMap<String, T>, id: String, data: T?) {
         if (data == null) {
             set.remove(id)
         } else {
-            require(id == data.getId()) {
-                "Mismatch of id in event and ${T::class.simpleName} object: in event = ${id}, in object = ${data.getId()}"
+            require(id == data.id) {
+                "Mismatch of id in event and ${T::class.simpleName} object: in event = ${id}, in object = ${data.id}"
             }
             set[id] = data
         }
@@ -217,11 +279,10 @@ internal class ClicsModel {
         }
     }
 
-    private inline fun <reified T> putInSetLinked(
+    private inline fun <reified T: ObjectWithId> putInSetLinked(
         set: MutableMap<String, T>,
         id: String,
         data: T?,
-        getId: T.() -> String,
         referenceSet: MutableMap<String, MutableSet<String>>,
         getReferenceId: T.() -> String
     ) : List<String> = buildList {
@@ -234,12 +295,13 @@ internal class ClicsModel {
             referenceSet.getOrPut(it) { mutableSetOf() }.add(id)
             add(it)
         }
-        putInSet(set, id, data, getId)
+        putInSet(set, id, data)
     }.distinct()
 
     private suspend fun processContest(contest: Contest?) {
         require(contest != null) { "Removing contest is not supported" }
         name = contest.formalName ?: contest.name ?: "Unknown"
+        mainScoreboardGroupId = contest.mainScoreboardGroupId
         startTime = contest.startTime
         contestLength = contest.duration
         freezeTime = contestLength - (contest.scoreboardFreezeDuration ?: Duration.ZERO)
@@ -255,27 +317,36 @@ internal class ClicsModel {
     }
 
     private suspend fun processLanguage(id: String, language: Language?) {
-        putInSet(languages, id, language, Language::id)
+        putInSet(languages, id, language)
+        contestInfoUpdated()
+    }
+
+    private suspend fun processPerson(id: String, person: Person?) {
+        putInSet(persons, id, person)
         contestInfoUpdated()
     }
 
     private suspend fun processProblem(id: String, problem: Problem?) {
-        putInSet(problems, id, problem, Problem::id)
+        putInSet(problems, id, problem)
+        contestInfoUpdated()
+    }
+    private suspend fun processAccount(id: String, account: Account?) {
+        putInSet(accounts, id, account)
         contestInfoUpdated()
     }
 
     private suspend fun processOrganization(id: String, organization: Organization?) {
-        putInSet(organizations, id, organization, Organization::id)
+        putInSet(organizations, id, organization)
         contestInfoUpdated()
     }
 
     private suspend fun processTeam(id: String, team: Team?) {
-        putInSet(teams, id, team, Team::id)
+        putInSet(teams, id, team)
         contestInfoUpdated()
     }
 
     private suspend fun processJudgementType(id: String, judgementType: JudgementType?) {
-        putInSet(judgementTypes, id, judgementType, JudgementType::id)
+        putInSet(judgementTypes, id, judgementType)
         for ((_, submission) in submissions) {
             if (submissionJudgmentIds[submission.id]?.any { judgements[it]?.judgementTypeId == id } == true) {
                 submissionUpdated(submission.id)
@@ -284,12 +355,19 @@ internal class ClicsModel {
     }
 
     private suspend fun processGroup(id: String, group: Group?) {
-        putInSet(groups, id, group, Group::id)
+        putInSet(groups, id, group)
         contestInfoUpdated()
     }
 
     private suspend fun processSubmission(id: String, submission: Submission?) {
-        putInSetWithRemoved(submissions, removedSubmissionIds, id, submission, Submission::id)
+        if (submission != null && submission.teamId == null && submission.accountId == null) {
+            logger(ClicsModel::class).error {
+                "Ignoring submissions without both team or account"
+            }
+            putInSetWithRemoved(submissions, removedSubmissionIds, id, null, Submission::id)
+        } else {
+            putInSetWithRemoved(submissions, removedSubmissionIds, id, submission, Submission::id)
+        }
         submissionUpdated(id)
     }
 
@@ -298,7 +376,6 @@ internal class ClicsModel {
             set = judgements,
             id = id,
             data = judgement,
-            getId = Judgement::id,
             referenceSet = submissionJudgmentIds,
             getReferenceId = Judgement::submissionId
         ).forEach { submissionUpdated(it) }
@@ -309,14 +386,13 @@ internal class ClicsModel {
             set = runs,
             id = id,
             data = run,
-            getId = Run::id,
             referenceSet = judgmentRunIds,
             getReferenceId = Run::judgementId
         ).forEach { judgements[it]?.let { j -> submissionUpdated(j.submissionId)} }
     }
 
     private suspend fun processCommentary(id: String, commentary: Commentary?) {
-        putInSet(commentaries, id, commentary, Commentary::id)
+        putInSet(commentaries, id, commentary)
         commentaryUpdated(id)
     }
 
@@ -358,27 +434,29 @@ internal class ClicsModel {
         contestInfoUpdated()
     }
 
-    private suspend fun <T> processBatch(batch: List<T>, keys: Set<String>, single: suspend (String, T?) -> Unit, id: T.() -> String) {
-        for (kid in keys.toSet() - batch.map { it.id() }.toSet()) {
+    private suspend fun <T : ObjectWithId> processBatch(batch: List<T>, keys: Set<String>, single: suspend (String, T?) -> Unit) {
+        for (kid in keys.toSet() - batch.map { it.id }.toSet()) {
             single(kid, null)
         }
         for (e in batch) {
-            single(e.id(), e)
+            single(e.id, e)
         }
     }
 
     suspend fun processEvent(event: Event) {
         when (event) {
-            is BatchCommentaryEvent -> processBatch(event.data, commentaries.keys, ::processCommentary, Commentary::id)
-            is BatchGroupEvent -> processBatch(event.data, groups.keys, ::processGroup, Group::id)
-            is BatchJudgementEvent -> processBatch(event.data, judgements.keys, ::processJudgement, Judgement::id)
-            is BatchJudgementTypeEvent ->  processBatch(event.data, judgementTypes.keys, ::processJudgementType, JudgementType::id)
-            is BatchLanguageEvent -> processBatch(event.data, languages.keys, ::processLanguage, Language::id)
-            is BatchOrganizationEvent -> processBatch(event.data, organizations.keys, ::processOrganization, Organization::id)
-            is BatchProblemEvent -> processBatch(event.data, problems.keys, ::processProblem, Problem::id)
-            is BatchRunEvent -> processBatch(event.data, runs.keys, ::processRun, Run::id)
-            is BatchSubmissionEvent -> processBatch(event.data, submissions.keys, ::processSubmission, Submission::id)
-            is BatchTeamEvent -> processBatch(event.data, teams.keys, ::processTeam, Team::id)
+            is BatchCommentaryEvent -> processBatch(event.data, commentaries.keys, ::processCommentary)
+            is BatchGroupEvent -> processBatch(event.data, groups.keys, ::processGroup)
+            is BatchJudgementEvent -> processBatch(event.data, judgements.keys, ::processJudgement)
+            is BatchJudgementTypeEvent ->  processBatch(event.data, judgementTypes.keys, ::processJudgementType)
+            is BatchLanguageEvent -> processBatch(event.data, languages.keys, ::processLanguage)
+            is BatchOrganizationEvent -> processBatch(event.data, organizations.keys, ::processOrganization)
+            is BatchProblemEvent -> processBatch(event.data, problems.keys, ::processProblem)
+            is BatchRunEvent -> processBatch(event.data, runs.keys, ::processRun)
+            is BatchSubmissionEvent -> processBatch(event.data, submissions.keys, ::processSubmission)
+            is BatchTeamEvent -> processBatch(event.data, teams.keys, ::processTeam)
+            is BatchPersonEvent -> processBatch(event.data, persons.keys, ::processPerson)
+            is BatchAccountEvent -> processBatch(event.data, accounts.keys, ::processAccount)
             is ContestEvent -> processContest(event.data)
             is ProblemEvent -> processProblem(event.id, event.data)
             is OrganizationEvent -> processOrganization(event.id, event.data)
@@ -391,9 +469,11 @@ internal class ClicsModel {
             is JudgementEvent -> processJudgement(event.id, event.data)
             is RunEvent -> processRun(event.id, event.data)
             is CommentaryEvent -> processCommentary(event.id, event.data)
+            is PersonEvent -> processPerson(event.id, event.data)
+            is AccountEvent -> processAccount(event.id, event.data)
             is PreloadFinishedEvent -> {}
-            is AwardEvent, is AccountEvent, is PersonEvent, is ClarificationEvent -> {}
-            is BatchAccountEvent, is BatchAwardEvent, is BatchPersonEvent, is BatchClarificationEvent -> {}
+            is AwardEvent, is ClarificationEvent -> {}
+            is BatchAwardEvent, is BatchClarificationEvent -> {}
         }
     }
 
