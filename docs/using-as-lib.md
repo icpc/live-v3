@@ -36,17 +36,17 @@ Add the following dependency to make everything accessible:
 
 ```kotlin
 dependencies {
-    implementation("com.github.icpc.live-v3:org.icpclive.cds.full:3.3.2")
+    implementation("com.github.icpc.live-v3:org.icpclive.cds.full:${version}")
 }
 ```
 
 # More fine-grained dependency
 
 You can add the following packages with the same version instead:
-* `org.icpclive:org.icpclive.cds.core` - only core part of a library, no specific CDS-s parsers
-* `org.icpclive:org.icpclive.cds.%testsystem-type%` - parser for a single contest system
+* `com.github.icpc.live-v3:org.icpclive.cds.core` - only core part of a library, no specific CDS-s parsers
+* `com.github.icpc.live-v3:org.icpclive.cds.%testsystem-type%` - parser for a single contest system
   * For example `org.icpclive:org.icpclive.cds.codeforces` for parsing codeforces contests. 
-* `org.icpclive.org.icpclive.cds.clics-api` - a separate package with a data model of [ccs spec](https://ccs-specs.icpc.io/). 
+* `com.github.icpc.live-v3:org.icpclive.cds.clics-api` - a separate package with a data model of [ccs spec](https://ccs-specs.icpc.io/). 
    Can be used to parse some clics api or create clics api server.
 
 # Documentation
