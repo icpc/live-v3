@@ -145,7 +145,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
         )
 
         fun KSPropertyDeclaration.getJsonName(version: FeedVersion) : String {
-            getAnnotationsByType(SingleBefore::class).singleOrNull()?.takeIf { it.feedVersion < version }?.let { return it.oldName }
+            getAnnotationsByType(SingleBefore::class).singleOrNull()?.takeIf { version < it.feedVersion }?.let { return it.oldName }
             getAnnotationsByType(JsonName::class).singleOrNull()?.let { return it.name }
             return simpleName.asString().toSnakeCase()
         }
