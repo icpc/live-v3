@@ -1,6 +1,9 @@
 import org.gradle.api.tasks.Sync
 import org.gradle.kotlin.dsl.application
 import org.gradle.kotlin.dsl.register
+import org.icpclive.gradle.tasks.ExtractLicensesTask
+import kotlin.io.path.absolute
+import kotlin.io.path.name
 
 plugins {
     application
@@ -24,10 +27,20 @@ tasks {
         from(shadowJar)
     }
 
+    val extractLicensesTask by tasks.registering(ExtractLicensesTask::class) {
+        from(configurations.runtimeClasspath)
+        outputDir.set(layout.buildDirectory.dir("extracted-licenses"))
+    }
+
     shadowJar {
         mergeServiceFiles()
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
 
+        append("META-INF/io.netty.versions.properties")
+        exclude(ExtractLicensesTask.FILENAMES)
+        from(extractLicensesTask) {
+            into("META-INF/licenses")
+        }
         archiveClassifier = null
     }
     distZip { enabled = false }

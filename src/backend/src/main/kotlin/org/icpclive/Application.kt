@@ -48,7 +48,7 @@ private fun Application.setupKtorPlugins() {
             })
         } else {
             basic("admin-api-auth") {
-                realm = "Access to the '/api/admin' path"
+                realm = "Access to the 11 '/api/admin' path"
                 validate { credentials ->
                     Controllers.userController.validateAdminApiCredits(
                         credentials.name,
