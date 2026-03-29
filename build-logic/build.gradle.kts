@@ -13,6 +13,7 @@ java {
 repositories {
     gradlePluginPortal()
     mavenCentral()
+    maven("https://redirector.kotlinlang.org/maven/dev")
 }
 
 dependencies {
