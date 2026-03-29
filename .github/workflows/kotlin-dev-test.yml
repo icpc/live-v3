@@ -24,9 +24,21 @@ jobs:
           ref: kotlin-test-dev-version
           fetch-depth: 0
 
+      - name: Rebase onto Main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          echo "Fetching latest main..."
+          git fetch origin main
+          
+          echo "Attempting rebase..."
+          git rebase origin/main        
+
       - uses: pnpm/action-setup@v4
         with:
           version: 10.18.3
+
       - uses: actions/setup-node@v3
         with:
           node-version: '22.20.0'
@@ -63,17 +75,6 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-
-      - name: Rebase onto Master
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          echo "Fetching latest master..."
-          git fetch origin master
-          
-          echo "Attempting rebase..."
-          git rebase origin/master
 
       - name: Run Upgrade Task
         run: ./gradlew upgradeKotlinDev --no-daemon
