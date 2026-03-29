@@ -1,13 +1,22 @@
+rootProject.name = "live-v3"
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        maven("https://redirector.kotlinlang.org/maven/dev")
+    }
+}
+
 plugins {
     id("com.gradle.develocity") version "4.1.1"
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-rootProject.name = "live-v3"
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
+        maven("https://redirector.kotlinlang.org/maven/dev")
     }
     versionCatalogs {
         create("libs") {}
