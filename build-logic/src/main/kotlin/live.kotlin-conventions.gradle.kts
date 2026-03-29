@@ -24,7 +24,6 @@ kotlin {
         allWarningsAsErrors = true
         compilerOptions {
             jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
-            freeCompilerArgs.add("-Xcontext-parameters")
             freeCompilerArgs.add("-Xreturn-value-checker=full")
             progressiveMode = true
             optIn.addAll(listOf(
