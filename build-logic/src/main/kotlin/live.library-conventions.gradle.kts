@@ -12,17 +12,15 @@ plugins {
 
 kotlin {
     explicitApi()
-    abiValidation {
-        enabled = true
-    }
+    abiValidation()
 }
 
 tasks {
     val apiDump by registering {
-        dependsOn(updateLegacyAbi)
+        dependsOn(kotlin.abiValidation.updateTaskProvider)
     }
     val apiCheck by registering {
-        dependsOn(checkLegacyAbi)
+        dependsOn(kotlin.abiValidation.checkTaskProvider)
     }
 }
 

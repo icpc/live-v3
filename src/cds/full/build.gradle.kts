@@ -13,7 +13,8 @@ plugins {
 
 kotlin {
     abiValidation {
-        enabled = false
+        updateTaskProvider.configure { enabled = false }
+        checkTaskProvider.configure { enabled = false }
     }
 }
 
