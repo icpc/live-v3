@@ -75,6 +75,7 @@ interface ContestClockProps {
     clockType?: ClockType;
     showSeconds?: boolean;
     timeZone?: string | null;
+    fontFamily: string;
 }
 
 export const ContestClock: React.FC<ContestClockProps> = ({
@@ -82,6 +83,7 @@ export const ContestClock: React.FC<ContestClockProps> = ({
     clockType = ClockType.standard,
     showSeconds = true,
     timeZone = null,
+    fontFamily = c.TICKER_FONT_FAMILY,
 }) => {
     const contestInfo = useAppSelector((state) => state.contestInfo.info);
 
@@ -126,7 +128,7 @@ export const ContestClock: React.FC<ContestClockProps> = ({
         <ShrinkingBox
             text={status}
             fontSize={c.TICKER_TEXT_FONT_SIZE}
-            fontFamily={c.TICKER_FONT_FAMILY}
+            fontFamily={fontFamily}
             align="center"
         />
     );

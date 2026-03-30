@@ -32,6 +32,7 @@ export const FullScreenClock = ({ widgetData: { settings } }) => {
                 clockType={settings.clockType ?? ClockType.standard}
                 showSeconds={settings.showSeconds ?? true}
                 timeZone={settings.timeZone ?? null}
+                fontFamily={c.FULL_SCREEN_CLOCK_FONT_FAMILY}
             />
         </ClockWrapper>
     );
