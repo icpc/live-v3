@@ -2,12 +2,12 @@ import styled from "styled-components";
 import c from "../../config";
 import React, { useEffect, useRef, useMemo } from "react";
 
-const TextShrinkingWrap = styled.div<{ align: string }>`
+const TextShrinkingWrap = styled.div<{ align: string; fontFamily: string }>`
     overflow: hidden;
     display: flex;
     justify-content: ${(props) => props.align};
 
-    font-family: ${c.GLOBAL_DEFAULT_FONT_FAMILY};
+    font-family: ${(props) => props.fontFamily};
     font-kerning: none;
 
     /* Performance: isolate layout calculations */
@@ -123,7 +123,12 @@ export const ShrinkingBox = React.memo(
         }, [textWidth]);
 
         return (
-            <TextShrinkingWrap ref={boxRef} align={align} className={className}>
+            <TextShrinkingWrap
+                ref={boxRef}
+                align={align}
+                className={className}
+                fontFamily={fontFamily}
+            >
                 <TextShrinkingContainer
                     ref={containerRef}
                     align={align}
