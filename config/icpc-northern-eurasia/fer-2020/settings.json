@@ -1,0 +1,9 @@
+{
+  "type":"cats",
+  "source":"https://imcs.dvfu.ru/cats",
+  "cid":"4998079",
+  "timeZone":"UTC+10",
+  "resultType":"ICPC",
+  "login":"$creds.cats_login",
+  "password":"$creds.cats_password"
+}
