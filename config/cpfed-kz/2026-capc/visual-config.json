@@ -1,0 +1,36 @@
+{
+    "FULL_SCREEN_CLOCK_CENTERED": true,
+    "FULL_SCREEN_CLOCK_COLOR": "#fff",
+    "FULL_SCREEN_CLOCK_FONT_FAMILY": "PP NeueBit",
+    "GLOBAL_DEFAULT_FONT_FAMILY": "Inter, Noto Color Emoji",
+    "TICKER_FONT_FAMILY": "PP NeueBit",
+    "ADVERTISEMENT_FONT_FAMILY": "PP NeueBit",
+    "CELL_FONT_FAMILY": "PP NeueBit",
+    "FULL_SCREEN_CLOCK_FONT_SIZE": "600px",
+    "SCOREBOARD_BACKGROUND_COLOR": "rgba(36, 36, 37, 0.7)",
+    "SCOREBOARD_CAPTION": "",
+    "SCOREBOARD_CAPTION_FONT_SIZE": "0",
+    "SCOREBOARD_PADDING_TOP": "0px",
+    "SCOREBOARD_PADDING_LEFT": "0px",
+    "SCOREBOARD_PADDING_RIGHT": "0px",
+    "SCOREBOARD_TABLE_ROW_FONT_WEIGHT": 400,
+    "SCOREBOARD_GAP": "0px",
+    "SCOREBOARD_HEADER_FONT_SIZE": "26px",
+    "SCOREBOARD_ROW_FONT_SIZE": "26px",
+    "CONTEST_COLOR": "rgba(0, 0, 0, 0)",
+    "WIDGET_POSITIONS": {
+        "fullScreenClock": {
+            "positionX": 0,
+            "positionY": 200,
+            "sizeX": 1920,
+            "sizeY": 680
+        },
+        "scoreboard": {
+            "positionX": 50,
+            "positionY": 230,
+            "sizeX": 1820, 
+            "sizeY": 800
+        }
+    },
+    "EXTRA_CSS": "@import url('https://rsms.me/inter/inter.css'); @import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap'); @font-face { font-family: 'PP NeueBit'; src: url('/media/ppneuebit-bold.otf') format('opentype'); font-weight: bold; font-style: normal; font-display: swap;} #root > div {background-image: url('/media/background.png'); background-size: cover;}"
+}

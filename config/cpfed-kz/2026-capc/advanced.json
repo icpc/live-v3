@@ -1,0 +1,79 @@
+[
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "fromName": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "(.*) \\(Kazakhstan\\)": {
+                        "teamName": "🇰🇿 $1"
+                        //"teamName": "$1"
+                    },
+                    "(.*) \\(Uzbekistan\\)": {
+                        "teamName": "🇺🇿 $1"
+                        //"teamName": "$1"
+                    },
+                    "(.*) \\(Kyrgyzstan\\)": {
+                        "teamName": "🇰🇬 $1"
+                        //"teamName": "$1"
+                    },
+                    "(.*) \\(Tajikistan\\)": {
+                        "teamName": "🇹🇯 $1"
+                        //"teamName": "$1"
+                    }
+                }
+            }
+        },
+        "displayName": "{regexes.fromName.teamName}"
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            },
+            "B": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            },
+            "C": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            },
+            "D": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            },
+            "E": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            },
+            "F": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            },
+            "G": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            },
+            "H": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            },
+            "I": {
+                "ftsMode": {
+                    "type": "hidden"
+                }
+            }
+        }
+    }
+]
