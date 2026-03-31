@@ -1,0 +1,15 @@
+{
+  "type":"clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://10.3.3.207:7443/api",
+        "login": "live",
+        "password": "password"
+      },
+      "contestId": "nac26",
+      "feedVersion": "2026_01"
+      }
+  ],
+  "network": {"allowUnsecureConnections": true}
+}

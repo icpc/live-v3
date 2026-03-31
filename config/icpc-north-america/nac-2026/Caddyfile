@@ -1,0 +1,27 @@
+https://overlay.nac.icpc.live {
+    tls ./nac.icpc.live/fullchain.pem ./nac.icpc.live/privkey.pem
+    reverse_proxy 172.24.1.2:8080
+}
+
+https://splitscreen.nac.icpc.live {
+    tls ./nac.icpc.live/fullchain.pem ./nac.icpc.live/privkey.pem
+    reverse_proxy 172.24.1.2:8081
+}
+
+https://convertor.nac.icpc.live {
+    tls ./nac.icpc.live/fullchain.pem ./nac.icpc.live/privkey.pem
+    reverse_proxy 172.24.1.2:8082
+}
+
+https://keylog.nac.icpc.live {
+    tls ./nac.icpc.live/fullchain.pem ./nac.icpc.live/privkey.pem
+    reverse_proxy 172.24.1.2:5050
+}
+
+http://* {
+    respond "OK from Caddy" 200
+}
+
+https://* {
+    respond "OK from Caddy" 200
+}

@@ -1,0 +1,13 @@
+{
+  "type":"clics",
+  "feeds": [
+    {
+      "source": "https://convertor.nac.icpc.live/clics/2026_01/api",
+      "contestId": "contest",
+      "feedVersion" :"2026_01"
+      }
+  ],
+  "network": {"allowUnsecureConnections": true}
+}
+
+

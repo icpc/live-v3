@@ -1,0 +1,33 @@
+[
+    {
+        "type": "overrideContestSettings",
+        "customFields": {
+           "reactionsUrlTemplate": "https://d1x79igug69x01.cloudfront.net/reactionsNAC/2026/$.mp4"
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 2,
+        "bronze": 3
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 18
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "medias": {
+            "achievement": {
+                "type": "Object",
+                "url": "/media/ach/icpcid/{team.customFields.icpc_id}.svg"
+            },
+        "keylog": {
+                "type": "Object",
+                "url": "https://keylogs.nac.icpc.live/keylog/{team.id}.ndjson"
+            }
+
+        }
+    }
+
+]
