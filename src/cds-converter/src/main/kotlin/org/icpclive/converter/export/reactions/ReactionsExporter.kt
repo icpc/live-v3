@@ -18,9 +18,9 @@ import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.Ranking
 import org.icpclive.cds.util.serializers.DurationInMillisecondsSerializer
-import org.icpclive.converter.ConverterAdminPrincipal
 import org.icpclive.converter.export.Exporter
 import org.icpclive.converter.export.Router
+import org.icpclive.server.AdminPrincipal
 import kotlin.time.Duration
 
 @Serializable
@@ -228,7 +228,7 @@ object ReactionsExporter : Exporter {
     ): Router {
         val data = ReactionsData(this, contestUpdates)
         val adminData = ReactionsData(this, adminContestUpdates)
-        fun ApplicationCall.getData() = if (principal<ConverterAdminPrincipal>()?.isAdminAccount() == true) adminData else data
+        fun ApplicationCall.getData() = if (principal<AdminPrincipal>()?.confirmed == true) adminData else data
 
         return object : Router {
             override fun HtmlBlockTag.mainPage() {

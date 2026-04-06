@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.html.HtmlBlockTag
 import kotlinx.html.a
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.converter.ConverterAdminPrincipal
+import org.icpclive.server.AdminPrincipal
 
 abstract class SingleFileExporter(
     private val httpPath: String,
@@ -46,7 +46,7 @@ abstract class SingleFileExporter(
                     }
                     get(exportName) {
                         call.respondText(contentType = contentType) {
-                            val state = if (call.principal<ConverterAdminPrincipal>()?.isAdminAccount() == true) {
+                            val state = if (call.principal<AdminPrincipal>()?.confirmed == true) {
                                 adminStateFlow
                             } else {
                                 stateFlow

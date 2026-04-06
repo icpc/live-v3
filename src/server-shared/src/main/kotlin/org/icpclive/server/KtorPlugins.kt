@@ -15,7 +15,7 @@ import io.ktor.server.websocket.pingPeriod
 import io.ktor.server.websocket.timeout
 import kotlin.time.Duration.Companion.seconds
 
-fun Application.setupDefaultKtorPlugins() {
+public fun Application.setupDefaultKtorPlugins() {
     install(DefaultHeaders)
     install(CallLogging) {
         level = org.slf4j.event.Level.INFO

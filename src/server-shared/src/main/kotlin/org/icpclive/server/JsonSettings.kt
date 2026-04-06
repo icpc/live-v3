@@ -4,7 +4,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalSerializationApi::class)
-fun serverResponseJsonSettings(): Json = Json {
+public fun serverResponseJsonSettings(): Json = Json {
     encodeDefaults = true
     isLenient = true
     allowSpecialFloatingPointValues = true

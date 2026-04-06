@@ -11,15 +11,17 @@ import io.ktor.server.application.Application
 import io.ktor.server.application.port
 import kotlinx.coroutines.*
 import org.icpclive.cds.util.getLogger
+import java.nio.file.Path
 import kotlin.io.path.*
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-class Publisher : OptionGroup("publisher") {
-    val interval by option("--publisher-interval", help = "Interval in seconds for publishing")
+public class Publisher : OptionGroup("publisher") {
+    public val interval: Duration by option("--publisher-interval", help = "Interval in seconds for publishing")
         .int()
         .convert { it.seconds }
         .required()
-    val paths by option("--publish", help = "Publish url to directory", metavar = "{url}:{path}").convert {
+    public val paths: List<Pair<String, Path>> by option("--publish", help = "Publish url to directory", metavar = "{url}:{path}").convert {
         val (a, b) = it.split(":")
         a to Path(b).absolute()
     }.multiple(required = true).validate {
@@ -27,12 +29,12 @@ class Publisher : OptionGroup("publisher") {
             require(p.parent.exists()) { "Directory ${p.parent} does not exist" }
         }
     }
-    val command by option("--publish-command", help = "Execute a callback command after publish is done.")
+    public val command: String? by option("--publish-command", help = "Execute a callback command after publish is done.")
 }
 
 private val log by getLogger()
 
-fun Application.startPublisher(config: Publisher) {
+public fun Application.startPublisher(config: Publisher) {
     log.info { "Stating publisher with interval ${config.interval} seconds and paths ${config.paths}" }
 
 

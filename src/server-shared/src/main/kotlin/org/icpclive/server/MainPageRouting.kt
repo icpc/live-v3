@@ -5,12 +5,12 @@ import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GitInfo(val commit: String, val branch: String, val description: String)
+public data class GitInfo(val commit: String, val branch: String, val description: String)
 
 @Serializable
-data class UsefulLink(val name: String, val url: String)
+public data class UsefulLink(val name: String, val url: String)
 
-fun Route.configureMainPageRouting(
+public fun Route.configureMainPageRouting(
     usefulLinks: List<UsefulLink>,
 ) {
     route("/main-page") {

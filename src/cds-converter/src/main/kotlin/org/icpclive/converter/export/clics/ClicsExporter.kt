@@ -26,6 +26,7 @@ import org.icpclive.clics.objects.*
 import org.icpclive.converter.ConverterAdminPrincipal
 import org.icpclive.converter.export.Exporter
 import org.icpclive.converter.export.Router
+import org.icpclive.server.AdminPrincipal
 import java.io.OutputStream
 import java.nio.ByteBuffer
 import java.nio.file.Files
@@ -43,7 +44,7 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
 
     private fun ApplicationCall.hasAccess(x: ObjectWithId): Boolean {
         val whoAmI = principal<ConverterAdminPrincipal>()
-        if (whoAmI?.isAdminAccount() == true) return true
+        if (whoAmI?.confirmed == true) return true
         return when (x) {
             is Account -> {
                 whoAmI?.accountInfo?.id?.value == x.id
@@ -167,7 +168,7 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
     ): Router {
         val userClics = ClicsFeedGenerator(this, contestUpdates, isAdmin = false)
         val adminClics = ClicsFeedGenerator(this, adminContestUpdates, isAdmin = true)
-        fun ApplicationCall.feed() = if (principal<ConverterAdminPrincipal>()?.isAdminAccount() == true) adminClics else userClics
+        fun ApplicationCall.feed() = if (principal<AdminPrincipal>()?.confirmed == true) adminClics else userClics
 
         return object : Router {
             override fun HtmlBlockTag.mainPage() {

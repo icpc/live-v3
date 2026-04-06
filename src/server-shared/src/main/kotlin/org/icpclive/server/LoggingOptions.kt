@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory
 import java.nio.file.Path
 import kotlin.io.path.absolutePathString
 
-class LoggingOptions(logfileDefaultPrefix: String) : OptionGroup("logging settings") {
+public class LoggingOptions(logfileDefaultPrefix: String) : OptionGroup("logging settings") {
     private val logFile by option(
         "--log-file",
         help = "File to print logs"
@@ -27,7 +27,7 @@ class LoggingOptions(logfileDefaultPrefix: String) : OptionGroup("logging settin
         .default("INFO")
 
 
-    fun setupLogging(
+    public fun setupLogging(
         extraLoggers: List<(PatternLayoutEncoder) -> Appender<ILoggingEvent>> = emptyList()
     ) {
         val logbackLogger = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME) as Logger

@@ -9,7 +9,7 @@ import com.github.ajalt.clikt.parameters.types.path
 import org.icpclive.cds.cli.CdsCommandLineOptions
 import org.icpclive.server.LoggingOptions
 import org.icpclive.server.ServerOptions
-import org.icpclive.util.FlowLogger
+import org.icpclive.util.FlowLogAppender
 
 object Config : CliktCommand(name = "java -jar live-v3.jar") {
     override val printHelpOnEmptyArgs = true
@@ -45,7 +45,7 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
 
 
     override fun run() {
-        loggingSettings.setupLogging(extraLoggers = listOf(::FlowLogger))
+        loggingSettings.setupLogging(extraLoggers = listOf(::FlowLogAppender))
         presetsDirectory.toFile().mkdirs()
         mediaDirectory.toFile().mkdirs()
         serverSettings.start()

@@ -18,7 +18,6 @@ import io.ktor.server.plugins.conditionalheaders.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.websocket.webSocket
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.html.*
@@ -28,7 +27,6 @@ import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.calculateScoreboard
-import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.*
 import org.icpclive.converter.commands.*
 import org.icpclive.converter.export.Exporter
@@ -39,7 +37,6 @@ import org.icpclive.converter.export.pcms.PCMSHtmlExporter
 import org.icpclive.converter.export.pcms.PCMSXmlExporter
 import org.icpclive.converter.export.reactions.ReactionsExporter
 import org.icpclive.server.*
-import org.icpclive.util.sendFlow
 import kotlin.system.exitProcess
 
 
@@ -70,8 +67,7 @@ class ConverterAdminPrincipal(
     val loggedIn: Boolean,
 ) : AdminPrincipal {
     override val name: String = accountInfo.username
-    override val confirmed: Boolean = true
-    fun isAdminAccount() = accountInfo.isAdminAccount()
+    override val confirmed: Boolean = accountInfo.isAdminAccount()
 }
 
 fun main(args: Array<String>): Unit = MainCommand.subcommands(
@@ -106,7 +102,8 @@ fun Application.module() {
     val routers = mutableListOf<Router>()
 
     val scope = this + handler
-    val contestInfoFlow: Flow<ContestInfo>
+    val adminContestInfoFlow: Flow<ContestInfo>
+    val nonAdminContestInfoFlow: Flow<ContestInfo>
     val accounts: StateFlow<Map<String, AccountInfo>>
 
     fun Exporter.run(
@@ -124,15 +121,7 @@ fun Application.module() {
     }
 
     ServerCommand.cdsOptions.toFlow().shareWith(scope) {
-        withSubscription(3) { rootFlow ->
-            contestInfoFlow = rootFlow.filterIsInstance<InfoUpdate>()
-                .map { it.newInfo }
-                .stateIn(scope, SharingStarted.Eagerly, null)
-                .filterNotNull()
-
-            accounts = contestInfoFlow
-                .map { it.accounts.values.associateBy { it.username } }
-                .stateIn(scope, SharingStarted.Eagerly, emptyMap())
+        withSubscription(2) { rootFlow ->
             val nonAdminFlow = rootFlow.addComputedData {
                 submissionResultsAfterFreeze = false
                 submissionsAfterEnd = false
@@ -143,8 +132,23 @@ fun Application.module() {
                 submissionsAfterEnd = ServerCommand.cdsOptions.upsolving
                 autoFinalize = ServerCommand.cdsOptions.autoFinalize
             }.calculateScoreboard(OptimismLevel.NORMAL)
+
             nonAdminFlow.shareWith(scope) nonAdmin@{
+                withSubscription { naFlow ->
+                    nonAdminContestInfoFlow = naFlow
+                        .filter { it.state.lastEvent is InfoUpdate }
+                        .map { it.state.infoAfterEvent }
+                        .stateIn(scope, SharingStarted.Eagerly, null)
+                        .filterNotNull()
+                }
                 adminFlow.shareWith(scope) admin@{
+                    withSubscription { aFlow ->
+                        adminContestInfoFlow = aFlow
+                            .filter { it.state.lastEvent is InfoUpdate }
+                            .map { it.state.infoAfterEvent }
+                            .stateIn(scope, SharingStarted.Eagerly, null)
+                            .filterNotNull()
+                    }
                     PCMSXmlExporter.run(this@nonAdmin, this@admin)
                     PCMSHtmlExporter.run(this@nonAdmin, this@admin)
                     IcpcCsvExporter.run(this@nonAdmin, this@admin)
@@ -152,6 +156,9 @@ fun Application.module() {
                     ReactionsExporter.run(this@nonAdmin, this@admin)
                 }
             }
+            accounts = adminContestInfoFlow
+                .map { it.accounts.values.associateBy { it.username } }
+                .stateIn(scope, SharingStarted.Eagerly, emptyMap())
         }
     }
 
@@ -195,53 +202,22 @@ fun Application.module() {
                         )
                     )
                 }
-                flowEndpoint<ContestInfo>("/contestInfo") { contestInfoFlow }
-                route("/advancedJson") {
-                    configureConfigFileRouting(
-                        ServerCommand.cdsOptions.advancedJsonPath,
-                        "[]",
-                        {
-                            try {
-                                // check if parsable
-                                val _ = TuningRule.listFromString(it)
-                            } catch (e: SerializationException) {
-                                throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
-                            }
-                        },
-                        "/schemas/advanced.schema.json",
-                        "examples/advanced"
-                    )
-                }
-                route("/visualConfig") {
-                    configureConfigFileRouting(
-                        ServerCommand.cdsOptions.visualConfigFile,
-                        "{}",
-                        { },
-                        "/schemas/visual-config.schema.json",
-                        "examples/visual"
-                    )
-                }
-                route("/customFields") {
-                    configureConfigFileRouting(
-                        ServerCommand.cdsOptions.customFieldsCsvPath,
-                        "",
-                        { },
-                        null,
-                        null
-                    )
-                }
-                route("/orgCustomFields") {
-                    configureConfigFileRouting(
-                        ServerCommand.cdsOptions.orgCustomFieldsCsvPath,
-                        "",
-                        { },
-                        null,
-                        null
-                    )
-                }
+                configureDefaultConfigRouting(
+                    ServerCommand.cdsOptions.configDirectory.resolve("settings.json"),
+                    ServerCommand.cdsOptions.advancedJsonPath,
+                    ServerCommand.cdsOptions.visualConfigFile,
+                    ServerCommand.cdsOptions.customFieldsCsvPath,
+                    ServerCommand.cdsOptions.orgCustomFieldsCsvPath,
+                    {
+                        val principal = principal<ConverterAdminPrincipal>()
+                        if (principal?.confirmed == true) {
+                            adminContestInfoFlow
+                        } else {
+                            nonAdminContestInfoFlow
+                        }
+                    }
+                )
             }
-            webSocket("/backendLog") { sendFlow(AdminDataBus.loggerFlow) }
-            webSocket("/adminActions") { sendFlow(AdminDataBus.adminActionsFlow) }
         }
 
 

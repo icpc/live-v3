@@ -3,6 +3,7 @@ import org.icpclive.gradle.tasks.PackExamplesTask
 
 plugins {
     id("live.kotlin-conventions")
+    id("live.library-conventions")
 }
 
 dependencies {
@@ -19,6 +20,7 @@ dependencies {
     implementation(libs.ktor.server.websockets)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.server.auth)
+    implementation(projects.cds.core)
     implementation(projects.cds.utils)
     api(libs.logback)
 }
