@@ -284,6 +284,7 @@ fun Application.module() {
 
         route("/") {
             install(ConditionalHeaders)
+            staticResources("/schemas", "schemas")
             singlePageApplication {
                 useResources = true
                 applicationRoute = "/"
