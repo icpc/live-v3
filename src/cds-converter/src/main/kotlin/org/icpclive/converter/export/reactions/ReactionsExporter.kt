@@ -231,11 +231,6 @@ object ReactionsExporter : Exporter {
         fun ApplicationCall.getData() = if (principal<AdminPrincipal>()?.confirmed == true) adminData else data
 
         return object : Router {
-            override fun HtmlBlockTag.mainPage() {
-                a("/reactions") {
-                    +"Reaction videos API"
-                }
-            }
             override fun Route.setUpRoutes() {
                 route("/reactions") {
                     get {

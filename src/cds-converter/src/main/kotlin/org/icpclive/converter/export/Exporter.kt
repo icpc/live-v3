@@ -16,6 +16,5 @@ interface Exporter {
 }
 
 fun interface Router {
-    fun HtmlBlockTag.mainPage() {}
     fun Route.setUpRoutes()
 }

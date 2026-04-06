@@ -34,11 +34,6 @@ abstract class SingleFileExporter(
             .filter { it.state.infoAfterEvent != null }
 
         return object : Router {
-            override fun HtmlBlockTag.mainPage() {
-                a("$httpPath/$exportName") {
-                    +exportDescription
-                }
-            }
             override fun Route.setUpRoutes() {
                 route(httpPath) {
                     get {

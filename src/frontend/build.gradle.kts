@@ -80,7 +80,7 @@ tasks {
         inputs.file(layout.projectDirectory.file("admin-configuration/package.json"))
         inputs.dir(layout.projectDirectory.dir("admin-configuration/src"))
     }
-    val buildAdminConverter = pnpmBuild("pnpm_run_buildAdminConverter", layout.projectDirectory.dir("admin-converter"), "/") {
+    val buildAdminConverter = pnpmBuild("pnpm_run_buildAdminConverter", layout.projectDirectory.dir("admin-converter"), "/admin") {
         inputs.file(it.file("index.html"))
         inputs.file(layout.projectDirectory.file("admin-home-page/package.json"))
         inputs.dir(layout.projectDirectory.dir("admin-home-page/src"))

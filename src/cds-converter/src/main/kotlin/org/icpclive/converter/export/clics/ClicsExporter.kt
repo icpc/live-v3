@@ -171,58 +171,6 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
         fun ApplicationCall.feed() = if (principal<AdminPrincipal>()?.confirmed == true) adminClics else userClics
 
         return object : Router {
-            override fun HtmlBlockTag.mainPage() {
-                br
-                script {
-                    unsafe {
-                        +$$"""
-                            function setClicsVersion(v) {
-                                console.log("Setting clics version to " + v);
-                                const prefix =`/clics/${v}api`
-                                document.getElementById('clics1').href = prefix;
-                                document.getElementById('clics2').href = `${prefix}/contests/contest`;
-                                document.getElementById('clics3').href = `${prefix}/contests/contest/event-feed`;
-                                document.getElementById('clics4').href = `${prefix}/archive.zip`;
-                            }
-                        """.trimIndent()
-                    }
-                }
-                +"Clics feed Version:  "
-                select {
-                    onChange = "setClicsVersion( this.value )"
-                    for (i in FeedVersion.entries) {
-                        option {
-                            value = if (i == FeedVersion.DRAFT) "" else "$i/"
-                            if (i == FeedVersion.DRAFT) {
-                                selected = true
-                            }
-                            +i.toString()
-                        }
-                    }
-                }
-                br
-                a("/clics/api") {
-                    id = "clics1"
-                    +"Clics api root"
-                }
-                br
-                a("/clics/api/contests/contest") {
-                    id = "clics2"
-                    +"Clics contest api root"
-                }
-                br
-                a("/clics/api/contests/contest/event-feed") {
-                    id = "clics3"
-                    +"Clics event feed"
-                }
-                br
-                a("/clics/archive.zip") {
-                    id = "clics4"
-                    +"CLICS contest archive (zip)"
-                }
-                br
-            }
-
             override fun Route.setUpRoutes() {
                 for (version in FeedVersion.entries) {
                     route(if (version == FeedVersion.DRAFT) "/clics" else "/clics/${version}") {

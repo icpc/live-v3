@@ -261,9 +261,10 @@ fun Application.module() {
         route("/") {
             install(ConditionalHeaders)
             staticResources("/schemas", "schemas")
+            get { call.respondRedirect("/admin") }
             singlePageApplication {
                 useResources = true
-                applicationRoute = "/"
+                applicationRoute = "/admin"
                 react("admin-converter")
             }
         }

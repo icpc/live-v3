@@ -84,7 +84,7 @@ fun Application.module() {
         }
         configureMainPageRouting(
             listOf(
-                UsefulLink("/admin", "/admin"),
+                UsefulLink("/admin/controls", "/admin/controls"),
                 UsefulLink("/overlay?noStatus", "/overlay?noStatus"),
                 UsefulLink("/api/admin/advancedJsonPreview?fields=all", "/api/admin/advancedJsonPreview?fields=all"),
                 UsefulLink("https://github.com/icpc/live-v3", "https://github.com/icpc/live-v3")
