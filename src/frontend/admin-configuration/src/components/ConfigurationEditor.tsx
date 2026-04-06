@@ -100,11 +100,13 @@ export enum EditorLanguage {
 interface ConfigurationEditorProps {
     apiRoot: string;
     editorType: EditorLanguage;
+    readonly?: boolean;
 }
 
 export function ConfigurationEditor({
     apiRoot,
     editorType,
+    readonly = false,
 }: ConfigurationEditorProps): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
     const errorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
@@ -160,21 +162,35 @@ export function ConfigurationEditor({
                             schema={schema}
                             defaultValue={content}
                             onChange={(value: string) => setContent(value)}
+                            readonly={true}
                         />
                     )}
                     {editorType === EditorLanguage.CSV && (
                         <CsvCodeEditor
                             defaultValue={content}
                             onChange={(value: string) => setContent(value)}
+                            readonly={true}
                         />
                     )}
                 </Box>
-                <Button type="submit" onClick={onSubmit} sx={{ mt: 2 }}>
-                    Save
-                </Button>
+                {readonly || (
+                    <Button type="submit" onClick={onSubmit} sx={{ mt: 2 }}>
+                        Save
+                    </Button>
+                )}
             </Container>
-            <ExamplesContainer apiRoot={apiRoot} />
+            {readonly || <ExamplesContainer apiRoot={apiRoot} />}
         </Container>
+    );
+}
+
+export function SettingsJsonPage(): React.ReactElement {
+    return (
+        <ConfigurationEditor
+            apiRoot={`${BASE_URL_BACKEND}/settings`}
+            editorType={EditorLanguage.Json}
+            readonly={true}
+        />
     );
 }
 

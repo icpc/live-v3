@@ -7,6 +7,7 @@ import {
     VisualConfigPage,
     CustomFieldsPage,
     OrgCustomFieldsPage,
+    SettingsJsonPage,
 } from "./components/ConfigurationEditor";
 
 export interface AdminConfigurationPage {
@@ -20,6 +21,11 @@ export const adminConfigurationPages: AdminConfigurationPage[] = [
         name: "Contest Info",
         path: "/contestInfo",
         element: <ContestLog />,
+    },
+    {
+        name: "Settings JSON",
+        path: "/settings",
+        element: <SettingsJsonPage />,
     },
     {
         name: "Advanced JSON",
