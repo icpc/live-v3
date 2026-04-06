@@ -62,11 +62,15 @@ const ScoreboardRowWrap = styled(ScoreboardTableRowWrap)`
     border-bottom: ${c.SCOREBOARD_ROWS_DIVIDER_COLOR} solid 1px;
 `;
 
-const ScoreboardRowName = styled(ShrinkingBox)`
+const ScoreboardRowName = styled(ShrinkingBox).attrs({
+    fontSize: c.SCOREBOARD_ROW_FONT_SIZE,
+})`
     padding: 0 ${c.SCOREBOARD_CELL_PADDING};
 `;
 
-const ScoreboardRankLabel = styled(RankLabel)`
+const ScoreboardRankLabel = styled(RankLabel).attrs({
+    fontSize: c.SCOREBOARD_ROW_FONT_SIZE,
+})`
     display: flex;
     align-items: center;
     align-self: stretch;
@@ -130,11 +134,13 @@ const ScoreboardTeamRow = React.memo(
                 <ShrinkingBox
                     align={c.SCOREBOARD_CELL_POINTS_ALIGN}
                     text={scoreText}
+                    fontSize={c.SCOREBOARD_ROW_FONT_SIZE}
                 />
                 {needPenalty && (
                     <ShrinkingBox
                         align={c.SCOREBOARD_CELL_PENALTY_ALIGN}
                         text={penaltyText}
+                        fontSize={c.SCOREBOARD_ROW_FONT_SIZE}
                     />
                 )}
                 {scoreboardRow?.problemResults.map((result, i) => (

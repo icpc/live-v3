@@ -108,7 +108,10 @@ export function ScoreboardTableHeader() {
             </ScoreboardTableHeaderCell>
             {needPenalty && (
                 <ScoreboardTableHeaderCell>
-                    <ShrinkingBox text={c.SCOREBOARD_HEADER_PENALTY_TITLE} />
+                    <ShrinkingBox
+                        text={c.SCOREBOARD_HEADER_PENALTY_TITLE}
+                        fontSize={c.SCOREBOARD_HEADER_FONT_SIZE}
+                    />
                 </ScoreboardTableHeaderCell>
             )}
             {problems &&

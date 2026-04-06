@@ -9,14 +9,18 @@ import { OptimismLevel, TeamId } from "@shared/api";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { getAwardsEffects } from "@/utils/awards";
 
-const ContestantInfoLabel = styled(RankLabel)`
+const ContestantInfoLabel = styled(RankLabel).attrs({
+    fontSize: c.CONTESTER_FONT_SIZE,
+})`
     flex-shrink: 0;
     align-self: stretch;
     width: ${c.CONTESTER_INFO_RANK_WIDTH};
     padding-left: ${c.CONTESTER_INFO_LEFT_PADDING};
 `;
 
-const ContestantInfoTeamNameLabel = styled(ShrinkingBox)`
+const ContestantInfoTeamNameLabel = styled(ShrinkingBox).attrs({
+    fontSize: c.CONTESTER_FONT_SIZE,
+})`
     flex-grow: 1;
     width: ${c.CONTESTER_NAME_WIDTH};
 `;
@@ -43,7 +47,10 @@ const ContestantInfoWrap = styled.div<{
         ${c.GLOBAL_BORDER_RADIUS} ${c.GLOBAL_BORDER_RADIUS};
 `;
 
-const ContestantInfoScoreLabel = styled(ShrinkingBox)`
+const ContestantInfoScoreLabel = styled(ShrinkingBox).attrs({
+    fontSize: c.CONTESTER_FONT_SIZE,
+    align: "right",
+})`
     flex-shrink: 0;
     box-sizing: content-box;
     width: ${c.CONTESTER_INFO_SCORE_WIDTH};
@@ -94,7 +101,6 @@ export const ContestantInfo: React.FC<{
             />
             <ContestantInfoTeamNameLabel text={teamData?.shortName ?? "??"} />
             <ContestantInfoScoreLabel
-                align={"right"}
                 text={
                     scoreboardData === null
                         ? "??"
@@ -103,7 +109,6 @@ export const ContestantInfo: React.FC<{
             />
             {contestInfo?.resultType !== "IOI" && (
                 <ContestantInfoScoreLabel
-                    align={"right"}
                     text={formatPenalty(scoreboardData?.penalty)}
                 />
             )}
