@@ -1,4 +1,5 @@
 import org.icpclive.gradle.tasks.CheckExportedFiles
+import org.gradle.util.internal.VersionNumber
 import java.net.URI
 import java.net.URL
 
@@ -15,6 +16,25 @@ dependencies {
 
 val schemasExportLocation = project.layout.projectDirectory.dir("schemas")
 
+
+class DevVersion(val major: Int, val minor: Int, val patch: Int, val buildId: Int) : Comparable<DevVersion> {
+
+    companion object {
+        private val REGEX = Regex("""^(\d+)\.(\d+)\.(\d+)-dev-(\d+)$""")
+
+        fun parse(version: String): DevVersion? {
+            return REGEX.matchEntire(version)?.destructured?.let { (ma, mi, pa, bi) ->
+                DevVersion(ma.toInt(), mi.toInt(), pa.toInt(), bi.toInt())
+            }
+        }
+    }
+
+    override fun compareTo(other: DevVersion): Int = compareBy<DevVersion>(
+        { it.major }, { it.minor }, { it.patch }, { it.buildId }
+    ).compare(this, other)
+
+    override fun toString(): String = "$major.$minor.$patch-dev-$buildId"
+}
 
 tasks {
     val doc by registering {
@@ -45,19 +65,16 @@ tasks {
         outputs.upToDateWhen { false }
 
         doLast {
-            val metadataUrl = "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/org/jetbrains/kotlin/kotlin-stdlib/maven-metadata.xml"
+            val metadataUrl = "https://redirector.kotlinlang.org/maven/dev/org/jetbrains/kotlin/kotlin-stdlib/maven-metadata.xml"
             val metadataXml = URI(metadataUrl).toURL().readText()
 
-            // Use Regex to find all <version> tags
             val versionRegex = Regex("<version>(.*?)</version>")
             val allVersions = versionRegex.findAll(metadataXml).map { it.groupValues[1] }.toList()
 
             // Filter: Must have '-dev-', Must NOT have 'vega'
             val latestDev = allVersions
-                .filter { it.contains("-dev-") }
-                .maxByOrNull { v ->
-                    v.substringAfterLast("-dev-").toInt()
-                }
+                .mapNotNull { DevVersion.parse(it) }
+                .maxOrNull()
 
             if (latestDev != null) {
                 val tomlFile = file("gradle/libs.versions.toml")
