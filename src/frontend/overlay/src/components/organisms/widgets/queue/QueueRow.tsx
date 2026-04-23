@@ -53,18 +53,24 @@ export const QueueRowAnimator = styled.div.attrs<QueueRowAnimatorProps>(
     will-change: transform;
 `;
 
-const QueueRankLabel = styled(RankLabel)`
+const QueueRankLabel = styled(RankLabel).attrs({
+    fontSize: c.QUEUE_ROW_FONT_SIZE,
+})`
     width: ${c.QUEUE_RANK_LABEL_WIDTH};
     align-self: stretch;
     padding-left: ${c.QUEUE_RANK_LABEL_PADDING_LEFT};
     flex-shrink: 0;
 `;
 
-const QueueTeamNameLabel = styled(ShrinkingBox)`
+const QueueTeamNameLabel = styled(ShrinkingBox).attrs({
+    fontSize: c.QUEUE_ROW_FONT_SIZE,
+})`
     flex-grow: 1;
 `;
 
-const QueueRunStatusLabel = styled(RunStatusLabel)`
+const QueueRunStatusLabel = styled(RunStatusLabel).attrs({
+    fontSize: c.QUEUE_ROW_FONT_SIZE,
+})`
     width: ${c.QUEUE_ROW_STATUS_LABEL_WIDTH};
     flex-shrink: 0;
 `;
@@ -82,7 +88,10 @@ const StyledQueueRow = styled.div`
     background: ${c.QUEUE_ROW_BACKGROUND};
 `;
 
-const QueueScoreLabel = styled(ShrinkingBox)`
+const QueueScoreLabel = styled(ShrinkingBox).attrs({
+    fontSize: c.QUEUE_ROW_FONT_SIZE,
+    align: "right",
+})`
     width: ${c.QUEUE_SCORE_LABEL_WIDTH};
     flex-shrink: 0;
     flex-direction: row-reverse;
@@ -148,7 +157,6 @@ export const QueueRow = ({ runInfo }: { runInfo: QueueRowInfo }) => {
             <QueueRankLabel rank={rank} effects={getAwardsEffects(awards)} />
             <QueueTeamNameLabel text={teamData?.shortName ?? "??"} />
             <QueueScoreLabel
-                align={"right"}
                 text={
                     scoreboardData === null
                         ? "??"

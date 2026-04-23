@@ -97,12 +97,21 @@ export function ScoreboardTableHeader() {
             nProblems={Math.max(problems?.length ?? 0, 1)}
             needPenalty={needPenalty}
         >
-            <ScoreboardTableHeaderCell>#</ScoreboardTableHeaderCell>
-            <ScoreboardTableHeaderNameCell>Name</ScoreboardTableHeaderNameCell>
-            <ScoreboardTableHeaderCell>Σ</ScoreboardTableHeaderCell>
+            <ScoreboardTableHeaderCell>
+                {c.SCOREBOARD_HEADER_POSITION_TITLE}
+            </ScoreboardTableHeaderCell>
+            <ScoreboardTableHeaderNameCell>
+                {c.SCOREBOARD_HEADER_NAME_TITLE}
+            </ScoreboardTableHeaderNameCell>
+            <ScoreboardTableHeaderCell>
+                {c.SCOREBOARD_HEADER_SCORE_TITLE}
+            </ScoreboardTableHeaderCell>
             {needPenalty && (
                 <ScoreboardTableHeaderCell>
-                    <ShrinkingBox text={"Penalty"} />
+                    <ShrinkingBox
+                        text={c.SCOREBOARD_HEADER_PENALTY_TITLE}
+                        fontSize={c.SCOREBOARD_HEADER_FONT_SIZE}
+                    />
                 </ScoreboardTableHeaderCell>
             )}
             {problems &&

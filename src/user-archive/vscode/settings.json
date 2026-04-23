@@ -23,6 +23,8 @@
   ],
   "files.associations": {
     "**/advanced.json": "jsonc",
-    "**/settings.json": "jsonc"
+    "**/settings.json": "jsonc",
+    "**/visual-config*.json": "jsonc",
+    "**/visualConfig*.json": "jsonc"
   }
 }

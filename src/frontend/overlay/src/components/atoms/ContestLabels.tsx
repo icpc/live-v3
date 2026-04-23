@@ -28,9 +28,14 @@ const VerdictLabel = styled(ShrinkingBox)<{ color: string }>`
 interface ICPCVerdictLabelProps {
     runResult: Extract<RunInfo["result"], { type: "ICPC" }>;
     className?: string;
+    fontSize?: string;
 }
 
-const ICPCVerdictLabel = ({ runResult, className }: ICPCVerdictLabelProps) => {
+const ICPCVerdictLabel = ({
+    runResult,
+    className,
+    fontSize,
+}: ICPCVerdictLabelProps) => {
     const color = runResult?.verdict.isAccepted ? c.VERDICT_OK : c.VERDICT_NOK;
     return (
         <VerdictLabel
@@ -38,6 +43,7 @@ const ICPCVerdictLabel = ({ runResult, className }: ICPCVerdictLabelProps) => {
             color={color}
             align="center"
             className={className}
+            fontSize={fontSize}
         />
     );
 };
@@ -55,11 +61,13 @@ const getIOIScoreText = (difference: number): [string, string] => {
 interface IOIVerdictLabelProps {
     runResult: Extract<RunInfo["result"], { type: "IOI" }>;
     className?: string;
+    fontSize?: string;
 }
 
 const IOIVerdictLabel = ({
     runResult: { wrongVerdict, difference },
     className,
+    fontSize,
 }: IOIVerdictLabelProps) => {
     const [diffText, diffColor] = getIOIScoreText(difference);
     return (
@@ -70,6 +78,7 @@ const IOIVerdictLabel = ({
                     color={c.VERDICT_NOK}
                     align="center"
                     className={className}
+                    fontSize={fontSize}
                 />
             )}
             {wrongVerdict === undefined && (
@@ -78,6 +87,7 @@ const IOIVerdictLabel = ({
                     color={diffColor}
                     align="center"
                     className={className}
+                    fontSize={fontSize}
                 />
             )}
         </>
@@ -105,6 +115,7 @@ interface RankLabelProps {
     effects?: AwardEffect[];
     className?: string;
     bg_color?: string;
+    fontSize?: string;
 }
 
 export const RankLabel = ({
@@ -112,6 +123,7 @@ export const RankLabel = ({
     effects,
     className,
     bg_color,
+    fontSize,
 }: RankLabelProps) => {
     const color =
         effects
@@ -124,6 +136,7 @@ export const RankLabel = ({
             className={className}
             dark={dark}
             text={formatRank(rank)}
+            fontSize={fontSize}
         />
     );
 };
@@ -174,21 +187,28 @@ const VerdictCellInProgress2 = ({
 interface RunStatusLabelProps {
     runInfo: RunInfo | QueueRunInfo;
     className?: string;
+    fontSize?: string;
 }
 
-export const RunStatusLabel = ({ runInfo, className }: RunStatusLabelProps) => {
+export const RunStatusLabel = ({
+    runInfo,
+    className,
+    fontSize,
+}: RunStatusLabelProps) => {
     return (
         <>
             {runInfo.result.type === "ICPC" && (
                 <ICPCVerdictLabel
                     runResult={runInfo.result}
                     className={className}
+                    fontSize={fontSize}
                 />
             )}
             {runInfo.result.type === "IOI" && (
                 <IOIVerdictLabel
                     runResult={runInfo.result}
                     className={className}
+                    fontSize={fontSize}
                 />
             )}
             {runInfo.result.type === "IN_PROGRESS" && (

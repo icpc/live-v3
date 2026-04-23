@@ -1,0 +1,35 @@
+{
+  "EXTRA_CSS": "@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');",
+  "GLOBAL_DEFAULT_FONT_FAMILY": "JetBrains Mono",
+  "GLOBAL_DEFAULT_FONT_SIZE": "22px",
+
+  "CONTEST_COLOR": "#4E5DEC",
+  "GLOBAL_BACKGROUND_COLOR": "#131818",
+
+  "TICKER_TEXT_FONT_SIZE": "24px",
+  "TICKER_SMALL_BACKGROUND": "#00C25E",
+
+  "STATISTICS_TITLE": "Статистика",
+
+  "QUEUE_TITLE": "",
+  "QUEUE_ROW_BACKGROUND": "#4E5DEC",
+  "QUEUE_BACKGROUND_COLOR": "#FFFFFF00",
+  "QUEUE_HORIZONTAL_BACKGROUND_COLOR": "#FFFFFF00",
+  "QUEUE_SCORE_LABEL_WIDTH": "40px",
+
+  "SCOREBOARD_NORMAL_NAME": "Текущие",
+  "SCOREBOARD_STANDINGS_NAME": "результаты",
+  "SCOREBOARD_HEADER_NAME_TITLE": "Имя (Класс)",
+  "SCOREBOARD_HEADER_FONT_WEIGHT": 800,
+  "SCOREBOARD_CELL_TEAMNAME_SIZE": "500px",
+  "SCOREBOARD_CELL_POINTS_SIZE": "100px",
+
+  "WIDGET_POSITIONS": {
+    "hor_queue": {
+      "positionX": 16,
+      "positionY": 832,
+      "sizeX": 1888,
+      "sizeY": 168
+    }
+  }
+}

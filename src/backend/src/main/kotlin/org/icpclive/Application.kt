@@ -12,6 +12,7 @@ import io.ktor.server.routing.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.cds.adapters.addComputedData
@@ -104,7 +105,11 @@ fun Application.module() {
 
         val visualConfigFlow = fileJsonContentFlow<JsonObject>(
             config.visualConfigFile,
-            noData = JsonObject(emptyMap())
+            noData = JsonObject(emptyMap()),
+            json = Json {
+                allowComments = true
+                allowTrailingComma = true
+            }
         ).stateIn(this)
 
         DataBus.visualConfigFlow.completeOrThrow(visualConfigFlow)
