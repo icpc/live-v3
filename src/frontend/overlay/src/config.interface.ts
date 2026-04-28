@@ -293,7 +293,6 @@ export interface OverlayConfig {
 
     // Keylog
     KEYLOG_MAXIMUM_FOR_NORMALIZATION: number; // max value for normalization
-    KEYLOG_INTERVAL_LENGTH: number; // ms
     KEYLOG_TOP_PADDING: number; // px
     KEYLOG_BOTTOM_PADDING: number; // px
     KEYLOG_Z_INDEX: number;

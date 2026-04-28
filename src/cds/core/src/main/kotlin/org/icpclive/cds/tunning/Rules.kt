@@ -218,6 +218,10 @@ internal fun AdvancedProperties.toRulesList(): List<TuningRule> = buildList buil
     if (queueSettings != null) {
         add(OverrideQueue(queueSettings.waitTime, queueSettings.firstToSolveWaitTime, queueSettings.featuredRunWaitTime, queueSettings.inProgressRunWaitTime, queueSettings.maxQueueSize, queueSettings.maxUntestedRun))
     }
+
+    if (keylogSettings != null) {
+        add(OverrideKeylog(keylogSettings.intervalLength))
+    }
 }
 
 /**
@@ -324,6 +328,9 @@ public fun ContestInfo.toRulesList(): List<TuningRule> {
             inProgressRunWaitTime = queueSettings.inProgressRunWaitTime,
             maxQueueSize = queueSettings.maxQueueSize,
             maxUntestedRun = queueSettings.maxUntestedRun,
+        ),
+        OverrideKeylog(
+            intervalLength = keylogSettings.intervalLength,
         ),
     )
 }

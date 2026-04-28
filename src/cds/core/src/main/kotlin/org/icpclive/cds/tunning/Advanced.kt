@@ -85,6 +85,7 @@ internal class AdvancedProperties(
     val scoreboardOverrides: RankingSettings? = null,
     val awardsSettings: AwardsSettingsOverride? = null,
     val queueSettings: QueueSettingsOverride? = null,
+    val keylogSettings: KeylogSettingsOverride? = null,
 ) {
     companion object {
         private val json = Json {
@@ -173,6 +174,13 @@ internal data class QueueSettingsOverride(
     val inProgressRunWaitTime: Duration? = null,
     val maxQueueSize: Int? = null,
     val maxUntestedRun: Int? = null,
+)
+
+@Serializable
+internal data class KeylogSettingsOverride(
+    @Serializable(with = DurationInSecondsSerializer::class)
+    @SerialName("intervalSeconds")
+    val intervalLength: Duration? = null,
 )
 
 @Serializable

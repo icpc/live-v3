@@ -941,6 +941,23 @@
             ],
             "title": "overrideGroups"
         },
+        "overrideKeylog": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "overrideKeylog",
+                    "default": "overrideKeylog"
+                },
+                "intervalSeconds": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ],
+            "title": "overrideKeylog"
+        },
         "MediaType": {
             "oneOf": [
                 {
@@ -1713,6 +1730,9 @@
                 },
                 {
                     "$ref": "#/$defs/overrideGroups"
+                },
+                {
+                    "$ref": "#/$defs/overrideKeylog"
                 },
                 {
                     "$ref": "#/$defs/overrideOrganizationTemplate"

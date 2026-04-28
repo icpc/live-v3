@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.ktor.server.conditionalHeaders)
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.websockets)
+    implementation(libs.ktor.client.cio)
     implementation(libs.logback)
     implementation(projects.backendApi)
     implementation(projects.cds.full)

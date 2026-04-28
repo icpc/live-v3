@@ -3,11 +3,8 @@ import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
-import { ContestInfo, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
-import {
-    calculateContestTime,
-    getStartTime,
-} from "@/components/molecules/Clock";
+import { ContestInfo, TeamId, TeamInfo, TimeLineRunInfo, TeamKeylog } from "@shared/api";
+import { calculateContestTime } from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { KeylogGraph } from "./KeylogGraph";
 
@@ -287,13 +284,6 @@ function createAnimation(
     return animation;
 }
 
-function extractKeylogUrl(teamData: TeamInfo | undefined): string | null {
-    const keylogs = teamData?.medias?.keylog;
-    if (!keylogs || keylogs.length === 0) return null;
-    const url = keylogs[0]?.url;
-    return url ?? null;
-}
-
 function generateHourMarkers(contestLengthMs: number): number[] {
     const hours = Math.floor(contestLengthMs / 3600000) + 1;
     return Array.from({ length: hours }, (_, i) => i);
@@ -428,34 +418,6 @@ export function TimeLineBackground({
     );
 }
 
-interface KeyboardEvent {
-    timestamp: string; // ISO8601
-    keys: Record<string, KeyStats>;
-}
-
-interface KeyStats {
-    raw?: number;
-    bare?: number;
-    shift?: number;
-    ctrl?: number;
-    alt?: number;
-    meta?: number;
-
-    "ctrl+shift"?: number;
-    "ctrl+alt"?: number;
-    "shift+alt"?: number;
-    "ctrl+meta"?: number;
-    "shift+meta"?: number;
-    "alt+meta"?: number;
-
-    "ctrl+shift+alt"?: number;
-    "ctrl+shift+meta"?: number;
-    "ctrl+alt+meta"?: number;
-    "shift+alt+meta"?: number;
-
-    "ctrl+shift+alt+meta"?: number;
-}
-
 export function TimeLine({
     teamId,
     className = null,
@@ -474,7 +436,6 @@ export function TimeLine({
     const [keylog, setKeylog] = useState<number[]>([]);
 
     const teamColor = teamData?.color ?? c.CONTEST_COLOR;
-    const keylogUrl = extractKeylogUrl(teamData);
 
     const config = getTimelineConfig(isPvp);
 
@@ -540,63 +501,21 @@ export function TimeLine({
     }, [contestInfo, isPvp]);
 
     useEffect(() => {
-        const startTime = getStartTime(contestInfo);
-        if (!keylogUrl || !startTime) return;
-
-        // TODO: Move all this code to KeylogGraph
-        async function fetchNDJSON(): Promise<KeyboardEvent[]> {
-            try {
-                const response = await fetch(keylogUrl);
-                if (!response.ok) throw new Error("Failed to fetch keylog");
-
-                const text = await response.text();
-                return text
-                    .trim()
-                    .split("\n")
-                    .filter((line) => line.trim())
-                    .map((line) => JSON.parse(line) as KeyboardEvent);
-            } catch (e) {
-                console.error(e);
-                return [];
-            }
-        }
-
-        async function fetchKeylogData() {
-            const events = await fetchNDJSON();
-            if (events.length === 0) return;
-
-            const contestStart = new Date(startTime!).getTime();
-            const AGGREGATION_MS = c.KEYLOG_INTERVAL_LENGTH;
-
-            const totalIntervals = Math.ceil(
-                contestInfo!.contestLengthMs / c.KEYLOG_INTERVAL_LENGTH,
-            );
-            const interval_minutes = c.KEYLOG_INTERVAL_LENGTH / 60000;
-            const pressesPerMinuteFactor = 1 / interval_minutes;
-            const newKeylog = new Array(totalIntervals).fill(0);
-
-            events.forEach((event) => {
-                const eventTime = new Date(event.timestamp).getTime();
-
-                if (eventTime < contestStart) return;
-
-                const timeDiff = eventTime - contestStart;
-                const index = Math.floor(timeDiff / AGGREGATION_MS);
-
-                if (index >= 0 && index < totalIntervals) {
-                    const pressesCount = Object.values(event.keys).reduce(
-                        (sum, k) => sum + (k.bare ?? 0) + (k.shift ?? 0),
-                        0,
-                    );
-                    newKeylog[index] += pressesCount;
+        if (!contestInfo) return;
+        const controller = new AbortController();
+        const httpBase = c.BASE_URL_WS.replace(/^ws/, "http");
+        fetch(`${httpBase}/teamKeylog/${teamId}`, { signal: controller.signal })
+            .then((r) => (r.ok ? (r.json() as Promise<TeamKeylog>) : null))
+            .then((data) => {
+                if (data) setKeylog(data.values);
+            })
+            .catch((e: unknown) => {
+                if (e instanceof Error && e.name !== "AbortError") {
+                    console.error(`Failed to load keylog for team ${teamId}:`, e);
                 }
             });
-
-            setKeylog(newKeylog.map((v) => v * pressesPerMinuteFactor));
-        }
-
-        fetchKeylogData();
-    }, [keylogUrl, contestInfo]);
+        return () => controller.abort();
+    }, [teamId, contestInfo]);
 
     if (!contestInfo) return null;
 
