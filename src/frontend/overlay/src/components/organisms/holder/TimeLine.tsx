@@ -3,7 +3,13 @@ import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
-import { ContestInfo, TeamId, TeamInfo, TimeLineRunInfo, TeamKeylog } from "@shared/api";
+import {
+    ContestInfo,
+    TeamId,
+    TeamInfo,
+    TimeLineRunInfo,
+    TeamKeylog,
+} from "@shared/api";
 import { calculateContestTime } from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { KeylogGraph } from "./KeylogGraph";
@@ -511,7 +517,10 @@ export function TimeLine({
             })
             .catch((e: unknown) => {
                 if (e instanceof Error && e.name !== "AbortError") {
-                    console.error(`Failed to load keylog for team ${teamId}:`, e);
+                    console.error(
+                        `Failed to load keylog for team ${teamId}:`,
+                        e,
+                    );
                 }
             });
         return () => controller.abort();
