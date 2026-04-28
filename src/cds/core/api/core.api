@@ -374,8 +374,8 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public static final field Companion Lorg/icpclive/cds/api/ContestInfo$Companion;
 	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlin/time/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLjava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestResultType;Lkotlin/time/Instant;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;JZLjava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLjava/util/List;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLjava/util/List;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLjava/util/List;JLorg/icpclive/cds/api/QueueSettings;Lorg/icpclive/cds/api/KeylogSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLjava/util/List;JLorg/icpclive/cds/api/QueueSettings;Lorg/icpclive/cds/api/KeylogSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/util/List;
 	public final fun component11 ()Lorg/icpclive/cds/api/PenaltyRoundingMode;
@@ -383,14 +383,15 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun component13 ()Ljava/util/List;
 	public final fun component14-UwyO8pc ()J
 	public final fun component15 ()Lorg/icpclive/cds/api/QueueSettings;
-	public final fun component16 ()Z
-	public final fun component17 ()Lorg/icpclive/cds/api/ProblemColorPolicy;
-	public final fun component18 ()Z
-	public final fun component19 ()Ljava/util/Map;
+	public final fun component16 ()Lorg/icpclive/cds/api/KeylogSettings;
+	public final fun component17 ()Z
+	public final fun component18 ()Lorg/icpclive/cds/api/ProblemColorPolicy;
+	public final fun component19 ()Z
 	public final fun component2 ()Lorg/icpclive/cds/api/ContestStatus;
-	public final fun component20 ()Ljava/util/List;
+	public final fun component20 ()Ljava/util/Map;
 	public final fun component21 ()Ljava/util/List;
-	public final fun component22-wlky61A ()Ljava/lang/String;
+	public final fun component22 ()Ljava/util/List;
+	public final fun component23-wlky61A ()Ljava/lang/String;
 	public final fun component3 ()Lorg/icpclive/cds/api/ContestResultType;
 	public final fun component4-UwyO8pc ()J
 	public final fun component5-FghU774 ()Lkotlin/time/Duration;
@@ -398,8 +399,8 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy-09U2nfo (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLjava/util/List;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)Lorg/icpclive/cds/api/ContestInfo;
-	public static synthetic fun copy-09U2nfo$default (Lorg/icpclive/cds/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLjava/util/List;JLorg/icpclive/cds/api/QueueSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestInfo;
+	public final fun copy-DQFWUwo (Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLjava/util/List;JLorg/icpclive/cds/api/QueueSettings;Lorg/icpclive/cds/api/KeylogSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)Lorg/icpclive/cds/api/ContestInfo;
+	public static synthetic fun copy-DQFWUwo$default (Lorg/icpclive/cds/api/ContestInfo;Ljava/lang/String;Lorg/icpclive/cds/api/ContestStatus;Lorg/icpclive/cds/api/ContestResultType;JLkotlin/time/Duration;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Lorg/icpclive/cds/api/PenaltyRoundingMode;DLjava/util/List;JLorg/icpclive/cds/api/QueueSettings;Lorg/icpclive/cds/api/KeylogSettings;ZLorg/icpclive/cds/api/ProblemColorPolicy;ZLjava/util/Map;Ljava/util/List;Ljava/util/List;Ljava/lang/String;ILjava/lang/Object;)Lorg/icpclive/cds/api/ContestInfo;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAccounts ()Ljava/util/Map;
 	public final fun getAccountsList ()Ljava/util/List;
@@ -411,6 +412,7 @@ public final class org/icpclive/cds/api/ContestInfo {
 	public final fun getFreezeTime-FghU774 ()Lkotlin/time/Duration;
 	public final fun getGroupList ()Ljava/util/List;
 	public final fun getGroups ()Ljava/util/Map;
+	public final fun getKeylogSettings ()Lorg/icpclive/cds/api/KeylogSettings;
 	public final fun getLanguages ()Ljava/util/Map;
 	public final fun getLanguagesList ()Ljava/util/List;
 	public final fun getMainScoreboardGroupId-wlky61A ()Ljava/lang/String;
@@ -808,6 +810,33 @@ public final class org/icpclive/cds/api/IOIProblemResult$Companion {
 }
 
 public abstract interface annotation class org/icpclive/cds/api/InefficientContestInfoApi : java/lang/annotation/Annotation {
+}
+
+public final class org/icpclive/cds/api/KeylogSettings {
+	public static final field Companion Lorg/icpclive/cds/api/KeylogSettings$Companion;
+	public synthetic fun <init> (JILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-UwyO8pc ()J
+	public final fun copy-LRDsOJo (J)Lorg/icpclive/cds/api/KeylogSettings;
+	public static synthetic fun copy-LRDsOJo$default (Lorg/icpclive/cds/api/KeylogSettings;JILjava/lang/Object;)Lorg/icpclive/cds/api/KeylogSettings;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIntervalLength-UwyO8pc ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/icpclive/cds/api/KeylogSettings$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/api/KeylogSettings$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/api/KeylogSettings;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/api/KeylogSettings;)V
+}
+
+public final class org/icpclive/cds/api/KeylogSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/api/LanguageId {
@@ -2735,6 +2764,34 @@ public final synthetic class org/icpclive/cds/tunning/OverrideGroups$Override$$s
 }
 
 public final class org/icpclive/cds/tunning/OverrideGroups$Override$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
+}
+
+public final class org/icpclive/cds/tunning/OverrideKeylog : org/icpclive/cds/tunning/TuningRule {
+	public static final field Companion Lorg/icpclive/cds/tunning/OverrideKeylog$Companion;
+	public synthetic fun <init> (Lkotlin/time/Duration;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1-FghU774 ()Lkotlin/time/Duration;
+	public final fun copy-BwNAW2A (Lkotlin/time/Duration;)Lorg/icpclive/cds/tunning/OverrideKeylog;
+	public static synthetic fun copy-BwNAW2A$default (Lorg/icpclive/cds/tunning/OverrideKeylog;Lkotlin/time/Duration;ILjava/lang/Object;)Lorg/icpclive/cds/tunning/OverrideKeylog;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getIntervalLength-FghU774 ()Lkotlin/time/Duration;
+	public fun hashCode ()I
+	public fun process (Lorg/icpclive/cds/api/ContestInfo;)Lorg/icpclive/cds/api/ContestInfo;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final synthetic class org/icpclive/cds/tunning/OverrideKeylog$$serializer : kotlinx/serialization/internal/GeneratedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/tunning/OverrideKeylog$$serializer;
+	public final fun childSerializers ()[Lkotlinx/serialization/KSerializer;
+	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
+	public final fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Lorg/icpclive/cds/tunning/OverrideKeylog;
+	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
+	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
+	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/OverrideKeylog;)V
+}
+
+public final class org/icpclive/cds/tunning/OverrideKeylog$Companion {
 	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
