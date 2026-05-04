@@ -84,6 +84,9 @@
             },
             "type": "object"
         },
+        "BASE_URL_BACKEND": {
+            "type": "string"
+        },
         "BASE_URL_WS": {
             "type": "string"
         },
@@ -256,6 +259,9 @@
             "type": "string"
         },
         "KEYLOG_GLOW_BLUR": {
+            "type": "number"
+        },
+        "KEYLOG_INTERVAL_LENGTH": {
             "type": "number"
         },
         "KEYLOG_MAXIMUM_FOR_NORMALIZATION": {

@@ -14,7 +14,6 @@ export interface ContestInfo {
   awardsSettings: AwardChain[];
   penaltyPerWrongAttemptSeconds: number;
   queueSettings: QueueSettings;
-  keylogSettings: KeylogSettings;
   showTeamsWithoutSubmissions: boolean;
   problemColorPolicy: ProblemColorPolicy;
   customFields: { [key: string]: string };
@@ -86,10 +85,6 @@ export interface QueueSettings {
   inProgressRunWaitTimeSeconds?: number;
   maxQueueSize?: number;
   maxUntestedRun?: number;
-}
-
-export interface KeylogSettings {
-  intervalSeconds?: number;
 }
 
 export type ProblemColorPolicy =
@@ -1068,11 +1063,6 @@ export namespace TimeLineRunInfo {
     time: number;
     problemId: ProblemId;
   }
-}
-
-export interface TeamKeylog {
-  intervalMs: number;
-  values: number[];
 }
 
 export interface AddTeamScoreRequest {
