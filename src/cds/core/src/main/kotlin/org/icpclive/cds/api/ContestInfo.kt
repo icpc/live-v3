@@ -162,13 +162,6 @@ public data class QueueSettings(
 )
 
 @Serializable
-public data class KeylogSettings(
-    @Serializable(with = DurationInSecondsSerializer::class)
-    @SerialName("intervalSeconds")
-    val intervalLength: Duration = 1.minutes,
-)
-
-@Serializable
 public sealed class ProblemColorPolicy {
     /**
      * Always show problem colors
@@ -216,7 +209,6 @@ public data class ContestInfo(
     @SerialName("penaltyPerWrongAttemptSeconds")
     @Required val penaltyPerWrongAttempt: Duration = 20.minutes,
     @Required val queueSettings: QueueSettings = QueueSettings(),
-    @Required val keylogSettings: KeylogSettings = KeylogSettings(),
     @Required val showTeamsWithoutSubmissions: Boolean = true,
     @Required val problemColorPolicy: ProblemColorPolicy = ProblemColorPolicy.Always,
     @Transient val cdsSupportsFinalization: Boolean = false,

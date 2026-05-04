@@ -7,6 +7,7 @@ export interface OverlayConfig {
     CONTEST_COLOR: string;
     CONTEST_CAPTION: string;
     BASE_URL_WS: string;
+    BASE_URL_BACKEND: string;
 
     // Non-styling configs
     WEBSOCKET_RECONNECT_TIME: number; // ms
@@ -293,6 +294,7 @@ export interface OverlayConfig {
 
     // Keylog
     KEYLOG_MAXIMUM_FOR_NORMALIZATION: number; // max value for normalization
+    KEYLOG_INTERVAL_LENGTH: number; // ms
     KEYLOG_TOP_PADDING: number; // px
     KEYLOG_BOTTOM_PADDING: number; // px
     KEYLOG_Z_INDEX: number;

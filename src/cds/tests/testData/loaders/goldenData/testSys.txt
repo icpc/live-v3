@@ -483,7 +483,6 @@
         "awardsSettings": [],
         "penaltyPerWrongAttemptSeconds": 1200,
         "queueSettings": {},
-        "keylogSettings": {},
         "showTeamsWithoutSubmissions": true,
         "problemColorPolicy": {
             "type": "always"

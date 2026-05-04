@@ -3,13 +3,7 @@ import styled from "styled-components";
 import { useAppSelector } from "@/redux/hooks";
 import c from "@/config";
 import { getIOIColor } from "@/utils/statusInfo";
-import {
-    ContestInfo,
-    TeamId,
-    TeamInfo,
-    TimeLineRunInfo,
-    TeamKeylog,
-} from "@shared/api";
+import { ContestInfo, TeamId, TeamInfo, TimeLineRunInfo } from "@shared/api";
 import { calculateContestTime } from "@/components/molecules/Clock";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { KeylogGraph } from "./KeylogGraph";
@@ -509,11 +503,14 @@ export function TimeLine({
     useEffect(() => {
         if (!contestInfo) return;
         const controller = new AbortController();
-        const httpBase = c.BASE_URL_WS.replace(/^ws/, "http");
-        fetch(`${httpBase}/teamKeylog/${teamId}`, { signal: controller.signal })
-            .then((r) => (r.ok ? (r.json() as Promise<TeamKeylog>) : null))
+        const intervalMs = c.KEYLOG_INTERVAL_LENGTH;
+        const url = `${c.BASE_URL_BACKEND}/teamKeylog/${teamId}?intervalMs=${intervalMs}`;
+        fetch(url, { signal: controller.signal })
+            .then((r) => (r.ok ? (r.json() as Promise<number[]>) : null))
             .then((data) => {
-                if (data) setKeylog(data.values);
+                if (!data) return;
+                const pressesPerMinute = 60_000 / intervalMs;
+                setKeylog(data.map((v) => v * pressesPerMinute));
             })
             .catch((e: unknown) => {
                 if (e instanceof Error && e.name !== "AbortError") {
