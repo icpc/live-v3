@@ -45,7 +45,7 @@ fun keylogAggregate(
         }
 
         val event = try {
-            keylogJson.decodeFromString(KeyboardEvent.serializer(), line)
+            keylogJson.decodeFromString<KeyboardEvent>(line)
         } catch (e: Exception) {
             log.warning { "Skipping malformed keylog line: ${e.message}" }
             continue
