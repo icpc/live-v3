@@ -8,6 +8,7 @@ import org.icpclive.api.*
 import org.icpclive.cds.api.*
 import org.icpclive.service.AnalyticsAction
 import org.icpclive.service.FeaturedRunAction
+import org.icpclive.service.KeylogService
 
 /**
  * Everything published here should be immutable, to allow secure work from many threads
@@ -25,21 +26,13 @@ object DataBus {
     val statisticFlow = CompletableDeferred<Flow<SolutionsStatistic>>()
     val analyticsActionsFlow = CompletableDeferred<Flow<AnalyticsAction>>()
     val analyticsFlow = CompletableDeferred<Flow<AnalyticsEvent>>()
-    val loggerFlow = MutableSharedFlow<String>(
-        replay = 500,
-        extraBufferCapacity = 0,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-    val adminActionsFlow = MutableSharedFlow<String>(
-        replay = 0,
-        extraBufferCapacity = 10,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
     val teamSpotlightFlow = CompletableDeferred<Flow<KeyTeam>>()
     val teamInterestingScoreRequestFlow = CompletableDeferred<Flow<AddTeamScoreRequest>>()
     val teamInterestingFlow = CompletableDeferred<Flow<List<CurrentTeamState>>>()
     val socialEvents = CompletableDeferred<Flow<SocialEvent>>()
     val visualConfigFlow = CompletableDeferred<StateFlow<JsonObject>>()
+
+    val keylogService = CompletableDeferred<KeylogService>()
 
     fun setScoreboardDiffs(level: OptimismLevel, flow: Flow<ScoreboardDiff>) {
         scoreboardDiffs[level.ordinal].complete(flow)
