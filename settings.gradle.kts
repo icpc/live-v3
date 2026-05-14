@@ -32,7 +32,6 @@ val simpleProjects = listOf(
     "frontend",
     "server-shared",
     "oracle-tools",
-    "faker",
     "user-archive"
 )
 
