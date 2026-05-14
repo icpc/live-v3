@@ -7,6 +7,7 @@ export interface OverlayConfig {
     CONTEST_COLOR: string;
     CONTEST_CAPTION: string;
     BASE_URL_WS: string;
+    BASE_URL_BACKEND: string;
 
     // Non-styling configs
     WEBSOCKET_RECONNECT_TIME: number; // ms

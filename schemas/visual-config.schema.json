@@ -84,6 +84,9 @@
             },
             "type": "object"
         },
+        "BASE_URL_BACKEND": {
+            "type": "string"
+        },
         "BASE_URL_WS": {
             "type": "string"
         },

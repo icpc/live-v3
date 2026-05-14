@@ -1,9 +1,13 @@
 package org.icpclive.data
 
+import io.ktor.client.*
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.*
 import org.icpclive.Config
 import org.icpclive.admin.createUsersController
 import org.icpclive.api.*
 import org.icpclive.controllers.*
+import org.icpclive.service.KeylogService
 import org.icpclive.util.loadSVG
 import org.icpclive.util.toBase64SVG
 
@@ -31,6 +35,14 @@ object Controllers {
     }
     val tickerMessage = PresetsController(presetsPath("ticker"), TickerManager, TickerMessageSettings::toMessage)
     val userController = Config.createUsersController()
+
+    private val keylogHttpClient: HttpClient = HttpClient(CIO) {
+        install(HttpTimeout) {
+            requestTimeoutMillis = 15_000
+            connectTimeoutMillis = 5_000
+        }
+    }
+    val keylog = KeylogService(keylogHttpClient)
 
     suspend fun getWidgetStats() = WidgetManager.getUsageStatistics()
 }

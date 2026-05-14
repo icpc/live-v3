@@ -10,6 +10,8 @@ dependencies {
     implementation(projects.cds.utils)
     implementation(libs.kotlin.reflect)
     implementation(libs.ktor.http)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
     ksp(projects.ksp)
     compileOnly(projects.ksp)
 }

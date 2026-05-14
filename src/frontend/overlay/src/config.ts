@@ -6,6 +6,8 @@ import type { OverlayConfig } from "./config.interface";
 import { AwardEffect } from "@/utils/awards";
 
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
+const HTTP_PROTO =
+    window.location.protocol === "https:" ? "https://" : "http://";
 const WS_PORT = import.meta.env.VITE_WEBSOCKET_PORT ?? window.location.port;
 const VISUAL_CONFIG_URL =
     import.meta.env.VITE_VISUAL_CONFIG_URL ??
@@ -46,6 +48,12 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
                 ":" +
                 WS_PORT +
                 "/api/overlay",
+        BASE_URL_BACKEND:
+            HTTP_PROTO +
+            window.location.hostname +
+            ":" +
+            WS_PORT +
+            "/api/overlay",
 
         // Non Styling configs
         WEBSOCKET_RECONNECT_TIME: 5000, // ms

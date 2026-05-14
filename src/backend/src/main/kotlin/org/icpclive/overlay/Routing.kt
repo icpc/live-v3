@@ -9,9 +9,11 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.api.toTeamId
+import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow
+import kotlin.time.Duration.Companion.milliseconds
 
 inline fun <reified T : Any> Route.flowEndpoint(name: String, crossinline dataProvider: suspend (ApplicationCall) -> Flow<T>?) {
     webSocket(name) {
@@ -57,4 +59,23 @@ fun Route.configureOverlayRouting() {
         configureSvgAchievementRouting(Config.mediaDirectory)
     }
     get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
+
+    get("/teamKeylog/{id}") {
+        val teamIdStr = call.parameters["id"]
+        if (teamIdStr.isNullOrBlank()) {
+            call.respond(HttpStatusCode.BadRequest, "Invalid team id")
+            return@get
+        }
+        val intervalMs = call.request.queryParameters["intervalMs"]?.toLongOrNull()
+        if (intervalMs == null || intervalMs <= 0) {
+            call.respond(HttpStatusCode.BadRequest, "Missing or invalid intervalMs query parameter")
+            return@get
+        }
+        val result = Controllers.keylog.getKeylog(teamIdStr.toTeamId(), intervalMs.milliseconds)
+        if (result == null) {
+            call.respond(HttpStatusCode.NotFound)
+        } else {
+            call.respond(result)
+        }
+    }
 }
