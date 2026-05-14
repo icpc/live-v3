@@ -1,3 +1,10 @@
+"""
+A script to fake an event stream.
+
+It sends events one-by-one on http query to this server.
+This is useful for testing the frontend
+"""
+
 import asyncio
 import uvicorn
 import json
