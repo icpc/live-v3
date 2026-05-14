@@ -302,7 +302,7 @@ function getDefaultConfig(): EvaluatableTo<OverlayConfig> {
         FULL_SCREEN_CLOCK_PADDING_TOP: "240px",
         FULL_SCREEN_CLOCK_FONT_SIZE: "400px",
         FULL_SCREEN_CLOCK_COLOR: "#eeeeee",
-        FULL_SCREEN_CLOCK_FONT_FAMILY: "Helvetica; monospace",
+        FULL_SCREEN_CLOCK_FONT_FAMILY: "Helvetica, monospace",
 
         ADVERTISEMENT_BACKGROUND: "#FFFFFF", // hex value.
         ADVERTISEMENT_COLOR: (cfg: OverlayConfig) =>
