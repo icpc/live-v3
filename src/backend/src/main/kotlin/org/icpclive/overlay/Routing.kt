@@ -71,7 +71,7 @@ fun Route.configureOverlayRouting() {
             call.respond(HttpStatusCode.BadRequest, "Missing or invalid intervalMs query parameter")
             return@get
         }
-        val result = Controllers.keylog.getKeylog(teamIdStr.toTeamId(), intervalMs.milliseconds)
+        val result = DataBus.keylogService.await().getKeylog(teamIdStr.toTeamId(), intervalMs.milliseconds)
         if (result == null) {
             call.respond(HttpStatusCode.NotFound)
         } else {

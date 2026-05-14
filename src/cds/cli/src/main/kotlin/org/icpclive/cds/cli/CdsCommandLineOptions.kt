@@ -57,7 +57,11 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/persons.json") { configDirectory.resolve("accounts.json")  }
 
-    public fun toFlow(): Flow<ContestUpdate> {
+    public fun toFlow(): Flow<ContestUpdate> = toFlow { }
+
+    public fun toFlow(
+       configObserver: (CDSSettings) -> Unit,
+    ): Flow<ContestUpdate> {
         val advancedProperties = fileContentFlow(advancedJsonPath, noData = emptyList()) {
             try {
                 TuningRule.listFromInputStream(it)
@@ -94,6 +98,7 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
             ?: this.configDirectory.resolve("settings.json")
         val creds: Map<String, String> = this.credentialFile?.let { Json.decodeFromStream<Map<String, String>?>(it.toFile().inputStream()) } ?: emptyMap()
         return CDSSettings.fromFile(path) { creds[it] }
+            .also(configObserver)
             .toFlow()
             .applyTuningRules(combinedTuningFlow)
             .flowOn(Dispatchers.IO)

@@ -16,6 +16,9 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.cds.adapters.addComputedData
+import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
+import org.icpclive.cds.ktor.NetworkSettings
+import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.fileJsonContentFlow
 import org.icpclive.data.Controllers
@@ -25,6 +28,7 @@ import org.icpclive.server.UsefulLink
 import org.icpclive.server.configureMainPageRouting
 import org.icpclive.server.serverResponseJsonSettings
 import org.icpclive.server.setupDefaultKtorPlugins
+import org.icpclive.service.KeylogService
 import org.icpclive.service.launchServices
 import kotlin.system.exitProcess
 
@@ -99,8 +103,12 @@ fun Application.module() {
     }
 
     launch(handler) {
+        fun registerKeylogService(config: CDSSettings) {
+            val networkSettings = (config as? KtorNetworkSettingsProvider)?.network ?: NetworkSettings()
+            DataBus.keylogService.completeOrThrow(KeylogService(networkSettings))
+        }
         val loader = config.cdsSettings
-            .toFlow()
+            .toFlow(configObserver = { registerKeylogService(it) })
             .addComputedData()
 
         val visualConfigFlow = fileJsonContentFlow<JsonObject>(
