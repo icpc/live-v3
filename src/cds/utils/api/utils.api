@@ -131,6 +131,12 @@ public final class org/icpclive/cds/util/serializers/SingleElementListSerializer
 	public static final fun SingleElementListSerializer (Lkotlinx/serialization/KSerializer;)Lkotlinx/serialization/KSerializer;
 }
 
+public final class org/icpclive/cds/util/serializers/TimeZoneSerializer : org/icpclive/cds/util/DelegatedSerializer {
+	public static final field INSTANCE Lorg/icpclive/cds/util/serializers/TimeZoneSerializer;
+	public synthetic fun onDeserialize (Ljava/lang/Object;)Ljava/lang/Object;
+	public synthetic fun onSerialize (Ljava/lang/Object;)Ljava/lang/Object;
+}
+
 public final class org/icpclive/cds/util/serializers/UnixMillisecondsSerializer : kotlinx/serialization/KSerializer {
 	public static final field INSTANCE Lorg/icpclive/cds/util/serializers/UnixMillisecondsSerializer;
 	public synthetic fun deserialize (Lkotlinx/serialization/encoding/Decoder;)Ljava/lang/Object;
