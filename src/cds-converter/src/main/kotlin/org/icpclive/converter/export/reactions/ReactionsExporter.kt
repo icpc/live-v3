@@ -155,9 +155,9 @@ inline fun <T> Flow<ContestStateWithScoreboard>.toRunsMap(crossinline convert: (
             is CommentaryMessagesUpdate, is InfoUpdate -> {}
             is RunUpdate -> {
                 if (e.newInfo.isHidden) {
-                    runs = runs.remove(e.newInfo.id)
+                    runs = runs.removing(e.newInfo.id)
                 } else {
-                    runs = runs.put(e.newInfo.id, convert(e.newInfo, it))
+                    runs = runs.putting(e.newInfo.id, convert(e.newInfo, it))
                 }
                 emit(runs)
             }

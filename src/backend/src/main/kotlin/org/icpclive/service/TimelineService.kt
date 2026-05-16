@@ -25,7 +25,7 @@ internal class TimelineService : Service {
                 val newRow = runsByTeamId.getRuns(team).toTimeLine()
                 val oldRow = rows[team]
                 if (newRow != oldRow) { // optimization: avoid identity change, if no real change
-                    rows = rows.put(team, newRow)
+                    rows = rows.putting(team, newRow)
                 }
             }
             emit(rows)

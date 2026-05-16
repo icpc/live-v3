@@ -525,9 +525,9 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         .runningFold(persistentMapOf<String, X>()) { accumulator, value ->
             val data = value.data
             if (data == null) {
-                accumulator.remove(value.id)
+                accumulator.removing(value.id)
             } else {
-                accumulator.put(value.id, data)
+                accumulator.putting(value.id, data)
             }
         }.stateInCompletable(scope, emptyMap())
 

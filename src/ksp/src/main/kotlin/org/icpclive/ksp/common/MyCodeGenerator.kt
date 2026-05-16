@@ -2,6 +2,7 @@ package org.icpclive.ksp.common
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
+import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.Modifier
 import java.io.PrintWriter
 
@@ -135,6 +136,7 @@ fun MyCodeGenerator.serializable(with: String?) {
     }
 }
 
+context(processor: SymbolProcessor)
 fun CodeGenerator.generateFile(
     dependencies: Dependencies,
     packageName: String,
@@ -142,5 +144,11 @@ fun CodeGenerator.generateFile(
     extensionName: String = "kt",
     block: MyCodeGenerator.() -> Unit
 ) = PrintWriter(createNewFile(dependencies, packageName, fileName, extensionName)).use {
+    it.println("""
+        /**
+          * Generated from [${processor::class.qualifiedName}]
+          * DO NOT EDIT MANUALLY!
+          */""".trimIndent())
+    it.println()
     it.println(codeGen(packageName, block))
 }

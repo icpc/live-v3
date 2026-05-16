@@ -15,8 +15,8 @@ public fun ContestState?.applyEvent(event: ContestUpdate): ContestState {
     var commentaryMessagesMessages: PersistentMap<CommentaryMessageId, CommentaryMessage> = commentaryMessagesMessagesBeforeEvent
     when (event) {
         is InfoUpdate -> info = event.newInfo
-        is RunUpdate -> runs = runs.put(event.newInfo.id, event.newInfo)
-        is CommentaryMessagesUpdate -> commentaryMessagesMessages = commentaryMessagesMessages.put(event.message.id, event.message)
+        is RunUpdate -> runs = runs.putting(event.newInfo.id, event.newInfo)
+        is CommentaryMessagesUpdate -> commentaryMessagesMessages = commentaryMessagesMessages.putting(event.message.id, event.message)
     }
     return ContestState(
         event,

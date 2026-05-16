@@ -49,8 +49,8 @@ internal fun <K : Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.w
             }
             for (i in newList.indices) {
                 if (newList[i] != plist[i] || newList[i].id == newRun?.id) {
-                    plist = plist.set(i, newList[i])
-                    curRuns = curRuns.put(key, plist)
+                    plist = plist.replacingAt(i, newList[i])
+                    curRuns = curRuns.putting(key, plist)
                     emit(RunUpdate(newList[i]))
                 }
             }
@@ -90,7 +90,7 @@ internal fun <K : Any, S : ContestStateWithGroupedRuns<K>> Flow<ContestUpdate>.w
             }
 
             is CommentaryMessagesUpdate -> {
-                curMessages = curMessages.put(update.message.id, update.message)
+                curMessages = curMessages.putting(update.message.id, update.message)
                 emit(update)
             }
         }

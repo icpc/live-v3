@@ -212,7 +212,7 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
             val oldRow = rows[it]
             val newInfo = state.infoBeforeEvent?.teams[it]
             val oldInfo = state.infoAfterEvent.teams[it]
-            rows = rows.put(it, newRow)
+            rows = rows.putting(it, newRow)
             newRow != oldRow || newInfo?.isOutOfContest != oldInfo?.isOutOfContest || newInfo?.customFields != oldInfo?.customFields || newInfo?.isHidden != oldInfo?.isHidden
         }
         if (teamsReallyAffected.isNotEmpty() || state.infoBeforeEvent?.awardsSettings != state.infoAfterEvent.awardsSettings) {
