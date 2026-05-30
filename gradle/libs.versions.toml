@@ -1,8 +1,10 @@
 [versions]
+
+kotlin = "2.3.20"
+
 ktor = "3.4.3"                     # https://ktor.io/
 datetime = "0.8.0"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.11.0"           # https://github.com/Kotlin/kotlinx.serialization
-kotlin = "2.3.20"
 ksp = "2.3.8"                      # https://github.com/google/ksp
 slf4j = "2.0.18"                   # https://www.slf4j.org/download.html
 logback = "1.5.32"                 # https://logback.qos.ch/download.html
