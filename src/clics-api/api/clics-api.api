@@ -78,6 +78,7 @@ public final class org/icpclive/clics/events/BatchCommentaryEvent : org/icpclive
 }
 
 public abstract interface class org/icpclive/clics/events/BatchEvent : org/icpclive/clics/events/GlobalEvent {
+	public synthetic fun getData ()Ljava/lang/Object;
 	public abstract fun getData ()Ljava/util/List;
 }
 
