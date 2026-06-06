@@ -1,7 +1,6 @@
 public final class com/eolymp/graphql/JudgeContestDetails : com/expediagroup/graphql/client/types/GraphQLClientRequest {
 	public static final field Companion Lcom/eolymp/graphql/JudgeContestDetails$Companion;
 	public fun <init> (Lcom/eolymp/graphql/JudgeContestDetails$Variables;)V
-	public fun getExtensions ()Ljava/util/Map;
 	public fun getOperationName ()Ljava/lang/String;
 	public fun getQuery ()Ljava/lang/String;
 	public fun getVariables ()Lcom/eolymp/graphql/JudgeContestDetails$Variables;
@@ -84,7 +83,6 @@ public final class com/eolymp/graphql/JudgeContestDetailsKt {
 public final class com/eolymp/graphql/JudgeContestSubmissions : com/expediagroup/graphql/client/types/GraphQLClientRequest {
 	public static final field Companion Lcom/eolymp/graphql/JudgeContestSubmissions$Companion;
 	public fun <init> (Lcom/eolymp/graphql/JudgeContestSubmissions$Variables;)V
-	public fun getExtensions ()Ljava/util/Map;
 	public fun getOperationName ()Ljava/lang/String;
 	public fun getQuery ()Ljava/lang/String;
 	public fun getVariables ()Lcom/eolymp/graphql/JudgeContestSubmissions$Variables;
@@ -170,7 +168,6 @@ public final class com/eolymp/graphql/JudgeContestSubmissionsKt {
 public final class com/eolymp/graphql/JudgeContestTeams : com/expediagroup/graphql/client/types/GraphQLClientRequest {
 	public static final field Companion Lcom/eolymp/graphql/JudgeContestTeams$Companion;
 	public fun <init> (Lcom/eolymp/graphql/JudgeContestTeams$Variables;)V
-	public fun getExtensions ()Ljava/util/Map;
 	public fun getOperationName ()Ljava/lang/String;
 	public fun getQuery ()Ljava/lang/String;
 	public fun getVariables ()Lcom/eolymp/graphql/JudgeContestTeams$Variables;
