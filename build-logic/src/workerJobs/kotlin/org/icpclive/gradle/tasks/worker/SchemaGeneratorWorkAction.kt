@@ -1,12 +1,17 @@
-package org.icpclive.gradle.tasks.impl
+package org.icpclive.gradle.tasks.worker
 
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.*
-import kotlin.reflect.KClass
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
+import org.gradle.workers.WorkAction
+import org.gradle.workers.WorkParameters
+import kotlin.reflect.*
+import kotlin.reflect.full.*
 
-fun PrimitiveKind.toJsonTypeName(): String = when (this) {
+private fun PrimitiveKind.toJsonTypeName(): String = when (this) {
     PrimitiveKind.BOOLEAN -> "boolean"
     PrimitiveKind.BYTE -> "number"
     PrimitiveKind.CHAR -> "number"
@@ -18,11 +23,11 @@ fun PrimitiveKind.toJsonTypeName(): String = when (this) {
     PrimitiveKind.STRING -> "string"
 }
 
-fun SerialDescriptor.unwrapInlines(): SerialDescriptor = if (!isInline) this else getElementDescriptor(0).unwrapInlines()
+private fun SerialDescriptor.unwrapInlines(): SerialDescriptor = if (!isInline) this else getElementDescriptor(0).unwrapInlines()
 
 
 @OptIn(ExperimentalSerializationApi::class)
-fun SerialDescriptor.toJsonSchemaType(
+private fun SerialDescriptor.toJsonSchemaType(
     processed: MutableSet<String>,
     serializersModule: SerializersModule,
     definitions: MutableMap<String, JsonElement>,
@@ -241,7 +246,7 @@ fun SerialDescriptor.toJsonSchemaType(
     return JsonObject(mapOf("\$ref" to JsonPrimitive("#/\$defs/$id")))
 }
 
-fun SerialDescriptor.toJsonSchema(title: String, serializersModule: SerializersModule): JsonElement {
+private fun SerialDescriptor.toJsonSchema(title: String, serializersModule: SerializersModule): JsonElement {
     val definitions = mutableMapOf<String, JsonElement>()
     val mainSchema = toJsonSchemaType(
         title = title,
@@ -255,4 +260,29 @@ fun SerialDescriptor.toJsonSchema(title: String, serializersModule: SerializersM
                     "\$defs" to JsonObject(definitions),
                 )
     )
+}
+
+interface SchemaGeneratorWorkParameters : WorkParameters {
+    val rootClass: Property<String>
+    val title: Property<String>
+    val outputLocation: RegularFileProperty
+}
+
+abstract class SchemaGeneratorWorkAction : WorkAction<SchemaGeneratorWorkParameters> {
+    @Suppress("UNCHECKED_CAST")
+    private fun <T: Any> KClass<*>.findFunctionByReturnClass(retClass: KClass<T>) = functions.singleOrNull {
+        it.parameters.all { it.kind == KParameter.Kind.INSTANCE } && it.returnType.classifier == retClass
+    } as? KCallable<T>
+
+    override fun execute() {
+        val classLoader = Thread.currentThread().contextClassLoader
+        val clazz = classLoader.loadClass(parameters.rootClass.get()).kotlin
+        val companion = clazz.companionObject
+        val moduleMethod = companion?.findFunctionByReturnClass(SerializersModule::class)
+        val serializersModule = moduleMethod?.call(companion.objectInstance) ?: EmptySerializersModule()
+        val serializer = serializer(clazz.starProjectedType).descriptor
+        val json = Json { prettyPrint = true }
+        val schema = json.encodeToString(serializer.toJsonSchema(parameters.title.get(), serializersModule)) + "\n"
+        parameters.outputLocation.get().asFile.writeText(schema)
+    }
 }

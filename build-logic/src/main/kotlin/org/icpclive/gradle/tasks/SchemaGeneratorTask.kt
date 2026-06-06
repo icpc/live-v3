@@ -1,27 +1,14 @@
 package org.icpclive.gradle.tasks
 
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
-import kotlinx.serialization.modules.*
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Classpath
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
-import org.icpclive.gradle.tasks.impl.toJsonSchema
-import java.net.URLClassLoader
-import kotlin.reflect.KCallable
-import kotlin.reflect.KClass
-import kotlin.reflect.KParameter
-import kotlin.reflect.full.companionObject
-import kotlin.reflect.full.functions
-import kotlin.reflect.full.starProjectedType
+import org.gradle.api.tasks.*
+import org.gradle.workers.*
+import org.icpclive.gradle.tasks.worker.SchemaGeneratorWorkAction
+import javax.inject.Inject
 
 
 @CacheableTask
@@ -35,6 +22,10 @@ abstract class SchemaGeneratorTask : DefaultTask() {
     @get:InputFiles
     abstract val classpath: ConfigurableFileCollection
 
+    @get:Classpath
+    @get:InputFiles
+    abstract val generatorClasspath: ConfigurableFileCollection
+
     @get:Input
     abstract val rootClass: Property<String>
 
@@ -47,32 +38,33 @@ abstract class SchemaGeneratorTask : DefaultTask() {
     @get:OutputFile
     abstract val outputLocation: RegularFileProperty
 
+    @get:Inject
+    abstract val workerExecutor: WorkerExecutor
+
     init {
         val runtimeClassPath = project.configurations.named("runtimeClasspath")
         val currentClassModules = project.tasks.named("compileKotlin").map { it.outputs.files }
         val merged = project.files(runtimeClassPath, currentClassModules)
+        val libs = project.extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
+        val defaultGeneratorClasspath = project.configurations.detachedConfiguration(
+            libs.findLibrary("kotlinx-serialization-json").get().get(),
+        )
         classpath.convention(merged)
+        generatorClasspath.convention(defaultGeneratorClasspath)
         outputLocation.convention(fileName.flatMap {  project.layout.buildDirectory.file("schema/${it}.schema.json") })
     }
 
-    @Suppress("UNCHECKED_CAST")
-    private fun <T: Any> KClass<*>.findFunctionByReturnClass(retClass: KClass<T>) = functions.singleOrNull {
-        it.parameters.all { it.kind == KParameter.Kind.INSTANCE } && it.returnType.classifier == retClass
-    } as? KCallable<T>
-
     @TaskAction
     fun generate() {
-        val taskClassLoader = Thread.currentThread().getContextClassLoader()
-        val targetClassUrls = classpath.files.map { it.toURI().toURL() }.toTypedArray()
-        URLClassLoader(targetClassUrls, taskClassLoader).use { classLoader ->
-            val clazz = classLoader.loadClass(rootClass.get()).kotlin
-            val companion = clazz.companionObject
-            val moduleMethod = companion?.findFunctionByReturnClass(SerializersModule::class)
-            val serializersModule = moduleMethod?.call(companion.objectInstance) ?: EmptySerializersModule()
-            val serializer = serializer(clazz.starProjectedType).descriptor
-            val json = Json { prettyPrint = true }
-            val schema = json.encodeToString(serializer.toJsonSchema(title.get(), serializersModule)) + "\n"
-            outputLocation.get().asFile.writeText(schema)
+        val task = this
+        val workerQueue = workerExecutor.classLoaderIsolation {
+            classpath.from(task.classpath)
+            classpath.from(task.generatorClasspath)
+        }
+        workerQueue.submit(SchemaGeneratorWorkAction::class.java) {
+            rootClass.set(task.rootClass)
+            title.set(task.title)
+            outputLocation.set(task.outputLocation)
         }
     }
 }

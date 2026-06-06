@@ -2,6 +2,9 @@ plugins {
     `kotlin-dsl`
 }
 
+val workerJobs by sourceSets.creating {
+}
+
 repositories {
     gradlePluginPortal()
     mavenCentral()
@@ -13,6 +16,10 @@ dependencies {
     implementation(libs.gradleplugin.dokka)
     implementation(libs.gradleplugin.ksp)
     implementation(libs.gradleplugin.shadow)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kxs.ts.gen.core)
+
+    implementation(workerJobs.output)
+
+    add(workerJobs.compileOnlyConfigurationName, gradleApi())
+    add(workerJobs.compileOnlyConfigurationName, libs.kotlinx.serialization.json)
+    add(workerJobs.compileOnlyConfigurationName, libs.kxs.ts.gen.core)
 }

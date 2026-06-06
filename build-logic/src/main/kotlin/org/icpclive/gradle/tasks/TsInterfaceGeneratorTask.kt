@@ -1,18 +1,15 @@
 package org.icpclive.gradle.tasks
 
-import dev.adamko.kxstsgen.KxsTsGenerator
-import dev.adamko.kxstsgen.core.SerializerDescriptorsExtractor
-import dev.adamko.kxstsgen.core.util.MutableMapWithDefaultPut
-import kotlinx.serialization.serializer
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
-import java.net.URLClassLoader
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.isAccessible
+import org.gradle.workers.*
+import org.icpclive.gradle.tasks.worker.TsInterfaceGeneratorWorkAction
+import javax.inject.Inject
 
 
 @CacheableTask
@@ -26,6 +23,10 @@ abstract class TsInterfaceGeneratorTask : DefaultTask() {
     @get:InputFiles
     abstract val classpath: ConfigurableFileCollection
 
+    @get:Classpath
+    @get:InputFiles
+    abstract val generatorClasspath: ConfigurableFileCollection
+
     @get:Input
     abstract val rootClasses: ListProperty<String>
 
@@ -35,38 +36,33 @@ abstract class TsInterfaceGeneratorTask : DefaultTask() {
     @get:OutputFile
     abstract val outputLocation: RegularFileProperty
 
+    @get:Inject
+    abstract val workerExecutor: WorkerExecutor
+
     init {
         val runtimeClasspathConfig = project.configurations.named("runtimeClasspath")
         val currentClassOutput = project.tasks.named("compileKotlin").map { it.outputs.files }
+        val libs = project.extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
+        val defaultGeneratorClasspath = project.configurations.detachedConfiguration(
+            libs.findLibrary("kxs-ts-gen-core").get().get(),
+            libs.findLibrary("kotlinx-serialization-json").get().get(),
+        )
 
         classpath.convention(project.files(runtimeClasspathConfig, currentClassOutput))
-        outputLocation.convention(fileName.flatMap { project.layout.buildDirectory.file("ts/${it}.ts") })
-    }
-
-    // TODO: this is dirty hack
-    // correct way is to run the task via Worker API, with loading this library only for a task.
-    private fun clearKxsTsGeneratorCaches() {
-        val cacheProperty = SerializerDescriptorsExtractor.Default::class.memberProperties.single { it.name == "elementDescriptors" }
-        cacheProperty.isAccessible = true
-        val delegate = cacheProperty.getDelegate(SerializerDescriptorsExtractor.Default) as MutableMapWithDefaultPut<*, *>
-        cacheProperty.isAccessible = false
-        val backingMapProperty = delegate::class.memberProperties.single { it.name == "map" }
-        backingMapProperty.isAccessible = true
-        val backingMap = backingMapProperty.call(delegate) as MutableMap<*, *>
-        backingMapProperty.isAccessible = false
-        backingMap.clear()
+        generatorClasspath.convention(defaultGeneratorClasspath)
+        outputLocation.convention(fileName.zip(project.layout.buildDirectory) { file, dir -> dir.file("ts/${file}.ts") })
     }
 
     @TaskAction
     fun generate() {
-        clearKxsTsGeneratorCaches()
-        val taskClassLoader = Thread.currentThread().getContextClassLoader()
-        val targetClassUrls = classpath.files.map { it.toURI().toURL() }.toTypedArray()
-        URLClassLoader(targetClassUrls, taskClassLoader).use { classLoader ->
-            val tsGenerator = KxsTsGenerator()
-            val descriptors = rootClasses.get().map { serializer(classLoader.loadClass(it)) }
-            val interfaceText = tsGenerator.generate(*descriptors.toTypedArray()) + "\n"
-            outputLocation.get().asFile.writeText(interfaceText)
+        val task = this
+        val workerQueue = workerExecutor.classLoaderIsolation {
+            classpath.from(task.classpath)
+            classpath.from(task.generatorClasspath)
+        }
+        workerQueue.submit(TsInterfaceGeneratorWorkAction::class.java) {
+            rootClasses.set(task.rootClasses)
+            outputLocation.set(task.outputLocation)
         }
     }
 }
