@@ -55,10 +55,10 @@ abstract class CdsLoadersTest {
                     it.print(actual.replace("\n", System.lineSeparator()))
                 }
             }
-            throw AssertionFailedError(
-                "Actual result doesn't match expected in file ${expectedFile}\n",
+            assertEquals(
                 expected,
                 actual,
+                "Actual result doesn't match expected in file ${expectedFile}\n",
             )
         }
     }
