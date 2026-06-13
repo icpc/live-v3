@@ -1,4 +1,4 @@
-import org.icpclive.gradle.tasks.*
+import org.icpclive.gradle.*
 import org.gradle.kotlin.dsl.run as runTask
 
 plugins {
@@ -15,26 +15,24 @@ application {
 
 tasks {
     runTask {
-        this.args = listOfNotNull(
-            "--no-auth",
-            project.properties["live.dev.credsFile"]?.let { "--creds=$it" },
-            project.properties["live.dev.contest"]?.let { "--config-directory=$it" },
-            project.properties["live.dev.analyticsTemplatesFile"]?.let { "--analytics-template=$it" },
-        )
-        this.workingDir = rootDir.resolve("config")
+        args("--no-auth")
+        argProperty("live.dev.credsFile") { "--creds=$it" }
+        argProperty("live.dev.contest") { "--config-directory=$it" }
+        argProperty("live.dev.analyticsTemplatesFile") { "--analytics-template=$it" }
+        workingDir(rootProject.isolated.projectDirectory.dir("config"))
     }
 
     processResources {
-        if (project.properties["live.dev.embedFrontend"] == "true") {
-            from(configurations.adminOverlayJsAppResolver) {
-                into("admin-overlay")
-            }
-            from(configurations.overlayJsAppResolver) {
-                into("overlay")
-            }
+        from(configurations.adminOverlayJsAppResolver) {
+            into("admin-overlay")
+        }
+        from(configurations.overlayJsAppResolver) {
+            into("overlay")
         }
     }
 }
+
+val frontendNeeded = booleanGradleProperty("live.dev.embedFrontend")
 
 dependencies {
     implementation(libs.cli)
@@ -50,6 +48,6 @@ dependencies {
     implementation(projects.cds.ktor)
     implementation(projects.serverShared)
     jsonSchemas(projects.frontend)
-    overlayJsApp(projects.frontend)
-    adminOverlayJsApp(projects.frontend)
+    overlayJsApp(projects.frontend.enabledIf(frontendNeeded))
+    adminOverlayJsApp(projects.frontend.enabledIf(frontendNeeded))
 }

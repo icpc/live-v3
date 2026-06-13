@@ -1,4 +1,6 @@
-import org.icpclive.gradle.tasks.*
+import org.icpclive.gradle.argProperty
+import org.icpclive.gradle.booleanGradleProperty
+import org.icpclive.gradle.enabledIf
 import org.gradle.kotlin.dsl.run as runTask
 
 plugins {
@@ -10,13 +12,13 @@ application {
 }
 
 tasks.runTask {
-    this.args = buildList {
-        add("server")
-        project.properties["live.dev.credsFile"]?.let { add("--creds=${it}") }
-        project.properties["live.dev.contest"]?.let { add("--config-directory=${it}") }
-    }
+    args("server")
+    argProperty("live.dev.credsFile") { "--creds=$it" }
+    argProperty("live.dev.contest") { "--config-directory=$it" }
     this.workingDir(rootDir.resolve("config"))
 }
+
+val frontendNeeded = booleanGradleProperty("live.dev.embedFrontend")
 
 dependencies {
     implementation(libs.apache.commons.csv)
@@ -31,16 +33,14 @@ dependencies {
     implementation(projects.cds.full)
     implementation(projects.clicsApi)
     implementation(projects.serverShared)
-    adminConverterJsApp(projects.frontend)
+    adminConverterJsApp(projects.frontend.enabledIf(frontendNeeded))
     jsonSchemas(projects.frontend)
 }
 
 tasks {
     processResources {
-        if (project.properties["live.dev.embedFrontend"] == "true") {
-            from(configurations.adminConverterJsAppResolver) {
-                into("admin-converter")
-            }
+        from(configurations.adminConverterJsAppResolver) {
+            into("admin-converter")
         }
     }
 }

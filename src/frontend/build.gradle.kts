@@ -13,7 +13,7 @@ plugins {
 node {
     version.set("22.20.0")
     pnpmVersion.set("10.18.3")
-    download.set(rootProject.findProperty("npm.download") == "true")
+    download.set(providers.gradleProperty("npm.download").map { it.toBoolean() })
 }
 
 val generatedTsLocation = project.projectDir.resolve("generated")

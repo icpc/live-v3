@@ -1,3 +1,4 @@
+import org.icpclive.gradle.argProperty
 import org.gradle.kotlin.dsl.run as runTask
 
 plugins {
@@ -15,11 +16,9 @@ application {
 
 tasks {
     runTask {
-        this.args = listOfNotNull(
-            project.properties["live.dev.configDirectory"]?.let { "--config-directory=$it" },
-            project.properties["live.dev.overlayUrl"]?.let { "--overlay=$it" },
-        )
-        this.workingDir = rootDir.resolve(".")
+        argProperty("live.dev.configDirectory") { "--config-directory=$it" }
+        argProperty("live.dev.overlayUrl") { "--overlay=$it" }
+        this.workingDir = rootProject.isolated.projectDirectory.asFile
     }
 
     // Not the best way of doing this, but should work out.

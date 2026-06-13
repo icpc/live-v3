@@ -27,6 +27,7 @@ tasks {
 publishing {
     publications {
         val libName = name
+        val versionProvider = providers.gradleProperty("build_version")
         create<MavenPublication>("mavenJava${libName}") {
             pom {
                 name = "ICPC live contest data system parser"
@@ -57,7 +58,7 @@ publishing {
             }
             from(components["java"])
             groupId = "com.github.icpc.live-v3"
-            version = rootProject.findProperty("build_version")!!.toString()
+            version = versionProvider.get()
             artifactId = "org.icpclive.cds.${libName}"
         }
     }

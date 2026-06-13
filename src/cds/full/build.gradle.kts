@@ -20,7 +20,7 @@ kotlin {
 
 dokka {
     dokkaPublications.named("html").configure {
-        outputDirectory.set(rootProject.layout.projectDirectory.dir("_site").dir("cds"))
+        outputDirectory.set(rootProject.isolated.projectDirectory.dir("_site").dir("cds"))
     }
     moduleName.set("ICPC-live contest data parser")
 }

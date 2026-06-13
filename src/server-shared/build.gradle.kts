@@ -32,11 +32,11 @@ tasks {
     }
 
     val advancedExamples by registering(PackExamplesTask::class) {
-        sourceDirectory.set(rootProject.layout.projectDirectory.dir( provider { "config/_examples/_advanced" }))
+        sourceDirectory.set(rootProject.isolated.projectDirectory.dir( "config/_examples/_advanced"))
         packedDirectory.set(project.layout.buildDirectory.dir("advanced_examples"))
     }
     val visualConfigExamples by registering(PackExamplesTask::class) {
-        sourceDirectory.set(rootProject.layout.projectDirectory.dir( provider { "config/_examples/_visual-config" }))
+        sourceDirectory.set(rootProject.isolated.projectDirectory.dir("config/_examples/_visual-config"))
         packedDirectory.set(project.layout.buildDirectory.dir("visual_examples"))
     }
 

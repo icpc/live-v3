@@ -28,7 +28,7 @@ tasks {
     val version = project.version
     val userArchive = register<Sync>("userArchive") {
         destinationDir = project.layout.buildDirectory.dir("archive").get().asFile
-        val configDir = rootProject.layout.projectDirectory.dir("config")
+        val configDir = rootProject.isolated.projectDirectory.dir("config")
         val projectDir = project.layout.projectDirectory
         from(configDir.dir("_examples")) {
             includeEmptyDirs = false
@@ -77,6 +77,6 @@ tasks {
     register<Zip>("release") {
         from(userArchive)
         archiveFileName = "live-v3-${version}.zip"
-        destinationDirectory = rootProject.layout.projectDirectory.dir("artifacts")
+        destinationDirectory = rootProject.isolated.projectDirectory.dir("artifacts")
     }
 }
