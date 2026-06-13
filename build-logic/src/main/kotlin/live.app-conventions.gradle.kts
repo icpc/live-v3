@@ -27,7 +27,7 @@ tasks {
         from(shadowJar)
     }
 
-    val extractLicensesTask by tasks.registering(ExtractLicensesTask::class) {
+    val extractLicensesTask = tasks.register<ExtractLicensesTask>("extractLicenses") {
         from(configurations.runtimeClasspath)
         outputDir.set(layout.buildDirectory.dir("extracted-licenses"))
     }

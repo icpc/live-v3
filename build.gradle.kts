@@ -15,18 +15,18 @@ val schemasExportLocation = project.layout.projectDirectory.dir("schemas")
 
 
 tasks {
-    val doc by registering {
+    register("doc") {
         dependsOn(":cds:full:dokkaGenerate")
     }
-    val copySchemas by registering(Sync::class) {
+    val copySchemas = register<Sync>("copySchemas") {
         from(configurations.jsonSchemasResolver)
         into(schemasExportLocation)
     }
-    val gen by registering {
+    val gen = register("gen") {
         dependsOn(copySchemas)
         dependsOn(":frontend:copyGeneratedTs")
     }
-    val checkSchemasExport by registering(CheckExportedFiles::class) {
+    val checkSchemasExport = register<CheckExportedFiles>("checkSchemasExport") {
         from(configurations.jsonSchemasResolver)
         exportLocation = schemasExportLocation
         fixTask = gen.name

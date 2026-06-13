@@ -12,7 +12,7 @@ dependencies {
     api(projects.cds.core)
 }
 
-val generateApiTypeScript by tasks.registering(TsInterfaceGeneratorTask::class) {
+val generateApiTypeScript = tasks.register<TsInterfaceGeneratorTask>("generateApiTypeScript") {
     rootClasses.addAll(listOf(
         "org.icpclive.cds.api.ContestInfo",
         "org.icpclive.cds.api.RunInfo",

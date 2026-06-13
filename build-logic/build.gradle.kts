@@ -2,8 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-val workerJobs by sourceSets.creating {
-}
+val workerJobs = sourceSets.create("workerJobs")
 
 repositories {
     gradlePluginPortal()

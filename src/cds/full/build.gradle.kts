@@ -27,12 +27,12 @@ dokka {
 
 
 tasks {
-    val generateAdvancedSchema by registering(SchemaGeneratorTask::class) {
+    val generateAdvancedSchema = register<SchemaGeneratorTask>("generateAdvancedSchema") {
         rootClass = "org.icpclive.cds.tunning.TuningRuleList"
         title = "ICPC live advanced settings"
         fileName = "advanced"
     }
-    val generateSettingsSchema by registering(SchemaGeneratorTask::class) {
+    val generateSettingsSchema = register<SchemaGeneratorTask>("generateSettingsSchema") {
         rootClass = "org.icpclive.cds.settings.CDSSettings"
         title = "ICPC live settings"
         fileName = "settings"

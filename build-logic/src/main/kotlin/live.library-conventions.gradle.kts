@@ -16,10 +16,10 @@ kotlin {
 }
 
 tasks {
-    val apiDump by registering {
+    register("apiDump") {
         dependsOn(kotlin.abiValidation.updateTaskProvider)
     }
-    val apiCheck by registering {
+    register("apiCheck") {
         dependsOn(kotlin.abiValidation.checkTaskProvider)
     }
 }

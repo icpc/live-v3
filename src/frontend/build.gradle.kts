@@ -18,12 +18,12 @@ node {
 
 val generatedTsLocation = project.projectDir.resolve("generated")
 
-val copyGeneratedTs by tasks.registering(Sync::class) {
+val copyGeneratedTs = tasks.register<Sync>("copyGeneratedTs") {
     from(configurations.tsInterfacesResolver)
     into(generatedTsLocation)
 }
 
-val checkTsExport by tasks.registering(CheckExportedFiles::class) {
+val checkTsExport = tasks.register<CheckExportedFiles>("checkTsExport") {
     from(configurations.tsInterfacesResolver)
     exportLocation = generatedTsLocation
     fixTask = "gen"

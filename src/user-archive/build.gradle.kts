@@ -11,14 +11,14 @@ dependencies {
 }
 
 tasks {
-    val emptyJson by registering {
+    val emptyJson = register("emptyJson") {
         val file = project.layout.buildDirectory.file("empty.json")
         outputs.file(file)
         doLast {
             file.get().asFile.writeText("{\n}\n")
         }
     }
-    val emptyJsonArray by registering {
+    val emptyJsonArray = register("emptyJsonArray") {
         val file = project.layout.buildDirectory.file("empty-array.json")
         outputs.file(file)
         doLast {

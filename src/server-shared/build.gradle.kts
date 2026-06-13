@@ -27,15 +27,15 @@ dependencies {
 
 tasks {
 
-    val gitVersionFiles by registering(GitVersionFilesTask::class) {
+    val gitVersionFiles = register<GitVersionFilesTask>("gitVersionFiles") {
         outputDirectory.set(project.layout.buildDirectory.dir("git_version_files"))
     }
 
-    val advancedExamples by registering(PackExamplesTask::class) {
+    val advancedExamples = register<PackExamplesTask>("advancedExamples") {
         sourceDirectory.set(rootProject.isolated.projectDirectory.dir( "config/_examples/_advanced"))
         packedDirectory.set(project.layout.buildDirectory.dir("advanced_examples"))
     }
-    val visualConfigExamples by registering(PackExamplesTask::class) {
+    val visualConfigExamples = register<PackExamplesTask>("visualConfigExamples") {
         sourceDirectory.set(rootProject.isolated.projectDirectory.dir("config/_examples/_visual-config"))
         packedDirectory.set(project.layout.buildDirectory.dir("visual_examples"))
     }

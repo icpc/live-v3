@@ -2,7 +2,7 @@ import org.gradle.kotlin.dsl.provideDelegate
 
 fun ConfigurationContainer.allThree(name: String, desc: String) {
         val filesUsageAttribute = objects.named<Usage>("live.files.$name")
-        val declarator by dependencyScope(name) {
+        val declarator = dependencyScope(name) {
             description = "Declare dependencies on $desc from other subprojects"
             dependencies.add(project.dependencies.project(project.path))
         }
