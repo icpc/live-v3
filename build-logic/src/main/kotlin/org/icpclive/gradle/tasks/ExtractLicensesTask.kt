@@ -1,43 +1,69 @@
 package org.icpclive.gradle.tasks
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.artifacts.ArtifactCollection
 import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.result.ResolvedArtifactResult
 import org.gradle.api.file.ArchiveOperations
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Provider
+import org.gradle.api.provider.SetProperty
+import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
-import org.jetbrains.kotlin.util.prefixIfNot
 import javax.inject.Inject
 
+@CacheableTask
 abstract class ExtractLicensesTask @Inject constructor(
     private val archives: ArchiveOperations
 ) : DefaultTask() {
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val runtimeFiles: ConfigurableFileCollection
+    protected abstract val runtimeFiles: ConfigurableFileCollection
 
     @get:OutputDirectory
     abstract val outputDir: DirectoryProperty
 
-    // Internal mapping logic moved inside the task
     @get:Input
-    abstract val fileToArtifactName: MapProperty<String, String>
+    protected abstract val artifactIdentities: SetProperty<String>
+
+    @get:Internal
+    protected abstract val artifactNameByFilePath: MapProperty<String, String>
 
     fun from(configuration: Provider<Configuration>) {
-        runtimeFiles.from(configuration)
-        fileToArtifactName.set(configuration.map { config ->
-            config.resolvedConfiguration.resolvedArtifacts.associate {
-                it.file.absolutePath to it.moduleVersion.id.name
+        val artifacts: Provider<ArtifactCollection> = configuration.map {
+            it.incoming.artifacts
+        }
+
+        runtimeFiles.from(artifacts.map { it.artifactFiles })
+
+        artifactIdentities.addAll(artifacts.flatMap { artifactCollection ->
+            artifactCollection.resolvedArtifacts.map { resolvedArtifacts ->
+                resolvedArtifacts.map { it.stableIdentity() }
+            }
+        })
+
+        artifactNameByFilePath.putAll(artifacts.flatMap { artifactCollection ->
+            artifactCollection.resolvedArtifacts.map { resolvedArtifacts ->
+                resolvedArtifacts.associate {
+                    it.file.absolutePath to it.artifactName()
+                }
             }
         })
     }
+
+    private fun ResolvedArtifactResult.stableIdentity(): String =
+        "${id.componentIdentifier.displayName}:${id.displayName}:${variant.displayName}"
+
+    private fun ResolvedArtifactResult.artifactName(): String =
+        id.componentIdentifier.displayName
 
     @TaskAction
     fun execute() {
@@ -45,10 +71,10 @@ abstract class ExtractLicensesTask @Inject constructor(
         destination.deleteRecursively()
         destination.mkdirs()
 
-        logger.info(fileToArtifactName.get().toString())
+        logger.info(artifactNameByFilePath.get().toString())
 
         runtimeFiles.forEach { jarFile ->
-            val artifactName = fileToArtifactName.get()[jarFile.absolutePath] ?: "unknown"
+            val artifactName = artifactNameByFilePath.get()[jarFile.absolutePath] ?: "unknown"
 
             archives.zipTree(jarFile).matching {
                 include(FILENAMES)
@@ -62,7 +88,7 @@ abstract class ExtractLicensesTask @Inject constructor(
                     val targetName = "${baseName}-${artifactName}${extension}"
                     val targetFile = destination.resolve(targetName)
                     this.copyTo(targetFile)
-                    logger.info("Extracted ${path} from $jarFile to ${targetFile.absolutePath}")
+                    logger.info("Extracted $path from $jarFile to ${targetFile.absolutePath}")
                 }
             }
         }

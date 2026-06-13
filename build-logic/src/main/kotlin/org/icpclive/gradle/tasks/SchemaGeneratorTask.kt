@@ -7,6 +7,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
@@ -23,6 +24,7 @@ import kotlin.reflect.full.functions
 import kotlin.reflect.full.starProjectedType
 
 
+@CacheableTask
 abstract class SchemaGeneratorTask : DefaultTask() {
     init {
         group = "build"

@@ -7,8 +7,10 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecOperations
+import org.gradle.work.DisableCachingByDefault
 import javax.inject.Inject
 
+@DisableCachingByDefault
 abstract class GitVersionFilesTask @Inject constructor(
     private val execOps: ExecOperations
 ) : DefaultTask() {

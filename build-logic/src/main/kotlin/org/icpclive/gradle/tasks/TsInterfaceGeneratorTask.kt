@@ -15,6 +15,7 @@ import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 
 
+@CacheableTask
 abstract class TsInterfaceGeneratorTask : DefaultTask() {
     init {
         group = "build"

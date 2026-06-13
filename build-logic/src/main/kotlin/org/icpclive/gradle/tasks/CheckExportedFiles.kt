@@ -10,7 +10,11 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.work.DisableCachingByDefault
 
+@DisableCachingByDefault
 abstract class CheckExportedFiles : DefaultTask() {
 
     init {
@@ -22,9 +26,11 @@ abstract class CheckExportedFiles : DefaultTask() {
     abstract val exportLocation: DirectoryProperty
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val generatedFiles: ConfigurableFileCollection
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     val exportedFiles = generatedFiles.elements.zip(exportLocation) { fileSet, exportLocation ->
         fileSet.map { exportLocation.file(it.asFile.name).asFile }
     }
