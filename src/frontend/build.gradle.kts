@@ -11,8 +11,8 @@ plugins {
 }
 
 node {
-    version.set("22.20.0")
-    pnpmVersion.set("10.18.3")
+    version.set("24.18.0")
+    pnpmVersion.set("11.9.0")
     download.set(providers.gradleProperty("npm.download").map { it.toBoolean() })
 }
 
@@ -69,6 +69,7 @@ tasks {
             // Checking node modules to be unchanged is very slow and not really important.
             exclude("**")
         }
+        environment.set(mapOf("CI" to "true"))
     }
     val buildOverlay = pnpmBuild("pnpm_run_buildOverlay", layout.projectDirectory.dir("overlay"), "/overlay") {
         inputs.file(it.file("index.html"))
