@@ -53,6 +53,7 @@ runs:
     - name: Install dependencies
       if: ${{ inputs.setup-node == 'true' }}
       working-directory: ./src/frontend
+      shell: bash
       run: pnpm install --frozen-lockfile --prefer-offline
 
     # --- PLAYWRIGHT SECTION ---
