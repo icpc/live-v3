@@ -26,6 +26,9 @@ jobs:
     name: Create artifacts from master
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
       - name: Run Shared Setup Steps
         uses: ./.github/workflows/setup
         with:

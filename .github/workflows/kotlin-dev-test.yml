@@ -34,7 +34,6 @@ jobs:
       - name: Run Shared Setup Steps
         uses: ./.github/workflows/setup
         with:
-          checkout-already-done: 'true'
           setup-playwright: 'true'
           setup-gradle: 'true'
           setup-node: 'true'
