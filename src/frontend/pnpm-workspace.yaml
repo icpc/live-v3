@@ -16,3 +16,6 @@ allowBuilds:
 overrides:
   caniuse-lite: 1.0.30001653
   webworkify-webpack: https://codeload.github.com/xqq/webworkify-webpack/tar.gz/24d1e719b4a6cac37a518b2bb10fe124527ef4ef
+
+saveExact: true
+blockExoticSubdeps: false
