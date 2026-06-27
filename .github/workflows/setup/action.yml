@@ -1,0 +1,88 @@
+name: 'Setup Java, Gradle, and pnpm'
+description: 'Standardized environment setup with conditional triggers'
+
+inputs:
+  checkout-already-done:
+    description: 'Whether the repository has already been checked out'
+    required: false
+    default: 'false'
+  setup-gradle:
+    description: 'Whether to set up Java and Gradle'
+    required: false
+    default: 'false'
+  setup-node:
+    description: 'Whether to set up Node and pnpm'
+    required: false
+    default: 'false'
+  setup-playwright:
+    description: 'Whether to set up Playwright'
+    required: false
+    default: 'false'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      if: ${{ inputs.checkout-already-done == 'false' }}
+      uses: actions/checkout@v7
+
+    # --- JAVA & GRADLE SECTION ---
+    - name: Set up JDK
+      if: ${{ inputs.setup-gradle == 'true' }}
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: 17
+        cache: 'gradle'
+
+    - name: Verify gradle
+      if: ${{ inputs.setup-gradle == 'true' }}
+      uses: gradle/actions/wrapper-validation@v6
+
+    - name: Setup Gradle
+      if: ${{ inputs.setup-gradle == 'true' }}
+      uses: gradle/actions/setup-gradle@v6
+
+    # --- PNPM & NODE SECTION ---
+    - name: Install pnpm
+      if: ${{ inputs.setup-node == 'true' }}
+      uses: pnpm/action-setup@v6
+      with:
+        version: 11.9.0
+
+    - name: Set up Node.js
+      if: ${{ inputs.setup-node == 'true' }}
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24.18.0
+        cache: 'pnpm'
+        cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
+
+    - name: Install dependencies
+      if: ${{ inputs.setup-node == 'true' }}
+      working-directory: ./src/frontend
+      run: pnpm install --frozen-lockfile --prefer-offline
+
+    # --- PLAYWRIGHT SECTION ---
+    - name: Store Playwright's Version
+      if: ${{ inputs.setup-playwright == 'true' }}
+      working-directory: ./src/frontend/tests
+      shell: bash
+      run: |
+        PLAYWRIGHT_VERSION=$(pnpm list @playwright/test | grep @playwright | sed 's/.*@//')
+        echo "Playwright's Version: $PLAYWRIGHT_VERSION"
+        echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+
+    - name: Cache Playwright Browsers for Playwright's Version
+      if: ${{ inputs.setup-playwright == 'true' }}
+      id: cache-playwright-browsers
+      uses: actions/cache@v6
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-browsers2-${{ env.PLAYWRIGHT_VERSION }}
+
+    - name: Setup Playwright
+      if: ${{ inputs.setup-playwright == 'true' && steps.cache-playwright-browsers.outputs.cache-hit != 'true' }}
+      working-directory: ./src/frontend/tests
+      shell: bash
+      run: pnpm exec playwright install

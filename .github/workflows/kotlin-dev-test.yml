@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@master
+        uses: actions/checkout@v7
         with:
           ref: kotlin-test-dev-version
           fetch-depth: 0
@@ -28,53 +28,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          echo "Fetching latest main..."
           git fetch origin main
-          
-          echo "Attempting rebase..."
           git rebase origin/main        
 
-      - uses: pnpm/action-setup@v4
+      - name: Run Shared Setup Steps
+        uses: ./.github/workflows/setup
         with:
-          version: 11.9.0
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '24.18.0'
-          cache: 'pnpm'
-          cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
-
-      - name: Install dependencies
-        working-directory: ./src/frontend
-        run: pnpm install --frozen-lockfile --prefer-offline
-
-      - name: Store Playwright's Version
-        working-directory: ./src/frontend/tests
-        run: |
-          PLAYWRIGHT_VERSION=$(pnpm list @playwright/test | grep @playwright | sed 's/.*@//')
-          echo "Playwright's Version: $PLAYWRIGHT_VERSION"
-          echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
-
-      - name: Cache Playwright Browsers for Playwright's Version
-        id: cache-playwright-browsers
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-browsers2-${{ env.PLAYWRIGHT_VERSION }}
-
-      - name: Setup Playwright
-        if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-        working-directory: ./src/frontend/tests
-        run: pnpm exec playwright install
-
-      - uses: actions/setup-java@master
-        with:
-          distribution: adopt
-          java-version: 17
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+          checkout-already-done: 'true'
+          setup-playwright: 'true'
+          setup-gradle: 'true'
+          setup-node: 'true'
 
       - name: Run Upgrade Task
         run: ./gradlew upgradeKotlinDev --no-daemon

@@ -26,27 +26,11 @@ jobs:
     name: Create artifacts from master
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-
-      - uses: pnpm/action-setup@v4
+      - name: Run Shared Setup Steps
+        uses: ./.github/workflows/setup
         with:
-          version: 11.9.0
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '24.18.0'
-          cache: 'pnpm'
-          cache-dependency-path: 'src/frontend/pnpm-lock.yaml'
-
-      - name: Setup Java
-        uses: actions/setup-java@master
-        with:
-          distribution: adopt
-          java-version: 17
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+          setup-gradle: 'true'
+          setup-node: 'true'
 
       - name: Build with gradle
         run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }}
