@@ -55,3 +55,10 @@ jobs:
         
           # Force push is required because we modified the history via rebase
           git push origin HEAD:kotlin-test-dev-version --force
+
+      - name: Upload Gradle Test Results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/build/test-results/**/*.xml'
