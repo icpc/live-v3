@@ -68,25 +68,18 @@ abstract class ExtractLicensesTask @Inject constructor(
     @TaskAction
     fun execute() {
         val destination = outputDir.get().asFile
-        destination.deleteRecursively()
-        destination.mkdirs()
-
-        logger.info(artifactNameByFilePath.get().toString())
 
         runtimeFiles.forEach { jarFile ->
-            val artifactName = artifactNameByFilePath.get()[jarFile.absolutePath] ?: "unknown"
+            val artifactRawName = artifactNameByFilePath.get()[jarFile.absolutePath] ?: "unknown"
+            val artifactPath = artifactRawName.split(':').dropLast(1)
+            val targetDir = artifactPath.fold(destination) { acc, name -> acc.resolve(name) }
 
             archives.zipTree(jarFile).matching {
                 include(FILENAMES)
                 exclude("**/*.class")
             }.visit {
                 if (!isDirectory) {
-                    val baseName = name.substringBeforeLast(".")
-                    val extension = name.substringAfterLast(".", missingDelimiterValue = "")
-                        .let { if (it.isEmpty()) "" else ".$it" }
-
-                    val targetName = "${baseName}-${artifactName}${extension}"
-                    val targetFile = destination.resolve(targetName)
+                    val targetFile = targetDir.resolve(name)
                     this.copyTo(targetFile)
                     logger.info("Extracted $path from $jarFile to ${targetFile.absolutePath}")
                 }
