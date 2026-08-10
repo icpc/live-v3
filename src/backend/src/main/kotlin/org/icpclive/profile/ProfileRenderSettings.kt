@@ -29,7 +29,7 @@ internal val settingsJson = Json {
     ignoreUnknownKeys = true
 }
 
-private fun String.escapeForSvgBlob() = replace("<", "\\u003c")
+private fun String.escapeForSvgBlob() = replace("<", "\\u003c").replace(">", "\\u003e")
 
 internal fun buildProfileCardSvg(
     template: String,

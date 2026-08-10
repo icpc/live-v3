@@ -20,13 +20,14 @@ class ProfileRenderSettingsTest {
 
     @Test
     fun substitutesBlobsAndScalars() {
-        val record = buildJsonObject { put("id", "1"); put("html", "<b>") }
+        val record = buildJsonObject { put("id", "1"); put("html", "<b>"); put("cdata", "x]]>y") }
         val settings = ProfileRenderSettings(contestType = "Team", fontColor = "#FFFFFF")
         val result = buildProfileCardSvg(template, record, settings, teamColor = "#123456")
         assertFalse("{team.json}" in result)
         assertFalse("{render.json}" in result)
-        assertFalse("<b>" in result)              // raw < must not survive inside the blob
-        assertTrue("\\u003cb>" in result)         // < escaped as <
+        assertFalse("<b>" in result)                  // raw < must not survive inside the blob
+        assertTrue("\\u003cb\\u003e" in result)       // < and > escaped as unicode sequences
+        assertEquals(2, Regex("]]>").findAll(result).count())  // only the two template CDATA terminators remain
         assertTrue("--main-color: #123456" in result)
         assertTrue("--font-color: #FFFFFF" in result)
         assertTrue(""""contestType":"Team"""" in result)
