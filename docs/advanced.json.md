@@ -121,6 +121,64 @@ Avaliable media types:
 * `{ "type": "WebRTCProxyConnection", "url": "url" }` - connection to http stream via [WebRTCProxy](https://github.com/kbats183/webrtc-proxy)
 * `{ "type": "WebRTCGrabberConnection", "url": "signallingUrl (for example https://grabber.kbats.ru)", "peerName": "peerName", "streamType": "desktop/webcam", "credential": "optional" }` - connection to desktop, webcam or etc. using [WebRTCGrabber](https://github.com/irdkwmnsb/webrtc-grabber)
 
+# Team profile cards
+
+The backend can serve self-populating SVG profile cards (see
+`config/_media/team.svg` and `config/_media/personal.svg`) filled with
+per-team data from [cp-profiles](https://github.com/EgorKulikov/acm_profiles)-style
+JSON files, reconciled against the contest system data.
+
+Setup:
+
+1. Put the template into your contest's media directory (or use the shared
+   ones from `config/_media/`).
+2. Put per-team profile files into `<config directory>/profiles/<teamId>.json`.
+   If a team has no profile file, a card is still rendered from whatever the
+   contest system knows (university, team name, member names).
+3. Optionally add `<config directory>/profiles/settings.json`:
+
+   ```json
+   {
+     "contestType": "ICPC",
+     "hideHashtag": false,
+     "hideSite": false,
+     "finals": { "include": true, "includeEmpty": false },
+     "fontColor": "#FFFFFF",
+     "mainColor": "#4C83C3"
+   }
+   ```
+
+   `contestType` is one of `ICPC` (team contest with a World Finals history
+   scene), `Team`, or `Personal` (individual contests, use `personal.svg`;
+   the contestant name is taken from the team's `shortName`). All fields are
+   optional — the templates carry their own defaults.
+4. Wire the media in `advanced.json`:
+
+   ```json
+   {
+     "type": "overrideTeamTemplate",
+     "medias": {
+       "achievement": {
+         "type": "Object",
+         "url": "/api/overlay/profile/team.svg?teamId={team.id}"
+       }
+     }
+   }
+   ```
+
+   The media type must be `Object` (not `Image`) — the card populates itself
+   with an embedded script, which only runs when the SVG is embedded as an
+   object.
+
+Reconciliation rules: the roster shown is always the contest system's roster
+(persons with roles `contestant`/`coach` for the team). A roster member whose
+name (or a known alternative name) matches a person in the profile file gets
+that person's data, under the contest's spelling of the name; roster members
+missing from the profile are shown with empty data; profile persons absent
+from the roster are dropped. If the contest system provides no person data at
+all, the profile file is used as is. The team's `color` (if set) overrides the
+card's main color.
+
 # Customize ranking rules
 ```
 {
