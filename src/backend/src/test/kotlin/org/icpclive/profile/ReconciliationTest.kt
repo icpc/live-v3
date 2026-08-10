@@ -77,6 +77,53 @@ class ReconciliationTest {
     }
 
     @Test
+    fun primaryNameMatchWinsOverSomebodyElsesAlias() {
+        // "A" lists "B" as an alternative spelling of themselves, and there is also a real "B":
+        // the real "B" must not be consumed by "A"'s alias before their own primary name is tried.
+        val result = reconcileProfile(
+            profile(
+                listOf(
+                    profilePerson("A", altNames = listOf("B")),
+                    profilePerson("B"),
+                )
+            ),
+            Roster(listOf("B", "A"), null), team(), null,
+        )
+        val byName = (result["contestants"] as JsonArray).associate {
+            (it.jsonObject["name"] as JsonPrimitive).content to it.jsonObject
+        }
+        assertEquals(setOf("A", "B"), byName.keys)
+        assertEquals(0, (byName.getValue("B")["altNames"] as JsonArray).size)
+        assertEquals(listOf(JsonPrimitive("B")), (byName.getValue("A")["altNames"] as JsonArray).toList())
+        assertEquals(2500, (byName.getValue("A")["cfRating"] as JsonPrimitive).int)
+        assertEquals(2500, (byName.getValue("B")["cfRating"] as JsonPrimitive).int)
+    }
+
+    @Test
+    fun blankRosterNameNeverMatches() {
+        val result = reconcileProfile(
+            profile(listOf(profilePerson("Alice Smith"), profilePerson(" "))),
+            Roster(listOf("   ", "Alice Smith"), null), team(), null,
+        )
+        val blank = (result["contestants"] as JsonArray)
+            .map { it.jsonObject }
+            .single { (it["name"] as JsonPrimitive).content.isBlank() }
+        assertNull(blank["cfRating"])
+        assertEquals(0, (blank["achievements"] as JsonArray).size)
+    }
+
+    @Test
+    fun normalizeUsesFullCaseFolding() {
+        assertEquals(normalizeName("STRASSE"), normalizeName("Straße"))
+        val result = reconcileProfile(
+            profile(listOf(profilePerson("Hans Straße"))),
+            Roster(listOf("HANS STRASSE"), null), team(), null,
+        )
+        val contestant = (result["contestants"] as JsonArray)[0].jsonObject
+        assertEquals(2500, (contestant["cfRating"] as JsonPrimitive).int)
+    }
+
+    @Test
     fun unmatchedRosterNameBecomesStub() {
         val result = reconcileProfile(
             profile(listOf(profilePerson("Alice Smith"))),

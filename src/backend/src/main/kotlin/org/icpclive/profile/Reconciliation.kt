@@ -5,8 +5,10 @@ import org.icpclive.cds.api.*
 
 private val whitespace = Regex("\\s+")
 
+// uppercase().lowercase() is a poor man's full case folding: it makes "Straße" and "STRASSE" equal,
+// which plain lowercase() does not.
 internal fun normalizeName(name: String): String =
-    name.trim().split(whitespace).joinToString(" ").lowercase()
+    name.trim().split(whitespace).joinToString(" ").uppercase().lowercase()
 
 internal data class Roster(val contestants: List<String>, val coach: String?) {
     val isEmpty: Boolean get() = contestants.isEmpty() && coach == null
@@ -27,18 +29,34 @@ private fun stub(name: String): JsonObject = buildJsonObject {
     put("achievements", JsonArray(emptyList()))
 }
 
-private fun JsonObject.allNames(): List<String> = buildList {
-    (this@allNames["name"] as? JsonPrimitive)?.contentOrNull?.let { add(it) }
-    (this@allNames["altNames"] as? JsonArray)
-        ?.mapNotNull { (it as? JsonPrimitive)?.contentOrNull }
-        ?.forEach { add(it) }
-}
+private fun JsonObject.primaryName(): String? = (this["name"] as? JsonPrimitive)?.contentOrNull
 
-private fun takeMatch(rosterName: String, pool: MutableList<JsonObject>): JsonObject? {
-    val normalized = normalizeName(rosterName)
-    val index = pool.indexOfFirst { person -> person.allNames().any { normalizeName(it) == normalized } }
+private fun JsonObject.altNames(): List<String> = (this["altNames"] as? JsonArray)
+    ?.mapNotNull { (it as? JsonPrimitive)?.contentOrNull }
+    .orEmpty()
+
+private fun takeMatch(normalized: String, pool: MutableList<JsonObject>, names: (JsonObject) -> List<String>): JsonObject? {
+    val index = pool.indexOfFirst { person -> names(person).any { normalizeName(it) == normalized } }
     if (index == -1) return null
     return pool.removeAt(index)
+}
+
+/**
+ * Matches [rosterNames] against [pool], consuming every matched profile person.
+ * Primary names are matched first for the whole roster, so a roster name can't be
+ * stolen through somebody else's alias before its own primary-name match is tried.
+ * Names that normalize to nothing are never matched.
+ */
+private fun matchRoster(rosterNames: List<String>, pool: MutableList<JsonObject>): List<JsonObject?> {
+    val normalized = rosterNames.map { normalizeName(it) }
+    val matches = MutableList<JsonObject?>(rosterNames.size) { null }
+    for (pass in listOf<(JsonObject) -> List<String>>({ listOfNotNull(it.primaryName()) }, { it.altNames() })) {
+        for (i in rosterNames.indices) {
+            if (matches[i] != null || normalized[i].isEmpty()) continue
+            matches[i] = takeMatch(normalized[i], pool, pass)
+        }
+    }
+    return matches
 }
 
 private fun withName(person: JsonObject, name: String): JsonObject =
@@ -54,11 +72,16 @@ internal fun reconcileProfile(
     if (roster.isEmpty) return profile
     val pool = (profile["contestants"] as? JsonArray)
         ?.filterIsInstance<JsonObject>().orEmpty().toMutableList()
-    val contestants = roster.contestants
-        .map { name -> takeMatch(name, pool)?.let { withName(it, name) } ?: stub(name) }
+    val contestants = matchRoster(roster.contestants, pool)
+        .mapIndexed { i, match ->
+            val name = roster.contestants[i]
+            match?.let { withName(it, name) } ?: stub(name)
+        }
         .sortedBy { (it["name"] as? JsonPrimitive)?.contentOrNull ?: "" }
     val coachPool = (profile["coach"] as? JsonObject)?.let { mutableListOf(it) } ?: mutableListOf()
-    val coach = roster.coach?.let { name -> takeMatch(name, coachPool)?.let { withName(it, name) } ?: stub(name) }
+    val coach = roster.coach?.let { name ->
+        matchRoster(listOf(name), coachPool).single()?.let { withName(it, name) } ?: stub(name)
+    }
     return JsonObject(profile.toMutableMap().apply {
         put("contestants", JsonArray(contestants))
         put("coach", coach ?: JsonNull)
