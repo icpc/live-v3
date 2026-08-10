@@ -37,7 +37,7 @@
         }
     },
     {
-         "type": "overrideOrganisationTemplate",
+         "type": "overrideOrganizationTemplate",
          "logo": [
              {
                "type": "Image",
@@ -150,73 +150,74 @@
         "bronze": 4
     },
     {
-        "type": "overrideAwards",
+        "type": "addKnownAwards",
         "championTitle": "Northern Eurasia Champions",
-        "rankAwardsMaxRank": 12,
-        "extraMedalGroups": [
+        "rankAwardsMaxRank": 12
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
             {
-                "medals": [
-                    {
-                        "id": "first-diploma",
-                        "citation": "First Award",
-                        "minScore": 8.0
-                    },
-                    {
-                        "id": "second-diploma",
-                        "citation": "Second Award",
-                        "minScore": 7.0
-                    },
-                    {
-                        "id": "third-diploma",
-                        "citation": "Third Award",
-                        "minScore": 6.0
-                    }
-                ]
+                "id": "first-diploma",
+                "citation": "First Award",
+                "minScore": 8.0
             },
             {
-                "organizationLimit": 1, // ⬆️
-                "medals": [
-                    {
-                        "id": "qualified",
-                        "citation": "Qualified to The 2026 ICPC World Finals",
-                        "maxRank": 12
-                    }
-                ]
+                "id": "second-diploma",
+                "citation": "Second Award",
+                "minScore": 7.0
             },
             {
-                "groups": ["nsk"],
-                "medals": [
-                    {
-                        "id": "first-diploma-nsk",
-                        "citation": "First Award Novosibirsk Site",
-                        "minScore": 7.0
-                    },
-                    {
-                        "id": "second-diploma-nsk",
-                        "citation": "Second Award Novosibirsk Site",
-                        "minScore": 6.0
-                    },
-                    {
-                        "id": "third-diploma-nsk",
-                        "citation": "Third Award Novosibirsk Site",
-                        "minScore": 5.0
-                    },
-                    {
-                        "id": "hh-diploma-nsk",
-                        "citation": "High Honors Novosibirsk Site",
-                        "minScore": 4.0
-                    }
-                ]
+                "id": "third-diploma",
+                "citation": "Third Award",
+                "minScore": 6.0
             }
         ]
     },
     {
-        "type": "overrideAwards",
-        "manualAwards": [
+        "type": "addAwardChain",
+        "organizationLimit": 1, // ⬆️
+        "awards": [
             {
                 "id": "qualified",
                 "citation": "Qualified to The 2026 ICPC World Finals",
-                "teamCdsIds": [
+                "maxRank": 12
+            }
+        ]
+    },
+    {
+        "type": "addAwardChain",
+        "groups": ["nsk"],
+        "awards": [
+            {
+                "id": "first-diploma-nsk",
+                "citation": "First Award Novosibirsk Site",
+                "minScore": 7.0
+            },
+            {
+                "id": "second-diploma-nsk",
+                "citation": "Second Award Novosibirsk Site",
+                "minScore": 6.0
+            },
+            {
+                "id": "third-diploma-nsk",
+                "citation": "Third Award Novosibirsk Site",
+                "minScore": 5.0
+            },
+            {
+                "id": "hh-diploma-nsk",
+                "citation": "High Honors Novosibirsk Site",
+                "minScore": 4.0
+            }
+        ]
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
+            {
+                "id": "qualified",
+                "citation": "Qualified to The 2026 ICPC World Finals",
+                "manualTeamIds": [
                     "spb512","spb428","spb423","spb507","nsk025","spb327","kaz084","spb433","spb323","spb337","spb627","spb533","spb613","geo003","geo047","spb408"
                 ]
             }
