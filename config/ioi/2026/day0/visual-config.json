@@ -1,0 +1,9 @@
+{
+    "GLOBAL_DEFAULT_FONT_FAMILY": "ioi-flag, Helvetica, Noto Color Emoji",
+    "WIDGET_POSITIONS": {
+        "hqueue": {"positionX": 16, "positionY": 832, "sizeX": 1888, "sizeY": 168}
+    },
+    
+    "EXTRA_CSS": "@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap'); @font-face { font-family: 'ioi-flag'; src: url('/media/ioi-flag.woff2') format('woff2'); unicode-range: U+E000; }"
+}
+

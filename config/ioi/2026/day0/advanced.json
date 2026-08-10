@@ -1,0 +1,78 @@
+[
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": false
+    },
+    {
+        "type": "overrideOrganizations",
+        "rules": {
+            "UK":{"customFields":{"emoji":"🇬🇧"}},
+            "IOI1":{"customFields":{"emoji":"\uE000"}},
+            "IOI2":{"customFields":{"emoji":"\uE000"}},
+            "IOI3":{"customFields":{"emoji":"\uE000"}},
+            "IOI4":{"customFields":{"emoji":"\uE000"}},
+        }
+
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.customFields.emoji} {first_name} {last_name}",
+        "medias": {
+            "photo": {"type": "Image", "url": "https://ranking.ioi2026.uz/faces/{team.id}.jpg", "vertical": true}
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "uzb5": {"isOutOfContest": true},
+            "uzb6": {"isOutOfContest": true},
+            "uzb7": {"isOutOfContest": true},
+            "uzb8": {"isOutOfContest": true}
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "bitstrings": {
+                "displayName": "A1",
+                "color": "#f58231"
+            },
+            "boringgame": {
+                "displayName": "B1",
+                "color": "#9A6324"
+            },
+            "aplusb": {
+                "displayName": "C1",
+                "color": "42d4f4"
+            },
+            "magic": {
+                "displayName": "D1",
+                "color": "#f032e6"
+            },
+            "festival": {
+                "displayName": "A2",
+                "color": "#4363d8ff"
+            },
+            "migrations": {
+                "displayName": "B2",
+                "color": "#f58231ff"
+            },
+            "obstacles": {
+                "displayName": "C2",
+                "color": "#42d4f4ff"
+            }
+
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 28,
+        "silver": 83,
+        "bronze": 167,
+    },
+    {
+        "type": "overrideQueue",
+        "maxQueueSize": 20,
+        "maxUntestedRun": 5
+    }
+]
