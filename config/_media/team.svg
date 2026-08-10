@@ -317,6 +317,7 @@
     }
 
     function formatAchievement(raw) {
+        if (typeof raw !== "string") return "";
         var ach = raw;
         if (ach.lastIndexOf("ICPC ", 0) === 0) {
             var c = ach.charAt(5);
@@ -357,12 +358,14 @@
     }
 
     function fillAchievements(container, person) {
-        var achievements = (person.achievements || []).slice(0, 4);
+        var achievements = Array.isArray(person.achievements) ? person.achievements.slice(0, 4) : [];
         var slots = container.querySelectorAll(".ach");
         for (var i = 0; i < slots.length; i++) {
-            if (i < achievements.length) {
-                slots[i].querySelector("tspan").textContent =
-                    formatAchievement(achievements[i].achievement);
+            var entry = i < achievements.length ? achievements[i] : null;
+            var text = typeof entry === "string" ? entry :
+                (entry && typeof entry.achievement === "string" ? entry.achievement : null);
+            if (text !== null) {
+                slots[i].querySelector("tspan").textContent = formatAchievement(text);
             } else {
                 slots[i].remove();
             }
@@ -442,6 +445,7 @@
 
     function makePersonScene(person, isCoach) {
         // ports src/svg.rs:156-246; rating x: contestants 158, coach 240
+        person = person || {};
         var g = prototypes.querySelector(".scene-person").cloneNode(true);
         g.querySelector(".person-name tspan").textContent = person.name || "";
         if (!isCoach) g.querySelector(".coach-badge").remove();
@@ -456,7 +460,7 @@
         var u = university;
         var appYears = u.appYears || [];
         var wins = u.winYears || [];
-        var regYears = u.regYears || [];
+        var regYears = Array.isArray(u.regYears) ? u.regYears : [];
         var gold = (u.goldYears || []).length;
         var silver = (u.silverYears || []).length;
         var bronze = (u.bronzeYears || []).length;
