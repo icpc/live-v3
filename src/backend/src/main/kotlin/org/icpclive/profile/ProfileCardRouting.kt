@@ -23,7 +23,7 @@ private fun loadSettings(profilesDirectory: Path): ProfileRenderSettings? {
     return try {
         settingsJson.decodeFromString(ProfileRenderSettings.serializer(), file.readText())
     } catch (e: Exception) {
-        logger.error(e) { "Failed to parse $file" }
+        logger.warning { "Failed to parse $file: ${e.message}" }
         null
     }
 }
@@ -35,7 +35,7 @@ private fun loadProfile(profilesDirectory: Path, teamId: String): JsonObject? {
     return try {
         Json.parseToJsonElement(file.readText()) as? JsonObject
     } catch (e: Exception) {
-        logger.error(e) { "Failed to parse $file" }
+        logger.warning { "Failed to parse $file: ${e.message}" }
         null
     }
 }
