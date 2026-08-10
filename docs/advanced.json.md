@@ -130,12 +130,17 @@ JSON files, reconciled against the contest system data.
 
 Setup:
 
-1. Put the template into your contest's media directory (or use the shared
-   ones from `config/_media/`).
-2. Put per-team profile files into `<config directory>/profiles/<teamId>.json`.
-   If a team has no profile file, a card is still rendered from whatever the
-   contest system knows (university, team name, member names).
-3. Optionally add `<config directory>/profiles/settings.json`:
+1. Copy the template you want into your contest's media directory (the one
+   served as `/api/overlay/profile/...`, by default `<config directory>/media`,
+   or whatever `--media-dir` points at). `config/_media/` in this repository is
+   just where the shared templates live; it is not served automatically.
+2. Put per-team profile files into `<profiles directory>/teams/<teamId>.json`.
+   The profiles directory is `<config directory>/profiles` by default and can be
+   pointed elsewhere with `--profiles-dir`, so the `teams/` directory produced by
+   a profile generator can be copied over as is. If a team has no profile file, a
+   card is still rendered from whatever the contest system knows (university,
+   team name, member names).
+3. Optionally add `<profiles directory>/settings.json`:
 
    ```json
    {
@@ -177,6 +182,15 @@ missing from the profile are shown with empty data; profile persons absent
 from the roster are dropped. If the contest system provides no person data at
 all, the profile file is used as is. The team's `color` (if set) overrides the
 card's main color.
+
+Note that, like everything else under `/api/overlay`, the endpoint is
+unauthenticated: anybody who can reach the overlay can request a card for any
+team id. The template, the profile files and `settings.json` are trusted input —
+they are read from your config and embedded into the response, so treat them the
+same way you treat the rest of your contest configuration.
+
+The template format itself (substitution tokens, the JSON shape the cards
+consume) is documented in [profile-cards.md](profile-cards.md).
 
 # Customize ranking rules
 ```
