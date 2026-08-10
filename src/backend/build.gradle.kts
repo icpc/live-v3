@@ -47,6 +47,7 @@ dependencies {
     implementation(projects.cds.full)
     implementation(projects.cds.ktor)
     implementation(projects.serverShared)
+    testImplementation(libs.ktor.server.testHost)
     jsonSchemas(projects.frontend)
     overlayJsApp(projects.frontend.enabledIf(frontendNeeded))
     adminOverlayJsApp(projects.frontend.enabledIf(frontendNeeded))
