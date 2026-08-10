@@ -1,0 +1,164 @@
+org_id,icpc_id,displayName,fullName,country,url,longitude,latitude,twitter_hashtag,twitter_account,
+38,38,Brest SU,Alexander Pushkin Brest State University,BLR,https://www.brsu.by/en,23.763666,52.09965,,
+61,61,AUCA,American University - Central Asia,KGZ,https://www.auca.kg/,74.62732,42.810837,"#AUCA",
+130,130,BMSTU,Bauman Moscow State Technical University,RUS,https://bmstu.ru/,37.77034,55.729378,,
+140,140,BSUIR,Belarusian State University of Informatics and Radioelectronics,BLR,http://www.bsuir.by,27.594898,53.917793,"#BSUIR",@BSUIRby
+144,144,Belarusian SU,Belarusian State University,BLR,http://www.bsu.by,27.549381,53.893215,"#BelarusianSU",@BSU_official
+171,171,BSPU,Blagoveschensk State Pedogogical University,RUS,https://bgpu.ru/en/,127.54096,50.256737,,
+183,183,BrSTU,Brest State Technical University,BLR,https://www.bstu.by/,23.758253,52.095753,,BrSTU_official_
+201,201,Bukhara SU,Bukhara State University,UZB,https://buxdu.uz/en/,64.422615,39.76222,,
+203,203,BSU,Buryat State University,RUS,https://www.bsu.ru/,107.57992,51.834034,,
+206,206,BNTU,Belarusian National Technical University,BLR,https://bntu.by/,27.590843,53.92102,"#BNTU",
+271,271,Chelyabinsk SU,Chelyabinsk State University,RUS,https://www.csu.ru/,61.319656,55.177483,,
+423,423,Amanzholov U,Sarsen Amanzholov East Kazakhstan University,KAZ,https://vku.edu.kz/en/,82.590996,49.9516,,@ek_university
+524,524,Far Eastern FU,Far Eastern Federal University,RUS,https://www.dvfu.ru/en/,131.8944,43.030052,,
+608,608,Gomel STU,Sukhoi State Technical University of Gomel,BLR,https://en.gstu.by/,30.938812,52.406178,,
+866,866,INRTU,Irkutsk National Research Technical University,RUS,https://eng.istu.edu/,104.26716,52.298336,,
+867,867,Irkutsk U,Irkutsk State University,RUS,https://isu.ru/en/,104.27775,52.276665,,
+920,920,ISPU,Ivanovo State Power University,RUS,http://ispu.ru/,40.942474,57.00132,,
+923,923,Kalashnikov ISTU,Izhevsk State Technical University,RUS,https://istu.ru/,53.174774,56.87258,"#IzhevskSTU",@content_istu
+962,962,IKBFU,Immanuel Kant Baltic Federal University,RUS,https://kantiana.ru/,20.528555,54.724762,,
+973,973,Karaganda TU,Abylkas Saginov Karaganda Technical University,KAZ,https://www.kstu.kz/,73.10575,49.819164,,
+985,985,KazNTU,Kazakh National Technical University named K. Satbaev,KAZ,https://satbayev.university/en,76.90778,43.253883,,
+986,986,KazNU,Al-Farabi Kazakh National University,KAZ,https://farabi.university/?lang=en,76.92376,43.224453,,
+988,988,Akhmet Yassawi U,Akhmet Yassawi International Kazakh-Turkish University,KAZ,https://ayu.edu.kz/en/,68.30038,43.290855,,
+989,989,Kazakh-British TU,Kazakh-British Technical University,KAZ,https://kbtu.edu.kz/en/,76.94314,43.25558,"#Kazakh-BritishTU",@kbtu_university
+993,993,Kazan FU,Kazan Federal University,RUS,https://kpfu.ru/,50.59592,55.776943,"#kpfu",@pressakfu
+1018,1018,Ualikhanov U,Shokan Ualikhanov Kokshetau University,KAZ,https://shokan.edu.kz/en/,69.373566,53.28409,,
+1023,1023,KNASTU,Komsomolsk-on-Amure State Technical University,RUS,https://www.knastu.ru/,137.00565,50.544426,,
+1044,1044,KubanSU,Kuban State University,RUS,https://www.kubsu.ru/,39.03126,45.020706,,
+1050,1050,Kurgan SU,Kurgan State University,RUS,https://kgsu.ru/eng/,65.34227,55.43452,,
+1061,1061,KRSU,Kyrgyz Russian Slavic University,KGZ,http://www.krsu.edu.kg,74.638214,42.8742,,
+1098,1098,Lipetsk STU,Lipetsk State Technical University,RUS,http://www.stu.lipetsk.ru,39.59774,52.61017,,
+1210,1210,Mordovia SU,Mordovia State University,RUS,https://mrsu.ru/en/,45.1563,54.157528,,
+1214,1214,MAI,Moscow Aviation Institute,RUS,http://www.mai.ru,37.501125,55.810787,"#MAI",@IntstudyMAI
+1215,1215,MEPhI,National Research Nuclear University MEPhI,RUS,http://www.mephi.ru,37.66448,55.649906,"#MEPhI",@NRNUMEPhI
+1220,1220,MIPT,Moscow Institute of Physics and Technology,RUS,mipt.ru,37.518333,55.929443,"#PhysTech",@phystech
+1222,1222,Russian Tech U MIREA,Russian Technological University - MIREA,RUS,https://english.mirea.ru/,37.4803,55.669937,,
+1223,1223,MPSU,Moscow Pedagogical State University,RUS,https://en.mpgu.su/,37.576412,55.732353,,
+1235,1235,MISIS,"National University of Science and Technology ""MISIS""",RUS,http://en.misis.ru/‎,37.609486,55.72903,"#NUSTMISIS",@NUSTMISIS
+1237,1237,Moscow SU,Moscow State University,RUS,http://msu.ru,37.5269,55.70233,"#MoscowStateU",@msu_ru
+1336,1336,NSTU,Nizhny Novgorod State Technical University,RUS,https://en.nntu.ru/,44.02579,56.326775,,
+1338,1338,NNSU,Nizhny Novgorod State University,RUS,http://eng.unn.ru,43.9299,56.29,"#UNN",@univer_nngu
+1371,1371,NSTU,Novosibirsk State Technical University,RUS,https://en.nstu.ru/,82.91507,54.987064,,
+1372,1372,Novosibirsk SU,Novosibirsk State University,RUS,http://www.nsu.ru,83.09361,54.843613,"#NovosibirskSU",@NskUniversity
+1399,1399,Omsk SU,Omsk State University,RUS,https://omsu.ru/,73.26493,55.02785,,
+1403,1403,OrelSU,Orel State University,RUS,https://oreluniver.ru/,36.03475,52.990025,,
+1406,1406,Orenburg SU,Orenburg State University,RUS,http://www.osu.ru/english,55.102425,51.79094,,
+1447,1447,Penza SU,Penza State University,RUS,http://www.pnzgu.ru/,45.002586,53.181847,,
+1450,1450,Perm NRPU,Perm National Research Polytechnic University,RUS,https://pstu.ru/en/,56.239853,58.00821,,
+1452,1452,Perm SU,Perm State University,RUS,http://www.psu.ru,56.188446,58.008194,"#PermSU",@PermUniversity
+1456,1456,Petrozavodsk SU,Petrozavodsk State University,RUS,http://www.petrsu.ru,34.35256,61.786148,"#PetrSU",
+1548,1548,SFedU,Southern Federal University,RUS,https://sfedu.ru/index_eng.php,39.74468,47.203247,,
+1558,1558,RAU,Russian-Armenian (Slavonick) State University,ARM,http://www.rau.am,44.50346,40.210606,,
+1560,1560,RSATU,Rybinsk State Aviation Technical University,RUS,https://www.rsatu.ru/,38.838043,58.04438,,
+1584,1584,BSTU,St. Petersburg Baltic State Technical University,RUS,http://www.voenmeh.ru/univercity,30.317228,59.916363,,
+1587,1587,Polytech,St. Petersburg Polytechnic University,RUS,http://www.en.spbstu.ru/about_the_university/,30.372923,60.00736,,
+1592,1592,SUAI,St. Petersburg University of Aerospace Instrumentation,RUS,http://suai.ru/m_univ_rect.shtml,30.296608,59.92949,,
+1623,1623,Saratov State U,Saratov State University,RUS,http://sgu.ru,46.010204,51.538864,"#SGU",@SGU_RU
+1632,1632,Shakarim U,Semey University named after Shakarim,KAZ,https://shakarim.edu.kz/en/,80.21269,50.398838,,
+1704,1704,SSTU,Siberian State Transport University,RUS,https://www.stu.ru/,82.92632,55.065678,,
+1706,1706,SibSUTI,Siberian State University of Telecommunication & Informatics,RUS,https://sibsutis.ru/en/,99.196655,61.01371,,
+1759,1759,South Ural SU,South Ural State University,RUS,http://www.susu.ac.ru/en/,60.58196,55.182518,,
+1802,1802,St. Petersburg SU,St. Petersburg State University,RUS,https://english.spbu.ru,30.30011,59.94087,"#SPBU",@Spb_university
+1844,1844,SDU,SDU University,KAZ,https://sdu.edu.kz/en/,76.669044,43.20775,"#sdukz",@sdukz
+1868,1868,TamSU,Tambov State University,RUS,https://www.tsutmb.ru,41.44628,52.721123,,
+1887,1887,TSUE,Tashkent State University of Economics,UZB,http://www.tsue.uz,69.24948,41.310806,,
+2010,2010,Tomsk PU,Tomsk Polytechnic University,RUS,http://www.tpu.ru,84.9501,56.4654,"#TPU",
+2015,2015,TSU,Tomsk State University,RUS,https://en.tsu.ru/,84.94751,56.4695,,
+2044,2044,TulaSU,Tula State University,RUS,https://tulsu.ru/en/,37.587074,54.166615,,
+2052,2052,Tyumen SU,Tyumen State University,RUS,https://www.utmn.ru/en/,65.54403,57.152233,,
+2615,2615,UrSU,Urgench State University,UZB,https://urdu.uz,60.607117,41.556343,,
+2650,2650,VSU,Vitebsk State University,BLR,http://www.vsu.by,30.225323,55.177753,,
+2659,2659,Volgograd STU,Volgograd State Technical University,RUS,http://www.vstu.ru,44.56147,48.756542,"#VSTU",
+2663,2663,Voronezh SU,Voronezh State University,RUS,https://www.vsu.ru/english/,39.223385,51.680412,,
+2686,2686,West Kazakhstan U,Mahambet Utemisov West Kazakhstan University,KAZ,https://wku.edu.kz/en/,51.37596,51.193264,,
+2727,2727,NEFU,North-Eastern Federal University,RUS,https://www.s-vfu.ru/en/,129.70947,62.01995,,
+2732,2732,Grodno SU,Yanka Kupala State University of Grodno,BLR,http://www.grsu.by,23.8362,53.6833,,
+2738,2738,Yaroslavl SU,Yaroslavl State University,RUS,http://www.uniyar.ac.ru,39.89143,57.609924,,
+2742,2742,Yerevan SU,Yerevan State University,ARM,https://www.ysu.am/en,44.526463,40.181946,"#YSU",YSU_official
+3295,3295,SPb ITMO,St. Petersburg ITMO University,RUS,https://en.itmo.ru,30.302505,59.95851,"#ITMO",@itmo_uni
+3347,3347,CFUV,V.I. Vernadsky Crimean Federal University,UKR,https://eng.cfuv.ru/,34.13489,44.9376,"#TauridaNU",
+3517,3517,Ulyanovsk STU,Ulyanovsk State Technical University,RUS,https://ulstu.ru/en/,48.39001,54.351078,,
+3534,3534,HSE,HSE University,RUS,https://www.hse.ru/,37.63298,55.761307,"#HSE",@HSE_eng
+3535,3535,SFU,Siberian Federal University,RUS,https://sfu.ru,92.76876,56.004078,,
+3556,3556,MSU Tashkent,Moscow State University - Tashkent,UZB,https://msu.uz/,37.711884,55.7822,"#Tashkent",
+3617,3617,IBSU,International Black Sea University,GEO,https://ibsu.edu.ge/en/,44.77178,41.79738,"#IBSU",
+3629,3629,Caucasus U,Caucasus University,GEO,https://cu.edu.ge/en,44.81107,41.70694,,
+3673,3673,BEU,Baku Engineering University,AZE,http://beu.edu.az,49.72655,40.47612,,
+4325,4325,SPb SUT,St. Petersburg State University of Telecommunications,RUS,http://www.sut.ru/about.en.html,30.488432,59.90197,,
+4330,4330,IITU,International IT University,KAZ,https://iitu.edu.kz/en,76.90997,43.235153,"#IITU",@iitukz
+5316,5316,Ural FU,Ural Federal University,RUS,https://urfu.ru/en,60.653683,56.844044,"#UralFU",@urfu
+5320,5320,SPbETU,"St. Petersburg Electrotechnical University ""LETI""",RUS,http://www.eltech.ru/en/university,30.322655,59.97219,,
+5324,5324,ISRU,Irkutsk State Transport University,RUS,http://www.irgups.ru,104.26128,52.270943,,
+5330,5330,AUA,American University of Armenia,ARM,http://www.aua.am,44.51337,40.18265,,
+5341,5341,Herzen SPU,Herzen State Pedagogical University,RUS,https://en.hspu.org/,105.318756,61.52401,,
+5348,5348,AzTU,Azerbaijan Technical University,AZE,https://aztu.edu.az/en,49.815445,40.370102,,
+5724,5724,Free U of Tbilisi,Free University of Tbilisi,GEO,https://freeuni.edu.ge/en/,44.768795,41.806335,"#FreeUniTbilisi",@FreeUniTbilisi
+5731,5731,NArFU,Northern (Arctic) Federal University,RUS,http://narfu.ru/en,40.549225,64.529015,"#NArFU",
+5796,5796,Aktobe RU,K. Zhubanov Aktobe Regional University,KAZ,https://zhubanov.edu.kz/en,57.171608,50.277367,,
+5816,5816,Atyrau U,Atyrau University named after Kh. Dosmukhamedov,KAZ,https://atyrau.edu.kz/en,51.91147,47.098133,,@AsuKz
+6187,6187,Westminster IU Tashkent,Westminster International University in Tashkent,UZB,https://www.wiut.uz/,69.28338,41.30698,,
+6514,6514,Nazarbayev U,Nazarbayev University,KAZ,https://nu.edu.kz/en,71.39692,51.091248,"#NUedukz",@NUedukz
+6535,6535,Perm HSE,HSE University Perm,RUS,https://perm.hse.ru/en/,56.226967,58.009167,,
+6583,6583,NAA,National Aviation Academy,AZE,https://naa.edu.az/en/,50.067505,40.453194,,
+7003,7003,Chuvash SU,Chuvash State University,RUS,http://www.chuvsu.ru,47.22438,56.145725,,
+7043,7043,Makarov SU of Maritime and IS,Admiral Makarov State University of Maritime and Inland Shipping,RUS,https://gumrf.ru/en/,30.077911,59.853214,,
+7118,7118,BHOS,Baku Higher Oil School,AZE,https://bhos.edu.az/en,49.8826,40.37864,"#BHOS",@bhoseduaz
+7141,7141,Azerbaijan U,Azerbaijan University,AZE,https://au.edu.az/en/,49.84375,40.395424,,
+7162,7162,Khazar U,Khazar University,AZE,http://www.khazar.org,49.833313,40.373352,,
+7504,7504,Vologda SU,Vologda State University,RUS,https://vogu35.ru/,39.897,59.221935,,
+7505,7505,SFedU (ICTIS),"Southern Federal University (ICTIS, Taganrog)",RUS,http://ictis.sfedu.ru/,105.318756,61.52401,,
+7544,7544,ADA,ADA University,AZE,https://www.ada.edu.az/en,49.84938,40.3946,"#ADAUniversity",ADAUniversity
+7787,7787,Skoltech,Skolkovo Institute of Science and Technology,RUS,https://skoltech.ru/,37.356995,55.697742,Skoltech,Skoltech
+7851,7851,IUT,Inha University in Tashkent,UZB,http://inha.uz,69.33453,41.338524,,
+7857,7857,Innopolis University,Innopolis University,RUS,https://innopolis.university,48.7434,55.7534,"#InnopolisU",@InnopolisU
+7963,7963,KazNWTTU,Kazakh National Women's Teacher Training University,KAZ,https://qyzpu.edu.kz/en/,76.9298,43.258472,,@qyzdar_yniver
+7983,7983,Sholom-Aleichem PSU,Sholom-Aleichem Priamursky State University,RUS,http://pgusa.ru,132.94115,48.77314,,
+8482,8482,Kamchatka SU,Vitus Bering Kamchatka State University,RUS,https://kamgu.ru/en,166.7884,61.4344,,
+8827,8827,Nizhny Novgorod HSE,Nizhny Novgorod Branch of HSE University,RUS,https://nnov.hse.ru/en,44.00588,56.32687,,
+8830,8830,IMMCS of Southern FU,"Southern Federal University (IMMCS, Rostov-on-Don)",RUS,http://www.mmcs.sfedu.ru,105.318756,61.52401,,
+8914,8914,Financial U,Financial University Under the Government of Russian Federation,RUS,http://www.fa.ru/en,37.526653,55.800934,,
+9606,9606,SPb HSE,St. Petersburg Campus of HSE University,RUS,https://spb.hse.ru/en/,30.225332,59.938972,"#HSESPb",HSE_SPb_total
+9789,9789,ATSU,Akaki Tsereteli State University,GEO,http://atsu.edu.ge,-82.90712,32.157436,,
+9794,9794,AzSUE-UNEC,Azerbaijan State University of Economics - UNEC,AZE,https://unec.edu.az/en/,49.832058,40.367702,,
+9809,9809,BSU,Baku State University,AZE,http://bsu.edu.az/,49.811466,40.374554,,
+9857,9857,Kyrgyz STU,Kyrgyz State Technical University,KGZ,https://kstu.kg,74.58779,42.84511,,
+9864,9864,Dushanbe MSU,Dushanbe branch of Lomonosov Moscow State University,TJK,www.msu.tj,68.79006,38.579243,,
+9865,9865,Russian-Tajik Slavonic U,Russian-Tajik Slavonic University,TJK,http://www.rtsu.tj/en,68.79336,38.574654,,
+9867,9867,TajNU,Tajik National University,TJK,http://www.tnu.tj/,68.77288,38.589077,,
+9885,9885,Kyrgyz-German InAI,Kyrgyz-German Institute for Applied Informatics,KGZ,https://inai.kg/en,74.7661,41.20438,,
+10369,10369,AUPET,Almaty University of Power Engineering and Telecommunications,KAZ,https://energo.university/eng/,76.931114,43.234505,,
+10615,10615,SPb SUITD,St. Petersburg State University of Industrial Technologies and Design,RUS,http://sutd.ru/en,30.314148,59.934715,"#SUTD",SutdNews
+10637,10637,AITU,Astana IT University,KAZ,https://astanait.edu.kz/en,71.418144,51.090687,"#AstanaItUniversity",
+10639,10639,NUACA,National University of Architecture and Construction of Armenia,ARM,https://nuaca.am,44.523186,40.19106,,
+11063,11063,UCA,University of Central Asia,KGZ,http://ucentralasia.org,74.5966,42.872696,,
+11071,11071,TTU,Tajik Technical University named after academic M.S.Osimi,TJK,https://web.ttu.tj/en,71.27609,38.861034,,
+11128,11128,NCFU,North Caucasus Federal University,RUS,http://eng.ncfu.ru/home/,105.318756,61.52401,,
+14047,14047,MSA,Military Space Academy,RUS,https://vka.mil.ru/,30.286135,59.95587,,
+14415,14415,TSI AUCA,Technical School of Innovation AUCA,KGZ,https://tsiauca.kg,74.7661,41.20438,,
+14842,14842,MTUCI,Moscow Technical University of Communications and Informatics,RUS,https://mtuci.ru,37.48234,55.78415,,
+14937,14937,UFAZ,French-Azerbaijani University,AZE,https://ufaz.az,49.85168,40.37666,,
+15135,15135,IIAU,International Islamic Academy of Uzbekistan,UZB,http://iiau.uz,69.257996,41.32364,,
+15201,15201,KIU,Kutaisi International University,GEO,www.kiu.edu.ge,42.713528,42.211216,KutaisiU,KutaisiU
+20184,20184,NewUU,New Uzbekistan University,UZB,https://newuu.uz,69.29547,41.316055,,
+20287,20287,TUIT,Tashkent University of Information Technologies,UZB,https://tuit.uz/en,69.28673,41.34093,,
+24740,24740,CAU,Central Asian University,UZB,https://centralasian.uz,69.427704,41.327877,,
+25167,25167,Amur SU,Amur State University,RUS,https://www.amursu.ru,127.51017,50.298523,,
+25172,25172,Ufa UST,Ufa University of Science and Technology,RUS,https://study.uust.ru,55.957855,54.73479,,
+25208,25208,Kostanay RU,Akhmet Baitursynuly Kostanay Regional University,KAZ,https://ksu.edu.kz,63.62789,53.214207,,
+25895,25895,CentralU,Central University,RUS,https://centraluniversity.ru/,105.318756,61.52401,,
+26036,26036,Karabakh U,Karabakh University,AZE,https://karabakh.edu.az,46.762005,39.82491,,
+26072,26072,Amity U Tashkent,Amity University in Tashkent,UZB,https://amity.uz,69.26453,41.332497,,
+26091,26091,WUT,Webster University in Tashkent,UZB,https://www.webster.uz/index.php,69.261375,41.32034,,
+26185,26185,CEPU named after Fevzi Yakubov,Crimean Engineering-Pedagogical University named after Fevzi Yakubov,RUS,https://kipu-rc.ru,105.318756,61.52401,,
+26225,26225,Singularity Hub,Singularity Hub,RUS,https://singularity.academy/organization,47.248066,56.134323,,
+26498,26498,IUHD,International University for the Humanities and Development,TKM,https://iuhd.edu.tm,,,,
+26499,26499,ETU Turkmenistan,Oguz Han Engineering and Technology University of Turkmenistan,TKM,https://etut.edu.tm,,,,
+26502,26502,ITI Turkmenistan,Institute of Telecommunications and Informatics of Turkmenistan,TKM,https://itit.edu.tm/,,,,
+26505,26505,IUGU,Yagshygeldi Kakayev International Oil and Gas University,TKM,https://iogu.edu.tm,,,,
+26534,26534,Cardiff U Kazakhstan,Cardiff University Kazakhstan,KAZ,https://www.cardiff.ac.uk/kazakhstan,71.398735,51.127,,
+26562,26562,Fergana STU,Fergana State Technical University,UZB,https://fstu.uz,,,,
+26612,26612,WSUK,Woosong University Kazakhstan,KAZ,http://wsuk.wsu.ac.kr,,,,
+26614,26614,TUHS,Tashkent University of Human Sciences,UZB,https://tgfu.uz/en,,,,
+26696,26696,Dushanbe II,Dushanbe Innovation Institute,TJK,https://dii.tj,,,,

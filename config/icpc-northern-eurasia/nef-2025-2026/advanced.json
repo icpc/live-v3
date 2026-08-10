@@ -1,0 +1,226 @@
+[
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "custom": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "$1",
+                        "grabberIpValue": "grabber.n.icpc.live",
+                        "site": "spb"
+                    },
+                    "geo(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "g$1",
+                        "grabberIpValue": "grabber-rem.icpc.live",
+                        "site": "geo"
+                    },
+                    "nsk(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "n$1",
+                        "grabberIpValue": "grabber-rem.icpc.live",
+                        "site": "nsk"
+                    },
+                    "kaz(\\d\\d\\d)": {
+                        "grabberPeerNameValue": "kaz$1",
+                        "grabberIpValue": "grabber-rem.icpc.live",
+                        "site": "kaz"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.custom.site}"
+        ],
+        "customFields": {
+            "grabberPeerName": "{regexes.custom.grabberPeerNameValue}",
+            "grabberIp": "{regexes.custom.grabberIpValue}"
+        }
+    },
+    {
+         "type": "overrideOrganisationTemplate",
+         "logo": [
+             {
+               "type": "Image",
+               "mime": "image/svg+xml", // [0]
+               "url": "https://convertor.n.icpc.live/media/org/{org.id}/logo.svg"
+             },
+             {
+               "type": "Image",
+               "mime": "image/png",     // parse mime
+               "url": "https://convertor.n.icpc.live/media/org/{org.id}/logo.png"
+             }
+        ]
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{org.displayName}: {team.displayName}", // use name from pcms
+        "fullName": "{org.fullName}: {team.fullName}", // use name from pcms
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://{grabberIp}",
+                "peerName": "{grabberPeerName}",
+                "streamType": "desktop",
+                "credential": "just-chill-and-do-magic"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://{grabberIp}",
+                "peerName": "{grabberPeerName}",
+                "streamType": "webcam",
+                "credential": "just-chill-and-do-magic"
+            },
+            "photo": {
+                "type": "Image",
+                "url": "media/team/{team.id}.jpeg"
+            },
+            "keylog": {
+                "type": "Object",
+                "url": "https://keylogs.com/{grabberPeerName}"
+            },
+            "achievement": {
+                "type": "Object",
+                "url": "/media/ach/{team.id}.svg"
+            }
+        }, 
+        "reactionVideoTemplate": [
+            {
+                "type": "Video",
+                "tags": ["desktop"],
+                "url": "https://files.n.icpc.live/o4l8v2na/recordings_backup/{run.id}_desktop.webm"
+            },
+            {
+                "type": "Video",
+                "tags": ["webcam"],
+                "url": "https://files.n.icpc.live/o4l8v2na/recordings_backup/{run.id}_webcam.webm"
+            }
+        ],
+        "sourceTemplate": [
+            {
+                "type": "Text",
+                "url": "https://codes.n.icpc.live/{run.id}.txt"
+            }
+        ]
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "problemColorPolicy": {
+            "type": "whenSolved",
+            "colorBeforeSolved": "#808080"
+        }
+    },
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "A": {"color": "#BE2E67"},
+            "B": {"color": "#CB2A28"},
+            "C": {"color": "#82D4F8"},
+            "D": {"color": "#D57D01"},
+            "E": {"color": "#808080"},
+            "F": {"color": "#02472D"},
+            "G": {"color": "#D89EB1"},
+            "H": {"color": "#2273BD"},
+            "I": {"color": "#808080"},
+            "J": {"color": "#C6C8C1"},
+            "K": {"color": "#808080"},
+            "L": {"color": "#7763E6"},
+            "M": {"color": "#C6BD18"},
+            "N": {"color": "#808080"},
+            "O": {"color": "#808080"},
+            "P": {"color": "#808080"},
+
+            "W": {"color": "#808080"},
+            "X": {"color": "#808080"},
+            "Y": {"color": "#808080"},
+            "Z": {"color": "#808080"}
+        }
+    },
+    {
+      "type": "overrideTeams",
+      "rules": {
+        "spb301": {
+            "isOutOfContest": true
+        }
+      }  
+    },
+    {
+        "type": "addMedals",
+        "gold": 4,   // color
+        "silver": 4,
+        "bronze": 4
+    },
+    {
+        "type": "overrideAwards",
+        "championTitle": "Northern Eurasia Champions",
+        "rankAwardsMaxRank": 12,
+        "extraMedalGroups": [
+            {
+                "medals": [
+                    {
+                        "id": "first-diploma",
+                        "citation": "First Award",
+                        "minScore": 8.0
+                    },
+                    {
+                        "id": "second-diploma",
+                        "citation": "Second Award",
+                        "minScore": 7.0
+                    },
+                    {
+                        "id": "third-diploma",
+                        "citation": "Third Award",
+                        "minScore": 6.0
+                    }
+                ]
+            },
+            {
+                "organizationLimit": 1, // ⬆️
+                "medals": [
+                    {
+                        "id": "qualified",
+                        "citation": "Qualified to The 2026 ICPC World Finals",
+                        "maxRank": 12
+                    }
+                ]
+            },
+            {
+                "groups": ["nsk"],
+                "medals": [
+                    {
+                        "id": "first-diploma-nsk",
+                        "citation": "First Award Novosibirsk Site",
+                        "minScore": 7.0
+                    },
+                    {
+                        "id": "second-diploma-nsk",
+                        "citation": "Second Award Novosibirsk Site",
+                        "minScore": 6.0
+                    },
+                    {
+                        "id": "third-diploma-nsk",
+                        "citation": "Third Award Novosibirsk Site",
+                        "minScore": 5.0
+                    },
+                    {
+                        "id": "hh-diploma-nsk",
+                        "citation": "High Honors Novosibirsk Site",
+                        "minScore": 4.0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "type": "overrideAwards",
+        "manualAwards": [
+            {
+                "id": "qualified",
+                "citation": "Qualified to The 2026 ICPC World Finals",
+                "teamCdsIds": [
+                    "spb512","spb428","spb423","spb507","nsk025","spb327","kaz084","spb433","spb323","spb337","spb627","spb533","spb613","geo003","geo047","spb408"
+                ]
+            }
+
+        ]
+    }
+]
