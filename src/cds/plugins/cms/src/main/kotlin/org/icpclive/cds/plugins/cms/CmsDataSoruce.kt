@@ -22,11 +22,12 @@ public sealed interface CmsSettings : CDSSettings, KtorNetworkSettingsProvider {
 
 internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataSource(5.seconds) {
     private val contestsLoader = DataLoader.json<Map<String, Contest>>(settings.network, settings.source.subDir("contests/"))
-    private val tasksLoader = DataLoader.json<Map<String, Task>>(settings.network, settings.source.subDir("/tasks/"))
-    private val teamsLoader = DataLoader.json<Map<String, Team>>(settings.network, settings.source.subDir("/teams/"))
-    private val usersLoader = DataLoader.json<Map<String, User>>(settings.network, settings.source.subDir("/users/"))
-    private val submissionsLoader = DataLoader.json<Map<String, Submission>>(settings.network, settings.source.subDir("/submissions/"))
+    private val tasksLoader = DataLoader.json<Map<String, Task>>(settings.network, settings.source.subDir("tasks/"))
+    private val teamsLoader = DataLoader.json<Map<String, Team>>(settings.network, settings.source.subDir("teams/"))
+    private val usersLoader = DataLoader.json<Map<String, User>>(settings.network, settings.source.subDir("users/"))
+    private val submissionsLoader = DataLoader.json<Map<String, Submission>>(settings.network, settings.source.subDir("submissions/"))
     private val subchangesLoader = DataLoader.json<Map<String, Subchange>>(settings.network, settings.source.subDir("subchanges/"))
+    private val configLoader = DataLoader.json<Config>(settings.network, settings.source.subDir("config"))
 
     // cms sometimes, for some reason, don't report some of the old results.
     // Let's cache them ourselves just in case
@@ -34,6 +35,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
 
     override suspend fun loadOnce(): ContestParseResult {
         val contests = contestsLoader.load()
+        val config = configLoader.load()
         val mainContest = contests[settings.activeContest] ?: error("No data for contest ${settings.activeContest}")
         val finishedContestsProblems = mutableSetOf<String>()
         val runningContestProblems = mutableSetOf<String>()
@@ -70,7 +72,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 id = k.toOrganizationId(),
                 displayName = v.name,
                 fullName = v.name,
-                logo = listOf(MediaType.Image(settings.source.toString()))
+                logo = listOf(MediaType.Image(settings.source.subDir("flags").subDir("$k${config.flags_extension}").toString()))
             )
         }
         val teams = usersLoader.load().map { (k, v) ->
@@ -81,7 +83,7 @@ internal class CmsDataSource(val settings: CmsSettings) : FullReloadContestDataS
                 groups = emptyList(),
                 hashTag = null,
                 medias = mapOf(
-                    TeamMediaType.PHOTO to listOf(MediaType.Image("${settings.source}/faces/$k", vertical = true))
+                    TeamMediaType.PHOTO to listOf(MediaType.Image(settings.source.subDir("faces").subDir("$k${config.faces_extension}").toString(), vertical = true))
                 ),
                 isHidden = false,
                 isOutOfContest = false,
