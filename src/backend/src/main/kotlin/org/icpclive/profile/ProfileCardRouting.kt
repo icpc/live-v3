@@ -29,8 +29,9 @@ private fun loadSettings(profilesDirectory: Path): ProfileRenderSettings? {
 }
 
 private fun loadProfile(profilesDirectory: Path, teamId: String): JsonObject? {
-    val file = profilesDirectory.resolve("$teamId.json").normalize()
-    if (!file.startsWith(profilesDirectory.normalize()) || !file.isRegularFile()) return null
+    val profilesRoot = profilesDirectory.toAbsolutePath().normalize()
+    val file = profilesRoot.resolve("$teamId.json").toAbsolutePath().normalize()
+    if (!file.startsWith(profilesRoot) || !file.isRegularFile()) return null
     return try {
         Json.parseToJsonElement(file.readText()) as? JsonObject
     } catch (e: Exception) {
@@ -43,8 +44,8 @@ private fun loadProfile(profilesDirectory: Path, teamId: String): JsonObject? {
 fun Route.configureProfileCardRouting(mediaDirectory: Path, profilesDirectory: Path) {
     get("{path...}") {
         val relativePath = call.parameters.getAll("path")?.joinToString(File.separator) ?: ""
-        val mediaRoot = mediaDirectory.normalize().toAbsolutePath()
-        val templatePath = mediaRoot.resolve(relativePath).normalize()
+        val mediaRoot = mediaDirectory.toAbsolutePath().normalize()
+        val templatePath = mediaRoot.resolve(relativePath).toAbsolutePath().normalize()
         if (!templatePath.startsWith(mediaRoot) || !templatePath.isRegularFile()) {
             call.respond(HttpStatusCode.NotFound)
             return@get
