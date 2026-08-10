@@ -12,6 +12,7 @@ import org.icpclive.cds.api.toTeamId
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
+import org.icpclive.profile.configureProfileCardRouting
 import org.icpclive.util.sendJsonFlow
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -57,6 +58,9 @@ fun Route.configureOverlayRouting() {
     }
     route("/svgAchievement") {
         configureSvgAchievementRouting(Config.mediaDirectory)
+    }
+    route("/profile") {
+        configureProfileCardRouting(Config.mediaDirectory, Config.cdsSettings.configDirectory.resolve("profiles"))
     }
     get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
 
