@@ -60,7 +60,7 @@ fun Route.configureOverlayRouting() {
         configureSvgAchievementRouting(Config.mediaDirectory)
     }
     route("/profile") {
-        configureProfileCardRouting(Config.mediaDirectory, Config.cdsSettings.configDirectory.resolve("profiles"))
+        configureProfileCardRouting(Config.mediaDirectory, Config.profilesDirectory)
     }
     get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
 

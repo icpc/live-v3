@@ -10,7 +10,7 @@ import kotlin.test.*
 
 class ProfileCardTemplateTest {
     // gradle test working dir is the module dir (src/backend)
-    private val templatePath = Path.of("../../config/_media/team.svg")
+    private val templates = listOf("team.svg", "personal.svg").map { Path.of("../../config/_media/$it") }
 
     private fun sampleRecord(): JsonObject {
         val team = TeamInfo(
@@ -30,29 +30,32 @@ class ProfileCardTemplateTest {
     }
 
     @Test
-    fun templateContainsExpectedTokens() {
-        val template = templatePath.readText()
-        for (token in listOf("{team.json}", "{render.json}", "{mainColor}", "{fontColor}")) {
-            assertEquals(1, template.split(token).size - 1, "expected exactly one $token")
+    fun templatesContainExpectedTokens() {
+        for (templatePath in templates) {
+            val template = templatePath.readText()
+            for (token in listOf("{team.json}", "{render.json}", "{mainColor}", "{fontColor}")) {
+                assertEquals(1, template.split(token).size - 1, "expected exactly one $token in ${templatePath.name}")
+            }
         }
     }
 
     @Test
-    fun substitutedTemplateIsValidXmlAndTokenFree() {
+    fun substitutedTemplatesAreValidXmlAndTokenFree() {
         val settings = ProfileRenderSettings(
-            contestType = "ICPC",
+            contestType = ContestType.ICPC,
             finals = ProfileRenderSettings.Finals(include = true, includeEmpty = true),
             fontColor = "#FFFFFF",
         )
-        val svg = buildProfileCardSvg(templatePath.readText(), sampleRecord(), settings, teamColor = "#4C83C3")
-        assertFalse("{team.json}" in svg)
-        assertFalse("{render.json}" in svg)
-        assertFalse("{mainColor}" in svg)
-        assertFalse("{fontColor}" in svg)
-        DocumentBuilderFactory.newInstance().newDocumentBuilder()
-            .parse(ByteArrayInputStream(svg.toByteArray()))   // throws on malformed XML
-        val out = Path.of("build/profile-card-sample.svg")
-        out.parent.createDirectories()
-        out.writeText(svg)
+        for (templatePath in templates) {
+            val svg = buildProfileCardSvg(templatePath.readText(), sampleRecord(), settings, teamColor = "#4C83C3")
+            for (token in listOf("{team.json}", "{render.json}", "{mainColor}", "{fontColor}")) {
+                assertFalse(token in svg, "$token left in substituted ${templatePath.name}")
+            }
+            DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                .parse(ByteArrayInputStream(svg.toByteArray()))   // throws on malformed XML
+            val out = Path.of("build/profile-card-sample-${templatePath.name}")
+            out.parent.createDirectories()
+            out.writeText(svg)
+        }
     }
 }

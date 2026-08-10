@@ -28,6 +28,9 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
     val mediaDirectory by option("--media-dir", help = "Directory to store media")
         .path(canBeFile = false, canBeDir = true)
         .defaultLazy("configDirectory/media") { cdsSettings.configDirectory.resolve("media") }
+    val profilesDirectory by option("--profiles-dir", help = "Directory with team profile card data")
+        .path(canBeFile = false, canBeDir = true)
+        .defaultLazy("configDirectory/profiles") { cdsSettings.configDirectory.resolve("profiles") }
     val usersFile by option("--users-file", help = "Storage of users")
         .path(canBeDir = false, canBeFile = true)
         .defaultLazy("configDirectory/users.json") { cdsSettings.configDirectory.resolve("users.json") }
