@@ -10,6 +10,13 @@ person). Setup and reconciliation rules live in
 template format, which is a stable contract you can write your own templates
 against.
 
+## Provenance
+
+`config/_media/team.svg` and `config/_media/personal.svg` are vendored from the
+[cp-profiles](https://github.com/EgorKulikov/acm_profiles) generator repository.
+The copies in live-v3 are synced in manually and must not be edited
+independently here -- changes belong upstream, in cp-profiles.
+
 ## Substitution tokens
 
 The backend replaces these four tokens, and only these four:
@@ -17,7 +24,7 @@ The backend replaces these four tokens, and only these four:
 | Token           | Replaced with                                                                   |
 |-----------------|---------------------------------------------------------------------------------|
 | `{team.json}`   | the team record — the JSON document described below                              |
-| `{render.json}` | the contents of `settings.json`, minus keys you did not set                      |
+| `{render.json}` | the operator's settings.json content (with invalid color values removed)          |
 | `{mainColor}`   | the team's `color` from the contest system, if it has one                        |
 | `{fontColor}`   | `fontColor` from `settings.json`, if set                                         |
 
@@ -44,7 +51,7 @@ place these tokens inside CDATA and nowhere else.
 
 `{mainColor}` and `{fontColor}` end up in a `<style>` block. `{fontColor}` (and
 `mainColor` when it travels through `settings.json`/`{render.json}`) is
-validated (`#` plus 3–8 hex digits) and dropped otherwise, so it can never close
+validated (`#` plus 3, 4, 6, or 8 hex digits) and dropped otherwise, so it can never close
 the style block. The direct `{mainColor}` substitution instead comes from the
 team's `color` in the contest system, which the backend already normalizes to
 `#rrggbb` hex before it ever reaches the template — safe by construction, not
@@ -97,7 +104,10 @@ just a `name` plus empty `altNames`/`achievements`.
 
 ## The render settings (`{render.json}`)
 
-The same document as `settings.json`, with unset keys omitted:
+The operator's `settings.json` content itself, passed through essentially as
+written (invalid `fontColor`/`mainColor` values are removed; everything else,
+including keys this backend doesn't otherwise know about, survives verbatim so
+a template can use them):
 
 ```json
 {
@@ -114,7 +124,10 @@ The same document as `settings.json`, with unset keys omitted:
 `contestType` is exactly one of `ICPC`, `Team`, `Personal` — an unknown value
 makes the whole file fail to load (with a warning in the log) rather than being
 silently ignored. `Personal` also tells the backend to build a one-person roster
-from the team's short name.
+from the team's short name. `hideHashtag` hides the university hashtag pill;
+`hideSite` hides the university region pill. `finals.include` shows the ICPC
+World Finals history scene (`team.svg` only); `finals.includeEmpty` shows that
+scene even for a team with no finals history yet.
 
 ## The fallback chain
 

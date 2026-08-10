@@ -155,7 +155,9 @@ Setup:
 
    `contestType` is one of `ICPC` (team contest with a World Finals history
    scene), `Team`, or `Personal` (individual contests, use `personal.svg`;
-   the contestant name is taken from the team's `shortName`). The optional `logo`, `logoExtension` and `background` keys override the template's built-in default logo/background (base64-encoded). All fields are optional — the templates carry their own defaults.
+   the contestant name is taken from the team's `shortName`). `hideHashtag`
+   hides the university hashtag pill; `hideSite` hides the university region
+   pill. The optional `logo`, `logoExtension` and `background` keys override the template's built-in default logo/background (base64-encoded). All fields are optional — the templates carry their own defaults.
 4. Wire the media in `advanced.json`:
 
    ```json
