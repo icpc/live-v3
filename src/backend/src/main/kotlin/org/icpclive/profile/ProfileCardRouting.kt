@@ -27,8 +27,24 @@ private val logger by getLogger()
 /** Profile cards, templates included, are hand-written files; anything bigger is a mistake. */
 private const val MAX_FILE_SIZE = 10L * 1024 * 1024
 
+/**
+ * Only hand-written templates are worth caching; the shipped ones are a few KiB. The media
+ * directory also holds team photos/videos reachable through this same route, and those must
+ * never be pinned in memory just because someone requested them.
+ */
+private const val MAX_CACHEABLE_FILE_SIZE = 1L * 1024 * 1024
+
+/**
+ * Safety valve in case many distinct files happen to be under [MAX_CACHEABLE_FILE_SIZE]: the
+ * working set is normally one or two templates, so hitting this bound clears the map instead of
+ * growing it further, rather than trying to be clever about eviction order.
+ */
+private const val MAX_CACHE_ENTRIES = 64
+
 /** Templates are shared between all teams, so their text is cached until the file changes. */
-private val templateCache = ConcurrentHashMap<Path, Pair<FileTime, String>>()
+private data class CacheKey(val modifiedAt: FileTime, val size: Long)
+
+private val templateCache = ConcurrentHashMap<Path, Pair<CacheKey, String>>()
 
 /**
  * Resolves [relative] inside [root] and returns the file only if it stays inside the root
@@ -72,8 +88,8 @@ private fun readLimited(file: Path): String? = try {
 }
 
 private fun loadTemplate(file: Path): String? {
-    val modifiedAt = try {
-        file.getLastModifiedTime()
+    val key = try {
+        CacheKey(file.getLastModifiedTime(), file.fileSize())
     } catch (e: IOException) {
         logger.warning { "Failed to read $file: ${e.message}" }
         return null
@@ -82,9 +98,14 @@ private fun loadTemplate(file: Path): String? {
         return null
     }
     val cached = templateCache[file]
-    if (cached != null && cached.first == modifiedAt) return cached.second
+    if (cached != null && cached.first == key) return cached.second
     val text = readLimited(file) ?: return null
-    templateCache[file] = modifiedAt to text
+    // Team photos/videos live in the same directory and are reachable through this same route;
+    // only small, hand-written templates are worth (and safe to) keep in memory indefinitely.
+    if (key.size <= MAX_CACHEABLE_FILE_SIZE) {
+        if (templateCache.size >= MAX_CACHE_ENTRIES) templateCache.clear()
+        templateCache[file] = key to text
+    }
     return text
 }
 

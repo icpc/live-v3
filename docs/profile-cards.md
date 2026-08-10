@@ -42,9 +42,13 @@ anything an XML parser could read as markup, while `JSON.parse` turns the escape
 back into the original characters. Nothing else is escaped, so a template must
 place these tokens inside CDATA and nowhere else.
 
-`{mainColor}` and `{fontColor}` end up in a `<style>` block. Their values are
-validated (`#` plus 3–8 hex digits) and dropped otherwise, so they can never
-close the style block.
+`{mainColor}` and `{fontColor}` end up in a `<style>` block. `{fontColor}` (and
+`mainColor` when it travels through `settings.json`/`{render.json}`) is
+validated (`#` plus 3–8 hex digits) and dropped otherwise, so it can never close
+the style block. The direct `{mainColor}` substitution instead comes from the
+team's `color` in the contest system, which the backend already normalizes to
+`#rrggbb` hex before it ever reaches the template — safe by construction, not
+by this regex.
 
 ## The team record (`{team.json}`)
 

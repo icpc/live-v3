@@ -280,11 +280,16 @@ class ProfileCardRoutingTest {
             assertTrue("--main-color" in client.get("/profile/team.svg?teamId=1").bodyAsText())
             val file = mediaDir.resolve("team.svg")
             val modifiedAt = Files.getLastModifiedTime(file)
-            file.writeText("""<svg id="v2">{team.json}</svg>""")
+            // Same length as the original template: only the mtime-and-size cache key must stay
+            // unchanged, so this is a genuine cache hit rather than an incidental one.
+            val replacement = """<svg id="v2">{team.json}</svg>"""
+            val padded = replacement + "<!--" + "x".repeat(template.length - replacement.length - 7) + "-->"
+            check(padded.length == template.length) { "test fixture must keep the same length as the original template" }
+            file.writeText(padded)
             Files.setLastModifiedTime(file, modifiedAt)
             assertFalse(
                 """id="v2"""" in client.get("/profile/team.svg?teamId=1").bodyAsText(),
-                "template must be served from cache while its timestamp is unchanged",
+                "template must be served from cache while its timestamp and size are unchanged",
             )
         }
     }
@@ -298,6 +303,51 @@ class ProfileCardRoutingTest {
             file.writeText("""<svg id="v2">{team.json}</svg>""")
             Files.setLastModifiedTime(file, FileTime.fromMillis(System.currentTimeMillis() + 10_000))
             assertTrue("""id="v2"""" in client.get("/profile/team.svg?teamId=1").bodyAsText())
+        }
+    }
+
+    @Test
+    fun oversizedForCacheTemplateIsServedButNotCached() {
+        mediaDir.createDirectories()
+        val file = mediaDir.resolve("big.svg")
+        // Over the 1 MiB cache threshold but under the 10 MiB hard read limit: this must still
+        // be served, just re-read from disk every time instead of pinned in the template cache
+        // (team photos/videos live in the same directory and must never be cached indefinitely).
+        val big = "x".repeat(2 * 1024 * 1024) + "<svg>{team.json}</svg>"
+        file.writeText(big)
+        withCards {
+            val first = client.get("/profile/big.svg?teamId=1")
+            assertEquals(HttpStatusCode.OK, first.status)
+            assertTrue("x".repeat(100) in first.bodyAsText(), "first request must return the original content")
+
+            val modifiedAt = Files.getLastModifiedTime(file)
+            file.writeText("""<svg id="v2">{team.json}</svg>""")
+            Files.setLastModifiedTime(file, modifiedAt)
+
+            assertTrue(
+                """id="v2"""" in client.get("/profile/big.svg?teamId=1").bodyAsText(),
+                "oversized-for-cache template must be re-read from disk, not served from a stale cache entry",
+            )
+        }
+    }
+
+    @Test
+    fun sameMtimeDifferentSizeReplacementBustsTheCache() {
+        writeTemplate()
+        withCards {
+            val file = mediaDir.resolve("team.svg")
+            assertTrue("--main-color" in client.get("/profile/team.svg?teamId=1").bodyAsText())
+
+            val modifiedAt = Files.getLastModifiedTime(file)
+            // Shorter content than the original template, same mtime: a timestamp-preserving
+            // replacement (rsync -a, cp -p) looks like this from the filesystem's point of view.
+            file.writeText("""<svg id="v2">{team.json}</svg>""")
+            Files.setLastModifiedTime(file, modifiedAt)
+
+            assertTrue(
+                """id="v2"""" in client.get("/profile/team.svg?teamId=1").bodyAsText(),
+                "a same-mtime replacement with a different size must not be served from the cache",
+            )
         }
     }
 }
