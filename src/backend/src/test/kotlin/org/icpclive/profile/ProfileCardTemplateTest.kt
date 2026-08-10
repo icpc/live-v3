@@ -40,14 +40,28 @@ class ProfileCardTemplateTest {
     }
 
     @Test
+    fun templatesContainLiteralAssetTokensExactlyOnce() {
+        // {Logo}/{LogoExtension}/{Background} are substituted by the template's own embedded
+        // script, not by the backend (see buildProfileCardSvg), but the contract is still that
+        // each appears exactly once so the script's own replace-all-occurrences logic is safe.
+        for (templatePath in templates) {
+            val template = templatePath.readText()
+            for (token in listOf("{Logo}", "{LogoExtension}", "{Background}")) {
+                assertEquals(1, template.split(token).size - 1, "expected exactly one $token in ${templatePath.name}")
+            }
+        }
+    }
+
+    @Test
     fun substitutedTemplatesAreValidXmlAndTokenFree() {
         val settings = ProfileRenderSettings(
             contestType = ContestType.ICPC,
             finals = ProfileRenderSettings.Finals(include = true, includeEmpty = true),
             fontColor = "#FFFFFF",
         )
+        val rawSettings = settingsJson.encodeToJsonElement(ProfileRenderSettings.serializer(), settings) as JsonObject
         for (templatePath in templates) {
-            val svg = buildProfileCardSvg(templatePath.readText(), sampleRecord(), settings, teamColor = "#4C83C3")
+            val svg = buildProfileCardSvg(templatePath.readText(), sampleRecord(), rawSettings, settings, teamColor = "#4C83C3")
             for (token in listOf("{team.json}", "{render.json}", "{mainColor}", "{fontColor}")) {
                 assertFalse(token in svg, "$token left in substituted ${templatePath.name}")
             }

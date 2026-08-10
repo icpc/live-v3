@@ -185,6 +185,34 @@ class ReconciliationTest {
     }
 
     @Test
+    fun wrongTypedContestantsFieldProducesStubsInsteadOfCrashing() {
+        val profile = buildJsonObject {
+            put("id", "1")
+            putJsonObject("university") { put("fullName", "Uni") }
+            putJsonObject("team") { put("name", "Team A") }
+            put("coach", JsonNull)
+            put("contestants", "oops")
+        }
+        val result = reconcileProfile(profile, Roster(listOf("Alice Smith", "Bob Jones"), null), team(), null)
+        assertEquals(listOf("Alice Smith", "Bob Jones"), names(result))
+        for (contestant in (result["contestants"] as JsonArray).map { it.jsonObject }) {
+            assertEquals(0, (contestant["achievements"] as JsonArray).size)
+            assertNull(contestant["cfRating"])
+        }
+    }
+
+    @Test
+    fun extractRosterMatchesRolesCaseInsensitively() {
+        val persons = listOf(
+            person("Alice Smith", "Contestant", "1"),
+            person("Coach Zh", "COACH", "1"),
+        )
+        val roster = extractRoster(team("1"), persons, personalMode = false)
+        assertEquals(listOf("Alice Smith"), roster.contestants)
+        assertEquals("Coach Zh", roster.coach)
+    }
+
+    @Test
     fun extractRosterFiltersByTeamAndRole() {
         val persons = listOf(
             person("Alice Smith", "contestant", "1"),

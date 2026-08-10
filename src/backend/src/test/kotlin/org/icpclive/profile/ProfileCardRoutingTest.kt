@@ -123,7 +123,9 @@ class ProfileCardRoutingTest {
     fun unknownTemplateIsNotFound() {
         writeTemplate()
         withCards {
-            assertEquals(HttpStatusCode.NotFound, client.get("/profile/nope.svg?teamId=1").status)
+            val response = client.get("/profile/nope.svg?teamId=1")
+            assertEquals(HttpStatusCode.NotFound, response.status)
+            assertEquals("Template not found", response.bodyAsText())
         }
     }
 
@@ -131,7 +133,19 @@ class ProfileCardRoutingTest {
     fun unknownTeamIsNotFound() {
         writeTemplate()
         withCards {
-            assertEquals(HttpStatusCode.NotFound, client.get("/profile/team.svg?teamId=42").status)
+            val response = client.get("/profile/team.svg?teamId=42")
+            assertEquals(HttpStatusCode.NotFound, response.status)
+            assertEquals("Unknown team", response.bodyAsText())
+        }
+    }
+
+    @Test
+    fun teamCheckHappensBeforeTemplateResolutionSoUnknownTeamWinsOverUnknownTemplate() {
+        writeTemplate()
+        withCards {
+            val response = client.get("/profile/nope.svg?teamId=42")
+            assertEquals(HttpStatusCode.NotFound, response.status)
+            assertEquals("Unknown team", response.bodyAsText())
         }
     }
 
@@ -149,8 +163,17 @@ class ProfileCardRoutingTest {
         writeTemplate()
         root.resolve("secret.svg").writeText("TOP SECRET")
         withCards {
+            // A plain "../" path segment is routed by ktor as an ordinary literal segment of the
+            // "{path...}" tail parameter, so it demonstrably reaches our own resolveInside guard
+            // and must fail closed with exactly the same NotFound our handler produces for any
+            // other unresolvable template.
+            assertEquals(HttpStatusCode.NotFound, client.get("/profile/../secret.svg?teamId=1").status)
+
+            // Percent-encoded variants may never reach our handler at all: ktor's own URL
+            // decoding/routing can already reject or normalize these before dispatch. Kept as a
+            // defense-in-depth check (not OK, no leaked content) rather than asserting the exact
+            // status/body our handler would produce.
             for (path in listOf(
-                "/profile/../secret.svg",
                 "/profile/..%2fsecret.svg",
                 "/profile/..%2F..%2Fetc%2Fpasswd",
                 "/profile/%2e%2e/secret.svg",
@@ -171,6 +194,41 @@ class ProfileCardRoutingTest {
             val response = client.get("/profile/team.svg?teamId=..%2F..%2Foutside")
             assertEquals(HttpStatusCode.OK, response.status)
             assertFalse("escaped" in response.bodyAsText())
+        }
+    }
+
+    @Test
+    fun teamIdWithASlashIsRejectedBeforeAnyPathResolution() {
+        writeTemplate()
+        // settings.json legitimately reaches {render.json} regardless of this guard (that's the
+        // whole point of item 5), so make it fail to parse as settings (bad contestType) to keep
+        // {render.json} as a literal, unsubstituted token -- isolating this test to only the
+        // profile-file lookup that "../settings" is trying to hijack.
+        writeSettings("""{"contestType":"NotAValidType","marker":"escaped-settings"}""")
+        withCards(contestInfo(listOf(team(id = "../settings")))) {
+            val response = client.get("/profile/team.svg?teamId=..%2Fsettings")
+            assertEquals(HttpStatusCode.OK, response.status)
+            val body = response.bodyAsText()
+            assertFalse("escaped-settings" in body, "settings.json must not be readable as this team's profile file")
+            assertTrue(""""name":"Team A"""" in body, "falls back to a synthesized profile instead")
+        }
+    }
+
+    @Test
+    fun teamIdWithASlashIsRejectedEvenWhenTheResultingPathStaysInsideTheProfilesDirectory() {
+        writeTemplate()
+        // Nested under teams/, so resolveInside's own root-containment check alone would happily
+        // allow this path (it never leaves the profiles directory); only the dedicated teamId
+        // separator guard stops a team id from reaching into a subdirectory of teams/ at all.
+        val nested = profilesDir.resolve("teams").resolve("nested")
+        nested.createDirectories()
+        nested.resolve("evil.json").writeText("""{"marker":"escaped-nested","contestants":[]}""")
+        withCards(contestInfo(listOf(team(id = "nested/evil")))) {
+            val response = client.get("/profile/team.svg?teamId=nested%2Fevil")
+            assertEquals(HttpStatusCode.OK, response.status)
+            val body = response.bodyAsText()
+            assertFalse("escaped-nested" in body)
+            assertTrue(""""name":"Team A"""" in body, "falls back to a synthesized profile instead")
         }
     }
 
@@ -270,6 +328,63 @@ class ProfileCardRoutingTest {
         mediaDir.resolve("huge.svg").writeText("x".repeat(11 * 1024 * 1024))
         withCards {
             assertEquals(HttpStatusCode.NotFound, client.get("/profile/huge.svg?teamId=1").status)
+        }
+    }
+
+    @Test
+    fun oversizedSettingsFileIsIgnored() {
+        writeTemplate()
+        // Over the 1 MiB JSON limit; a repeated single character is fast to generate and enough
+        // to trip the size check regardless of content.
+        writeSettings("{\"contestType\":\"ICPC\",\"padding\":\"" + "x".repeat(1024 * 1024 + 1) + "\"}")
+        withCards {
+            val response = client.get("/profile/team.svg?teamId=1")
+            assertEquals(HttpStatusCode.OK, response.status)
+            assertTrue("{render.json}" in response.bodyAsText(), "oversized settings.json must fall back like a missing one")
+        }
+    }
+
+    @Test
+    fun oversizedProfileFileIsIgnored() {
+        writeTemplate()
+        writeProfile("1", "{\"id\":\"1\",\"padding\":\"" + "x".repeat(1024 * 1024 + 1) + "\"}")
+        withCards {
+            val response = client.get("/profile/team.svg?teamId=1")
+            assertEquals(HttpStatusCode.OK, response.status)
+            assertTrue(
+                """"name":"Team A"""" in response.bodyAsText(),
+                "oversized profile file must fall back to a synthesized record",
+            )
+        }
+    }
+
+    @Test
+    fun settingsFileIsCachedWhileItsTimestampIsUnchanged() {
+        writeTemplate()
+        writeSettings("""{"contestType":"ICPC"}""")
+        withCards {
+            assertTrue(""""contestType":"ICPC"""" in client.get("/profile/team.svg?teamId=1").bodyAsText())
+            val file = profilesDir.resolve("settings.json")
+            val modifiedAt = Files.getLastModifiedTime(file)
+            file.writeText("""{"contestType":"Team"}""")
+            Files.setLastModifiedTime(file, modifiedAt)
+            assertTrue(
+                """"contestType":"ICPC"""" in client.get("/profile/team.svg?teamId=1").bodyAsText(),
+                "settings.json must be served from cache while its timestamp and size are unchanged",
+            )
+        }
+    }
+
+    @Test
+    fun settingsFileChangesAreSeenAfterModification() {
+        writeTemplate()
+        writeSettings("""{"contestType":"ICPC"}""")
+        withCards {
+            assertTrue(""""contestType":"ICPC"""" in client.get("/profile/team.svg?teamId=1").bodyAsText())
+            val file = profilesDir.resolve("settings.json")
+            file.writeText("""{"contestType":"Team"}""")
+            Files.setLastModifiedTime(file, FileTime.fromMillis(System.currentTimeMillis() + 10_000))
+            assertTrue(""""contestType":"Team"""" in client.get("/profile/team.svg?teamId=1").bodyAsText())
         }
     }
 
