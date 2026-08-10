@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import org.icpclive.cds.util.getLogger
 
 private val logger by getLogger()
@@ -45,7 +46,8 @@ internal val settingsJson = Json {
     ignoreUnknownKeys = true
 }
 
-private val colorRegex = Regex("^#[0-9a-fA-F]{3,8}$")
+/** Exactly the hex-color shapes CSS accepts: RGB, RGBA, RRGGBB, RRGGBBAA. */
+private val colorRegex = Regex("^#([0-9a-fA-F]{3}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$")
 
 private fun validColorOrNull(value: String?, name: String): String? = when {
     value == null -> null
@@ -65,11 +67,39 @@ internal fun ProfileRenderSettings.withValidatedColors(): ProfileRenderSettings 
     mainColor = validColorOrNull(mainColor, "mainColor"),
 )
 
+private val rawColorKeys = listOf("fontColor", "mainColor")
+
+/**
+ * The raw-settings equivalent of [withValidatedColors]: removes `fontColor`/`mainColor` keys
+ * from the operator's unparsed settings.json object when their value is not a plain hex color,
+ * but otherwise leaves the object untouched -- including keys the typed [ProfileRenderSettings]
+ * model doesn't know about, which is the whole point of keeping the raw object around instead of
+ * re-encoding the typed view for `{render.json}`.
+ */
+internal fun sanitizeRawSettings(raw: JsonObject): JsonObject {
+    val invalidKeys = rawColorKeys.filter { key ->
+        val element = raw[key] ?: return@filter false
+        val value = (element as? JsonPrimitive)?.takeIf { it.isString }?.content
+        val invalid = value == null || !colorRegex.matches(value)
+        if (invalid) logger.warning { "Ignoring invalid profile card $key in settings.json: '$element'" }
+        invalid
+    }
+    return if (invalidKeys.isEmpty()) raw else JsonObject(raw.filterKeys { it !in invalidKeys })
+}
+
 private fun String.escapeForSvgBlob() = replace("<", "\\u003c").replace(">", "\\u003e")
 
+/**
+ * [rawSettings] is the operator's settings.json content -- already sanitized of invalid colors
+ * by the caller -- substituted into `{render.json}` verbatim so that keys unknown to the typed
+ * model still reach the template. [settings] is the typed, validated view of the same document,
+ * used only for backend decisions that need a strongly-typed value: the `{fontColor}` token here,
+ * and `contestType` upstream (deciding whether to build a one-person roster).
+ */
 internal fun buildProfileCardSvg(
     template: String,
     record: JsonObject,
+    rawSettings: JsonObject?,
     settings: ProfileRenderSettings?,
     teamColor: String?,
 ): String {
@@ -77,12 +107,11 @@ internal fun buildProfileCardSvg(
     if (teamColor != null) {
         result = result.replace("{mainColor}", teamColor)
     }
-    if (settings != null) {
-        if (settings.fontColor != null) {
-            result = result.replace("{fontColor}", settings.fontColor)
-        }
-        val renderJson = settingsJson.encodeToString(ProfileRenderSettings.serializer(), settings)
-        result = result.replace("{render.json}", renderJson.escapeForSvgBlob())
+    if (settings?.fontColor != null) {
+        result = result.replace("{fontColor}", settings.fontColor)
+    }
+    if (rawSettings != null) {
+        result = result.replace("{render.json}", rawSettings.toString().escapeForSvgBlob())
     }
     // The team record is the largest chunk of externally provided text, so it is substituted
     // last: no other token can be corrupted by data that happens to contain a token literal.
