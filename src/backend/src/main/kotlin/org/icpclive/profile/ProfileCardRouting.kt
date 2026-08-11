@@ -34,8 +34,9 @@ private const val MAX_JSON_FILE_SIZE = 1L * 1024 * 1024
 
 /**
  * Only hand-written templates and settings.json are worth caching; the shipped templates are a
- * few KiB. The media directory also holds team photos/videos reachable through this same route,
- * and those must never be pinned in memory just because someone requested them.
+ * few KiB. The route only serves `.svg` files, but the media directory it resolves against also
+ * holds team photos and videos, and an operator is free to name one of those `.svg`; such a file
+ * must never be pinned in memory just because someone requested it.
  */
 private const val MAX_CACHEABLE_FILE_SIZE = 1L * 1024 * 1024
 
@@ -185,6 +186,15 @@ fun Route.configureProfileCardRouting(
             return@get
         }
         val relativePath = call.parameters.getAll("path")?.joinToString("/") ?: ""
+        // This route reads the requested file as UTF-8 text and answers image/svg+xml, so it can
+        // only ever serve SVG templates. The media directory it resolves against also holds team
+        // photos and videos; without this check those would come back through here decoded as
+        // text (mangling every byte that isn't valid UTF-8) and labelled as SVG. They are served
+        // properly by the media route, so here anything that isn't a template is simply absent.
+        if (!relativePath.endsWith(".svg", ignoreCase = true)) {
+            call.respond(HttpStatusCode.NotFound, "Template not found")
+            return@get
+        }
         // Template/settings/profile resolution below is all blocking filesystem I/O; keep it off
         // the dispatcher the route otherwise runs requests on.
         val svg = withContext(Dispatchers.IO) {

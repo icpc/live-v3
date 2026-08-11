@@ -3,7 +3,10 @@
 A profile card is an SVG file with a few placeholder tokens in it. The backend
 serves it at `/api/overlay/profile/<file>?teamId=<id>`, replacing the tokens with
 data for that team; the script embedded in the SVG then draws the card from that
-data. The templates shipped with this repository are `config/_media/team.svg`
+data. `<file>` is resolved inside the media directory and must end in `.svg` —
+the route reads it as text and answers `image/svg+xml`, so the other files that
+live in that directory (team photos, videos) are not reachable through it and
+are served by the media route instead. The templates shipped with this repository are `config/_media/team.svg`
 (team cards, ICPC-style history scene) and `config/_media/personal.svg` (single
 person). Setup and reconciliation rules live in
 [advanced.json.md](advanced.json.md#team-profile-cards); this page describes the

@@ -130,6 +130,37 @@ class ProfileCardRoutingTest {
     }
 
     @Test
+    fun nonSvgMediaIsNotServedAsACard() {
+        writeTemplate()
+        mediaDir.createDirectories()
+        // A one-pixel PNG header: real media, and not valid UTF-8. Reading it as text and
+        // answering image/svg+xml would hand the client corrupted bytes under a content type
+        // they are not in; the media route is what serves these files.
+        val photo = byteArrayOf(
+            0x89.toByte(), 'P'.code.toByte(), 'N'.code.toByte(), 'G'.code.toByte(),
+            0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D,
+        )
+        Files.write(mediaDir.resolve("photo.png"), photo)
+        withCards {
+            for (path in listOf("photo.png", "photo.PNG", "photo", "photo.svg.png")) {
+                val response = client.get("/profile/$path?teamId=1")
+                assertEquals(HttpStatusCode.NotFound, response.status, path)
+                assertEquals("Template not found", response.bodyAsText(), path)
+            }
+        }
+    }
+
+    @Test
+    fun templateExtensionMatchIsCaseInsensitive() {
+        writeTemplate("Team.SVG")
+        withCards {
+            val response = client.get("/profile/Team.SVG?teamId=1")
+            assertEquals(HttpStatusCode.OK, response.status)
+            assertEquals(ContentType.Image.SVG, response.contentType()?.withoutParameters())
+        }
+    }
+
+    @Test
     fun unknownTeamIsNotFound() {
         writeTemplate()
         withCards {
