@@ -1,0 +1,20 @@
+{
+    "CONTEST_COLOR": "#000000",
+    "STATISTICS_BG_COLOR": "#FFFFFF",
+    "GLOBAL_DEFAULT_FONT_FAMILY": "ioi-flag, Helvetica, Noto Color Emoji",
+    "SUBMISSION_ROW_TASK_RESULT_LABEL_WIDTH": "65px",
+
+    "WIDGET_POSITIONS": {
+        "hqueue": {"positionX": 16, "positionY": 832, "sizeX": 1888, "sizeY": 168},
+        "statistics": {"positionX": 16, "positionY": 800, "sizeX": 1488, "sizeY": 200},
+
+        "teamViewTopLeft": {"positionX": 16, "positionY": 16, "sizeX": 744, "sizeY": 492},
+        "teamViewTopRight": {"positionX": 760, "positionY": 16, "sizeX": 744, "sizeY": 492},
+        "teamViewBottomLeft": {"positionX": 16, "positionY": 508, "sizeX": 744, "sizeY": 492},
+        "teamViewBottomRight": {"positionX": 760, "positionY": 508, "sizeX": 744, "sizeY": 492}
+
+    },
+    
+    "EXTRA_CSS": "@import url('https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap'); @font-face { font-family: 'ioi-flag'; src: url('/media/ioi-flag.woff2') format('woff2'); unicode-range: U+E000; }"
+}
+
