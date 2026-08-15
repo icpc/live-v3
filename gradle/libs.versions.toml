@@ -1,27 +1,27 @@
 [versions]
 
-kotlin = "2.4.0"
+kotlin = "2.4.10"
 
-ktor = "3.5.0"                     # https://ktor.io/
+ktor = "3.5.2"                     # https://ktor.io/
 datetime = "0.8.0"                 # https://github.com/Kotlin/kotlinx-datetime
 serialization = "1.11.0"           # https://github.com/Kotlin/kotlinx.serialization
 ksp = "2.3.11"                     # https://github.com/google/ksp
 slf4j = "2.0.18"                   # https://www.slf4j.org/download.html
-logback = "1.5.34"                 # https://logback.qos.ch/download.html
+logback = "1.6.3"                  # https://logback.qos.ch/download.html
 node-plugin = "7.1.0"              # https://github.com/node-gradle/gradle-node-plugin
 coroutines = "1.11.0"              # https://github.com/Kotlin/kotlinx.coroutines/
-shadow-plugin = "9.4.2"            # https://github.com/GradleUp/shadow
+shadow-plugin = "9.6.1"            # https://github.com/GradleUp/shadow
 clikt = "5.1.0"                    # https://ajalt.github.io/clikt/
-immutable = "0.5.0-beta01"         # https://github.com/Kotlin/kotlinx.collections.immutable
+immutable = "0.5.1"                # https://github.com/Kotlin/kotlinx.collections.immutable
 protobuf-plugin = "0.10.0"         # https://github.com/google/protobuf-gradle-plugin
-protobuf = "4.35.0"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
-grpc = "1.81.0"                    # https://mvnrepository.com/artifact/io.grpc/grpc-stub
+protobuf = "4.35.1"                # https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
+grpc = "1.83.1"                    # https://mvnrepository.com/artifact/io.grpc/grpc-stub
 grpc-kotlin = "1.5.0"              # https://mvnrepository.com/artifact/io.grpc/grpc-kotlin-stub
 dokka = "2.2.0"                    # https://github.com/Kotlin/dokka
 kxs-ts-gen = "0.2.4"               # https://github.com/adamko-dev/kotlinx-serialization-typescript-generator
 apache-commons-csv = "1.14.1"      # https://commons.apache.org/proper/commons-csv/
-graphql = "10.0.0"                  # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
-json-schema-validator = "0.5.4"    # https://github.com/OptimumCode/json-schema-validator
+graphql = "10.2.1"                 # https://github.com/ExpediaGroup/graphql-kotlin/tree/master
+json-schema-validator = "0.5.5"    # https://github.com/OptimumCode/json-schema-validator
 
 [libraries]
 
@@ -44,7 +44,6 @@ ktor-server-netty               = { version.ref = "ktor", group = "io.ktor", nam
 ktor-server-statusPages         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-status-pages" }
 ktor-server-conditionalHeaders  = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-conditional-headers" }
 ktor-server-compression         = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-compression" }
-ktor-server-tests               = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-tests" }
 ktor-server-websockets          = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-websockets" }
 ktor-server-html                = { version.ref = "ktor", group = "io.ktor", name = "ktor-server-html-builder" }
 
