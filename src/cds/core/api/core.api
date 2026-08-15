@@ -504,6 +504,7 @@ public abstract class org/icpclive/cds/api/ContestStatus {
 
 public final class org/icpclive/cds/api/ContestStatus$BEFORE : org/icpclive/cds/api/ContestStatus {
 	public static final field Companion Lorg/icpclive/cds/api/ContestStatus$BEFORE$Companion;
+	public fun <init> ()V
 	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/time/Instant;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/time/Instant;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-FghU774 ()Lkotlin/time/Duration;
@@ -1487,6 +1488,7 @@ public abstract class org/icpclive/cds/api/ProblemColorPolicy {
 
 public final class org/icpclive/cds/api/ProblemColorPolicy$AfterStart : org/icpclive/cds/api/ProblemColorPolicy {
 	public static final field Companion Lorg/icpclive/cds/api/ProblemColorPolicy$AfterStart$Companion;
+	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-_jCth4M ()Ljava/lang/String;
@@ -1526,6 +1528,7 @@ public final class org/icpclive/cds/api/ProblemColorPolicy$Companion {
 
 public final class org/icpclive/cds/api/ProblemColorPolicy$WhenSolved : org/icpclive/cds/api/ProblemColorPolicy {
 	public static final field Companion Lorg/icpclive/cds/api/ProblemColorPolicy$WhenSolved$Companion;
+	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-_jCth4M ()Ljava/lang/String;
@@ -1645,6 +1648,7 @@ public final class org/icpclive/cds/api/ProblemResult$Companion {
 
 public final class org/icpclive/cds/api/QueueSettings {
 	public static final field Companion Lorg/icpclive/cds/api/QueueSettings$Companion;
+	public fun <init> ()V
 	public synthetic fun <init> (JJJJIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (JJJJIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-UwyO8pc ()J
@@ -2655,6 +2659,7 @@ public final class org/icpclive/cds/tunning/MedalSettings$Companion {
 }
 
 public final class org/icpclive/cds/tunning/OverrideContestSettings : org/icpclive/cds/tunning/TuningRule {
+	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -2931,6 +2936,7 @@ public final class org/icpclive/cds/tunning/OverrideProblems$Companion {
 
 public final class org/icpclive/cds/tunning/OverrideProblems$Override {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideProblems$Override$Companion;
+	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Ljava/lang/Integer;Lorg/icpclive/cds/api/FtsMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Double;Ljava/lang/Double;Lorg/icpclive/cds/api/ScoreMergeMode;Ljava/lang/Boolean;Ljava/lang/Integer;Lorg/icpclive/cds/api/FtsMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getColor-_jCth4M ()Ljava/lang/String;
@@ -2961,6 +2967,7 @@ public final class org/icpclive/cds/tunning/OverrideProblems$Override$Companion 
 
 public final class org/icpclive/cds/tunning/OverrideQueue : org/icpclive/cds/tunning/TuningRule {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideQueue$Companion;
+	public fun <init> ()V
 	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/lang/Integer;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/lang/Integer;Ljava/lang/Integer;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-FghU774 ()Lkotlin/time/Duration;
@@ -2999,6 +3006,7 @@ public final class org/icpclive/cds/tunning/OverrideQueue$Companion {
 
 public final class org/icpclive/cds/tunning/OverrideScoreboardSettings : org/icpclive/cds/tunning/TuningRule {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideScoreboardSettings$Companion;
+	public fun <init> ()V
 	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lorg/icpclive/cds/api/ProblemColorPolicy;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Lkotlin/time/Duration;Ljava/lang/Boolean;Lorg/icpclive/cds/api/PenaltyRoundingMode;Lorg/icpclive/cds/api/ProblemColorPolicy;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1-FghU774 ()Lkotlin/time/Duration;
@@ -3114,6 +3122,7 @@ public final class org/icpclive/cds/tunning/OverrideTeams$Companion {
 
 public final class org/icpclive/cds/tunning/OverrideTeams$Override {
 	public static final field Companion Lorg/icpclive/cds/tunning/OverrideTeams$Override$Companion;
+	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/util/List;Ljava/util/List;Ljava/util/Map;Ljava/util/Map;Ljava/util/Map;Ljava/util/List;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getColor-_jCth4M ()Ljava/lang/String;

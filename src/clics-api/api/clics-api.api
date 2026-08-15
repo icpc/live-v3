@@ -503,6 +503,7 @@ public final class org/icpclive/clics/objects/Endpoint {
 }
 
 public final class org/icpclive/clics/objects/File {
+	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -798,6 +799,7 @@ public final class org/icpclive/clics/objects/ScoreboardRow {
 }
 
 public final class org/icpclive/clics/objects/ScoreboardRowProblem {
+	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Lkotlin/time/Duration;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/Boolean;Ljava/lang/Double;Lkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -820,6 +822,7 @@ public final class org/icpclive/clics/objects/ScoreboardRowProblem {
 }
 
 public final class org/icpclive/clics/objects/ScoreboardRowScore {
+	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/Integer;Lkotlin/time/Duration;Ljava/lang/Double;Lkotlin/time/Duration;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/Integer;Lkotlin/time/Duration;Ljava/lang/Double;Lkotlin/time/Duration;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Integer;
