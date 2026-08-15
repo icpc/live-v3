@@ -377,7 +377,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                         }
                     }
                 }
-                +"@Suppress(\"UNCHECKED_CAST\")"
+                +"@Suppress(\"UNCHECKED_CAST\", \"REDUNDANT_ELSE_IN_WHEN\")"
                 withCodeBlock("internal fun serializersModule(): SerializersModule = SerializersModule") {
                     for ((serializer, superClass) in objects) {
                         +"contextual(${superClass}::class, $serializer)"

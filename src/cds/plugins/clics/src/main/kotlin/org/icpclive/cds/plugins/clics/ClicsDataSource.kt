@@ -12,6 +12,7 @@ import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.util.logAndRetryWithDelay
+import org.icpclive.cds.util.onIdle
 import org.icpclive.clics.Url
 import org.icpclive.clics.clicsEventsSerializersModule
 import org.icpclive.clics.events.*
@@ -72,82 +73,36 @@ internal class ClicsDataSource(val settings: ClicsSettings) : ContestDataSource 
         onContestInfo: suspend (ContestInfo) -> Unit,
         onComment: suspend (CommentaryMessage) -> Unit,
     ) {
-        val loaders = feeds.map { getEventFeedLoader(it, settings.network) }
-
-        fun priority(event: Event) = if (event.isFinalEvent) Int.MAX_VALUE else when (event) {
-            // events about contest info
-            is ContestEvent -> 0
-            is StateEvent -> 1
-            is JudgementTypeEvent, is BatchJudgementTypeEvent -> 2
-            is LanguageEvent, is BatchLanguageEvent -> 3
-            is OrganizationEvent, is BatchOrganizationEvent -> 4
-            is GroupEvent, is BatchGroupEvent -> 5
-            is PersonEvent, is BatchPersonEvent -> 6
-            is TeamEvent, is BatchTeamEvent -> 7
-            is AccountEvent, is BatchAccountEvent -> 8
-            is ProblemEvent, is BatchProblemEvent -> 9
-            is PreloadFinishedEvent -> throw IllegalStateException()
-            is AwardEvent, is BatchAwardEvent -> 10
-            is BatchClarificationEvent, is ClarificationEvent -> 10
-            // events about runs
-            is SubmissionEvent, is BatchSubmissionEvent -> 100
-            is JudgementEvent, is BatchJudgementEvent -> 101
-            is RunEvent, is BatchRunEvent -> 102
-            // events about comments
-            is CommentaryEvent, is BatchCommentaryEvent -> 200
-        }
-
-        fun Flow<Event>.sortedPrefix() = flow {
-            coroutineScope {
-                val channel = produceIn(this)
-                val prefix = mutableListOf<Event>()
-                prefix.add(channel.receive())
-                while (true) {
-                    try {
-                        withTimeout(1.seconds) {
-                            channel.receiveCatching().getOrNull()
-                        }?.let { prefix.add(it) } ?: break
-                    } catch (_: TimeoutCancellationException) {
-                        break
-                    }
-                }
-                val events = prefix.sortedBy { priority(it) }
-                events.filter { !it.isFinalEvent }.forEach { emit(it) }
-                emit(PreloadFinishedEvent(EventToken("")))
-                events.filter { it.isFinalEvent }.forEach { emit(it) }
-                for (event in channel) {
-                    emit(event)
-                }
-            }
-        }
-
         var preloadFinished = false
-
-        suspend fun processEvent(it: Event) {
-            if (it is PreloadFinishedEvent) {
-                if (!preloadFinished) {
-                    preloadFinished = true
-                    model.addContestInfoListener(onContestInfo)
-                    model.addRunInfoListener(onRun)
-                    model.addCommentaryMessageListener(onComment)
-                }
-            } else {
-                model.processEvent(it)
-            }
+        suspend fun finishPreload() {
+            if (preloadFinished) return
+            preloadFinished = true
+            model.setContestInfoListener(onContestInfo)
+            model.setRunInfoListener(onRun)
+            model.setCommentaryMessageListener(onComment)
         }
 
         val idSet = mutableSetOf<EventToken>()
-        loaders
+        feeds
+            .map { getEventFeedLoader(it, settings.network) }
             .merge()
-            .sortedPrefix()
-            .filterNot { it.token in idSet }
-            .onEach { processEvent(it) }
-            .takeWhile { !it.isFinalEvent }
-            .onEach { it.token?.let(idSet::add) }
+            .onIdle<Event?>(1.seconds, afterFirst = true) { send(null) }
+            .onEach { event ->
+                if (event == null) {
+                    finishPreload()
+                } else if (event.token !in idSet) {
+                    model.processEvent(event)
+                    event.token?.let { idSet.add(it) }
+                }
+            }
+            .takeWhile { it?.isFinalEvent != true }
             .logAndRetryWithDelay(5.seconds) {
                 log.error(it) { "Exception caught in CLICS parser. Will restart in 5 seconds." }
+                model.resetListeners()
                 preloadFinished = false
-            }.collect()
+            }
+            .collect()
+        finishPreload()
     }
 
     override fun getFlow() = flow {

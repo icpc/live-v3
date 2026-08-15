@@ -34,20 +34,28 @@ public fun <T> runCatchingIfNotCancellation(block: () -> T): Result<T> = runCatc
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-public fun <T> Flow<T>.onIdle(interval: Duration, block: suspend ProducerScope<T>.() -> Unit): Flow<T> = channelFlow {
+public fun <T> Flow<T>.onIdle(
+    interval: Duration,
+    afterFirst: Boolean = false,
+    block: suspend ProducerScope<T>.() -> Unit
+): Flow<T> = channelFlow {
     val data = produceIn(this)
     var finished = false
+    var enabled = !afterFirst
     while (!finished) {
         select {
             data.onReceiveCatching {
-                if (it.isSuccess) {
-                    send(it.getOrThrow())
-                } else {
+                if (it.isClosed) {
                     finished = true
+                } else {
+                    enabled = true
+                    send(it.getOrThrow())
                 }
             }
             onTimeout(interval) {
-                block()
+                if (enabled) {
+                    block()
+                }
             }
         }
     }

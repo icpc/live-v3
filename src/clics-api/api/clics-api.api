@@ -265,11 +265,6 @@ public final class org/icpclive/clics/events/PersonEvent : org/icpclive/clics/ev
 	public fun getToken-L6H9Csw ()Ljava/lang/String;
 }
 
-public final class org/icpclive/clics/events/PreloadFinishedEvent : org/icpclive/clics/events/Event {
-	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun getToken-L6H9Csw ()Ljava/lang/String;
-}
-
 public final class org/icpclive/clics/events/ProblemEvent : org/icpclive/clics/events/IdEvent {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lorg/icpclive/clics/objects/Problem;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun getData ()Lorg/icpclive/clics/objects/ObjectWithId;

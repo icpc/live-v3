@@ -8,12 +8,11 @@ import org.icpclive.clics.objects.*
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
-import kotlin.time.Instant
 
 internal class ClicsModel {
-    private val contestInfoListeners = mutableListOf<suspend (ContestInfo) -> Unit>()
-    private val runInfoListeners = mutableListOf<suspend (RunInfo) -> Unit>()
-    private val commentaryMessageListeners = mutableListOf<suspend (CommentaryMessage) -> Unit>()
+    private var contestInfoListener: (suspend (ContestInfo) -> Unit)? = null
+    private var runInfoListener: (suspend (RunInfo) -> Unit)? = null
+    private var commentaryMessageListener: (suspend (CommentaryMessage) -> Unit)? = null
 
     private val judgementTypes = mutableMapOf<String, JudgementType>()
     private val problems = mutableMapOf<String, Problem>()
@@ -31,48 +30,39 @@ internal class ClicsModel {
     private val persons = mutableMapOf<String, Person>()
     private val accounts = mutableMapOf<String, Account>()
 
-    private var startTime: Instant? = null
-    private var contestLength = 5.hours
-    private var freezeTime = 4.hours
-    private var status: ContestStatus = ContestStatus.BEFORE()
-    private var penaltyPerWrongAttempt = 20.minutes
-    private var holdBeforeStartTime: Duration? = null
-    private var name: String = ""
-    private var mainScoreboardGroupId: String? = null
+    private var contest: Contest? = null
+    private var state: State? = null
 
-    suspend fun addContestInfoListener(callback: suspend (ContestInfo) -> Unit) {
-        contestInfoListeners.add(callback)
+    fun resetListeners() {
+        contestInfoListener = null
+        runInfoListener = null
+        commentaryMessageListener = null
+    }
+
+    suspend fun setContestInfoListener(callback: suspend (ContestInfo) -> Unit) {
+        contestInfoListener = callback
         callback(contestInfo)
     }
-    suspend fun addRunInfoListener(callback: suspend (RunInfo) -> Unit) {
-        runInfoListeners.add(callback)
+    suspend fun setRunInfoListener(callback: suspend (RunInfo) -> Unit) {
+        runInfoListener = callback
         for (i in submissions.values) {
             callback(i.toApi())
         }
     }
-    suspend fun addCommentaryMessageListener(callback: suspend (CommentaryMessage) -> Unit) {
-        commentaryMessageListeners.add(callback)
+    suspend fun setCommentaryMessageListener(callback: suspend (CommentaryMessage) -> Unit) {
+        commentaryMessageListener = callback
         for (i in commentaries.values) {
             callback(i.toApi())
         }
     }
     private suspend fun contestInfoUpdated() {
-        val info = contestInfo
-        for (listener in contestInfoListeners) {
-            listener(info)
-        }
+        contestInfoListener?.invoke(contestInfo)
     }
     private suspend fun submissionUpdated(id: String?) {
-        val info = submissions[id]?.toApi() ?: return
-        for (listener in runInfoListeners) {
-            listener(info)
-        }
+        runInfoListener?.invoke(submissions[id]?.toApi() ?: return)
     }
     private suspend fun commentaryUpdated(id: String) {
-        val info = commentaries[id]?.toApi() ?: return
-        for (listener in commentaryMessageListeners) {
-            listener(info)
-        }
+        commentaryMessageListener?.invoke(commentaries[id]?.toApi() ?: return)
     }
 
     private fun File.toApi(): MediaType? {
@@ -144,7 +134,7 @@ internal class ClicsModel {
                 put(TeamMediaType.TOOL_DATA, toolData.mapNotNull { it.toApi() })
             }.filterValues { it.isNotEmpty() },
             organizationId = organizationId?.toOrganizationId(),
-            isOutOfContest = mainScoreboardGroupId != null && mainScoreboardGroupId !in groups,
+            isOutOfContest = contest?.mainScoreboardGroupId != null && contest?.mainScoreboardGroupId !in groupIds,
             customFields = buildMap {
                 put("clicsTeamFullName", name)
                 put("clicsTeamDisplayName", displayName ?: name)
@@ -237,17 +227,46 @@ internal class ClicsModel {
         personId = personId?.toPersonId(),
     )
 
+    private val status: ContestStatus
+        get() {
+            val state = state
+            return when {
+                state?.endOfUpdates != null -> ContestStatus.FINALIZED(
+                    startedAt = state.started!!,
+                    finishedAt = state.ended!!,
+                    finalizedAt = state.endOfUpdates!!,
+                    frozenAt = state.frozen
+                )
+
+                state?.ended != null -> ContestStatus.OVER(
+                    startedAt = state.started!!,
+                    finishedAt = state.ended!!,
+                    frozenAt = state.frozen
+                )
+
+                state?.started != null -> ContestStatus.RUNNING(
+                    startedAt = state.started!!,
+                    frozenAt = state.frozen
+                )
+
+                else -> ContestStatus.BEFORE(
+                    scheduledStartAt = contest?.startTime,
+                    holdTime = contest?.countdownPauseTime
+                )
+            }
+        }
+
     val contestInfo: ContestInfo
         get() = ContestInfo(
-            name = name,
+            name = contest?.let { it.formalName ?: it.name } ?: "Unknown",
             status = status,
             resultType = ContestResultType.ICPC,
-            contestLength = contestLength,
-            freezeTime = freezeTime,
+            contestLength = contest?.duration ?: 5.hours,
+            freezeTime = contest?.let { it.duration - (it.scoreboardFreezeDuration ?: Duration.ZERO) } ?: 4.hours,
             problemList = problems.values.map { it.toApi() },
             teamList = teams.values.map { it.toApi() } + accounts.values.filter { it.teamId == null }.map { it.toFakeTeam() },
             groupList = groups.values.map { it.toApi() },
-            penaltyPerWrongAttempt = penaltyPerWrongAttempt,
+            penaltyPerWrongAttempt = contest?.penaltyTime ?: 20.minutes,
             penaltyRoundingMode = PenaltyRoundingMode.EACH_SUBMISSION_DOWN_TO_MINUTE,
             organizationList = organizations.values.map { it.toApi() },
             languagesList = languages.values.map { it.toApi() },
@@ -300,19 +319,7 @@ internal class ClicsModel {
 
     private suspend fun processContest(contest: Contest?) {
         require(contest != null) { "Removing contest is not supported" }
-        name = contest.formalName ?: contest.name ?: "Unknown"
-        mainScoreboardGroupId = contest.mainScoreboardGroupId
-        startTime = contest.startTime
-        contestLength = contest.duration
-        freezeTime = contestLength - (contest.scoreboardFreezeDuration ?: Duration.ZERO)
-        holdBeforeStartTime = contest.countdownPauseTime
-        penaltyPerWrongAttempt = (contest.penaltyTime ?: 20.minutes)
-        if (status is ContestStatus.BEFORE) {
-            status = ContestStatus.BEFORE(
-                scheduledStartAt = startTime,
-                holdTime = holdBeforeStartTime
-            )
-        }
+        this.contest = contest
         contestInfoUpdated()
     }
 
@@ -407,30 +414,7 @@ internal class ClicsModel {
 
     private suspend fun processState(state: State?) {
         require(state != null) { "Removing state is not supported" }
-        status = when {
-            state.endOfUpdates != null -> ContestStatus.FINALIZED(
-                startedAt = state.started!!,
-                finishedAt = state.ended!!,
-                finalizedAt = state.endOfUpdates!!,
-                frozenAt = state.frozen
-            )
-
-            state.ended != null -> ContestStatus.OVER(
-                startedAt = state.started!!,
-                finishedAt = state.ended!!,
-                frozenAt = state.frozen
-            )
-
-            state.started != null -> ContestStatus.RUNNING(
-                startedAt = state.started!!,
-                frozenAt = state.frozen
-            )
-
-            else -> ContestStatus.BEFORE(
-                scheduledStartAt = startTime,
-                holdTime = holdBeforeStartTime
-            )
-        }
+        this.state = state
         contestInfoUpdated()
     }
 
@@ -471,7 +455,6 @@ internal class ClicsModel {
             is CommentaryEvent -> processCommentary(event.id, event.data)
             is PersonEvent -> processPerson(event.id, event.data)
             is AccountEvent -> processAccount(event.id, event.data)
-            is PreloadFinishedEvent -> {}
             is AwardEvent, is ClarificationEvent -> {}
             is BatchAwardEvent, is BatchClarificationEvent -> {}
         }

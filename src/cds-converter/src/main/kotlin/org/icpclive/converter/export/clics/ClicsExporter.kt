@@ -232,7 +232,7 @@ internal class ClicsExporter(private val mediaDirectory: Path) : Exporter {
                                     .filter {
                                         when (it.event) {
                                             is IdEvent<*> -> call.hasAccess(it.event.data ?: (it.oldValue as ObjectWithId))
-                                            is BatchEvent<*>, is PreloadFinishedEvent -> error("Not expected here")
+                                            is BatchEvent<*> -> error("Not expected here")
                                             is GlobalEvent<*> -> true
                                         }
                                     }

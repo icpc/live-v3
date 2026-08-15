@@ -364,3 +364,6 @@ artifacts
 *.ipynb
 
 .junie
+.codex
+.claude
+.mcp.json
