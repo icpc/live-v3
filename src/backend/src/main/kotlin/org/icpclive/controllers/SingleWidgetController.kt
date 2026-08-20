@@ -18,6 +18,15 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
     private val widgetScope = CoroutineScope(Dispatchers.Default)
     private var widgetShowScope: CoroutineScope? = null
     private var overlayWidgetId: String? = null
+    private var stateListener: (suspend (WidgetState<SettingsType>) -> Unit)? = null
+
+    fun setStateListener(listener: suspend (WidgetState<SettingsType>) -> Unit) {
+        stateListener = listener
+    }
+
+    private suspend fun notifyStateChanged() {
+        stateListener?.invoke(WidgetState(settings, overlayWidgetId != null))
+    }
 
     suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
         return ObjectStatus(overlayWidgetId != null, settings, id)
@@ -55,17 +64,20 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
     suspend fun setSettings(newSettings: SettingsType) = mutex.withLock {
         checkSettings(newSettings)
         settings = newSettings
+        notifyStateChanged()
     }
 
     suspend fun show() = mutex.withLock {
         cancel()
         showImpl()
+        notifyStateChanged()
     }
 
     suspend fun show(newSettings: SettingsType) = mutex.withLock {
         cancel()
         settings = newSettings
         showImpl()
+        notifyStateChanged()
     }
 
     private suspend fun showImpl() {
@@ -73,7 +85,7 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
         createWidgetAndShow(settings)
     }
 
-    private suspend fun cancel() {
+    private fun cancel() {
         widgetShowScope?.cancel()
         widgetShowScope = null
     }
@@ -81,6 +93,7 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
     suspend fun hide() = mutex.withLock {
         removeWidget()
         cancel()
+        notifyStateChanged()
     }
 
     open suspend fun onDelete() {

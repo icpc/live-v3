@@ -64,6 +64,10 @@ public final class org/icpclive/cds/util/LoggingUtilsKt {
 	public static final fun logger (Lkotlin/reflect/KClass;)Lorg/icpclive/cds/util/Logger;
 }
 
+public final class org/icpclive/cds/util/SerializationUtilsKt {
+	public static final fun withFallback (Lkotlinx/serialization/KSerializer;Lkotlinx/serialization/DeserializationStrategy;)Lkotlinx/serialization/KSerializer;
+}
+
 public final class org/icpclive/cds/util/SharedFlowSubscriptionScope {
 	public fun <init> (Lkotlinx/coroutines/flow/SharedFlow;Lkotlinx/coroutines/flow/MutableStateFlow;)V
 	public final fun acquire (I)V

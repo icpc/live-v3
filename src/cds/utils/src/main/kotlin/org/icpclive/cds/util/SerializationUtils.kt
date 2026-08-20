@@ -36,13 +36,50 @@ public inline fun <T, reified R> KSerializer<T>.map(
     override fun onSerialize(value: R) = onSerialize(value)
 }
 
+/**
+ * Serializer, which writes data in given format, but is able to read [fallback] format too for JSON files.
+ */
+public fun <T> KSerializer<T>.withFallback(fallback: DeserializationStrategy<T>): KSerializer<T> =
+    FallbackSerializer(this, fallback)
+
+private class FallbackSerializer<T>(
+    private val main: KSerializer<T>,
+    private val fallback: DeserializationStrategy<T>,
+) : KSerializer<T> {
+    override val descriptor: SerialDescriptor = main.descriptor
+
+    override fun serialize(encoder: Encoder, value: T) {
+        main.serialize(encoder, value)
+    }
+
+    override fun deserialize(decoder: Decoder): T {
+        if (decoder !is JsonDecoder) return main.deserialize(decoder)
+        val element = decoder.decodeJsonElement()
+        return try {
+            decoder.json.decodeFromJsonElement(main, element)
+        } catch (mainException: SerializationException) {
+            try {
+                decoder.json.decodeFromJsonElement(fallback, element)
+            } catch (fallbackException: SerializationException) {
+                throw SerializationException(
+                    "Failed to deserialize in the main format (${mainException.message}) " +
+                        "and in the fallback format (${fallbackException.message})",
+                    mainException
+                ).also { it.addSuppressed(fallbackException) }
+            }
+        }
+    }
+}
+
 public abstract class DelegatedSerializer<T, D>(name: String, private val delegate: KSerializer<D>) : KSerializer<T> {
     override val descriptor: SerialDescriptor = SerialDescriptor(name, delegate.descriptor)
     protected abstract fun onDeserialize(value: D): T
     protected abstract fun onSerialize(value: T): D
-    override fun deserialize(decoder: Decoder): T = onDeserialize(delegate.deserialize(decoder))
+    // delegating through the decoder/encoder, and not calling the delegate directly,
+    // is required for polymorphic delegates, as the class discriminator is handled there
+    override fun deserialize(decoder: Decoder): T = onDeserialize(decoder.decodeSerializableValue(delegate))
     override fun serialize(encoder: Encoder, value: T) {
-        delegate.serialize(encoder, onSerialize(value))
+        encoder.encodeSerializableValue(delegate, onSerialize(value))
     }
 }
 

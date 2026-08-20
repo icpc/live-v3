@@ -9,9 +9,9 @@ import kotlinx.serialization.json.*
 import kotlinx.serialization.serializer
 import org.icpclive.api.ObjectSettings
 import org.icpclive.api.TypeWithId
+import org.icpclive.cds.util.withFallback
 import org.icpclive.data.Manager
 import org.icpclive.server.ApiActionException
-import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.concurrent.atomics.*
 import kotlin.time.Duration
@@ -22,11 +22,22 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     private val widgetConstructor: (SettingsType) -> OverlayWidgetType,
     settingsSerializer: KSerializer<SettingsType>,
 ) {
-    private val fileSerializer = ListSerializer(settingsSerializer)
+    private val fileSerializer = ListSerializer(
+        WidgetState.serializer(settingsSerializer).withFallback(legacyWidgetStateSerializer(settingsSerializer))
+    )
     private val mutex = Mutex()
+    private val scope = CoroutineScope(Dispatchers.Default)
 
     private val currentID = AtomicInt(0)
-    private var innerData = load()
+    private var innerData: List<SingleWidgetController<SettingsType, OverlayWidgetType>>
+
+    init {
+        val loaded = load()
+        innerData = loaded.map { it.first }
+        scope.launch {
+            mutex.withLock { showVisible(loaded) }
+        }
+    }
 
     suspend fun getStatus() = mutex.withLock {
         innerData.map { it.getStatus() }
@@ -72,17 +83,22 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     suspend fun show(id: Int) {
         mutex.withLock {
             findById(id).show()
+            save()
         }
     }
 
     suspend fun hide(id: Int) {
         mutex.withLock {
             findById(id).hide()
+            save()
         }
     }
     suspend fun hideIfExists(id: Int) {
         mutex.withLock {
-            findByIdOrNull(id)?.hide()
+            findByIdOrNull(id)?.let {
+                it.hide()
+                save()
+            }
         }
     }
 
@@ -92,34 +108,30 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
                 preset.hide()
                 preset.onDelete()
             }
-            innerData = load()
+            val loaded = load()
+            innerData = loaded.map { it.first }
+            showVisible(loaded)
         }
     }
 
     private fun findByIdOrNull(id: Int) = innerData.find { it.id == id }
     private fun findById(id: Int) = findByIdOrNull(id) ?: throw ApiActionException("No such id")
 
-    private fun load() = presetsPath.toFile().takeIf { it.exists() }?.inputStream()?.use {
-            Json.decodeFromStream(fileSerializer, it).map { content ->
-                SingleWidgetController(content, widgetManager, widgetConstructor, currentID.incrementAndFetch())
+    private suspend fun showVisible(loaded: List<Pair<SingleWidgetController<SettingsType, OverlayWidgetType>, Boolean>>) {
+        for ((preset, visible) in loaded) {
+            if (visible) preset.show()
+        }
+    }
+
+    private fun load(): List<Pair<SingleWidgetController<SettingsType, OverlayWidgetType>, Boolean>> = presetsPath.toFile().takeIf { it.exists() }?.inputStream()?.use {
+            Json.decodeFromStream(fileSerializer, it).map { (settings, visible) ->
+                SingleWidgetController(settings, widgetManager, widgetConstructor, currentID.incrementAndFetch()) to visible
             }
         } ?: emptyList()
 
-    private suspend fun save(): Unit = withContext(Dispatchers.IO) {
-        val tempFile = Files.createTempFile(presetsPath.parent, null, null)
-        tempFile.toFile().outputStream().use { file ->
-            jsonPrettyEncoder.encodeToStream(
-                fileSerializer,
-                innerData.map { it.getSettings() },
-                file
-            )
-        }
-        Files.deleteIfExists(presetsPath)
-        Files.move(tempFile, presetsPath)
-    }
-
-    companion object {
-        private val jsonPrettyEncoder = Json { prettyPrint = true }
+    private suspend fun save() {
+        val states = innerData.map { WidgetState(it.getSettings(), it.getStatus().shown) }
+        presetsPath.writeJsonAtomically(fileSerializer, states)
     }
 }
 
