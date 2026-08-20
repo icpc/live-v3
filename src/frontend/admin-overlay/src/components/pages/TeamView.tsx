@@ -129,6 +129,17 @@ const isTeamSatisfiesSearch = (
         .includes(searchValue);
 };
 
+// Automode is not a real team, it's always shown first.
+const compareTeamsByDisplayName = (
+    a: TeamInfoWithStatus,
+    b: TeamInfoWithStatus,
+): number => {
+    if (a.id === null || b.id === null) {
+        return (a.id === null ? 0 : 1) - (b.id === null ? 0 : 1);
+    }
+    return a.shortName.localeCompare(b.shortName);
+};
+
 const convertToTeamViewData = (teams: TeamInfoWithStatus[]): TeamViewData[] => {
     return teams.map((team) => ({
         id: team.id,
@@ -162,9 +173,9 @@ const useTeamsList = (
     const [searchValue, setSearchValue] = useState<string>("");
 
     const filteredTeams = useMemo(() => {
-        return teamsWithStatus.filter((t) =>
-            isTeamSatisfiesSearch(t, searchValue),
-        );
+        return teamsWithStatus
+            .filter((t) => isTeamSatisfiesSearch(t, searchValue))
+            .sort(compareTeamsByDisplayName);
     }, [teamsWithStatus, searchValue]);
 
     const selectedTeam = useMemo(() => {
