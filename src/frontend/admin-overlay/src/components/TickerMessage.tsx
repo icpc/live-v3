@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { Container, IconButton, ButtonGroup } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { errorHandlerWithSnackbar } from "shared-code/errors";
@@ -169,10 +169,10 @@ function TickerPartComponent({
     service,
     part,
 }: TickerPartComponentProps): React.ReactElement {
-    const AddButtonsComponent = createAddButtons(part);
+    const AddButtonsComponent = useMemo(() => createAddButtons(part), [part]);
 
     // TODO: THINK about types
-    const rowsFilter = (row) => row.settings.part === part;
+    const rowsFilter = useCallback((row) => row.settings.part === part, [part]);
 
     return (
         <PresetsManager<TickerMessageSettings>
