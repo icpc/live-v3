@@ -40,9 +40,9 @@ public abstract class DelegatedSerializer<T, D>(name: String, private val delega
     override val descriptor: SerialDescriptor = SerialDescriptor(name, delegate.descriptor)
     protected abstract fun onDeserialize(value: D): T
     protected abstract fun onSerialize(value: T): D
-    override fun deserialize(decoder: Decoder): T = onDeserialize(delegate.deserialize(decoder))
+    override fun deserialize(decoder: Decoder): T = onDeserialize(decoder.decodeSerializableValue(delegate))
     override fun serialize(encoder: Encoder, value: T) {
-        delegate.serialize(encoder, onSerialize(value))
+        encoder.encodeSerializableValue(delegate, onSerialize(value))
     }
 }
 
