@@ -60,8 +60,16 @@ class AnalyticsService(
         }
     }
 
+    private inline fun ignoreApiActionException(block: () -> Unit) {
+        try {
+            block()
+        } catch (e: ApiActionException) {
+
+        }
+    }
+
     private suspend fun <S : ObjectSettings, T : TypeWithId> AnalyticsCompanionPreset.hide(controller: PresetsController<S, T>) {
-        controller.hideIfExists(this.presetId)
+        ignoreApiActionException { controller.hide(this.presetId) }
     }
 
     private suspend fun Action.process(featuredRunsFlow: FlowCollector<FeaturedRunAction>) {
@@ -88,7 +96,7 @@ class AnalyticsService(
                                 action.ttl,
                                 onDelete = { internalActions.emit(AnalyticsAction.AdvertisementExpired(action.messageId, action.commentId, it)) }
                             )
-                            advertisementsController.show(presetId)
+                            ignoreApiActionException { advertisementsController.show(presetId) }
                             comment.copy(advertisement = AnalyticsCompanionPreset(presetId, Clock.System.now() + action.ttl))
                         }
 
@@ -112,7 +120,7 @@ class AnalyticsService(
                                 action.ttl,
                                 onDelete = { internalActions.emit(AnalyticsAction.TickerMessageExpired(action.messageId, action.commentId, it)) }
                             )
-                            tickerController.show(presetId)
+                            ignoreApiActionException { tickerController.show(presetId) }
                             comment.copy(tickerMessage = AnalyticsCompanionPreset(presetId, Clock.System.now() + action.ttl))
                         }
 

@@ -19,9 +19,8 @@ import org.icpclive.data.*
 import org.icpclive.server.adminApiAction
 import org.icpclive.server.configureDefaultConfigRouting
 
-fun Route.configureAdminApiRouting(
-    controllers: Controllers,
-) {
+context(controllers: Controllers)
+fun Route.configureAdminApiRouting() {
     authenticate("admin-api-auth") {
         route("/queue") { setupController(controllers.queue) }
         route("/statistics") { setupController(controllers.statistics) }
