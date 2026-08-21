@@ -29,6 +29,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
 
     private val currentID = AtomicInt(0)
     private var innerData = load()
+    private val deleteCallbacks = mutableMapOf<Int, suspend (Int) -> Unit>()
 
     suspend fun getStatus() = mutex.withLock {
         innerData.map { it.getStatus() }
@@ -40,14 +41,14 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
 
     suspend fun createWidget(settings: SettingsType, ttl: Duration?, onDelete: suspend (Int) -> Unit = {}): Int = mutex.withLock {
         val id = currentID.incrementAndFetch()
-        val wrapper = SingleWidgetController(settings, widgetManager, widgetConstructor, id, onDelete)
-        innerData = innerData.plus(wrapper)
+        innerData = innerData.plus(SingleWidgetController(settings, widgetManager, widgetConstructor, id))
+        deleteCallbacks[id] = onDelete
         save()
         if (ttl != null) {
-            wrapper.launchWhileWidgetExists {
+            // Owned by this controller rather than by the widget, so that delete() can run to completion.
+            launch {
                 delay(ttl)
                 delete(id)
-                // NOTHING can be done here, as coroutine is canceled by delete
             }
         }
         id
@@ -62,12 +63,11 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
 
     suspend fun delete(id: Int) {
         mutex.withLock {
-            findByIdOrNull(id)?.run {
-                hide()
-                onDelete()
-                innerData = innerData.minus(this)
-                save()
-            }
+            val wrapper = findByIdOrNull(id) ?: return
+            wrapper.destroy()
+            deleteCallbacks.remove(id)?.invoke(id)
+            innerData = innerData.minus(wrapper)
+            save()
         }
     }
 
@@ -91,9 +91,9 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
     suspend fun reload() {
         mutex.withLock {
             for (preset in innerData) {
-                preset.hide()
-                preset.onDelete()
+                preset.destroy()
             }
+            deleteCallbacks.clear()
             innerData = load()
         }
     }

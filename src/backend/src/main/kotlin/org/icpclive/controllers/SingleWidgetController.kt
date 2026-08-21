@@ -1,107 +1,108 @@
 package org.icpclive.controllers
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
-import org.icpclive.cds.util.getLogger
 import org.icpclive.data.Manager
 import org.icpclive.util.childScope
 
-private val logger by getLogger()
-
 abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : TypeWithId>(
-    private var settings: SettingsType,
-    private val manager: Manager<DataType>,
+    settings: SettingsType,
+    manager: Manager<DataType>,
     parentScope: CoroutineScope,
     val id: Int? = null,
-) {
-    private val mutex = Mutex()
-    private val widgetScope = parentScope.childScope(Dispatchers.Default)
-    private var widgetShowScope: CoroutineScope? = null
-    private var overlayWidgetId: String? = null
+) : CoroutineScope by parentScope.childScope(Dispatchers.Default) {
+    data class State<SettingsType : ObjectSettings, DataType : TypeWithId>(
+        val settings: SettingsType,
+        val widget: DataType?,
+        val showScope: CoroutineScope?,
+        // Cleared by destroy(), which lets the manager sync below finish gracefully instead of
+        // being cancelled with the removal still pending.
+        val alive: Boolean = true,
+    )
 
-    suspend fun getStatus(): ObjectStatus<SettingsType> = mutex.withLock {
-        return ObjectStatus(overlayWidgetId != null, settings, id)
+    private val state = MutableStateFlow(State<SettingsType, DataType>(settings, null, null))
+
+    private val syncJob = launch {
+        var prevData: DataType? = null
+        state
+            .map { it.widget to it.alive }
+            .distinctUntilChanged()
+            // Emit first, then decide whether to stop, so the final removal is always applied.
+            .transformWhile { (widget, alive) -> emit(widget); alive }
+            .collect { widget ->
+                val prev = prevData
+                if (prev != null && prev.id != widget?.id) manager.remove(prev.id)
+                if (widget != null) manager.add(widget)
+                prevData = widget
+            }
     }
 
-    suspend fun previewWidget(previewSettings: SettingsType = settings) = mutex.withLock {
-        constructWidget(previewSettings)
+    fun getStatus(): ObjectStatus<SettingsType> = state.value.let { (settings, widget, _) ->
+        ObjectStatus(widget != null, settings, id)
     }
 
-    abstract suspend fun constructWidget(settings: SettingsType) : DataType
-    abstract suspend fun onDelete(id:Int)
+    fun getSettings() = state.value.settings
 
-    open suspend fun createWidgetAndShow(settings: SettingsType) {
-        val widget = constructWidget(settings)
-        if (overlayWidgetId != null && overlayWidgetId != widget.id) {
-            logger.warning { "Controller $id is currently showing ${overlayWidgetId}, but was asked to show ${widget.id}, would hide first one silently." }
-            manager.remove(overlayWidgetId!!)
+    suspend fun previewWidget() = previewWidget(state.value.settings)
+    suspend fun previewWidget(previewSettings: SettingsType) = constructWidgetFlow(previewSettings).first()
+
+    abstract suspend fun constructWidgetFlow(settings: SettingsType) : Flow<DataType>
+
+    fun setSettings(newSettings: SettingsType) {
+        state.update { it.copy(settings = newSettings) }
+    }
+
+    fun show() {
+        val showScope = childScope()
+        // Only install the scope while alive, so that a show racing destroy() can't write a widget
+        // into a state the manager sync has already stopped watching.
+        val prev = state.getAndUpdate { if (it.alive) it.copy(showScope = showScope) else it }
+        if (!prev.alive) {
+            showScope.cancel()
+            return
         }
-        manager.add(widget)
-        overlayWidgetId = widget.id
-    }
-
-    open suspend fun removeWidget() {
-        overlayWidgetId?.let { manager.remove(it) }
-        overlayWidgetId = null
-    }
-
-    @IgnorableReturnValue
-    fun launchWhileWidgetExists(block: suspend () -> Unit) = widgetScope.launch { block() }
-    @IgnorableReturnValue
-    fun launchWhileWidgetShown(block: suspend () -> Unit) = widgetShowScope?.launch { block() }
-
-    suspend fun getSettings() = mutex.withLock { settings }
-
-    suspend fun setSettings(newSettings: SettingsType) = mutex.withLock {
-        checkSettings(newSettings)
-        settings = newSettings
-    }
-
-    suspend fun show() = mutex.withLock {
-        cancel()
-        showImpl()
-    }
-
-    suspend fun show(newSettings: SettingsType) = mutex.withLock {
-        cancel()
-        settings = newSettings
-        showImpl()
-    }
-
-    private suspend fun showImpl() {
-        widgetShowScope = CoroutineScope(Dispatchers.Default)
-        createWidgetAndShow(settings)
-    }
-
-    private suspend fun cancel() {
-        widgetShowScope?.cancel()
-        widgetShowScope = null
-    }
-
-    suspend fun hide() = mutex.withLock {
-        removeWidget()
-        cancel()
-    }
-
-    open suspend fun onDelete() {
-        if (id != null) {
-            onDelete(id)
+        prev.showScope?.cancel()
+        showScope.launch {
+            constructWidgetFlow(prev.settings).collect { widget ->
+                state.update {
+                    if (it.showScope !== showScope) {
+                        // someone is already replaced our scope, let's just do nothing, while we are not canceled.
+                        it
+                    } else {
+                        it.copy(widget = widget)
+                    }
+                }
+            }
         }
-        widgetScope.cancel()
     }
-    // throws if settings are bad
-    open suspend fun checkSettings(settings: SettingsType) {}
+
+    fun hide() {
+        val prev = state.getAndUpdate {
+            it.copy(widget = null, showScope = null)
+        }
+        prev.showScope?.cancel()
+    }
+
+    /**
+     * Hides the widget and retires the controller, returning only once the widget is really gone
+     * from the manager. The controller can't be used afterwards.
+     */
+    suspend fun destroy() {
+        val prev = state.getAndUpdate {
+            it.copy(widget = null, showScope = null, alive = false)
+        }
+        prev.showScope?.cancel()
+        syncJob.join()
+        cancel()
+    }
 }
+
 fun <SettingsType : ObjectSettings, DataType : TypeWithId> CoroutineScope.SingleWidgetController(
     settings: SettingsType,
     manager: Manager<DataType>,
     widgetConstructor: (SettingsType) -> DataType,
     id: Int? = null,
-    onDeleteCallback: suspend (Int) -> Unit = {}
 ) = object: SingleWidgetController<SettingsType, DataType>(settings, manager, this@SingleWidgetController, id) {
-    override suspend fun constructWidget(settings: SettingsType) = widgetConstructor(settings)
-
-    override suspend fun onDelete(id: Int) = onDeleteCallback(id)
+    override suspend fun constructWidgetFlow(settings: SettingsType) = flowOf(widgetConstructor(settings))
 }

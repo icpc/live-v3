@@ -77,7 +77,7 @@ enum class ClockType {
 }
 
 @Serializable
-class FullScreenClockSettings(
+data class FullScreenClockSettings(
     val clockType: ClockType = ClockType.STANDARD,
     val showSeconds: Boolean = true,
     val timeZone: String? = null,
