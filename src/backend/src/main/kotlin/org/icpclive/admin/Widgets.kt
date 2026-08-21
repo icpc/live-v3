@@ -3,17 +3,23 @@ package org.icpclive.admin
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.icpclive.Config
 import org.icpclive.api.ObjectSettings
 import org.icpclive.api.TypeWithId
-import org.icpclive.controllers.PresetsController
-import org.icpclive.controllers.SingleWidgetController
+import org.icpclive.controllers.*
+import org.icpclive.data.Controllers
 import org.icpclive.server.ApiActionException
 import org.icpclive.server.adminApiAction
 import kotlin.time.Duration.Companion.milliseconds
 
+fun Route.persistentPath() =
+    "$path.json".split("/").drop(3).fold(Config.presetsDirectory) { p, seg -> p.resolve(seg) }
+
+context(controllers: Controllers)
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupController(
-    controller: SingleWidgetController<SettingsType, OverlayWidgetType>
+    controller: SingleWidgetController<SettingsType, OverlayWidgetType>,
 ) {
+    controllers.persistence.register(controller, persistentPath())
     get {
         // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
         run {
@@ -78,9 +84,11 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
 fun ApplicationCall.id() =
     parameters["id"]?.toIntOrNull() ?: throw ApiActionException("Error load preset by id")
 
+context(controllers: Controllers)
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> Route.setupController(
     controller: PresetsController<SettingsType, OverlayWidgetType>
 ) {
+    controllers.persistence.register(controller, persistentPath())
     get {
         // run is workaround for https://youtrack.jetbrains.com/issue/KT-34051
         run {
@@ -89,11 +97,8 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     }
     post {
         call.adminApiAction {
-            controller.createWidget(call.safeReceive(), null)
+            controller.createWidget(call.safeReceive())
         }
-    }
-    post("/reload") {
-        call.adminApiAction { controller.reload() }
     }
     post("/create_and_show_with_ttl") {
         call.adminApiAction {
@@ -101,7 +106,8 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
                 call.request.queryParameters["ttl"]?.toLongOrNull() ?: throw ApiActionException("ttl should be set")
             controller.createWidget(
                 call.safeReceive(),
-                ttl.milliseconds
+                ttl.milliseconds,
+                onDelete = {}
             ).apply {
                 controller.show(this)
             }

@@ -1,133 +1,95 @@
 package org.icpclive.controllers
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.json.*
-import kotlinx.serialization.serializer
+import kotlinx.coroutines.flow.*
 import org.icpclive.api.ObjectSettings
 import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
 import org.icpclive.server.ApiActionException
 import org.icpclive.util.childScope
-import java.nio.file.Files
-import java.nio.file.Path
-import kotlin.concurrent.atomics.*
+import kotlin.concurrent.atomics.AtomicInt
+import kotlin.concurrent.atomics.incrementAndFetch
 import kotlin.time.Duration
 
 class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeWithId>(
-    private val presetsPath: Path,
     private val widgetManager: Manager<OverlayWidgetType>,
     parentScope: CoroutineScope,
     private val widgetConstructor: (SettingsType) -> OverlayWidgetType,
-    settingsSerializer: KSerializer<SettingsType>,
-) : CoroutineScope by parentScope.childScope(Dispatchers.Default) {
-    private val fileSerializer = ListSerializer(settingsSerializer)
-    private val mutex = Mutex()
+) : CoroutineScope by parentScope.childScope(Dispatchers.Default), PersistentData<List<WidgetState<SettingsType>>> {
 
     private val currentID = AtomicInt(0)
-    private var innerData = load()
-    private val deleteCallbacks = mutableMapOf<Int, suspend (Int) -> Unit>()
 
-    suspend fun getStatus() = mutex.withLock {
-        innerData.map { it.getStatus() }
+    private class Entry<S : ObjectSettings, W : TypeWithId>(
+        val controller: SingleWidgetController<S, W>,
+        val onDelete: (suspend (Int) -> Unit)? = null,
+    )
+
+    private val entries: CompletableDeferred<MutableStateFlow<List<Entry<SettingsType, OverlayWidgetType>>>> =
+        CompletableDeferred()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override val persistentState: Flow<List<WidgetState<SettingsType>>>
+        get() = flow {
+            emitAll(entries.await().flatMapLatest { list ->
+                val flows = list.filter { it.onDelete == null }.map { it.controller.persistentState }
+                if (flows.isEmpty()) flowOf(emptyList()) else combine(flows) { it.toList() }
+            })
+        }.distinctUntilChanged()
+
+    override suspend fun onLoad(data: List<WidgetState<SettingsType>>?) {
+        val loaded = data?.map { state ->
+            Entry(
+                SingleWidgetController(
+                    state.settings,
+                    widgetManager,
+                    widgetConstructor,
+                    currentID.incrementAndFetch()
+                ).also { it.onLoad(state) }
+            )
+        }.orEmpty()
+        entries.complete(MutableStateFlow(loaded))
     }
 
-    suspend fun previewWidget(id: Int) = mutex.withLock {
-        findById(id).previewWidget()
-    }
+    suspend fun getStatus() = entries.await().value.map { it.controller.getStatus() }
 
-    suspend fun createWidget(settings: SettingsType, ttl: Duration?, onDelete: suspend (Int) -> Unit = {}): Int = mutex.withLock {
+    suspend fun previewWidget(id: Int) = findById(id).previewWidget()
+
+    private suspend fun createWidgetImpl(settings: SettingsType, onDelete: (suspend (Int) -> Unit)? = null): Int {
         val id = currentID.incrementAndFetch()
-        innerData = innerData.plus(SingleWidgetController(settings, widgetManager, widgetConstructor, id))
-        deleteCallbacks[id] = onDelete
-        save()
-        if (ttl != null) {
-            // Owned by this controller rather than by the widget, so that delete() can run to completion.
-            launch {
-                delay(ttl)
-                delete(id)
-            }
+        val controller = SingleWidgetController(settings, widgetManager, widgetConstructor, id)
+        controller.onLoad(null)
+        entries.await().update { it.plus(Entry(controller, onDelete)) }
+        return id
+    }
+
+    suspend fun createWidget(settings: SettingsType): Int = createWidgetImpl(settings)
+
+    suspend fun createWidget(settings: SettingsType, ttl: Duration, onDelete: suspend (Int) -> Unit): Int {
+        val id = createWidgetImpl(settings, onDelete)
+        launch {
+            delay(ttl)
+            delete(id)
         }
-        id
+        return id
     }
 
     suspend fun edit(id: Int, content: SettingsType) {
-        mutex.withLock {
-            findById(id).setSettings(content)
-            save()
-        }
+        findById(id).setSettings(content)
     }
 
     suspend fun delete(id: Int) {
-        mutex.withLock {
-            val wrapper = findByIdOrNull(id) ?: return
-            wrapper.destroy()
-            deleteCallbacks.remove(id)?.invoke(id)
-            innerData = innerData.minus(wrapper)
-            save()
-        }
+        val entry = entries.await()
+            .getAndUpdate { list -> list.filterNot { it.controller.id == id } }
+            .find { it.controller.id == id } ?: return
+        entry.controller.destroy()
+        entry.onDelete?.invoke(id)
     }
 
-    suspend fun show(id: Int) {
-        mutex.withLock {
-            findById(id).show()
-        }
-    }
+    suspend fun show(id: Int) { findById(id).show() }
 
-    suspend fun hide(id: Int) {
-        mutex.withLock {
-            findById(id).hide()
-        }
-    }
-    suspend fun hideIfExists(id: Int) {
-        mutex.withLock {
-            findByIdOrNull(id)?.hide()
-        }
-    }
+    suspend fun hide(id: Int) { findById(id).hide() }
 
-    suspend fun reload() {
-        mutex.withLock {
-            for (preset in innerData) {
-                preset.destroy()
-            }
-            deleteCallbacks.clear()
-            innerData = load()
-        }
-    }
-
-    private fun findByIdOrNull(id: Int) = innerData.find { it.id == id }
-    private fun findById(id: Int) = findByIdOrNull(id) ?: throw ApiActionException("No such id")
-
-    private fun load() = presetsPath.toFile().takeIf { it.exists() }?.inputStream()?.use {
-            Json.decodeFromStream(fileSerializer, it).map { content ->
-                SingleWidgetController(content, widgetManager, widgetConstructor, currentID.incrementAndFetch())
-            }
-        } ?: emptyList()
-
-    private suspend fun save(): Unit = withContext(Dispatchers.IO) {
-        val tempFile = Files.createTempFile(presetsPath.parent, null, null)
-        tempFile.toFile().outputStream().use { file ->
-            jsonPrettyEncoder.encodeToStream(
-                fileSerializer,
-                innerData.map { it.getSettings() },
-                file
-            )
-        }
-        Files.deleteIfExists(presetsPath)
-        Files.move(tempFile, presetsPath)
-    }
-
-    companion object {
-        private val jsonPrettyEncoder = Json { prettyPrint = true }
+    private suspend fun findById(id: Int): SingleWidgetController<SettingsType, OverlayWidgetType> {
+        return entries.await().value.find { it.controller.id == id }?.controller ?: throw ApiActionException("No such id")
     }
 }
-
-inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> PresetsController(
-    presetsPath: Path,
-    widgetManager: Manager<OverlayWidgetType>,
-    parentScope: CoroutineScope,
-    noinline widgetConstructor: (SettingsType) -> OverlayWidgetType
-) = PresetsController(presetsPath, widgetManager, parentScope, widgetConstructor, serializer())

@@ -83,7 +83,11 @@ fun Application.module() {
             }
         }
         route("/api") {
-            route("/admin") { configureAdminApiRouting(controllers) }
+            route("/admin") {
+                context(controllers) {
+                    configureAdminApiRouting()
+                }
+            }
             route("/overlay") { configureOverlayRouting() }
         }
         configureMainPageRouting(
@@ -102,6 +106,9 @@ fun Application.module() {
     }
 
     launch(handler) {
+        controllers.persistence.restoreAll()
+        controllers.persistence.startSaving(this)
+
         fun registerKeylogService(config: CDSSettings) {
             val networkSettings = (config as? KtorNetworkSettingsProvider)?.network ?: NetworkSettings()
             DataBus.keylogService.completeOrThrow(KeylogService(networkSettings))

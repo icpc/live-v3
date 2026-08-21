@@ -4,32 +4,54 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.data.Manager
+import org.icpclive.server.ApiActionException
 import org.icpclive.util.childScope
 
 abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : TypeWithId>(
-    settings: SettingsType,
+    private val defaultSettings: SettingsType,
     manager: Manager<DataType>,
     parentScope: CoroutineScope,
     val id: Int? = null,
-) : CoroutineScope by parentScope.childScope(Dispatchers.Default) {
-    data class State<SettingsType : ObjectSettings, DataType : TypeWithId>(
+) : CoroutineScope by parentScope.childScope(Dispatchers.Default), PersistentData<WidgetState<SettingsType>> {
+    data class State<SettingsType : ObjectSettings>(
         val settings: SettingsType,
-        val widget: DataType?,
-        val showScope: CoroutineScope?,
-        // Cleared by destroy(), which lets the manager sync below finish gracefully instead of
-        // being cancelled with the removal still pending.
-        val alive: Boolean = true,
+        val visible: Boolean,
+        val alive: Boolean,
     )
 
-    private val state = MutableStateFlow(State<SettingsType, DataType>(settings, null, null))
+    private val state: CompletableDeferred<MutableStateFlow<State<SettingsType>>> = CompletableDeferred()
 
+    override val persistentState: Flow<WidgetState<SettingsType>>
+        get() = flow {
+            emitAll(state.await()
+                .map { WidgetState(it.settings, it.visible) }
+                .distinctUntilChanged())
+        }
+
+    override suspend fun onLoad(data: WidgetState<SettingsType>?) {
+        val newState: State<SettingsType> = State(data?.settings ?: defaultSettings, visible = false, alive = true)
+        state.complete(MutableStateFlow(newState))
+        if (data?.visible == true) {
+            show()
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val syncJob = launch {
         var prevData: DataType? = null
-        state
-            .map { it.widget to it.alive }
-            .distinctUntilChanged()
-            // Emit first, then decide whether to stop, so the final removal is always applied.
-            .transformWhile { (widget, alive) -> emit(widget); alive }
+        state.await()
+            .transformWhile { state ->
+                // process first non-alive state and stop after it. takeWhile wouldn't emit it, so do it manually
+                emit(state.settings.takeIf { state.visible })
+                state.alive
+            }
+            .flatMapLatest { settings ->
+                if (settings != null) {
+                    constructWidgetFlow(settings)
+                } else {
+                    flowOf(null)
+                }
+            }
             .collect { widget ->
                 val prev = prevData
                 if (prev != null && prev.id != widget?.id) manager.remove(prev.id)
@@ -38,71 +60,48 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
             }
     }
 
-    fun getStatus(): ObjectStatus<SettingsType> = state.value.let { (settings, widget, _) ->
-        ObjectStatus(widget != null, settings, id)
+    suspend fun getStatus(): ObjectStatus<SettingsType> = state.await().value.let { (settings, visible) ->
+        ObjectStatus(visible, settings, id)
     }
 
-    fun getSettings() = state.value.settings
-
-    suspend fun previewWidget() = previewWidget(state.value.settings)
+    suspend fun previewWidget() = previewWidget(state.await().value.settings)
     suspend fun previewWidget(previewSettings: SettingsType) = constructWidgetFlow(previewSettings).first()
 
     abstract suspend fun constructWidgetFlow(settings: SettingsType) : Flow<DataType>
 
-    fun setSettings(newSettings: SettingsType) {
-        state.update { it.copy(settings = newSettings) }
-    }
-
-    fun show() {
-        val showScope = childScope()
-        // Only install the scope while alive, so that a show racing destroy() can't write a widget
-        // into a state the manager sync has already stopped watching.
-        val prev = state.getAndUpdate { if (it.alive) it.copy(showScope = showScope) else it }
-        if (!prev.alive) {
-            showScope.cancel()
-            return
-        }
-        prev.showScope?.cancel()
-        showScope.launch {
-            constructWidgetFlow(prev.settings).collect { widget ->
-                state.update {
-                    if (it.showScope !== showScope) {
-                        // someone is already replaced our scope, let's just do nothing, while we are not canceled.
-                        it
-                    } else {
-                        it.copy(widget = widget)
-                    }
-                }
+    private suspend inline fun changeState(block: (State<SettingsType>) -> State<SettingsType>) {
+        state.await().update {
+            if (!it.alive) {
+                throw ApiActionException("Can't change widget state, it was just deleted")
             }
+            block(it)
         }
     }
 
-    fun hide() {
-        val prev = state.getAndUpdate {
-            it.copy(widget = null, showScope = null)
-        }
-        prev.showScope?.cancel()
+    suspend fun setSettings(newSettings: SettingsType) {
+        changeState { it.copy(settings = newSettings) }
     }
 
-    /**
-     * Hides the widget and retires the controller, returning only once the widget is really gone
-     * from the manager. The controller can't be used afterwards.
-     */
+    suspend fun show() {
+        changeState { it.copy(visible = true) }
+    }
+
+    suspend fun hide() {
+        changeState { it.copy(visible = false) }
+    }
+
     suspend fun destroy() {
-        val prev = state.getAndUpdate {
-            it.copy(widget = null, showScope = null, alive = false)
-        }
-        prev.showScope?.cancel()
+        changeState { it.copy(visible = false, alive = false) }
         syncJob.join()
         cancel()
     }
 }
 
 fun <SettingsType : ObjectSettings, DataType : TypeWithId> CoroutineScope.SingleWidgetController(
-    settings: SettingsType,
+    defaultSettings: SettingsType,
     manager: Manager<DataType>,
     widgetConstructor: (SettingsType) -> DataType,
     id: Int? = null,
-) = object: SingleWidgetController<SettingsType, DataType>(settings, manager, this@SingleWidgetController, id) {
+) = object: SingleWidgetController<SettingsType, DataType>(defaultSettings, manager, this@SingleWidgetController, id) {
     override suspend fun constructWidgetFlow(settings: SettingsType) = flowOf(widgetConstructor(settings))
 }
