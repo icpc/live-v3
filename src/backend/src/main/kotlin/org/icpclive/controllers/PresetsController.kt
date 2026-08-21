@@ -11,6 +11,7 @@ import org.icpclive.api.ObjectSettings
 import org.icpclive.api.TypeWithId
 import org.icpclive.data.Manager
 import org.icpclive.server.ApiActionException
+import org.icpclive.util.childScope
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.concurrent.atomics.*
@@ -19,9 +20,10 @@ import kotlin.time.Duration
 class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeWithId>(
     private val presetsPath: Path,
     private val widgetManager: Manager<OverlayWidgetType>,
+    parentScope: CoroutineScope,
     private val widgetConstructor: (SettingsType) -> OverlayWidgetType,
     settingsSerializer: KSerializer<SettingsType>,
-) {
+) : CoroutineScope by parentScope.childScope(Dispatchers.Default) {
     private val fileSerializer = ListSerializer(settingsSerializer)
     private val mutex = Mutex()
 
@@ -126,5 +128,6 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
 inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : TypeWithId> PresetsController(
     presetsPath: Path,
     widgetManager: Manager<OverlayWidgetType>,
+    parentScope: CoroutineScope,
     noinline widgetConstructor: (SettingsType) -> OverlayWidgetType
-) = PresetsController(presetsPath, widgetManager, widgetConstructor, serializer())
+) = PresetsController(presetsPath, widgetManager, parentScope, widgetConstructor, serializer())

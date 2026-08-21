@@ -19,26 +19,28 @@ import org.icpclive.data.*
 import org.icpclive.server.adminApiAction
 import org.icpclive.server.configureDefaultConfigRouting
 
-fun Route.configureAdminApiRouting() {
+fun Route.configureAdminApiRouting(
+    controllers: Controllers,
+) {
     authenticate("admin-api-auth") {
-        route("/queue") { setupController(Controllers.queue) }
-        route("/statistics") { setupController(Controllers.statistics) }
-        route("/ticker") { setupController(Controllers.ticker) }
+        route("/queue") { setupController(controllers.queue) }
+        route("/statistics") { setupController(controllers.statistics) }
+        route("/ticker") { setupController(controllers.ticker) }
         route("/scoreboard") {
-            setupController(Controllers.scoreboard)
+            setupController(controllers.scoreboard)
             get("/regions") {
                 call.respond(getRegions())
             }
         }
         fun Route.setupTeamViews(name:String, vararg positions: TeamViewPosition) {
             route("/$name") {
-                setupControllerGroup(positions.associate { it.name to Controllers.teamView(it) })
+                setupControllerGroup(positions.associate { it.name to controllers.teamView(it) })
                 positions.forEach { position ->
-                    route("/${position.name}") { setupController(Controllers.teamView(position)) }
+                    route("/${position.name}") { setupController(controllers.teamView(position)) }
                 }
                 get("/teams") { call.respond(getTeams()) }
                 get("/usage_stats") {
-                    val entry = Controllers.getWidgetStats().entries["teamView"] as? WidgetUsageStatisticsEntry.PerTeam
+                    val entry = controllers.getWidgetStats().entries["teamView"] as? WidgetUsageStatisticsEntry.PerTeam
                     call.respond(entry ?: WidgetUsageStatisticsEntry.PerTeam(emptyMap()))
                 }
             }
@@ -52,14 +54,14 @@ fun Route.configureAdminApiRouting() {
             TeamViewPosition.BOTTOM_LEFT,
             TeamViewPosition.BOTTOM_RIGHT
         )
-        route("/fullScreenClock") { setupController(Controllers.fullScreenClock) }
-        route("/teamLocator") { setupController(Controllers.locator) }
+        route("/fullScreenClock") { setupController(controllers.fullScreenClock) }
+        route("/teamLocator") { setupController(controllers.locator) }
 
 
-        route("/advertisement") { setupController(Controllers.advertisement) }
-        route("/picture") { setupController(Controllers.picture) }
+        route("/advertisement") { setupController(controllers.advertisement) }
+        route("/picture") { setupController(controllers.picture) }
         route("/title") {
-            setupController(Controllers.title)
+            setupController(controllers.title)
             get("/templates") {
                 run {
                     val mediaDirectoryFile = Config.mediaDirectory.toFile()
@@ -70,12 +72,12 @@ fun Route.configureAdminApiRouting() {
                 }
             }
         }
-        route("/tickerMessage") { setupController(Controllers.tickerMessage) }
+        route("/tickerMessage") { setupController(controllers.tickerMessage) }
         route("/analytics") { setupAnalytics() }
 
         route("/teamSpotlight") { setupSpotlight() }
 
-        route("/users") { setupUserRouting(Controllers.userController) }
+        route("/users") { setupUserRouting(controllers.userController) }
         get("/advancedJsonPreview") {
             val formatter = Json {
                 prettyPrint = true
@@ -164,7 +166,7 @@ fun Route.configureAdminApiRouting() {
             }
         }
         get("/usage_stats") {
-            call.respond(Controllers.getWidgetStats())
+            call.respond(controllers.getWidgetStats())
         }
     }
     route("/social") {

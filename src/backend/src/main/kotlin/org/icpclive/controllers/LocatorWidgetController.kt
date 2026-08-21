@@ -1,12 +1,13 @@
 package org.icpclive.controllers
 
+import kotlinx.coroutines.CoroutineScope
 import org.icpclive.api.*
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.data.*
 import org.icpclive.server.ApiActionException
 
-class LocatorWidgetController(manager: Manager<in TeamLocatorWidget>) :
-    SingleWidgetController<ExternalTeamLocatorSettings, TeamLocatorWidget>(ExternalTeamLocatorSettings(), manager) {
+class LocatorWidgetController(manager: Manager<TeamLocatorWidget>, parentScope: CoroutineScope) :
+    SingleWidgetController<ExternalTeamLocatorSettings, TeamLocatorWidget>(ExternalTeamLocatorSettings(), manager, parentScope) {
     override suspend fun onDelete(id: Int) {}
 
     private fun TeamLocatorExternalCircleSettings.getTeam(info: ContestInfo) = info.teams[teamId]

@@ -6,7 +6,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.TypeWithId
 
-abstract class Manager<T> {
+abstract class Manager<in T> {
     abstract suspend fun add(item: T)
     abstract suspend fun remove(itemId: String)
 }

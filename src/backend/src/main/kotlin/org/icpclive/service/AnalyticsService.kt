@@ -11,7 +11,6 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.getLogger
 import org.icpclive.controllers.PresetsController
-import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.server.ApiActionException
 import kotlin.time.Clock
@@ -37,7 +36,10 @@ sealed class AnalyticsAction {
 }
 
 
-class AnalyticsService : Service {
+class AnalyticsService(
+    private val advertisementsController: PresetsController<AdvertisementSettings, AdvertisementWidget>,
+    private val tickerController: PresetsController<TickerMessageSettings, TickerMessage>
+) : Service {
     private val internalActions = MutableSharedFlow<AnalyticsAction>()
     private var contestInfo: ContestInfo? = null
     private val messages = mutableMapOf<AnalyticsMessageId, AnalyticsMessage>()
@@ -80,18 +82,18 @@ class AnalyticsService : Service {
                     message,
                     comment = when (action) {
                         is AnalyticsAction.CreateAdvertisement -> {
-                            comment.advertisement?.hide(Controllers.advertisement)
-                            val presetId = Controllers.advertisement.createWidget(
+                            comment.advertisement?.hide(advertisementsController)
+                            val presetId = advertisementsController.createWidget(
                                 AdvertisementSettings(comment.message),
                                 action.ttl,
                                 onDelete = { internalActions.emit(AnalyticsAction.AdvertisementExpired(action.messageId, action.commentId, it)) }
                             )
-                            Controllers.advertisement.show(presetId)
+                            advertisementsController.show(presetId)
                             comment.copy(advertisement = AnalyticsCompanionPreset(presetId, Clock.System.now() + action.ttl))
                         }
 
                         is AnalyticsAction.HideAdvertisement -> {
-                            comment.advertisement?.hide(Controllers.advertisement)
+                            comment.advertisement?.hide(advertisementsController)
                             comment.copy(advertisement = null)
                         }
 
@@ -104,18 +106,18 @@ class AnalyticsService : Service {
                         }
 
                         is AnalyticsAction.CreateTickerMessage -> {
-                            comment.tickerMessage?.hide(Controllers.tickerMessage)
-                            val presetId = Controllers.tickerMessage.createWidget(
+                            comment.tickerMessage?.hide(tickerController)
+                            val presetId = tickerController.createWidget(
                                 TextTickerSettings(TickerPart.LONG, 30000, comment.message),
                                 action.ttl,
                                 onDelete = { internalActions.emit(AnalyticsAction.TickerMessageExpired(action.messageId, action.commentId, it)) }
                             )
-                            Controllers.tickerMessage.show(presetId)
+                            tickerController.show(presetId)
                             comment.copy(tickerMessage = AnalyticsCompanionPreset(presetId, Clock.System.now() + action.ttl))
                         }
 
                         is AnalyticsAction.HideTickerMessage -> {
-                            comment.tickerMessage?.hide(Controllers.tickerMessage)
+                            comment.tickerMessage?.hide(tickerController)
                             comment.copy(tickerMessage = null)
                         }
 

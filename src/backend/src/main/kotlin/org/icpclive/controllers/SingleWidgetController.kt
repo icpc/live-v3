@@ -6,16 +6,18 @@ import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.*
 import org.icpclive.cds.util.getLogger
 import org.icpclive.data.Manager
+import org.icpclive.util.childScope
 
 private val logger by getLogger()
 
 abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : TypeWithId>(
     private var settings: SettingsType,
-    private val manager: Manager<in DataType>,
+    private val manager: Manager<DataType>,
+    parentScope: CoroutineScope,
     val id: Int? = null,
 ) {
     private val mutex = Mutex()
-    private val widgetScope = CoroutineScope(Dispatchers.Default)
+    private val widgetScope = parentScope.childScope(Dispatchers.Default)
     private var widgetShowScope: CoroutineScope? = null
     private var overlayWidgetId: String? = null
 
@@ -92,13 +94,13 @@ abstract class SingleWidgetController<SettingsType : ObjectSettings, DataType : 
     // throws if settings are bad
     open suspend fun checkSettings(settings: SettingsType) {}
 }
-fun <SettingsType : ObjectSettings, DataType : TypeWithId> SingleWidgetController(
+fun <SettingsType : ObjectSettings, DataType : TypeWithId> CoroutineScope.SingleWidgetController(
     settings: SettingsType,
     manager: Manager<DataType>,
     widgetConstructor: (SettingsType) -> DataType,
     id: Int? = null,
     onDeleteCallback: suspend (Int) -> Unit = {}
-) = object: SingleWidgetController<SettingsType, DataType>(settings, manager, id) {
+) = object: SingleWidgetController<SettingsType, DataType>(settings, manager, this@SingleWidgetController, id) {
     override suspend fun constructWidget(settings: SettingsType) = widgetConstructor(settings)
 
     override suspend fun onDelete(id: Int) = onDeleteCallback(id)
