@@ -91,13 +91,10 @@ export const useAnalyticsService = () => {
     const createAdvertisement = (
         messageId: string,
         commentId: string,
-        ttlMs?: number,
+        ttlMs: number,
     ) =>
         apiPost(
-            "/" +
-                messageId +
-                `/${commentId}/advertisement` +
-                (ttlMs === undefined ? "" : "?ttl=" + ttlMs * 1000),
+            "/" + messageId + `/${commentId}/advertisement?ttl=${ttlMs * 1000}`,
             undefined,
             "POST",
         );
@@ -111,13 +108,10 @@ export const useAnalyticsService = () => {
     const createTickerMessage = (
         messageId: string,
         commentId: string,
-        ttlMs?: number,
+        ttlMs: number,
     ) =>
         apiPost(
-            "/" +
-                messageId +
-                `/${commentId}/tickerMessage` +
-                (ttlMs === undefined ? "" : "?ttl=" + ttlMs * 1000),
+            "/" + messageId + `/${commentId}/tickerMessage?ttl=${ttlMs * 1000}`,
             undefined,
             "POST",
         );
