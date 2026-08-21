@@ -4,6 +4,12 @@ plugins {
 
 val workerJobs = sourceSets.create("workerJobs")
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 repositories {
     gradlePluginPortal()
     mavenCentral()
