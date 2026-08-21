@@ -7,13 +7,14 @@ import io.ktor.server.auth.*
 import io.ktor.server.http.content.*
 import io.ktor.server.plugins.conditionalheaders.*
 import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.response.respondRedirect
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
+import org.icpclive.admin.UsersController
 import org.icpclive.admin.configureAdminApiRouting
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
@@ -24,10 +25,7 @@ import org.icpclive.cds.util.fileJsonContentFlow
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.overlay.configureOverlayRouting
-import org.icpclive.server.UsefulLink
-import org.icpclive.server.configureMainPageRouting
-import org.icpclive.server.serverResponseJsonSettings
-import org.icpclive.server.setupDefaultKtorPlugins
+import org.icpclive.server.*
 import org.icpclive.service.KeylogService
 import org.icpclive.service.launchServices
 import kotlin.system.exitProcess
@@ -35,7 +33,7 @@ import kotlin.system.exitProcess
 
 fun main(args: Array<String>): Unit = Config.main(args)
 
-private fun Application.setupKtorPlugins() {
+private fun Application.setupKtorPlugins(userController: UsersController) {
     setupDefaultKtorPlugins()
     install(ContentNegotiation) { json(serverResponseJsonSettings()) }
     install(Authentication) {
@@ -43,14 +41,14 @@ private fun Application.setupKtorPlugins() {
             val config = object : AuthenticationProvider.Config("admin-api-auth") {}
             register(object : AuthenticationProvider(config) {
                 override suspend fun onAuthenticate(context: AuthenticationContext) {
-                    context.principal(Controllers.userController.validateAdminApiCredits("", "")!!)
+                    context.principal(userController.validateAdminApiCredits("", "")!!)
                 }
             })
         } else {
             basic("admin-api-auth") {
                 realm = "Access to the '/api/admin' path"
                 validate { credentials ->
-                    Controllers.userController.validateAdminApiCredits(
+                    userController.validateAdminApiCredits(
                         credentials.name,
                         credentials.password
                     )
@@ -62,7 +60,8 @@ private fun Application.setupKtorPlugins() {
 
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-    setupKtorPlugins()
+    val controllers = Controllers(this)
+    setupKtorPlugins(controllers.userController)
 
     routing {
         staticFiles("/media", Config.mediaDirectory.toFile())
@@ -84,7 +83,7 @@ fun Application.module() {
             }
         }
         route("/api") {
-            route("/admin") { configureAdminApiRouting() }
+            route("/admin") { configureAdminApiRouting(controllers) }
             route("/overlay") { configureOverlayRouting() }
         }
         configureMainPageRouting(
@@ -121,7 +120,6 @@ fun Application.module() {
         ).stateIn(this)
 
         DataBus.visualConfigFlow.completeOrThrow(visualConfigFlow)
-
-        launchServices(loader)
+        launchServices(loader, controllers)
     }
 }
