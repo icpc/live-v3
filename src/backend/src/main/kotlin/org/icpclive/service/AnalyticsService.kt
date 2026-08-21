@@ -24,13 +24,13 @@ sealed class AnalyticsAction {
         abstract val commentId: CommentaryMessageId
     }
 
-    data class CreateAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration?) : AnalyticsCommentaryAction()
-    data class DeleteAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val expectedId: Int? = null) :
-        AnalyticsCommentaryAction()
+    data class CreateAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration) : AnalyticsCommentaryAction()
+    data class HideAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId) : AnalyticsCommentaryAction()
+    data class AdvertisementExpired(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val presetId: Int) : AnalyticsCommentaryAction()
 
-    data class CreateTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration?) : AnalyticsCommentaryAction()
-    data class DeleteTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val expectedId: Int? = null) :
-        AnalyticsCommentaryAction()
+    data class CreateTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration) : AnalyticsCommentaryAction()
+    data class HideTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId) : AnalyticsCommentaryAction()
+    data class TickerMessageExpired(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val presetId: Int) : AnalyticsCommentaryAction()
 
     data class MakeRunFeatured(override val messageId: AnalyticsMessageId, val mediaType: TeamMediaType) : AnalyticsAction()
     data class MakeRunNotFeatured(override val messageId: AnalyticsMessageId) : AnalyticsAction()
@@ -84,15 +84,19 @@ class AnalyticsService : Service {
                             val presetId = Controllers.advertisement.createWidget(
                                 AdvertisementSettings(comment.message),
                                 action.ttl,
-                                onDelete = { internalActions.emit(AnalyticsAction.DeleteAdvertisement(action.messageId, action.commentId, it)) }
+                                onDelete = { internalActions.emit(AnalyticsAction.AdvertisementExpired(action.messageId, action.commentId, it)) }
                             )
                             Controllers.advertisement.show(presetId)
-                            comment.copy(advertisement = AnalyticsCompanionPreset(presetId, action.ttl?.let { Clock.System.now() + it }))
+                            comment.copy(advertisement = AnalyticsCompanionPreset(presetId, Clock.System.now() + action.ttl))
                         }
 
-                        is AnalyticsAction.DeleteAdvertisement -> {
-                            if (action.expectedId == null || comment.advertisement?.presetId == action.expectedId) {
-                                comment.advertisement?.hide(Controllers.advertisement)
+                        is AnalyticsAction.HideAdvertisement -> {
+                            comment.advertisement?.hide(Controllers.advertisement)
+                            comment.copy(advertisement = null)
+                        }
+
+                        is AnalyticsAction.AdvertisementExpired -> {
+                            if (comment.advertisement?.presetId == action.presetId) {
                                 comment.copy(advertisement = null)
                             } else {
                                 comment
@@ -104,15 +108,19 @@ class AnalyticsService : Service {
                             val presetId = Controllers.tickerMessage.createWidget(
                                 TextTickerSettings(TickerPart.LONG, 30000, comment.message),
                                 action.ttl,
-                                onDelete = { internalActions.emit(AnalyticsAction.DeleteTickerMessage(action.messageId, action.commentId, it)) }
+                                onDelete = { internalActions.emit(AnalyticsAction.TickerMessageExpired(action.messageId, action.commentId, it)) }
                             )
                             Controllers.tickerMessage.show(presetId)
-                            comment.copy(tickerMessage = AnalyticsCompanionPreset(presetId, action.ttl?.let { Clock.System.now() + it }))
+                            comment.copy(tickerMessage = AnalyticsCompanionPreset(presetId, Clock.System.now() + action.ttl))
                         }
 
-                        is AnalyticsAction.DeleteTickerMessage -> {
-                            if (action.expectedId == null || comment.tickerMessage?.presetId == action.expectedId) {
-                                comment.tickerMessage?.hide(Controllers.tickerMessage)
+                        is AnalyticsAction.HideTickerMessage -> {
+                            comment.tickerMessage?.hide(Controllers.tickerMessage)
+                            comment.copy(tickerMessage = null)
+                        }
+
+                        is AnalyticsAction.TickerMessageExpired -> {
+                            if (comment.tickerMessage?.presetId == action.presetId) {
                                 comment.copy(tickerMessage = null)
                             } else {
                                 comment

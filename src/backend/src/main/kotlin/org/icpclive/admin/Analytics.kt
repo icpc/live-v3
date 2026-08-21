@@ -27,13 +27,15 @@ fun Route.setupAnalytics() {
 
     fun Route.presetWidget(
         name: String,
-        showAction: (id: AnalyticsMessageId, commentId: CommentaryMessageId, ttlMs: Duration?) -> AnalyticsAction,
+        showAction: (id: AnalyticsMessageId, commentId: CommentaryMessageId, ttl: Duration) -> AnalyticsAction,
         hideAction: (id: AnalyticsMessageId, commentId: CommentaryMessageId) -> AnalyticsAction,
     ) {
         route("/{commentId}/$name") {
             post {
                 call.adminApiAction {
-                    actionsFlow.emit(showAction(call.id(), call.commentId(), call.request.queryParameters["ttl"]?.toLong()?.milliseconds))
+                    val ttl = call.request.queryParameters["ttl"]?.toLongOrNull()
+                        ?: throw ApiActionException("ttl should be set")
+                    actionsFlow.emit(showAction(call.id(), call.commentId(), ttl.milliseconds))
                 }
             }
             delete {
@@ -51,12 +53,12 @@ fun Route.setupAnalytics() {
         presetWidget(
             "advertisement",
             AnalyticsAction::CreateAdvertisement,
-            AnalyticsAction::DeleteAdvertisement
+            AnalyticsAction::HideAdvertisement
         )
         presetWidget(
             "tickerMessage",
             AnalyticsAction::CreateTickerMessage,
-            AnalyticsAction::DeleteTickerMessage
+            AnalyticsAction::HideTickerMessage
         )
         post("/featuredRun") {
             call.adminApiAction {
