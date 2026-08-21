@@ -32,7 +32,8 @@ inline fun <reified SettingsType : ObjectSettings, reified OverlayWidgetType : T
     }
     post("/show_with_settings") {
         call.adminApiAction {
-            controller.show(call.safeReceive())
+            controller.setSettings(call.safeReceive())
+            controller.show()
         }
     }
     post("/hide") {
