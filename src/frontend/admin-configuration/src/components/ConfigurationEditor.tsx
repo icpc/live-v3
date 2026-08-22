@@ -162,14 +162,14 @@ export function ConfigurationEditor({
                             schema={schema}
                             defaultValue={content}
                             onChange={(value: string) => setContent(value)}
-                            readonly={true}
+                            readonly={readonly}
                         />
                     )}
                     {editorType === EditorLanguage.CSV && (
                         <CsvCodeEditor
                             defaultValue={content}
                             onChange={(value: string) => setContent(value)}
-                            readonly={true}
+                            readonly={readonly}
                         />
                     )}
                 </Box>
