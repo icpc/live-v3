@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import {
     Container,
     Box,
@@ -51,6 +57,7 @@ import {
     useTeamViewWidgetUsageStats,
 } from "@admin/services/teamViewService";
 import { ObjectStatus } from "@admin/services/abstractSingleWidget";
+import { useLocalStorageState } from "@admin/utils";
 
 interface TeamInfoWithStatus extends TeamInfo {
     shown?: boolean;
@@ -115,6 +122,32 @@ const AUTOMODE_TEAM: TeamInfoWithStatus = {
     isOutOfContest: false,
     reactionVideoTemplate: null,
     sourceTemplate: null,
+};
+
+// `null` is an “Empty” choice, so it can't double as “nothing stored yet”.
+type StoredMediaType = TeamMediaType | "empty" | "unset";
+
+const useStoredMediaType = (
+    key: string,
+    defaultValue: TeamMediaType | null,
+): [TeamMediaType | null, (value: TeamMediaType | null) => void] => {
+    const [stored, setStored] = useLocalStorageState<StoredMediaType>(
+        key,
+        "unset",
+    );
+    const value =
+        stored === "unset" ? defaultValue : stored === "empty" ? null : stored;
+    return [value, (v) => setStored(v ?? "empty")];
+};
+
+const POSITION_VARIANT: Record<TeamViewPosition, TeamViewContentType> = {
+    [TeamViewPosition.SINGLE]: "single",
+    [TeamViewPosition.PVP_TOP]: "pvp",
+    [TeamViewPosition.PVP_BOTTOM]: "pvp",
+    [TeamViewPosition.TOP_LEFT]: "split",
+    [TeamViewPosition.TOP_RIGHT]: "split",
+    [TeamViewPosition.BOTTOM_LEFT]: "split",
+    [TeamViewPosition.BOTTOM_RIGHT]: "split",
 };
 
 const isTeamSatisfiesSearch = (
@@ -398,9 +431,9 @@ const TeamViewManager: React.FC = () => {
     const splitService = useTeamViewWidgetService("split", setStatus);
     const usageStats = useTeamViewWidgetUsageStats(singleService);
 
-    const [variant, setVariant] = useState<TeamViewContentType | undefined>(
-        undefined,
-    );
+    const [variant, setVariant] = useLocalStorageState<
+        TeamViewContentType | undefined
+    >("teamView.variant", undefined);
 
     const currentService: TeamViewWidgetService = useMemo(() => {
         if (variant === "split") {
@@ -438,25 +471,38 @@ const TeamViewManager: React.FC = () => {
     const [selectedInstance, setSelectedInstance] = useState<
         TeamViewPosition | undefined
     >(undefined);
-    const [mediaType1, setMediaType1] = useState<TeamMediaType | undefined>(
-        undefined,
-    );
-    const [mediaType2, setMediaType2] = useState<TeamMediaType | undefined>(
-        undefined,
-    );
-    const [statusShown, setStatusShown] = useState<boolean>(true);
-    const [achievementShown, setAchievementShown] = useState<boolean>(false);
-    const [timeLineShown, setTimeLineShown] = useState<boolean>(true);
-
-    const [allowedMediaTypes, disableMediaTypes] = useMemo(
-        () => [
+    const defaultMediaTypes = useMemo(
+        () =>
             DEFAULT_MEDIA_TYPES.filter(
-                (m) =>
-                    m &&
-                    (selectedTeam?.id
-                        ? selectedTeam.medias[m]
-                        : teamsAvailableMedias.includes(m)),
+                (m) => m && teamsAvailableMedias.includes(m),
             ),
+        [teamsAvailableMedias],
+    );
+    const [mediaType1, setMediaType1] = useStoredMediaType(
+        "teamView.mediaType1",
+        defaultMediaTypes[0] ?? null,
+    );
+    const [mediaType2, setMediaType2] = useStoredMediaType(
+        "teamView.mediaType2",
+        defaultMediaTypes[1] ?? null,
+    );
+    const [statusShown, setStatusShown] = useLocalStorageState<boolean>(
+        "teamView.statusShown",
+        true,
+    );
+    // If no choices were made, shows whether any team has achievement
+    // media at all.
+    const [storedAchievementShown, setAchievementShown] = useLocalStorageState<
+        boolean | undefined
+    >("teamView.achievementShown", undefined);
+    const achievementShown = storedAchievementShown ?? teamsHasAchievement;
+    const [timeLineShown, setTimeLineShown] = useLocalStorageState<boolean>(
+        "teamView.timeLineShown",
+        true,
+    );
+
+    const disableMediaTypes = useMemo(
+        () =>
             DEFAULT_MEDIA_TYPES.filter(
                 (m) =>
                     m &&
@@ -464,67 +510,43 @@ const TeamViewManager: React.FC = () => {
                         ? selectedTeam.medias[m]
                         : teamsAvailableMedias.includes(m)),
             ),
-        ],
         [teamsAvailableMedias, selectedTeam],
     );
 
+    const initializedRef = useRef(false);
     useEffect(() => {
-        if (Object.values(status).length === 7 && variant === undefined) {
-            const shownInstance = Object.entries(status).find(
-                ([, i]) => (i as ObjectStatus<ExternalTeamViewSettings>).shown,
-            );
-            if (!shownInstance || shownInstance[0] === null) {
-                setVariant("single");
-            } else if (shownInstance[0].startsWith("PVP")) {
-                setVariant("pvp");
-            } else {
-                setVariant("split");
-            }
-
-            if (mediaType1 === undefined && rawTeams.length > 0) {
-                if (
-                    shownInstance &&
-                    (shownInstance[1] as ObjectStatus<ExternalTeamViewSettings>)
-                        .settings.mediaTypes.length > 0
-                ) {
-                    setMediaType1(
-                        (
-                            shownInstance[1] as ObjectStatus<ExternalTeamViewSettings>
-                        ).settings.mediaTypes[0],
-                    );
-                } else {
-                    setMediaType1(
-                        allowedMediaTypes.length > 0
-                            ? allowedMediaTypes[0]
-                            : null,
-                    );
-                }
-            }
-            if (mediaType2 === undefined && rawTeams.length > 0) {
-                if (
-                    shownInstance &&
-                    (shownInstance[1] as ObjectStatus<ExternalTeamViewSettings>)
-                        .settings.mediaTypes.length > 1
-                ) {
-                    setMediaType2(
-                        (
-                            shownInstance[1] as ObjectStatus<ExternalTeamViewSettings>
-                        ).settings.mediaTypes[1],
-                    );
-                } else {
-                    setMediaType2(
-                        allowedMediaTypes.length > 1
-                            ? allowedMediaTypes[1]
-                            : null,
-                    );
-                }
-            }
-            if (rawTeams.some((t) => t.medias.achievement)) {
-                setAchievementShown(true);
-            }
-            setTimeLineShown(true);
+        if (initializedRef.current) {
+            return;
         }
-    }, [status, mediaType1, mediaType2, rawTeams, variant, allowedMediaTypes]);
+        if (Object.values(status).length !== 7) {
+            return;
+        }
+        initializedRef.current = true;
+
+        const shownInstance = Object.entries(status).find(
+            ([, i]) => (i as ObjectStatus<ExternalTeamViewSettings>).shown,
+        ) as
+            | [TeamViewPosition, ObjectStatus<ExternalTeamViewSettings>]
+            | undefined;
+        if (shownInstance === undefined) {
+            setVariant(variant ?? "single");
+            return;
+        }
+
+        const [position, { settings }] = shownInstance;
+        const shownVariant = POSITION_VARIANT[position] ?? "single";
+        setVariant(shownVariant);
+        setMediaType1(settings.mediaTypes?.[0] ?? null);
+        setMediaType2(settings.mediaTypes?.[1] ?? null);
+        setStatusShown(settings.showTaskStatus ?? true);
+        if (shownVariant !== "split") {
+            // Split mode resets those to `false`, we ignore that
+            setTimeLineShown(settings.showTimeLine ?? true);
+            if (settings.showAchievement !== undefined) {
+                setAchievementShown(settings.showAchievement);
+            }
+        }
+    }, [status, variant]);
 
     const onShow = useCallback(() => {
         const settings = {
