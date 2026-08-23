@@ -1,0 +1,154 @@
+[
+    {
+        "type": "overrideProblems",
+        "rules": {
+            "cowsplacement":      { "color": "#85461E" },
+            "robotai":            { "color": "#F032E6" },
+            "colortriangleinter": { "color": "#42D4F4" },
+            "drknapsack":         { "color": "#0000FF" },
+            "keruen":             { "color": "#FFFFFF" },
+            "coloredgrid":        { "color": "#FFC0CB" },
+            "xorarrayeasy":       { "color": "#800080" },
+            "xorarray":           { "color": "#708090" },
+            "querycomps":         { "color": "#40E0D0" },
+            "festival":           { "color": "#000000" }
+        }
+    },
+    {
+        "type": "overrideScoreboardSettings",
+        "showTeamsWithoutSubmissions": true
+    },
+    {
+        "type": "overrideContestSettings",
+        "freezeTimeSeconds": 10800
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "site": {
+                "from": "{peer}",
+                "rules": {
+                    "[0123]\\d": {
+                        "site": "astana"
+                    },
+                    "4.*": {
+                        "site": "baku"
+                    }
+                }
+            }
+        },
+        "displayName": "{name}",
+        "fullName": "{name}",
+        "extraGroups": [
+            "{regexes.site.site}"
+        ],
+        "medias": {
+            "screen": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://{regexes.site.site}.acme.cat",
+                "peerName": "{peer}",
+                "streamType": "desktop",
+                "credential": "paunches-hologram-musicals-harelips-wrier"
+            },
+            "camera": {
+                "type": "WebRTCGrabberConnection",
+                "url": "https://{regexes.site.site}.acme.cat",
+                "peerName": "{peer}",
+                "streamType": "webcam",
+                "credential": "paunches-hologram-musicals-harelips-wrier"
+            },
+            "achievement": {
+                "type": "Image",
+                "url": "/media/ach/{team.id}.svg"
+            }
+        }
+    },
+    {
+        /* Baku contestants don't have cameras, override them to photos. */
+        "type": "overrideTeams",
+        "rules": {
+            "magnuscarlsen321": {
+                "medias": {
+                    "camera": {
+                        "type": "Image",
+                        "url": "/media/photo/magnuscarlsen321.jpg"
+                    }
+                }
+            },
+            "nuris": {
+                "medias": {
+                    "camera": {
+                        "type": "Image",
+                        "url": "/media/photo/nuris.jpg"
+                    }
+                }
+            },
+            "timu4in": {
+                "medias": {
+                    "camera": {
+                        "type": "Image",
+                        "url": "/media/photo/timu4in.jpg"
+                    }
+                }
+            },
+            "mduba": {
+                "medias": {
+                    "camera": {
+                        "type": "Image",
+                        "url": "/media/photo/mduba.jpg"
+                    }
+                }
+            },
+            "chiferr": {
+                "medias": {
+                    "camera": {
+                        "type": "Image",
+                        "url": "/media/photo/chiferr.jpg"
+                    }
+                }
+            },
+            "chifwin": {
+                "medias": {
+                    "camera": {
+                        "type": "Image",
+                        "url": "/media/photo/chifwin.jpg"
+                    }
+                }
+            },
+            "lev1106": {
+                "medias": {
+                    "camera": {
+                        "type": "Image",
+                        "url": "/media/photo/lev1106.jpg"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "type": "overrideTeams",
+        "rules": {
+            "erkanat": { "extraGroups": ["east"] },
+            "mendeke": { "extraGroups": ["east"] },
+            "dibamboo": { "extraGroups": ["north"] },
+            "dobri_oke": { "extraGroups": ["west"] },
+            "aws": { "extraGroups": ["east"] },
+            "aldiyar_a": { "extraGroups": ["east"] },
+            "shn": { "extraGroups": ["north"] },
+            "pepsi2026": { "extraGroups": ["west"] },
+            "sultanbi": { "extraGroups": ["west"] },
+            "assanali": { "extraGroups": ["north"] },
+            "mirasm": { "extraGroups": ["south"] },
+            "kanye_east": { "extraGroups": ["south"] },
+            "nr_ulan": { "extraGroups": ["west"] },
+            "syanvu1": { "extraGroups": ["west"] },
+            "uwbt17": { "extraGroups": ["north"] }
+        }
+    },
+    {
+        "type": "addMedals",
+        "gold": 1,
+        "silver": 1,
+        "bronze": 1
+    }
+]

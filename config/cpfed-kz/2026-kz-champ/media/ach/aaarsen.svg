@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1488" height="984" viewBox="0 0 1488 984">
+  <defs>
+    <clipPath id="kcpcBarClip">
+      <rect x="0" y="837" width="1488" height="147"/>
+    </clipPath>
+    <filter id="kcpcShadow" x="-2%" y="-15%" width="108%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <g clip-path="url(#kcpcBarClip)" filter="url(#kcpcShadow)">
+    <rect x="0" y="837" width="1488" height="147" fill="#FAFAF8"/>
+    <rect x="0" y="837" width="10" height="147" fill="#E3312C"/>
+    <rect x="0" y="978" width="1488" height="6" fill="#E3312C"/>
+    <path d="M810 837 L970 837 L970 984 L862 984 Z" fill="#E3312C" opacity="0.08"/>
+    <line x1="176" y1="858" x2="176" y2="963" stroke="#D8D8D3" stroke-width="2"/>
+    <svg x="34" y="859" width="124" height="65" viewBox="0 0 166 87" preserveAspectRatio="xMidYMid meet"><path d="M0 0H11.3849V15.2905H62.9164L68.0094 0H80.1131L73.2821 20.3073L80.1131 40.6152H68.0094L62.9759 25.5038H11.3849V40.6152H0V0Z" fill="#E3312C"/>
+<path d="M101.459 0.0305838H165.454V10.2439H101.459C89.1756 10.2439 89.1756 30.3721 101.459 30.3721H165.454V40.5853H101.459C72.9976 40.5853 72.9976 0.0300293 101.459 0.0300293V0.0305838Z" fill="#E3312C"/>
+<path d="M11.3849 55.8285V60.786H62.2572C63.5156 60.786 64.1147 60.308 64.1147 58.5163C64.1147 56.7246 63.5156 55.8285 62.2572 55.8285H11.3849ZM0 45.6152H62.2572C71.0057 45.6152 75.4996 50.2738 75.4996 58.5163C75.4996 66.7588 71.0057 70.9993 62.2572 70.9993H11.3849V86.2299H0V45.6152Z" fill="#E3312C"/>
+<path d="M101.459 45.6456H165.454V55.8588H101.459C89.1756 55.8588 89.1756 75.9871 101.459 75.9871H165.454V86.2003H101.459C72.9976 86.2003 72.9976 45.645 101.459 45.645V45.6456Z" fill="#E3312C"/></svg>
+    <text x="198" y="881" fill="#181818" font-family="Helvetica" font-size="39" font-weight="700" text-anchor="start">Арсен Мужиков</text>
+    <text x="198" y="913" fill="#606064" font-family="Helvetica" font-size="19" font-weight="400" text-anchor="start">@aaarsen · Астана · баклавариат AITU</text>
+    <text x="198" y="946" fill="#181818" font-family="Helvetica" font-size="21" font-weight="700" text-anchor="start">Участник ICPC World Finals 2025</text>
+    <text x="198" y="966" fill="#606064" font-family="Helvetica" font-size="16" font-weight="400" text-anchor="start">Любит FFT, структуры данных и компьютерные игры</text>
+  </g>
+</svg>
