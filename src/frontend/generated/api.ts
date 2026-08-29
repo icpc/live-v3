@@ -855,6 +855,7 @@ export namespace TickerEvent {
   export interface AddMessage {
     type: TickerEvent.Type.AddMessage;
     message: TickerMessage;
+    showOrder: number;
   }
   
   export interface RemoveMessage {
@@ -864,7 +865,7 @@ export namespace TickerEvent {
   
   export interface TickerSnapshot {
     type: TickerEvent.Type.TickerSnapshot;
-    messages: TickerMessage[];
+    messages: OrderedTickerMessage[];
   }
 }
 
@@ -960,6 +961,11 @@ export interface text {
   part: TickerPart;
   periodMs: number;
   text: string;
+}
+
+export interface OrderedTickerMessage {
+  message: TickerMessage;
+  showOrder: number;
 }
 
 export type SolutionsStatistic =

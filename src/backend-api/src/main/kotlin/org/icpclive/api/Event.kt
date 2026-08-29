@@ -52,8 +52,11 @@ class ModifyRunInQueueEvent(val info: QueueRunInfo) : QueueEvent()
 class QueueSnapshotEvent(val infos: List<QueueRunInfo>) : QueueEvent()
 
 @Serializable
+class OrderedTickerMessage(val message: TickerMessage, val showOrder: Long)
+
+@Serializable
 @SerialName("AddMessage")
-class AddMessageTickerEvent(val message: TickerMessage) : TickerEvent()
+class AddMessageTickerEvent(val message: TickerMessage, val showOrder: Long) : TickerEvent()
 
 @Serializable
 @SerialName("RemoveMessage")
@@ -61,7 +64,7 @@ class RemoveMessageTickerEvent(val messageId: String) : TickerEvent()
 
 @Serializable
 @SerialName("TickerSnapshot")
-class TickerSnapshotEvent(val messages: List<TickerMessage>) : TickerEvent()
+class TickerSnapshotEvent(val messages: List<OrderedTickerMessage>) : TickerEvent()
 
 @Serializable
 @SerialName("UpdateAnalyticsMessage")
