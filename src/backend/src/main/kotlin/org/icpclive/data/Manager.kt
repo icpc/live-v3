@@ -6,46 +6,49 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.TypeWithId
 
-abstract class Manager<T> {
-    abstract suspend fun add(item: T)
+abstract class Manager<in T> {
+    abstract suspend fun add(item: T, showOrder: Long)
     abstract suspend fun remove(itemId: String)
 }
+
+data class Ordered<out T>(val item: T, val showOrder: Long)
 
 abstract class ManagerWithEvents<T : TypeWithId, E> : Manager<T>() {
     private val mutex = Mutex()
     private var timer = 0L
-    private val items = mutableListOf<T>()
+    private val items = mutableListOf<Ordered<T>>()
 
     private suspend fun sendEvent(e: E) {
         timer++
         flowWrite.emit(timer to e)
     }
 
-    protected abstract fun createAddEvent(item: T): E
+    protected abstract fun createAddEvent(item: T, showOrder: Long): E
     protected abstract fun createRemoveEvent(id: String): E
-    protected abstract fun createSnapshotEvent(items: List<T>): E
+    protected abstract fun createSnapshotEvent(items: List<Ordered<T>>): E
     protected open fun onItemAdd(item: T) {}
     protected open fun onItemRemove(item: T) {}
 
     protected suspend fun traverse(block: (T) -> Unit) = mutex.withLock {
-        items.forEach(block)
+        items.forEach { block(it.item) }
     }
 
     @IgnorableReturnValue
     private fun removeById(id: String) : Boolean {
-        val myItems = items.filter { it.id == id }
+        val myItems = items.filter { it.item.id == id }
         for (item in myItems) {
-            onItemRemove(item)
+            onItemRemove(item.item)
         }
         items.removeAll(myItems)
         return myItems.isNotEmpty()
     }
 
-    override suspend fun add(item: T) = mutex.withLock {
+    override suspend fun add(item: T, showOrder: Long) = mutex.withLock {
         removeById(item.id) // We don't need the remove event, as create considered as the set on frontend.
-        items.add(item)
+        items.add(Ordered(item, showOrder))
+        items.sortBy { it.showOrder }
         onItemAdd(item)
-        sendEvent(createAddEvent(item))
+        sendEvent(createAddEvent(item, showOrder))
     }
 
     override suspend fun remove(itemId: String) = mutex.withLock {

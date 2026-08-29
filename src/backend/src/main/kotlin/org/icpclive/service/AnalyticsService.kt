@@ -11,11 +11,11 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.getLogger
 import org.icpclive.controllers.PresetsController
-import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.server.ApiActionException
 import kotlin.time.Clock
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 sealed class AnalyticsAction {
     abstract val messageId: AnalyticsMessageId
@@ -24,20 +24,23 @@ sealed class AnalyticsAction {
         abstract val commentId: CommentaryMessageId
     }
 
-    data class CreateAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration?) : AnalyticsCommentaryAction()
-    data class DeleteAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val expectedId: Int? = null) :
-        AnalyticsCommentaryAction()
+    data class CreateAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration) : AnalyticsCommentaryAction()
+    data class HideAdvertisement(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId) : AnalyticsCommentaryAction()
+    data class AdvertisementExpired(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val presetId: Int) : AnalyticsCommentaryAction()
 
-    data class CreateTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration?) : AnalyticsCommentaryAction()
-    data class DeleteTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val expectedId: Int? = null) :
-        AnalyticsCommentaryAction()
+    data class CreateTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val ttl: Duration) : AnalyticsCommentaryAction()
+    data class HideTickerMessage(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId) : AnalyticsCommentaryAction()
+    data class TickerMessageExpired(override val messageId: AnalyticsMessageId, override val commentId: CommentaryMessageId, val presetId: Int) : AnalyticsCommentaryAction()
 
     data class MakeRunFeatured(override val messageId: AnalyticsMessageId, val mediaType: TeamMediaType) : AnalyticsAction()
     data class MakeRunNotFeatured(override val messageId: AnalyticsMessageId) : AnalyticsAction()
 }
 
 
-class AnalyticsService : Service {
+class AnalyticsService(
+    private val advertisementsController: PresetsController<AdvertisementSettings, AdvertisementWidget>,
+    private val tickerController: PresetsController<TickerMessageSettings, TickerMessage>
+) : Service {
     private val internalActions = MutableSharedFlow<AnalyticsAction>()
     private var contestInfo: ContestInfo? = null
     private val messages = mutableMapOf<AnalyticsMessageId, AnalyticsMessage>()
@@ -58,8 +61,16 @@ class AnalyticsService : Service {
         }
     }
 
+    private inline fun ignoreApiActionException(block: () -> Unit) {
+        try {
+            block()
+        } catch (e: ApiActionException) {
+
+        }
+    }
+
     private suspend fun <S : ObjectSettings, T : TypeWithId> AnalyticsCompanionPreset.hide(controller: PresetsController<S, T>) {
-        controller.hideIfExists(this.presetId)
+        ignoreApiActionException { controller.hide(this.presetId) }
     }
 
     private suspend fun Action.process(featuredRunsFlow: FlowCollector<FeaturedRunAction>) {
@@ -80,19 +91,23 @@ class AnalyticsService : Service {
                     message,
                     comment = when (action) {
                         is AnalyticsAction.CreateAdvertisement -> {
-                            comment.advertisement?.hide(Controllers.advertisement)
-                            val presetId = Controllers.advertisement.createWidget(
+                            comment.advertisement?.hide(advertisementsController)
+                            val presetId = advertisementsController.createWidget(
                                 AdvertisementSettings(comment.message),
                                 action.ttl,
-                                onDelete = { internalActions.emit(AnalyticsAction.DeleteAdvertisement(action.messageId, action.commentId, it)) }
+                                onDelete = { internalActions.emit(AnalyticsAction.AdvertisementExpired(action.messageId, action.commentId, it)) }
                             )
-                            Controllers.advertisement.show(presetId)
-                            comment.copy(advertisement = AnalyticsCompanionPreset(presetId, action.ttl?.let { Clock.System.now() + it }))
+                            ignoreApiActionException { advertisementsController.show(presetId) }
+                            comment.copy(advertisement = AnalyticsCompanionPreset(presetId, Clock.System.now() + action.ttl))
                         }
 
-                        is AnalyticsAction.DeleteAdvertisement -> {
-                            if (action.expectedId == null || comment.advertisement?.presetId == action.expectedId) {
-                                comment.advertisement?.hide(Controllers.advertisement)
+                        is AnalyticsAction.HideAdvertisement -> {
+                            comment.advertisement?.hide(advertisementsController)
+                            comment.copy(advertisement = null)
+                        }
+
+                        is AnalyticsAction.AdvertisementExpired -> {
+                            if (comment.advertisement?.presetId == action.presetId) {
                                 comment.copy(advertisement = null)
                             } else {
                                 comment
@@ -100,19 +115,23 @@ class AnalyticsService : Service {
                         }
 
                         is AnalyticsAction.CreateTickerMessage -> {
-                            comment.tickerMessage?.hide(Controllers.tickerMessage)
-                            val presetId = Controllers.tickerMessage.createWidget(
-                                TextTickerSettings(TickerPart.LONG, 30000, comment.message),
+                            comment.tickerMessage?.hide(tickerController)
+                            val presetId = tickerController.createWidget(
+                                TextTickerSettings(TickerPart.LONG, 30.seconds, comment.message),
                                 action.ttl,
-                                onDelete = { internalActions.emit(AnalyticsAction.DeleteTickerMessage(action.messageId, action.commentId, it)) }
+                                onDelete = { internalActions.emit(AnalyticsAction.TickerMessageExpired(action.messageId, action.commentId, it)) }
                             )
-                            Controllers.tickerMessage.show(presetId)
-                            comment.copy(tickerMessage = AnalyticsCompanionPreset(presetId, action.ttl?.let { Clock.System.now() + it }))
+                            ignoreApiActionException { tickerController.show(presetId) }
+                            comment.copy(tickerMessage = AnalyticsCompanionPreset(presetId, Clock.System.now() + action.ttl))
                         }
 
-                        is AnalyticsAction.DeleteTickerMessage -> {
-                            if (action.expectedId == null || comment.tickerMessage?.presetId == action.expectedId) {
-                                comment.tickerMessage?.hide(Controllers.tickerMessage)
+                        is AnalyticsAction.HideTickerMessage -> {
+                            comment.tickerMessage?.hide(tickerController)
+                            comment.copy(tickerMessage = null)
+                        }
+
+                        is AnalyticsAction.TickerMessageExpired -> {
+                            if (comment.tickerMessage?.presetId == action.presetId) {
                                 comment.copy(tickerMessage = null)
                             } else {
                                 comment

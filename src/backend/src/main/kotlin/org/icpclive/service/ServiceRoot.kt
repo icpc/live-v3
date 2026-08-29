@@ -9,12 +9,16 @@ import org.icpclive.cds.adapters.generateCommentary
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
 import org.icpclive.cds.util.*
+import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator
 
 private val log by getLogger()
 
-fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
+fun CoroutineScope.launchServices(
+    loader: Flow<ContestUpdate>,
+    controllers: Controllers,
+) {
     val commentaryGenerator = AnalyticsGenerator(Config.analyticsTemplatesFile)
     loader
         .calculateScoreboard(OptimismLevel.NORMAL)
@@ -39,7 +43,7 @@ fun CoroutineScope.launchServices(loader: Flow<ContestUpdate>) {
             launchService(QueueService())
             launchService(ScoreboardService())
             launchService(StatisticsService())
-            launchService(AnalyticsService())
+            launchService(AnalyticsService(controllers.advertisement, controllers.tickerMessage))
             launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
             launchService(RegularLoggingService())
             launchService(TimelineService())

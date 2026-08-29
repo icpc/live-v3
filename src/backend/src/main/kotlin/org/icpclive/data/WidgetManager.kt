@@ -72,9 +72,15 @@ private fun WidgetUsageStatisticsEntry?.updateStatsAdd(item: Widget): WidgetUsag
 class WidgetManager : ManagerWithEvents<Widget, MainScreenEvent>() {
     private val statistics = WidgetUsageStatistics(mutableMapOf())
 
-    override fun createAddEvent(item: Widget) = ShowWidgetEvent(item)
-    override fun createRemoveEvent(id: String) = HideWidgetEvent(id)
-    override fun createSnapshotEvent(items: List<Widget>) = MainScreenSnapshotEvent(items)
+    override fun createAddEvent(item: Widget, showOrder: Long): ShowWidgetEvent {
+        return ShowWidgetEvent(item, showOrder)
+    }
+    override fun createRemoveEvent(id: String): HideWidgetEvent {
+        return HideWidgetEvent(id)
+    }
+    override fun createSnapshotEvent(items: List<Ordered<Widget>>): MainScreenSnapshotEvent {
+        return MainScreenSnapshotEvent(items.map { OrderedWidget(it.item, it.showOrder) })
+    }
 
     override fun onItemRemove(item: Widget) {
         statistics.entries[item.statisticsId] = statistics.entries[item.statisticsId].updateStatsRemove(item)
