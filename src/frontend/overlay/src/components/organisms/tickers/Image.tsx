@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { image } from "@shared/api";
+import { TickerMessageSettings } from "@shared/api";
 import c from "@/config";
 
 export const ImageWrap = styled.div<{ path: string }>`
@@ -14,7 +14,7 @@ export const ImageWrap = styled.div<{ path: string }>`
     background: center / contain no-repeat url(${(props) => props.path});
 `;
 
-type ImageProps = { tickerSettings: image };
+type ImageProps = { tickerSettings: TickerMessageSettings.image };
 
 export const Image = ({ tickerSettings }: ImageProps) => {
     return <ImageWrap path={tickerSettings.path} />;

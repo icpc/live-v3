@@ -182,7 +182,7 @@ export const advanceScrolling = (part: TickerPart, add = 1, isFirst = true) => {
             clearTimeout(state.ticker.tickers[part].curTimeout);
             const timeout = setTimeout(() => {
                 dispatch(advanceScrolling(part, 1, false));
-            }, newMessage.periodMs);
+            }, newMessage.settings.periodMs);
             dispatch({
                 type: ActionTypes.SET_CUR_DISPLAYING,
                 payload: {
@@ -205,7 +205,7 @@ export const advanceScrolling = (part: TickerPart, add = 1, isFirst = true) => {
 export const addMessage = (messageData: OrderedTickerMessage) => {
     return async (dispatch: TickerDispatch, getState: GetState) => {
         const { ticker } = getState();
-        const part = messageData.message.part;
+        const part = messageData.message.settings.part;
         dispatch({
             type: ActionTypes.ADD_MESSAGE,
             payload: {
@@ -265,7 +265,7 @@ export function tickerReducer(
     switch (action.type) {
         case ActionTypes.ADD_MESSAGE: {
             const added = action.payload.newMessage;
-            const part = added.message.part;
+            const part = added.message.settings.part;
             return {
                 ...state,
                 tickers: {
@@ -296,7 +296,7 @@ export function tickerReducer(
                 ...state,
                 tickers: byPart((part) => {
                     const orderedMessages = action.payload.messages.filter(
-                        (it) => it.message.part === part,
+                        (it) => it.message.settings.part === part,
                     );
                     return withOrderedMessages(
                         state.tickers[part],

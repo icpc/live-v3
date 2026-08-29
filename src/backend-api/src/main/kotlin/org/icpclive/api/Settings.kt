@@ -5,6 +5,8 @@ package org.icpclive.api
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.icpclive.cds.api.*
+import org.icpclive.cds.util.serializers.DurationInMillisecondsSerializer
+import kotlin.time.Duration
 
 interface ObjectSettings
 
@@ -115,7 +117,7 @@ data class ExternalTeamLocatorSettings(
 @Serializable
 sealed class TickerMessageSettings : ObjectSettings {
     abstract val part: TickerPart
-    abstract val periodMs: Long
+    abstract val period: Duration
     abstract fun toMessage(): TickerMessage
 }
 
@@ -131,48 +133,63 @@ enum class TickerPart {
 @Serializable
 @SerialName("text")
 data class TextTickerSettings(
-    override val part: TickerPart, override val periodMs: Long, val text: String
+    override val part: TickerPart,
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    @SerialName("periodMs")
+    override val period: Duration,
+    val text: String
 ) : TickerMessageSettings() {
-    override fun toMessage() = TextTickerMessage(this)
+    override fun toMessage() = TickerMessage(this)
 }
 
 @Serializable
 @SerialName("image")
 data class ImageTickerSettings(
-    override val part: TickerPart, override val periodMs: Long, val path: String
+    override val part: TickerPart,
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    @SerialName("periodMs")
+    override val period: Duration,
+    val path: String
 ) : TickerMessageSettings() {
-    override fun toMessage() = ImageTickerMessage(this)
+    override fun toMessage() = TickerMessage(this)
 }
 
 @Serializable
 @SerialName("clock")
 data class ClockTickerSettings(
     override val part: TickerPart,
-    override val periodMs: Long,
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    @SerialName("periodMs")
+    override val period: Duration,
     val clockType: ClockType = ClockType.STANDARD,
     val showSeconds: Boolean = true,
     val timeZone: String? = null,
 ) : TickerMessageSettings() {
-    override fun toMessage(): ClockTickerMessage {
-        if (timeZone != null && timeZone.isEmpty()) {
-            return ClockTickerMessage(ClockTickerSettings(part, periodMs, clockType, showSeconds, null))
-        }
-        return ClockTickerMessage(this)
+    override fun toMessage(): TickerMessage {
+        return TickerMessage(copy(timeZone = timeZone?.takeUnless { it.isEmpty() || it.isBlank() }))
     }
 }
 
 @Serializable
 @SerialName("scoreboard")
 data class ScoreboardTickerSettings(
-    override val part: TickerPart, override val periodMs: Long, val from: Int, val to: Int
+    override val part: TickerPart,
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    @SerialName("periodMs")
+    override val period: Duration,
+    val from: Int,
+    val to: Int
 ) : TickerMessageSettings() {
-    override fun toMessage() = ScoreboardTickerMessage(this)
+    override fun toMessage() = TickerMessage(this)
 }
 
 @Serializable
 @SerialName("empty")
 data class EmptyTickerSettings(
-    override val part: TickerPart, override val periodMs: Long
+    override val part: TickerPart,
+    @Serializable(with = DurationInMillisecondsSerializer::class)
+    @SerialName("periodMs")
+    override val period: Duration,
 ) : TickerMessageSettings() {
-    override fun toMessage() = EmptyTickerMessage(this)
+    override fun toMessage() = TickerMessage(this)
 }
