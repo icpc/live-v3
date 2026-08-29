@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { TickerMessage, TickerPart } from "@shared/api";
+import { OrderedTickerMessage, TickerMessage, TickerPart } from "@shared/api";
 import type { RootState } from "./store";
 
 enum ActionTypes {
@@ -14,7 +14,7 @@ enum ActionTypes {
 
 type AddMessageAction = {
     type: ActionTypes.ADD_MESSAGE;
-    payload: { newMessage: TickerMessage };
+    payload: { newMessage: OrderedTickerMessage };
 };
 
 type RemoveMessageAction = {
@@ -24,7 +24,7 @@ type RemoveMessageAction = {
 
 type SetMessagesAction = {
     type: ActionTypes.SET_MESSAGES;
-    payload: { messages: TickerMessage[] };
+    payload: { messages: OrderedTickerMessage[] };
 };
 
 type SetCurDisplayingAction = {
@@ -71,6 +71,7 @@ const TICKER_PARTS: readonly TickerPart[] = Object.freeze([
 ]);
 
 type TickerPartState = {
+    orderedMessages: OrderedTickerMessage[];
     messages: TickerMessage[];
     curDisplaying: TickerMessage | undefined;
     curDisplayingIndex: number | undefined;
@@ -84,6 +85,45 @@ type TickerState = {
     isDisplaying: boolean;
 };
 
+/** Messages of one part in the order they are rotated through. */
+const rotationOrder = (
+    orderedMessages: OrderedTickerMessage[],
+): TickerMessage[] =>
+    _.sortBy(orderedMessages, "showOrder").map((it) => it.message);
+
+const adjustIndexAfterListChange = (
+    body: TickerPartState,
+    messages: TickerMessage[],
+): number | undefined => {
+    const shown = body.curDisplaying;
+    if (shown === undefined) {
+        return body.curDisplayingIndex;
+    }
+    const movedTo = messages.findIndex((it) => it.id === shown.id);
+    if (movedTo !== -1) {
+        // Keep showing the same message, wherever the new order put it.
+        return movedTo;
+    }
+    // It was removed, so show whatever took its slot, wrapping around if it was the last one.
+    return messages.length === 0
+        ? undefined
+        : body.curDisplayingIndex % messages.length;
+};
+
+/** Replaces the messages of one part, recomputing everything derived from them. */
+const withOrderedMessages = (
+    body: TickerPartState,
+    orderedMessages: OrderedTickerMessage[],
+): TickerPartState => {
+    const messages = rotationOrder(orderedMessages);
+    return {
+        ...body,
+        orderedMessages,
+        messages,
+        curDisplayingIndex: adjustIndexAfterListChange(body, messages),
+    };
+};
+
 const byPart = (
     value: (part: TickerPart) => TickerPartState,
 ): Record<TickerPart, TickerPartState> =>
@@ -92,6 +132,7 @@ const byPart = (
     ) as Record<TickerPart, TickerPartState>;
 
 const defaultTickerPartBody: TickerPartState = {
+    orderedMessages: [],
     messages: [],
     curDisplaying: undefined,
     curDisplayingIndex: undefined,
@@ -161,10 +202,10 @@ export const advanceScrolling = (part: TickerPart, add = 1, isFirst = true) => {
     };
 };
 
-export const addMessage = (messageData: TickerMessage) => {
+export const addMessage = (messageData: OrderedTickerMessage) => {
     return async (dispatch: TickerDispatch, getState: GetState) => {
         const { ticker } = getState();
-        const part = messageData.part;
+        const part = messageData.message.part;
         dispatch({
             type: ActionTypes.ADD_MESSAGE,
             payload: {
@@ -199,7 +240,7 @@ export const removeMessage = (messageId: TickerMessage["id"]) => {
     };
 };
 
-export const setMessages = (messages: TickerMessage[]) => {
+export const setMessages = (messages: OrderedTickerMessage[]) => {
     return async (dispatch: TickerDispatch, getState: GetState) => {
         const {
             ticker: { isDisplaying },
@@ -222,39 +263,46 @@ export function tickerReducer(
     action: TickerAction,
 ): TickerState {
     switch (action.type) {
-        case ActionTypes.ADD_MESSAGE:
+        case ActionTypes.ADD_MESSAGE: {
+            const added = action.payload.newMessage;
+            const part = added.message.part;
             return {
                 ...state,
                 tickers: {
                     ...state.tickers,
-                    [action.payload.newMessage.part]: {
-                        ...state.tickers[action.payload.newMessage.part],
-                        messages: [
-                            ...state.tickers[action.payload.newMessage.part]
-                                .messages,
-                            action.payload.newMessage,
-                        ],
-                    },
+                    [part]: withOrderedMessages(state.tickers[part], [
+                        ...state.tickers[part].orderedMessages.filter(
+                            (it) => it.message.id !== added.message.id,
+                        ),
+                        added,
+                    ]),
                 },
             };
+        }
         case ActionTypes.REMOVE_MESSAGE:
             return {
                 ...state,
-                tickers: byPart((part) => ({
-                    ...state.tickers[part],
-                    messages: _.filter(
-                        state.tickers[part].messages,
-                        (message) => message.id !== action.payload.messageId,
+                tickers: byPart((part) =>
+                    withOrderedMessages(
+                        state.tickers[part],
+                        state.tickers[part].orderedMessages.filter(
+                            (it) => it.message.id !== action.payload.messageId,
+                        ),
                     ),
-                })),
+                ),
             };
         case ActionTypes.SET_MESSAGES:
             return {
                 ...state,
-                tickers: byPart((part) => ({
-                    ...defaultTickerPartBody,
-                    messages: _.filter(action.payload.messages, ["part", part]),
-                })),
+                tickers: byPart((part) => {
+                    const orderedMessages = action.payload.messages.filter(
+                        (it) => it.message.part === part,
+                    );
+                    return withOrderedMessages(
+                        state.tickers[part],
+                        orderedMessages,
+                    );
+                }),
                 isLoaded: true,
             };
         case ActionTypes.SET_CUR_DISPLAYING:

@@ -6,7 +6,12 @@ export const handleMessage = (dispatch, e) => {
     const message = JSON.parse(e.data) as TickerEvent;
     switch (message.type) {
         case "AddMessage":
-            dispatch(addMessage(message.message));
+            dispatch(
+                addMessage({
+                    message: message.message,
+                    showOrder: message.showOrder,
+                }),
+            );
             break;
         case "RemoveMessage":
             dispatch(removeMessage(message.messageId));
