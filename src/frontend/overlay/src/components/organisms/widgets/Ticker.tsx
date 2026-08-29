@@ -9,6 +9,7 @@ import Text from "../tickers/Text";
 import Image from "../tickers/Image";
 import Empty from "../tickers/Empty";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { TickerMessage, TickerMessageSettings } from "@shared/api";
 
 const rowAppear = keyframes`
   from {
@@ -94,18 +95,8 @@ const widgetTypes = Object.freeze({
     image: Image,
 });
 
-interface TickerSettings {
-    [key: string]: unknown;
-}
-
-interface TickerMessage {
-    id: string;
-    type: keyof typeof widgetTypes | string;
-    settings: TickerSettings;
-}
-
 interface DefaultTickerProps {
-    tickerSettings: TickerSettings;
+    tickerSettings: TickerMessageSettings;
 }
 
 const DefaultTicker: React.FC<DefaultTickerProps> = ({ tickerSettings }) => {
@@ -188,7 +179,7 @@ export const SingleTickerRows: React.FC<SingleTickerRowsProps> = ({ part }) => {
         <>
             {displayMessages.map((m) => {
                 const TickerComponent =
-                    widgetTypes[m.message.type] ?? DefaultTicker;
+                    widgetTypes[m.message.settings.type] ?? DefaultTicker;
                 const animation =
                     m.status === "entering"
                         ? rowAppear
@@ -248,7 +239,8 @@ export const SingleTicker: React.FC<SingleTickerProps> = ({ part, color }) => {
     }
 
     const wrapColor =
-        curMessage?.type === "scoreboard" || curMessage?.type === "empty"
+        curMessage?.settings.type === TickerMessageSettings.Type.scoreboard ||
+        curMessage?.settings.type === TickerMessageSettings.Type.empty
             ? c.TICKER_DEFAULT_SCOREBOARD_BACKGROUND
             : color;
     return (

@@ -869,14 +869,19 @@ export namespace TickerEvent {
   }
 }
 
-export type TickerMessage =
-  | TickerMessage.clock
-  | TickerMessage.empty
-  | TickerMessage.image
-  | TickerMessage.scoreboard
-  | TickerMessage.text;
+export interface TickerMessage {
+  id: string;
+  settings: TickerMessageSettings;
+}
 
-export namespace TickerMessage {
+export type TickerMessageSettings =
+  | TickerMessageSettings.clock
+  | TickerMessageSettings.empty
+  | TickerMessageSettings.image
+  | TickerMessageSettings.scoreboard
+  | TickerMessageSettings.text;
+
+export namespace TickerMessageSettings {
   export enum Type {
     clock = "clock",
     empty = "empty",
@@ -886,86 +891,51 @@ export namespace TickerMessage {
   }
   
   export interface clock {
-    type: TickerMessage.Type.clock;
-    id: string;
+    type: TickerMessageSettings.Type.clock;
     part: TickerPart;
     periodMs: number;
-    settings: clock;
+    clockType?: ClockType;
+    showSeconds?: boolean;
+    timeZone?: string | null;
   }
   
   export interface empty {
-    type: TickerMessage.Type.empty;
-    id: string;
+    type: TickerMessageSettings.Type.empty;
     part: TickerPart;
     periodMs: number;
-    settings: empty;
   }
   
   export interface image {
-    type: TickerMessage.Type.image;
-    id: string;
+    type: TickerMessageSettings.Type.image;
     part: TickerPart;
     periodMs: number;
-    settings: image;
+    path: string;
   }
   
   export interface scoreboard {
-    type: TickerMessage.Type.scoreboard;
-    id: string;
+    type: TickerMessageSettings.Type.scoreboard;
     part: TickerPart;
     periodMs: number;
-    settings: scoreboard;
+    from: number;
+    to: number;
   }
   
   export interface text {
-    type: TickerMessage.Type.text;
-    id: string;
+    type: TickerMessageSettings.Type.text;
     part: TickerPart;
     periodMs: number;
-    settings: text;
+    text: string;
   }
-}
-
-export enum TickerPart {
-  short = "short",
-  long = "long",
-}
-
-export interface clock {
-  part: TickerPart;
-  periodMs: number;
-  clockType?: ClockType;
-  showSeconds?: boolean;
-  timeZone?: string | null;
-}
-
-export interface empty {
-  part: TickerPart;
-  periodMs: number;
-}
-
-export interface image {
-  part: TickerPart;
-  periodMs: number;
-  path: string;
-}
-
-export interface scoreboard {
-  part: TickerPart;
-  periodMs: number;
-  from: number;
-  to: number;
-}
-
-export interface text {
-  part: TickerPart;
-  periodMs: number;
-  text: string;
 }
 
 export interface OrderedTickerMessage {
   message: TickerMessage;
   showOrder: number;
+}
+
+export enum TickerPart {
+  short = "short",
+  long = "long",
 }
 
 export type SolutionsStatistic =

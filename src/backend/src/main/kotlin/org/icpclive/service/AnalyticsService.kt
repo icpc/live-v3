@@ -15,6 +15,7 @@ import org.icpclive.data.DataBus
 import org.icpclive.server.ApiActionException
 import kotlin.time.Clock
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 sealed class AnalyticsAction {
     abstract val messageId: AnalyticsMessageId
@@ -116,7 +117,7 @@ class AnalyticsService(
                         is AnalyticsAction.CreateTickerMessage -> {
                             comment.tickerMessage?.hide(tickerController)
                             val presetId = tickerController.createWidget(
-                                TextTickerSettings(TickerPart.LONG, 30000, comment.message),
+                                TextTickerSettings(TickerPart.LONG, 30.seconds, comment.message),
                                 action.ttl,
                                 onDelete = { internalActions.emit(AnalyticsAction.TickerMessageExpired(action.messageId, action.commentId, it)) }
                             )
