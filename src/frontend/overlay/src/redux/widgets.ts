@@ -1,22 +1,55 @@
-import { Widget } from "@shared/api";
+import { OrderedWidget, Widget } from "@shared/api";
 import _ from "lodash";
 
-const ActionTypes = {
-    SHOW_WIDGET: "SHOW_WIDGET",
-    HIDE_WIDGET: "HIDE_WIDGET",
-    SET_WIDGETS: "SET_WIDGETS",
+enum ActionTypes {
+    SHOW_WIDGET = "SHOW_WIDGET",
+    HIDE_WIDGET = "HIDE_WIDGET",
+    SET_WIDGETS = "SET_WIDGETS",
+}
+
+type ShowWidgetAction = {
+    type: ActionTypes.SHOW_WIDGET;
+    payload: { newWidget: OrderedWidget };
 };
 
+type HideWidgetAction = {
+    type: ActionTypes.HIDE_WIDGET;
+    payload: { widgetId: Widget["widgetId"] };
+};
+
+type SetWidgetsAction = {
+    type: ActionTypes.SET_WIDGETS;
+    payload: { widgets: OrderedWidget[] };
+};
+
+type WidgetsAction = ShowWidgetAction | HideWidgetAction | SetWidgetsAction;
+
+type WidgetsDispatch = (action: WidgetsAction) => void;
+
 type WidgetsState = {
+    widgetsWithOrder: OrderedWidget[];
     widgets: Record<Widget["widgetId"], Widget>;
 };
 
-const initialState: WidgetsState = {
-    widgets: {},
-};
+const stateOf = (widgetsWithOrder: OrderedWidget[]): WidgetsState => ({
+    widgetsWithOrder,
+    widgets: Object.fromEntries(
+        _.sortBy(widgetsWithOrder, "showOrder").map((it) => [
+            it.widget.widgetId,
+            it.widget,
+        ]),
+    ),
+});
 
-export const showWidget = (widgetData: Widget) => {
-    return async (dispatch) => {
+const filterOutId = (
+    widgetsWithOrder: OrderedWidget[],
+    widgetId: Widget["widgetId"],
+) => widgetsWithOrder.filter((it) => it.widget.widgetId !== widgetId);
+
+const initialState: WidgetsState = stateOf([]);
+
+export const showWidget = (widgetData: OrderedWidget) => {
+    return async (dispatch: WidgetsDispatch) => {
         dispatch({
             type: ActionTypes.SHOW_WIDGET,
             payload: {
@@ -26,8 +59,8 @@ export const showWidget = (widgetData: Widget) => {
     };
 };
 
-export const hideWidget = (widgetId: string) => {
-    return async (dispatch) => {
+export const hideWidget = (widgetId: Widget["widgetId"]) => {
+    return async (dispatch: WidgetsDispatch) => {
         dispatch({
             type: ActionTypes.HIDE_WIDGET,
             payload: {
@@ -37,8 +70,8 @@ export const hideWidget = (widgetId: string) => {
     };
 };
 
-export const setWidgets = (widgets: Widget[]) => {
-    return async (dispatch) => {
+export const setWidgets = (widgets: OrderedWidget[]) => {
+    return async (dispatch: WidgetsDispatch) => {
         dispatch({
             type: ActionTypes.SET_WIDGETS,
             payload: {
@@ -48,24 +81,27 @@ export const setWidgets = (widgets: Widget[]) => {
     };
 };
 
-export function widgetsReducer(state = initialState, action): WidgetsState {
+export function widgetsReducer(
+    state = initialState,
+    action: WidgetsAction,
+): WidgetsState {
     switch (action.type) {
-        case ActionTypes.SHOW_WIDGET:
-            return {
-                widgets: {
-                    ...state.widgets,
-                    [action.payload.newWidget.widgetId]:
-                        action.payload.newWidget,
-                },
-            };
+        case ActionTypes.SHOW_WIDGET: {
+            const { newWidget } = action.payload;
+            return stateOf([
+                ...filterOutId(
+                    state.widgetsWithOrder,
+                    newWidget.widget.widgetId,
+                ),
+                newWidget,
+            ]);
+        }
         case ActionTypes.HIDE_WIDGET:
-            return {
-                widgets: _.omit(state.widgets, action.payload.widgetId),
-            };
+            return stateOf(
+                filterOutId(state.widgetsWithOrder, action.payload.widgetId),
+            );
         case ActionTypes.SET_WIDGETS:
-            return {
-                widgets: _.keyBy(action.payload.widgets, "widgetId"),
-            };
+            return stateOf(action.payload.widgets);
         default:
             return state;
     }
