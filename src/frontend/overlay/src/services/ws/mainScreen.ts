@@ -1,12 +1,17 @@
 import { MainScreenEvent } from "@shared/api";
-import { pushLog } from "../../redux/debug";
-import { hideWidget, setWidgets, showWidget } from "../../redux/widgets";
+import { pushLog } from "@/redux/debug";
+import { hideWidget, setWidgets, showWidget } from "@/redux/widgets";
 
 export const handleMessage = (dispatch, e) => {
     const message = JSON.parse(e.data) as MainScreenEvent;
     switch (message.type) {
         case "ShowWidget":
-            dispatch(showWidget(message.widget));
+            dispatch(
+                showWidget({
+                    widget: message.widget,
+                    showOrder: message.showOrder,
+                }),
+            );
             break;
         case "HideWidget":
             dispatch(hideWidget(message.id));

@@ -536,12 +536,13 @@ export namespace MainScreenEvent {
   
   export interface MainScreenSnapshot {
     type: MainScreenEvent.Type.MainScreenSnapshot;
-    widgets: Widget[];
+    widgets: OrderedWidget[];
   }
   
   export interface ShowWidget {
     type: MainScreenEvent.Type.ShowWidget;
     widget: Widget;
+    showOrder: number;
   }
 }
 
@@ -650,6 +651,11 @@ export namespace Widget {
     statisticsId: string;
     settings: TickerSettings;
   }
+}
+
+export interface OrderedWidget {
+  widget: Widget;
+  showOrder: number;
 }
 
 export interface AdvertisementSettings {

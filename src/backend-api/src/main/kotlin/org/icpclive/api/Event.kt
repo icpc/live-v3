@@ -4,7 +4,6 @@ package org.icpclive.api
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.icpclive.cds.api.RunInfo
 
 @Serializable
 sealed class Event
@@ -22,8 +21,11 @@ sealed class TickerEvent : Event()
 sealed class AnalyticsEvent : Event()
 
 @Serializable
+class OrderedWidget(val widget: Widget, val showOrder: Long)
+
+@Serializable
 @SerialName("ShowWidget")
-class ShowWidgetEvent(val widget: Widget) : MainScreenEvent()
+class ShowWidgetEvent(val widget: Widget, val showOrder: Long) : MainScreenEvent()
 
 @Serializable
 @SerialName("HideWidget")
@@ -31,7 +33,7 @@ class HideWidgetEvent(val id: String) : MainScreenEvent()
 
 @Serializable
 @SerialName("MainScreenSnapshot")
-class MainScreenSnapshotEvent(val widgets: List<Widget>) : MainScreenEvent()
+class MainScreenSnapshotEvent(val widgets: List<OrderedWidget>) : MainScreenEvent()
 
 @Serializable
 @SerialName("AddRunToQueue")
