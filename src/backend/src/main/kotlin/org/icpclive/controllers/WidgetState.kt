@@ -6,5 +6,5 @@ import org.icpclive.api.ObjectSettings
 @Serializable
 data class WidgetState<SettingsType : ObjectSettings>(
     val settings: SettingsType,
-    val visible: Boolean = false,
+    val showOrder: Long? = null,
 )

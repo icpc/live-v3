@@ -12,26 +12,28 @@ class Controllers(scope: CoroutineScope): CoroutineScope by scope {
     private val WidgetManager = WidgetManager()
     private val TickerManager = TickerManager()
 
+    private val showOrderCounter = ShowOrderCounter()
+
     val persistence = PersistenceRegistry()
 
-    val queue = scope.SingleWidgetController(QueueSettings(), WidgetManager, ::QueueWidget)
-    val statistics = scope.SingleWidgetController(StatisticsSettings(), WidgetManager, ::StatisticsWidget)
-    val ticker = scope.SingleWidgetController(TickerSettings(), WidgetManager, ::TickerWidget)
-    val scoreboard = scope.SingleWidgetController(ScoreboardSettings(), WidgetManager, ::ScoreboardWidget)
-    val fullScreenClock = scope.SingleWidgetController(FullScreenClockSettings(), WidgetManager, ::FullScreenClockWidget)
-    private val teamViews = TeamViewPosition.entries.associateWith { TeamViewController(WidgetManager, scope, it) }
+    val queue = scope.SingleWidgetController(QueueSettings(), WidgetManager, showOrderCounter, ::QueueWidget)
+    val statistics = scope.SingleWidgetController(StatisticsSettings(), WidgetManager, showOrderCounter, ::StatisticsWidget)
+    val ticker = scope.SingleWidgetController(TickerSettings(), WidgetManager, showOrderCounter, ::TickerWidget)
+    val scoreboard = scope.SingleWidgetController(ScoreboardSettings(), WidgetManager, showOrderCounter, ::ScoreboardWidget)
+    val fullScreenClock = scope.SingleWidgetController(FullScreenClockSettings(), WidgetManager, showOrderCounter, ::FullScreenClockWidget)
+    private val teamViews = TeamViewPosition.entries.associateWith { TeamViewController(WidgetManager, scope, showOrderCounter, it) }
     fun teamView(position: TeamViewPosition): TeamViewController = teamViews[position]!!
 
-    val locator = LocatorWidgetController(WidgetManager, scope)
+    val locator = LocatorWidgetController(WidgetManager, scope, showOrderCounter)
 
-    val advertisement = PresetsController<_, AdvertisementWidget>(WidgetManager, scope, ::AdvertisementWidget)
-    val picture = PresetsController<_, PictureWidget>(WidgetManager, scope, ::PictureWidget)
-    val title = PresetsController<_, SvgWidget>(WidgetManager, scope) { titleSettings: TitleSettings ->
+    val advertisement = PresetsController<_, AdvertisementWidget>(WidgetManager, scope, showOrderCounter, ::AdvertisementWidget)
+    val picture = PresetsController<_, PictureWidget>(WidgetManager, scope, showOrderCounter, ::PictureWidget)
+    val title = PresetsController<_, SvgWidget>(WidgetManager, scope, showOrderCounter) { titleSettings: TitleSettings ->
         SvgWidget(
             loadSVG(Config.mediaDirectory.resolve(titleSettings.preset), titleSettings.data, null).toBase64SVG()
         )
     }
-    val tickerMessage = PresetsController(TickerManager, scope, TickerMessageSettings::toMessage)
+    val tickerMessage = PresetsController(TickerManager, scope, showOrderCounter, TickerMessageSettings::toMessage)
     val userController = Config.createUsersController()
 
     suspend fun getWidgetStats() = WidgetManager.getUsageStatistics()
