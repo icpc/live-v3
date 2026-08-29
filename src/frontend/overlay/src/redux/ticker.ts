@@ -1,33 +1,114 @@
 import _ from "lodash";
+import { TickerMessage, TickerPart } from "@shared/api";
+import type { RootState } from "./store";
 
-const ActionTypes = {
-    ADD_MESSAGE: "TICKER_ADD_MESSAGE",
-    REMOVE_MESSAGE: "TICKER_REMOVE_MESSAGE",
-    SET_MESSAGES: "TICKER_SET_MESSAGES",
-    SET_CUR_DISPLAYING: "TICKER_SET_CUR_DISPLAYING",
-    START_DISPLAYING: "TICKER_START_DISPLAYING",
-    STOP_DISPLAYING: "TICKER_STOP_DISPLAYING",
+enum ActionTypes {
+    ADD_MESSAGE = "TICKER_ADD_MESSAGE",
+    REMOVE_MESSAGE = "TICKER_REMOVE_MESSAGE",
+    SET_MESSAGES = "TICKER_SET_MESSAGES",
+    SET_CUR_DISPLAYING = "TICKER_SET_CUR_DISPLAYING",
+    CLEAR_CUR_DISPLAYING = "TICKER_CLEAR_CUR_DISPLAYING",
+    START_DISPLAYING = "TICKER_START_DISPLAYING",
+    STOP_DISPLAYING = "TICKER_STOP_DISPLAYING",
+}
+
+type AddMessageAction = {
+    type: ActionTypes.ADD_MESSAGE;
+    payload: { newMessage: TickerMessage };
 };
 
-const TICKER_PARTS = Object.freeze(["long", "short"]);
-const defaultTickerBody = {
+type RemoveMessageAction = {
+    type: ActionTypes.REMOVE_MESSAGE;
+    payload: { part: TickerPart; messageId: TickerMessage["id"] };
+};
+
+type SetMessagesAction = {
+    type: ActionTypes.SET_MESSAGES;
+    payload: { messages: TickerMessage[] };
+};
+
+type SetCurDisplayingAction = {
+    type: ActionTypes.SET_CUR_DISPLAYING;
+    payload: {
+        part: TickerPart;
+        ind: number;
+        message: TickerMessage;
+        timeout: ReturnType<typeof setTimeout>;
+        isFirst: boolean;
+    };
+};
+
+type ClearCurDisplayingAction = {
+    type: ActionTypes.CLEAR_CUR_DISPLAYING;
+    payload: { part: TickerPart };
+};
+
+type StartDisplayingAction = { type: ActionTypes.START_DISPLAYING };
+
+type StopDisplayingAction = { type: ActionTypes.STOP_DISPLAYING };
+
+type TickerAction =
+    | AddMessageAction
+    | RemoveMessageAction
+    | SetMessagesAction
+    | SetCurDisplayingAction
+    | ClearCurDisplayingAction
+    | StartDisplayingAction
+    | StopDisplayingAction;
+
+type TickerThunk = (
+    dispatch: TickerDispatch,
+    getState: GetState,
+) => Promise<void>;
+
+type TickerDispatch = (action: TickerAction | TickerThunk) => void;
+
+type GetState = () => RootState;
+
+const TICKER_PARTS: readonly TickerPart[] = Object.freeze([
+    TickerPart.long,
+    TickerPart.short,
+]);
+
+type TickerPartState = {
+    messages: TickerMessage[];
+    curDisplaying: TickerMessage | undefined;
+    curDisplayingIndex: number | undefined;
+    curTimeout: ReturnType<typeof setTimeout> | undefined;
+    isFirst: boolean;
+};
+
+type TickerState = {
+    tickers: Record<TickerPart, TickerPartState>;
+    messages: Record<TickerMessage["id"], TickerMessage>;
+    isLoaded: boolean;
+    isDisplaying: boolean;
+};
+
+const byPart = (
+    value: (part: TickerPart) => TickerPartState,
+): Record<TickerPart, TickerPartState> =>
+    Object.fromEntries(
+        TICKER_PARTS.map((part) => [part, value(part)]),
+    ) as Record<TickerPart, TickerPartState>;
+
+const defaultTickerPartBody: TickerPartState = {
     messages: [],
     curDisplaying: undefined,
     curDisplayingIndex: undefined,
     curTimeout: undefined,
     isFirst: true,
 };
-const initialState = {
-    tickers: Object.fromEntries(
-        TICKER_PARTS.map((part) => [part, defaultTickerBody]),
-    ),
+
+const initialState: TickerState = {
+    tickers: byPart(() => defaultTickerPartBody),
     messages: {},
     isLoaded: false,
     isDisplaying: false,
 };
 
 export const startScrolling = () => {
-    return async (dispatch, getState) => {
+    return async (dispatch: TickerDispatch, getState: GetState) => {
         dispatch({
             type: ActionTypes.START_DISPLAYING,
         });
@@ -39,7 +120,7 @@ export const startScrolling = () => {
 };
 
 export const stopScrolling = () => {
-    return async (dispatch, getState) => {
+    return async (dispatch: TickerDispatch, getState: GetState) => {
         const state = getState();
         for (const part of TICKER_PARTS) {
             clearTimeout(state.ticker.tickers[part].curTimeout);
@@ -50,8 +131,8 @@ export const stopScrolling = () => {
     };
 };
 
-export const advanceScrolling = (part, add = 1, isFirst = true) => {
-    return async (dispatch, getState) => {
+export const advanceScrolling = (part: TickerPart, add = 1, isFirst = true) => {
+    return async (dispatch: TickerDispatch, getState: GetState) => {
         const state = getState();
         const curDisplayingIndex =
             state.ticker.tickers[part].curDisplayingIndex ?? 0;
@@ -75,20 +156,15 @@ export const advanceScrolling = (part, add = 1, isFirst = true) => {
             });
         } else {
             dispatch({
-                type: ActionTypes.SET_CUR_DISPLAYING,
-                payload: {
-                    part,
-                    ind: undefined,
-                    message: undefined,
-                    timeout: undefined,
-                },
+                type: ActionTypes.CLEAR_CUR_DISPLAYING,
+                payload: { part },
             });
         }
     };
 };
 
-export const addMessage = (messageData) => {
-    return async (dispatch, getState) => {
+export const addMessage = (messageData: TickerMessage) => {
+    return async (dispatch: TickerDispatch, getState: GetState) => {
         const { ticker } = getState();
         const part = messageData.part;
         dispatch({
@@ -106,8 +182,8 @@ export const addMessage = (messageData) => {
     };
 };
 
-export const removeMessage = (messageId) => {
-    return async (dispatch, getState) => {
+export const removeMessage = (messageId: TickerMessage["id"]) => {
+    return async (dispatch: TickerDispatch, getState: GetState) => {
         const { ticker } = getState();
         const part = ticker.messages[messageId].part;
         const curMessage = ticker.tickers[part].curDisplaying;
@@ -124,8 +200,8 @@ export const removeMessage = (messageId) => {
     };
 };
 
-export const setMessages = (messages) => {
-    return async (dispatch, getState) => {
+export const setMessages = (messages: TickerMessage[]) => {
+    return async (dispatch: TickerDispatch, getState: GetState) => {
         const {
             ticker: { isDisplaying },
         } = getState();
@@ -142,7 +218,10 @@ export const setMessages = (messages) => {
     };
 };
 
-export function tickerReducer(state = initialState, action) {
+export function tickerReducer(
+    state = initialState,
+    action: TickerAction,
+): TickerState {
     switch (action.type) {
         case ActionTypes.ADD_MESSAGE:
             return {
@@ -182,18 +261,10 @@ export function tickerReducer(state = initialState, action) {
         case ActionTypes.SET_MESSAGES:
             return {
                 ...state,
-                tickers: Object.fromEntries(
-                    TICKER_PARTS.map((part) => [
-                        part,
-                        {
-                            ...defaultTickerBody,
-                            messages: _.filter(action.payload.messages, [
-                                "part",
-                                part,
-                            ]),
-                        },
-                    ]),
-                ),
+                tickers: byPart((part) => ({
+                    ...defaultTickerPartBody,
+                    messages: _.filter(action.payload.messages, ["part", part]),
+                })),
                 messages: _.keyBy(action.payload.messages, "id"),
                 isLoaded: true,
             };
@@ -211,6 +282,19 @@ export function tickerReducer(state = initialState, action) {
                     },
                 },
             };
+        case ActionTypes.CLEAR_CUR_DISPLAYING:
+            return {
+                ...state,
+                tickers: {
+                    ...state.tickers,
+                    [action.payload.part]: {
+                        ...state.tickers[action.payload.part],
+                        curDisplaying: undefined,
+                        curDisplayingIndex: undefined,
+                        curTimeout: undefined,
+                    },
+                },
+            };
         case ActionTypes.START_DISPLAYING:
             return {
                 ...state,
@@ -220,18 +304,13 @@ export function tickerReducer(state = initialState, action) {
             return {
                 ...state,
                 isDisplaying: false,
-                tickers: Object.fromEntries(
-                    Object.entries(state.tickers).map(([part, ticker]) => [
-                        part,
-                        {
-                            ...ticker,
-                            curDisplaying: undefined,
-                            curDisplayingIndex: undefined,
-                            curTimeout: undefined,
-                            isFirst: true,
-                        },
-                    ]),
-                ),
+                tickers: byPart((part) => ({
+                    ...state.tickers[part],
+                    curDisplaying: undefined,
+                    curDisplayingIndex: undefined,
+                    curTimeout: undefined,
+                    isFirst: true,
+                })),
             };
         default:
             return state;
