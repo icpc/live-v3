@@ -19,7 +19,7 @@ type AddMessageAction = {
 
 type RemoveMessageAction = {
     type: ActionTypes.REMOVE_MESSAGE;
-    payload: { part: TickerPart; messageId: TickerMessage["id"] };
+    payload: { messageId: TickerMessage["id"] };
 };
 
 type SetMessagesAction = {
@@ -80,7 +80,6 @@ type TickerPartState = {
 
 type TickerState = {
     tickers: Record<TickerPart, TickerPartState>;
-    messages: Record<TickerMessage["id"], TickerMessage>;
     isLoaded: boolean;
     isDisplaying: boolean;
 };
@@ -102,7 +101,6 @@ const defaultTickerPartBody: TickerPartState = {
 
 const initialState: TickerState = {
     tickers: byPart(() => defaultTickerPartBody),
-    messages: {},
     isLoaded: false,
     isDisplaying: false,
 };
@@ -185,17 +183,18 @@ export const addMessage = (messageData: TickerMessage) => {
 export const removeMessage = (messageId: TickerMessage["id"]) => {
     return async (dispatch: TickerDispatch, getState: GetState) => {
         const { ticker } = getState();
-        const part = ticker.messages[messageId].part;
-        const curMessage = ticker.tickers[part].curDisplaying;
+        const displayingPart = TICKER_PARTS.find(
+            (part) => ticker.tickers[part].curDisplaying?.id === messageId,
+        );
         dispatch({
             type: ActionTypes.REMOVE_MESSAGE,
             payload: {
-                part,
                 messageId,
             },
         });
-        if (curMessage && curMessage.id === messageId) {
-            dispatch(advanceScrolling(part, 0, false));
+        // The message that was on screen is gone, so move on to whatever took its place.
+        if (displayingPart !== undefined) {
+            dispatch(advanceScrolling(displayingPart, 0, false));
         }
     };
 };
@@ -237,26 +236,17 @@ export function tickerReducer(
                         ],
                     },
                 },
-                messages: {
-                    ...state.messages,
-                    [action.payload.newMessage.id]: action.payload.newMessage,
-                },
             };
         case ActionTypes.REMOVE_MESSAGE:
             return {
                 ...state,
-                tickers: {
-                    ...state.tickers,
-                    [action.payload.part]: {
-                        ...state.tickers[action.payload.part],
-                        messages: _.filter(
-                            state.tickers[action.payload.part].messages,
-                            (message) =>
-                                message.id !== action.payload.messageId,
-                        ),
-                    },
-                },
-                messages: _.omit(state.messages, action.payload.messageId),
+                tickers: byPart((part) => ({
+                    ...state.tickers[part],
+                    messages: _.filter(
+                        state.tickers[part].messages,
+                        (message) => message.id !== action.payload.messageId,
+                    ),
+                })),
             };
         case ActionTypes.SET_MESSAGES:
             return {
@@ -265,7 +255,6 @@ export function tickerReducer(
                     ...defaultTickerPartBody,
                     messages: _.filter(action.payload.messages, ["part", part]),
                 })),
-                messages: _.keyBy(action.payload.messages, "id"),
                 isLoaded: true,
             };
         case ActionTypes.SET_CUR_DISPLAYING:
