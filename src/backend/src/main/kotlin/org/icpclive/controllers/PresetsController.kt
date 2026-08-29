@@ -14,6 +14,7 @@ import kotlin.time.Duration
 class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeWithId>(
     private val widgetManager: Manager<OverlayWidgetType>,
     parentScope: CoroutineScope,
+    private val showOrderCounter: ShowOrderCounter,
     private val widgetConstructor: (SettingsType) -> OverlayWidgetType,
 ) : CoroutineScope by parentScope.childScope(Dispatchers.Default), PersistentData<List<WidgetState<SettingsType>>> {
 
@@ -42,6 +43,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
                 SingleWidgetController(
                     state.settings,
                     widgetManager,
+                    showOrderCounter,
                     widgetConstructor,
                     currentID.incrementAndFetch()
                 ).also { it.onLoad(state) }
@@ -56,7 +58,7 @@ class PresetsController<SettingsType : ObjectSettings, OverlayWidgetType : TypeW
 
     private suspend fun createWidgetImpl(settings: SettingsType, onDelete: (suspend (Int) -> Unit)? = null): Int {
         val id = currentID.incrementAndFetch()
-        val controller = SingleWidgetController(settings, widgetManager, widgetConstructor, id)
+        val controller = SingleWidgetController(settings, widgetManager, showOrderCounter, widgetConstructor, id)
         controller.onLoad(null)
         entries.await().update { it.plus(Entry(controller, onDelete)) }
         return id

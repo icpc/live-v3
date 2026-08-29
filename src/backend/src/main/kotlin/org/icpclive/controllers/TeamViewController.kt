@@ -8,8 +8,14 @@ import org.icpclive.cds.api.TeamMediaType
 import org.icpclive.data.*
 import kotlin.time.Duration.Companion.seconds
 
-class TeamViewController(manager: Manager<TeamViewWidget>, scope: CoroutineScope, val position: TeamViewPosition) :
-    SingleWidgetController<ExternalTeamViewSettings, TeamViewWidget>(ExternalTeamViewSettings(), manager, scope) {
+class TeamViewController(
+    manager: Manager<TeamViewWidget>,
+    scope: CoroutineScope,
+    showOrderCounter: ShowOrderCounter,
+    val position: TeamViewPosition,
+) : SingleWidgetController<ExternalTeamViewSettings, TeamViewWidget>(
+    ExternalTeamViewSettings(), manager, scope, showOrderCounter
+) {
 
     override suspend fun constructWidgetFlow(settings: ExternalTeamViewSettings): Flow<TeamViewWidget> {
         val processedSettingsFlow = if (settings.teamId == null) {
