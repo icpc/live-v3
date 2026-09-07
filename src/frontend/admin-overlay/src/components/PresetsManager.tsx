@@ -97,7 +97,8 @@ export const PresetsManager = <
     isImmutable = false,
 }: PresetsManagerProps<S>): React.ReactElement => {
     const [elements, setElements] = useState<Preset<S>[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
+    // After the first load, we don't show “loading” state
+    const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const ResolvedRowComponent =
@@ -114,7 +115,6 @@ export const PresetsManager = <
 
     const loadData = useCallback(async () => {
         try {
-            setIsLoading(true);
             setError(null);
             const list = await service.loadPresets();
             setElements(list ?? []);
@@ -122,7 +122,7 @@ export const PresetsManager = <
             console.error("Failed to load presets:", err);
             setError("Failed to load presets");
         } finally {
-            setIsLoading(false);
+            setIsLoaded(true);
         }
     }, [service]);
 
@@ -213,22 +213,19 @@ export const PresetsManager = <
                     <TableHead>
                         <TableRow>
                             <TableCell width="48px" />
-                            {tableKeysHeaders.map((header) => {
-                                const TableCellComponent = TableCell;
-                                return (
-                                    <TableCellComponent
-                                        sx={{ fontWeight: "bold" }}
-                                    >
+                            {tableKeysHeaders.map((header) => (
+                                <React.Fragment key={header}>
+                                    <TableCell sx={{ fontWeight: "bold" }}>
                                         {header}
-                                    </TableCellComponent>
-                                );
-                            })}
+                                    </TableCell>
+                                </React.Fragment>
+                            ))}
                             <TableCell width="120px" />
                         </TableRow>
                     </TableHead>
                 )}
                 <TableBody>
-                    {isLoading ? (
+                    {!isLoaded ? (
                         <TableRow>
                             <TableCell
                                 colSpan={
