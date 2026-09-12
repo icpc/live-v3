@@ -21,7 +21,7 @@ public inline fun <reified T: Any, reified S: Any> SerializersModuleBuilder.post
     crossinline onSerialize: (T) -> S,
 ) {
     contextual(T::class, serializer.map(
-        "${serializer.descriptor.serialName}=>${T::class.simpleName}",
+        "${serializer.descriptor.serialName}As${T::class.simpleName}",
         onDeserialize,
         onSerialize
     ))
@@ -68,7 +68,7 @@ public class ListOrSingleElementSerializer<T>(elementSerializer: KSerializer<T>)
 
 public class ListOrSingleOrNullElementSerializer<T>(elementSerializer: KSerializer<T>) : JsonTransformingSerializer<List<T>>(ListSerializer(elementSerializer)) {
     @OptIn(InternalSerializationApi::class)
-    override val descriptor: SerialDescriptor = buildSerialDescriptor("ListOrSingleElement", SerialKind.CONTEXTUAL, elementSerializer.descriptor) {
+    override val descriptor: SerialDescriptor = buildSerialDescriptor("ListOrSingleOrNullElement", SerialKind.CONTEXTUAL, elementSerializer.descriptor) {
         element("list", listSerialDescriptor(elementSerializer.descriptor))
         element("element", elementSerializer.descriptor)
     }.nullable

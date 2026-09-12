@@ -1,13 +1,15 @@
 {
-    "$ref": "#/$defs/ICPC live settings",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "ICPC live settings",
+    "$ref": "#/$defs/kotlinx.serialization.Polymorphic(CDSSettings)",
     "$defs": {
-        "kotlin.collections.ArrayList<kotlin.Int>": {
+        "kotlin.collections.ArrayList(kotlin.Int)": {
             "type": "array",
             "items": {
                 "type": "number"
             }
         },
-        "org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>": {
+        "org.icpclive.cds.settings.EmulationSettings?": {
             "oneOf": [
                 {
                     "type": "object",
@@ -33,886 +35,45 @@
                 }
             ]
         },
-        "org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>": {
+        "org.icpclive.cds.settings.PreviousDaySettings": {
+            "type": "object",
+            "properties": {
+                "settings": {
+                    "$ref": "#/$defs/kotlinx.serialization.Polymorphic(CDSSettings)"
+                },
+                "advancedJsonPath": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "settings"
+            ]
+        },
+        "kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.settings.PreviousDaySettings"
+            }
+        },
+        "org.icpclive.cds.ktor.NetworkSettings": {
             "type": "object",
             "properties": {
                 "allowUnsecureConnections": {
                     "type": "boolean"
                 },
                 "checkedServerName": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false,
-            "required": []
-        },
-        "atcoder": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "atcoder",
-                    "default": "atcoder"
-                },
-                "contestId": {
-                    "type": "string"
-                },
-                "sessionCookie": {
-                    "type": "string"
-                },
-                "startTime": {
-                    "type": "string"
-                },
-                "contestLengthSeconds": {
-                    "type": "number"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "contestId",
-                "sessionCookie",
-                "startTime",
-                "contestLengthSeconds"
-            ],
-            "title": "atcoder"
-        },
-        "org.icpclive.cds.settings.Authorization.BasicAuth?<kotlinx.serialization.ContextualSerializer<Credential>,kotlinx.serialization.ContextualSerializer<Credential>>": {
-            "oneOf": [
-                {
-                    "type": "object",
-                    "properties": {
-                        "login": {
-                            "type": "string"
-                        },
-                        "password": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false,
-                    "required": [
-                        "login",
-                        "password"
+                    "type": [
+                        "string",
+                        "null"
                     ]
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
-        "kotlin.collections.LinkedHashMap<kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "type": "string"
-                }
-            }
-        },
-        "org.icpclive.cds.settings.Authorization<org.icpclive.cds.settings.Authorization.BasicAuth?,kotlin.collections.LinkedHashMap,kotlin.collections.LinkedHashMap>": {
-            "type": "object",
-            "properties": {
-                "basic": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Authorization.BasicAuth?<kotlinx.serialization.ContextualSerializer<Credential>,kotlinx.serialization.ContextualSerializer<Credential>>"
-                },
-                "cookies": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>>"
-                },
-                "headers": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlinx.serialization.ContextualSerializer<Credential>>"
                 }
             },
             "additionalProperties": false,
             "required": []
-        },
-        "UrlOrLocalPathFull": {
-            "type": "object",
-            "properties": {
-                "url": {
-                    "type": "string"
-                },
-                "auth": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.Authorization<org.icpclive.cds.settings.Authorization.BasicAuth?,kotlin.collections.LinkedHashMap,kotlin.collections.LinkedHashMap>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "url",
-                "auth"
-            ],
-            "title": "UrlOrLocalPathFull"
-        },
-        "UrlOrLocalPathLoginPassword": {
-            "type": "object",
-            "properties": {
-                "url": {
-                    "type": "string"
-                },
-                "login": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "url",
-                "login",
-                "password"
-            ],
-            "title": "UrlOrLocalPathLoginPassword"
-        },
-        "UrlOrLocalPath=>Url<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>": {
-            "oneOf": [
-                {
-                    "$ref": "#/$defs/UrlOrLocalPathFull"
-                },
-                {
-                    "$ref": "#/$defs/UrlOrLocalPathLoginPassword"
-                },
-                {
-                    "type": "string"
-                }
-            ]
-        },
-        "org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>": {
-            "enum": [
-                "ICPC",
-                "IOI"
-            ]
-        },
-        "cats": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "cats",
-                    "default": "cats"
-                },
-                "login": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "source": {
-                    "$ref": "#/$defs/UrlOrLocalPath=>Url<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "cid": {
-                    "type": "string"
-                },
-                "timeZone": {
-                    "type": "string"
-                },
-                "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "login",
-                "password",
-                "source",
-                "cid"
-            ],
-            "title": "cats"
-        },
-        "cf": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "cf",
-                    "default": "cf"
-                },
-                "contestId": {
-                    "type": "number"
-                },
-                "apiKey": {
-                    "type": "string"
-                },
-                "apiSecret": {
-                    "type": "string"
-                },
-                "asManager": {
-                    "type": "boolean"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "contestId",
-                "apiKey",
-                "apiSecret"
-            ],
-            "title": "cf"
-        },
-        "UrlOrLocalPath<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>": {
-            "oneOf": [
-                {
-                    "$ref": "#/$defs/UrlOrLocalPathFull"
-                },
-                {
-                    "$ref": "#/$defs/UrlOrLocalPathLoginPassword"
-                },
-                {
-                    "type": "string"
-                }
-            ]
-        },
-        "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "type": "string"
-                }
-            }
-        },
-        "org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07,org.icpclive.cds.plugins.clics.FeedVersion.2023_06,org.icpclive.cds.plugins.clics.FeedVersion.2026_01,org.icpclive.cds.plugins.clics.FeedVersion.DRAFT>": {
-            "enum": [
-                "2020_03",
-                "2022_07",
-                "2023_06",
-                "2026_01",
-                "DRAFT"
-            ]
-        },
-        "org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlin.String,kotlin.String?,kotlin.collections.LinkedHashMap,org.icpclive.cds.plugins.clics.FeedVersion>": {
-            "type": "object",
-            "properties": {
-                "source": {
-                    "$ref": "#/$defs/UrlOrLocalPath<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "contestId": {
-                    "type": "string"
-                },
-                "eventFeedName": {
-                    "type": "string"
-                },
-                "eventFeedPath": {
-                    "type": "string"
-                },
-                "urlPrefixMapping": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.String>"
-                },
-                "feedVersion": {
-                    "$ref": "#/$defs/org.icpclive.cds.plugins.clics.FeedVersion<org.icpclive.cds.plugins.clics.FeedVersion.2020_03,org.icpclive.cds.plugins.clics.FeedVersion.2022_07,org.icpclive.cds.plugins.clics.FeedVersion.2023_06,org.icpclive.cds.plugins.clics.FeedVersion.2026_01,org.icpclive.cds.plugins.clics.FeedVersion.DRAFT>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "source",
-                "contestId"
-            ]
-        },
-        "kotlin.collections.ArrayList<org.icpclive.cds.plugins.clics.ClicsFeed>": {
-            "type": "array",
-            "items": {
-                "$ref": "#/$defs/org.icpclive.cds.plugins.clics.ClicsFeed<kotlinx.serialization.ContextualSerializer<UrlOrLocalPath>,kotlin.String,kotlin.String,kotlin.String?,kotlin.collections.LinkedHashMap,org.icpclive.cds.plugins.clics.FeedVersion>"
-            }
-        },
-        "clics": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "clics",
-                    "default": "clics"
-                },
-                "feeds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.plugins.clics.ClicsFeed>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "feeds"
-            ],
-            "title": "clics"
-        },
-        "kotlin.collections.ArrayList<kotlin.String>": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
-        "cms": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "cms",
-                    "default": "cms"
-                },
-                "source": {
-                    "$ref": "#/$defs/UrlOrLocalPath=>Url<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "activeContest": {
-                    "type": "string"
-                },
-                "otherContests": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "source",
-                "activeContest",
-                "otherContests"
-            ],
-            "title": "cms"
-        },
-        "codedrills": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "codedrills",
-                    "default": "codedrills"
-                },
-                "url": {
-                    "type": "string"
-                },
-                "port": {
-                    "type": "number"
-                },
-                "contestId": {
-                    "type": "string"
-                },
-                "authKey": {
-                    "type": "string"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "url",
-                "port",
-                "contestId",
-                "authKey"
-            ],
-            "title": "codedrills"
-        },
-        "dmoj": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "dmoj",
-                    "default": "dmoj"
-                },
-                "source": {
-                    "$ref": "#/$defs/UrlOrLocalPath=>Url<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "contestId": {
-                    "type": "string"
-                },
-                "apiKey": {
-                    "type": "string"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "source",
-                "contestId",
-                "apiKey"
-            ],
-            "title": "dmoj"
-        },
-        "kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "type": "number"
-                }
-            }
-        },
-        "ejudge": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "ejudge",
-                    "default": "ejudge"
-                },
-                "source": {
-                    "$ref": "#/$defs/UrlOrLocalPath<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
-                },
-                "timeZone": {
-                    "type": "string"
-                },
-                "problemScoreLimit": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<kotlin.String,kotlin.Double>"
-                },
-                "unfreezeOfflineGroup": {
-                    "type": "boolean"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "source"
-            ],
-            "title": "ejudge"
-        },
-        "eolymp": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "eolymp",
-                    "default": "eolymp"
-                },
-                "url": {
-                    "type": "string"
-                },
-                "token": {
-                    "type": "string"
-                },
-                "contestId": {
-                    "type": "string"
-                },
-                "previousDaysContestIds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.String>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "url",
-                "token",
-                "contestId"
-            ],
-            "title": "eolymp"
-        },
-        "krsu": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "krsu",
-                    "default": "krsu"
-                },
-                "submissionsSource": {
-                    "$ref": "#/$defs/UrlOrLocalPath<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "contestSource": {
-                    "$ref": "#/$defs/UrlOrLocalPath<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "timeZone": {
-                    "type": "string"
-                },
-                "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "submissionsSource",
-                "contestSource"
-            ],
-            "title": "krsu"
-        },
-        "kotlin.collections.LinkedHashMap<Regex,kotlin.String>": {
-            "type": "object",
-            "patternProperties": {
-                ".*": {
-                    "type": "string"
-                }
-            }
-        },
-        "org.icpclive.cds.plugins.merger.SubFeed<kotlinx.serialization.Polymorphic<CDSSettings>,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?>": {
-            "type": "object",
-            "properties": {
-                "settings": {
-                    "$ref": "#/$defs/kotlinx.serialization.Polymorphic<CDSSettings><kotlin.String,kotlinx.serialization.Polymorphic<CDSSettings>>"
-                },
-                "teamIdRegex": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.String>"
-                },
-                "problemIdRegex": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.String>"
-                },
-                "groupIdRegex": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.String>"
-                },
-                "organizationIdRegex": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.String>"
-                },
-                "runIdRegex": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.String>"
-                },
-                "languageIdRegex": {
-                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap<Regex,kotlin.String>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "settings"
-            ]
-        },
-        "kotlin.collections.ArrayList<org.icpclive.cds.plugins.merger.SubFeed>": {
-            "type": "array",
-            "items": {
-                "$ref": "#/$defs/org.icpclive.cds.plugins.merger.SubFeed<kotlinx.serialization.Polymorphic<CDSSettings>,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?,org.icpclive.cds.tunning.RegexSet?>"
-            }
-        },
-        "merged": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "merged",
-                    "default": "merged"
-                },
-                "sources": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.plugins.merger.SubFeed>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "sources"
-            ],
-            "title": "merged"
-        },
-        "noop": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "noop",
-                    "default": "noop"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type"
-            ],
-            "title": "noop"
-        },
-        "nsu": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "nsu",
-                    "default": "nsu"
-                },
-                "source": {
-                    "$ref": "#/$defs/UrlOrLocalPath=>Url<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "olympiadId": {
-                    "type": "number"
-                },
-                "tourId": {
-                    "type": "number"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "timeZone": {
-                    "type": "string"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "source",
-                "olympiadId",
-                "tourId",
-                "email",
-                "password"
-            ],
-            "title": "nsu"
-        },
-        "pcms": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "pcms",
-                    "default": "pcms"
-                },
-                "source": {
-                    "$ref": "#/$defs/UrlOrLocalPath<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "jobsSources": {
-                    "$ref": "#/$defs/UrlOrLocalPath<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
-                },
-                "allowResultsFromJobs": {
-                    "type": "boolean"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "source"
-            ],
-            "title": "pcms"
-        },
-        "testsys": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "testsys",
-                    "default": "testsys"
-                },
-                "source": {
-                    "$ref": "#/$defs/UrlOrLocalPath<UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull>"
-                },
-                "timeZone": {
-                    "type": "string"
-                },
-                "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "source"
-            ],
-            "title": "testsys"
-        },
-        "yandex": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "const": "yandex",
-                    "default": "yandex"
-                },
-                "apiKey": {
-                    "type": "string"
-                },
-                "loginRegex": {
-                    "type": "string"
-                },
-                "contestId": {
-                    "type": "number"
-                },
-                "resultType": {
-                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType<org.icpclive.cds.api.ContestResultType.ICPC,org.icpclive.cds.api.ContestResultType.IOI>"
-                },
-                "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
-                },
-                "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
-                },
-                "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "type",
-                "apiKey",
-                "loginRegex",
-                "contestId"
-            ],
-            "title": "yandex"
-        },
-        "kotlinx.serialization.Polymorphic<CDSSettings><kotlin.String,kotlinx.serialization.Polymorphic<CDSSettings>>": {
-            "oneOf": [
-                {
-                    "$ref": "#/$defs/allcups"
-                },
-                {
-                    "$ref": "#/$defs/atcoder"
-                },
-                {
-                    "$ref": "#/$defs/cats"
-                },
-                {
-                    "$ref": "#/$defs/cf"
-                },
-                {
-                    "$ref": "#/$defs/clics"
-                },
-                {
-                    "$ref": "#/$defs/cms"
-                },
-                {
-                    "$ref": "#/$defs/codedrills"
-                },
-                {
-                    "$ref": "#/$defs/dmoj"
-                },
-                {
-                    "$ref": "#/$defs/ejudge"
-                },
-                {
-                    "$ref": "#/$defs/eolymp"
-                },
-                {
-                    "$ref": "#/$defs/krsu"
-                },
-                {
-                    "$ref": "#/$defs/merged"
-                },
-                {
-                    "$ref": "#/$defs/noop"
-                },
-                {
-                    "$ref": "#/$defs/nsu"
-                },
-                {
-                    "$ref": "#/$defs/pcms"
-                },
-                {
-                    "$ref": "#/$defs/testsys"
-                },
-                {
-                    "$ref": "#/$defs/yandex"
-                }
-            ]
-        },
-        "org.icpclive.cds.settings.PreviousDaySettings<kotlinx.serialization.Polymorphic<CDSSettings>,kotlinx.serialization.ContextualSerializer<Local>?>": {
-            "type": "object",
-            "properties": {
-                "settings": {
-                    "$ref": "#/$defs/kotlinx.serialization.Polymorphic<CDSSettings><kotlin.String,kotlinx.serialization.Polymorphic<CDSSettings>>"
-                },
-                "advancedJsonPath": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false,
-            "required": [
-                "settings"
-            ]
-        },
-        "kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>": {
-            "type": "array",
-            "items": {
-                "$ref": "#/$defs/org.icpclive.cds.settings.PreviousDaySettings<kotlinx.serialization.Polymorphic<CDSSettings>,kotlinx.serialization.ContextualSerializer<Local>?>"
-            }
         },
         "allcups": {
             "type": "object",
@@ -940,19 +101,19 @@
                     "type": "number"
                 },
                 "problemIds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(kotlin.Int)"
                 },
                 "teamIds": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<kotlin.Int>"
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(kotlin.Int)"
                 },
                 "emulation": {
-                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?<kotlin.Double,InstantH,kotlin.Boolean>"
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
                 },
                 "previousDays": {
-                    "$ref": "#/$defs/kotlin.collections.ArrayList<org.icpclive.cds.settings.PreviousDaySettings>"
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
                 },
                 "network": {
-                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings<kotlin.Boolean,kotlin.String?>"
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
                 }
             },
             "additionalProperties": false,
@@ -966,10 +127,801 @@
                 "freezeTimeSeconds",
                 "problemIds",
                 "teamIds"
-            ],
-            "title": "allcups"
+            ]
         },
-        "ICPC live settings": {
+        "atcoder": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "atcoder",
+                    "default": "atcoder"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "sessionCookie": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                },
+                "contestLengthSeconds": {
+                    "type": "number"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "sessionCookie",
+                "startTime",
+                "contestLengthSeconds"
+            ]
+        },
+        "org.icpclive.cds.settings.Authorization.BasicAuth?": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "login": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "login",
+                        "password"
+                    ]
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "kotlin.collections.LinkedHashMap(kotlin.String,kotlinx.serialization.ContextualSerializer(Credential))": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "org.icpclive.cds.settings.Authorization": {
+            "type": "object",
+            "properties": {
+                "basic": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.Authorization.BasicAuth?"
+                },
+                "cookies": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap(kotlin.String,kotlinx.serialization.ContextualSerializer(Credential))"
+                },
+                "headers": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap(kotlin.String,kotlinx.serialization.ContextualSerializer(Credential))"
+                }
+            },
+            "additionalProperties": false,
+            "required": []
+        },
+        "UrlOrLocalPathFull": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "auth": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.Authorization"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "url",
+                "auth"
+            ]
+        },
+        "UrlOrLocalPathLoginPassword": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "url",
+                "login",
+                "password"
+            ]
+        },
+        "UrlOrLocalPathAsUrl(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/UrlOrLocalPathFull"
+                },
+                {
+                    "$ref": "#/$defs/UrlOrLocalPathLoginPassword"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "org.icpclive.cds.api.ContestResultType": {
+            "enum": [
+                "ICPC",
+                "IOI"
+            ]
+        },
+        "cats": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "cats",
+                    "default": "cats"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPathAsUrl(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "cid": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "resultType": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "login",
+                "password",
+                "source",
+                "cid"
+            ]
+        },
+        "cf": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "cf",
+                    "default": "cf"
+                },
+                "contestId": {
+                    "type": "number"
+                },
+                "apiKey": {
+                    "type": "string"
+                },
+                "apiSecret": {
+                    "type": "string"
+                },
+                "asManager": {
+                    "type": "boolean"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "contestId",
+                "apiKey",
+                "apiSecret"
+            ]
+        },
+        "UrlOrLocalPath(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/UrlOrLocalPathFull"
+                },
+                {
+                    "$ref": "#/$defs/UrlOrLocalPathLoginPassword"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "kotlin.collections.LinkedHashMap(kotlin.String,kotlin.String)": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "org.icpclive.cds.plugins.clics.FeedVersion": {
+            "enum": [
+                "2020_03",
+                "2022_07",
+                "2023_06",
+                "2026_01",
+                "DRAFT"
+            ]
+        },
+        "org.icpclive.cds.plugins.clics.ClicsFeed": {
+            "type": "object",
+            "properties": {
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPath(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "eventFeedName": {
+                    "type": "string"
+                },
+                "eventFeedPath": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "urlPrefixMapping": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap(kotlin.String,kotlin.String)"
+                },
+                "feedVersion": {
+                    "$ref": "#/$defs/org.icpclive.cds.plugins.clics.FeedVersion"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "source",
+                "contestId"
+            ]
+        },
+        "kotlin.collections.ArrayList(org.icpclive.cds.plugins.clics.ClicsFeed)": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.plugins.clics.ClicsFeed"
+            }
+        },
+        "clics": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "clics",
+                    "default": "clics"
+                },
+                "feeds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.plugins.clics.ClicsFeed)"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "feeds"
+            ]
+        },
+        "kotlin.collections.ArrayList(kotlin.String)": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "cms": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "cms",
+                    "default": "cms"
+                },
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPathAsUrl(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "activeContest": {
+                    "type": "string"
+                },
+                "otherContests": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(kotlin.String)"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "source",
+                "activeContest",
+                "otherContests"
+            ]
+        },
+        "codedrills": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "codedrills",
+                    "default": "codedrills"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "number"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "authKey": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "port",
+                "contestId",
+                "authKey"
+            ]
+        },
+        "dmoj": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "dmoj",
+                    "default": "dmoj"
+                },
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPathAsUrl(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "apiKey": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "source",
+                "contestId",
+                "apiKey"
+            ]
+        },
+        "kotlin.collections.LinkedHashMap(kotlin.String,kotlin.Double)": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "number"
+            }
+        },
+        "ejudge": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "ejudge",
+                    "default": "ejudge"
+                },
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPath(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "resultType": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "problemScoreLimit": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap(kotlin.String,kotlin.Double)"
+                },
+                "unfreezeOfflineGroup": {
+                    "type": "boolean"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "source"
+            ]
+        },
+        "eolymp": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "eolymp",
+                    "default": "eolymp"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "contestId": {
+                    "type": "string"
+                },
+                "previousDaysContestIds": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(kotlin.String)"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "url",
+                "token",
+                "contestId"
+            ]
+        },
+        "krsu": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "krsu",
+                    "default": "krsu"
+                },
+                "submissionsSource": {
+                    "$ref": "#/$defs/UrlOrLocalPath(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "contestSource": {
+                    "$ref": "#/$defs/UrlOrLocalPath(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "resultType": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "submissionsSource",
+                "contestSource"
+            ]
+        },
+        "kotlin.collections.LinkedHashMap?(Regex,kotlin.String)": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "org.icpclive.cds.plugins.merger.SubFeed": {
+            "type": "object",
+            "properties": {
+                "settings": {
+                    "$ref": "#/$defs/kotlinx.serialization.Polymorphic(CDSSettings)"
+                },
+                "teamIdRegex": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?(Regex,kotlin.String)"
+                },
+                "problemIdRegex": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?(Regex,kotlin.String)"
+                },
+                "groupIdRegex": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?(Regex,kotlin.String)"
+                },
+                "organizationIdRegex": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?(Regex,kotlin.String)"
+                },
+                "runIdRegex": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?(Regex,kotlin.String)"
+                },
+                "languageIdRegex": {
+                    "$ref": "#/$defs/kotlin.collections.LinkedHashMap?(Regex,kotlin.String)"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "settings"
+            ]
+        },
+        "kotlin.collections.ArrayList(org.icpclive.cds.plugins.merger.SubFeed)": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/org.icpclive.cds.plugins.merger.SubFeed"
+            }
+        },
+        "merged": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "merged",
+                    "default": "merged"
+                },
+                "sources": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.plugins.merger.SubFeed)"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "sources"
+            ]
+        },
+        "noop": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "noop",
+                    "default": "noop"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type"
+            ]
+        },
+        "nsu": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "nsu",
+                    "default": "nsu"
+                },
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPathAsUrl(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "olympiadId": {
+                    "type": "number"
+                },
+                "tourId": {
+                    "type": "number"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "source",
+                "olympiadId",
+                "tourId",
+                "email",
+                "password"
+            ]
+        },
+        "UrlOrLocalPath?(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/UrlOrLocalPathFull"
+                },
+                {
+                    "$ref": "#/$defs/UrlOrLocalPathLoginPassword"
+                },
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "pcms": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "pcms",
+                    "default": "pcms"
+                },
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPath(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "jobsSources": {
+                    "$ref": "#/$defs/UrlOrLocalPath?(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "resultType": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType"
+                },
+                "allowResultsFromJobs": {
+                    "type": "boolean"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "source"
+            ]
+        },
+        "testsys": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "testsys",
+                    "default": "testsys"
+                },
+                "source": {
+                    "$ref": "#/$defs/UrlOrLocalPath(UrlOrLocalPathRaw,UrlOrLocalPathLoginPassword,UrlOrLocalPathFull)"
+                },
+                "timeZone": {
+                    "type": "string"
+                },
+                "resultType": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "source"
+            ]
+        },
+        "yandex": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "yandex",
+                    "default": "yandex"
+                },
+                "apiKey": {
+                    "type": "string"
+                },
+                "loginRegex": {
+                    "type": "string"
+                },
+                "contestId": {
+                    "type": "number"
+                },
+                "resultType": {
+                    "$ref": "#/$defs/org.icpclive.cds.api.ContestResultType"
+                },
+                "emulation": {
+                    "$ref": "#/$defs/org.icpclive.cds.settings.EmulationSettings?"
+                },
+                "previousDays": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.settings.PreviousDaySettings)"
+                },
+                "network": {
+                    "$ref": "#/$defs/org.icpclive.cds.ktor.NetworkSettings"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "type",
+                "apiKey",
+                "loginRegex",
+                "contestId"
+            ]
+        },
+        "kotlinx.serialization.Polymorphic(CDSSettings)": {
             "oneOf": [
                 {
                     "$ref": "#/$defs/allcups"
@@ -1022,8 +974,7 @@
                 {
                     "$ref": "#/$defs/yandex"
                 }
-            ],
-            "title": "ICPC live settings"
+            ]
         }
     }
 }
