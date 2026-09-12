@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor, { OnMount, OnChange, Monaco } from "@monaco-editor/react";
 
 type JSONSchema = Record<string, unknown>;
@@ -17,36 +17,34 @@ function JsonCodeEditor({
     readonly,
 }: JsonEditorProps): React.ReactElement {
     const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
-    const monacoRef = useRef<Monaco | null>(null);
+    const [monaco, setMonaco] = useState<Monaco | null>(null);
 
-    const handleMount: OnMount = (editor, monaco) => {
+    const handleMount: OnMount = (editor, monacoInstance) => {
         editorRef.current = editor;
-        monacoRef.current = monaco;
 
         const modelUri = "foo://admin/advanced.json";
-        const model = monaco.editor.createModel(
+        const model = monacoInstance.editor.createModel(
             defaultValue,
             "json",
-            monaco.Uri.parse(modelUri),
+            monacoInstance.Uri.parse(modelUri),
         );
         editor.setModel(model);
+        setMonaco(monacoInstance);
     };
 
     // Update the editor content when defaultValue changes (e.g., apiRoot switched)
     useEffect(() => {
         const editor = editorRef.current;
-        const monaco = monacoRef.current;
         if (!editor || !monaco) return;
         const model = editor.getModel();
         if (!model) return;
         if (model.getValue() !== defaultValue) {
             model.setValue(defaultValue);
         }
-    }, [defaultValue]);
+    }, [defaultValue, monaco]);
 
     // Update JSON schema diagnostics when schema changes
     useEffect(() => {
-        const monaco = monacoRef.current;
         if (!monaco) return;
         monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
             ...monaco.languages.json.jsonDefaults.diagnosticsOptions,
@@ -61,7 +59,7 @@ function JsonCodeEditor({
             ],
             validate: true,
         });
-    }, [schema]);
+    }, [monaco, schema]);
 
     return (
         <Editor
