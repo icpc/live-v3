@@ -28,3 +28,46 @@ Examples:
    show only queue
 - `http://host/overlay?onlyWidgets=teamViewBottomRight,teamViewBottomLeft`  
    show only bottom team views
+
+## visualConfigScene
+
+Visual config can declare named partial configs in the `SCENES` field, and you can pick them from the url
+with the `visualConfigScene` query param. That's a way to keep several looks of the same contest in one
+config file, instead of pasting big blobs into `forceVisualConfig` in every OBS browser source.
+
+Scenes are applied after the visual config file, but before `forceVisualConfig`, so a value set in
+`forceVisualConfig` still wins over the selected scenes. 
+
+Scenes are chainable: a scene can declare `SCENES` of its own, and dot separated names in the query param
+select a chain of them. Several chains can be applied at once, comma separated, left to right.
+
+Example visual config:
+
+```jsonc
+{
+    "CONTEST_COLOR": "#4C83C3",
+    "SCENES": {
+        "dark": {
+            "GLOBAL_BACKGROUND_COLOR": "#000000",
+            "SCENES": {
+                "leftQueue": {
+                    "WIDGET_POSITIONS": {
+                        "queue": { "positionX": 0, "positionY": 0, "sizeX": 384, "sizeY": 1080 }
+                    }
+                }
+            }
+        },
+        "noCaption": {
+            "CONTEST_CAPTION": ""
+        }
+    }
+}
+```
+
+Examples:
+- `http://host/overlay?visualConfigScene=dark`
+   black background
+- `http://host/overlay?visualConfigScene=dark.leftQueue`
+   black background and the queue moved to the left
+- `http://host/overlay?visualConfigScene=dark,noCaption`
+   black background and no caption

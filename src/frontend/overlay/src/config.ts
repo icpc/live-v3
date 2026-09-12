@@ -2,7 +2,7 @@ import { setFavicon } from "@shared/setFavicon";
 import { isShouldUseDarkColor } from "@/utils/colors";
 import { faviconTemplate } from "@/consts";
 import { LocationRectangle } from "@/utils/location-rectangle";
-import type { OverlayConfig } from "./config.interface";
+import type { OverlayConfig, OverlayConfigOverride } from "./config.interface";
 import { AwardEffect } from "@/utils/awards";
 
 const WS_PROTO = window.location.protocol === "https:" ? "wss://" : "ws://";
@@ -479,40 +479,43 @@ type EvaluatableTo<T> = {
     [K in keyof T]: T[K] | ((T) => T[K]);
 };
 
-function merge<T>(
-    defaultConfig: EvaluatableTo<T>,
-    serverVisualConfig: object,
-    queryVisualConfig: object,
-): T {
+function isObject(value): boolean {
+    return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+// Overrides are applied in order, the last one defining a key wins.
+function merge<T>(defaultConfig: EvaluatableTo<T>, ...overrides: object[]): T {
     const result = {};
     const allKeys = new Set([
         ...Object.keys(defaultConfig),
-        ...Object.keys(serverVisualConfig),
-        ...Object.keys(queryVisualConfig),
+        ...overrides.flatMap((override) => Object.keys(override)),
     ]);
     for (const key of allKeys) {
         const defaultVal = defaultConfig[key];
         const evalDefaultVal =
             typeof defaultVal === "function" ? defaultVal(result) : defaultVal;
-        const serverVal = serverVisualConfig[key];
-        const queryVal = queryVisualConfig[key];
-        if (evalDefaultVal && typeof evalDefaultVal === "object") {
+        if (isObject(evalDefaultVal)) {
             result[key] = merge(
                 evalDefaultVal,
-                typeof serverVal == "object" ? serverVal : {},
-                typeof queryVal == "object" ? queryVal : {},
+                ...overrides.map((override) =>
+                    isObject(override[key]) ? override[key] : {},
+                ),
             );
         } else {
-            result[key] = queryVal ?? serverVal ?? evalDefaultVal;
+            result[key] = overrides.reduce(
+                (value, override) => override[key] ?? value,
+                evalDefaultVal,
+            );
         }
     }
     return result as T;
 }
 
-function expandDots(config, result = {}) {
+// Scene names are not split, so that they can't be mangled by the expansion.
+function expandDots(config, result = {}, splitKeys = true) {
     for (const key in config) {
         const value = config[key];
-        const parts = key.split(".");
+        const parts = splitKeys ? key.split(".") : [key];
         let current = result;
         for (let i = 0; i < parts.length - 1; i++) {
             if (!(parts[i] in current)) {
@@ -520,21 +523,46 @@ function expandDots(config, result = {}) {
             }
             current = current[parts[i]];
         }
-        if (typeof value === "object") {
-            current[parts[parts.length - 1]] = expandDots(
-                value,
-                current[parts[parts.length - 1]],
-            );
+        const name = parts[parts.length - 1];
+        if (isObject(value)) {
+            current[name] = expandDots(value, current[name], name !== "SCENES");
         } else {
-            current[parts[parts.length - 1]] = value;
+            current[name] = value;
         }
     }
     return result;
 }
 
+// Every comma separated chain of the ?visualConfigScene= parameter is resolved to a list
+// of layers, looking up each next name in the SCENES of the previously selected scene.
+function resolveScenes(
+    config: OverlayConfigOverride,
+    param: string | null,
+): Partial<OverlayConfig>[] {
+    const layers = [config];
+    for (const chain of (param ?? "").split(",").filter((s) => s.length > 0)) {
+        let current = config;
+        for (const name of chain.split(".")) {
+            const next = current.SCENES?.[name];
+            if (!isObject(next)) {
+                console.error(
+                    `Unknown visual config scene: ${name} (in ${chain})`,
+                );
+                break;
+            }
+            layers.push(next);
+            current = next;
+        }
+    }
+    return layers;
+}
+
 const config: Readonly<OverlayConfig> = merge<OverlayConfig>(
     defaultConfig,
-    expandDots(visualConfig),
+    ...resolveScenes(
+        expandDots(visualConfig),
+        urlParams.get("visualConfigScene"),
+    ),
     expandDots(queryVisualConfig),
 );
 
