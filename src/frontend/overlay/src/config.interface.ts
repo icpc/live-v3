@@ -388,3 +388,9 @@ export interface OverlayConfig {
     ADMIN_HIDE_MENU: string[];
     ADMIN_HIDE_CONTROL: string[];
 }
+
+export interface OverlayConfigOverride extends Partial<OverlayConfig> {
+    SCENES?: {
+        [name: string]: OverlayConfigOverride;
+    };
+}
