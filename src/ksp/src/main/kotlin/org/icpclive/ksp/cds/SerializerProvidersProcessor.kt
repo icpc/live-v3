@@ -18,10 +18,10 @@ class SerializerProvidersProcessor(private val generator: CodeGenerator, val log
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val allSerializable = resolver
             .getSymbolsWithAnnotation("kotlinx.serialization.Serializable")
-        val ret = allSerializable.filter { !it.validate()  }.toList()
+        val ret = allSerializable.filter { !it.validate(enableNewFeatures = true)  }.toList()
 
         val subTypesOfInteresting = allSerializable
-            .filter { it.validate() }
+            .filter { it.validate(enableNewFeatures = true) }
             .filterIsInstance<KSClassDeclaration>()
             .filter {
                 it.getAllSuperTypes().any { superClass ->
@@ -89,6 +89,8 @@ class SerializerProvidersProcessor(private val generator: CodeGenerator, val log
 
 class SerializerProvidersProvider() : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment) : SymbolProcessor {
-        return SerializerProvidersProcessor(environment.codeGenerator, environment.logger)
+        return SerializerProvidersProcessor(environment.codeGenerator, environment.logger).apply {
+            environment.registerProcessorForNewFeatures(this)
+        }
     }
 }

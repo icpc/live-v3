@@ -40,7 +40,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val ifaces = resolver.getSymbolsWithAnnotation(SinceClics::class.qualifiedName!!).filterIsInstance<KSClassDeclaration>()
-        val (toProcess, ret) = ifaces.partition { it.validate() }
+        val (toProcess, ret) = ifaces.partition { it.validate(enableNewFeatures = true) }
 
         files.addAll(toProcess.map { it.containingFile!! })
 
@@ -407,6 +407,8 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
 
 class FeedVersionsProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment) : SymbolProcessor {
-        return FeedVersionsProcessor(environment.codeGenerator, environment.logger)
+        return FeedVersionsProcessor(environment.codeGenerator, environment.logger).apply {
+            environment.registerProcessorForNewFeatures(this)
+        }
     }
 }

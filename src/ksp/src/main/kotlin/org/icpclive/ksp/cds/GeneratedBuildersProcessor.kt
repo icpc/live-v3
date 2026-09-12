@@ -89,9 +89,9 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val toGenerate = resolver
             .getSymbolsWithAnnotation(Builder::class.qualifiedName!!)
-        val ret = toGenerate.filter { !it.validate() }.toList()
+        val ret = toGenerate.filter { !it.validate(enableNewFeatures = true) }.toList()
         val interfacesToImplement = toGenerate
-            .filter { it.validate() }
+            .filter { it.validate(enableNewFeatures = true) }
             .filterIsInstance<KSClassDeclaration>()
             .filter {
                 when {
@@ -237,6 +237,8 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
 
 class GeneratedBuildersProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment) : SymbolProcessor {
-        return GeneratedBuildersProcessor(environment.codeGenerator, environment.logger)
+        return GeneratedBuildersProcessor(environment.codeGenerator, environment.logger).apply {
+            environment.registerProcessorForNewFeatures(this)
+        }
     }
 }
