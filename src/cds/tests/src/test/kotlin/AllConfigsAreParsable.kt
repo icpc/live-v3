@@ -60,6 +60,7 @@ class AllConfigsAreParsable {
             .fromDefinition(projectDir.resolve("schemas/visual-config.schema.json").toFile().readText())
         val json = Json {
             allowTrailingComma = true
+            allowComments = true
         }
         return test(
             projectDir.resolve("config"),
