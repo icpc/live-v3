@@ -2405,6 +2405,7 @@ public final class org/icpclive/cds/settings/UrlOrLocalPath$Url : org/icpclive/c
 }
 
 public final class org/icpclive/cds/tunning/AddAccounts : org/icpclive/cds/tunning/TuningRule {
+	public static final field Companion Lorg/icpclive/cds/tunning/AddAccounts$Companion;
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun copy (Ljava/util/List;)Lorg/icpclive/cds/tunning/AddAccounts;
@@ -2424,6 +2425,10 @@ public final synthetic class org/icpclive/cds/tunning/AddAccounts$$serializer : 
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/AddAccounts;)V
+}
+
+public final class org/icpclive/cds/tunning/AddAccounts$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/tunning/AddAwardChain : org/icpclive/cds/tunning/TuningRule {
@@ -2566,6 +2571,7 @@ public final class org/icpclive/cds/tunning/AddMedals$Companion {
 }
 
 public final class org/icpclive/cds/tunning/AddPersons : org/icpclive/cds/tunning/TuningRule {
+	public static final field Companion Lorg/icpclive/cds/tunning/AddPersons$Companion;
 	public fun <init> (Ljava/util/List;)V
 	public final fun component1 ()Ljava/util/List;
 	public final fun copy (Ljava/util/List;)Lorg/icpclive/cds/tunning/AddPersons;
@@ -2585,6 +2591,10 @@ public final synthetic class org/icpclive/cds/tunning/AddPersons$$serializer : k
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/AddPersons;)V
+}
+
+public final class org/icpclive/cds/tunning/AddPersons$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/tunning/AddPersonsByTeamTemplate : org/icpclive/cds/tunning/Desugarable, org/icpclive/cds/tunning/TuningRule {
@@ -2659,6 +2669,7 @@ public final class org/icpclive/cds/tunning/MedalSettings$Companion {
 }
 
 public final class org/icpclive/cds/tunning/OverrideContestSettings : org/icpclive/cds/tunning/TuningRule {
+	public static final field Companion Lorg/icpclive/cds/tunning/OverrideContestSettings$Companion;
 	public fun <init> ()V
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/time/Instant;Lkotlin/time/Duration;Lkotlin/time/Duration;Lkotlin/time/Duration;Ljava/util/Map;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -2690,6 +2701,10 @@ public final synthetic class org/icpclive/cds/tunning/OverrideContestSettings$$s
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/OverrideContestSettings;)V
+}
+
+public final class org/icpclive/cds/tunning/OverrideContestSettings$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/tunning/OverrideGroups : org/icpclive/cds/tunning/TuningRule {
@@ -2796,6 +2811,7 @@ public final class org/icpclive/cds/tunning/OverrideOrganizationTemplate$Compani
 }
 
 public final class org/icpclive/cds/tunning/OverrideOrganizations : org/icpclive/cds/tunning/TuningRule {
+	public static final field Companion Lorg/icpclive/cds/tunning/OverrideOrganizations$Companion;
 	public fun <init> (Ljava/util/Map;)V
 	public final fun component1 ()Ljava/util/Map;
 	public final fun copy (Ljava/util/Map;)Lorg/icpclive/cds/tunning/OverrideOrganizations;
@@ -2815,6 +2831,10 @@ public final synthetic class org/icpclive/cds/tunning/OverrideOrganizations$$ser
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize (Lkotlinx/serialization/encoding/Encoder;Lorg/icpclive/cds/tunning/OverrideOrganizations;)V
+}
+
+public final class org/icpclive/cds/tunning/OverrideOrganizations$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/tunning/OverrideOrganizations$Override {
@@ -3156,6 +3176,7 @@ public final class org/icpclive/cds/tunning/OverrideTeams$Override$Companion {
 }
 
 public final class org/icpclive/cds/tunning/RegexSet {
+	public static final field Companion Lorg/icpclive/cds/tunning/RegexSet$Companion;
 	public static final fun applyTo-impl (Ljava/util/Map;Ljava/lang/String;)Ljava/lang/String;
 	public static final synthetic fun box-impl (Ljava/util/Map;)Lorg/icpclive/cds/tunning/RegexSet;
 	public static fun constructor-impl (Ljava/util/Map;)Ljava/util/Map;
@@ -3178,6 +3199,10 @@ public final synthetic class org/icpclive/cds/tunning/RegexSet$$serializer : kot
 	public final fun getDescriptor ()Lkotlinx/serialization/descriptors/SerialDescriptor;
 	public synthetic fun serialize (Lkotlinx/serialization/encoding/Encoder;Ljava/lang/Object;)V
 	public final fun serialize-OL6087w (Lkotlinx/serialization/encoding/Encoder;Ljava/util/Map;)V
+}
+
+public final class org/icpclive/cds/tunning/RegexSet$Companion {
+	public final fun serializer ()Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/tunning/RulesKt {

@@ -73,7 +73,7 @@ public data class OverrideOrganizations(
         public val customFields: Map<String, String>? = null,
     )
 
-    private companion object {
-        val logger by getLogger()
+    public companion object {
+        private val logger by getLogger()
     }
 }

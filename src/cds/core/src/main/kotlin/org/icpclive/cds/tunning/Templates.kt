@@ -15,7 +15,7 @@ import org.icpclive.cds.util.logger
 import org.icpclive.cds.util.runCatchingIfNotCancellation
 
 
-private val templateRegex = Regex("\\{(!?[a-z0-9A-Z_.-]*)}")
+private val templateRegex = SerializableRegex("\\{(!?[a-z0-9A-Z_.-]*)}")
 
 public interface TemplateSubstitutor {
     public fun substitute(data: String, sanitizer: (String) -> String): String
@@ -101,7 +101,7 @@ internal fun getSubstitutor(regexes: Map<String, TemplateRegexParser>, teamInfo:
 @Serializable
 public class TemplateRegexParser(
     public val from: String,
-    public val rules: Map<Regex, Map<String, String>>,
+    public val rules: Map<SerializableRegex, Map<String, String>>,
 )
 
 internal fun String.hasNoUnsubstitutedRegex() = takeUnless { it.contains(templateRegex) }

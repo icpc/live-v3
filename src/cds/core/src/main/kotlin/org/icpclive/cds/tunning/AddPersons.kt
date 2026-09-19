@@ -26,7 +26,7 @@ public data class AddPersons(public val persons: List<PersonInfo>): TuningRule {
         )
     }
 
-    private companion object {
-        val logger by getLogger()
+    public companion object {
+        private val logger by getLogger()
     }
 }

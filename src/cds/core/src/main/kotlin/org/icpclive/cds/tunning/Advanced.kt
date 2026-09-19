@@ -96,11 +96,11 @@ internal class AdvancedProperties(
     }
 }
 
-internal typealias Regex = @Serializable(with = RegexSerializer::class) kotlin.text.Regex
+internal typealias SerializableRegex = @Serializable(with = RegexSerializer::class) Regex
 
 @Serializable
 @JvmInline
-public value class RegexSet(public val regexes: Map<Regex, String>) {
+public value class RegexSet(public val regexes: Map<SerializableRegex, String>) {
     public fun applyTo(data: String): String? {
         val matched = regexes.entries.filter { data.matches(it.key) }
         return when (matched.size) {
@@ -126,8 +126,8 @@ public value class RegexSet(public val regexes: Map<Regex, String>) {
         }
     }
 
-    private companion object {
-        val logger by getLogger()
+    public companion object {
+        private val logger by getLogger()
     }
 }
 
@@ -145,7 +145,7 @@ public value class RegexSet(public val regexes: Map<Regex, String>) {
 internal class TeamRegexOverrides(
     val organizationRegex: RegexSet? = null,
     val customFields: Map<String, RegexSet>? = null,
-    val groupRegex: Map<String, Regex>? = null,
+    val groupRegex: Map<String, SerializableRegex>? = null,
 )
 
 @Serializable

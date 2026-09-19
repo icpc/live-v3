@@ -65,7 +65,7 @@ public data class OverrideContestSettings(
         )
     }
 
-    private companion object {
-        val logger by getLogger()
+    public companion object {
+        private val logger by getLogger()
     }
 }
