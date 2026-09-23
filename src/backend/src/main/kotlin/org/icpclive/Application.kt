@@ -60,7 +60,8 @@ private fun Application.setupKtorPlugins(userController: UsersController) {
 
 @Suppress("unused") // application.yaml references the main function. This annotation prevents the IDE from marking it as unused.
 fun Application.module() {
-    val controllers = Controllers(this)
+    val dataBus = DataBus()
+    val controllers = Controllers(this, dataBus)
     setupKtorPlugins(controllers.userController)
 
     routing {
@@ -84,11 +85,15 @@ fun Application.module() {
         }
         route("/api") {
             route("/admin") {
-                context(controllers) {
+                context(controllers, dataBus) {
                     configureAdminApiRouting()
                 }
             }
-            route("/overlay") { configureOverlayRouting() }
+            route("/overlay") {
+                context(dataBus) {
+                    configureOverlayRouting()
+                }
+            }
         }
         configureMainPageRouting(
             listOf(
@@ -111,7 +116,7 @@ fun Application.module() {
 
         fun registerKeylogService(config: CDSSettings) {
             val networkSettings = (config as? KtorNetworkSettingsProvider)?.network ?: NetworkSettings()
-            DataBus.keylogService.completeOrThrow(KeylogService(networkSettings))
+            dataBus.keylogService.completeOrThrow(KeylogService(networkSettings, dataBus.contestStateFlow))
         }
         val loader = config.cdsSettings
             .toFlow(configObserver = { registerKeylogService(it) })
@@ -126,7 +131,7 @@ fun Application.module() {
             }
         ).stateIn(this)
 
-        DataBus.visualConfigFlow.completeOrThrow(visualConfigFlow)
-        launchServices(loader, controllers)
+        dataBus.visualConfigFlow.completeOrThrow(visualConfigFlow)
+        launchServices(loader, controllers, dataBus)
     }
 }

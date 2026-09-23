@@ -19,7 +19,7 @@ import org.icpclive.data.*
 import org.icpclive.server.adminApiAction
 import org.icpclive.server.configureDefaultConfigRouting
 
-context(controllers: Controllers)
+context(controllers: Controllers, dataBus: DataBus)
 fun Route.configureAdminApiRouting() {
     authenticate("admin-api-auth") {
         route("/queue") { setupController(controllers.queue) }
@@ -72,7 +72,9 @@ fun Route.configureAdminApiRouting() {
             }
         }
         route("/tickerMessage") { setupController(controllers.tickerMessage) }
-        route("/analytics") { setupAnalytics() }
+        route("/analytics") {
+            setupAnalytics()
+        }
 
         route("/teamSpotlight") { setupSpotlight() }
 
@@ -86,7 +88,7 @@ fun Route.configureAdminApiRouting() {
             run {
                 call.respondText(contentType = ContentType.Application.Json) {
                     val fields = call.request.queryParameters["fields"]?.split(",")?.map { it.lowercase() }?.toSet() ?: emptySet()
-                    val rulesList = DataBus.currentContestInfo().toRulesList()
+                    val rulesList = dataBus.currentContestInfo().toRulesList()
                     val serializer = object : JsonTransformingSerializer<TuningRule>(TuningRule.serializer()) {
                         override fun transformSerialize(element: JsonElement): JsonElement {
                             if (element !is JsonObject) return element
@@ -135,7 +137,7 @@ fun Route.configureAdminApiRouting() {
             Config.visualConfigFile,
             Config.cdsSettings.customFieldsCsvPath,
             Config.cdsSettings.orgCustomFieldsCsvPath,
-            { DataBus.currentContestInfoFlow() }
+            { dataBus.currentContestInfoFlow() }
         )
 
         route("/media") {

@@ -12,7 +12,8 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.toScoreboardDiff
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.loopFlow
-import org.icpclive.data.DataBus
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import org.icpclive.data.currentContestInfo
 import kotlin.time.Duration.Companion.seconds
 
@@ -102,6 +103,10 @@ class TeamState(val teamId: TeamId) : Comparable<TeamState> {
 }
 
 class TeamSpotlightService(
+    private val contestStateFlow: Deferred<StateFlow<ContestState>>,
+    private val scoreRequestFlow: Deferred<Flow<AddTeamScoreRequest>>,
+    private val socialEventsFlow: Deferred<Flow<SocialEvent>>,
+    private val teamSpotlightFlow: CompletableDeferred<Flow<KeyTeam>>,
     private val teamInteresting: MutableStateFlow<List<CurrentTeamState>>? = null,
 ) : Service {
     val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings()
@@ -120,7 +125,7 @@ class TeamSpotlightService(
                     delay(1.seconds)
                     continue
                 }
-                val teamIsHidden = DataBus.currentContestInfo().teams[element.teamId]?.isHidden ?: true
+                val teamIsHidden = contestStateFlow.currentContestInfo().teams[element.teamId]?.isHidden ?: true
                 if (teamIsHidden) {
                     continue
                 }
@@ -137,10 +142,10 @@ class TeamSpotlightService(
     }
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
-        DataBus.teamSpotlightFlow.completeOrThrow(getFlow())
+        teamSpotlightFlow.completeOrThrow(getFlow())
         val runIds = mutableSetOf<RunId>()
         launch {
-            val addScoreRequests = DataBus.teamInterestingScoreRequestFlow.await()
+            val addScoreRequests = scoreRequestFlow.await()
             var scoreboardState: ScoreboardDiff? = null
             var lastInfo: ContestInfo? = null
             merge(
@@ -150,7 +155,7 @@ class TeamSpotlightService(
                             state.state.lastEvent.let { it is RunUpdate && !it.newInfo.isHidden }
                 },
                 addScoreRequests,
-                DataBus.socialEvents.await(),
+                socialEventsFlow.await(),
             ).collect { update ->
                 when (update) {
                     is ContestStateWithScoreboard -> {

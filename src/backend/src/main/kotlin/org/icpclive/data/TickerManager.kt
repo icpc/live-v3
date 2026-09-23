@@ -3,7 +3,7 @@ package org.icpclive.data
 import org.icpclive.api.*
 import org.icpclive.cds.util.completeOrThrow
 
-class TickerManager : ManagerWithEvents<TickerMessage, TickerEvent>() {
+class TickerManager(dataBus: DataBus) : ManagerWithEvents<TickerMessage, TickerEvent>() {
     override fun createAddEvent(item: TickerMessage, showOrder: Long): AddMessageTickerEvent {
         return AddMessageTickerEvent(item, showOrder)
     }
@@ -15,6 +15,6 @@ class TickerManager : ManagerWithEvents<TickerMessage, TickerEvent>() {
     }
 
     init {
-        DataBus.tickerFlow.completeOrThrow(flow)
+        dataBus.tickerFlow.completeOrThrow(flow)
     }
 }

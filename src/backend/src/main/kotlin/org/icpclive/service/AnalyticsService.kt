@@ -11,7 +11,8 @@ import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.getLogger
 import org.icpclive.controllers.PresetsController
-import org.icpclive.data.DataBus
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import org.icpclive.server.ApiActionException
 import kotlin.time.Clock
 import kotlin.time.Duration
@@ -39,7 +40,10 @@ sealed class AnalyticsAction {
 
 class AnalyticsService(
     private val advertisementsController: PresetsController<AdvertisementSettings, AdvertisementWidget>,
-    private val tickerController: PresetsController<TickerMessageSettings, TickerMessage>
+    private val tickerController: PresetsController<TickerMessageSettings, TickerMessage>,
+    private val queueFeaturedRunsFlow: Deferred<FlowCollector<FeaturedRunAction>>,
+    private val externalActionsFlow: Deferred<Flow<AnalyticsAction>>,
+    private val analyticsFlow: CompletableDeferred<Flow<AnalyticsEvent>>,
 ) : Service {
     private val internalActions = MutableSharedFlow<AnalyticsAction>()
     private var contestInfo: ContestInfo? = null
@@ -230,8 +234,8 @@ class AnalyticsService(
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         launch {
-            val featuredRunFlow = DataBus.queueFeaturedRunsFlow.await()
-            val actionFlow = merge(DataBus.analyticsActionsFlow.await(), internalActions).map(::Action)
+            val featuredRunFlow = queueFeaturedRunsFlow.await()
+            val actionFlow = merge(externalActionsFlow.await(), internalActions).map(::Action)
             merge(
                 subscriberFlow.map { Subscribe },
                 actionFlow,
@@ -305,7 +309,7 @@ class AnalyticsService(
     }
 
     init {
-        DataBus.analyticsFlow.completeOrThrow(flow {
+        analyticsFlow.completeOrThrow(flow {
             var needSnapshot = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }

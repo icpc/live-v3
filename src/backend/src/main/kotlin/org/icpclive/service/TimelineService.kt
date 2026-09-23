@@ -10,11 +10,14 @@ import org.icpclive.cds.adapters.contestState
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.utils.TeamRunsStorage
-import org.icpclive.data.DataBus
+import org.icpclive.cds.util.completeOrThrow
+import kotlinx.coroutines.CompletableDeferred
 
-internal class TimelineService : Service {
+internal class TimelineService(
+    private val timelineFlow: CompletableDeferred<Flow<Map<TeamId, List<TimeLineRunInfo>>>>,
+) : Service {
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
-        DataBus.timelineFlow.complete(flow.map { it.state.lastEvent }.timelineFlow().stateIn(this, SharingStarted.Eagerly, emptyMap()))
+        timelineFlow.completeOrThrow(flow.map { it.state.lastEvent }.timelineFlow().stateIn(this, SharingStarted.Eagerly, emptyMap()))
     }
 
     private fun Flow<ContestUpdate>.timelineFlow() = flow {

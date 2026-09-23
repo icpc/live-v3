@@ -5,12 +5,16 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.completeOrThrow
-import org.icpclive.data.DataBus
+import kotlinx.coroutines.CompletableDeferred
+import org.icpclive.cds.api.ContestInfo
+import org.icpclive.cds.api.ContestState
 
-class ContestStateService : Service {
+class ContestStateService(
+    private val contestStateFlow: CompletableDeferred<StateFlow<ContestState>>,
+) : Service {
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         launch {
-            DataBus.contestStateFlow.completeOrThrow(flow.map { it.state }.stateIn(this))
+            contestStateFlow.completeOrThrow(flow.map { it.state }.stateIn(this))
         }
     }
 }
