@@ -23,7 +23,11 @@ export const createApiPost: (apiUrl: string) => ApiPostClient = (apiUrl) => {
             .then((response) => response.json())
             .then((response) => {
                 if (response.status !== "ok") {
-                    throw new Error("Server return not ok status: " + response);
+                    throw new Error(
+                        response.message ??
+                            "Server return not ok status: " +
+                                JSON.stringify(response),
+                    );
                 }
                 return response;
             });

@@ -101,12 +101,18 @@ interface ConfigurationEditorProps {
     apiRoot: string;
     editorType: EditorLanguage;
     readonly?: boolean;
+    /** Defaults to being shown whenever the file is editable. */
+    showExamples?: boolean;
+    /** Shown after a successful save, when the save has a side effect worth mentioning. */
+    saveMessage?: string;
 }
 
 export function ConfigurationEditor({
     apiRoot,
     editorType,
     readonly = false,
+    showExamples = !readonly,
+    saveMessage,
 }: ConfigurationEditorProps): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
     const errorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
@@ -137,9 +143,13 @@ export function ConfigurationEditor({
 
     const onSubmit = () => {
         if (content === undefined) return;
-        apiPost("", content, "POST", true).catch(
-            errorHandler("Failed to save advanced json data"),
-        );
+        apiPost("", content, "POST", true)
+            .then(() => {
+                if (saveMessage) {
+                    enqueueSnackbar(saveMessage, { variant: "success" });
+                }
+            })
+            .catch(errorHandler(`Failed to save ${apiRoot} data`));
     };
 
     if (
@@ -179,7 +189,7 @@ export function ConfigurationEditor({
                     </Button>
                 )}
             </Container>
-            {readonly || <ExamplesContainer apiRoot={apiRoot} />}
+            {showExamples && <ExamplesContainer apiRoot={apiRoot} />}
         </Container>
     );
 }
@@ -189,7 +199,8 @@ export function SettingsJsonPage(): React.ReactElement {
         <ConfigurationEditor
             apiRoot={`${BASE_URL_BACKEND}/settings`}
             editorType={EditorLanguage.Json}
-            readonly={true}
+            showExamples={false}
+            saveMessage="Settings saved, the backend is restarting"
         />
     );
 }

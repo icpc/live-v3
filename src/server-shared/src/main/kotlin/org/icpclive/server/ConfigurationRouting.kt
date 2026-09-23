@@ -27,7 +27,9 @@ public fun Route.configureConfigFileRouting(
     emptyResponse: String,
     validate: (String) -> Unit,
     schemaLocation: String?,
-    examplesPackage: String?
+    examplesPackage: String?,
+    /** Runs after the file was written. When set, a `POST reload` endpoint is exposed too. */
+    afterSave: (suspend () -> Unit)? = null,
 ) {
     get {
         if (path.notExists()) {
@@ -41,6 +43,12 @@ public fun Route.configureConfigFileRouting(
             val text = call.receiveText()
             validate(text)
             path.toFile().writeText(text)
+            afterSave?.invoke()
+        }
+    }
+    if (afterSave != null) {
+        post("/reload") {
+            call.adminApiAction { afterSave() }
         }
     }
     get("/schema") {
@@ -66,15 +74,25 @@ public fun Route.configureDefaultConfigRouting(
     visualConfigFile: Path,
     customFieldsCsvPath: Path,
     orgCustomFieldsCsvPath: Path,
-    contestInfoFlowProvider: suspend ApplicationCall.() -> Flow<ContestInfo>
+    contestInfoFlowProvider: suspend ApplicationCall.() -> Flow<ContestInfo>,
+    /**
+     * Applies a changed settings file. Settings decide which CDS is used, so there is no way to
+     * pick them up other than rebuilding everything. When not given, settings.json stays read-only.
+     */
+    onSettingsReload: (suspend () -> Unit)? = null,
 ) {
     route("/settings") {
         configureConfigFileRouting(
             settingsJonsPath,
             emptyResponse = "{}",
-            validate = { throw ApiActionException("Settings file can't be modified") },
+            validate = if (onSettingsReload == null) {
+                { throw ApiActionException("Settings file can't be modified") }
+            } else {
+                { }
+            },
             schemaLocation = "/schemas/settings.schema.json",
-            examplesPackage = null
+            examplesPackage = null,
+            afterSave = onSettingsReload,
         )
     }
     route("/advancedJson") {

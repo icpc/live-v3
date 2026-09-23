@@ -8,6 +8,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.cio.*
 import io.ktor.utils.io.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.*
 import org.icpclive.Config
@@ -16,6 +18,7 @@ import org.icpclive.api.WidgetUsageStatisticsEntry
 import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.tunning.toRulesList
 import org.icpclive.data.*
+import org.icpclive.server.ApiActionException
 import org.icpclive.server.adminApiAction
 import org.icpclive.server.configureDefaultConfigRouting
 
@@ -132,12 +135,22 @@ fun Route.configureAdminApiRouting() {
         }
 
         configureDefaultConfigRouting(
-            Config.cdsSettings.configDirectory.resolve("settings.json"),
+            Config.cdsSettings.settingsPath,
             Config.cdsSettings.advancedJsonPath,
             Config.visualConfigFile,
             Config.cdsSettings.customFieldsCsvPath,
             Config.cdsSettings.orgCustomFieldsCsvPath,
-            { dataBus.currentContestInfoFlow() }
+            { dataBus.currentContestInfoFlow() },
+            onSettingsReload = {
+                // Fail the request on a file we can't load, instead of letting the fresh
+                // application die on it later: that would take the whole process down.
+                try {
+                    withContext(Dispatchers.IO) { Config.cdsSettings.parseSettings() }
+                } catch (e: Exception) {
+                    throw ApiActionException("Settings file is saved, but can't be loaded: ${e.message}", e)
+                }
+                Config.requestReload()
+            },
         )
 
         route("/media") {

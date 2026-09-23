@@ -44,6 +44,9 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
         .defaultLazy("configDirectory/visual-config.json") { cdsSettings.configDirectory.resolve("visual-config.json") }
 
 
+    /** Rebuilds the whole ktor application, so that a changed settings.json takes effect. */
+    fun requestReload(): Unit = serverSettings.requestReload()
+
     override fun run() {
         loggingSettings.setupLogging(extraLoggers = listOf(::FlowLogAppender))
         presetsDirectory.toFile().mkdirs()

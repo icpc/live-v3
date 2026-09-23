@@ -57,6 +57,23 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         .path(mustExist = true, canBeFile = true, canBeDir = false)
         .defaultLazy("configDirectory/persons.json") { configDirectory.resolve("accounts.json")  }
 
+    /**
+     * The settings file in use. Re-resolved on each access, as it can appear or disappear at runtime.
+     */
+    public val settingsPath: Path
+        get() = configDirectory.resolve("events.properties").takeIf { it.exists() }
+            ?: configDirectory.resolve("settings.json5").takeIf { it.exists() }
+            ?: configDirectory.resolve("settings.json")
+
+    private fun credentials(): Map<String, String> =
+        credentialFile?.let { Json.decodeFromStream<Map<String, String>?>(it.toFile().inputStream()) } ?: emptyMap()
+
+    /** Reads and parses the settings file from disk. Throws if it is missing or malformed. */
+    public fun parseSettings(): CDSSettings {
+        val creds = credentials()
+        return CDSSettings.fromFile(settingsPath) { creds[it] }
+    }
+
     public fun toFlow(): Flow<ContestUpdate> = toFlow { }
 
     public fun toFlow(
@@ -93,11 +110,7 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         }
         log.info { "Using config directory ${this.configDirectory}" }
         log.info { "Current working directory is ${Paths.get("").toAbsolutePath()}" }
-        val path = this.configDirectory.resolve("events.properties").takeIf { it.exists() }
-            ?: this.configDirectory.resolve("settings.json5").takeIf { it.exists() }
-            ?: this.configDirectory.resolve("settings.json")
-        val creds: Map<String, String> = this.credentialFile?.let { Json.decodeFromStream<Map<String, String>?>(it.toFile().inputStream()) } ?: emptyMap()
-        return CDSSettings.fromFile(path) { creds[it] }
+        return parseSettings()
             .also(configObserver)
             .toFlow()
             .applyTuningRules(combinedTuningFlow)
