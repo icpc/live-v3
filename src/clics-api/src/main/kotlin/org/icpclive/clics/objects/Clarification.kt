@@ -9,7 +9,7 @@ import kotlin.time.Instant
 public data class Clarification(
     @Required override val id: String,
     public val fromTeamId: String? = null,
-    @SingleBefore(FeedVersion.`2026_01`, "to_team_id") public val toTeamIds: List<String> = emptyList(),
+    @SingleBefore(FeedVersion.`2026_01`, "to_team_id", nullable = true) public val toTeamIds: List<String> = emptyList(),
     @SinceClics(FeedVersion.`2026_01`) public val toGroupIds: List<String> = emptyList(),
     public val replyToId: String? = null,
     public val problemId: String? = null,

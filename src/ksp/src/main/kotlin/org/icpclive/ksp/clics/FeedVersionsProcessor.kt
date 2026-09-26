@@ -219,7 +219,11 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                        val singleBefore = annotated.getAnnotationsByType(SingleBefore::class).singleOrNull()
                        val listType = type.arguments.single().type!!.resolve()
                         if (singleBefore != null && feedVersion < singleBefore.feedVersion) {
-                            "org.icpclive.cds.util.serializers.SingleElementListSerializer(" + getSerializer(listType, annotated) + ")"
+                            if (singleBefore.nullable) {
+                                "org.icpclive.cds.util.serializers.SingleElementOrNullListSerializer(" + getSerializer(listType, annotated) + ")"
+                            } else {
+                                "org.icpclive.cds.util.serializers.SingleElementListSerializer(" + getSerializer(listType, annotated) + ")"
+                            }
                         } else {
                             "kotlinx.serialization.builtins.ListSerializer(" + getSerializer(listType, annotated) + ")"
                         }

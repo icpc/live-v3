@@ -26,7 +26,7 @@ annotation class LongMinutesBefore(val feedVersion: FeedVersion)
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)
-annotation class SingleBefore(val feedVersion: FeedVersion, val oldName: String)
+annotation class SingleBefore(val feedVersion: FeedVersion, val oldName: String, val nullable: Boolean)
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)
