@@ -25,6 +25,9 @@ jobs:
   build:
     name: Create artifacts from master
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the release and its tag
+      packages: write # push the image to ghcr.io
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -36,7 +39,7 @@ jobs:
           setup-node: 'true'
 
       - name: Build with gradle
-        run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }}
+        run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ inputs.version }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
@@ -45,14 +48,15 @@ jobs:
           path: artifacts
 
       - name: Create release
-        if: ${{ github.event.inputs.publish }}
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          automatic_release_tag: "v${{ github.event.inputs.version }}"
-          draft: ${{ github.event.inputs.draft }}
-          files: |
+        if: ${{ inputs.publish }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ inputs.version }}" \
+            --target "${{ github.sha }}" \
+            --title "v${{ inputs.version }}" \
+            --generate-notes \
+            ${{ inputs.draft && '--draft' || '' }} \
             artifacts/*
 
       - name: Log in to the Container registry
@@ -69,7 +73,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest
-            type=semver,pattern={{version}},value=${{ github.event.inputs.version }}
+            type=semver,pattern={{version}},value=${{ inputs.version }}
             type=schedule,pattern={{date 'YYYYMMDD'}}
             
       - name: Copy live.zip into cloud overlayer
