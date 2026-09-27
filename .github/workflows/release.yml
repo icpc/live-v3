@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew release --scan -Pnpm.download=false -Pbuild_version=${{ github.event.inputs.version }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: artifacts
           path: artifacts
@@ -56,7 +56,7 @@ jobs:
             artifacts/*
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -64,7 +64,7 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
@@ -76,7 +76,10 @@ jobs:
         run: cp artifacts/live-v3-*.zip ./src/cloud-instance-docker/live.zip
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v7
+        env:
+          # Don't export a build record artifact and a job summary for every release build.
+          DOCKER_BUILD_SUMMARY: false
         with:
           context: ./src/cloud-instance-docker/
           build-args: USER_ARCHIVE=live.zip
