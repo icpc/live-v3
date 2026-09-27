@@ -1,5 +1,8 @@
 {
   "type": "ejudge",
   "resultType": "IOI",
-  "source": "https://olympiads.ru/GDUvPbXKZ6lXalSG/external.xml"
+  "source": "https://olympiads.ru/GDUvPbXKZ6lXalSG/external.xml",
+  "network": {
+    "allowUnsecureConnections": true
+  }
 }
