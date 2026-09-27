@@ -1,0 +1,41 @@
+name: Promote image to latest
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to promote (without 'v')
+        required: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-instance
+
+jobs:
+  promote:
+    name: Point latest at an already published image
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || !github.event.release.prerelease }}
+    permissions:
+      packages: write
+    steps:
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Retag as latest
+        env:
+          # The release event gives a tag like v3.5.0, the image is tagged 3.5.0.
+          TAG_NAME: ${{ github.event.release.tag_name }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          VERSION=${INPUT_VERSION:-${TAG_NAME#v}}
+          IMAGE=$REGISTRY/$IMAGE_NAME
+          # Copies the manifest only, so latest is byte identical to $VERSION.
+          docker buildx imagetools create --tag "$IMAGE:latest" "$IMAGE:$VERSION"
+          docker buildx imagetools inspect --format '{{.Manifest.Digest}}' "$IMAGE:latest"

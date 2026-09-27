@@ -71,8 +71,10 @@ jobs:
         uses: docker/metadata-action@v6
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # latest is moved by promote-latest.yml when the release is published,
+          # so that a draft or a test run never takes it over.
+          flavor: latest=false
           tags: |
-            type=raw,value=latest
             type=semver,pattern={{version}},value=${{ inputs.version }}
             type=schedule,pattern={{date 'YYYYMMDD'}}
             
