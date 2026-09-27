@@ -130,6 +130,7 @@ public final class org/icpclive/cds/util/serializers/RegexSerializer : kotlinx/s
 
 public final class org/icpclive/cds/util/serializers/SingleElementListSerializerKt {
 	public static final fun SingleElementListSerializer (Lkotlinx/serialization/KSerializer;)Lkotlinx/serialization/KSerializer;
+	public static final fun SingleElementOrNullListSerializer (Lkotlinx/serialization/KSerializer;)Lkotlinx/serialization/KSerializer;
 }
 
 public final class org/icpclive/cds/util/serializers/TimeZoneSerializer : org/icpclive/cds/util/DelegatedSerializer {
