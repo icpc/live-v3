@@ -136,11 +136,24 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
         fun KSPropertyDeclaration.inlinedIn(feedVersion: FeedVersion) =
             getAnnotationsByType(InlinedBefore::class).any { it.feedVersion > feedVersion }
 
+        fun KSPropertyDeclaration.coerceAbsent() : String {
+            val type = type.resolve()
+            if (!isAnnotationPresent(Required::class)) {
+                return when {
+                    type.isMarkedNullable -> ""
+                    type.isList() -> " ?: emptyList()"
+                    else -> error("Unexpected optional type: ${type.render(null)} for ${qualifiedName?.asString()}")
+                }
+            }
+            return " ?: throw SerializationException(\"Field ${simpleName.asString()} is missing\")"
+        }
+
         data class SerialProperty(
             val name: String,
             val type: KSType,
             val jsonName: Map<FeedVersion, String>,
             val accessName: String,
+            val mandatory: Boolean,
             val annotated: KSAnnotated
         )
 
@@ -167,6 +180,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                                 type = it.type.run { if (isNullable && !isList()) makeNullable() else this },
                                 jsonName = it.jsonName.mapValues { (_, v) -> ann.prefix + v },
                                 accessName = property.simpleName.asString() + (if (isNullable) "?." else ".") + it.accessName,
+                                mandatory = it.mandatory,
                                 annotated = property,
                             )
                         }
@@ -179,6 +193,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                         property.type.resolve(),
                         FeedVersion.entries.associateWith { property.getJsonName(it) },
                         property.simpleName.asString(),
+                        property.isAnnotationPresent(Required::class),
                         property
                     )
                 )
@@ -240,7 +255,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                 }
                 withCodeBlock("override val descriptor: SerialDescriptor = buildClassSerialDescriptor(\"${feedVersion}.${obj.simpleName}\")") {
                     for (i in serialProperties) {
-                        +"element(\"${i.jsonName[feedVersion]}\", ${i.name}SerializerCache.descriptor, emptyList(), isOptional = ${i.annotated.isAnnotationPresent(Required::class).not()})"
+                        +"element(\"${i.jsonName[feedVersion]}\", ${i.name}SerializerCache.descriptor${if (!i.mandatory) ".nullable" else ""}, emptyList(), isOptional = ${!i.mandatory})"
                     }
                 }
                 withCodeBlock("override fun serialize(encoder: Encoder, value: org.icpclive.clics.objects.${obj.simpleName})") {
@@ -253,16 +268,12 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                 withCodeBlock("override fun deserialize(decoder: Decoder): org.icpclive.clics.objects.${obj.simpleName}") {
                     withCodeBlock("return decoder.decodeStructure(descriptor)") {
                         for (i in serialProperties) {
-                            if (i.type.isList()) {
-                                +"var ${i.name}: ${i.type.render(null)} = emptyList()"
-                            } else {
-                                +"var ${i.name}: ${i.type.makeNullable().render(null)} = null"
-                            }
+                            +"var ${i.name}: ${i.type.makeNullable().render(null)} = null"
                         }
                         withCodeBlock("while (true)") {
                             withCodeBlock("when (val index = decodeElementIndex(descriptor))") {
                                 for ((index, i) in serialProperties.withIndex()) {
-                                    +"$index -> ${i.name} = decode${if (i.type.isMarkedNullable) "Nullable" else ""}SerializableElement(descriptor, $index, ${i.name}SerializerCache, ${i.name})"
+                                    +"$index -> ${i.name} = decode${if (!i.mandatory) "Nullable" else ""}SerializableElement(descriptor, $index, ${i.name}SerializerCache, ${i.name})"
                                 }
                                 +"CompositeDecoder.DECODE_DONE -> break"
                                 +$$"else -> error(\"Unexpected index: $index\")"
@@ -286,13 +297,11 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
                                             if (j.hiddenIn(feedVersion)) {
                                                 defaultProperty(j)
                                             } else {
-                                                +"${j.simpleName.asString()} = ${j.simpleName.asString()}${
-                                                    if (!j.type.resolve().isMarkedNullable && !j.type.resolve().isList()) "?: throw SerializationException(\"Field ${j.simpleName.asString()} is missing\")" else ""
-                                                }"
+                                                +"${j.simpleName.asString()} = ${j.simpleName.asString()}${j.coerceAbsent()}"
                                             }
                                         })
                                 } else {
-                                    +"${i.simpleName.asString()} = ${i.simpleName.asString()}${if (!i.type.resolve().isMarkedNullable && !i.type.resolve().isList()) "?: throw SerializationException(\"Field ${i.simpleName.asString()} is missing\")" else ""}"
+                                    +"${i.simpleName.asString()} = ${i.simpleName.asString()}${i.coerceAbsent()}"
                                 }
                             }
                         )

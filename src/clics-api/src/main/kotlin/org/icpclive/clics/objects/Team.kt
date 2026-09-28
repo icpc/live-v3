@@ -27,7 +27,7 @@ public data class Team(
 @SinceClics(FeedVersion.`2020_03`)
 @NoEvent
 public class TeamLocation(
-    public val x: Double,
-    public val y: Double,
-    public val rotation: Double
+    @Required public val x: Double,
+    @Required public val y: Double,
+    @Required public val rotation: Double
 )
