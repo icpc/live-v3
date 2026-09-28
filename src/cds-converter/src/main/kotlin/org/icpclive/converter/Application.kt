@@ -231,11 +231,11 @@ fun Application.module() {
 
         configureMainPageRouting(
             listOf(
-                UsefulLink("https://github.com/icpc/live-v3", "GitHub"),
-                UsefulLink("/clics/api", "CLICS API"),
-                UsefulLink("/pcms/standings.html", "PCMS HTML"),
-                UsefulLink("/pcms/standings.xml", "PCMS XML"),
-                UsefulLink("/reactions", "Reactions API"),
+                UsefulLink(name = "GitHub", url = "https://github.com/icpc/live-v3"),
+                UsefulLink(name = "CLICS API", url = "/clics/api"),
+                UsefulLink(name = "PCMS HTML", url = "/pcms/standings.html"),
+                UsefulLink(name = "PCMS XML", url = "/pcms/standings.xml"),
+                UsefulLink(name = "Reactions API", url = "/reactions"),
             )
         )
 
