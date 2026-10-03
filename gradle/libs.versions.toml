@@ -1,6 +1,6 @@
 [versions]
 
-kotlin = "2.5.0-dev-8210"
+kotlin = "2.5.0-dev-9804"
 
 ktor = "3.5.2"                     # https://ktor.io/
 datetime = "0.8.0"                 # https://github.com/Kotlin/kotlinx-datetime
