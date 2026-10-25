@@ -3,12 +3,12 @@ package org.icpclive.service
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.icpclive.Config
-import org.icpclive.api.CurrentTeamState
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.generateCommentary
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.scoreboard.calculateScoreboard
-import org.icpclive.cds.util.*
+import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.shareWith
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.service.analytics.AnalyticsGenerator
@@ -37,29 +37,26 @@ fun CoroutineScope.launchServices(
                 }
             }
 
-            val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
-            dataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
-
-            launchService(ContestStateService(dataBus.contestStateFlow))
-            launchService(QueueService(dataBus.queueFlow, dataBus.queueFeaturedRunsFlow))
+            launchService(ContestStateService(dataBus.contestStateFlow, dataBus.contestInfoFlow))
+            launchService(QueueService(dataBus.queueFeaturedRunsFlow, dataBus.queueFlow))
             launchService(ScoreboardService(dataBus::setScoreboardDiffs))
             launchService(StatisticsService(dataBus.statisticFlow))
             launchService(
                 AnalyticsService(
                     controllers.advertisement,
                     controllers.tickerMessage,
-                    queueFeaturedRunsFlow = dataBus.queueFeaturedRunsFlow,
                     externalActionsFlow = dataBus.analyticsActionsFlow,
+                    queueFeaturedRunsFlow = dataBus.queueFeaturedRunsFlow,
                     analyticsFlow = dataBus.analyticsFlow,
                 )
             )
             launchService(
                 TeamSpotlightService(
-                    contestStateFlow = dataBus.contestStateFlow,
+                    contestInfoFlow = dataBus.contestInfoFlow,
                     scoreRequestFlow = dataBus.teamInterestingScoreRequestFlow,
                     socialEventsFlow = dataBus.socialEvents,
                     teamSpotlightFlow = dataBus.teamSpotlightFlow,
-                    teamInteresting = teamInterestingFlow,
+                    teamInterestingFlow = dataBus.teamInterestingFlow,
                 )
             )
             launchService(RegularLoggingService())

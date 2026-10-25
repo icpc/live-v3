@@ -6,12 +6,11 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.cds.util.completeOrThrow
-import kotlinx.coroutines.CompletableDeferred
+import org.icpclive.cds.util.DeferredFlow
 import kotlin.time.Duration.Companion.milliseconds
 
 class StatisticsService(
-    private val statisticFlow: CompletableDeferred<Flow<SolutionsStatistic>>,
+    private val statisticFlow: DeferredFlow<SolutionsStatistic>,
 ) : Service {
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         flow.conflate().mapNotNull {
@@ -23,7 +22,7 @@ class StatisticsService(
             }
         }
             .stateIn(this, SharingStarted.Eagerly, ICPCSolutionsStatistic(0, emptyList()))
-            .also { statisticFlow.completeOrThrow(it) }
+            .also { statisticFlow.complete(it) }
     }
 
     private fun computeICPCStatistics(it: ContestStateWithScoreboard): SolutionsStatistic? {

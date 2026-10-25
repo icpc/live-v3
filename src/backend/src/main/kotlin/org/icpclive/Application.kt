@@ -117,7 +117,7 @@ fun Application.module() {
 
         fun registerKeylogService(config: CDSSettings) {
             val networkSettings = (config as? KtorNetworkSettingsProvider)?.network ?: NetworkSettings()
-            dataBus.keylogService.completeOrThrow(KeylogService(networkSettings, dataBus.contestStateFlow))
+            dataBus.keylogService.completeOrThrow(KeylogService(networkSettings, dataBus.contestInfoFlow))
         }
         val loader = config.cdsSettings
             .toFlow(configObserver = { registerKeylogService(it) })
@@ -129,7 +129,7 @@ fun Application.module() {
             json = jsonForConfigs
         ).stateIn(this)
 
-        dataBus.visualConfigFlow.completeOrThrow(visualConfigFlow)
+        dataBus.visualConfigFlow.complete(visualConfigFlow)
         launchServices(loader, controllers, dataBus)
     }
 }

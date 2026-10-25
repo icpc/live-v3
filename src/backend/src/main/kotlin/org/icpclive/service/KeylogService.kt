@@ -2,17 +2,18 @@ package org.icpclive.service
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import org.icpclive.cds.api.*
 import org.icpclive.cds.ktor.DataLoader
 import org.icpclive.cds.ktor.NetworkSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.cds.util.getLogger
-import kotlinx.coroutines.Deferred
-import org.icpclive.data.currentContestInfo
-import kotlin.math.*
-import kotlin.time.*
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.time.Duration
+import kotlin.time.Instant
 
 private val log by getLogger()
 
@@ -31,10 +32,10 @@ private data class KeyStats(
 
 class KeylogService(
     private val networkSettings: NetworkSettings,
-    private val contestStateFlow: Deferred<StateFlow<ContestState>>,
+    private val contestInfoFlow: Flow<ContestInfo>,
 ) {
     suspend fun getKeylog(teamId: TeamId, interval: Duration): List<Long>? {
-        val info = contestStateFlow.currentContestInfo()
+        val info = contestInfoFlow.first()
         val team = info.teams[teamId] ?: return null
         val startTime = info.startTime ?: return null
 

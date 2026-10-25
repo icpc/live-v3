@@ -7,10 +7,8 @@ import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.api.QueueSettings
-import org.icpclive.cds.api.RunId
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.*
-import kotlinx.coroutines.CompletableDeferred
 import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -33,8 +31,8 @@ sealed class FeaturedRunAction(val runId: RunId) {
 }
 
 class QueueService(
-    private val queueFlow: CompletableDeferred<Flow<QueueEvent>>,
-    private val queueFeaturedRunsFlow: CompletableDeferred<FlowCollector<FeaturedRunAction>>,
+    private val queueFeaturedRunsFlow: Flow<FeaturedRunAction>,
+    queueFlow: DeferredFlow<QueueEvent>,
 ) : Service {
     private val runs = mutableMapOf<RunId, RunInfo>()
     private val removedRuns = mutableMapOf<RunId, RunInfo>()
@@ -49,7 +47,7 @@ class QueueService(
     private val subscriberFlow = MutableStateFlow(0)
 
     init {
-        queueFlow.completeOrThrow(flow {
+        queueFlow.complete(flow {
             var nothingSent = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }
@@ -113,16 +111,11 @@ class QueueService(
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         launch {
-            val featuredRunsFlow = MutableSharedFlow<FeaturedRunAction>(
-                extraBufferCapacity = 100,
-                onBufferOverflow = BufferOverflow.DROP_OLDEST
-            )
-            queueFeaturedRunsFlow.completeOrThrow(featuredRunsFlow)
             var firstEventTime: Duration? = null
             val removerFlowTrigger = loopFlow(1.seconds, onError = {}) { Clean }
             val statesFlowTrigger = flow.map { Event(it.state) }
             val subscriberFlowTrigger = subscriberFlow.map { Subscribe }
-            val featuredFlowTrigger = featuredRunsFlow.map { Featured(it) }
+            val featuredFlowTrigger = queueFeaturedRunsFlow.map { Featured(it) }
             var currentContestInfo: ContestInfo? = null
             // it's important to have all side effects after merge, as part before merge will be executed concurrently
             merge(statesFlowTrigger, removerFlowTrigger, subscriberFlowTrigger, featuredFlowTrigger).collect { event ->

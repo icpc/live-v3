@@ -5,7 +5,6 @@ import io.ktor.server.websocket.*
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.icpclive.api.ChatMessage
 import org.icpclive.api.SocialEvent
-import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.data.DataBus
 import org.icpclive.server.adminApiAction
 import org.icpclive.util.sendJsonFlow
@@ -13,7 +12,7 @@ import org.icpclive.util.sendJsonFlow
 context(dataBus: DataBus)
 fun Route.setupSocial() {
     val socialFlow = MutableSharedFlow<SocialEvent>(extraBufferCapacity = 10000)
-    dataBus.socialEvents.completeOrThrow(socialFlow)
+    dataBus.socialEvents.complete(socialFlow)
 
     suspend fun processMessage(message: ChatMessage): ChatMessage {
         val newTeamIds =
@@ -21,7 +20,7 @@ fun Route.setupSocial() {
         return message.copy(teamIds = newTeamIds.distinct())
     }
 
-    webSocket { sendJsonFlow(dataBus.socialEvents.await()) }
+    webSocket { sendJsonFlow(dataBus.socialEvents) }
 
     post {
         call.adminApiAction {

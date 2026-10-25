@@ -10,11 +10,8 @@ import org.icpclive.cds.RunUpdate
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.scoreboard.toScoreboardDiff
-import org.icpclive.cds.util.completeOrThrow
+import org.icpclive.cds.util.DeferredFlow
 import org.icpclive.cds.util.loopFlow
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Deferred
-import org.icpclive.data.currentContestInfo
 import kotlin.time.Duration.Companion.seconds
 
 
@@ -103,20 +100,23 @@ class TeamState(val teamId: TeamId) : Comparable<TeamState> {
 }
 
 class TeamSpotlightService(
-    private val contestStateFlow: Deferred<StateFlow<ContestState>>,
-    private val scoreRequestFlow: Deferred<Flow<AddTeamScoreRequest>>,
-    private val socialEventsFlow: Deferred<Flow<SocialEvent>>,
-    private val teamSpotlightFlow: CompletableDeferred<Flow<KeyTeam>>,
-    private val teamInteresting: MutableStateFlow<List<CurrentTeamState>>? = null,
+    private val contestInfoFlow: Flow<ContestInfo>,
+    private val scoreRequestFlow: Flow<AddTeamScoreRequest>,
+    private val socialEventsFlow: Flow<SocialEvent>,
+    teamSpotlightFlow: DeferredFlow<KeyTeam>,
+    teamInterestingFlow: DeferredFlow<List<CurrentTeamState>>,
 ) : Service {
+    private val teamInterestingMutableFlow = MutableStateFlow(emptyList<CurrentTeamState>())
+        .also { teamInterestingFlow.complete(it) }
+
     val settings: TeamSpotlightFlowSettings = TeamSpotlightFlowSettings()
     private val mutex = Mutex()
     private val queue = mutableSetOf<TeamState>()
     private fun getTeamInQueue(teamId: TeamId) =
         queue.find { it.teamId == teamId } ?: TeamState(teamId).also { queue += it }
 
-    fun getFlow(): Flow<KeyTeam> {
-        return flow {
+    init {
+        teamSpotlightFlow.complete(flow {
             while (true) {
                 val element = mutex.withLock {
                     queue.minOrNull()?.also { queue.remove(it) }
@@ -125,27 +125,25 @@ class TeamSpotlightService(
                     delay(1.seconds)
                     continue
                 }
-                val teamIsHidden = contestStateFlow.currentContestInfo().teams[element.teamId]?.isHidden ?: true
+                val teamIsHidden = contestInfoFlow.first().teams[element.teamId]?.isHidden ?: true
                 if (teamIsHidden) {
                     continue
                 }
                 emit(KeyTeam(element.teamId, element.caused))
                 val teams = mutex.withLock { queue.map { CurrentTeamState(it.teamId, it.score) } }
-                teamInteresting?.emit(teams)
+                teamInterestingMutableFlow.emit(teams)
             }
-        }
+        })
     }
 
     private suspend fun TeamState.addAccent(accent: TeamAccent) {
         addAccent(accent, settings)
-        teamInteresting?.emit(queue.map { CurrentTeamState(it.teamId, it.score) })
+        teamInterestingMutableFlow.emit(queue.map { CurrentTeamState(it.teamId, it.score) })
     }
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
-        teamSpotlightFlow.completeOrThrow(getFlow())
         val runIds = mutableSetOf<RunId>()
         launch {
-            val addScoreRequests = scoreRequestFlow.await()
             var scoreboardState: ScoreboardDiff? = null
             var lastInfo: ContestInfo? = null
             merge(
@@ -154,8 +152,8 @@ class TeamSpotlightService(
                     state.state.infoAfterEvent?.status is ContestStatus.BEFORE ||
                             state.state.lastEvent.let { it is RunUpdate && !it.newInfo.isHidden }
                 },
-                addScoreRequests,
-                socialEventsFlow.await(),
+                scoreRequestFlow,
+                socialEventsFlow,
             ).collect { update ->
                 when (update) {
                     is ContestStateWithScoreboard -> {

@@ -10,7 +10,6 @@ import org.icpclive.Config
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.api.toTeamId
 import org.icpclive.data.DataBus
-import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -34,9 +33,9 @@ private inline fun <reified T : Any> Route.setUpScoreboard(crossinline getter: s
 
 context(dataBus: DataBus)
 fun Route.configureOverlayRouting() {
-    flowEndpoint("/mainScreen") { dataBus.mainScreenFlow.await() }
-    flowEndpoint("/contestInfo") { dataBus.currentContestInfoFlow() }
-    flowEndpoint("/runs") { dataBus.contestStateFlow.await().map { it.runsAfterEvent.values.sortedBy { it.time } } }
+    flowEndpoint("/mainScreen") { dataBus.mainScreenFlow }
+    flowEndpoint("/contestInfo") { dataBus.contestInfoFlow }
+    flowEndpoint("/runs") { dataBus.contestStateFlow.map { it.runsAfterEvent.values.sortedBy { it.time } } }
     flowEndpoint("/teamRuns/{id}") { call ->
         val teamIdStr = call.parameters["id"]
         if (teamIdStr.isNullOrBlank()) {
@@ -44,22 +43,22 @@ fun Route.configureOverlayRouting() {
             null
         } else {
             val teamId = teamIdStr.toTeamId()
-            dataBus.timelineFlow.await()
+            dataBus.timelineFlow
                 .map { it[teamId] }
                 .distinctUntilChanged { a, b -> a === b }
                 .map { it ?: emptyList() }
         }
     }
-    flowEndpoint("/queue") { dataBus.queueFlow.await() }
-    flowEndpoint("/statistics") { dataBus.statisticFlow.await() }
-    flowEndpoint("/ticker") { dataBus.tickerFlow.await() }
+    flowEndpoint("/queue") { dataBus.queueFlow }
+    flowEndpoint("/statistics") { dataBus.statisticFlow }
+    flowEndpoint("/ticker") { dataBus.tickerFlow }
     route("/scoreboard") {
         setUpScoreboard { getScoreboardDiffs(it) }
     }
     route("/svgAchievement") {
         configureSvgAchievementRouting(Config.mediaDirectory)
     }
-    get("/visualConfig.json") { call.respond(dataBus.visualConfigFlow.await().value) }
+    get("/visualConfig.json") { call.respond(dataBus.visualConfigFlow.first()) }
 
     get("/teamKeylog/{id}") {
         val teamIdStr = call.parameters["id"]

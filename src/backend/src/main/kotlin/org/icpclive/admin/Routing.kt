@@ -8,6 +8,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.cio.*
 import io.ktor.utils.io.*
+import kotlinx.coroutines.flow.first
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.*
 import org.icpclive.Config
@@ -15,7 +16,8 @@ import org.icpclive.api.TeamViewPosition
 import org.icpclive.api.WidgetUsageStatisticsEntry
 import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.tunning.toRulesList
-import org.icpclive.data.*
+import org.icpclive.data.Controllers
+import org.icpclive.data.DataBus
 import org.icpclive.server.adminApiAction
 import org.icpclive.server.configureDefaultConfigRouting
 
@@ -86,7 +88,7 @@ fun Route.configureAdminApiRouting() {
             run {
                 call.respondText(contentType = ContentType.Application.Json) {
                     val fields = call.request.queryParameters["fields"]?.split(",")?.map { it.lowercase() }?.toSet() ?: emptySet()
-                    val rulesList = dataBus.currentContestInfo().toRulesList()
+                    val rulesList = dataBus.contestInfoFlow.first().toRulesList()
                     val serializer = object : JsonTransformingSerializer<TuningRule>(TuningRule.serializer()) {
                         override fun transformSerialize(element: JsonElement): JsonElement {
                             if (element !is JsonObject) return element
@@ -135,7 +137,7 @@ fun Route.configureAdminApiRouting() {
             Config.visualConfigFile,
             Config.cdsSettings.customFieldsCsvPath,
             Config.cdsSettings.orgCustomFieldsCsvPath,
-            { dataBus.currentContestInfoFlow() },
+            { dataBus.contestInfoFlow },
         )
 
         route("/media") {

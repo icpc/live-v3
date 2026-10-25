@@ -12,8 +12,8 @@ class Controllers(
     scope: CoroutineScope,
     dataBus: DataBus,
 ): CoroutineScope by scope {
-    private val WidgetManager = WidgetManager(dataBus)
-    private val TickerManager = TickerManager(dataBus)
+    private val WidgetManager = WidgetManager(dataBus.mainScreenFlow)
+    private val TickerManager = TickerManager(dataBus.tickerFlow)
 
     private val showOrderCounter = ShowOrderCounter()
 
@@ -24,10 +24,10 @@ class Controllers(
     val ticker = scope.SingleWidgetController(TickerSettings(), WidgetManager, showOrderCounter, ::TickerWidget)
     val scoreboard = scope.SingleWidgetController(ScoreboardSettings(), WidgetManager, showOrderCounter, ::ScoreboardWidget)
     val fullScreenClock = scope.SingleWidgetController(FullScreenClockSettings(), WidgetManager, showOrderCounter, ::FullScreenClockWidget)
-    private val teamViews = TeamViewPosition.entries.associateWith { TeamViewController(WidgetManager, scope, showOrderCounter, it, dataBus) }
+    private val teamViews = TeamViewPosition.entries.associateWith { TeamViewController(WidgetManager, scope, showOrderCounter, it, dataBus.teamSpotlightFlow, dataBus.contestInfoFlow) }
     fun teamView(position: TeamViewPosition): TeamViewController = teamViews[position]!!
 
-    val locator = LocatorWidgetController(WidgetManager, scope, showOrderCounter, dataBus)
+    val locator = LocatorWidgetController(WidgetManager, scope, showOrderCounter, dataBus.contestInfoFlow)
 
     val advertisement = PresetsController<_, AdvertisementWidget>(WidgetManager, scope, showOrderCounter, ::AdvertisementWidget)
     val picture = PresetsController<_, PictureWidget>(WidgetManager, scope, showOrderCounter, ::PictureWidget)

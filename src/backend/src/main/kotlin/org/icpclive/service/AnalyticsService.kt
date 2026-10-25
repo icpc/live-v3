@@ -8,11 +8,9 @@ import org.icpclive.api.*
 import org.icpclive.cds.*
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
-import org.icpclive.cds.util.completeOrThrow
+import org.icpclive.cds.util.DeferredFlow
 import org.icpclive.cds.util.getLogger
 import org.icpclive.controllers.PresetsController
-import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Deferred
 import org.icpclive.server.ApiActionException
 import kotlin.time.Clock
 import kotlin.time.Duration
@@ -41,10 +39,14 @@ sealed class AnalyticsAction {
 class AnalyticsService(
     private val advertisementsController: PresetsController<AdvertisementSettings, AdvertisementWidget>,
     private val tickerController: PresetsController<TickerMessageSettings, TickerMessage>,
-    private val queueFeaturedRunsFlow: Deferred<FlowCollector<FeaturedRunAction>>,
-    private val externalActionsFlow: Deferred<Flow<AnalyticsAction>>,
-    private val analyticsFlow: CompletableDeferred<Flow<AnalyticsEvent>>,
+    private val externalActionsFlow: Flow<AnalyticsAction>,
+    queueFeaturedRunsFlow: DeferredFlow<FeaturedRunAction>,
+    analyticsFlow: DeferredFlow<AnalyticsEvent>,
 ) : Service {
+    private val queueFeaturedRunsFlow = MutableSharedFlow<FeaturedRunAction>(
+        extraBufferCapacity = 100,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    ).also { queueFeaturedRunsFlow.complete(it) }
     private val internalActions = MutableSharedFlow<AnalyticsAction>()
     private var contestInfo: ContestInfo? = null
     private val messages = mutableMapOf<AnalyticsMessageId, AnalyticsMessage>()
@@ -77,7 +79,7 @@ class AnalyticsService(
         ignoreApiActionException { controller.hide(this.presetId) }
     }
 
-    private suspend fun Action.process(featuredRunsFlow: FlowCollector<FeaturedRunAction>) {
+    private suspend fun Action.process() {
         val message = messages[action.messageId]
         if (message == null) {
             log.warning { "AnalyticsMessage with id ${action.messageId} not found" }
@@ -157,7 +159,7 @@ class AnalyticsService(
                     return
                 }
                 val request = FeaturedRunAction.MakeFeatured(run.id, media)
-                featuredRunsFlow.emit(request)
+                queueFeaturedRunsFlow.emit(request)
                 val companionRun = request.result.await() ?: return
                 updateMessage(message, featuredRun = companionRun)
             }
@@ -168,7 +170,7 @@ class AnalyticsService(
                     log.warning { "Can't make run not featured caused by message ${message.id}" }
                     return
                 }
-                featuredRunsFlow.emit(FeaturedRunAction.MakeNotFeatured(run.id))
+                queueFeaturedRunsFlow.emit(FeaturedRunAction.MakeNotFeatured(run.id))
                 updateMessage(message, featuredRunRemove = true)
             }
         }
@@ -234,8 +236,7 @@ class AnalyticsService(
 
     override fun CoroutineScope.runOn(flow: Flow<ContestStateWithScoreboard>) {
         launch {
-            val featuredRunFlow = queueFeaturedRunsFlow.await()
-            val actionFlow = merge(externalActionsFlow.await(), internalActions).map(::Action)
+            val actionFlow = merge(externalActionsFlow, internalActions).map(::Action)
             merge(
                 subscriberFlow.map { Subscribe },
                 actionFlow,
@@ -294,7 +295,7 @@ class AnalyticsService(
 
                     is Action -> {
                         try {
-                            event.process(featuredRunFlow)
+                            event.process()
                         } catch (e: ApiActionException) {
                             log.error(e) { "Failed during processing action: $event" }
                         }
@@ -309,7 +310,7 @@ class AnalyticsService(
     }
 
     init {
-        analyticsFlow.completeOrThrow(flow {
+        analyticsFlow.complete(flow {
             var needSnapshot = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }

@@ -126,3 +126,15 @@ public fun <T: Any> Flow<T>.stateInCompletable(scope: CoroutineScope) : Flow<T> 
     return stateInCompletable(scope, null)
         .filterNotNull()
 }
+
+@OptIn(ExperimentalCoroutinesApi::class)
+public class DeferredFlow<T> : AbstractFlow<T>() {
+    private val deferred : CompletableDeferred<Flow<T>> = CompletableDeferred()
+    public fun complete(flow: Flow<T>) {
+        require(flow !== this)
+        deferred.completeOrThrow(flow)
+    }
+    override suspend fun collectSafely(collector: FlowCollector<T>) {
+        deferred.await().collect(collector)
+    }
+}
