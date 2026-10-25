@@ -10,9 +10,10 @@ import org.icpclive.data.DataBus
 import org.icpclive.server.adminApiAction
 import org.icpclive.util.sendJsonFlow
 
+context(dataBus: DataBus)
 fun Route.setupSocial() {
     val socialFlow = MutableSharedFlow<SocialEvent>(extraBufferCapacity = 10000)
-    DataBus.socialEvents.completeOrThrow(socialFlow)
+    dataBus.socialEvents.completeOrThrow(socialFlow)
 
     suspend fun processMessage(message: ChatMessage): ChatMessage {
         val newTeamIds =
@@ -20,7 +21,7 @@ fun Route.setupSocial() {
         return message.copy(teamIds = newTeamIds.distinct())
     }
 
-    webSocket { sendJsonFlow(DataBus.socialEvents.await()) }
+    webSocket { sendJsonFlow(dataBus.socialEvents.await()) }
 
     post {
         call.adminApiAction {

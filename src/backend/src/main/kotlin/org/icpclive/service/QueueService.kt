@@ -10,7 +10,7 @@ import org.icpclive.cds.api.QueueSettings
 import org.icpclive.cds.api.RunId
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.*
-import org.icpclive.data.DataBus
+import kotlinx.coroutines.CompletableDeferred
 import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
@@ -32,7 +32,10 @@ sealed class FeaturedRunAction(val runId: RunId) {
     class MakeNotFeatured(runId: RunId) : FeaturedRunAction(runId)
 }
 
-class QueueService : Service {
+class QueueService(
+    private val queueFlow: CompletableDeferred<Flow<QueueEvent>>,
+    private val queueFeaturedRunsFlow: CompletableDeferred<FlowCollector<FeaturedRunAction>>,
+) : Service {
     private val runs = mutableMapOf<RunId, RunInfo>()
     private val removedRuns = mutableMapOf<RunId, RunInfo>()
     private var featuredRun: FeaturedRunInfo? = null
@@ -46,7 +49,7 @@ class QueueService : Service {
     private val subscriberFlow = MutableStateFlow(0)
 
     init {
-        DataBus.queueFlow.completeOrThrow(flow {
+        queueFlow.completeOrThrow(flow {
             var nothingSent = true
             resultFlow
                 .onSubscription { subscriberFlow.update { it + 1 } }
@@ -114,7 +117,7 @@ class QueueService : Service {
                 extraBufferCapacity = 100,
                 onBufferOverflow = BufferOverflow.DROP_OLDEST
             )
-            DataBus.queueFeaturedRunsFlow.completeOrThrow(featuredRunsFlow)
+            queueFeaturedRunsFlow.completeOrThrow(featuredRunsFlow)
             var firstEventTime: Duration? = null
             val removerFlowTrigger = loopFlow(1.seconds, onError = {}) { Clean }
             val statesFlowTrigger = flow.map { Event(it.state) }

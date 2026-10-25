@@ -13,9 +13,10 @@ import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.server.adminApiAction
 import org.icpclive.util.sendJsonFlow
 
+context(dataBus: DataBus)
 fun Route.setupSpotlight() {
     val addScoreRequests = MutableSharedFlow<AddTeamScoreRequest>()
-    DataBus.teamInterestingScoreRequestFlow.completeOrThrow(addScoreRequests)
+    dataBus.teamInterestingScoreRequestFlow.completeOrThrow(addScoreRequests)
 
     post("/addScore") {
         call.adminApiAction {
@@ -25,7 +26,7 @@ fun Route.setupSpotlight() {
     }
 
     webSocket {
-        sendJsonFlow(DataBus.teamInterestingFlow.await().combine(DataBus.currentContestInfoFlow()) { teams, info ->
+        sendJsonFlow(dataBus.teamInterestingFlow.await().combine(dataBus.currentContestInfoFlow()) { teams, info ->
             val teamsScore = teams.associate { it.teamId to it.score }
             @OptIn(InefficientContestInfoApi::class) info.teamList.map { InterestingTeam(it.id, it.fullName, teamsScore[it.id] ?: 0.0) }
         })

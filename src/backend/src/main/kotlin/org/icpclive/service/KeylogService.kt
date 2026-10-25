@@ -9,7 +9,7 @@ import org.icpclive.cds.ktor.DataLoader
 import org.icpclive.cds.ktor.NetworkSettings
 import org.icpclive.cds.settings.UrlOrLocalPath
 import org.icpclive.cds.util.getLogger
-import org.icpclive.data.DataBus
+import kotlinx.coroutines.Deferred
 import org.icpclive.data.currentContestInfo
 import kotlin.math.*
 import kotlin.time.*
@@ -31,9 +31,10 @@ private data class KeyStats(
 
 class KeylogService(
     private val networkSettings: NetworkSettings,
+    private val contestStateFlow: Deferred<StateFlow<ContestState>>,
 ) {
     suspend fun getKeylog(teamId: TeamId, interval: Duration): List<Long>? {
-        val info = DataBus.currentContestInfo()
+        val info = contestStateFlow.currentContestInfo()
         val team = info.teams[teamId] ?: return null
         val startTime = info.startTime ?: return null
 
