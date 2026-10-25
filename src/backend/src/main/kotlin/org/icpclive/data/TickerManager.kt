@@ -1,9 +1,9 @@
 package org.icpclive.data
 
 import org.icpclive.api.*
-import org.icpclive.cds.util.completeOrThrow
+import org.icpclive.cds.util.DeferredFlow
 
-class TickerManager(dataBus: DataBus) : ManagerWithEvents<TickerMessage, TickerEvent>() {
+class TickerManager(flow: DeferredFlow<TickerEvent>) : ManagerWithEvents<TickerMessage, TickerEvent>(flow) {
     override fun createAddEvent(item: TickerMessage, showOrder: Long): AddMessageTickerEvent {
         return AddMessageTickerEvent(item, showOrder)
     }
@@ -12,9 +12,5 @@ class TickerManager(dataBus: DataBus) : ManagerWithEvents<TickerMessage, TickerE
     }
     override fun createSnapshotEvent(items: List<Ordered<TickerMessage>>): TickerSnapshotEvent {
         return TickerSnapshotEvent(items.map { OrderedTickerMessage(it.item, it.showOrder) })
-    }
-
-    init {
-        dataBus.tickerFlow.completeOrThrow(flow)
     }
 }

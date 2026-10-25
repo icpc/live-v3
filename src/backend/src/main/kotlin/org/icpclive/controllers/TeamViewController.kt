@@ -4,8 +4,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
+import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.api.TeamMediaType
-import org.icpclive.data.*
+import org.icpclive.data.Manager
 import kotlin.time.Duration.Companion.seconds
 
 class TeamViewController(
@@ -13,7 +14,8 @@ class TeamViewController(
     scope: CoroutineScope,
     showOrderCounter: ShowOrderCounter,
     val position: TeamViewPosition,
-    private val dataBus: DataBus,
+    private val teamSpotlightFlow: Flow<KeyTeam>,
+    private val contestInfoFlow: Flow<ContestInfo>,
 ) : SingleWidgetController<ExternalTeamViewSettings, TeamViewWidget>(
     ExternalTeamViewSettings(), manager, scope, showOrderCounter
 ) {
@@ -21,7 +23,7 @@ class TeamViewController(
     override suspend fun constructWidgetFlow(settings: ExternalTeamViewSettings): Flow<TeamViewWidget> {
         val processedSettingsFlow = if (settings.teamId == null) {
             flow {
-                dataBus.teamSpotlightFlow.await().collect { keyTeam ->
+                teamSpotlightFlow.collect { keyTeam ->
                     emit(settings.copy(teamId = keyTeam.teamId))
                     delay(30.seconds)
                 }
@@ -29,7 +31,7 @@ class TeamViewController(
         } else {
             flowOf(settings)
         }
-        return dataBus.currentContestInfoFlow().combine(processedSettingsFlow) { contestInfo, settings ->
+        return contestInfoFlow.combine(processedSettingsFlow) { contestInfo, settings ->
             val teamInfo = contestInfo.teams[settings.teamId] ?: return@combine null
             val content = settings.mediaTypes.mapNotNull { teamInfo.medias[it] }.toList()
 

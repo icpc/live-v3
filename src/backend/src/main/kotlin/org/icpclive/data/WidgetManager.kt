@@ -1,7 +1,7 @@
 package org.icpclive.data
 
 import org.icpclive.api.*
-import org.icpclive.cds.util.completeOrThrow
+import org.icpclive.cds.util.DeferredFlow
 import org.icpclive.cds.util.getLogger
 import kotlin.time.Duration
 import kotlin.time.TimeSource
@@ -69,7 +69,7 @@ private fun WidgetUsageStatisticsEntry?.updateStatsAdd(item: Widget): WidgetUsag
 }
 
 
-class WidgetManager(dataBus: DataBus) : ManagerWithEvents<Widget, MainScreenEvent>() {
+class WidgetManager(flow: DeferredFlow<MainScreenEvent>) : ManagerWithEvents<Widget, MainScreenEvent>(flow) {
     private val statistics = WidgetUsageStatistics(mutableMapOf())
 
     override fun createAddEvent(item: Widget, showOrder: Long): ShowWidgetEvent {
@@ -98,10 +98,5 @@ class WidgetManager(dataBus: DataBus) : ManagerWithEvents<Widget, MainScreenEven
             statisticsCopy.entries[it.statisticsId] = statisticsCopy.entries[it.statisticsId].updateStatsRemove(it)
         }
         return statisticsCopy
-    }
-
-
-    init {
-        dataBus.mainScreenFlow.completeOrThrow(flow)
     }
 }

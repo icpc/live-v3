@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.icpclive.api.TypeWithId
+import org.icpclive.cds.util.DeferredFlow
 
 abstract class Manager<in T> {
     abstract suspend fun add(item: T, showOrder: Long)
@@ -13,7 +14,9 @@ abstract class Manager<in T> {
 
 data class Ordered<out T>(val item: T, val showOrder: Long)
 
-abstract class ManagerWithEvents<T : TypeWithId, E> : Manager<T>() {
+abstract class ManagerWithEvents<T : TypeWithId, E>(
+    flow: DeferredFlow<E>,
+) : Manager<T>() {
     private val mutex = Mutex()
     private var timer = 0L
     private val items = mutableListOf<Ordered<T>>()
@@ -68,17 +71,19 @@ abstract class ManagerWithEvents<T : TypeWithId, E> : Manager<T>() {
         onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
 
-    protected val flow: Flow<E> = flow {
-        var subscriptionTimer = 0L
-        flowWrite
-            .onSubscription {
-                val (timer, widgets) = getSubscribeEvents()
-                subscriptionTimer = timer
-                emit(timer to createSnapshotEvent(widgets))
-            }
-            .filter { it.first >= subscriptionTimer }
-            .map { it.second }
-            .collect { emit(it) }
+    init {
+        flow.complete(flow {
+            var subscriptionTimer = 0L
+            flowWrite
+                .onSubscription {
+                    val (timer, widgets) = getSubscribeEvents()
+                    subscriptionTimer = timer
+                    emit(timer to createSnapshotEvent(widgets))
+                }
+                .filter { it.first >= subscriptionTimer }
+                .map { it.second }
+                .collect { emit(it) }
+        })
     }
 
 }

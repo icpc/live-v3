@@ -8,9 +8,7 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.api.*
 import org.icpclive.cds.api.CommentaryMessageId
 import org.icpclive.cds.api.toCommentaryMessageId
-import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.data.DataBus
-import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.server.ApiActionException
 import org.icpclive.server.adminApiAction
 import org.icpclive.service.AnalyticsAction
@@ -21,7 +19,7 @@ import kotlin.time.Duration.Companion.milliseconds
 context(dataBus: DataBus)
 fun Route.setupAnalytics() {
     val actionsFlow = MutableSharedFlow<AnalyticsAction>(extraBufferCapacity = 10000)
-    dataBus.analyticsActionsFlow.completeOrThrow(actionsFlow)
+    dataBus.analyticsActionsFlow.complete(actionsFlow)
 
     fun ApplicationCall.id() = parameters["id"]?.toAnalyticsMessageId() ?: throw ApiActionException("Error load analytics message by id")
     fun ApplicationCall.commentId() = parameters["commentId"]?.toCommentaryMessageId() ?: throw ApiActionException("Error load analytics message comment by id")
@@ -47,8 +45,8 @@ fun Route.setupAnalytics() {
         }
     }
 
-    webSocket { sendJsonFlow(dataBus.analyticsFlow.await()) }
-    get { call.respond(dataBus.analyticsFlow.await().filterIsInstance<AnalyticsMessageSnapshotEvent>().first().messages) }
+    webSocket { sendJsonFlow(dataBus.analyticsFlow) }
+    get { call.respond(dataBus.analyticsFlow.filterIsInstance<AnalyticsMessageSnapshotEvent>().first().messages) }
 
     route("/{id}") {
         presetWidget(
@@ -74,5 +72,5 @@ fun Route.setupAnalytics() {
 
     }
 
-    get("/contestInfo") { call.respond(dataBus.currentContestInfoFlow().first()) }
+    get("/contestInfo") { call.respond(dataBus.contestInfoFlow.first()) }
 }
