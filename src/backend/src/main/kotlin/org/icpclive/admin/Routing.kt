@@ -18,8 +18,7 @@ import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.tunning.toRulesList
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
-import org.icpclive.server.adminApiAction
-import org.icpclive.server.configureDefaultConfigRouting
+import org.icpclive.server.*
 
 context(controllers: Controllers, dataBus: DataBus)
 fun Route.configureAdminApiRouting() {
@@ -132,12 +131,14 @@ fun Route.configureAdminApiRouting() {
         }
 
         configureDefaultConfigRouting(
-            Config.cdsSettings.configDirectory.resolve("settings.json"),
+            Config.cdsSettings.settingsPath,
             Config.cdsSettings.advancedJsonPath,
             Config.visualConfigFile,
             Config.cdsSettings.customFieldsCsvPath,
             Config.cdsSettings.orgCustomFieldsCsvPath,
             { dataBus.contestInfoFlow },
+            validateSettingsReload = Config.cdsSettings::verifySettingsParsable,
+            onSettingsReload = Config.serverSettings::requestReload,
         )
 
         route("/media") {

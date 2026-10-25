@@ -39,6 +39,11 @@ tasks {
         sourceDirectory.set(rootProject.isolated.projectDirectory.dir("config/_examples/_visual-config"))
         packedDirectory.set(project.layout.buildDirectory.dir("visual_examples"))
     }
+    val settingsExamples = register<PackExamplesTask>("settingsExamples") {
+        sourceDirectory.set(rootProject.isolated.projectDirectory.dir("config/_examples/_settings"))
+        packedDirectory.set(project.layout.buildDirectory.dir("settings_examples"))
+    }
+
 
     processResources {
         from(gitVersionFiles) {
@@ -49,6 +54,9 @@ tasks {
         }
         from(visualConfigExamples) {
             into("examples/visual")
+        }
+        from(settingsExamples) {
+            into("examples/settings")
         }
     }
 }

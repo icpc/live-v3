@@ -7,7 +7,9 @@ public class org/icpclive/cds/cli/CdsCommandLineOptions : com/github/ajalt/clikt
 	public final fun getCustomFieldsCsvPath ()Ljava/nio/file/Path;
 	public final fun getOrgCustomFieldsCsvPath ()Ljava/nio/file/Path;
 	public final fun getPersonsJsonPath ()Ljava/nio/file/Path;
+	public final fun getSettingsPath ()Ljava/nio/file/Path;
 	public final fun toFlow ()Lkotlinx/coroutines/flow/Flow;
 	public final fun toFlow (Lkotlin/jvm/functions/Function1;)Lkotlinx/coroutines/flow/Flow;
+	public final fun verifySettingsParsable (Ljava/lang/String;)V
 }
 

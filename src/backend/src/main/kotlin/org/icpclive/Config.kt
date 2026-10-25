@@ -14,8 +14,8 @@ import org.icpclive.util.FlowLogAppender
 object Config : CliktCommand(name = "java -jar live-v3.jar") {
     override val printHelpOnEmptyArgs = true
     val cdsSettings by CdsCommandLineOptions()
-    private val serverSettings by ServerOptions()
-    private val loggingSettings by LoggingOptions(logfileDefaultPrefix = "icpclive")
+    val serverSettings by ServerOptions()
+    val loggingSettings by LoggingOptions(logfileDefaultPrefix = "icpclive")
 
     val authDisabled by option(
         "--no-auth",

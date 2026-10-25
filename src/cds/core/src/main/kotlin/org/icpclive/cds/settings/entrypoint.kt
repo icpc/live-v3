@@ -8,20 +8,24 @@ public fun interface CredentialProvider {
     public operator fun get(s: String): String?
 }
 
+private fun format(
+    credentialProvider: CredentialProvider,
+    path: Path,
+): Json = Json {
+    serializersModule = CDSSettings.serializersModule(credentialProvider, path)
+    allowTrailingComma = true
+    allowComments = true
+}
+
 public fun CDSSettings.Companion.fromFile(path: Path, credentialProvider: CredentialProvider): CDSSettings {
     val file = path.toFile()
-    return when {
-        !file.exists() -> throw IllegalArgumentException("File ${file.absolutePath} does not exist")
-        file.name.endsWith(".properties") -> throw IllegalStateException("Properties format is not supported anymore, use settings.json instead")
-        file.name.endsWith(".json5") -> throw IllegalStateException("Json5 format is not supported anymore, use settings.json instead")
-        file.name.endsWith(".json") -> {
-            val format = Json {
-                serializersModule = serializersModule(credentialProvider, path)
-                allowTrailingComma = true
-                allowComments = true
-            }
-            file.inputStream().use { format.decodeFromStream(it) }
-        }
-        else -> throw IllegalArgumentException("Unknown settings file extension: ${file.path}")
+    return if (!file.exists()) {
+        throw IllegalArgumentException("File ${file.absolutePath} does not exist")
+    } else {
+        file.inputStream().use { format(credentialProvider, path).decodeFromStream(it) }
     }
+}
+
+public fun CDSSettings.Companion.fromContent(content: String, relativePathRoot: Path, credentialProvider: CredentialProvider): CDSSettings {
+    return format(credentialProvider, relativePathRoot).decodeFromString(content)
 }

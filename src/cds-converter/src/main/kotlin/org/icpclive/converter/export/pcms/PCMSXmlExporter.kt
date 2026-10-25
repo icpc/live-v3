@@ -15,7 +15,7 @@ import javax.xml.transform.stream.StreamResult
 import kotlin.time.Duration
 
 
-object PCMSXmlExporter : SingleFileExporter(
+class PCMSXmlExporter : SingleFileExporter(
     httpPath = "pcms",
     exportName = "standings.xml",
     exportDescription = "PCMS standings.xml",
@@ -41,10 +41,12 @@ object PCMSXmlExporter : SingleFileExporter(
         Verdict.Rejected -> "unknown"
     }
 
-    fun ContestStatus.toPcmsStatus() = when (this) {
-        is ContestStatus.FINALIZED, is ContestStatus.OVER -> "over"
-        is ContestStatus.RUNNING -> "running"
-        is ContestStatus.BEFORE -> "before"
+    companion object {
+        fun ContestStatus.toPcmsStatus() = when (this) {
+            is ContestStatus.FINALIZED, is ContestStatus.OVER -> "over"
+            is ContestStatus.RUNNING -> "running"
+            is ContestStatus.BEFORE -> "before"
+        }
     }
 
     private fun Element.setAttributeIfNotNull(name: String, value: String?) {

@@ -14,8 +14,8 @@ object ServerCommand : CliktCommand(name = "server") {
     override val printHelpOnEmptyArgs = true
     override fun help(context: Context) = "Start as http server"
     val cdsOptions by ExtendedCdsCommandLineOptions(defaultAutoFinalize = false)
-    private val serverOptions by ServerOptions()
-    private val loggingOptions by LoggingOptions(logfileDefaultPrefix = "converter")
+    val serverOptions by ServerOptions()
+    val loggingOptions by LoggingOptions(logfileDefaultPrefix = "converter")
     val publisher by Publisher().cooccurring()
     val mediaDirectory by option("--media-dir", help = "Directory to store media")
         .path(canBeFile = false, canBeDir = true)

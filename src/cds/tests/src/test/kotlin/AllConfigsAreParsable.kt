@@ -13,7 +13,6 @@ import kotlin.io.path.*
 
 
 class AllConfigsAreParsable {
-    @OptIn(ExperimentalPathApi::class)
     private fun test(
         configDir: Path,
         nameFilter: (String) -> Boolean,
@@ -27,7 +26,6 @@ class AllConfigsAreParsable {
             .also { require(it.isNotEmpty()) }
     }
 
-    @OptIn(ExperimentalPathApi::class)
     @TestFactory
     fun testSettings() : List<DynamicTest> {
         return test(
@@ -37,7 +35,6 @@ class AllConfigsAreParsable {
         )
     }
 
-    @OptIn(ExperimentalPathApi::class, ExperimentalSerializationApi::class)
     @TestFactory
     fun testAdvancedJson() : List<DynamicTest> {
         return test(
@@ -51,9 +48,8 @@ class AllConfigsAreParsable {
         )
     }
 
-    @OptIn(ExperimentalPathApi::class, ExperimentalSerializationApi::class)
-    @TestFactory
-    fun testVisualConfigs() : List<DynamicTest> {
+    @OptIn(ExperimentalSerializationApi::class)
+    private fun visualConfigParser(): (Path) -> Any? {
         val projectDir = Path("").absolute().parent.parent.parent
         val jsonSchema = JsonSchemaLoader
             .create()
@@ -62,16 +58,21 @@ class AllConfigsAreParsable {
             allowTrailingComma = true
             allowComments = true
         }
-        return test(
-            projectDir.resolve("config"),
-            nameFilter = { it.startsWith("visual-config") || it.startsWith("visualConfig") },
-            parser = { path ->
-                path.toFile().inputStream().use {
-                    jsonSchema.validate(json.decodeFromStream<JsonElement>(it)) {error ->
-                        throw IllegalArgumentException("Invalid ${path}: $error")
-                    }
+        return { path ->
+            path.toFile().inputStream().use {
+                jsonSchema.validate(json.decodeFromStream<JsonElement>(it)) { error ->
+                    throw IllegalArgumentException("Invalid ${path}: $error")
                 }
             }
+        }
+    }
+
+    @TestFactory
+    fun testVisualConfigs() : List<DynamicTest> {
+        return test(
+            Path("").absolute().parent.parent.parent.resolve("config"),
+            nameFilter = { it.startsWith("visual-config") || it.startsWith("visualConfig") },
+            parser = visualConfigParser()
         )
     }
 
@@ -86,6 +87,24 @@ class AllConfigsAreParsable {
                     TuningRule.listFromInputStream(it)
                 }
             }
+        )
+    }
+
+    @TestFactory
+    fun testSettingsExamples() : List<DynamicTest> {
+        return test(
+            Path("").absolute().parent.parent.parent.resolve("config/_examples/_settings"),
+            nameFilter = { true },
+            parser = { CDSSettings.fromFile(it) { "" } }
+        )
+    }
+
+    @TestFactory
+    fun testVisualConfigExamples() : List<DynamicTest> {
+        return test(
+            Path("").absolute().parent.parent.parent.resolve("config/_examples/_visual-config"),
+            nameFilter = { true },
+            parser = visualConfigParser()
         )
     }
 

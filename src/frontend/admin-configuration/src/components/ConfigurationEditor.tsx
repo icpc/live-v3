@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import {
     Button,
     Container,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
     FormControl,
     Select,
     MenuItem,
@@ -100,13 +105,15 @@ export enum EditorLanguage {
 interface ConfigurationEditorProps {
     apiRoot: string;
     editorType: EditorLanguage;
-    readonly?: boolean;
+    saveMessage?: string;
+    confirmMessage?: string;
 }
 
 export function ConfigurationEditor({
     apiRoot,
     editorType,
-    readonly = false,
+    saveMessage,
+    confirmMessage,
 }: ConfigurationEditorProps): React.ReactElement {
     const { enqueueSnackbar } = useSnackbar();
     const errorHandler = errorHandlerWithSnackbar(enqueueSnackbar);
@@ -135,11 +142,31 @@ export function ConfigurationEditor({
             .catch(errorHandler(`Failed to load ${apiRoot} data`));
     }, [apiRoot]);
 
+    const [confirmOpen, setConfirmOpen] = useState(false);
+
+    const save = () => {
+        if (content === undefined) return;
+        apiPost("", content, "POST", true)
+            .then(() => {
+                if (saveMessage) {
+                    enqueueSnackbar(saveMessage, { variant: "success" });
+                }
+            })
+            .catch(errorHandler(`Failed to save ${apiRoot} data`));
+    };
+
     const onSubmit = () => {
         if (content === undefined) return;
-        apiPost("", content, "POST", true).catch(
-            errorHandler("Failed to save advanced json data"),
-        );
+        if (confirmMessage) {
+            setConfirmOpen(true);
+        } else {
+            save();
+        }
+    };
+
+    const onConfirm = () => {
+        setConfirmOpen(false);
+        save();
     };
 
     if (
@@ -162,24 +189,34 @@ export function ConfigurationEditor({
                             schema={schema}
                             defaultValue={content}
                             onChange={(value: string) => setContent(value)}
-                            readonly={readonly}
                         />
                     )}
                     {editorType === EditorLanguage.CSV && (
                         <CsvCodeEditor
                             defaultValue={content}
                             onChange={(value: string) => setContent(value)}
-                            readonly={readonly}
                         />
                     )}
                 </Box>
-                {readonly || (
-                    <Button type="submit" onClick={onSubmit} sx={{ mt: 2 }}>
+                <Button type="submit" onClick={onSubmit} sx={{ mt: 2 }}>
+                    Save
+                </Button>
+            </Container>
+            <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)}>
+                <DialogTitle>Save changes?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>{confirmMessage}</DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={() => setConfirmOpen(false)}>
+                        Cancel
+                    </Button>
+                    <Button color="warning" onClick={onConfirm}>
                         Save
                     </Button>
-                )}
-            </Container>
-            {readonly || <ExamplesContainer apiRoot={apiRoot} />}
+                </DialogActions>
+            </Dialog>
+            <ExamplesContainer apiRoot={apiRoot} />
         </Container>
     );
 }
@@ -189,7 +226,11 @@ export function SettingsJsonPage(): React.ReactElement {
         <ConfigurationEditor
             apiRoot={`${BASE_URL_BACKEND}/settings`}
             editorType={EditorLanguage.Json}
-            readonly={true}
+            saveMessage="Settings saved, the backend is restarting"
+            confirmMessage={
+                "Saving will restart the backend. Overlays will be " +
+                "disconnected and the contest data will be reloaded."
+            }
         />
     );
 }

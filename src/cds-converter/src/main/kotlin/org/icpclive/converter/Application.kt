@@ -149,11 +149,11 @@ fun Application.module() {
                             .stateIn(scope, SharingStarted.Eagerly, null)
                             .filterNotNull()
                     }
-                    PCMSXmlExporter.run(this@nonAdmin, this@admin)
-                    PCMSHtmlExporter.run(this@nonAdmin, this@admin)
-                    IcpcCsvExporter.run(this@nonAdmin, this@admin)
+                    PCMSXmlExporter().run(this@nonAdmin, this@admin)
+                    PCMSHtmlExporter().run(this@nonAdmin, this@admin)
+                    IcpcCsvExporter().run(this@nonAdmin, this@admin)
                     ClicsExporter(ServerCommand.mediaDirectory).run(this@nonAdmin, this@admin)
-                    ReactionsExporter.run(this@nonAdmin, this@admin)
+                    ReactionsExporter().run(this@nonAdmin, this@admin)
                 }
             }
             accounts = adminContestInfoFlow
@@ -203,7 +203,7 @@ fun Application.module() {
                     )
                 }
                 configureDefaultConfigRouting(
-                    ServerCommand.cdsOptions.configDirectory.resolve("settings.json"),
+                    ServerCommand.cdsOptions.settingsPath,
                     ServerCommand.cdsOptions.advancedJsonPath,
                     ServerCommand.cdsOptions.visualConfigFile,
                     ServerCommand.cdsOptions.customFieldsCsvPath,
@@ -215,7 +215,9 @@ fun Application.module() {
                         } else {
                             nonAdminContestInfoFlow
                         }
-                    }
+                    },
+                    validateSettingsReload = ServerCommand.cdsOptions::verifySettingsParsable,
+                    onSettingsReload = ServerCommand.serverOptions::requestReload
                 )
             }
         }

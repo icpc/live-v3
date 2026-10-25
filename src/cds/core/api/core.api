@@ -2354,6 +2354,7 @@ public final class org/icpclive/cds/settings/EmulationSettings$Companion {
 }
 
 public final class org/icpclive/cds/settings/EntrypointKt {
+	public static final fun fromContent (Lorg/icpclive/cds/settings/CDSSettings$Companion;Ljava/lang/String;Ljava/nio/file/Path;Lorg/icpclive/cds/settings/CredentialProvider;)Lorg/icpclive/cds/settings/CDSSettings;
 	public static final fun fromFile (Lorg/icpclive/cds/settings/CDSSettings$Companion;Ljava/nio/file/Path;Lorg/icpclive/cds/settings/CredentialProvider;)Lorg/icpclive/cds/settings/CDSSettings;
 }
 

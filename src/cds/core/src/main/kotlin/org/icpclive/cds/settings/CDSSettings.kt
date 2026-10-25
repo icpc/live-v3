@@ -52,12 +52,12 @@ public interface CDSSettings {
             SerializersModule {
                 postProcess<Credential, String>(
                     onDeserialize = {
-                        val prefix = "\$creds."
+                        val prefix = $$"$creds."
                         if (it.startsWith(prefix)) {
                             val name = it.substring(prefix.length)
                             Credential(
                                 it,
-                                credentialProvider[name] ?: throw IllegalStateException("Credential $name not found")
+                                credentialProvider[name] ?: throw SerializationException("Credential $name not found")
                             )
                         } else {
                             Credential(it, it)

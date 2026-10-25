@@ -7,14 +7,12 @@ interface JsonEditorProps {
     schema: JSONSchema;
     defaultValue: string;
     onChange: OnChange;
-    readonly: boolean;
 }
 
 function JsonCodeEditor({
     schema,
     defaultValue,
     onChange,
-    readonly,
 }: JsonEditorProps): React.ReactElement {
     const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
     const [monaco, setMonaco] = useState<Monaco | null>(null);
@@ -66,7 +64,6 @@ function JsonCodeEditor({
             language="json"
             onMount={handleMount}
             onChange={onChange}
-            options={{ readOnly: readonly }}
         />
     );
 }

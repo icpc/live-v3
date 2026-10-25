@@ -14,16 +14,13 @@ import org.icpclive.cds.adapters.applyTuningRules
 import org.icpclive.cds.api.AccountInfo
 import org.icpclive.cds.api.PersonInfo
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.tunning.AddAccounts
-import org.icpclive.cds.tunning.AddPersons
-import org.icpclive.cds.tunning.TuningRule
-import org.icpclive.cds.util.fileContentFlow
-import org.icpclive.cds.util.fileJsonContentFlow
-import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.fromFile
+import org.icpclive.cds.tunning.*
+import org.icpclive.cds.util.*
 import java.io.InputStream
 import java.nio.file.Path
 import java.nio.file.Paths
-import kotlin.io.path.exists
 import kotlin.io.path.name
 
 public open class CdsCommandLineOptions : OptionGroup("CDS options") {
@@ -55,7 +52,24 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
 
     public val accountsJsonPath: Path by option("--accounts-json", help = "Path to file with accounts")
         .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/persons.json") { configDirectory.resolve("accounts.json")  }
+        .defaultLazy("configDirectory/accounts.json") { configDirectory.resolve("accounts.json")  }
+
+    public val settingsPath: Path by option("--settings-json", help = "Path to file with settings")
+        .path(mustExist = true, canBeFile = true, canBeDir = false)
+        .defaultLazy("configDirectory/settings.json") { configDirectory.resolve("settings.json") }
+
+    private fun getCredsProvider(): CredentialProvider {
+        val creds = credentialFile?.let { file ->
+            file.toFile().inputStream().use {
+                Json.decodeFromStream<Map<String, String>>(it)
+            }
+        } ?: emptyMap()
+        return CredentialProvider { creds[it] }
+    }
+
+    public fun verifySettingsParsable(content: String) {
+        val _ = CDSSettings.fromContent(content, settingsPath, getCredsProvider())
+    }
 
     public fun toFlow(): Flow<ContestUpdate> = toFlow { }
 
@@ -93,11 +107,8 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         }
         log.info { "Using config directory ${this.configDirectory}" }
         log.info { "Current working directory is ${Paths.get("").toAbsolutePath()}" }
-        val path = this.configDirectory.resolve("events.properties").takeIf { it.exists() }
-            ?: this.configDirectory.resolve("settings.json5").takeIf { it.exists() }
-            ?: this.configDirectory.resolve("settings.json")
-        val creds: Map<String, String> = this.credentialFile?.let { Json.decodeFromStream<Map<String, String>?>(it.toFile().inputStream()) } ?: emptyMap()
-        return CDSSettings.fromFile(path) { creds[it] }
+        return CDSSettings
+            .fromFile(settingsPath, getCredsProvider())
             .also(configObserver)
             .toFlow()
             .applyTuningRules(combinedTuningFlow)
