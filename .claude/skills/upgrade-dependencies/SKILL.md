@@ -98,6 +98,14 @@ matters more than reading its table:
 - **A "no plain-stable release" note means the dependency has only ever shipped
   prereleases.** Follow the project link in the catalog comment and decide with the user.
 
+After the catalog table, the script prints a section per **settings file** for plugins whose
+version is hardcoded there (`id("com.gradle.develocity") version "4.1.1"`). These are easy
+to forget and do drift: a settings `plugins {}` block cannot reference the catalog at all,
+because it is evaluated before `dependencyResolutionManagement` creates the `libs` accessor,
+so the version has to be written inline. Bump these by editing the settings file, not the
+catalog. `build-logic/settings.gradle.kts` is the bootstrap of the composite build and its
+pin is irreducible — there is no outer build to source a catalog from.
+
 Apply the bumps by editing the TOML by hand rather than with a script. The comments are
 column-aligned and each carries the project's release page, which is the authority when
 the metadata is ambiguous; a regex rewrite ruins the alignment and skips the judgment. If

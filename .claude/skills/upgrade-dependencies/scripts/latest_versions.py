@@ -4,6 +4,12 @@
 Reads gradle/libs.versions.toml, maps each [versions] entry to the artifacts that
 reference it, and queries Maven Central and the Gradle Plugin Portal for releases.
 
+Also scans the project's settings files for plugins whose version is hardcoded there.
+A settings `plugins {}` block cannot use the catalog at all — it is evaluated before
+`dependencyResolutionManagement` creates the `libs` accessor — so those versions are
+necessarily written inline and are invisible to a catalog-only check. They drift
+silently across upgrades unless something looks for them.
+
 Deliberately read-only: it prints a table and never edits the catalog. Applying the
 bump by hand keeps the file's comment alignment intact and forces a human decision on
 the entries the script flags as ambiguous.
@@ -13,6 +19,7 @@ Usage:
 """
 
 import json
+import os
 import re
 import sys
 import urllib.request
@@ -73,6 +80,43 @@ def catalog_artifacts(catalog):
             if ref and plugin_id:
                 refs.setdefault(ref, set()).add((plugin_id, f"{plugin_id}.gradle.plugin"))
     return refs
+
+
+# A plugin declared in a settings file, e.g. `id("com.gradle.develocity") version "4.1.1"`.
+# Accepts the Groovy spelling (`id "x" version "y"`) too, and tolerates a trailing
+# `apply false`. Anything matching this in a settings file is a plugin declaration.
+SETTINGS_PLUGIN = re.compile(
+    r"""id\s*\(?\s*["']([A-Za-z0-9_.\-]+)["']\s*\)?\s*version\s*["']([A-Za-z0-9_.\-]+)["']"""
+)
+
+# Directories that hold build output or vendored code rather than build logic.
+SKIP_DIRS = {"build", "node_modules", ".gradle", ".git", ".idea", "dist", "out"}
+
+
+def settings_files(root):
+    """Every settings file in the project, root build first, then included builds."""
+    found = []
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = sorted(d for d in dirnames if d not in SKIP_DIRS and not d.startswith("."))
+        for name in ("settings.gradle.kts", "settings.gradle"):
+            if name in filenames:
+                found.append(os.path.join(dirpath, name))
+    return sorted(found, key=lambda p: (p.count(os.sep), p))
+
+
+def settings_plugins(root):
+    """Map each settings file -> [(plugin id, hardcoded version)] declared in it."""
+    declared = {}
+    for path in settings_files(root):
+        hits = []
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                line = line.split("//")[0]
+                for plugin_id, version in SETTINGS_PLUGIN.findall(line):
+                    hits.append((plugin_id, version))
+        if hits:
+            declared[os.path.relpath(path, root)] = hits
+    return declared
 
 
 def resolve(ref, current, artifacts):
@@ -148,29 +192,62 @@ def main():
     versions = catalog.get("versions", {})
     refs = catalog_artifacts(catalog)
 
+    # The project root is the catalog's grandparent (gradle/libs.versions.toml).
+    root = os.path.dirname(os.path.dirname(os.path.abspath(path))) or "."
+    declared = settings_plugins(root)
+
+    # One job per thing to resolve, catalog refs and settings plugins alike, so the
+    # whole report costs one round of parallel requests rather than two.
+    jobs = [(item[0], item[1], refs.get(item[0], set()), None) for item in versions.items()]
+    jobs += [
+        (plugin_id, version, {(plugin_id, f"{plugin_id}.gradle.plugin")}, settings_file)
+        for settings_file, hits in declared.items()
+        for plugin_id, version in hits
+    ]
+
     with ThreadPoolExecutor(max_workers=8) as pool:
-        results = list(pool.map(
-            lambda item: resolve(item[0], item[1], refs.get(item[0], set())),
-            versions.items(),
-        ))
+        resolved = list(pool.map(lambda j: (resolve(j[0], j[1], j[2]), j[3]), jobs))
+
+    for r, settings_file in resolved:
+        r["settings_file"] = settings_file
+    results = [r for r, f in resolved if f is None]
+    from_settings = [r for r, f in resolved if f is not None]
 
     if as_json:
-        print(json.dumps(results, indent=2))
+        print(json.dumps(results + from_settings, indent=2))
         return 0
 
-    width = max((len(r["ref"]) for r in results), default=10)
-    upgrades = 0
-    for r in results:
-        changed = r["latest"] and r["latest"] != r["current"]
-        upgrades += bool(changed)
-        marker = "  <== UPGRADE" if changed else ""
-        note = f"  [{r['note']}]" if r["note"] else ""
-        print(f"{r['ref']:<{width}}  {r['current']:<16} -> {r['latest'] or '?':<16}{marker}{note}")
+    def table(rows):
+        # Width per section: plugin ids are far longer than catalog refs, and a shared
+        # width would stretch the catalog table to match them.
+        width = max(len(r["ref"]) for r in rows)
+        upgrades = 0
+        for r in rows:
+            changed = r["latest"] and r["latest"] != r["current"]
+            upgrades += bool(changed)
+            marker = "  <== UPGRADE" if changed else ""
+            note = f"  [{r['note']}]" if r["note"] else ""
+            print(f"{r['ref']:<{width}}  {r['current']:<16} -> {r['latest'] or '?':<16}{marker}{note}")
+        return upgrades
 
-    flagged = [r for r in results if r["note"]]
+    upgrades = table(results) if results else 0
+
+    # Settings plugins are reported per file, because each settings file is a separate
+    # build with its own declarations — and the innermost one is a bootstrap that cannot
+    # be moved into the catalog no matter what.
+    for settings_file in declared:
+        rows = [r for r in from_settings if r["settings_file"] == settings_file]
+        if rows:
+            print(f"\n{settings_file}:")
+            upgrades += table(rows)
+
+    flagged = [r for r in results + from_settings if r["note"]]
     print(f"\n{upgrades} upgrade(s) available, {len(flagged)} entr(ies) need a human look.")
     if flagged:
         print("Check the project link in the catalog comment for each flagged entry.")
+    if from_settings:
+        print("Versions under a settings file are hardcoded there, not in the catalog: "
+              "edit the settings file itself.")
     return 0
 
 
