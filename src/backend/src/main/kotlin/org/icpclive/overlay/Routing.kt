@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.*
 import org.icpclive.Config
 import org.icpclive.cds.api.OptimismLevel
 import org.icpclive.cds.api.toTeamId
-import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.data.currentContestInfoFlow
 import org.icpclive.util.sendJsonFlow
@@ -26,16 +25,18 @@ inline fun <reified T : Any> Route.flowEndpoint(name: String, crossinline dataPr
     }
 }
 
+context(dataBus: DataBus)
 private inline fun <reified T : Any> Route.setUpScoreboard(crossinline getter: suspend DataBus.(OptimismLevel) -> Flow<T>) {
-    flowEndpoint("/normal") { DataBus.getter(OptimismLevel.NORMAL) }
-    flowEndpoint("/optimistic") { DataBus.getter(OptimismLevel.OPTIMISTIC) }
-    flowEndpoint("/pessimistic") { DataBus.getter(OptimismLevel.PESSIMISTIC) }
+    flowEndpoint("/normal") { dataBus.getter(OptimismLevel.NORMAL) }
+    flowEndpoint("/optimistic") { dataBus.getter(OptimismLevel.OPTIMISTIC) }
+    flowEndpoint("/pessimistic") { dataBus.getter(OptimismLevel.PESSIMISTIC) }
 }
 
+context(dataBus: DataBus)
 fun Route.configureOverlayRouting() {
-    flowEndpoint("/mainScreen") { DataBus.mainScreenFlow.await() }
-    flowEndpoint("/contestInfo") { DataBus.currentContestInfoFlow() }
-    flowEndpoint("/runs") { DataBus.contestStateFlow.await().map { it.runsAfterEvent.values.sortedBy { it.time } } }
+    flowEndpoint("/mainScreen") { dataBus.mainScreenFlow.await() }
+    flowEndpoint("/contestInfo") { dataBus.currentContestInfoFlow() }
+    flowEndpoint("/runs") { dataBus.contestStateFlow.await().map { it.runsAfterEvent.values.sortedBy { it.time } } }
     flowEndpoint("/teamRuns/{id}") { call ->
         val teamIdStr = call.parameters["id"]
         if (teamIdStr.isNullOrBlank()) {
@@ -43,22 +44,22 @@ fun Route.configureOverlayRouting() {
             null
         } else {
             val teamId = teamIdStr.toTeamId()
-            DataBus.timelineFlow.await()
+            dataBus.timelineFlow.await()
                 .map { it[teamId] }
                 .distinctUntilChanged { a, b -> a === b }
                 .map { it ?: emptyList() }
         }
     }
-    flowEndpoint("/queue") { DataBus.queueFlow.await() }
-    flowEndpoint("/statistics") { DataBus.statisticFlow.await() }
-    flowEndpoint("/ticker") { DataBus.tickerFlow.await() }
+    flowEndpoint("/queue") { dataBus.queueFlow.await() }
+    flowEndpoint("/statistics") { dataBus.statisticFlow.await() }
+    flowEndpoint("/ticker") { dataBus.tickerFlow.await() }
     route("/scoreboard") {
         setUpScoreboard { getScoreboardDiffs(it) }
     }
     route("/svgAchievement") {
         configureSvgAchievementRouting(Config.mediaDirectory)
     }
-    get("/visualConfig.json") { call.respond(DataBus.visualConfigFlow.await().value) }
+    get("/visualConfig.json") { call.respond(dataBus.visualConfigFlow.await().value) }
 
     get("/teamKeylog/{id}") {
         val teamIdStr = call.parameters["id"]
@@ -71,7 +72,7 @@ fun Route.configureOverlayRouting() {
             call.respond(HttpStatusCode.BadRequest, "Missing or invalid intervalMs query parameter")
             return@get
         }
-        val result = DataBus.keylogService.await().getKeylog(teamIdStr.toTeamId(), intervalMs.milliseconds)
+        val result = dataBus.keylogService.await().getKeylog(teamIdStr.toTeamId(), intervalMs.milliseconds)
         if (result == null) {
             call.respond(HttpStatusCode.NotFound)
         } else {

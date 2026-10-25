@@ -9,12 +9,13 @@ class LocatorWidgetController(
     manager: Manager<TeamLocatorWidget>,
     parentScope: CoroutineScope,
     showOrderCounter: ShowOrderCounter,
+    private val dataBus: DataBus,
 ) : SingleWidgetController<ExternalTeamLocatorSettings, TeamLocatorWidget>(
     ExternalTeamLocatorSettings(), manager, parentScope, showOrderCounter
 ) {
 
     override suspend fun constructWidgetFlow(settings: ExternalTeamLocatorSettings): Flow<TeamLocatorWidget> {
-        return DataBus.currentContestInfoFlow().map { info ->
+        return dataBus.currentContestInfoFlow().map { info ->
             TeamLocatorWidget(TeamLocatorSettings(
                 settings.circles
                     .filter { it.teamId in info.teams }

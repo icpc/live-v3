@@ -8,9 +8,12 @@ import org.icpclive.controllers.*
 import org.icpclive.util.loadSVG
 import org.icpclive.util.toBase64SVG
 
-class Controllers(scope: CoroutineScope): CoroutineScope by scope {
-    private val WidgetManager = WidgetManager()
-    private val TickerManager = TickerManager()
+class Controllers(
+    scope: CoroutineScope,
+    dataBus: DataBus,
+): CoroutineScope by scope {
+    private val WidgetManager = WidgetManager(dataBus)
+    private val TickerManager = TickerManager(dataBus)
 
     private val showOrderCounter = ShowOrderCounter()
 
@@ -21,10 +24,10 @@ class Controllers(scope: CoroutineScope): CoroutineScope by scope {
     val ticker = scope.SingleWidgetController(TickerSettings(), WidgetManager, showOrderCounter, ::TickerWidget)
     val scoreboard = scope.SingleWidgetController(ScoreboardSettings(), WidgetManager, showOrderCounter, ::ScoreboardWidget)
     val fullScreenClock = scope.SingleWidgetController(FullScreenClockSettings(), WidgetManager, showOrderCounter, ::FullScreenClockWidget)
-    private val teamViews = TeamViewPosition.entries.associateWith { TeamViewController(WidgetManager, scope, showOrderCounter, it) }
+    private val teamViews = TeamViewPosition.entries.associateWith { TeamViewController(WidgetManager, scope, showOrderCounter, it, dataBus) }
     fun teamView(position: TeamViewPosition): TeamViewController = teamViews[position]!!
 
-    val locator = LocatorWidgetController(WidgetManager, scope, showOrderCounter)
+    val locator = LocatorWidgetController(WidgetManager, scope, showOrderCounter, dataBus)
 
     val advertisement = PresetsController<_, AdvertisementWidget>(WidgetManager, scope, showOrderCounter, ::AdvertisementWidget)
     val picture = PresetsController<_, PictureWidget>(WidgetManager, scope, showOrderCounter, ::PictureWidget)

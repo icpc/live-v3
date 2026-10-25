@@ -1,6 +1,7 @@
 package org.icpclive.data
 
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.json.JsonObject
@@ -13,7 +14,7 @@ import org.icpclive.service.KeylogService
 /**
  * Everything published here should be immutable, to allow secure work from many threads
  */
-object DataBus {
+class DataBus {
     val contestStateFlow = CompletableDeferred<StateFlow<ContestState>>()
     val mainScreenFlow = CompletableDeferred<Flow<MainScreenEvent>>()
     val queueFlow = CompletableDeferred<Flow<QueueEvent>>()
@@ -40,5 +41,8 @@ object DataBus {
     suspend fun getScoreboardDiffs(level: OptimismLevel) : Flow<ScoreboardDiff> = scoreboardDiffs[level.ordinal].await()
 }
 
-suspend fun DataBus.currentContestInfo() = currentContestInfoFlow().first()
-suspend fun DataBus.currentContestInfoFlow() = contestStateFlow.await().mapNotNull { it.infoAfterEvent }.distinctUntilChanged()
+suspend fun Deferred<StateFlow<ContestState>>.currentContestInfo() = currentContestInfoFlow().first()
+suspend fun Deferred<StateFlow<ContestState>>.currentContestInfoFlow() = await().mapNotNull { it.infoAfterEvent }.distinctUntilChanged()
+
+suspend fun DataBus.currentContestInfo() = contestStateFlow.currentContestInfo()
+suspend fun DataBus.currentContestInfoFlow() = contestStateFlow.currentContestInfoFlow()

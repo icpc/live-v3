@@ -5,13 +5,15 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.icpclive.cds.api.ContestResultType
 import org.icpclive.cds.api.OptimismLevel
+import org.icpclive.cds.api.ScoreboardDiff
 import org.icpclive.cds.scoreboard.*
 import org.icpclive.cds.util.getLogger
-import org.icpclive.data.DataBus
 
-class ScoreboardService : Service {
+class ScoreboardService(
+    private val setScoreboardDiffs: (OptimismLevel, Flow<ScoreboardDiff>) -> Unit,
+) : Service {
     private fun setUp(level: OptimismLevel, flow: Flow<ContestStateWithScoreboard>) {
-        DataBus.setScoreboardDiffs(level, flow.withIndex().filter { it.index == 0 || it.value.isAffectingScoreboard() }.map { (index, it) -> it.toScoreboardDiff(snapshot = index == 0) })
+        setScoreboardDiffs(level, flow.withIndex().filter { it.index == 0 || it.value.isAffectingScoreboard() }.map { (index, it) -> it.toScoreboardDiff(snapshot = index == 0) })
     }
 
     private fun ContestStateWithScoreboard.isAffectingScoreboard() : Boolean {

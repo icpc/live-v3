@@ -13,6 +13,7 @@ class TeamViewController(
     scope: CoroutineScope,
     showOrderCounter: ShowOrderCounter,
     val position: TeamViewPosition,
+    private val dataBus: DataBus,
 ) : SingleWidgetController<ExternalTeamViewSettings, TeamViewWidget>(
     ExternalTeamViewSettings(), manager, scope, showOrderCounter
 ) {
@@ -20,7 +21,7 @@ class TeamViewController(
     override suspend fun constructWidgetFlow(settings: ExternalTeamViewSettings): Flow<TeamViewWidget> {
         val processedSettingsFlow = if (settings.teamId == null) {
             flow {
-                DataBus.teamSpotlightFlow.await().collect { keyTeam ->
+                dataBus.teamSpotlightFlow.await().collect { keyTeam ->
                     emit(settings.copy(teamId = keyTeam.teamId))
                     delay(30.seconds)
                 }
@@ -28,7 +29,7 @@ class TeamViewController(
         } else {
             flowOf(settings)
         }
-        return DataBus.currentContestInfoFlow().combine(processedSettingsFlow) { contestInfo, settings ->
+        return dataBus.currentContestInfoFlow().combine(processedSettingsFlow) { contestInfo, settings ->
             val teamInfo = contestInfo.teams[settings.teamId] ?: return@combine null
             val content = settings.mediaTypes.mapNotNull { teamInfo.medias[it] }.toList()
 

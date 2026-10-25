@@ -18,6 +18,7 @@ private val log by getLogger()
 fun CoroutineScope.launchServices(
     loader: Flow<ContestUpdate>,
     controllers: Controllers,
+    dataBus: DataBus,
 ) {
     val commentaryGenerator = AnalyticsGenerator(Config.analyticsTemplatesFile)
     loader
@@ -37,15 +38,31 @@ fun CoroutineScope.launchServices(
             }
 
             val teamInterestingFlow = MutableStateFlow(emptyList<CurrentTeamState>())
-            DataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
+            dataBus.teamInterestingFlow.completeOrThrow(teamInterestingFlow)
 
-            launchService(ContestStateService())
-            launchService(QueueService())
-            launchService(ScoreboardService())
-            launchService(StatisticsService())
-            launchService(AnalyticsService(controllers.advertisement, controllers.tickerMessage))
-            launchService(TeamSpotlightService(teamInteresting = teamInterestingFlow))
+            launchService(ContestStateService(dataBus.contestStateFlow))
+            launchService(QueueService(dataBus.queueFlow, dataBus.queueFeaturedRunsFlow))
+            launchService(ScoreboardService(dataBus::setScoreboardDiffs))
+            launchService(StatisticsService(dataBus.statisticFlow))
+            launchService(
+                AnalyticsService(
+                    controllers.advertisement,
+                    controllers.tickerMessage,
+                    queueFeaturedRunsFlow = dataBus.queueFeaturedRunsFlow,
+                    externalActionsFlow = dataBus.analyticsActionsFlow,
+                    analyticsFlow = dataBus.analyticsFlow,
+                )
+            )
+            launchService(
+                TeamSpotlightService(
+                    contestStateFlow = dataBus.contestStateFlow,
+                    scoreRequestFlow = dataBus.teamInterestingScoreRequestFlow,
+                    socialEventsFlow = dataBus.socialEvents,
+                    teamSpotlightFlow = dataBus.teamSpotlightFlow,
+                    teamInteresting = teamInterestingFlow,
+                )
+            )
             launchService(RegularLoggingService())
-            launchService(TimelineService())
+            launchService(TimelineService(dataBus.timelineFlow))
         }
 }

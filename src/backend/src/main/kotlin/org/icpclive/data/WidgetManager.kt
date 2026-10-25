@@ -69,7 +69,7 @@ private fun WidgetUsageStatisticsEntry?.updateStatsAdd(item: Widget): WidgetUsag
 }
 
 
-class WidgetManager : ManagerWithEvents<Widget, MainScreenEvent>() {
+class WidgetManager(dataBus: DataBus) : ManagerWithEvents<Widget, MainScreenEvent>() {
     private val statistics = WidgetUsageStatistics(mutableMapOf())
 
     override fun createAddEvent(item: Widget, showOrder: Long): ShowWidgetEvent {
@@ -102,6 +102,6 @@ class WidgetManager : ManagerWithEvents<Widget, MainScreenEvent>() {
 
 
     init {
-        DataBus.mainScreenFlow.completeOrThrow(flow)
+        dataBus.mainScreenFlow.completeOrThrow(flow)
     }
 }
