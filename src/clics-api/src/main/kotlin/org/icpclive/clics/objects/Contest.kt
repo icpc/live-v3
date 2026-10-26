@@ -5,7 +5,7 @@ import kotlin.time.Duration
 import kotlin.time.Instant
 
 @SinceClics(FeedVersion.`2020_03`)
-@EventSerialName("contests", "contest")
+@EventSerialName("contest", "contests")
 public data class Contest(
     @Required override val id: String,
     public val name: String? = null,
