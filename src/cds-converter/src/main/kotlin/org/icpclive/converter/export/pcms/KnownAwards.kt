@@ -1,7 +1,7 @@
 package org.icpclive.converter.export.pcms
 
 enum class KnownAwards(
-    val awardId: String,
+    val awardIdPrefix: String,
     val xmlAttribute: String,
     val awardGroup: Int,
     val code: String,
@@ -16,4 +16,10 @@ enum class KnownAwards(
     FIRST_DIPL("first-diploma", "first",2,"I", "award4" ),
     SECOND_DIPL("second-diploma", "second",2,"II", "award4" ),
     THIRD_DIPL("third-diploma", "third",2,"III", "award4" );
+
+    companion object {
+        fun byId(id: String): KnownAwards? {
+            return entries.singleOrNull { id.startsWith(it.awardIdPrefix) }
+        }
+    }
 }

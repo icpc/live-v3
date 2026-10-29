@@ -83,8 +83,8 @@ object PCMSHtmlExporter : SingleFileExporter(
             }
             th(classes = "solved") { +"=" }
             th(classes = "penalty") { +"Time" }
-            awardGroupsEnabled = KnownAwards.entries
-                .filter { a -> awards.any { it.id == a.awardId } }
+            awardGroupsEnabled = awards
+                .mapNotNull { KnownAwards.byId(it.id) }
                 .map { it.awardGroup }
                 .distinct()
                 .sorted()
@@ -144,7 +144,7 @@ object PCMSHtmlExporter : SingleFileExporter(
         td { +r.totalScore.toInt().toString() }
         td("penalty") { +r.penalty.inWholeMinutes.toString() }
         val gr = awards.mapNotNull { award ->
-            KnownAwards.entries.singleOrNull { it.awardId == award.id }
+            KnownAwards.byId(award.id)
         }.groupBy { it.awardGroup }
         for (g in awardGroupsEnabled) {
             val m = gr[g].orEmpty()

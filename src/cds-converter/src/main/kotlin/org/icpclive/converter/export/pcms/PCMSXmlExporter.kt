@@ -96,7 +96,7 @@ object PCMSXmlExporter : SingleFileExporter(
         setAttribute("penalty", row.penalty.inWholeMinutes.toString())
         setAttribute("solved", row.totalScore.toInt().toString())
         for (award in awards) {
-            KnownAwards.entries.singleOrNull { it.awardId == award.id }?.let {
+            KnownAwards.byId(award.id)?.let {
                 setAttribute(it.xmlAttribute, "1")
             }
         }
