@@ -17,10 +17,10 @@ class ICPCScoreboardTest {
             RunInfo("5".toRunId(), RunResult.ICPC(Verdict.Accepted, false), problemIdA, teamId2, 40.minutes, null),
         )
         val calculator = getScoreboardCalculator(info, OptimismLevel.NORMAL)
-        val scoreboardRows = runs.groupBy { it.teamId }.mapValues { calculator.getScoreboardRow(info, it.value) }
-        val ranking = calculator.getRanking(info, scoreboardRows)
-        assertEquals(ranking.ranks, listOf(1, 2, 2, 4))
-        assertEquals(ranking.order, listOf(teamId4, teamId1, teamId3, teamId2))
+        val scoreboardRows = runs.groupBy { it.teamId }.mapValues { calculator.getScoreboardRow(it.value) }
+        val ranking = calculator.getRanking(scoreboardRows)
+        assertEquals(listOf(1, 2, 2, 4), ranking.ranks)
+        assertEquals(listOf(teamId4, teamId1, teamId3, teamId2), ranking.order)
     }
 
 }

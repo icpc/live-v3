@@ -3,14 +3,20 @@ package org.icpclive.cds.scoreboard
 import org.icpclive.cds.api.*
 import kotlin.time.Duration
 
-internal class IOIScoreboardCalculator : AbstractScoreboardCalculator() {
-    override val comparator: Comparator<ScoreboardRow> = compareBy(
-        { -it.totalScore },
-        { it.penalty }
-    )
+internal class IOIScoreboardCalculator(info: ContestInfo) : AbstractScoreboardCalculator(info) {
+    override fun compare(a: ScoreboardRow, b: ScoreboardRow): Int {
+        val byScore = b.totalScore.compareTo(a.totalScore)
+        if (byScore != 0) return byScore
+        return a.penalty.compareTo(b.penalty)
+    }
+
+    override fun affectsRanking(old: ScoreboardRow, new: ScoreboardRow): Boolean {
+        return old.totalScore != new.totalScore ||
+                old.penalty != new.penalty ||
+                old.shouldBeHiddenAsNoSubmissions() != new.shouldBeHiddenAsNoSubmissions()
+    }
 
     override fun getScoreboardRow(
-        info: ContestInfo,
         runs: List<RunInfo>,
     ): ScoreboardRow {
         require(info.resultType == ContestResultType.IOI)

@@ -4,19 +4,27 @@ import org.icpclive.cds.api.*
 import kotlin.time.Duration
 
 
-internal abstract class ICPCScoreboardCalculator : AbstractScoreboardCalculator() {
+internal abstract class ICPCScoreboardCalculator(info: ContestInfo) : AbstractScoreboardCalculator(info) {
     abstract fun isAccepted(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isPending(runInfo: RunInfo, index: Int, count: Int): Boolean
     abstract fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int): Boolean
 
-    override val comparator: Comparator<ScoreboardRow> = compareBy(
-        { -it.totalScore },
-        { it.penalty },
-        { it.lastAccepted }
-    )
+    override fun compare(a: ScoreboardRow, b: ScoreboardRow): Int {
+        val byScore = b.totalScore.compareTo(a.totalScore)
+        if (byScore != 0) return byScore
+        val byPenalty = a.penalty.compareTo(b.penalty)
+        if (byPenalty != 0) return byPenalty
+        return a.lastAccepted.compareTo(b.lastAccepted)
+    }
+
+    override fun affectsRanking(old: ScoreboardRow, new: ScoreboardRow): Boolean {
+        return old.totalScore != new.totalScore ||
+                old.penalty != new.penalty ||
+                old.lastAccepted != new.lastAccepted ||
+                old.shouldBeHiddenAsNoSubmissions() != new.shouldBeHiddenAsNoSubmissions()
+    }
 
     override fun getScoreboardRow(
-        info: ContestInfo,
         runs: List<RunInfo>,
     ): ScoreboardRow {
         require(info.resultType == ContestResultType.ICPC)
@@ -68,19 +76,19 @@ private val RunInfo.isAddingPenalty get() = (result as? RunResult.ICPC)?.verdict
 private val RunInfo.isJudged get() = result is RunResult.ICPC
 
 
-internal class ICPCNormalScoreboardCalculator : ICPCScoreboardCalculator() {
+internal class ICPCNormalScoreboardCalculator(info: ContestInfo) : ICPCScoreboardCalculator(info) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = runInfo.isJudged && runInfo.isAddingPenalty
 }
 
-internal class ICPCPessimisticScoreboardCalculator : ICPCScoreboardCalculator() {
+internal class ICPCPessimisticScoreboardCalculator(info: ContestInfo) : ICPCScoreboardCalculator(info) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) = runInfo.isAccepted
     override fun isPending(runInfo: RunInfo, index: Int, count: Int) = false
     override fun isAddingPenalty(runInfo: RunInfo, index: Int, count: Int) = !runInfo.isJudged || runInfo.isAddingPenalty
 }
 
-internal class ICPCOptimisticScoreboardCalculator : ICPCScoreboardCalculator() {
+internal class ICPCOptimisticScoreboardCalculator(info: ContestInfo) : ICPCScoreboardCalculator(info) {
     override fun isAccepted(runInfo: RunInfo, index: Int, count: Int) =
         runInfo.isAccepted || (!runInfo.isJudged && index == count - 1)
 

@@ -10,51 +10,93 @@ import org.icpclive.cds.util.getLogger
 import org.icpclive.cds.utils.TeamRunsStorage
 import kotlin.time.Duration
 
-public class Ranking internal constructor(
+public data class Ranking(
     public val order: List<TeamId>,
     public val ranks: List<Int>,
     public val awards: List<Award>,
 )
 
 public interface ScoreboardCalculator {
-    public fun getScoreboardRow(info: ContestInfo, runs: List<RunInfo>): ScoreboardRow
-    public fun getRanking(info: ContestInfo, rows: Map<TeamId, ScoreboardRow>): Ranking
+    public fun getScoreboardRow(runs: List<RunInfo>): ScoreboardRow
+    /*
+     * Order hint can be used to improve performance. It doesn't affect and result,
+     * but if it's close to actual sorting (e.g. sorting from before the last change),
+     * call would be significantly faster.
+     */
+    public fun getRanking(rows: Map<TeamId, ScoreboardRow>, orderHint: List<TeamId> = emptyList()): Ranking
+    public fun affectsRanking(old: ScoreboardRow, new: ScoreboardRow): Boolean
 }
 
 private fun <T> List<T>.intersectsWith(other: Set<T>): Boolean {
     return any { other.contains(it) }
 }
 
-internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
+internal abstract class AbstractScoreboardCalculator(protected val info: ContestInfo) : ScoreboardCalculator {
 
-    abstract val comparator: Comparator<ScoreboardRow>
+    abstract fun compare(a: ScoreboardRow, b: ScoreboardRow): Int
+
+    protected fun ScoreboardRow.shouldBeHiddenAsNoSubmissions() : Boolean {
+        return !info.showTeamsWithoutSubmissions && problemResults.all { it.lastSubmitTime == null }
+    }
+
+    private inner class RankingEntry(
+        val team: TeamInfo,
+        val row: ScoreboardRow
+    ) : Comparable<RankingEntry> {
+        var rank: Int = 0
+        var index: Int = -1
+        val organization = info.organizations[team.organizationId]
+
+        override fun compareTo(other: RankingEntry): Int {
+            val byRow = compare(row, other.row)
+            if (byRow != 0) return byRow
+            val byName = team.displayName.compareTo(other.team.displayName)
+            if (byName != 0) return byName
+            return team.id.value.compareTo(other.team.id.value)
+        }
+    }
+
+
 
     @OptIn(InefficientContestInfoApi::class)
-    override fun getRanking(info: ContestInfo, rows: Map<TeamId, ScoreboardRow>): Ranking {
-        val comparatorWithName = compareBy(comparator) { it: Pair<TeamId, ScoreboardRow> -> it.second }
-            .thenBy { info.teams[it.first]!!.displayName }
-        val orderList = info.teamList
-            .filterNot { it.isHidden }
-            .map { it.id to rows[it.id]!! }
-            .run { if (info.showTeamsWithoutSubmissions) this else filter { it.second.problemResults.any { it.lastSubmitTime != null } } }
-            .sortedWith(comparatorWithName)
-
-        val order = orderList.map { it.first }
-        val ranks = MutableList(order.size) { 0 }
-        val orderedRows = orderList.map { it.second }
+    override fun getRanking(
+        rows: Map<TeamId, ScoreboardRow>,
+        orderHint: List<TeamId>,
+    ): Ranking {
+        val entries = buildList(info.teamList.size) {
+            fun isShown(team: TeamInfo, row: ScoreboardRow?): Boolean {
+                return !team.isHidden && row != null && !row.shouldBeHiddenAsNoSubmissions()
+            }
+            for (teamId in orderHint) {
+                val team = info.teams[teamId] ?: continue
+                val row = rows[teamId] ?: continue
+                if (!isShown(team, row)) continue
+                add(RankingEntry(team, row))
+            }
+            if (size != info.teamList.count { isShown(it, rows[it.id]) }) {
+                val alreadyAdded = orderHint.toSet()
+                for (team in info.teamList) {
+                    if (team.id in alreadyAdded) continue
+                    val row = rows[team.id] ?: continue
+                    if (!isShown(team, row)) continue
+                    add(RankingEntry(team, row))
+                }
+            }
+            sort()
+        }
 
         var nextRank = 1
         var right = 0
-        while (right < order.size) {
+        while (right < entries.size) {
             val left = right
-            while (right < order.size && comparator.compare(orderedRows[left], orderedRows[right]) == 0) {
+            while (right < entries.size && compare(entries[left].row, entries[right].row) == 0) {
                 right++
             }
             val curRank = nextRank
             for (i in left until right) {
-                val team = info.teams[order[i]]!!
-                if (!team.isOutOfContest) {
-                    ranks[i] = curRank
+                entries[i].index = i
+                if (!entries[i].team.isOutOfContest) {
+                    entries[i].rank = curRank
                     nextRank++
                 }
             }
@@ -63,84 +105,95 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
         val awards = buildList {
             for (chain in info.awardsSettings) {
                 if (chain.awards.isEmpty()) continue
-                val medalGroupSet = chain.groups.toSet()
-                val medalExcludedGroupSet = chain.excludedGroups.toSet()
-                val indicesFilteredByGroup = buildList {
-                    for ((index, teamId) in order.withIndex()) {
-                        val team = info.teams[teamId]!!
-                        if (team.isOutOfContest) continue
-                        if (chain.groups.isNotEmpty() && !team.groups.intersectsWith(medalGroupSet)) continue
-                        if (team.groups.intersectsWith(medalExcludedGroupSet)) continue
-                        add(index)
-                    }
+                val medalGroupSet = chain.groups.takeIf { it.isNotEmpty() }?.toSet()
+                val medalExcludedGroupSet = chain.excludedGroups.takeIf { it.isNotEmpty() }?.toSet()
+                val entriesFilteredByGroup = entries.filter {
+                    val team = it.team
+                    !team.isOutOfContest &&
+                            (medalGroupSet == null || team.groups.intersectsWith(medalGroupSet)) &&
+                            (medalExcludedGroupSet == null || !team.groups.intersectsWith(medalExcludedGroupSet))
                 }
-                val chainAwarded = mutableSetOf<Int>()
-                val chainOrganizationAwarded = mutableMapOf< OrganizationId, Int>()
+                val chainAwarded = BooleanArray(entries.size)
+                var chainAwardedCount = 0
+                val chainOrganizationAwarded = mutableMapOf<OrganizationId, Int>()
                 for (award in chain.awards) {
-                    val awarded = mutableSetOf<Int>()
+                    val awarded = BooleanArray(entries.size)
+                    val awardedTeams = mutableListOf<TeamId>()
+                    var awardedCount = 0
                     val organizationAwarded = mutableMapOf<OrganizationId, Int>()
+                    val chainLimit = award.chainLimit ?: Int.MAX_VALUE
+                    val limit = award.limit ?: Int.MAX_VALUE
+                    val organizationLimitField = award.organizationLimitCustomField
+                    val chainOrganizationLimitField = award.chainOrganizationLimitCustomField
                     @IgnorableReturnValue
-                    fun processChunk(chunk: List<Int>) : Boolean {
+                    fun processChunk(chunk: List<RankingEntry>) : Boolean {
                         if (award.tiebreakMode == AwardTiebreakMode.NONE) {
-                            if (chainAwarded.size + chunk.size > (award.chainLimit ?: Int.MAX_VALUE)) return false
-                            if (awarded.size + chunk.size > (award.limit ?: Int.MAX_VALUE)) return false
+                            if (chainAwardedCount + chunk.size > chainLimit) return false
+                            if (awardedCount + chunk.size > limit) return false
                         }
-                        for (i in chunk) {
-                            awarded.add(i)
-                            chainAwarded.add(i)
-                            val team = info.teams[order[i]]!!
-                            if (team.organizationId != null) {
-                                organizationAwarded[team.organizationId] = (organizationAwarded[team.organizationId] ?: 0) + 1
-                                chainOrganizationAwarded[team.organizationId] = (chainOrganizationAwarded[team.organizationId] ?: 0) + 1
+                        for (entry in chunk) {
+                            if (!awarded[entry.index]) {
+                                awarded[entry.index] = true
+                                awardedTeams.add(entry.team.id)
+                                awardedCount++
+                            }
+                            if (!chainAwarded[entry.index]) {
+                                chainAwarded[entry.index] = true
+                                chainAwardedCount++
+                            }
+                            val organizationId = entry.team.organizationId
+                            if (organizationId != null) {
+                                organizationAwarded[organizationId] = (organizationAwarded[organizationId] ?: 0) + 1
+                                chainOrganizationAwarded[organizationId] = (chainOrganizationAwarded[organizationId] ?: 0) + 1
                             }
                         }
                         if (award.tiebreakMode == AwardTiebreakMode.ALL) {
-                            if (chainAwarded.size >= (award.chainLimit ?: Int.MAX_VALUE)) return false
-                            if (awarded.size >= (award.limit ?: Int.MAX_VALUE)) return false
+                            if (chainAwardedCount >= chainLimit) return false
+                            if (awardedCount >= limit) return false
                         }
                         return true
                     }
                     if (award.manualTeamIds.isNotEmpty()) {
-                        processChunk(order.indices.filter { award.manualTeamIds.contains(order[it]) && !chainAwarded.contains(it) })
+                        processChunk(entries.filter { award.manualTeamIds.contains(it.team.id) && !chainAwarded[it.index] })
                     }
                     var currentChunkRank = -1
-                    val currentChunk = mutableListOf<Int>()
-                    for (it in indicesFilteredByGroup) {
-                        if (chainAwarded.contains(it)) continue
-                        if (award.maxRank != null && ranks[it] > award.maxRank) break
-                        val teamId = order[it]
-                        val row = rows[teamId]!!
-                        val teamInfo = info.teams[teamId]!!
-                        if (award.minScore != null && row.totalScore < award.minScore) break
-                        if (currentChunkRank != ranks[it]) {
+                    val currentChunk = mutableListOf<RankingEntry>()
+                    for (entry in entriesFilteredByGroup) {
+                        if (chainAwarded[entry.index]) continue
+                        if (award.maxRank != null && entry.rank > award.maxRank) break
+                        if (award.minScore != null && entry.row.totalScore < award.minScore) break
+                        if (currentChunkRank != entry.rank) {
                             if (!processChunk(currentChunk)) {
                                 currentChunk.clear()
                                 break
                             }
-                            currentChunkRank = ranks[it]
+                            currentChunkRank = entry.rank
                             currentChunk.clear()
                         }
-                        val org = info.organizations[teamInfo.organizationId]
-                        if (org != null) {
-                            val chainOrganizationLimit = org.customFields[award.chainOrganizationLimitCustomField]?.toIntOrNull() ?: award.chainOrganizationLimit
+                        entry.organization?.let { org ->
+                            val chainOrganizationLimit = chainOrganizationLimitField
+                                ?.let { field -> org.customFields[field]?.toIntOrNull() }
+                                ?: award.chainOrganizationLimit
                             if (chainOrganizationLimit != null && (chainOrganizationAwarded[org.id] ?: 0) >= chainOrganizationLimit) {
                                 continue
                             }
-                            val organizationLimit = org.customFields[award.organizationLimitCustomField]?.toIntOrNull() ?: award.organizationLimit
+                            val organizationLimit = organizationLimitField
+                                ?.let { field -> org.customFields[field]?.toIntOrNull() }
+                                ?: award.organizationLimit
                             if (organizationLimit != null && (organizationAwarded[org.id] ?: 0) >= organizationLimit) {
                                 continue
                             }
                         }
-                        currentChunk.add(it)
+                        currentChunk.add(entry)
                     }
                     processChunk(currentChunk)
 
-                    add(Award(award.id, award.citation, awarded.map { order[it] }.toSet()))
+                    add(Award(award.id, award.citation, awardedTeams.toSet()))
                 }
             }
         }
 
-        return Ranking(order, ranks.toList(), awards)
+        return Ranking(entries.map { it.team.id }, entries.map { it.rank }, awards)
     }
 
     companion object {
@@ -151,12 +204,12 @@ internal abstract class AbstractScoreboardCalculator : ScoreboardCalculator {
 public fun getScoreboardCalculator(info: ContestInfo, optimismLevel: OptimismLevel): ScoreboardCalculator =
     when (info.resultType) {
         ContestResultType.ICPC -> when (optimismLevel) {
-            OptimismLevel.NORMAL -> ICPCNormalScoreboardCalculator()
-            OptimismLevel.OPTIMISTIC -> ICPCOptimisticScoreboardCalculator()
-            OptimismLevel.PESSIMISTIC -> ICPCPessimisticScoreboardCalculator()
+            OptimismLevel.NORMAL -> ICPCNormalScoreboardCalculator(info)
+            OptimismLevel.OPTIMISTIC -> ICPCOptimisticScoreboardCalculator(info)
+            OptimismLevel.PESSIMISTIC -> ICPCPessimisticScoreboardCalculator(info)
         }
 
-        ContestResultType.IOI -> IOIScoreboardCalculator()
+        ContestResultType.IOI -> IOIScoreboardCalculator(info)
     }
 
 public fun ContestStateWithScoreboard.toScoreboardDiff(snapshot: Boolean) : ScoreboardDiff {
@@ -207,16 +260,29 @@ public fun Flow<ContestUpdate>.calculateScoreboard(optimismLevel: OptimismLevel)
                 runsByTeamId.applyEvent(state)
             }
         }
+        var rankingAffected = state.lastEvent is InfoUpdate
         val teamsReallyAffected = teamsAffected.filter {
-            val newRow = calculator.getScoreboardRow(info, runsByTeamId.getRuns(it))
+            val newRow = calculator.getScoreboardRow(runsByTeamId.getRuns(it))
             val oldRow = rows[it]
-            val newInfo = state.infoBeforeEvent?.teams[it]
-            val oldInfo = state.infoAfterEvent.teams[it]
-            rows = rows.putting(it, newRow)
-            newRow != oldRow || newInfo?.isOutOfContest != oldInfo?.isOutOfContest || newInfo?.customFields != oldInfo?.customFields || newInfo?.isHidden != oldInfo?.isHidden
+            val infoBefore = state.infoBeforeEvent?.teams[it]
+            val infoAfter = state.infoAfterEvent.teams[it]
+            if (oldRow != newRow) {
+                rows = rows.putting(it, newRow)
+            }
+            val teamInfoChanged = infoBefore?.isOutOfContest != infoAfter?.isOutOfContest ||
+                    infoBefore?.customFields != infoAfter?.customFields ||
+                    infoBefore?.isHidden != infoAfter?.isHidden
+            if (oldRow == null || calculator.affectsRanking(oldRow, newRow)) {
+                rankingAffected = true
+            }
+            oldRow != newRow || teamInfoChanged
         }
-        if (teamsReallyAffected.isNotEmpty() || state.infoBeforeEvent?.awardsSettings != state.infoAfterEvent.awardsSettings) {
-            lastRanking = calculator.getRanking(info, rows)
+        if (rankingAffected) {
+            val newRanking = calculator.getRanking(rows, lastRanking.order)
+            // upstream clients would be able to rely on faster identity checks for optimizations
+            if (newRanking != lastRanking) {
+                lastRanking = newRanking
+            }
         }
         return teamsReallyAffected
     }

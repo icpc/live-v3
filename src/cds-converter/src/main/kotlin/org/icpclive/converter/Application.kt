@@ -110,11 +110,24 @@ fun Application.module() {
         nonAdminScope: SharedFlowSubscriptionScope<ContestStateWithScoreboard>,
         adminScope: SharedFlowSubscriptionScope<ContestStateWithScoreboard>,
     )  {
+        fun Flow<ContestStateWithScoreboard>.wrap(name: String): Flow<ContestStateWithScoreboard> {
+            return flow {
+                var previousStatus: String? = null
+                collect {
+                    val nextStatus = it.state.infoAfterEvent?.status?.let { it::class.simpleName }
+                    if (previousStatus != nextStatus) {
+                        logger.info { "Exporter ${this@run::class.simpleName} reached contest status $nextStatus on $name cds data" }
+                    }
+                    previousStatus = nextStatus
+                    emit(it)
+                }
+            }
+        }
         nonAdminScope.withSubscription(subscriptionCount) { nonAdminFlow ->
             adminScope.withSubscription(subscriptionCount) { adminFlow ->
                 routers += (scope + CoroutineName(this@run::class.simpleName!!)).runOn(
-                    contestUpdates = nonAdminFlow.onStart { logger.info { "Exporter ${this@run::class.simpleName} subscribed to user cds data" } },
-                    adminContestUpdates = adminFlow.onStart { logger.info { "Exporter ${this@run::class.simpleName} subscribed to admin cds data" } },
+                    contestUpdates = nonAdminFlow.wrap("user"),
+                    adminContestUpdates = adminFlow.wrap("admin"),
                 )
             }
         }
