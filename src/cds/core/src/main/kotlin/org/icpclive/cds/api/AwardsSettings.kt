@@ -34,6 +34,8 @@ public data class RankBasedAward(
     val organizationLimitCustomField: String? = null,
     val chainOrganizationLimit: Int? = null,
     val chainOrganizationLimitCustomField: String? = null,
+    val groups: List<GroupId> = emptyList(),
+    val excludedGroups: List<GroupId> = emptyList(),
     val manualTeamIds: Set<TeamId> = emptySet(),
 )
 

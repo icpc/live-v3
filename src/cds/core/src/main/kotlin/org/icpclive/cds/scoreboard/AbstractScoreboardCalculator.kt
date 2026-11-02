@@ -102,17 +102,24 @@ internal abstract class AbstractScoreboardCalculator(protected val info: Contest
             }
         }
 
+        fun List<RankingEntry>.filterByGroups(groups: List<GroupId>, excludedGroups: List<GroupId>) : List<RankingEntry>{
+            val medalGroupSet = groups.takeIf { it.isNotEmpty() }?.toSet()
+            val medalExcludedGroupSet = excludedGroups.takeIf { it.isNotEmpty() }?.toSet()
+            if (medalGroupSet == null && medalExcludedGroupSet == null) return this
+            return filter {
+                val team = it.team
+                (medalGroupSet == null || team.groups.intersectsWith(medalGroupSet)) &&
+                        (medalExcludedGroupSet == null || !team.groups.intersectsWith(medalExcludedGroupSet))
+            }
+        }
+
+        val entriesWithoutOutOfContest = entries.filterNot { it.team.isOutOfContest }
+
         val awards = buildList {
             for (chain in info.awardsSettings) {
                 if (chain.awards.isEmpty()) continue
-                val medalGroupSet = chain.groups.takeIf { it.isNotEmpty() }?.toSet()
-                val medalExcludedGroupSet = chain.excludedGroups.takeIf { it.isNotEmpty() }?.toSet()
-                val entriesFilteredByGroup = entries.filter {
-                    val team = it.team
-                    !team.isOutOfContest &&
-                            (medalGroupSet == null || team.groups.intersectsWith(medalGroupSet)) &&
-                            (medalExcludedGroupSet == null || !team.groups.intersectsWith(medalExcludedGroupSet))
-                }
+                val entriesFilteredByChainGroups = entriesWithoutOutOfContest.
+                        filterByGroups(chain.groups, chain.excludedGroups)
                 val chainAwarded = BooleanArray(entries.size)
                 var chainAwardedCount = 0
                 val chainOrganizationAwarded = mutableMapOf<OrganizationId, Int>()
@@ -158,6 +165,7 @@ internal abstract class AbstractScoreboardCalculator(protected val info: Contest
                     }
                     var currentChunkRank = -1
                     val currentChunk = mutableListOf<RankingEntry>()
+                    val entriesFilteredByGroup = entriesFilteredByChainGroups.filterByGroups(award.groups, award.excludedGroups)
                     for (entry in entriesFilteredByGroup) {
                         if (chainAwarded[entry.index]) continue
                         if (award.maxRank != null && entry.rank > award.maxRank) break

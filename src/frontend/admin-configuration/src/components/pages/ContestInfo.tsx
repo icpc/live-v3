@@ -294,6 +294,16 @@ const AwardTableColumns = (info: ContestInfo) => [
             orgsCustomField(info, value, row.chainOrganizationLimit),
     },
     {
+        field: "groups",
+        headerName: "Groups",
+        valueGetter: (v: GroupId[]) => v.map((c) => c).join(", "),
+    },
+    {
+        field: "excludedGroups",
+        headerName: "Excluded groups",
+        valueGetter: (v: GroupId[]) => v.map((c) => c).join(", "),
+    },
+    {
         field: "manualTeamIds",
         headerName: "Manual teams",
         valueGetter: (v: TeamId[]) => v.map((c) => c).join(", "),

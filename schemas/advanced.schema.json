@@ -75,6 +75,12 @@
                 "ALL"
             ]
         },
+        "kotlin.collections.ArrayList(org.icpclive.cds.api.GroupId)": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "kotlin.collections.LinkedHashSet(org.icpclive.cds.api.TeamId)": {
             "type": "array",
             "items": {
@@ -141,6 +147,12 @@
                         "null"
                     ]
                 },
+                "groups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.api.GroupId)"
+                },
+                "excludedGroups": {
+                    "$ref": "#/$defs/kotlin.collections.ArrayList(org.icpclive.cds.api.GroupId)"
+                },
                 "manualTeamIds": {
                     "$ref": "#/$defs/kotlin.collections.LinkedHashSet(org.icpclive.cds.api.TeamId)"
                 }
@@ -166,12 +178,6 @@
                     "$ref": "#/$defs/org.icpclive.cds.api.RankBasedAward"
                 }
             ]
-        },
-        "kotlin.collections.ArrayList(org.icpclive.cds.api.GroupId)": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
         },
         "addAwardChain": {
             "type": "object",

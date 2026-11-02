@@ -404,6 +404,8 @@ export interface RankBasedAward {
   organizationLimitCustomField?: string | null;
   chainOrganizationLimit?: number | null;
   chainOrganizationLimitCustomField?: string | null;
+  groups?: GroupId[];
+  excludedGroups?: GroupId[];
   manualTeamIds?: TeamId[];
 }
 
