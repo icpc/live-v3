@@ -41,7 +41,7 @@ public final class org/icpclive/server/ApiActionException : java/lang/Exception 
 }
 
 public final class org/icpclive/server/ConfigurationRoutingKt {
-	public static final fun configureConfigFileRouting (Lio/ktor/server/routing/Route;Ljava/nio/file/Path;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Ljava/lang/String;Ljava/lang/String;)V
+	public static final fun configureConfigFileRouting (Lio/ktor/server/routing/Route;Ljava/nio/file/Path;Ljava/lang/String;Lio/ktor/http/ContentType;Lkotlin/jvm/functions/Function1;Ljava/lang/String;Ljava/lang/String;)V
 	public static final fun configureDefaultConfigRouting (Lio/ktor/server/routing/Route;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Lkotlin/jvm/functions/Function2;)V
 }
 

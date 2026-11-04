@@ -82,7 +82,7 @@ export const useAdminBranding = (apiRoot: string, titleSuffix: string) => {
     const [hiddenPageNames, setHiddenPageNames] = useState<string[]>([]);
 
     useEffect(() => {
-        createApiGet(apiRoot)("/visualConfig").then((config) => {
+        createApiGet(apiRoot)("/visualConfig/json").then((config) => {
             setHiddenPageNames(config["ADMIN_HIDE_MENU"] ?? []);
 
             if (config["CONTEST_COLOR"]) {

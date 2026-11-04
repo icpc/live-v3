@@ -12,6 +12,7 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.serializer
 import org.icpclive.cds.api.*
+import org.icpclive.cds.util.jsonForConfigs
 import java.io.InputStream
 
 private fun SerialDescriptor.unwrapInlines(): SerialDescriptor = if (isInline) elementDescriptors.first().unwrapInlines() else this
@@ -55,13 +56,8 @@ private inline fun <K, reified T> fieldsToOverrideImpl(rules: Map<K, Map<String,
 @Serializable
 public sealed interface TuningRule {
     public companion object {
-        private val json = Json {
-            allowComments = true
-            allowTrailingComma = true
-        }
-
-        public fun listFromString(input: String): List<TuningRule> = json.decodeFromString(input)
-        public fun listFromInputStream(input: InputStream): List<TuningRule> = json.decodeFromStream(input)
+        public fun listFromString(input: String): List<TuningRule> = jsonForConfigs.decodeFromString(input)
+        public fun listFromInputStream(input: InputStream): List<TuningRule> = jsonForConfigs.decodeFromStream(input)
         public fun tryListFromLegacyFormatFromString(input: String): List<TuningRule>? = runCatching {
             AdvancedProperties.fromString(input).toRulesList()
         }.getOrNull()

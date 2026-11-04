@@ -2,10 +2,10 @@ package org.icpclive.cds.tunning
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import org.icpclive.cds.api.*
 import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.jsonForConfigs
 import org.icpclive.cds.util.serializers.*
 import java.io.InputStream
 import kotlin.time.Duration
@@ -87,12 +87,8 @@ internal class AdvancedProperties(
     val queueSettings: QueueSettingsOverride? = null,
 ) {
     companion object {
-        private val json = Json {
-            allowComments = true
-            allowTrailingComma = true
-        }
-        fun fromString(input: String): AdvancedProperties = json.decodeFromString<AdvancedProperties>(input)
-        fun fromInputStream(input: InputStream): AdvancedProperties = json.decodeFromStream<AdvancedProperties>(input)
+        fun fromString(input: String): AdvancedProperties = jsonForConfigs.decodeFromString<AdvancedProperties>(input)
+        fun fromInputStream(input: InputStream): AdvancedProperties = jsonForConfigs.decodeFromStream<AdvancedProperties>(input)
     }
 }
 

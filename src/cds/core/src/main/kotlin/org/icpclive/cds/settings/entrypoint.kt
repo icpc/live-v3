@@ -2,6 +2,7 @@ package org.icpclive.cds.settings
 
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import org.icpclive.cds.util.jsonForConfigs
 import java.nio.file.Path
 
 public fun interface CredentialProvider {
@@ -15,10 +16,8 @@ public fun CDSSettings.Companion.fromFile(path: Path, credentialProvider: Creden
         file.name.endsWith(".properties") -> throw IllegalStateException("Properties format is not supported anymore, use settings.json instead")
         file.name.endsWith(".json5") -> throw IllegalStateException("Json5 format is not supported anymore, use settings.json instead")
         file.name.endsWith(".json") -> {
-            val format = Json {
+            val format = Json(jsonForConfigs) {
                 serializersModule = serializersModule(credentialProvider, path)
-                allowTrailingComma = true
-                allowComments = true
             }
             file.inputStream().use { format.decodeFromStream(it) }
         }

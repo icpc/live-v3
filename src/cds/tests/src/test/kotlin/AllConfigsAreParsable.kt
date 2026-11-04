@@ -1,11 +1,9 @@
 import io.github.optimumcode.json.schema.JsonSchemaLoader
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.JsonObject
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.fromFile
 import org.icpclive.cds.tunning.TuningRule
+import org.icpclive.cds.util.loadConfigFile
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 import java.nio.file.Path
@@ -13,7 +11,6 @@ import kotlin.io.path.*
 
 
 class AllConfigsAreParsable {
-    @OptIn(ExperimentalPathApi::class)
     private fun test(
         configDir: Path,
         nameFilter: (String) -> Boolean,
@@ -27,7 +24,6 @@ class AllConfigsAreParsable {
             .also { require(it.isNotEmpty()) }
     }
 
-    @OptIn(ExperimentalPathApi::class)
     @TestFactory
     fun testSettings() : List<DynamicTest> {
         return test(
@@ -37,7 +33,6 @@ class AllConfigsAreParsable {
         )
     }
 
-    @OptIn(ExperimentalPathApi::class, ExperimentalSerializationApi::class)
     @TestFactory
     fun testAdvancedJson() : List<DynamicTest> {
         return test(
@@ -51,31 +46,23 @@ class AllConfigsAreParsable {
         )
     }
 
-    @OptIn(ExperimentalPathApi::class, ExperimentalSerializationApi::class)
     @TestFactory
     fun testVisualConfigs() : List<DynamicTest> {
         val projectDir = Path("").absolute().parent.parent.parent
         val jsonSchema = JsonSchemaLoader
             .create()
             .fromDefinition(projectDir.resolve("schemas/visual-config.schema.json").toFile().readText())
-        val json = Json {
-            allowTrailingComma = true
-            allowComments = true
-        }
         return test(
             projectDir.resolve("config"),
             nameFilter = { it.startsWith("visual-config") || it.startsWith("visualConfig") },
             parser = { path ->
-                path.toFile().inputStream().use {
-                    jsonSchema.validate(json.decodeFromStream<JsonElement>(it)) {error ->
-                        throw IllegalArgumentException("Invalid ${path}: $error")
-                    }
+                jsonSchema.validate(loadConfigFile<JsonObject>(path.toFile())) { error ->
+                    throw IllegalArgumentException("Invalid ${path}: $error")
                 }
             }
         )
     }
 
-    @OptIn(ExperimentalPathApi::class, ExperimentalSerializationApi::class)
     @TestFactory
     fun testAdvancedJsonExamples() : List<DynamicTest> {
         return test(

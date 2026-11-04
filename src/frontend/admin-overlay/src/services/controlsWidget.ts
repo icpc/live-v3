@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { createApiGet } from "shared-code/utils";
 import { AbstractWidgetImpl } from "./abstractWidgetImpl";
 import { ErrorHandler } from "@shared/abstractWidget";
-import { BACKEND_ROOT } from "../config";
+import { BASE_URL_BACKEND } from "../config";
 
 interface ControlElement {
     text: string;
@@ -52,8 +52,8 @@ export class ControlsWidgetService extends AbstractWidgetImpl<ControlElementSett
 
     private async loadVisualConfig(): Promise<string[]> {
         try {
-            const config = await createApiGet(BACKEND_ROOT)(
-                "/api/overlay/visualConfig.json",
+            const config = await createApiGet(BASE_URL_BACKEND)(
+                "/visualConfig/json",
             );
             return config.ADMIN_HIDE_CONTROL ?? [];
         } catch (error) {

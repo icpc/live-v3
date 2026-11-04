@@ -22,6 +22,7 @@ import org.icpclive.cds.ktor.NetworkSettings
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.util.completeOrThrow
 import org.icpclive.cds.util.fileJsonContentFlow
+import org.icpclive.cds.util.jsonForConfigs
 import org.icpclive.data.Controllers
 import org.icpclive.data.DataBus
 import org.icpclive.overlay.configureOverlayRouting
@@ -120,10 +121,7 @@ fun Application.module() {
         val visualConfigFlow = fileJsonContentFlow<JsonObject>(
             config.visualConfigFile,
             noData = JsonObject(emptyMap()),
-            json = Json {
-                allowComments = true
-                allowTrailingComma = true
-            }
+            json = jsonForConfigs
         ).stateIn(this)
 
         DataBus.visualConfigFlow.completeOrThrow(visualConfigFlow)

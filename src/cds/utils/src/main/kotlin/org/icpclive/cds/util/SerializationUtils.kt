@@ -7,6 +7,7 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.SerializersModuleBuilder
+import java.io.File
 
 public inline fun <reified T: Any> SerializersModuleBuilder.postProcess(
     crossinline onDeserialize: (T) -> T = { it },
@@ -86,3 +87,10 @@ public class ListOrSingleOrNullElementSerializer<T>(elementSerializer: KSerializ
         }
     }
 }
+
+public val jsonForConfigs: Json = Json {
+    allowTrailingComma = true
+    allowComments = true
+}
+
+public inline fun <reified T> loadConfigFile(file: File): T = file.inputStream().use { jsonForConfigs.decodeFromStream<T>(it) }

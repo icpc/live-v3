@@ -20,6 +20,7 @@ import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.fileContentFlow
 import org.icpclive.cds.util.fileJsonContentFlow
 import org.icpclive.cds.util.getLogger
+import org.icpclive.cds.util.loadConfigFile
 import java.io.InputStream
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -96,7 +97,7 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         val path = this.configDirectory.resolve("events.properties").takeIf { it.exists() }
             ?: this.configDirectory.resolve("settings.json5").takeIf { it.exists() }
             ?: this.configDirectory.resolve("settings.json")
-        val creds: Map<String, String> = this.credentialFile?.let { Json.decodeFromStream<Map<String, String>?>(it.toFile().inputStream()) } ?: emptyMap()
+        val creds: Map<String, String> = this.credentialFile?.let { loadConfigFile<Map<String, String>>(it.toFile()) } ?: emptyMap()
         return CDSSettings.fromFile(path) { creds[it] }
             .also(configObserver)
             .toFlow()
