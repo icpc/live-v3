@@ -52,9 +52,8 @@ export class ControlsWidgetService extends AbstractWidgetImpl<ControlElementSett
 
     private async loadVisualConfig(): Promise<string[]> {
         try {
-            const config = await createApiGet(BASE_URL_BACKEND)(
-                "/visualConfig/json",
-            );
+            const config =
+                await createApiGet(BASE_URL_BACKEND)("/visualConfig/json");
             return config.ADMIN_HIDE_CONTROL ?? [];
         } catch (error) {
             console.warn(
