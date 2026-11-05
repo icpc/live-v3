@@ -1,0 +1,69 @@
+[
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "outOfContest": {
+                "from": "{team.displayName}",
+                "rules": {
+                    "^\\* (.*)$": {
+                        "group": "ooc"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.outOfContest.group}"
+        ]
+    },
+    {
+        "type": "overrideGroups",
+        "rules": {
+            "ooc": {
+                "isOutOfContest": true
+            }
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "fromName": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "([^:]*): (.*) (\\([^)]*\\))": {
+                        "uniNameValue": "$1",
+                        "funnyNameValue": "$2",
+                        "contestants": "$3"
+                    }
+                }
+            },
+            "universityGroup": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "^(?:\\* )?([^:]+):.*$": {
+                        "name": "$1"
+                    }
+                }
+            },
+            "fromId": {
+                "from": "{team.id}",
+                "rules": {
+                    "spb(.*)": {
+                        "compValue": "$1"
+                    }
+                }
+            }
+        },
+        "extraGroups": [
+            "{regexes.universityGroup.name}"
+        ],
+        "customFields": {
+            "uniName": "{regexes.fromName.uniNameValue}",
+            "funnyName": "{regexes.fromName.funnyNameValue}",
+            "comp": "{regexes.fromId.compValue}"
+        }
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "displayName": "{uniName}: {funnyName}"
+    }
+]
