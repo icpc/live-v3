@@ -14,9 +14,4 @@ class ExtendedCdsCommandLineOptions(defaultAutoFinalize: Boolean) : CdsCommandLi
         .flag("--no-upsolving", default = false, defaultForHelp = "disabled")
     val autoFinalize by option("--auto-finalize", help = "Automatically finalize the contest")
         .flag("--no-auto-finalize", default = defaultAutoFinalize, defaultForHelp = if (defaultAutoFinalize) "enabled" else "disabled")
-    val visualConfigFile by option(
-        "--visual-config",
-        help = "File with localization of analytics messages"
-    ).path(canBeFile = true, canBeDir = false, mustExist = true)
-        .defaultLazy("configDirectory/visual-config.json") { configDirectory.resolve("visual-config.json") }
 }

@@ -218,7 +218,7 @@ fun Application.module() {
                 configureDefaultConfigRouting(
                     ServerCommand.cdsOptions.configDirectory.resolve("settings.json"),
                     ServerCommand.cdsOptions.advancedJsonPath,
-                    ServerCommand.cdsOptions.visualConfigFile,
+                    ServerCommand.visualConfigFile,
                     ServerCommand.cdsOptions.customFieldsCsvPath,
                     ServerCommand.cdsOptions.orgCustomFieldsCsvPath,
                     {

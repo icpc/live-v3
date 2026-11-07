@@ -24,9 +24,12 @@ object ClicsArchiveCommand : DumpFileCommand(
     outputHelp = "Path to new zip file"
 ) {
 
-    val mediaDirectory by option("--media-dir", help = "Directory to store media")
-        .path(canBeFile = false, canBeDir = true)
-        .defaultLazy("configDirectory/media") { cdsOptions.configDirectory.resolve("media") }
+    val mediaDirectory by cdsOptions.configSubDirWithDefault(
+        "--media-dir",
+        help = "Directory to store media",
+        defaultName = "media",
+        mustExist = false,
+    )
 
     val feedVersion by option("--feed-version", help = "Version of CLICS feed to generate")
         .enum<FeedVersion>()

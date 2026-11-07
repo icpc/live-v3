@@ -28,6 +28,30 @@ import kotlin.io.path.exists
 import kotlin.io.path.name
 
 public open class CdsCommandLineOptions : OptionGroup("CDS options") {
+    private fun configPathWithDefault(
+        optionName: String,
+        help: String,
+        defaultName: String,
+        mustExist: Boolean,
+        isFile: Boolean
+    ) = option(optionName, help = help)
+        .path(mustExist = mustExist, canBeFile = isFile, canBeDir = !isFile)
+        .defaultLazy("configDirectory/$defaultName") { configDirectory.resolve(defaultName) }
+
+    public fun configSubDirWithDefault(
+        optionName: String,
+        help: String,
+        defaultName: String,
+        mustExist: Boolean = true,
+    ): OptionWithValues<Path, Path, Path> = configPathWithDefault(optionName, help, defaultName, mustExist, isFile = false)
+
+    public fun configFileWithDefault(
+        optionName: String,
+        help: String,
+        defaultName: String,
+        mustExist: Boolean = true,
+    ): OptionWithValues<Path, Path, Path> = configPathWithDefault(optionName, help, defaultName, mustExist, isFile = true)
+
     public val configDirectory: Path by option(
         "-c", "--config-directory",
         help = "Path to config directory"
@@ -38,25 +62,35 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         help = "Path to file with credentials"
     ).path(mustExist = true, canBeFile = true, canBeDir = false)
 
-    public val advancedJsonPath: Path by option("--advanced-json", help = "Path to advanced settings file")
-        .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/advanced.json") { configDirectory.resolve("advanced.json") }
+    public val advancedJsonPath: Path by configFileWithDefault(
+        optionName = "--advanced-json",
+        help = "Path to advanced settings file",
+        defaultName = "advanced-json"
+    )
 
-    public val customFieldsCsvPath: Path by option("--custom-fields-csv", help = "Path to file with custom fields for teams")
-        .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/custom-fields.csv") { configDirectory.resolve("custom-fields.csv") }
+    public val customFieldsCsvPath: Path by configFileWithDefault(
+        optionName = "--custom-fields-csv",
+        help = "Path to file with custom fields for teams",
+        defaultName = "custom-fields.csv"
+    )
 
-    public val orgCustomFieldsCsvPath: Path by option("--org-custom-fields-csv", help = "Path to file with custom fields for organizations")
-        .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/org-custom-fields.csv") { configDirectory.resolve("org-custom-fields.csv") }
+    public val orgCustomFieldsCsvPath: Path by configFileWithDefault(
+        optionName = "--org-custom-fields-csv",
+        help = "Path to file with custom fields for organizations",
+        defaultName = "org-custom-fields.csv"
+    )
 
-    public val personsJsonPath: Path by option("--persons-json", help = "Path to file with persons")
-        .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/persons.json") { configDirectory.resolve("persons.json")  }
+    public val personsJsonPath: Path by configFileWithDefault(
+        optionName = "--persons-json",
+        help = "Path to file with persons",
+        defaultName = "persons.json"
+    )
 
-    public val accountsJsonPath: Path by option("--accounts-json", help = "Path to file with accounts")
-        .path(mustExist = true, canBeFile = true, canBeDir = false)
-        .defaultLazy("configDirectory/persons.json") { configDirectory.resolve("accounts.json")  }
+    public val accountsJsonPath: Path by configFileWithDefault(
+        optionName = "--accounts-json",
+        help = "Path to file with accounts",
+        defaultName = "accounts.json"
+    )
 
     public fun toFlow(): Flow<ContestUpdate> = toFlow { }
 

@@ -22,27 +22,37 @@ object Config : CliktCommand(name = "java -jar live-v3.jar") {
         help = "Disable http basic auth in admin"
     ).flag()
 
-    val presetsDirectory by option("--presets-dir", help = "Directory to store presets")
-        .path(canBeFile = false, canBeDir = true)
-        .defaultLazy("configDirectory/presets") { cdsSettings.configDirectory.resolve("presets") }
-    val mediaDirectory by option("--media-dir", help = "Directory to store media")
-        .path(canBeFile = false, canBeDir = true)
-        .defaultLazy("configDirectory/media") { cdsSettings.configDirectory.resolve("media") }
-    val usersFile by option("--users-file", help = "Storage of users")
-        .path(canBeDir = false, canBeFile = true)
-        .defaultLazy("configDirectory/users.json") { cdsSettings.configDirectory.resolve("users.json") }
+    val presetsDirectory by cdsSettings.configSubDirWithDefault(
+        optionName = "--presets-dir",
+        help = "Directory to store presets",
+        defaultName = "presets",
+        mustExist = false
+    )
+
+    val mediaDirectory by cdsSettings.configSubDirWithDefault(
+        "--media-dir",
+        help = "Directory to store media",
+        defaultName = "media",
+        mustExist = false
+    )
+
+    val usersFile by cdsSettings.configFileWithDefault(
+        optionName = "--users-file",
+        help = "Storage of users",
+        defaultName = "users.json",
+        mustExist = false,
+    )
 
     val analyticsTemplatesFile by option(
         "--analytics-template",
         help = "File with localization of analytics messages"
     ).path(canBeFile = true, canBeDir = false, mustExist = true)
 
-    val visualConfigFile by option(
-        "--visual-config",
-        help = "File with localization of analytics messages"
-    ).path(canBeFile = true, canBeDir = false, mustExist = true)
-        .defaultLazy("configDirectory/visual-config.json") { cdsSettings.configDirectory.resolve("visual-config.json") }
-
+    val visualConfigFile by cdsSettings.configFileWithDefault(
+        optionName = "--visual-config",
+        help = "File with frontend configuration",
+        defaultName = "visual-config.json",
+    )
 
     override fun run() {
         loggingSettings.setupLogging(extraLoggers = listOf(::FlowLogAppender))

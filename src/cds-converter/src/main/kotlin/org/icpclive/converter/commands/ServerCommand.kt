@@ -17,9 +17,18 @@ object ServerCommand : CliktCommand(name = "server") {
     private val serverOptions by ServerOptions()
     private val loggingOptions by LoggingOptions(logfileDefaultPrefix = "converter")
     val publisher by Publisher().cooccurring()
-    val mediaDirectory by option("--media-dir", help = "Directory to store media")
-        .path(canBeFile = false, canBeDir = true)
-        .defaultLazy("configDirectory/media") { cdsOptions.configDirectory.resolve("media") }
+    val mediaDirectory by cdsOptions.configSubDirWithDefault(
+        optionName = "--media-dir",
+        help = "Directory to store media",
+        defaultName = "media",
+        mustExist = false,
+    )
+
+    val visualConfigFile by cdsOptions.configFileWithDefault(
+        optionName = "--visual-config",
+        help = "File with frontend configuration",
+        defaultName = "visual-config.json"
+    )
 
     override fun run() {
         loggingOptions.setupLogging(extraLoggers = listOf(::FlowLogAppender))
