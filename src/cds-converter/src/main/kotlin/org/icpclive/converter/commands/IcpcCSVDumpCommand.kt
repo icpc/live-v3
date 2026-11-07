@@ -9,5 +9,5 @@ object IcpcCSVDumpCommand : DumpTextFileCommand(
     outputHelp = "Path to new csv file",
     defaultFileName = "standings.csv"
 ) {
-    override fun format(data: ContestStateWithScoreboard) = IcpcCsvExporter.format(data)
+    override fun format(data: ContestStateWithScoreboard) = IcpcCsvExporter().format(data)
 }

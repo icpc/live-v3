@@ -132,12 +132,14 @@ fun Route.configureAdminApiRouting() {
         }
 
         configureDefaultConfigRouting(
-            Config.cdsSettings.configDirectory.resolve("settings.json"),
+            Config.cdsSettings.settingsPath,
             Config.cdsSettings.advancedJsonPath,
             Config.visualConfigFile,
             Config.cdsSettings.customFieldsCsvPath,
             Config.cdsSettings.orgCustomFieldsCsvPath,
             { dataBus.contestInfoFlow },
+            validateSettingsReload = Config.cdsSettings::verifySettingsParsable,
+            onSettingsReload = Config.serverSettings::requestReload,
         )
 
         route("/media") {

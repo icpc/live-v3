@@ -21,7 +21,7 @@ import io.ktor.server.routing.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.html.*
-import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 import org.icpclive.cds.InfoUpdate
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.api.*
@@ -162,11 +162,11 @@ fun Application.module() {
                             .stateIn(scope, SharingStarted.Eagerly, null)
                             .filterNotNull()
                     }
-                    PCMSXmlExporter.run(this@nonAdmin, this@admin)
-                    PCMSHtmlExporter.run(this@nonAdmin, this@admin)
-                    IcpcCsvExporter.run(this@nonAdmin, this@admin)
+                    PCMSXmlExporter().run(this@nonAdmin, this@admin)
+                    PCMSHtmlExporter().run(this@nonAdmin, this@admin)
+                    IcpcCsvExporter().run(this@nonAdmin, this@admin)
                     ClicsExporter(ServerCommand.mediaDirectory).run(this@nonAdmin, this@admin)
-                    ReactionsExporter.run(this@nonAdmin, this@admin)
+                    ReactionsExporter().run(this@nonAdmin, this@admin)
                 }
             }
             accounts = adminContestInfoFlow
@@ -216,7 +216,7 @@ fun Application.module() {
                     )
                 }
                 configureDefaultConfigRouting(
-                    ServerCommand.cdsOptions.configDirectory.resolve("settings.json"),
+                    ServerCommand.cdsOptions.settingsPath,
                     ServerCommand.cdsOptions.advancedJsonPath,
                     ServerCommand.visualConfigFile,
                     ServerCommand.cdsOptions.customFieldsCsvPath,
@@ -228,7 +228,9 @@ fun Application.module() {
                         } else {
                             nonAdminContestInfoFlow
                         }
-                    }
+                    },
+                    validateSettingsReload = ServerCommand.cdsOptions::verifySettingsParsable,
+                    onSettingsReload = ServerCommand.serverOptions::requestReload
                 )
             }
         }

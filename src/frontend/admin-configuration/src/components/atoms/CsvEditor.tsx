@@ -1,16 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import Editor, { OnMount, OnChange, Monaco } from "@monaco-editor/react";
+import Editor, { Monaco, OnChange, OnMount } from "@monaco-editor/react";
 
 interface CsvEditorProps {
     defaultValue: string;
     onChange: OnChange;
-    readonly: boolean;
 }
 
 function CsvCodeEditor({
     defaultValue,
     onChange,
-    readonly,
 }: CsvEditorProps): React.ReactElement {
     const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
     const monacoRef = useRef<Monaco | null>(null);
@@ -40,14 +38,7 @@ function CsvCodeEditor({
         }
     }, [defaultValue]);
 
-    return (
-        <Editor
-            language="csv"
-            onMount={handleMount}
-            onChange={onChange}
-            options={{ readOnly: readonly }}
-        />
-    );
+    return <Editor language="csv" onMount={handleMount} onChange={onChange} />;
 }
 
 export default CsvCodeEditor;

@@ -1,0 +1,15 @@
+// Clics compatible CDS
+{
+  "type": "clics",
+  "feeds": [
+    {
+      "source": {
+        "url": "https://change.me/api",
+        "login": "cds_username",
+        "password": "cds_password"
+      },
+      "feedVersion": "2023_06",
+      "contestId": "contest"
+    }
+  ]
+}

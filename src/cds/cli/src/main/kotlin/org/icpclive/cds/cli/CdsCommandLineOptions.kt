@@ -6,7 +6,8 @@ import com.github.ajalt.clikt.parameters.types.path
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToStream
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import org.icpclive.cds.ContestUpdate
@@ -14,17 +15,11 @@ import org.icpclive.cds.adapters.applyTuningRules
 import org.icpclive.cds.api.AccountInfo
 import org.icpclive.cds.api.PersonInfo
 import org.icpclive.cds.settings.*
-import org.icpclive.cds.tunning.AddAccounts
-import org.icpclive.cds.tunning.AddPersons
-import org.icpclive.cds.tunning.TuningRule
-import org.icpclive.cds.util.fileContentFlow
-import org.icpclive.cds.util.fileJsonContentFlow
-import org.icpclive.cds.util.getLogger
-import org.icpclive.cds.util.loadConfigFile
+import org.icpclive.cds.tunning.*
+import org.icpclive.cds.util.*
 import java.io.InputStream
 import java.nio.file.Path
 import java.nio.file.Paths
-import kotlin.io.path.exists
 import kotlin.io.path.name
 
 public open class CdsCommandLineOptions : OptionGroup("CDS options") {
@@ -92,6 +87,23 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         defaultName = "accounts.json"
     )
 
+    public val settingsPath: Path by configFileWithDefault(
+        optionName = "--settings-json",
+        help = "Path to file with settings",
+        defaultName = "settings.json"
+    )
+
+    private fun getCredsProvider(): CredentialProvider {
+        val creds = credentialFile?.let { path ->
+            loadConfigFile<Map<String, String>>(path)
+        } ?: emptyMap()
+        return CredentialProvider { creds[it] }
+    }
+
+    public fun verifySettingsParsable(content: String) {
+        val _ = CDSSettings.fromContent(content, settingsPath, getCredsProvider())
+    }
+
     public fun toFlow(): Flow<ContestUpdate> = toFlow { }
 
     public fun toFlow(
@@ -128,11 +140,8 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         }
         log.info { "Using config directory ${this.configDirectory}" }
         log.info { "Current working directory is ${Paths.get("").toAbsolutePath()}" }
-        val path = this.configDirectory.resolve("events.properties").takeIf { it.exists() }
-            ?: this.configDirectory.resolve("settings.json5").takeIf { it.exists() }
-            ?: this.configDirectory.resolve("settings.json")
-        val creds: Map<String, String> = this.credentialFile?.let { loadConfigFile<Map<String, String>>(it.toFile()) } ?: emptyMap()
-        return CDSSettings.fromFile(path) { creds[it] }
+        return CDSSettings
+            .fromFile(settingsPath, getCredsProvider())
             .also(configObserver)
             .toFlow()
             .applyTuningRules(combinedTuningFlow)

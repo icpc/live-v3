@@ -10,7 +10,7 @@ object PCMSDumpCommand : DumpTextFileCommand(
     outputHelp = "Path to new xml file",
     defaultFileName = "standings.xml"
 ) {
-    override fun format(data: ContestStateWithScoreboard) = PCMSXmlExporter.format(data)
+    override fun format(data: ContestStateWithScoreboard) = PCMSXmlExporter().format(data)
 }
 
 object PCMSScoreboardDumpCommand : DumpTextFileCommand(
@@ -19,5 +19,5 @@ object PCMSScoreboardDumpCommand : DumpTextFileCommand(
     outputHelp = "Path to new html file",
     defaultFileName = "standings.html"
 ) {
-    override fun format(data: ContestStateWithScoreboard) = PCMSHtmlExporter.format(data)
+    override fun format(data: ContestStateWithScoreboard) = PCMSHtmlExporter().format(data)
 }

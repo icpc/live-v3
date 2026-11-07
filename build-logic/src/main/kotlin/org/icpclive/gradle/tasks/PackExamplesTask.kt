@@ -39,7 +39,7 @@ abstract class PackExamplesTask : DefaultTask() {
             }
         }
 
-        destination.resolve("descriptions.json").writeText(descriptions.entries.joinToString(separator = ",\n", prefix = "{\n", postfix = "}\n") {
+        destination.resolve("descriptions.json").writeText(descriptions.entries.joinToString(separator = ",\n", prefix = "{\n", postfix = "\n}\n") {
             "\"${it.key}\": \"${it.value.replace("\"", "\\\"").removePrefix("//").trim()}\""
         })
     }

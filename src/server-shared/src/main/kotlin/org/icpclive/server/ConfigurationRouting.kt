@@ -1,23 +1,14 @@
 package org.icpclive.server
 
-import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.http.content.LocalPathContent
-import io.ktor.server.http.content.staticResources
-import io.ktor.server.request.receiveText
-import io.ktor.server.response.respond
-import io.ktor.server.response.respondRedirect
-import io.ktor.server.response.respondText
-import io.ktor.server.routing.Route
-import io.ktor.server.routing.contentType
-import io.ktor.server.routing.get
-import io.ktor.server.routing.post
-import io.ktor.server.routing.route
-import io.ktor.server.websocket.webSocket
-import kotlinx.coroutines.Dispatchers
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.http.content.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import io.ktor.server.websocket.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.JsonElement
 import org.icpclive.cds.api.ContestInfo
@@ -33,7 +24,8 @@ public fun Route.configureConfigFileRouting(
     contentType: ContentType,
     validate: (String) -> Unit,
     schemaLocation: String?,
-    examplesPackage: String?
+    examplesPackage: String?,
+    onSave: ((Job) -> Unit)? = null,
 ) {
     get {
         if (path.notExists()) {
@@ -48,7 +40,7 @@ public fun Route.configureConfigFileRouting(
                 call.respondText(emptyResponse, contentType)
             } else {
                 withContext(Dispatchers.IO) {
-                    call.respond(loadConfigFile<JsonElement>(path.toFile()))
+                    call.respond(loadConfigFile<JsonElement>(path))
                 }
             }
         }
@@ -56,8 +48,13 @@ public fun Route.configureConfigFileRouting(
     post {
         call.adminApiAction {
             val text = call.receiveText()
-            validate(text)
+            try {
+                validate(text)
+            } catch (e: SerializationException) {
+                throw ApiActionException("Failed to parse new text: ${e.message}", e)
+            }
             path.toFile().writeText(text)
+            onSave?.invoke(call.coroutineContext.job)
         }
     }
     get("/schema") {
@@ -83,16 +80,19 @@ public fun Route.configureDefaultConfigRouting(
     visualConfigFile: Path,
     customFieldsCsvPath: Path,
     orgCustomFieldsCsvPath: Path,
-    contestInfoFlowProvider: suspend ApplicationCall.() -> Flow<ContestInfo>
+    contestInfoFlowProvider: suspend ApplicationCall.() -> Flow<ContestInfo>,
+    validateSettingsReload: (String) -> Unit,
+    onSettingsReload: (Job) -> Unit,
 ) {
     route("/settings") {
         configureConfigFileRouting(
             settingsJonsPath,
             emptyResponse = "{}",
             contentType = ContentType.Application.Json,
-            validate = { throw ApiActionException("Settings file can't be modified") },
+            validate = validateSettingsReload,
             schemaLocation = "/schemas/settings.schema.json",
-            examplesPackage = null
+            examplesPackage = "examples.settings",
+            onSave = onSettingsReload,
         )
     }
     route("/advancedJson") {
@@ -101,12 +101,7 @@ public fun Route.configureDefaultConfigRouting(
             emptyResponse = "[]",
             contentType = ContentType.Application.Json,
             validate = {
-                try {
-                    // check if parsable
-                    val _ = TuningRule.listFromString(it)
-                } catch (e: SerializationException) {
-                    throw ApiActionException("Failed to deserialize advanced.json: ${e.message}", e)
-                }
+                val _ = TuningRule.listFromString(it)
             },
             schemaLocation = "/schemas/advanced.schema.json",
             examplesPackage = "examples.advanced"

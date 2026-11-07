@@ -219,7 +219,7 @@ class ReactionsData(
 
 }
 
-object ReactionsExporter : Exporter {
+class ReactionsExporter : Exporter {
     override val subscriptionCount: Int
         get() = 3
     override fun CoroutineScope.runOn(

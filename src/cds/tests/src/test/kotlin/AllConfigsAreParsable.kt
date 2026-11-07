@@ -1,5 +1,5 @@
 import io.github.optimumcode.json.schema.JsonSchemaLoader
-import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonElement
 import org.icpclive.cds.settings.CDSSettings
 import org.icpclive.cds.settings.fromFile
 import org.icpclive.cds.tunning.TuningRule
@@ -46,20 +46,24 @@ class AllConfigsAreParsable {
         )
     }
 
-    @TestFactory
-    fun testVisualConfigs() : List<DynamicTest> {
+    private fun visualConfigParser(): (Path) -> Any? {
         val projectDir = Path("").absolute().parent.parent.parent
         val jsonSchema = JsonSchemaLoader
             .create()
             .fromDefinition(projectDir.resolve("schemas/visual-config.schema.json").toFile().readText())
-        return test(
-            projectDir.resolve("config"),
-            nameFilter = { it.startsWith("visual-config") || it.startsWith("visualConfig") },
-            parser = { path ->
-                jsonSchema.validate(loadConfigFile<JsonObject>(path.toFile())) { error ->
-                    throw IllegalArgumentException("Invalid ${path}: $error")
-                }
+        return { path ->
+            jsonSchema.validate(loadConfigFile<JsonElement>(path)) { error ->
+                throw IllegalArgumentException("Invalid ${path}: $error")
             }
+        }
+    }
+
+    @TestFactory
+    fun testVisualConfigs() : List<DynamicTest> {
+        return test(
+            Path("").absolute().parent.parent.parent.resolve("config"),
+            nameFilter = { it.startsWith("visual-config") || it.startsWith("visualConfig") },
+            parser = visualConfigParser()
         )
     }
 
@@ -73,6 +77,24 @@ class AllConfigsAreParsable {
                     TuningRule.listFromInputStream(it)
                 }
             }
+        )
+    }
+
+    @TestFactory
+    fun testSettingsExamples() : List<DynamicTest> {
+        return test(
+            Path("").absolute().parent.parent.parent.resolve("config/_examples/_settings"),
+            nameFilter = { true },
+            parser = { CDSSettings.fromFile(it) { "" } }
+        )
+    }
+
+    @TestFactory
+    fun testVisualConfigExamples() : List<DynamicTest> {
+        return test(
+            Path("").absolute().parent.parent.parent.resolve("config/_examples/_visual-config"),
+            nameFilter = { true },
+            parser = visualConfigParser()
         )
     }
 

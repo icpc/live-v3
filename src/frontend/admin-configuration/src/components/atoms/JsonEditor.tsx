@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Editor, { OnMount, OnChange, Monaco } from "@monaco-editor/react";
+import Editor, { Monaco, OnChange, OnMount } from "@monaco-editor/react";
 
 type JSONSchema = Record<string, unknown>;
 
@@ -7,14 +7,12 @@ interface JsonEditorProps {
     schema: JSONSchema;
     defaultValue: string;
     onChange: OnChange;
-    readonly: boolean;
 }
 
 function JsonCodeEditor({
     schema,
     defaultValue,
     onChange,
-    readonly,
 }: JsonEditorProps): React.ReactElement {
     const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
     const [monaco, setMonaco] = useState<Monaco | null>(null);
@@ -61,14 +59,7 @@ function JsonCodeEditor({
         });
     }, [monaco, schema]);
 
-    return (
-        <Editor
-            language="json"
-            onMount={handleMount}
-            onChange={onChange}
-            options={{ readOnly: readonly }}
-        />
-    );
+    return <Editor language="json" onMount={handleMount} onChange={onChange} />;
 }
 
 export default JsonCodeEditor;

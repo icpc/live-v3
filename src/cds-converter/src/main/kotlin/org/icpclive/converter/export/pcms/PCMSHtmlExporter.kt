@@ -6,10 +6,10 @@ import kotlinx.html.stream.appendHTML
 import org.icpclive.cds.api.*
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.converter.export.SingleFileExporter
-import org.icpclive.converter.export.pcms.PCMSXmlExporter.toPcmsStatus
+import org.icpclive.converter.export.pcms.PCMSXmlExporter.Companion.toPcmsStatus
 import kotlin.time.Duration
 
-object PCMSHtmlExporter : SingleFileExporter(
+class PCMSHtmlExporter : SingleFileExporter(
     httpPath = "pcms",
     exportName = "standings.html",
     exportDescription = "PCMS scoreboard",
