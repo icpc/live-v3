@@ -1,10 +1,25 @@
 import { Award } from "@shared/api";
 import c from "@/config";
 
-export enum AwardEffect {
-    GOLD = "gold",
-    SILVER = "silver",
-    BRONZE = "bronze",
+export const AwardEffect = {
+    GOLD: "gold",
+    SILVER: "silver",
+    BRONZE: "bronze",
+} as const;
+
+export type KnownAwardEffect = (typeof AwardEffect)[keyof typeof AwardEffect];
+
+/**
+ * Visual effect applied to a team holding a matching award.
+ * Any string works; EFFECT_RANK_BACKGROUND_COLOR defines the color used for it.
+ * @TJS-type string
+ * @TJS-examples ["gold", "silver", "bronze"]
+ */
+export type AwardEffect = KnownAwardEffect | (string & {});
+
+export interface AwardEffectColors
+    extends Partial<Record<KnownAwardEffect, string>> {
+    [effect: string]: string | undefined;
 }
 
 const getEffectById = (id: string) => {

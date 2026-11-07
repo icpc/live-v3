@@ -3,12 +3,30 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
         "AwardEffect": {
-            "enum": [
+            "description": "Visual effect applied to a team holding a matching award.\nAny string works; EFFECT_RANK_BACKGROUND_COLOR defines the color used for it.",
+            "examples": [
                 "gold",
                 "silver",
                 "bronze"
             ],
             "type": "string"
+        },
+        "AwardEffectColors": {
+            "additionalProperties": {
+                "type": "string"
+            },
+            "properties": {
+                "bronze": {
+                    "type": "string"
+                },
+                "gold": {
+                    "type": "string"
+                },
+                "silver": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
         },
         "LocationRectangle": {
             "additionalProperties": false,
@@ -182,7 +200,7 @@
                     "type": "string"
                 },
                 "EFFECT_RANK_BACKGROUND_COLOR": {
-                    "$ref": "#/definitions/{gold?:string;silver?:string;bronze?:string;}"
+                    "$ref": "#/definitions/AwardEffectColors"
                 },
                 "EXTRA_CSS": {
                     "type": "string"
@@ -954,21 +972,6 @@
         "{[name:string]:OverlayConfigOverride;}": {
             "additionalProperties": {
                 "$ref": "#/definitions/OverlayConfigOverride"
-            },
-            "type": "object"
-        },
-        "{gold?:string;silver?:string;bronze?:string;}": {
-            "additionalProperties": false,
-            "properties": {
-                "bronze": {
-                    "type": "string"
-                },
-                "gold": {
-                    "type": "string"
-                },
-                "silver": {
-                    "type": "string"
-                }
             },
             "type": "object"
         }
