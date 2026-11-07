@@ -131,7 +131,7 @@ internal abstract class AbstractScoreboardCalculator(protected val info: Contest
                     val chainLimit = award.chainLimit ?: Int.MAX_VALUE
                     val limit = award.limit ?: Int.MAX_VALUE
                     val organizationLimitField = award.organizationLimitCustomField
-                    val chainOrganizationLimitField = award.chainOrganizationLimitCustomField
+                    val chainOrganizationLimitField = award.chainOrganizationLimitCustomField ?: chain.organizationLimitCustomField
                     @IgnorableReturnValue
                     fun processChunk(chunk: List<RankingEntry>) : Boolean {
                         if (award.tiebreakMode == AwardTiebreakMode.NONE) {
@@ -182,6 +182,7 @@ internal abstract class AbstractScoreboardCalculator(protected val info: Contest
                             val chainOrganizationLimit = chainOrganizationLimitField
                                 ?.let { field -> org.customFields[field]?.toIntOrNull() }
                                 ?: award.chainOrganizationLimit
+                                ?: chain.organizationLimit
                             if (chainOrganizationLimit != null && (chainOrganizationAwarded[org.id] ?: 0) >= chainOrganizationLimit) {
                                 continue
                             }
