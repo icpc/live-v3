@@ -90,6 +90,8 @@ jobs:
           context: ./src/cloud-instance-docker/
           build-args: USER_ARCHIVE=live.zip
           push: true
+          cache-from: type=gha
+          cache-to: type=gha
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
