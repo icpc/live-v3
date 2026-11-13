@@ -1,12 +1,11 @@
 package org.icpclive.cds.plugins.clics
 
+import io.ktor.http.URLBuilder
 import org.icpclive.cds.api.*
 import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.util.logger
 import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
-import java.net.URI
-import java.net.URLDecoder
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
@@ -72,14 +71,11 @@ internal class ClicsModel {
         val href = href?.value ?: return null
         return when {
             mime.startsWith("application/vnd.webrtc-grabber.stream") -> {
-                val uri = URI(href)
-                val parameters = uri.query.orEmpty().split("&").associate {
-                    val parts = it.split("=", limit = 2)
-                    URLDecoder.decode(parts[0], "UTF-8") to
-                        URLDecoder.decode(parts.getOrElse(1) { "" }, "UTF-8")
-                }
+                val url = URLBuilder(href)
+                val parameters = url.parameters.build()
+                url.parameters.clear()
                 MediaType.WebRTCGrabberConnection(
-                    url = URI(uri.scheme, uri.authority, uri.path, null, uri.fragment).toString(),
+                    url = url.buildString(),
                     peerName = parameters["peerName"] ?: return null,
                     streamType = parameters["streamType"] ?: return null,
                     credential = parameters["credential"]?.takeIf { it.isNotEmpty() },
