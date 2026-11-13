@@ -1,5 +1,6 @@
 package org.icpclive.cds.plugins.clics
 
+import io.ktor.http.URLBuilder
 import org.icpclive.cds.api.*
 import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.util.logger
@@ -69,6 +70,21 @@ internal class ClicsModel {
         val mime = mime ?: return null
         val href = href?.value ?: return null
         return when {
+            mime.startsWith("application/vnd.webrtc-grabber.stream") -> {
+                val url = URLBuilder(href)
+                val parameters = url.parameters.build()
+                url.parameters.clear()
+                MediaType.WebRTCGrabberConnection(
+                    url = url.buildString(),
+                    peerName = parameters["peerName"] ?: return null,
+                    streamType = parameters["streamType"] ?: return null,
+                    credential = parameters["credential"]?.takeIf { it.isNotEmpty() },
+                    filename = filename,
+                    hash = hash,
+                    tags = tag,
+                    mime = mime,
+                )
+            }
             mime.startsWith("image") -> MediaType.Image(url = href, width = width, height = height, filename = filename, hash = hash, tags = tag, mime = mime)
             mime.startsWith("audio") -> MediaType.Audio(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
             mime.startsWith("video/m2ts") -> MediaType.M2tsVideo(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
