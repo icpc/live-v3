@@ -5,6 +5,8 @@ import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.util.logger
 import org.icpclive.clics.events.*
 import org.icpclive.clics.objects.*
+import java.net.URI
+import java.net.URLDecoder
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
@@ -69,6 +71,24 @@ internal class ClicsModel {
         val mime = mime ?: return null
         val href = href?.value ?: return null
         return when {
+            mime.startsWith("application/vnd.webrtc-grabber.stream") -> {
+                val uri = URI(href)
+                val parameters = uri.query.orEmpty().split("&").associate {
+                    val parts = it.split("=", limit = 2)
+                    URLDecoder.decode(parts[0], "UTF-8") to
+                        URLDecoder.decode(parts.getOrElse(1) { "" }, "UTF-8")
+                }
+                MediaType.WebRTCGrabberConnection(
+                    url = URI(uri.scheme, uri.authority, uri.path, null, uri.fragment).toString(),
+                    peerName = parameters["peerName"] ?: return null,
+                    streamType = parameters["streamType"] ?: return null,
+                    credential = parameters["credential"]?.takeIf { it.isNotEmpty() },
+                    filename = filename,
+                    hash = hash,
+                    tags = tag,
+                    mime = mime,
+                )
+            }
             mime.startsWith("image") -> MediaType.Image(url = href, width = width, height = height, filename = filename, hash = hash, tags = tag, mime = mime)
             mime.startsWith("audio") -> MediaType.Audio(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
             mime.startsWith("video/m2ts") -> MediaType.M2tsVideo(url = href, filename = filename, hash = hash, tags = tag, mime = mime)
