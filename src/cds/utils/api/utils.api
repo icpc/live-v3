@@ -1,3 +1,10 @@
+public final class org/icpclive/cds/util/ConfigFilesUtilsKt {
+	public static final fun getJsonForConfigs ()Lkotlinx/serialization/json/Json;
+	public static final fun writeAtomically (Ljava/nio/file/Path;Lkotlin/jvm/functions/Function1;)V
+	public static final fun writeContentAtomically (Ljava/nio/file/Path;Ljava/lang/String;)V
+	public static final fun writeJsonAtomically (Ljava/nio/file/Path;Lkotlinx/serialization/KSerializer;Ljava/lang/Object;)V
+}
+
 public final class org/icpclive/cds/util/DeferredFlow : kotlinx/coroutines/flow/AbstractFlow {
 	public fun <init> ()V
 	public fun collectSafely (Lkotlinx/coroutines/flow/FlowCollector;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -68,10 +75,6 @@ public final class org/icpclive/cds/util/LoggingUtilsKt {
 	public static final fun getLogger ()Lorg/icpclive/cds/util/LoggerProvider;
 	public static final fun logger (Ljava/lang/Class;)Lorg/icpclive/cds/util/Logger;
 	public static final fun logger (Lkotlin/reflect/KClass;)Lorg/icpclive/cds/util/Logger;
-}
-
-public final class org/icpclive/cds/util/SerializationUtilsKt {
-	public static final fun getJsonForConfigs ()Lkotlinx/serialization/json/Json;
 }
 
 public final class org/icpclive/cds/util/SharedFlowSubscriptionScope {

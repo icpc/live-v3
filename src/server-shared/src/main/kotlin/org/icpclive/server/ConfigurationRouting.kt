@@ -14,6 +14,7 @@ import kotlinx.serialization.json.JsonElement
 import org.icpclive.cds.api.ContestInfo
 import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.loadConfigFile
+import org.icpclive.cds.util.writeContentAtomically
 import org.icpclive.util.sendFlow
 import java.nio.file.Path
 import kotlin.io.path.notExists
@@ -53,7 +54,7 @@ public fun Route.configureConfigFileRouting(
             } catch (e: SerializationException) {
                 throw ApiActionException("Failed to parse new text: ${e.message}", e)
             }
-            path.toFile().writeText(text)
+            path.writeContentAtomically(text)
             onSave?.invoke(call.coroutineContext.job)
         }
     }

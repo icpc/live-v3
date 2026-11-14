@@ -1,13 +1,15 @@
 package org.icpclive.controllers
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import kotlinx.serialization.serializer
 import org.icpclive.cds.util.getLogger
-import org.icpclive.util.writeJsonAtomically
+import org.icpclive.cds.util.writeJsonAtomically
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.time.Clock
@@ -35,7 +37,9 @@ class PersistentStorageService<T: Any>(
             statePath.toFile().parentFile.mkdirs()
             persistentData.persistentState.collect { content ->
                 try {
-                    statePath.writeJsonAtomically(serializer, content)
+                    withContext(Dispatchers.IO) {
+                        statePath.writeJsonAtomically(serializer, content)
+                    }
                 } catch (e: Exception) {
                     logger.error(e) { "Failed to save widgets state to $statePath" }
                 }
