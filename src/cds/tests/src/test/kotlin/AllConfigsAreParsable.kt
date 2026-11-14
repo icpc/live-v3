@@ -1,6 +1,7 @@
 import io.github.optimumcode.json.schema.JsonSchemaLoader
 import kotlinx.serialization.json.JsonElement
 import org.icpclive.cds.settings.CDSSettings
+import org.icpclive.cds.settings.Credential
 import org.icpclive.cds.settings.fromFile
 import org.icpclive.cds.tunning.TuningRule
 import org.icpclive.cds.util.loadConfigFile
@@ -29,7 +30,7 @@ class AllConfigsAreParsable {
         return test(
             Path("").absolute().parent.parent.parent.resolve("config"),
             nameFilter = { it == "settings.json" },
-            parser = { CDSSettings.fromFile(it) { "" } }
+            parser = { CDSSettings.fromFile(it) { Credential(it, it) } }
         )
     }
 
@@ -85,7 +86,7 @@ class AllConfigsAreParsable {
         return test(
             Path("").absolute().parent.parent.parent.resolve("config/_examples/_settings"),
             nameFilter = { true },
-            parser = { CDSSettings.fromFile(it) { "" } }
+            parser = { CDSSettings.fromFile(it) { Credential(it, it) } }
         )
     }
 

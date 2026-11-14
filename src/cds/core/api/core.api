@@ -2342,7 +2342,7 @@ public final class org/icpclive/cds/settings/Credential {
 }
 
 public abstract interface class org/icpclive/cds/settings/CredentialProvider {
-	public abstract fun get (Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun invoke (Ljava/lang/String;)Lorg/icpclive/cds/settings/Credential;
 }
 
 public final class org/icpclive/cds/settings/EmulationSettings {

@@ -47,22 +47,14 @@ public interface CDSSettings {
 
     public companion object {
         private val json = Json { prettyPrint = true }
-        internal fun serializersModule() = serializersModule({ it }, Path.of(""))
+        internal fun serializersModule() = serializersModule(
+            credentialProvider = { Credential(it, it) },
+            path = Path.of("")
+        )
         public fun serializersModule(credentialProvider: CredentialProvider, path: Path): SerializersModule =
             SerializersModule {
                 postProcess<Credential, String>(
-                    onDeserialize = {
-                        val prefix = $$"$creds."
-                        if (it.startsWith(prefix)) {
-                            val name = it.substring(prefix.length)
-                            Credential(
-                                it,
-                                credentialProvider[name] ?: throw SerializationException("Credential $name not found")
-                            )
-                        } else {
-                            Credential(it, it)
-                        }
-                    },
+                    onDeserialize = { credentialProvider(it) },
                     onSerialize = { it.displayValue }
                 )
                 val urlSerializer = UrlOrLocalPathSerializer(path)

@@ -6,10 +6,10 @@ import org.icpclive.cds.util.jsonForConfigs
 import java.nio.file.Path
 
 public fun interface CredentialProvider {
-    public operator fun get(s: String): String?
+    public operator fun invoke(s: String): Credential
 }
 
-private fun format(
+private fun jsonFormat(
     credentialProvider: CredentialProvider,
     path: Path,
 ): Json = Json(jsonForConfigs) {
@@ -21,10 +21,10 @@ public fun CDSSettings.Companion.fromFile(path: Path, credentialProvider: Creden
     return if (!file.exists()) {
         throw IllegalArgumentException("File ${file.absolutePath} does not exist")
     } else {
-        file.inputStream().use { format(credentialProvider, path).decodeFromStream(it) }
+        file.inputStream().use { jsonFormat(credentialProvider, path).decodeFromStream(it) }
     }
 }
 
 public fun CDSSettings.Companion.fromContent(content: String, relativePathRoot: Path, credentialProvider: CredentialProvider): CDSSettings {
-    return format(credentialProvider, relativePathRoot).decodeFromString(content)
+    return jsonFormat(credentialProvider, relativePathRoot).decodeFromString(content)
 }

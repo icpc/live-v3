@@ -23,7 +23,7 @@ public fun Route.configureConfigFileRouting(
     path: Path,
     emptyResponse: String,
     contentType: ContentType,
-    validate: (String) -> Unit,
+    sanitize: (String) -> String,
     schemaLocation: String?,
     examplesPackage: String?,
     onSave: ((Job) -> Unit)? = null,
@@ -49,12 +49,12 @@ public fun Route.configureConfigFileRouting(
     post {
         call.adminApiAction {
             val text = call.receiveText()
-            try {
-                validate(text)
+            val sanitizedText = try {
+                sanitize(text)
             } catch (e: SerializationException) {
                 throw ApiActionException("Failed to parse new text: ${e.message}", e)
             }
-            path.writeContentAtomically(text)
+            path.writeContentAtomically(sanitizedText)
             onSave?.invoke(call.coroutineContext.job)
         }
     }
@@ -82,7 +82,7 @@ public fun Route.configureDefaultConfigRouting(
     customFieldsCsvPath: Path,
     orgCustomFieldsCsvPath: Path,
     contestInfoFlowProvider: suspend ApplicationCall.() -> Flow<ContestInfo>,
-    validateSettingsReload: (String) -> Unit,
+    sanitizeSettings: (String) -> String,
     onSettingsReload: (Job) -> Unit,
 ) {
     route("/settings") {
@@ -90,7 +90,7 @@ public fun Route.configureDefaultConfigRouting(
             settingsJonsPath,
             emptyResponse = "{}",
             contentType = ContentType.Application.Json,
-            validate = validateSettingsReload,
+            sanitize = sanitizeSettings,
             schemaLocation = "/schemas/settings.schema.json",
             examplesPackage = "examples.settings",
             onSave = onSettingsReload,
@@ -101,8 +101,9 @@ public fun Route.configureDefaultConfigRouting(
             advancedJsonPath,
             emptyResponse = "[]",
             contentType = ContentType.Application.Json,
-            validate = {
+            sanitize = {
                 val _ = TuningRule.listFromString(it)
+                it
             },
             schemaLocation = "/schemas/advanced.schema.json",
             examplesPackage = "examples.advanced"
@@ -114,7 +115,7 @@ public fun Route.configureDefaultConfigRouting(
             visualConfigFile,
             emptyResponse = "{}",
             contentType = ContentType.Application.Json,
-            validate = { },
+            sanitize = { it },
             schemaLocation = "/schemas/visual-config.schema.json",
             examplesPackage = "examples.visual"
         )
@@ -125,7 +126,7 @@ public fun Route.configureDefaultConfigRouting(
             customFieldsCsvPath,
             emptyResponse = "",
             contentType = ContentType.Text.CSV,
-            validate = { },
+            sanitize = { it },
             schemaLocation = null,
             examplesPackage = null
         )
@@ -135,7 +136,7 @@ public fun Route.configureDefaultConfigRouting(
             orgCustomFieldsCsvPath,
             emptyResponse = "",
             contentType = ContentType.Text.CSV,
-            validate = { },
+            sanitize = { it },
             schemaLocation = null,
             examplesPackage = null
         )

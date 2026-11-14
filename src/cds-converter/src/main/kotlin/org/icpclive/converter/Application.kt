@@ -229,7 +229,7 @@ fun Application.module() {
                             nonAdminContestInfoFlow
                         }
                     },
-                    validateSettingsReload = ServerCommand.cdsOptions::verifySettingsParsable,
+                    sanitizeSettings = ServerCommand.cdsOptions::validateAndSanitizeSettingsCredentials,
                     onSettingsReload = ServerCommand.serverOptions::requestReload
                 )
             }

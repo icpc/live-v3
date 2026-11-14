@@ -7,6 +7,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.encodeToStream
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
@@ -17,10 +19,13 @@ import org.icpclive.cds.api.PersonInfo
 import org.icpclive.cds.settings.*
 import org.icpclive.cds.tunning.*
 import org.icpclive.cds.util.*
+import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
 import java.nio.file.Paths
+import kotlin.io.path.exists
 import kotlin.io.path.name
+import kotlin.random.Random
 
 public open class CdsCommandLineOptions : OptionGroup("CDS options") {
     private fun configPathWithDefault(
@@ -93,15 +98,70 @@ public open class CdsCommandLineOptions : OptionGroup("CDS options") {
         defaultName = "settings.json"
     )
 
-    private fun getCredsProvider(): CredentialProvider {
-        val creds = credentialFile?.let { path ->
-            loadConfigFile<Map<String, String>>(path)
-        } ?: emptyMap()
-        return CredentialProvider { creds[it] }
+
+    private inline fun getCredsProvider(crossinline onCredReplaced: (Credential) -> Unit = {}): CredentialProvider {
+        return CredentialProvider { rawCred ->
+            val credentialFile = this.credentialFile
+            val prefix = $$"$creds."
+            val creds = credentialFile?.let { path ->
+                if (path.exists()) {
+                    loadConfigFile<Map<String, String>>(path)
+                } else {
+                    emptyMap()
+                }
+            }
+            if (rawCred.startsWith(prefix)) {
+                if (creds == null) throw SerializationException($$"$creds. is used, while no credsFile specified")
+                val name = rawCred.substring(prefix.length)
+                Credential(
+                    rawCred,
+                    creds[name] ?: throw SerializationException("Credential $name not found")
+                )
+            } else {
+                if (creds == null) return@CredentialProvider Credential(rawCred, rawCred)
+                val matching = creds.entries.firstOrNull { it.value == rawCred }
+                if (matching != null) {
+                    Credential("${prefix}${matching.key}", rawCred)
+                } else {
+                    val newId = Random.nextBytes(8).toHexString()
+                    try {
+                        credentialFile.writeJsonAtomically(creds + (newId to rawCred))
+                    } catch (e: IOException) {
+                        throw SerializationException("Can't save new password to creds.json", e)
+                    }
+                    Credential("$prefix${newId}", rawCred)
+                }.also(onCredReplaced)
+            }
+        }
     }
 
-    public fun verifySettingsParsable(content: String) {
-        val _ = CDSSettings.fromContent(content, settingsPath, getCredsProvider())
+    private fun CDSSettings.canonicalForm(): JsonElement {
+        val json = Json(jsonForConfigs) {
+            serializersModule = CDSSettings.serializersModule({ Credential(it, it) }, settingsPath)
+        }
+        return json.encodeToJsonElement(this)
+    }
+
+    public fun validateAndSanitizeSettingsCredentials(content: String): String {
+        val createdCreds = mutableListOf<Credential>()
+        val parsed = CDSSettings.fromContent(content, settingsPath, getCredsProvider {
+            createdCreds.add(it)
+        })
+        if (createdCreds.isEmpty()) return content
+        val fixedContent = createdCreds.fold(content) { acc, it ->
+            acc.replace("\"${it.value}\"", "\"${it.displayValue}\"")
+        }
+        val parsedFixed = try {
+            CDSSettings.fromContent(fixedContent, settingsPath, getCredsProvider())
+        } catch (e: SerializationException) {
+            throw SerializationException("Failed to replace passwords in settings: result didn't parse after replacement", e)
+        }
+        val before = parsed.canonicalForm()
+        val after = parsedFixed.canonicalForm()
+        if (before != after) {
+            throw SerializationException("Failed to replace passwords in settings: result parsed differently after replacement")
+        }
+        return fixedContent
     }
 
     public fun toFlow(): Flow<ContestUpdate> = toFlow { }

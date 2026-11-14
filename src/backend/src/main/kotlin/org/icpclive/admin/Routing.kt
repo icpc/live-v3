@@ -138,7 +138,7 @@ fun Route.configureAdminApiRouting() {
             Config.cdsSettings.customFieldsCsvPath,
             Config.cdsSettings.orgCustomFieldsCsvPath,
             { dataBus.contestInfoFlow },
-            validateSettingsReload = Config.cdsSettings::verifySettingsParsable,
+            sanitizeSettings = Config.cdsSettings::validateAndSanitizeSettingsCredentials,
             onSettingsReload = Config.serverSettings::requestReload,
         )
 
