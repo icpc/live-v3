@@ -209,7 +209,7 @@ internal class PCMSDataSource(val settings: PCMSSettings) : FullReloadContestDat
                     else -> if (settings.allowResultsFromJobs) verdict.toICPCRunResult() else RunResult.InProgress(1.0)
                 }
             } ?: run {
-                RunResult.InProgress(if (problemTestNo == null) 0.0 else testNo.toDouble() / problemTestNo)
+                RunResult.InProgress(if (problemTestNo == null || problemTestNo == 0) 0.0 else testNo.toDouble() / problemTestNo)
             },
             problemId = problemId,
             teamId = teamId,
