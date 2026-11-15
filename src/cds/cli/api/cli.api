@@ -1,5 +1,9 @@
 public class org/icpclive/cds/cli/CdsCommandLineOptions : com/github/ajalt/clikt/parameters/groups/OptionGroup {
 	public fun <init> ()V
+	public final fun configFileWithDefault (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lcom/github/ajalt/clikt/parameters/options/OptionWithValues;
+	public static synthetic fun configFileWithDefault$default (Lorg/icpclive/cds/cli/CdsCommandLineOptions;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/ajalt/clikt/parameters/options/OptionWithValues;
+	public final fun configSubDirWithDefault (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Z)Lcom/github/ajalt/clikt/parameters/options/OptionWithValues;
+	public static synthetic fun configSubDirWithDefault$default (Lorg/icpclive/cds/cli/CdsCommandLineOptions;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/github/ajalt/clikt/parameters/options/OptionWithValues;
 	public final fun getAccountsJsonPath ()Ljava/nio/file/Path;
 	public final fun getAdvancedJsonPath ()Ljava/nio/file/Path;
 	public final fun getConfigDirectory ()Ljava/nio/file/Path;
