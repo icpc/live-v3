@@ -219,16 +219,29 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         mainScoreboardGroupId = info.mainScoreboardGroupId?.value
     )
 
+    private suspend fun <T: ObjectWithId> FlowCollector<EventProducer>.diffAt(
+        old: MutableMap<String, T>,
+        key: String,
+        new: T?,
+        toFinalEvent: (String, EventToken, T?) -> Event
+    ) {
+        if (old[key] != new) {
+            updateEvent(key, new, old[key],toFinalEvent)
+            if (new == null) {
+                old.remove(key)
+            } else {
+                old[key] = new
+            }
+        }
+    }
+
     private suspend fun <T: ObjectWithId> FlowCollector<EventProducer>.diffChange(
         old: MutableMap<String, T>,
         new: List<T>,
         toFinalEvent: (String, EventToken, T?) -> Event
     ) {
         for (n in new) {
-            if (old[n.id] != n) {
-                updateEvent(n.id, n, old[n.id],toFinalEvent)
-                old[n.id] = n
-            }
+            diffAt(old, n.id, n, toFinalEvent)
         }
     }
 
@@ -238,16 +251,10 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         toFinalEvent: (String, EventToken, T?) -> Event
     ) {
         val values = new.map { it.id }.toSet()
-        val toRemove = buildList {
-            for (k in old.keys) {
-                if (k !in values) {
-                    updateEvent(k, null, old[k], toFinalEvent)
-                    add(k)
-                }
+        for (k in old.keys.toList()) {
+            if (k !in values) {
+                diffAt(old, k, null, toFinalEvent)
             }
-        }
-        for (i in toRemove) {
-            old.remove(i)
         }
     }
 
@@ -288,7 +295,8 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         )
     }
 
-    private val submissions = mutableMapOf<RunId, Pair<Submission, Judgement>>()
+    private val submissionsMap = mutableMapOf<String, Submission>()
+    private val judgementsMap = mutableMapOf<String, Judgement>()
 
     private suspend fun FlowCollector<EventProducer>.processRun(info: ContestInfo, run: RunInfo) {
         val submission = Submission(
@@ -335,22 +343,13 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
                 current = true,
             )
         }.takeUnless { run.isHidden }
-        val (oldSubmission, oldJudgment) = submissions[run.id] ?: (null to null)
-        if (submission != oldSubmission) {
-            updateEvent(
-                run.id.sanitizedValue,
-                submission,
-                oldSubmission,
-                ::SubmissionEvent
-            )
-        }
-        if (judgement != oldJudgment) {
-            updateEvent(
-                run.id.sanitizedValue,
-                judgement,
-                oldJudgment,
-                ::JudgementEvent
-            )
+        if (submission == null) {
+            // judgement references submission, so it should be removed first
+            diffAt(judgementsMap, run.id.sanitizedValue, judgement, ::JudgementEvent)
+            diffAt(submissionsMap, run.id.sanitizedValue, submission, ::SubmissionEvent)
+        } else {
+            diffAt(submissionsMap, run.id.sanitizedValue, submission, ::SubmissionEvent)
+            diffAt(judgementsMap, run.id.sanitizedValue, judgement, ::JudgementEvent)
         }
     }
 
@@ -373,7 +372,7 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
     private val commentariesMap = mutableMapOf<String, Commentary>()
 
     @OptIn(InefficientContestInfoApi::class)
-    private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo) {
+    private suspend fun FlowCollector<EventProducer>.calculateDiff(oldInfo: ContestInfo?, newInfo: ContestInfo, awards: List<Award>) {
         diff(oldInfo, newInfo, ::getContest, ::ContestEvent)
         diff(oldInfo, newInfo, ::getState, ::StateEvent)
         if (oldInfo == null) {
@@ -397,6 +396,9 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         diffChange(personsMap, clicsPersons, ::PersonEvent)
         diffChange(accountsMap, clicsAccounts, ::AccountEvent)
 
+        // awards reference teams, so they must be updated after new teams appear, but before old ones are removed
+        diffAwards(awards)
+
         diffRemove(accountsMap, clicsAccounts, ::AccountEvent)
         diffRemove(personsMap, clicsPersons, ::PersonEvent)
         diffRemove(teamsMap, clicsTeams, ::TeamEvent)
@@ -414,20 +416,29 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         )
     }
 
+    private suspend fun FlowCollector<EventProducer>.diffAwards(newAwards: List<Award>) {
+        diffChange(awardsMap, newAwards, ::AwardEvent)
+        diffRemove(awardsMap, newAwards, ::AwardEvent)
+    }
+
     private val currentState = MutableStateFlow<ContestStateWithScoreboard?>(null)
 
     private fun generateEventFeed(updates: Flow<ContestStateWithScoreboard>) : Flow<EventWithOldValue> {
         var eventCounter = 1
         return updates.transform { state ->
             currentState.value = state
-            when (val event = state.state.lastEvent) {
-                is InfoUpdate -> calculateDiff(state.state.infoBeforeEvent, event.newInfo)
-                is RunUpdate -> processRun(state.state.infoBeforeEvent!!, event.newInfo)
-                is CommentaryMessagesUpdate -> processCommentaryMessage(event.message)
-            }
             val newAwards = state.toClicsAwards()
-            diffChange(awardsMap, newAwards, ::AwardEvent)
-            diffRemove(awardsMap, newAwards, ::AwardEvent)
+            when (val event = state.state.lastEvent) {
+                is InfoUpdate -> calculateDiff(state.state.infoBeforeEvent, event.newInfo, newAwards)
+                is RunUpdate -> {
+                    processRun(state.state.infoBeforeEvent!!, event.newInfo)
+                    diffAwards(newAwards)
+                }
+                is CommentaryMessagesUpdate -> {
+                    processCommentaryMessage(event.message)
+                    diffAwards(newAwards)
+                }
+            }
         }.map { it(EventToken("live-cds-${eventCounter++}")) }
     }
 
@@ -518,7 +529,6 @@ internal class ClicsFeedGenerator(scope: CoroutineScope, updates: Flow<ContestSt
         .filterIsInstance<T>()
         .map { it.data }
         .stateInCompletable(scope)
-        .filterNotNull()
 
     private inline fun <X: ObjectWithId, reified T: IdEvent<X>> Flow<EventWithOldValue>.filterIdEvent(scope: CoroutineScope) = map { it.event }
         .filterIsInstance<T>()
