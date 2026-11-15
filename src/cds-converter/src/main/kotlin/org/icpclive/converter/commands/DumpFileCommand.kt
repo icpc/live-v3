@@ -5,17 +5,26 @@ import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.icpclive.cds.ContestUpdate
 import org.icpclive.cds.adapters.addComputedData
+import org.icpclive.cds.adapters.finalContestState
 import org.icpclive.cds.adapters.finalContestStateWithScoreboard
+import org.icpclive.cds.api.ContestStatus
 import org.icpclive.cds.scoreboard.ContestStateWithScoreboard
 import org.icpclive.cds.util.getLogger
 import org.icpclive.server.LoggingOptions
 import java.io.File
 import kotlin.io.path.absolute
 import kotlin.io.path.isDirectory
+import kotlin.time.Duration.Companion.seconds
 
 abstract class DumpFileCommand(
     name: String,
@@ -67,10 +76,24 @@ abstract class DumpTextFileCommand(
     outputHelp: String,
 ) : DumpFileCommand(name, help, defaultFileName, outputHelp) {
     abstract fun format(data: ContestStateWithScoreboard): String
+    @OptIn(FlowPreview::class)
     override fun create(file: File, flow: Flow<ContestUpdate>) {
         val data = runBlocking {
-            logger.info { "Waiting till contest become finalized..." }
-            val result = flow.finalContestStateWithScoreboard()
+            val waitProgress = MutableStateFlow<Pair<ContestStatus, Int>?>(null)
+            val logJob = launch {
+                waitProgress.filterNotNull().debounce(1.seconds).collect { (status, count) ->
+                    logger.info { "Waiting for contest to become Finalized. Current status is ${status}. $count runs are still in progress." }
+                }
+            }
+            val result = try {
+                 flow.finalContestStateWithScoreboard { status, count ->
+                    if (status != null) {
+                        waitProgress.value = status to count
+                    }
+                }
+            } finally {
+                logJob.cancel()
+            }
             logger.info { "Loaded contest data" }
             result
         }
