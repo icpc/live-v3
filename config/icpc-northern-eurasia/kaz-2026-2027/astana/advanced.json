@@ -1,0 +1,75 @@
+[
+    {
+        "type": "overrideContestSettings",
+        "name": "The 2026 ICPC Kazakhstan Regional Contest",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.id}",
+                "rules": {
+                    "kaz1..": {"group": "astana"},
+                    "kaz2..": {"group": "kbtu"},
+                    "kaz3..": {"group": "narxoz"},
+                    "kaz4..": {"group": "atyrau"},
+                    "kaz5..": {"group": "oskemen"},
+                    "kaz6..": {"group": "turkistan"}
+                }
+            },
+            "party": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "(.*?): (.*?) \\(.*\\)": {
+                        "org": "$1",
+                        "name": "$2"
+                    }
+                }
+            }
+        },
+        "fullName": "{regexes.party.org}: {regexes.party.name}",
+        "displayName": "{regexes.party.name}",
+        "groups": ["{regexes.group.group}"]
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
+            {
+                "id": "champ",
+                "citation": "Regional Contest Champion",
+                "maxRank": 1
+            },
+            {
+                "id": "first",
+                "citation": "First Degree Diploma",
+                "maxRank": 12
+            },
+            {
+                "id": "second",
+                "citation": "Second Degree Diploma",
+                "maxRank": 26
+            },
+            {
+                "id": "third",
+                "citation": "Third Degree Diploma",
+                "maxRank": 43
+            }
+        ],
+        "groups": ["astana"]
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
+            {
+
+                "id": "qualified",
+                "limit": 0,
+                "citation": "Qualified to NEF",
+                "manualTeamIds": [
+                    "kaz362","kaz166","kaz105","kaz225","kaz154","kaz113","kaz373","kaz234","kaz103","kaz157","kaz168","kaz214","kaz341","kaz303","kaz395","kaz342","kaz411","kaz171","kaz143","kaz206","kaz315","kaz622","kaz321","kaz117","kaz130","kaz363","kaz160","kaz332","kaz323","kaz372","kaz402","kaz164","kaz223","kaz212","kaz242","kaz413","kaz608","kaz352","kaz134","kaz381","kaz361"
+                ]
+            }
+        ]
+    },
+]

@@ -1,0 +1,17 @@
+{
+  "fontFamily": "'Helvetica ICPC', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  "css": [
+    "@font-face {",
+    "  font-family: 'Helvetica ICPC';",
+    "  src: url('/media/Helvetica-ICPCPlain-20251211.ttf') format('truetype');",
+    "  font-weight: 400;",
+    "}",
+    "@font-face {",
+    "  font-family: 'Helvetica ICPC';",
+    "  src: url('/media/Helvetica-ICPCBold-20251211.ttf') format('truetype');",
+    "  font-weight: 700;",
+    "}"
+  ],
+  "awardBackground": "#07090d",
+  "rows": 9
+}

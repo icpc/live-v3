@@ -1,0 +1,66 @@
+[
+    {
+        "type": "overrideContestSettings",
+        "name": "The 2026 ICPC Kazakhstan Regional Contest",
+        "freezeTimeSeconds": 14400
+    },
+    {
+        "type": "overrideTeamTemplate",
+        "regexes": {
+            "group": {
+                "from": "{team.id}",
+                "rules": {
+                    "kaz1..": {"group": "astana"},
+                    "kaz2..": {"group": "kbtu"},
+                    "kaz33..": {"group": "narxoz"},
+                    "kaz4..": {"group": "atyrau"},
+                    "kaz5..": {"group": "oskemen"},
+                    "kaz6..": {"group": "turkistan"}
+                }
+            },
+            "party": {
+                "from": "{team.fullName}",
+                "rules": {
+                    "(.*?): (.*?) \\(.*\\)": {
+                        "org": "$1",
+                        "name": "$2"
+                    }
+                }
+            }
+        },
+        "fullName": "{regexes.party.org}: {regexes.party.name}",
+        "displayName": "{regexes.party.name}",
+        "groups": ["{regexes.group.group}"]
+    },
+    {
+        "type": "overrideGroups",
+        "rules": {
+            "astana": {"isHidden": true},
+            "kbtu": {"isHidden": true},
+            "narxoz": {"isHidden": true},
+            "oskemen": {"isHidden": true},
+            "atyrau": {"isHidden": true}
+        }
+    },
+    {
+        "type": "addAwardChain",
+        "awards": [
+            {
+                "id": "first",
+                "citation": "First Degree Diploma",
+                "maxRank": 1
+            },
+            {
+                "id": "second",
+                "citation": "Second Degree Diploma",
+                "maxRank": 2
+            },
+            {
+                "id": "third",
+                "citation": "Third Degree Diploma",
+                "maxRank": 3
+            }
+        ],
+        "groups": ["turkistan"]
+    }
+]
