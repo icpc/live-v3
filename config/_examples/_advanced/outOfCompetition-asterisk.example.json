@@ -1,0 +1,27 @@
+// If team name starts from * -- it's out of competition 
+[
+  {
+    "type":"overrideTeamTemplate",
+    "regexes":{
+      "custom":{
+        "from":"{team.fullName}",
+        "rules":{
+          "^\\*.*":{
+            "contestGroup":"outOfContest"
+          }
+        }
+      }
+    },
+    "groups":[
+      "{regexes.custom.contestGroup}"
+    ]
+  },
+  {
+    "type":"overrideGroups",
+    "rules":{
+      "outOfContest":{
+        "isOutOfContest":true
+      }
+    }
+  }
+]
