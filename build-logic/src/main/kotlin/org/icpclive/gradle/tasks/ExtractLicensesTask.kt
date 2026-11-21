@@ -68,6 +68,7 @@ abstract class ExtractLicensesTask @Inject constructor(
     @TaskAction
     fun execute() {
         val destination = outputDir.get().asFile
+        destination.deleteRecursively()
 
         runtimeFiles.forEach { jarFile ->
             val artifactRawName = artifactNameByFilePath.get()[jarFile.absolutePath] ?: "unknown"

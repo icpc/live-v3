@@ -35,6 +35,7 @@ tasks {
     shadowJar {
         mergeServiceFiles()
         duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        failOnDuplicateEntries = true
 
         append("META-INF/io.netty.versions.properties")
         exclude(ExtractLicensesTask.FILENAMES)
