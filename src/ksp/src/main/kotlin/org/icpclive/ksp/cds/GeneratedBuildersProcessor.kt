@@ -8,6 +8,8 @@ import org.icpclive.ksp.common.*
 import kotlin.time.*
 
 class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logger: KSPLogger) : SymbolProcessor {
+    override val apiFeatures = enabledApiFeatures
+
     @OptIn(KspExperimental::class)
     private fun KSType.render(allowImpls: Boolean) : String = render {
         if (allowImpls && declaration.isAnnotationPresent(Builder::class))
@@ -89,9 +91,9 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val toGenerate = resolver
             .getSymbolsWithAnnotation(Builder::class.qualifiedName!!)
-        val ret = toGenerate.filter { !it.validate(enableNewFeatures = true) }.toList()
+        val ret = toGenerate.filter { !it.validate(apiFeatures = apiFeatures) }.toList()
         val interfacesToImplement = toGenerate
-            .filter { it.validate(enableNewFeatures = true) }
+            .filter { it.validate(apiFeatures = apiFeatures) }
             .filterIsInstance<KSClassDeclaration>()
             .filter {
                 when {
@@ -237,8 +239,6 @@ class GeneratedBuildersProcessor(private val generator: CodeGenerator, val logge
 
 class GeneratedBuildersProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment) : SymbolProcessor {
-        return GeneratedBuildersProcessor(environment.codeGenerator, environment.logger).apply {
-            environment.registerProcessorForNewFeatures(this)
-        }
+        return GeneratedBuildersProcessor(environment.codeGenerator, environment.logger)
     }
 }

@@ -17,6 +17,7 @@ private fun KSType.render(feedVersion: FeedVersion?) : String = render {
 
 
 class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KSPLogger) : SymbolProcessor {
+    override val apiFeatures = enabledApiFeatures
 
     enum class EventType {
         NO, ID, GLOBAL,
@@ -40,7 +41,7 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
     @OptIn(KspExperimental::class)
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val ifaces = resolver.getSymbolsWithAnnotation(SinceClics::class.qualifiedName!!).filterIsInstance<KSClassDeclaration>()
-        val (toProcess, ret) = ifaces.partition { it.validate(enableNewFeatures = true) }
+        val (toProcess, ret) = ifaces.partition { it.validate(apiFeatures = apiFeatures) }
 
         files.addAll(toProcess.map { it.containingFile!! })
 
@@ -420,8 +421,6 @@ class FeedVersionsProcessor(private val generator: CodeGenerator, val logger: KS
 
 class FeedVersionsProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment) : SymbolProcessor {
-        return FeedVersionsProcessor(environment.codeGenerator, environment.logger).apply {
-            environment.registerProcessorForNewFeatures(this)
-        }
+        return FeedVersionsProcessor(environment.codeGenerator, environment.logger)
     }
 }

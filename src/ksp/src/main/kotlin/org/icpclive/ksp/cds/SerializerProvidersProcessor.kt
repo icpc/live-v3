@@ -7,6 +7,8 @@ import org.icpclive.ksp.common.*
 import java.io.PrintWriter
 
 class SerializerProvidersProcessor(private val generator: CodeGenerator, val logger: KSPLogger) : SymbolProcessor {
+    override val apiFeatures = enabledApiFeatures
+
     class GeneratedFile(
         val names: MutableList<String> = mutableListOf(),
         val files: MutableSet<KSFile> = mutableSetOf()
@@ -18,10 +20,10 @@ class SerializerProvidersProcessor(private val generator: CodeGenerator, val log
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val allSerializable = resolver
             .getSymbolsWithAnnotation("kotlinx.serialization.Serializable")
-        val ret = allSerializable.filter { !it.validate(enableNewFeatures = true)  }.toList()
+        val ret = allSerializable.filter { !it.validate(apiFeatures = apiFeatures)  }.toList()
 
         val subTypesOfInteresting = allSerializable
-            .filter { it.validate(enableNewFeatures = true) }
+            .filter { it.validate(apiFeatures = apiFeatures) }
             .filterIsInstance<KSClassDeclaration>()
             .filter {
                 it.getAllSuperTypes().any { superClass ->
@@ -89,8 +91,6 @@ class SerializerProvidersProcessor(private val generator: CodeGenerator, val log
 
 class SerializerProvidersProvider() : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment) : SymbolProcessor {
-        return SerializerProvidersProcessor(environment.codeGenerator, environment.logger).apply {
-            environment.registerProcessorForNewFeatures(this)
-        }
+        return SerializerProvidersProcessor(environment.codeGenerator, environment.logger)
     }
 }
