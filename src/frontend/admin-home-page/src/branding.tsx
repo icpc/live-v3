@@ -80,9 +80,17 @@ export const createAdminTheme = (contestColor: string | null) => {
 export const useAdminBranding = (apiRoot: string, titleSuffix: string) => {
     const [contestColor, setContestColor] = useState<string | null>(null);
     const [hiddenPageNames, setHiddenPageNames] = useState<string[]>([]);
+    // Starts out false so that admin-only pages are never offered before we know.
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        createApiGet(apiRoot)("/visualConfig/json").then((config) => {
+        createApiGet(apiRoot)("/whoAmI")
+            .then((session) => setIsAdmin(session?.isAdmin === true))
+            .catch(() => setIsAdmin(false));
+    }, [apiRoot]);
+
+    useEffect(() => {
+        createApiGet(apiRoot)("/uiConfig").then((config) => {
             setHiddenPageNames(config["ADMIN_HIDE_MENU"] ?? []);
 
             if (config["CONTEST_COLOR"]) {
@@ -108,5 +116,5 @@ export const useAdminBranding = (apiRoot: string, titleSuffix: string) => {
         });
     }, [apiRoot, titleSuffix]);
 
-    return { contestColor, hiddenPageNames };
+    return { contestColor, hiddenPageNames, isAdmin };
 };

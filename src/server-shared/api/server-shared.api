@@ -28,6 +28,9 @@ public final class org/icpclive/server/AdminDataBus {
 
 public final class org/icpclive/server/AdminKt {
 	public static final fun adminApiAction (Lio/ktor/server/application/ApplicationCall;Lkotlinx/serialization/KSerializer;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun configureWhoAmIRouting (Lio/ktor/server/routing/Route;)V
+	public static final fun isConfirmedAdmin (Lio/ktor/server/application/ApplicationCall;)Z
+	public static final fun requireConfirmedAdmin (Lio/ktor/server/routing/Route;)V
 }
 
 public abstract interface class org/icpclive/server/AdminPrincipal {

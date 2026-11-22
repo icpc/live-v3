@@ -22,9 +22,9 @@ import {
     getAdminOverlaySectionMenuItems,
 } from "./navigation";
 import {
-    adminConfigurationPages,
     AdminConfigurationAppNav,
     getAdminConfigurationMenuItems,
+    getVisibleAdminConfigurationPages,
     isAdminConfigurationPath,
 } from "admin-configuration";
 
@@ -32,7 +32,7 @@ export function AdminApp() {
     const [isOverlayPreviewShown, setIsOverlayPreviewShown] =
         useLocalStorageState("OverlayPreviewShown", false);
 
-    const { contestColor, hiddenPageNames } = useAdminBranding(
+    const { contestColor, hiddenPageNames, isAdmin } = useAdminBranding(
         BASE_URL_BACKEND,
         "ICPC Live 3 Admin",
     );
@@ -52,7 +52,7 @@ export function AdminApp() {
 
     const menuItems = [
         ...getAdminOverlaySectionMenuItems(hiddenPageNames),
-        ...(getAdminConfigurationMenuItems(hiddenPageNames).length > 0
+        ...(getAdminConfigurationMenuItems(hiddenPageNames, isAdmin).length > 0
             ? [{ name: "Configuration", path: "/contestInfo" }]
             : []),
     ];
@@ -74,6 +74,7 @@ export function AdminApp() {
                                 <AdminConfigurationAppNav
                                     onDrawerToggle={handleDrawerToggle}
                                     hiddenPageNames={hiddenPageNames}
+                                    isAdmin={isAdmin}
                                 />
                             ) : (
                                 <AppNav
@@ -94,13 +95,15 @@ export function AdminApp() {
                                     element={page.element}
                                 />
                             ))}
-                            {adminConfigurationPages.map((page) => (
-                                <Route
-                                    key={page.path}
-                                    path={page.path}
-                                    element={page.element}
-                                />
-                            ))}
+                            {getVisibleAdminConfigurationPages(isAdmin).map(
+                                (page) => (
+                                    <Route
+                                        key={page.path}
+                                        path={page.path}
+                                        element={page.element}
+                                    />
+                                ),
+                            )}
                         </Routes>
                         <Overlay
                             isOverlayPreviewShown={isOverlayPreviewShown}

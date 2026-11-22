@@ -35,6 +35,33 @@ public interface AdminPrincipal {
 
 public class ApiActionException(message: String, cause: Throwable? = null) : Exception(message, cause)
 
+private val ApplicationCall.isConfirmedAdmin: Boolean
+    get() = principal<AdminPrincipal>()?.confirmed == true
+
+public fun Route.requireConfirmedAdmin() {
+    install(ConfirmedAdminOnly)
+}
+
+private val ConfirmedAdminOnly = createRouteScopedPlugin("ConfirmedAdminOnly") {
+    on(AuthenticationChecked) { call ->
+        if (!call.isConfirmedAdmin) {
+            call.respond(
+                HttpStatusCode.Forbidden,
+                mapOf("status" to "error", "message" to "This page is only available to admins")
+            )
+        }
+    }
+}
+
+@Serializable
+private class WhoAmIResponse(val isAdmin: Boolean)
+
+public fun Route.configureWhoAmIRouting() {
+    get("/whoAmI") {
+        call.respond(WhoAmIResponse(call.isConfirmedAdmin))
+    }
+}
+
 @Serializable
 @PublishedApi
 internal class ActionResponse<T>(

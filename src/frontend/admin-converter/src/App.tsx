@@ -15,15 +15,15 @@ import {
     getAdminConverterSectionMenuItems,
 } from "./navigation";
 import {
-    adminConfigurationPages,
     getAdminConfigurationMenuItems,
+    getVisibleAdminConfigurationPages,
     AdminConfigurationAppNav,
     isAdminConfigurationPath,
 } from "admin-configuration";
 
 export function AdminApp() {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const { contestColor, hiddenPageNames } = useAdminBranding(
+    const { contestColor, hiddenPageNames, isAdmin } = useAdminBranding(
         `${ADMIN_BACKEND_ROOT}/api/admin`,
         "CDS Converter Admin",
     );
@@ -42,7 +42,8 @@ export function AdminApp() {
             onDrawerToggle={handleDrawerToggle}
             menuItems={[
                 ...getAdminConverterSectionMenuItems(),
-                ...(getAdminConfigurationMenuItems(hiddenPageNames).length > 0
+                ...(getAdminConfigurationMenuItems(hiddenPageNames, isAdmin)
+                    .length > 0
                     ? [{ name: "Configuration", path: "/contestInfo" }]
                     : []),
             ]}
@@ -53,6 +54,7 @@ export function AdminApp() {
                         <AdminConfigurationAppNav
                             onDrawerToggle={handleDrawerToggle}
                             hiddenPageNames={hiddenPageNames}
+                            isAdmin={isAdmin}
                         />
                     ) : (
                         <AppNav onDrawerToggle={handleDrawerToggle} />
@@ -67,7 +69,7 @@ export function AdminApp() {
                             element={page.element}
                         />
                     ))}
-                    {adminConfigurationPages.map((page) => (
+                    {getVisibleAdminConfigurationPages(isAdmin).map((page) => (
                         <Route
                             key={page.path}
                             path={page.path}

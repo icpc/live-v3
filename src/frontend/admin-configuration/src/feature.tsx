@@ -14,6 +14,7 @@ export interface AdminConfigurationPage {
     name: string;
     path: string;
     element: React.ReactNode;
+    adminOnly?: boolean;
 }
 
 export const adminConfigurationPages: AdminConfigurationPage[] = [
@@ -26,47 +27,61 @@ export const adminConfigurationPages: AdminConfigurationPage[] = [
         name: "Settings JSON",
         path: "/settings",
         element: <SettingsJsonPage />,
+        adminOnly: true,
     },
     {
         name: "Advanced JSON",
         path: "/advancedJson",
         element: <AdvancedJsonPage />,
+        adminOnly: true,
     },
     {
         name: "Visual config",
         path: "/visualConfig",
         element: <VisualConfigPage />,
+        adminOnly: true,
     },
     {
         name: "Teams custom fields",
         path: "/customFields",
         element: <CustomFieldsPage />,
+        adminOnly: true,
     },
     {
         name: "Org custom fields",
         path: "/orgCustomFields",
         element: <OrgCustomFieldsPage />,
+        adminOnly: true,
     },
 ];
 
+export function getVisibleAdminConfigurationPages(
+    isAdmin = false,
+): AdminConfigurationPage[] {
+    return adminConfigurationPages.filter((page) => isAdmin || !page.adminOnly);
+}
+
 export function getAdminConfigurationMenuItems(
     hiddenPageNames: string[] = [],
+    isAdmin = false,
 ): MenuItem[] {
-    return adminConfigurationPages
+    return getVisibleAdminConfigurationPages(isAdmin)
         .filter((page) => !hiddenPageNames.includes(page.name))
         .map(({ name, path }) => ({ name, path }));
 }
 
-export function getAdminConfigurationRoutes(): RouteObject[] {
+export function getAdminConfigurationRoutes(isAdmin = false): RouteObject[] {
     return [
         {
             path: "/",
             element: <Navigate to="/contestInfo" />,
         },
-        ...adminConfigurationPages.map(({ path, element }) => ({
-            path,
-            element,
-        })),
+        ...getVisibleAdminConfigurationPages(isAdmin).map(
+            ({ path, element }) => ({
+                path,
+                element,
+            }),
+        ),
     ];
 }
 

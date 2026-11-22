@@ -19,16 +19,18 @@ import { MenuItem as AdminMenuItem } from "admin-home-page";
 interface ResponsiveAppBarProps {
     onDrawerToggle: () => void;
     hiddenPageNames?: string[];
+    isAdmin?: boolean;
 }
 
 function ResponsiveAppBar({
     onDrawerToggle,
     hiddenPageNames = [],
+    isAdmin = false,
 }: ResponsiveAppBarProps): React.ReactElement {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
     const [pages, setPages] = useState<AdminMenuItem[]>(
-        getAdminConfigurationMenuItems(hiddenPageNames),
+        getAdminConfigurationMenuItems(hiddenPageNames, isAdmin),
     );
 
     const handleOpenNavMenu = useCallback(
@@ -55,8 +57,8 @@ function ResponsiveAppBar({
     }, [navigate]);
 
     useEffect(() => {
-        setPages(getAdminConfigurationMenuItems(hiddenPageNames));
-    }, [hiddenPageNames]);
+        setPages(getAdminConfigurationMenuItems(hiddenPageNames, isAdmin));
+    }, [hiddenPageNames, isAdmin]);
 
     const renderPageButton = (page: AdminMenuItem) => (
         <Button

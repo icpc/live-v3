@@ -35,17 +35,6 @@ public fun Route.configureConfigFileRouting(
             call.respond(LocalPathContent(path, contentType = contentType))
         }
     }
-    if (contentType == ContentType.Application.Json) {
-        get("/json") {
-            if (path.notExists()) {
-                call.respondText(emptyResponse, contentType)
-            } else {
-                withContext(Dispatchers.IO) {
-                    call.respond(loadConfigFile<JsonElement>(path))
-                }
-            }
-        }
-    }
     post {
         call.adminApiAction {
             val text = call.receiveText()
@@ -86,6 +75,9 @@ public fun Route.configureDefaultConfigRouting(
     onSettingsReload: (Job) -> Unit,
 ) {
     route("/settings") {
+        // settings.json holds credentials, and advanced.json can rewrite the whole contest,
+        // so both are admin-only to read as well as to write.
+        requireConfirmedAdmin()
         configureConfigFileRouting(
             settingsJonsPath,
             emptyResponse = "{}",
@@ -97,6 +89,7 @@ public fun Route.configureDefaultConfigRouting(
         )
     }
     route("/advancedJson") {
+        requireConfirmedAdmin()
         configureConfigFileRouting(
             advancedJsonPath,
             emptyResponse = "[]",
@@ -111,6 +104,7 @@ public fun Route.configureDefaultConfigRouting(
     }
 
     route("/visualConfig") {
+        requireConfirmedAdmin()
         configureConfigFileRouting(
             visualConfigFile,
             emptyResponse = "{}",
@@ -122,6 +116,7 @@ public fun Route.configureDefaultConfigRouting(
     }
 
     route("/customFields") {
+        requireConfirmedAdmin()
         configureConfigFileRouting(
             customFieldsCsvPath,
             emptyResponse = "",
@@ -132,6 +127,7 @@ public fun Route.configureDefaultConfigRouting(
         )
     }
     route("/orgCustomFields") {
+        requireConfirmedAdmin()
         configureConfigFileRouting(
             orgCustomFieldsCsvPath,
             emptyResponse = "",
@@ -141,6 +137,20 @@ public fun Route.configureDefaultConfigRouting(
             examplesPackage = null
         )
     }
+    // The admin ui itself needs parts of the visual config for every authorized user, not just
+    // admins: the branding, and which menu entries and controls to hide. Those hide lists must
+    // not be admin-only - failing to read them shows more ui rather than less - so this read is
+    // separate from the admin-only /visualConfig editor route.
+    get("/uiConfig") {
+        if (visualConfigFile.notExists()) {
+            call.respondText("{}", ContentType.Application.Json)
+        } else {
+            withContext(Dispatchers.IO) {
+                call.respond(loadConfigFile<JsonElement>(visualConfigFile))
+            }
+        }
+    }
+    configureWhoAmIRouting()
     flowEndpoint("contestInfo", contestInfoFlowProvider)
     webSocket("/backendLog") { sendFlow(AdminDataBus.loggerFlow) }
     webSocket("/adminActions") { sendFlow(AdminDataBus.adminActionsFlow) }
