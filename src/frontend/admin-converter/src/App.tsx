@@ -6,6 +6,7 @@ import {
     AdminHomePage,
     AdminLayout,
     createAdminTheme,
+    getAuthMenuItem,
     useAdminBranding,
 } from "admin-home-page";
 import { ThemeProvider } from "@mui/material";
@@ -23,10 +24,12 @@ import {
 
 export function AdminApp() {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const { contestColor, hiddenPageNames, isAdmin } = useAdminBranding(
+    const { contestColor, hiddenPageNames, session } = useAdminBranding(
         `${ADMIN_BACKEND_ROOT}/api/admin`,
         "CDS Converter Admin",
     );
+    const isAdmin = session?.isAdmin === true;
+    const authMenuItem = getAuthMenuItem(session, ADMIN_BACKEND_ROOT);
     const location = useLocation();
 
     const handleDrawerToggle = () => {
@@ -46,6 +49,7 @@ export function AdminApp() {
                     .length > 0
                     ? [{ name: "Configuration", path: "/contestInfo" }]
                     : []),
+                ...(authMenuItem ? [authMenuItem] : []),
             ]}
         >
             <div className="App">

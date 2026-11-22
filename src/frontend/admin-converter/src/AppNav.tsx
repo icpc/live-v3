@@ -14,7 +14,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { MenuItem as AdminMenuItem } from "admin-home-page";
 import { getAdminConverterMenuItems } from "./navigation";
-import { useAdminSession } from "./session";
 
 interface ResponsiveAppBarProps {
     onDrawerToggle: () => void;
@@ -25,8 +24,7 @@ function ResponsiveAppBar({
 }: ResponsiveAppBarProps): React.ReactElement {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null);
-    const sessionInfo = useAdminSession();
-    const pages: AdminMenuItem[] = getAdminConverterMenuItems(sessionInfo);
+    const pages: AdminMenuItem[] = getAdminConverterMenuItems();
 
     const handleOpenNavMenu = useCallback(
         (event: React.MouseEvent<HTMLElement>) => {

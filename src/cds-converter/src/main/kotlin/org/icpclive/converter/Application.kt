@@ -64,7 +64,7 @@ private fun AccountInfo.isAdminAccount() = type == "admin"
 
 class ConverterAdminPrincipal(
     val accountInfo: AccountInfo,
-    val loggedIn: Boolean,
+    override val loggedIn: Boolean,
 ) : AdminPrincipal {
     override val name: String = accountInfo.username
     override val confirmed: Boolean = accountInfo.isAdminAccount()
@@ -78,12 +78,6 @@ fun main(args: Array<String>): Unit = MainCommand.subcommands(
     IcpcCSVDumpCommand
 ).main(args)
 
-
-@Serializable
-data class SessionData(
-    val loggedIn: Boolean,
-    val username: String?,
-)
 
 private val logger by getLogger()
 
@@ -204,17 +198,6 @@ fun Application.module() {
         }
         route("/api/admin") {
             authenticate("auth", "guest", strategy = AuthenticationStrategy.FirstSuccessful) {
-                get("/session") {
-                    val principal = call.principal<ConverterAdminPrincipal>()
-                    call.respond(
-                        SessionData(
-                            loggedIn = (principal?.loggedIn == true),
-                            username = principal
-                                ?.takeIf { it.loggedIn }
-                                ?.name
-                        )
-                    )
-                }
                 configureDefaultConfigRouting(
                     ServerCommand.cdsOptions.settingsPath,
                     ServerCommand.cdsOptions.advancedJsonPath,
@@ -230,7 +213,8 @@ fun Application.module() {
                         }
                     },
                     sanitizeSettings = ServerCommand.cdsOptions::validateAndSanitizeSettingsCredentials,
-                    onSettingsReload = ServerCommand.serverOptions::requestReload
+                    onSettingsReload = ServerCommand.serverOptions::requestReload,
+                    authEnabled = { accounts.value.values.any { it.isAdminAccount() } },
                 )
             }
         }
@@ -254,22 +238,7 @@ fun Application.module() {
             )
         )
 
-        authenticate("auth", optional = false) {
-            get("/login") {
-                call.respondRedirect(call.request.queryParameters["redirectTo"] ?: "/")
-            }
-        }
-        get("/logout") {
-            val redirectTo = call.request.queryParameters["redirectTo"] ?: "/"
-            call.respondHtml(HttpStatusCode.Unauthorized) {
-                head {
-                    meta { httpEquiv = "refresh"; content = "0; url=$redirectTo" }
-                }
-                body {
-                    p { +"You have been logged out." }
-                }
-            }
-        }
+        configureLoginRouting("auth")
 
         staticFiles("/media", ServerCommand.mediaDirectory.toFile())
 

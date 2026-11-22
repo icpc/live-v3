@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { createApiGet } from "shared-code/utils";
+import { AdminSession, parseAdminSession, UNKNOWN_SESSION } from "./session";
 import faviconTemplate from "./assets/admin-favicon.svg?raw";
 
 const BACKEND_PROTO =
@@ -80,13 +81,14 @@ export const createAdminTheme = (contestColor: string | null) => {
 export const useAdminBranding = (apiRoot: string, titleSuffix: string) => {
     const [contestColor, setContestColor] = useState<string | null>(null);
     const [hiddenPageNames, setHiddenPageNames] = useState<string[]>([]);
-    // Starts out false so that admin-only pages are never offered before we know.
-    const [isAdmin, setIsAdmin] = useState(false);
+    // Null until loaded, so that neither admin-only pages nor an auth button are offered
+    // before we know what this session is.
+    const [session, setSession] = useState<AdminSession | null>(null);
 
     useEffect(() => {
         createApiGet(apiRoot)("/whoAmI")
-            .then((session) => setIsAdmin(session?.isAdmin === true))
-            .catch(() => setIsAdmin(false));
+            .then((response) => setSession(parseAdminSession(response)))
+            .catch(() => setSession(UNKNOWN_SESSION));
     }, [apiRoot]);
 
     useEffect(() => {
@@ -116,5 +118,5 @@ export const useAdminBranding = (apiRoot: string, titleSuffix: string) => {
         });
     }, [apiRoot, titleSuffix]);
 
-    return { contestColor, hiddenPageNames, isAdmin };
+    return { contestColor, hiddenPageNames, session };
 };

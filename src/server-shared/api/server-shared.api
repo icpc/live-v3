@@ -28,13 +28,14 @@ public final class org/icpclive/server/AdminDataBus {
 
 public final class org/icpclive/server/AdminKt {
 	public static final fun adminApiAction (Lio/ktor/server/application/ApplicationCall;Lkotlinx/serialization/KSerializer;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun configureWhoAmIRouting (Lio/ktor/server/routing/Route;)V
-	public static final fun isConfirmedAdmin (Lio/ktor/server/application/ApplicationCall;)Z
+	public static final fun configureLoginRouting (Lio/ktor/server/routing/Route;Ljava/lang/String;)V
+	public static final fun configureWhoAmIRouting (Lio/ktor/server/routing/Route;Lkotlin/jvm/functions/Function0;)V
 	public static final fun requireConfirmedAdmin (Lio/ktor/server/routing/Route;)V
 }
 
 public abstract interface class org/icpclive/server/AdminPrincipal {
 	public abstract fun getConfirmed ()Z
+	public abstract fun getLoggedIn ()Z
 	public abstract fun getName ()Ljava/lang/String;
 }
 
@@ -46,7 +47,7 @@ public final class org/icpclive/server/ApiActionException : java/lang/Exception 
 public final class org/icpclive/server/ConfigurationRoutingKt {
 	public static final fun configureConfigFileRouting (Lio/ktor/server/routing/Route;Ljava/nio/file/Path;Ljava/lang/String;Lio/ktor/http/ContentType;Lkotlin/jvm/functions/Function1;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun configureConfigFileRouting$default (Lio/ktor/server/routing/Route;Ljava/nio/file/Path;Ljava/lang/String;Lio/ktor/http/ContentType;Lkotlin/jvm/functions/Function1;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
-	public static final fun configureDefaultConfigRouting (Lio/ktor/server/routing/Route;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static final fun configureDefaultConfigRouting (Lio/ktor/server/routing/Route;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Ljava/nio/file/Path;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)V
 }
 
 public final class org/icpclive/server/GitInfo {

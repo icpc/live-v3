@@ -5,6 +5,7 @@ import io.ktor.server.routing.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.json.*
 import org.icpclive.Config
 import org.icpclive.api.AdminUser
@@ -20,7 +21,8 @@ import kotlin.io.encoding.Base64
 data class User(
     override val name: String,
     val pass: String,
-    override val confirmed: Boolean
+    override val confirmed: Boolean,
+    @Transient override val loggedIn: Boolean = true,
 ) : AdminPrincipal
 
 interface UsersController {
@@ -87,7 +89,7 @@ class FileBasedUsersController(val file: File) : UsersController {
 }
 
 class FakeUsersController : UsersController {
-    private val fakeUser = User("developer", "", true)
+    private val fakeUser = User("developer", "", confirmed = true, loggedIn = false)
     override suspend fun validateAdminApiCredits(name: String, password: String) = fakeUser
 
     override suspend fun getAllUsers() = listOf(fakeUser)

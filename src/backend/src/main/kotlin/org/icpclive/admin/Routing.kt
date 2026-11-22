@@ -140,6 +140,7 @@ fun Route.configureAdminApiRouting() {
             { dataBus.contestInfoFlow },
             sanitizeSettings = Config.cdsSettings::validateAndSanitizeSettingsCredentials,
             onSettingsReload = Config.serverSettings::requestReload,
+            authEnabled = { !Config.authDisabled },
         )
 
         route("/media") {

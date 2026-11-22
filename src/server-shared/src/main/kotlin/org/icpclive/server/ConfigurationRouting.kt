@@ -73,6 +73,7 @@ public fun Route.configureDefaultConfigRouting(
     contestInfoFlowProvider: suspend ApplicationCall.() -> Flow<ContestInfo>,
     sanitizeSettings: (String) -> String,
     onSettingsReload: (Job) -> Unit,
+    authEnabled: () -> Boolean,
 ) {
     route("/settings") {
         // settings.json holds credentials, and advanced.json can rewrite the whole contest,
@@ -150,7 +151,7 @@ public fun Route.configureDefaultConfigRouting(
             }
         }
     }
-    configureWhoAmIRouting()
+    configureWhoAmIRouting(authEnabled)
     flowEndpoint("contestInfo", contestInfoFlowProvider)
     webSocket("/backendLog") { sendFlow(AdminDataBus.loggerFlow) }
     webSocket("/adminActions") { sendFlow(AdminDataBus.adminActionsFlow) }

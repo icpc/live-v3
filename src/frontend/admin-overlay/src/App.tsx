@@ -6,7 +6,7 @@ import { Overlay } from "./components/Overlay.tsx";
 import { SnackbarProvider } from "notistack";
 import { useLocalStorageState } from "./utils";
 import { ThemeProvider } from "@mui/material";
-import { BASE_URL_BACKEND } from "./config";
+import { BACKEND_ROOT, BASE_URL_BACKEND } from "./config";
 import {
     ReloadHandleContext,
     useReloadHandleService,
@@ -15,6 +15,7 @@ import {
     AdminHomePage,
     AdminLayout,
     createAdminTheme,
+    getAuthMenuItem,
     useAdminBranding,
 } from "admin-home-page";
 import {
@@ -32,10 +33,12 @@ export function AdminApp() {
     const [isOverlayPreviewShown, setIsOverlayPreviewShown] =
         useLocalStorageState("OverlayPreviewShown", false);
 
-    const { contestColor, hiddenPageNames, isAdmin } = useAdminBranding(
+    const { contestColor, hiddenPageNames, session } = useAdminBranding(
         BASE_URL_BACKEND,
         "ICPC Live 3 Admin",
     );
+    const isAdmin = session?.isAdmin === true;
+    const authMenuItem = getAuthMenuItem(session, BACKEND_ROOT);
 
     const reloadHandleService = useReloadHandleService();
 
@@ -56,6 +59,9 @@ export function AdminApp() {
             ? [{ name: "Configuration", path: "/contestInfo" }]
             : []),
     ];
+    if (authMenuItem) {
+        menuItems.push(authMenuItem);
+    }
     const isRootSection = location.pathname === "/";
     const isConfigurationSection = isAdminConfigurationPath(location.pathname);
 

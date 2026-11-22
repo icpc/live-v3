@@ -14,6 +14,7 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.cors)
     implementation(libs.ktor.server.defaultHeaders)
+    implementation(libs.ktor.server.html)
     implementation(libs.ktor.server.netty) {
         // temprary workaround, remove on ktor update, when it would be a separate module with http3.
         exclude(group = "io.netty", module = "netty-codec-http3")

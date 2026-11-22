@@ -12,10 +12,10 @@ import io.ktor.server.routing.*
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import org.icpclive.admin.UsersController
 import org.icpclive.admin.configureAdminApiRouting
+import org.icpclive.server.configureLoginRouting
 import org.icpclive.cds.adapters.addComputedData
 import org.icpclive.cds.ktor.KtorNetworkSettingsProvider
 import org.icpclive.cds.ktor.NetworkSettings
@@ -84,6 +84,7 @@ fun Application.module() {
                 call.respondRedirect("/admin")
             }
         }
+        configureLoginRouting("admin-api-auth")
         route("/api") {
             route("/admin") {
                 context(controllers, dataBus) {

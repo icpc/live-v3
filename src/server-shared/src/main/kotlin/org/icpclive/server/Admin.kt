@@ -3,11 +3,13 @@ package org.icpclive.server
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.html.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.html.*
 import kotlinx.coroutines.flow.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
@@ -31,6 +33,7 @@ internal object AdminDataBus {
 public interface AdminPrincipal {
     public val name: String
     public val confirmed: Boolean
+    public val loggedIn: Boolean
 }
 
 public class ApiActionException(message: String, cause: Throwable? = null) : Exception(message, cause)
@@ -54,11 +57,50 @@ private val ConfirmedAdminOnly = createRouteScopedPlugin("ConfirmedAdminOnly") {
 }
 
 @Serializable
-private class WhoAmIResponse(val isAdmin: Boolean)
+private class WhoAmIResponse(
+    val isAdmin: Boolean,
+    val loggedIn: Boolean,
+    val username: String?,
+    val authEnabled: Boolean,
+)
 
-public fun Route.configureWhoAmIRouting() {
+public fun Route.configureWhoAmIRouting(authEnabled: () -> Boolean) {
     get("/whoAmI") {
-        call.respond(WhoAmIResponse(call.isConfirmedAdmin))
+        val principal = call.principal<AdminPrincipal>()
+        call.respond(
+            WhoAmIResponse(
+                isAdmin = principal?.confirmed == true,
+                loggedIn = principal?.loggedIn == true,
+                username = principal?.takeIf { it.loggedIn }?.name,
+                authEnabled = authEnabled(),
+            )
+        )
+    }
+}
+
+private fun safeRedirectTarget(raw: String?): String = when {
+    raw == null -> "/"
+    !raw.startsWith("/") || raw.startsWith("//") -> "/"
+    raw.any { it.isISOControl() || it in "\"'<>" } -> "/"
+    else -> raw
+}
+
+public fun Route.configureLoginRouting(authProviderName: String) {
+    authenticate(authProviderName, optional = false) {
+        get("/login") {
+            call.respondRedirect(safeRedirectTarget(call.request.queryParameters["redirectTo"]))
+        }
+    }
+    get("/logout") {
+        val redirectTo = safeRedirectTarget(call.request.queryParameters["redirectTo"])
+        call.respondHtml(HttpStatusCode.Unauthorized) {
+            head {
+                meta { httpEquiv = "refresh"; content = "0; url=$redirectTo" }
+            }
+            body {
+                p { +"You have been logged out." }
+            }
+        }
     }
 }
 

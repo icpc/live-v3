@@ -5,8 +5,6 @@ import { ClicsAdmin } from "./components/pages/ClicsAdmin";
 import { PCMSAdmin } from "./components/pages/PCMSAdmin";
 import { IcpcAdmin } from "./components/pages/IcpcAdmin";
 import { ReactionsAdmin } from "./components/pages/ReactionsAdmin";
-import { LoginAdmin } from "./components/pages/LoginAdmin";
-import { AdminSessionInfo } from "./session";
 
 export interface AdminConverterPage {
     name: string;
@@ -35,25 +33,10 @@ export const adminConverterPages: AdminConverterPage[] = [
         path: "/reactions",
         element: <ReactionsAdmin />,
     },
-    {
-        name: "Login/Logout",
-        path: "/session",
-        element: <LoginAdmin />,
-    },
 ];
 
-export function getAdminConverterMenuItems(
-    sessionInfo: AdminSessionInfo | null = null,
-): MenuItem[] {
-    return adminConverterPages.map(({ name, path }) => ({
-        name:
-            path === "/session"
-                ? sessionInfo?.loggedIn
-                    ? "Logout"
-                    : "Login"
-                : name,
-        path,
-    }));
+export function getAdminConverterMenuItems(): MenuItem[] {
+    return adminConverterPages.map(({ name, path }) => ({ name, path }));
 }
 
 export function getAdminConverterSectionMenuItems(): MenuItem[] {

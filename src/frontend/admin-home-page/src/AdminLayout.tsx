@@ -41,13 +41,20 @@ export const AdminLayout = ({
             setLocalDrawerOpen(!localDrawerOpen);
         });
 
-    const handleMenuItemClick = (path: string) => {
+    const handleMenuItemClick = (item: MenuItem) => {
+        if (item.disabled) {
+            return;
+        }
+        if (item.external) {
+            window.location.assign(item.path);
+            return;
+        }
         if (onNavigate) {
-            onNavigate(path);
+            onNavigate(item.path);
             return;
         }
 
-        navigate(path);
+        navigate(item.path);
     };
 
     const drawerWidth = 250;
@@ -96,15 +103,16 @@ export const AdminLayout = ({
                         {menuItems.map((item) => (
                             <ListItem key={item.name} disablePadding>
                                 <ListItemButton
-                                    onClick={() =>
-                                        handleMenuItemClick(item.path)
-                                    }
+                                    onClick={() => handleMenuItemClick(item)}
+                                    disabled={item.disabled}
                                     selected={
-                                        location.pathname === item.path ||
-                                        (item.path !== "/" &&
-                                            location.pathname.startsWith(
-                                                item.path,
-                                            ))
+                                        !item.external &&
+                                        !item.disabled &&
+                                        (location.pathname === item.path ||
+                                            (item.path !== "/" &&
+                                                location.pathname.startsWith(
+                                                    item.path,
+                                                )))
                                     }
                                 >
                                     <ListItemText primary={item.name} />
