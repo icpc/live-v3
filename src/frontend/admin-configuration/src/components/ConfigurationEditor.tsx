@@ -132,7 +132,7 @@ export function ConfigurationEditor({
         }
     }, [apiRoot]);
 
-    useEffect(() => {
+    const loadContent = () =>
         apiGet("", undefined, true)
             .then((data: unknown) => {
                 console.log(`Reloaded data for ${apiRoot}: ${data}`);
@@ -140,6 +140,9 @@ export function ConfigurationEditor({
             })
             .then((data: unknown) => setContent(data as string))
             .catch(errorHandler(`Failed to load ${apiRoot} data`));
+
+    useEffect(() => {
+        loadContent();
     }, [apiRoot]);
 
     const [confirmOpen, setConfirmOpen] = useState(false);
@@ -151,6 +154,7 @@ export function ConfigurationEditor({
                 if (saveMessage) {
                     enqueueSnackbar(saveMessage, { variant: "success" });
                 }
+                return loadContent();
             })
             .catch(errorHandler(`Failed to save ${apiRoot} data`));
     };

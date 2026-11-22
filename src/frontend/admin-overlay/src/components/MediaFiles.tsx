@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import { FileUploader } from "react-drag-drop-files";
 import { Container, Link, Paper } from "@mui/material";
 import { useErrorHandlerWithSnackbar } from "../errors";
-import { createApiGet } from "shared-code/utils";
+import { createApiGet, createApiPost } from "shared-code/utils";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import Box from "@mui/material/Box";
 import { BASE_URL_BACKEND, MEDIAS_LOCATION } from "../config";
@@ -47,6 +47,7 @@ function MediaFiles(): React.ReactElement {
     const errorHandler = useErrorHandlerWithSnackbar();
 
     const apiGet = createApiGet(BASE_URL_BACKEND + "/media");
+    const apiPost = createApiPost(BASE_URL_BACKEND + "/media");
     const [mediaFiles, setMediaFiles] = useState<string[]>([]);
     const [uploadedFileUrls, setUploadedFileUrls] = useState<string[] | null>(
         null,
@@ -55,9 +56,7 @@ function MediaFiles(): React.ReactElement {
     const loadFiles = () => {
         apiGet("")
             .then((f: unknown) => setMediaFiles((f as string[]) ?? []))
-            .catch(() => {
-                errorHandler("Failed to load media files");
-            });
+            .catch(errorHandler("Failed to load media files"));
     };
 
     useEffect(() => {
@@ -75,27 +74,15 @@ function MediaFiles(): React.ReactElement {
         const formData = new FormData();
         list.forEach((file) => formData.append("file", file));
 
-        fetch(`${BASE_URL_BACKEND}/media/upload`, {
-            method: "POST",
-            body: formData,
-        })
-            .then((r) => r.json())
-            .then((r) => {
-                if (r.status === "error") {
-                    errorHandler(
-                        `Failed to upload files ${list.map((f) => f.name).join(",")}`,
-                    );
-                } else if (r.status !== "ok" && !r.response) {
-                    errorHandler("Failed to upload files");
-                }
-                setUploadedFileUrls(
-                    r.status === "ok" && r.response ? r.response : null,
-                );
-                loadFiles();
+        apiPost("/upload", formData)
+            .then((r) => setUploadedFileUrls(r.response ?? null))
+            .catch((e: Error) => {
+                setUploadedFileUrls(null);
+                errorHandler(
+                    `Failed to upload files ${list.map((f) => f.name).join(",")}`,
+                )(e);
             })
-            .catch(() => {
-                errorHandler("Failed to upload files");
-            });
+            .finally(loadFiles);
     };
 
     return (

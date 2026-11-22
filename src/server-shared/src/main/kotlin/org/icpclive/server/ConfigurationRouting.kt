@@ -52,7 +52,7 @@ public fun Route.configureConfigFileRouting(
             val sanitizedText = try {
                 sanitize(text)
             } catch (e: SerializationException) {
-                throw ApiActionException("Failed to parse new text: ${e.message}", e)
+                throw ApiActionException("New text validation failed: ${e.message}", e)
             }
             path.writeContentAtomically(sanitizedText)
             onSave?.invoke(call.coroutineContext.job)

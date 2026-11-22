@@ -5,28 +5,48 @@ export type ApiPostClient = (
     rawText?: boolean,
 ) => Promise<any>;
 
+const parseApiResponse = async (response: Response) => {
+    const text = await response.text();
+    let parsed;
+    try {
+        parsed = text ? JSON.parse(text) : undefined;
+    } catch {
+        const raw = text.trim().slice(0, 300);
+        throw new Error(
+            `Server returned ${response.status} ${response.statusText}` +
+                (raw ? `: ${raw}` : ""),
+        );
+    }
+    if (parsed?.status !== "ok") {
+        throw new Error(
+            parsed?.message ??
+                `Server returned ${response.status} ${response.statusText}`,
+        );
+    }
+    return parsed;
+};
+
 export const createApiPost: (apiUrl: string) => ApiPostClient = (apiUrl) => {
     return (path, body = {}, method = "POST", sendRaw = false) => {
-        const requestOptions = {
+        const isFormData = body instanceof FormData;
+        const requestOptions: RequestInit = {
             method: method,
-            headers: {
-                "Content-Type": sendRaw ? "text/plain" : "application/json",
-            },
+            // FormData sets its own Content-Type, as only it knows the multipart boundary.
+            headers: isFormData
+                ? undefined
+                : {
+                      "Content-Type": sendRaw
+                          ? "text/plain"
+                          : "application/json",
+                  },
             body:
                 method === "GET"
                     ? undefined
-                    : sendRaw
+                    : isFormData || sendRaw
                       ? body
                       : JSON.stringify(body),
         };
-        return fetch(apiUrl + path, requestOptions)
-            .then((response) => response.json())
-            .then((response) => {
-                if (response.status !== "ok") {
-                    throw new Error("Server return not ok status: " + response);
-                }
-                return response;
-            });
+        return fetch(apiUrl + path, requestOptions).then(parseApiResponse);
     };
 };
 
